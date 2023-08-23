@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+	<meta name="viewport" content="width=device-width" />
+	%sveltekit.head%
+	<style>
+		@font-face {
+			font-family: 'Intel One Mono';
+			font-style: normal;
+			font-weight: 200;
+			font-display: swap;
+			src: url('/fonts/intelonemono/IntelOneMono-Regular.woff2') format('woff2');
+		}
+
+		@font-face {
+			font-family: 'Intel One Mono Light';
+			font-style: normal;
+			font-weight: 200;
+			font-display: swap;
+			src: url('/fonts/intelonemono/IntelOneMono-Light.woff2') format('woff2');
+		}
+	</style>
+</head>
+
+<body data-sveltekit-preload-data="hover">
+	<div style="display: contents">%sveltekit.body%</div>
+</body>
+
+</html>
