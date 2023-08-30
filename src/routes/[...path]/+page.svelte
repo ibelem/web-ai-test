@@ -217,12 +217,6 @@
 </script>
 
 <div>
-	<div class="environment">
-		{environment.cpu}
-		{environment.logicCores} logical cores * {environment.gpu} * {environment.os}
-		{environment.osVersion} * {environment.webbrowser}
-		{environment.browserVersion}
-	</div>
 	<div class="config">
 		<div class="options">
 			<div>
@@ -351,4 +345,9 @@
 	[backend]-[threads]/[numruns]/[numwarmups]/[modelid]
 </div>
 
-<div>info</div>
+<div class="environment">
+	{environment.cpu}
+	{environment.logicCores} logical cores * {environment.gpu} * {environment.os}
+	{environment.osVersion} * {environment.webbrowser}
+	{environment.browserVersion}
+</div>

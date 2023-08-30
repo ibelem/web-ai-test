@@ -1,5 +1,13 @@
 <script>
-	let name = 'Home';
+	import Environment from '$lib/components/Environment.svelte';
+	import Config from '$lib/components/Config.svelte';
+	import configs from '../store';
 </script>
 
-<a href="wasm-1/1/0/0">Go to benchmark</a>
+<div>{JSON.stringify($configs).replaceAll(',', ' ')}</div>
+
+<div>
+	<Config />
+	<Environment />
+	<a href="./run">RUN</a>
+</div>
