@@ -12,82 +12,96 @@ export let environment = {
   browserVersion: null
 };
 
-export let config = {
-  backend: {
-    wasm: false,
-    webgl: false,
-    webgpu: false,
-    webnn: {
-      cpu: false,
-      gpu: false,
-      npu: false,
-    },
-    all: false
-  },
-  wasm: {
-    threads: {
-      one: false,
-      two: false,
-      four: false
-    },
-  },
-  webnn: {
-    cpu: {
-      threads: {
-        one: false,
-        two: false,
-        four: false
-      }
-    }
-  }
-};
-
 export let models = [
   {
-    id: 1,
     category: 'Image Classification',
-    name: 'mobilenetv2-7',
-    url: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-7.onnx',
+    id: 'densenet_9',
+    name: 'DenseNet-121',
+    url: 'https://github.com/onnx/models/blob/main/vision/classification/densenet-121/model/densenet-9.onnx',
     format: 'onnx',
     datatype: 'fp32',
     selected: false
   },
   {
-    id: 2,
     category: 'Image Classification',
-    name: 'resnet50-v1-7',
-    url: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v1-7.onnx',
-    format: 'onnx',
-    datatype: 'fp32',
-    selected: false
-  },
-  {
-    id: 3,
-    category: 'Image Classification',
-    name: 'squeezenet1.1-7',
-    url: 'https://github.com/onnx/models/raw/main/vision/classification/squeezenet/model/squeezenet1.1-7.onnx',
-    format: 'onnx',
-    datatype: 'fp32',
-    selected: false
-  },
-  {
-    id: 4,
-    category: 'Image Classification',
-    name: 'efficientnet-lite4-11',
+    id: 'efficientnet_lite4_11',
+    name: 'EfficientNet Lite4-11',
     url: 'https://github.com/onnx/models/raw/main/vision/classification/efficientnet-lite4/model/efficientnet-lite4-11.onnx',
     format: 'onnx',
     datatype: 'fp32',
     selected: false
   },
   {
-    id: 5,
+    category: 'Image Classification',
+    id: 'mobilenet_v2_7',
+    name: 'MobileNet v2-7',
+    url: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-7.onnx',
+    format: 'onnx',
+    datatype: 'fp32'
+  },
+  {
+    category: 'Image Classification',
+    id: 'mobilenet_v2_10',
+    name: 'MobileNet v2-1.0',
+    url: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
+    format: 'onnx',
+    datatype: 'fp32'
+  },
+
+  {
+    category: 'Image Classification',
+    id: 'resnet50-v1-7',
+    name: 'ResNet50 v1',
+    url: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v1-12.onnx',
+    format: 'onnx',
+    datatype: 'fp32',
+    selected: false
+  },
+  {
+    category: 'Image Classification',
+    id: 'resnet50-v2-7',
+    name: 'ResNet50 v2',
+    url: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v2-7.onnx',
+    format: 'onnx',
+    datatype: 'fp32',
+    selected: false
+  },
+  {
+    category: 'Image Classification',
+    id: 'squeezenet-11-7',
+    name: 'https://github.com/onnx/models/blob/main/vision/classification/squeezenet/model/squeezenet1.1-7.onnx',
+    url: 'https://github.com/onnx/models/raw/main/vision/classification/squeezenet/model/squeezenet1.1-7.onnx',
+    format: 'onnx',
+    datatype: 'fp32',
+  },
+
+  {
     category: 'Object Detection',
-    name: 'tinyyolov2-8',
+    id: 'tinyyolov2-8',
+    name: 'Tiny YOLO v2',
     url: 'https://github.com/onnx/models/raw/main/vision/object_detection_segmentation/tiny-yolov2/model/tinyyolov2-8.onnx',
     format: 'onnx',
     datatype: 'fp32',
     selected: false
-  }
+  },
+  {
+    category: 'Face Analysis',
+    id: 'emotion_ferplus_8',
+    name: 'Emotion FERPlus',
+    url: 'https://github.com/onnx/models/raw/main/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx',
+    format: 'onnx',
+    datatype: 'fp32',
+    selected: false
+  },
+  {
+    category: 'Style Transfer',
+    id: 'fns_candy_8',
+    name: 'FNS Candy',
+    url: 'https://github.com/microsoft/Windows-Machine-Learning/raw/master/Samples/CustomTensorization/CustomTensorization/fns-candy.onnx',
+    format: 'onnx',
+    datatype: 'fp32',
+    selected: false
+  },
 ];
 
 export const gpu = [

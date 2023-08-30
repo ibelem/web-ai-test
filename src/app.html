@@ -3,7 +3,10 @@
 
 <head>
 	<meta charset="utf-8" />
-	<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="%sveltekit.assets%/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="%sveltekit.assets%/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="%sveltekit.assets%/favicon-16x16.png">
+	<link rel="manifest" href="%sveltekit.assets%/site.webmanifest">
 	<meta name="viewport" content="width=device-width" />
 	%sveltekit.head%
 	<style>
@@ -12,7 +15,7 @@
 			font-style: normal;
 			font-weight: 200;
 			font-display: swap;
-			src: url('/fonts/intelonemono/IntelOneMono-Regular.woff2') format('woff2');
+			src: url('%sveltekit.assets%/fonts/intelonemono/IntelOneMono-Regular.woff2') format('woff2');
 		}
 
 		@font-face {
@@ -20,7 +23,15 @@
 			font-style: normal;
 			font-weight: 200;
 			font-display: swap;
-			src: url('/fonts/intelonemono/IntelOneMono-Light.woff2') format('woff2');
+			src: url('%sveltekit.assets%/fonts/intelonemono/IntelOneMono-Light.woff2') format('woff2');
+		}
+
+		@font-face {
+			font-display: swap;
+			font-family: 'Space Mono';
+			font-style: normal;
+			font-weight: 200;
+			src: url('%sveltekit.assets%/fonts/spacemono/space-mono-v13-latin-regular.woff2') format('woff2');
 		}
 	</style>
 </head>

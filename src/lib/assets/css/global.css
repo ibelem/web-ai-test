@@ -4,81 +4,56 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   color: var(--font);
-  font-family: 'Intel One Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0 auto;
-  font-size: 11px;
+  font-size: 12px;
+}
+
+code {
+  font-family: 'Intel One Mono', sans-serif;;
 }
 
 #layout {
   margin: 0 auto;
   width: 90%;
   text-align: center;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 3fr 6fr 1fr 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
 }
 
 a {
   text-decoration: dashed;
-  border-bottom: 0px dashed var(--font-2);
-  margin-left: 12px;
+  border-bottom: 0px dashed var(--font);
   display: inline-block;
-  color: var(--font-2);
+  color: var(--font);
 }
 
 a:hover {
   text-decoration: solid;
-  border-bottom: 0px solid var(--font-2);
-  color: var(--font-1);
+  border-bottom: 0px solid var(--red);
+  color: var(--red);
 }
 
 nav a {
-  border-bottom: 1px dashed var(--font-2);
+  margin-left: 12px;
+  border-bottom: 1px dashed var(--font);
 }
 
 nav a:hover {
-  border-bottom: 3px solid var(--font-1);
+  border-bottom: 3px solid var(--red);
 }
 
 header {
   display: grid;
-  grid-template-columns: 1fr 9fr;
+  grid-template-columns: 2fr 8fr;
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  align-items: center;
-  margin-top: 10px;
   font-size: 1.2em;
-}
-
-#logo {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-}
-
-#logo_title {
-  font-size: 1.4em;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-#logo_title div {
-  margin-top: -4px;
-}
-
-header svg {
-  height: 40px;
-  width: 58.3px;
-  margin-right: 10px;
+  margin-top: 0;
 }
 
 header nav {
   text-align: right;
+  margin-top: 20px;
 }
 
 .environment {
@@ -87,52 +62,71 @@ header nav {
   font-family: 'Intel One Mono Light', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.options {
+.config {
   display: grid;
   grid-template-columns: 1fr 9fr;
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
-  grid-row-gap: 0px;
+  grid-row-gap: 10px;
   padding: 10px;
+  align-items: center;
   border-bottom: 1px solid var(--grey-border);
 }
 
-.options label {
+.config label {
   margin: 0px 0px 0px 0px;
   cursor: pointer;
   display: inline-block;
   max-width: 100%;
+  padding: 1px 6px 2px 6px;
+}
+
+.config label {
+  border: 1px solid var(--white);
+  min-width: 32px;
+  display: inline-block;
+}
+
+.config label.true, .group.true {
+  background-color: var(--red);
+  color: var(--white);
+  border: 1px solid var(--red);
+}
+
+.config label.true.extra {
   padding: 2px 6px 3px 6px;
 }
 
-.models.options label {
-  margin-right: 8px;
+.config label.false {
+  background-color: var(--white);
+  color: var(--font);
+}
+
+.config label:hover {
+  background-color: var(--red-01);
+  color: var(--red);
+}
+
+.group span {
+  padding: 2px 6px 3px 6px;
+  width: 48px;
+  display: inline-block;
+}
+
+.group:hover {
+  background-color: var(--red-01);
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+
+.config input[type=checkbox] {
+  display: none;
 }
 
 .group {
   display: inline-block;
-  border: 1px solid var(--grey-border);
 }
 
-.options label.sub {
-  width: 20px;
-  margin-left: -9px;
-}
-
-.option label.false {
-  border: 1px solid var(--bg);
-}
-
-.option label.true {
-  background-color: var(--blue);
-  color: white;
-}
-
-.option label:hover {
-  background-color: var(--blue-01);
-  color: var(--font);
-}
-
-.options input[type=checkbox] {
-  display: none;
+.group label {
+  margin-left: -8px;
 }

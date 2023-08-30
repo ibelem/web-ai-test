@@ -3,7 +3,7 @@
 </script>
 
 <footer>
-	&copy;{new Date().getFullYear()}
+	<span class="copyright">&copy;</span>{new Date().getFullYear()}
 
 	{#if siteURL}
 		<a href="https://{siteURL}">{siteTitle}</a>
@@ -11,3 +11,12 @@
 		{siteTitle}
 	{/if}
 </footer>
+
+<style>
+	footer {
+		margin-top: 10px;
+	}
+	.copyright {
+		font-family: 'Intel One Mono';
+	}
+</style>
