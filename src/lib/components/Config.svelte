@@ -43,43 +43,43 @@
 		if (value === 'toggle_backends') {
 			settings.toggleBackends();
 		} else if (value === 'wasm_1') {
-			settings.setWasm1();
+			settings.toggleWasm1();
 		} else if (value === 'wasm_4') {
-			settings.setWasm4();
+			settings.toggleWasm4();
 		} else if (value === 'webgl') {
-			settings.setWebgl();
+			settings.toggleWebgl();
 		} else if (value === 'webgpu') {
-			settings.setWebGpu;
+			settings.toggleWebgpu;
 		} else if (value === 'webnn_cpu_1') {
-			settings.setWebnnCpu1();
+			settings.toggleWebnnCpu1();
 		} else if (value === 'webnn_cpu_4') {
-			settings.setWebnnCpu4();
+			settings.toggleWebnnCpu4();
 		} else if (value === 'webnn_gpu') {
-			settings.setWebnnGpu();
+			settings.toggleWebnnGpu();
 		} else if (value === 'webnn_npu') {
-			settings.setWebnnNpu();
+			settings.toggleWebnnNpu();
 		} else if (value === 'toggle_models') {
 			settings.toggleModels();
 		} else if (value === 'mobilenet_v2_7') {
-			settings.set_mobilenet_v2_7();
+			settings.toggle_mobilenet_v2_7();
 		} else if (value === 'mobilenet_v2_10') {
-			settings.set_mobilenet_v2_10();
+			settings.toggle_mobilenet_v2_10();
 		} else if (value === 'efficientnet_lite4_11') {
-			settings.set_efficientnet_lite4_11();
+			settings.toggle_efficientnet_lite4_11();
 		} else if (value === 'resnet50_v1_12') {
-			settings.set_resnet50_v1_12();
+			settings.toggle_resnet50_v1_12();
 		} else if (value === 'resnet50_v2_7') {
-			settings.set_resnet50_v2_7();
+			settings.toggle_resnet50_v2_7();
 		} else if (value === 'squeezenet_11_7') {
-			settings.set_squeezenet_11_7();
+			settings.toggle_squeezenet_11_7();
 		} else if (value === 'fns_candy_8') {
-			settings.set_fns_candy_8();
+			settings.toggle_fns_candy_8();
 		} else if (value === 'emotion_ferplus_8') {
-			settings.set_emotion_ferplus_8();
+			settings.toggle_emotion_ferplus_8();
 		} else if (value === 'densenet_9') {
-			settings.set_densenet_9();
+			settings.toggle_densenet_9();
 		} else if (value === 'tinyyolov2_8') {
-			settings.set_tinyyolov2_8();
+			settings.toggle_tinyyolov2_8();
 		}
 
 		let backends = '';
