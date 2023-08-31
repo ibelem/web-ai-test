@@ -30,7 +30,8 @@ const config = {
 					return;
 				}
 				throw new Error(message);
-			}
+			},
+			entries: ['/1-wasm-none', '/1-wasm-mobilenet_v2_7']
 		}
 	}
 };
