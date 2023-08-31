@@ -15,6 +15,7 @@
 <style>
 	footer {
 		margin-top: 10px;
+		text-align: center;
 	}
 	.copyright {
 		font-family: 'Intel One Mono';

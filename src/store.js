@@ -39,6 +39,54 @@ const settings = () => {
         webnn_npu: !state.webnn_npu
       }))
     },
+    setBackends() {
+      update(state => ({
+        ...state, wasm_1: true,
+        wasm_4: true,
+        webgl: true,
+        webgpu: true,
+        webnn_cpu_1: true,
+        webnn_cpu_4: true,
+        webnn_gpu: true,
+        webnn_npu: true
+      }))
+    },
+    clearBackends() {
+      update(state => ({
+        ...state, wasm_1: false,
+        wasm_4: false,
+        webgl: false,
+        webgpu: false,
+        webnn_cpu_1: false,
+        webnn_cpu_4: false,
+        webnn_gpu: false,
+        webnn_npu: false,
+      }))
+    },
+    setWasm1() {
+      update(state => ({ ...state, wasm_1: true }))
+    },
+    setWasm4() {
+      update(state => ({ ...state, wasm_4: true }))
+    },
+    setWebgl() {
+      update(state => ({ ...state, webgl: true }))
+    },
+    setWebGpu() {
+      update(state => ({ ...state, webgpu: true }))
+    },
+    setWebnnCpu1() {
+      update(state => ({ ...state, webnn_cpu_1: true }))
+    },
+    setWebnnCpu4() {
+      update(state => ({ ...state, webnn_cpu_4: true }))
+    },
+    setWebnnGpu() {
+      update(state => ({ ...state, webnn_gpu: true }))
+    },
+    setWebnnNpu() {
+      update(state => ({ ...state, webnn_npu: true }))
+    },
     toggleWasm1() {
       update(state => ({ ...state, wasm_1: !state.wasm_1 }))
     },
@@ -76,6 +124,64 @@ const settings = () => {
         densenet_9: !state.densenet_9,
         tinyyolov2_8: !state.tinyyolov2_8
       }))
+    },
+    setModels() {
+      update(state => ({
+        ...state, mobilenet_v2_7: true,
+        mobilenet_v2_10: true,
+        efficientnet_lite4_11: true,
+        resnet50_v1_12: true,
+        resnet50_v2_7: true,
+        squeezenet_11_7: true,
+        fns_candy_8: true,
+        emotion_ferplus_8: true,
+        densenet_9: true,
+        tinyyolov2_8: true
+      }))
+    },
+    clearModels() {
+      update(state => ({
+        ...state, mobilenet_v2_7: false,
+        mobilenet_v2_10: false,
+        efficientnet_lite4_11: false,
+        resnet50_v1_12: false,
+        resnet50_v2_7: false,
+        squeezenet_11_7: false,
+        fns_candy_8: false,
+        emotion_ferplus_8: false,
+        densenet_9: false,
+        tinyyolov2_8: false
+      }))
+    },
+    set_mobilenet_v2_7() {
+      update(state => ({ ...state, mobilenet_v2_7: true }))
+    },
+    set_mobilenet_v2_10() {
+      update(state => ({ ...state, mobilenet_v2_10: true }))
+    },
+    set_efficientnet_lite4_11() {
+      update(state => ({ ...state, efficientnet_lite4_11: true }))
+    },
+    set_resnet50_v1_12() {
+      update(state => ({ ...state, resnet50_v1_12: true }))
+    },
+    set_resnet50_v2_7() {
+      update(state => ({ ...state, resnet50_v2_7: true }))
+    },
+    set_squeezenet_11_7() {
+      update(state => ({ ...state, squeezenet_11_7: true }))
+    },
+    set_fns_candy_8() {
+      update(state => ({ ...state, fns_candy_8: true }))
+    },
+    set_emotion_ferplus_8() {
+      update(state => ({ ...state, emotion_ferplus_8: true }))
+    },
+    set_densenet_9() {
+      update(state => ({ ...state, densenet_9: true }))
+    },
+    set_tinyyolov2_8() {
+      update(state => ({ ...state, tinyyolov2_8: true }))
     },
     toggle_mobilenet_v2_7() {
       update(state => ({ ...state, mobilenet_v2_7: !state.mobilenet_v2_7 }))

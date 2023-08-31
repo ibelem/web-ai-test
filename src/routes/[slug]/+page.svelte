@@ -6,14 +6,8 @@
 
 <div>
 	<Config />
-	<div class="temp">
-		<a href="{base}/run">RUN</a>
-	</div>
 	<Environment />
 </div>
 
 <style>
-	.temp {
-		text-align: center;
-	}
 </style>

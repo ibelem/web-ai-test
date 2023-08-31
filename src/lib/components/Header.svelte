@@ -63,6 +63,7 @@
 		background: var(--red);
 		height: 60px;
 		width: 190px;
+		text-align: center;
 		box-shadow:
 			rgba(198, 26, 62, 0.15) 0px 10px 20px -12px,
 			rgba(198, 26, 62, 0.3) 0px 18px 16px -18px;
