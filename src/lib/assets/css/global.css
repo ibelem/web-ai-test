@@ -16,7 +16,6 @@ code {
 #layout {
   margin: 0 auto;
   width: 90%;
-  text-align: center;
 }
 
 a {
@@ -59,15 +58,14 @@ header nav {
 .environment {
   margin: 0px auto;
   padding: 10px;
-  font-family: 'Intel One Mono Light', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .config {
   display: grid;
   grid-template-columns: 1fr 9fr;
   grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 10px;
+  grid-column-gap: 16px;
+  grid-row-gap: 0px;
   padding: 10px;
   align-items: center;
   border-bottom: 1px solid var(--grey-border);
@@ -77,23 +75,68 @@ header nav {
   margin: 0px 0px 0px 0px;
   cursor: pointer;
   display: inline-block;
-  max-width: 100%;
   padding: 1px 6px 2px 6px;
+  min-width: 32px;
+  text-align: center;
 }
 
-.config label {
-  border: 1px solid var(--white);
-  min-width: 32px;
-  display: inline-block;
+.config .backends label {
+  width: 45px;
+}
+
+.config .models label {
+  width: 92px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.config .backends, .config .models, .config .numofruns {
+  justify-self: flex-start;
+}
+
+.config .title {
+  justify-self: center;
+}
+
+.config .title label, .config .numofruns label {
+  border: 0px; 
 }
 
 .config label.true, .group.true {
   background-color: var(--red);
   color: var(--white);
-  border: 1px solid var(--red);
+  border: 1px solid transparent;
+}
+
+.config .backends label.false {
+  padding: 2px 6px 3px 6px;
+  border: 1px solid transparent;
+}
+
+.config label.false.extra:hover {
+  border: 1px solid var(--red) !important;
+}
+
+.config .backends .group label.false:hover {
+  padding: 2px 6px 3px 7px;
+}
+
+.group {
+  border: 1px solid var(--grey-02);
+}
+
+.group.true span {
+  border: 0px solid var(--red);
 }
 
 .config label.true.extra {
+  padding: 2px 6px 3px 6px;
+}
+
+.config label.false.extra {
+  border: 1px solid var(--grey-02);
   padding: 2px 6px 3px 6px;
 }
 
@@ -109,8 +152,10 @@ header nav {
 
 .group span {
   padding: 2px 6px 3px 6px;
-  width: 48px;
+  width: 45px;
   display: inline-block;
+  text-align: center;
+  border: 1px solid var(--white);
 }
 
 .group:hover {
@@ -119,12 +164,21 @@ header nav {
   border: 1px solid var(--red);
 }
 
+.group:hover label {
+  padding: 2px 6px 3px 7px;
+}
+
+.group:hover span {
+  border: 0px solid var(--red);
+}
+
 .config input[type=checkbox] {
   display: none;
 }
 
 .group {
   display: inline-block;
+  margin-bottom: 8px;
 }
 
 .group label {
