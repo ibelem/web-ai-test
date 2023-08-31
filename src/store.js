@@ -72,7 +72,7 @@ const settings = () => {
     setWebgl() {
       update(state => ({ ...state, webgl: true }))
     },
-    setWebGpu() {
+    setWebgpu() {
       update(state => ({ ...state, webgpu: true }))
     },
     setWebnnCpu1() {
@@ -96,7 +96,7 @@ const settings = () => {
     toggleWebgl() {
       update(state => ({ ...state, webgl: !state.webgl }))
     },
-    toggleWebGpu() {
+    toggleWebgpu() {
       update(state => ({ ...state, webgpu: !state.webgpu }))
     },
     toggleWebnnCpu1() {
