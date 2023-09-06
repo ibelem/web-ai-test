@@ -1,5 +1,6 @@
 <script>
 	import { models } from '../config';
+	import { modelTypesStore, dataTypesStore, modelsStore } from '../../store';
 
 	let filteredModels = models;
 	/**
@@ -11,21 +12,45 @@
 	}
 
 	/**
+	 * @type {string[]}
+	 */
+	let selectedModelTypes;
+	const unsubscribeModelTypes = modelTypesStore.subscribe((value) => {
+		selectedModelTypes = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
+	let selectedDataTypes;
+	const unsubscribeDataTypes = dataTypesStore.subscribe((value) => {
+		selectedDataTypes = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
+	let selectedModels;
+	const unsubscribeModels = modelsStore.subscribe((value) => {
+		selectedModels = value;
+	});
+
+	/**
 	 * @type {any}
 	 */
 	let dataTypes = {
-		fp32: true,
-		fp16: true,
-		int8: true
+		fp32: false,
+		fp16: false,
+		int8: false
 	};
 
 	/**
 	 * @type {any}
 	 */
 	let modelTypes = {
-		onnx: true,
-		tflite: true,
-		npy: true
+		onnx: false,
+		tflite: false,
+		npy: false
 	};
 
 	const filterModels = () => {
@@ -46,11 +71,19 @@
 		const uniqueIds = new Set();
 
 		for (const model of filteredModels) {
+			let s = false;
+
+			for (const m of selectedModels) {
+				if (model.id === m) {
+					s = true;
+				}
+			}
+
 			if (!uniqueIds.has(model.id)) {
 				const filteredModel = {
 					id: model.id,
 					name: model.name,
-					selected: false
+					selected: s
 				};
 				filteredModelIds.push(filteredModel);
 				uniqueIds.add(model.id);
@@ -58,6 +91,14 @@
 			}
 		}
 	};
+
+	for (const dataType of selectedDataTypes) {
+		dataTypes[dataType] = true;
+	}
+
+	for (const modelType of selectedModelTypes) {
+		modelTypes[modelType] = true;
+	}
 
 	filterModels();
 
@@ -68,13 +109,34 @@
 			}
 		}
 		filterModels();
+
+		const allDataTypes = ['fp32', 'fp16', 'int8'];
+
+		/**
+		 * @type {any}
+		 */
+		const invertDataTypes = allDataTypes.filter((item) => !selectedDataTypes.includes(item));
+		dataTypesStore.update((arr) => invertDataTypes);
 	};
 
-	const toggleDataType = (/** @type {string} */ value) => {
-		if (dataTypes.hasOwnProperty(value)) {
-			dataTypes[value] = !dataTypes[value];
+	const toggleDataType = (/** @type {string} */ dataType) => {
+		if (dataTypes.hasOwnProperty(dataType)) {
+			dataTypes[dataType] = !dataTypes[dataType];
 		}
 		filterModels();
+		if (selectedDataTypes.includes(dataType)) {
+			dataTypesStore.update((arr) => {
+				const index = arr.indexOf(dataType);
+				if (index !== -1) {
+					arr.splice(index, 1);
+				}
+				return arr;
+			});
+		} else {
+			dataTypesStore.update((arr) => [...arr, dataType]);
+		}
+
+		console.log(selectedDataTypes);
 	};
 
 	const toggleModelTypes = () => {
@@ -84,29 +146,66 @@
 			}
 		}
 		filterModels();
+		const allModelTypes = ['onnx', 'tflite', 'npy'];
+		/**
+		 * @type {any}
+		 */
+		const invertModelTypes = allModelTypes.filter((item) => !selectedModelTypes.includes(item));
+		modelTypesStore.update((arr) => invertModelTypes);
 	};
 
-	const toggleModelType = (/** @type {string} */ value) => {
-		if (modelTypes.hasOwnProperty(value)) {
-			modelTypes[value] = !modelTypes[value];
+	const toggleModelType = (/** @type {string} */ modelType) => {
+		if (modelTypes.hasOwnProperty(modelType)) {
+			modelTypes[modelType] = !modelTypes[modelType];
 		}
 		filterModels();
+
+		if (selectedModelTypes.includes(modelType)) {
+			modelTypesStore.update((arr) => {
+				const index = arr.indexOf(modelType);
+				if (index !== -1) {
+					arr.splice(index, 1);
+				}
+				return arr;
+			});
+		} else {
+			modelTypesStore.update((arr) => [...arr, modelType]);
+		}
 	};
 
 	const toggleModels = () => {
-		console.log(filteredModelIds);
 		for (const model of filteredModelIds) {
 			model.selected = !model.selected;
 		}
 		filteredModelIds = filteredModelIds;
+
+		const allModels = [...new Set(filteredModelIds.map((model) => model.id))];
+
+		/**
+		 * @type {any}
+		 */
+		const invertModels = allModels.filter((item) => !selectedModels.includes(item));
+		modelsStore.update((arr) => invertModels);
 	};
 
-	const toggleModel = (/** @type {string} */ value) => {
+	const toggleModel = (/** @type {string} */ model) => {
 		for (let i = 0; i < filteredModelIds.length; i++) {
-			if (filteredModelIds[i].id === value) {
+			if (filteredModelIds[i].id === model) {
 				filteredModelIds[i].selected = !filteredModelIds[i].selected;
 				break;
 			}
+		}
+
+		if (selectedModels.includes(model)) {
+			modelsStore.update((arr) => {
+				const index = arr.indexOf(model);
+				if (index !== -1) {
+					arr.splice(index, 1);
+				}
+				return arr;
+			});
+		} else {
+			modelsStore.update((arr) => [...arr, model]);
 		}
 	};
 </script>
