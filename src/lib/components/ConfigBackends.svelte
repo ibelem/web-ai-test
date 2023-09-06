@@ -1,4 +1,6 @@
 <script>
+	import { backendsStore } from '../../store';
+
 	/**
 	 * @type {any}
 	 */
@@ -13,17 +15,58 @@
 		webnn_npu: false
 	};
 
+	/**
+	 * @type {string[]}
+	 */
+	let selectedBackends;
+	const unsubscribeBackends = backendsStore.subscribe((value) => {
+		selectedBackends = value;
+	});
+
+	for (const backend of selectedBackends) {
+		backends[backend] = true;
+	}
+
 	const toggleBackends = () => {
 		for (const backend in backends) {
 			if (backends.hasOwnProperty(backend)) {
 				backends[backend] = !backends[backend];
 			}
 		}
+
+		const allBackends = [
+			'wasm_1',
+			'wasm_4',
+			'webgl',
+			'webgpu',
+			'webnn_cpu_1',
+			'webnn_cpu_4',
+			'webnn_gpu',
+			'webnn_npu'
+		];
+
+		/**
+		 * @type {any}
+		 */
+		let invertBackends = allBackends.filter((item) => !selectedBackends.includes(item));
+		backendsStore.update((arr) => invertBackends);
 	};
 
-	const toggleBackend = (/** @type {string} */ value) => {
-		if (backends.hasOwnProperty(value)) {
-			backends[value] = !backends[value];
+	const toggleBackend = (/** @type {string} */ backend) => {
+		if (backends.hasOwnProperty(backend)) {
+			backends[backend] = !backends[backend];
+		}
+
+		if (selectedBackends.includes(backend)) {
+			backendsStore.update((arr) => {
+				const index = arr.indexOf(backend);
+				if (index !== -1) {
+					arr.splice(index, 1);
+				}
+				return arr;
+			});
+		} else {
+			backendsStore.update((arr) => [...arr, backend]);
 		}
 	};
 </script>

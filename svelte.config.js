@@ -24,15 +24,6 @@ const config = {
 		paths: {
 			base: dev ? '' : process.env.BASE_PATH,
 		},
-		prerender: {
-			handleHttpError: ({ path, message }) => {
-				if (path === '/not-found') {
-					return;
-				}
-				throw new Error(message);
-			},
-			entries: []
-		}
 	}
 };
 

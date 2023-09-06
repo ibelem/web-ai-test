@@ -1,17 +1,17 @@
 <script>
-	import { numberofruns } from '../../store';
+	import { numberofrunsStore } from '../../store';
 
 	/**
 	 * @type {number}
 	 */
 	let numOfRuns;
 
-	numberofruns.subscribe((value) => {
+	numberofrunsStore.subscribe((value) => {
 		numOfRuns = value;
 	});
 
 	const setNumberOfRuns = () => {
-		numberofruns.update(() => numOfRuns);
+		numberofrunsStore.update(() => numOfRuns);
 	};
 </script>
 
