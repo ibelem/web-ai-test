@@ -5,3 +5,4 @@ export const backendsStore = writable([]);
 export const dataTypesStore = writable([]);
 export const modelTypesStore = writable([]);
 export const modelsStore = writable([]);
+export const testQueueStore = writable([]);

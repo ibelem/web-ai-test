@@ -1,5 +1,5 @@
 <script>
-	import { numberofrunsStore } from '../../store';
+	import { numberofrunsStore } from '../store';
 
 	/**
 	 * @type {number}

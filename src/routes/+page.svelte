@@ -7,8 +7,9 @@
 		backendsStore,
 		modelTypesStore,
 		dataTypesStore,
-		modelsStore
-	} from '../store';
+		modelsStore,
+		testQueueStore
+	} from '../lib/store';
 
 	/**
 	 * @type {number}
@@ -50,6 +51,14 @@
 	const unsubscribeModels = modelsStore.subscribe((value) => {
 		selectedModels = value;
 	});
+
+	/**
+	 * @type {string[]}
+	 */
+	let testQueue;
+	const unsubscribeTestQueue = testQueueStore.subscribe((value) => {
+		testQueue = value;
+	});
 </script>
 
 <div>
@@ -61,7 +70,12 @@
 		<br />Data Types: {selectedDataTypes}
 		<br />Models: {selectedModels}
 		<br />Number of Runs: {selectedNumOfRuns}<br /><br />
-
+		<div class="testqueue">
+			{#each testQueue as tq}
+				{tq} <br />
+			{/each}
+		</div>
+		<br /><br />
 		{#if selectedModels[0]}
 			<a href="{base}/{selectedModels[0]}">RUN</a>
 		{/if}
@@ -91,5 +105,8 @@
 
 	a:hover {
 		background-color: var(--red);
+	}
+	.testqueue {
+		text-align: left;
 	}
 </style>
