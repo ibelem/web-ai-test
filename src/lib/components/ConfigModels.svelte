@@ -1,6 +1,12 @@
 <script>
 	import { models } from '../config';
-	import { modelTypesStore, dataTypesStore, modelsStore } from '../../store';
+	import {
+		backendsStore,
+		modelTypesStore,
+		dataTypesStore,
+		modelsStore,
+		testQueueStore
+	} from '../store';
 
 	let filteredModels = models;
 	/**
@@ -10,6 +16,14 @@
 	for (const model of filteredModelIds) {
 		model['selected'] = false;
 	}
+
+	/**
+	 * @type {string[]}
+	 */
+	let selectedBackends;
+	const unsubscribeBackends = backendsStore.subscribe((value) => {
+		selectedBackends = value;
+	});
 
 	/**
 	 * @type {string[]}
@@ -51,6 +65,33 @@
 		onnx: false,
 		tflite: false,
 		npy: false
+	};
+
+	const getTestQueue = () => {
+		/**
+		 * @type {string[]}
+		 */
+		let testQueue = [];
+		if (selectedModels) {
+			let t = '';
+			for (const b of selectedBackends) {
+				for (const dt of selectedDataTypes) {
+					for (const mt of selectedModelTypes) {
+						for (const m of selectedModels) {
+							const matchedModels = models.filter(
+								(model) => model.id === m && model.format === mt && model.datatype === dt
+							);
+
+							if (matchedModels.length > 0) {
+								t = `${m} ${mt} ${dt} ${b}`;
+								testQueue.push(t);
+							}
+						}
+					}
+				}
+			}
+			testQueueStore.update((arr) => testQueue);
+		}
 	};
 
 	const filterModels = () => {
@@ -135,8 +176,6 @@
 		} else {
 			dataTypesStore.update((arr) => [...arr, dataType]);
 		}
-
-		console.log(selectedDataTypes);
 	};
 
 	const toggleModelTypes = () => {
@@ -186,6 +225,8 @@
 		 */
 		const invertModels = allModels.filter((item) => !selectedModels.includes(item));
 		modelsStore.update((arr) => invertModels);
+
+		getTestQueue();
 	};
 
 	const toggleModel = (/** @type {string} */ model) => {
@@ -207,6 +248,7 @@
 		} else {
 			modelsStore.update((arr) => [...arr, model]);
 		}
+		getTestQueue();
 	};
 </script>
 

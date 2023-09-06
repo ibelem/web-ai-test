@@ -1,5 +1,5 @@
 <script>
-	import { backendsStore } from '../../store';
+	import { backendsStore } from '../store';
 
 	/**
 	 * @type {any}

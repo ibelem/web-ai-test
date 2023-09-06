@@ -9,7 +9,7 @@
 		modelTypesStore,
 		dataTypesStore,
 		modelsStore
-	} from '../../store';
+	} from '../../lib/store';
 
 	/**
 	 * @type {number}
