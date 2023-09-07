@@ -74,7 +74,7 @@
 		 */
 		let invertBackends = allBackends.filter((item) => !selectedBackends.includes(item));
 		backendsStore.update((arr) => invertBackends);
-		if ($page.url.pathname === '/') {
+		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
@@ -99,7 +99,7 @@
 		}
 
 		console.log($page.url.pathname);
-		if ($page.url.pathname === '/') {
+		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
