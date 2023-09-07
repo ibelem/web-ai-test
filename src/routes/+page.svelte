@@ -153,11 +153,7 @@
 		<br />Data Types: {selectedDataTypes}
 		<br />Models: {selectedModels}
 		<br />Number of Runs: {selectedNumOfRuns}<br /><br />
-		<div class="testqueue">
-			{#each testQueue as tq}
-				{tq} <br />
-			{/each}
-		</div>
+		<div class="testqueue">{JSON.stringify(testQueue)}</div>
 		<br /><br />
 		{#if selectedModels[0]}
 			<a href="{base}/onnx/{selectedModels[0]}">RUN</a>

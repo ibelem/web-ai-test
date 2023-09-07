@@ -205,7 +205,7 @@
 		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 	};
 
-	const toggleModel = (/** @type {string} */ model) => {
+	const toggleModel = (/** @type {string } */ model) => {
 		for (let i = 0; i < filteredModelIds.length; i++) {
 			if (filteredModelIds[i].id === model) {
 				filteredModelIds[i].selected = !filteredModelIds[i].selected;
