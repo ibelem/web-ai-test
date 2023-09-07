@@ -97,6 +97,8 @@
 		} else {
 			backendsStore.update((arr) => [...arr, backend]);
 		}
+
+		console.log($page.url.pathname);
 		if ($page.url.pathname === '/') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
