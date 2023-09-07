@@ -129,7 +129,7 @@
 		const invertDataTypes = allDataTypes.filter((item) => !selectedDataTypes.includes(item));
 		dataTypesStore.update((arr) => invertDataTypes);
 		modelsStore.update(() => []);
-		if ($page.url.pathname === '/') {
+		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
@@ -152,7 +152,7 @@
 		} else {
 			dataTypesStore.update((arr) => [...arr, dataType]);
 		}
-		if ($page.url.pathname === '/') {
+		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
@@ -173,7 +173,7 @@
 		const invertModelTypes = allModelTypes.filter((item) => !selectedModelTypes.includes(item));
 		modelTypesStore.update((arr) => invertModelTypes);
 		modelsStore.update(() => []);
-		if ($page.url.pathname === '/') {
+		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
@@ -198,7 +198,7 @@
 			modelTypesStore.update((arr) => [...arr, modelType]);
 		}
 
-		if ($page.url.pathname === '/') {
+		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
@@ -219,7 +219,7 @@
 		const invertModels = allModels.filter((item) => !selectedModels.includes(item));
 		modelsStore.update((arr) => invertModels);
 
-		if ($page.url.pathname === '/') {
+		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
@@ -245,7 +245,7 @@
 		} else {
 			modelsStore.update((arr) => [...arr, model]);
 		}
-		if ($page.url.pathname === '/') {
+		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');

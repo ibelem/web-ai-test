@@ -54,7 +54,7 @@
 
 	const setNumberOfRuns = () => {
 		numberofrunsStore.update(() => numOfRuns);
-		if ($page.url.pathname === '/') {
+		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
