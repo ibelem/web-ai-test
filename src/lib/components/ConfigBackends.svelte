@@ -1,5 +1,8 @@
 <script>
-	import { backendsStore } from '../store';
+	import { backendsStore, dataTypesStore, modelTypesStore, modelsStore } from '../store';
+	import { models } from '$lib/config';
+	import { testQueue } from '$lib/assets/js/utils';
+	import { onMount } from 'svelte';
 
 	/**
 	 * @type {any}
@@ -23,9 +26,29 @@
 		selectedBackends = value;
 	});
 
-	for (const backend of selectedBackends) {
-		backends[backend] = true;
-	}
+	/**
+	 * @type {string[]}
+	 */
+	let selectedModelTypes;
+	const unsubscribeModelTypes = modelTypesStore.subscribe((value) => {
+		selectedModelTypes = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
+	let selectedDataTypes;
+	const unsubscribeDataTypes = dataTypesStore.subscribe((value) => {
+		selectedDataTypes = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
+	let selectedModels;
+	const unsubscribeModels = modelsStore.subscribe((value) => {
+		selectedModels = value;
+	});
 
 	const toggleBackends = () => {
 		for (const backend in backends) {
@@ -50,6 +73,7 @@
 		 */
 		let invertBackends = allBackends.filter((item) => !selectedBackends.includes(item));
 		backendsStore.update((arr) => invertBackends);
+		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 	};
 
 	const toggleBackend = (/** @type {string} */ backend) => {
@@ -68,7 +92,15 @@
 		} else {
 			backendsStore.update((arr) => [...arr, backend]);
 		}
+
+		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 	};
+
+	onMount(() => {
+		for (const backend of selectedBackends) {
+			backends[backend] = true;
+		}
+	});
 </script>
 
 <div class="title">

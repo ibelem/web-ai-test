@@ -1,12 +1,8 @@
 <script>
+	import { testQueue } from '$lib/assets/js/utils';
 	import { models } from '../config';
-	import {
-		backendsStore,
-		modelTypesStore,
-		dataTypesStore,
-		modelsStore,
-		testQueueStore
-	} from '../store';
+	import { backendsStore, modelTypesStore, dataTypesStore, modelsStore } from '../store';
+	import { onMount } from 'svelte';
 
 	let filteredModels = models;
 	/**
@@ -65,33 +61,6 @@
 		onnx: false,
 		tflite: false,
 		npy: false
-	};
-
-	const getTestQueue = () => {
-		/**
-		 * @type {string[]}
-		 */
-		let testQueue = [];
-		if (selectedModels) {
-			let t = '';
-			for (const b of selectedBackends) {
-				for (const dt of selectedDataTypes) {
-					for (const mt of selectedModelTypes) {
-						for (const m of selectedModels) {
-							const matchedModels = models.filter(
-								(model) => model.id === m && model.format === mt && model.datatype === dt
-							);
-
-							if (matchedModels.length > 0) {
-								t = `${m} ${mt} ${dt} ${b}`;
-								testQueue.push(t);
-							}
-						}
-					}
-				}
-			}
-			testQueueStore.update((arr) => testQueue);
-		}
 	};
 
 	const filterModels = () => {
@@ -158,6 +127,8 @@
 		 */
 		const invertDataTypes = allDataTypes.filter((item) => !selectedDataTypes.includes(item));
 		dataTypesStore.update((arr) => invertDataTypes);
+		modelsStore.update(() => []);
+		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 	};
 
 	const toggleDataType = (/** @type {string} */ dataType) => {
@@ -176,6 +147,7 @@
 		} else {
 			dataTypesStore.update((arr) => [...arr, dataType]);
 		}
+		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 	};
 
 	const toggleModelTypes = () => {
@@ -191,6 +163,8 @@
 		 */
 		const invertModelTypes = allModelTypes.filter((item) => !selectedModelTypes.includes(item));
 		modelTypesStore.update((arr) => invertModelTypes);
+		modelsStore.update(() => []);
+		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 	};
 
 	const toggleModelType = (/** @type {string} */ modelType) => {
@@ -210,6 +184,8 @@
 		} else {
 			modelTypesStore.update((arr) => [...arr, modelType]);
 		}
+
+		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 	};
 
 	const toggleModels = () => {
@@ -226,7 +202,7 @@
 		const invertModels = allModels.filter((item) => !selectedModels.includes(item));
 		modelsStore.update((arr) => invertModels);
 
-		getTestQueue();
+		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 	};
 
 	const toggleModel = (/** @type {string} */ model) => {
@@ -248,8 +224,10 @@
 		} else {
 			modelsStore.update((arr) => [...arr, model]);
 		}
-		getTestQueue();
+		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 	};
+
+	onMount(() => {});
 </script>
 
 <div class="title">

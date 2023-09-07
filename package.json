@@ -30,6 +30,7 @@
   },
   "type": "module",
   "dependencies": {
+    "svelte-local-storage-store": "^0.6.0",
     "ua-parser-js": "^1.0.35"
   }
 }
