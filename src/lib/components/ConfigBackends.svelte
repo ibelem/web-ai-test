@@ -1,6 +1,7 @@
 <script>
 	import { backendsStore, dataTypesStore, modelTypesStore, modelsStore } from '../store';
 	import { models } from '$lib/config';
+	import { page } from '$app/stores';
 	import { testQueue } from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 
@@ -73,7 +74,11 @@
 		 */
 		let invertBackends = allBackends.filter((item) => !selectedBackends.includes(item));
 		backendsStore.update((arr) => invertBackends);
-		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		if ($page.url.pathname === '/') {
+			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		} else {
+			console.log('TBD for RUN pages');
+		}
 	};
 
 	const toggleBackend = (/** @type {string} */ backend) => {
@@ -92,8 +97,11 @@
 		} else {
 			backendsStore.update((arr) => [...arr, backend]);
 		}
-
-		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		if ($page.url.pathname === '/') {
+			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		} else {
+			console.log('TBD for RUN pages');
+		}
 	};
 
 	onMount(() => {

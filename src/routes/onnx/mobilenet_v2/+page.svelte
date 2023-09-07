@@ -1,6 +1,7 @@
 <script>
 	import Environment from '$lib/components/Environment.svelte';
 	import { base } from '$app/paths';
+	import { beforeUpdate } from 'svelte';
 	import ConfigBackends from '$lib/components/ConfigBackends.svelte';
 	import ConfigNumOfRuns from '$lib/components/ConfigNumOfRuns.svelte';
 	import {
@@ -10,6 +11,7 @@
 		dataTypesStore,
 		modelsStore
 	} from '../../../lib/store';
+	import { page } from '$app/stores';
 
 	/**
 	 * @type {number}
@@ -51,13 +53,35 @@
 	const unsubscribeModels = modelsStore.subscribe((value) => {
 		selectedModels = value;
 	});
+
+	let showRun = false;
+	let showConfig = false;
+
+	let runstatus = 'not started';
+
+	const run = () => {
+		runstatus = 'runing';
+	};
+
+	beforeUpdate(() => {
+		if (selectedBackends.length > 0) {
+			showConfig = false;
+			showRun = false;
+			runstatus = 'running...';
+		} else {
+			showConfig = true;
+			showRun = true;
+		}
+	});
 </script>
 
 <div>
-	<div class="config">
-		<ConfigBackends />
-		<ConfigNumOfRuns />
-	</div>
+	{#if showConfig}
+		<div class="config">
+			<ConfigBackends />
+			<ConfigNumOfRuns />
+		</div>
+	{/if}
 	<div class="temp">
 		<span class="tobe">MobileNetv2</span><br /><br />
 		To be tested when complete MobileNetv2<br /><br />
@@ -68,12 +92,19 @@
 		<br />Number of Runs: {selectedNumOfRuns}<br /><br />
 	</div>
 
+	<div class="temp">{runstatus}</div>
+
+	{#if showRun}
+		<button on:click|once={run}> Run </button>
+	{/if}
+
 	<Environment />
 </div>
 
 <style>
 	.temp {
 		text-align: center;
+		margin: 10px;
 	}
 	.tobe {
 		padding: 4px 16px;
