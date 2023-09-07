@@ -1,4 +1,4 @@
-import { numberofrunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore } from '../../store'
+import { numberofrunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, resultStore } from '../../store'
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
 
@@ -22,6 +22,10 @@ export const getGpu = () => {
       return renderer
     }
   }
+}
+
+export const addResult = (result) => {
+  resultStore.update((arr) => [...arr, result]);
 }
 
 export const clearTestQueue = () => {
@@ -96,7 +100,7 @@ export const testQueue = (models, selectedModels, selectedBackends, selectedData
    */
   let testQueue = [];
   if (selectedModels) {
-    let t = '';
+    let id = 1;
     for (const b of selectedBackends) {
       for (const dt of selectedDataTypes) {
         for (const mt of selectedModelTypes) {
@@ -106,13 +110,26 @@ export const testQueue = (models, selectedModels, selectedBackends, selectedData
             );
 
             if (matchedModels.length > 0) {
-              t = `${mt} ${m} ${dt} ${b}`;
+
+              // t = `${mt} ${m} ${dt} ${b}`;
+              // testQueue.push(t);
+
+              let t = {
+                id: id,
+                modeltype: mt,
+                model: m,
+                datatype: dt,
+                backend: b
+              }
               testQueue.push(t);
+              id++;
             }
           }
         }
       }
     }
+
+    console.log(testQueue)
     testQueueStore.update(() => testQueue);
   }
 
