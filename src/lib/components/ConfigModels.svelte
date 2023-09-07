@@ -3,6 +3,7 @@
 	import { models } from '../config';
 	import { backendsStore, modelTypesStore, dataTypesStore, modelsStore } from '../store';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	let filteredModels = models;
 	/**
@@ -128,7 +129,11 @@
 		const invertDataTypes = allDataTypes.filter((item) => !selectedDataTypes.includes(item));
 		dataTypesStore.update((arr) => invertDataTypes);
 		modelsStore.update(() => []);
-		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		if ($page.url.pathname === '/') {
+			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		} else {
+			console.log('TBD for RUN pages');
+		}
 	};
 
 	const toggleDataType = (/** @type {string} */ dataType) => {
@@ -147,7 +152,11 @@
 		} else {
 			dataTypesStore.update((arr) => [...arr, dataType]);
 		}
-		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		if ($page.url.pathname === '/') {
+			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		} else {
+			console.log('TBD for RUN pages');
+		}
 	};
 
 	const toggleModelTypes = () => {
@@ -164,7 +173,11 @@
 		const invertModelTypes = allModelTypes.filter((item) => !selectedModelTypes.includes(item));
 		modelTypesStore.update((arr) => invertModelTypes);
 		modelsStore.update(() => []);
-		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		if ($page.url.pathname === '/') {
+			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		} else {
+			console.log('TBD for RUN pages');
+		}
 	};
 
 	const toggleModelType = (/** @type {string} */ modelType) => {
@@ -185,7 +198,11 @@
 			modelTypesStore.update((arr) => [...arr, modelType]);
 		}
 
-		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		if ($page.url.pathname === '/') {
+			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		} else {
+			console.log('TBD for RUN pages');
+		}
 	};
 
 	const toggleModels = () => {
@@ -202,7 +219,11 @@
 		const invertModels = allModels.filter((item) => !selectedModels.includes(item));
 		modelsStore.update((arr) => invertModels);
 
-		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		if ($page.url.pathname === '/') {
+			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		} else {
+			console.log('TBD for RUN pages');
+		}
 	};
 
 	const toggleModel = (/** @type {string } */ model) => {
@@ -224,7 +245,11 @@
 		} else {
 			modelsStore.update((arr) => [...arr, model]);
 		}
-		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		if ($page.url.pathname === '/') {
+			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+		} else {
+			console.log('TBD for RUN pages');
+		}
 	};
 
 	onMount(() => {});

@@ -129,7 +129,6 @@ export const testQueue = (models, selectedModels, selectedBackends, selectedData
       }
     }
 
-    console.log(testQueue)
     testQueueStore.update(() => testQueue);
   }
 
