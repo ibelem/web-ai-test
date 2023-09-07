@@ -1,5 +1,4 @@
 <script>
-	import { goto } from '$app/navigation';
 	import ConfigBackends from './ConfigBackends.svelte';
 	import ConfigModels from './ConfigModels.svelte';
 	import ConfigNumOfRuns from './ConfigNumOfRuns.svelte';

@@ -1,5 +1,14 @@
 <script>
-	import { numberofrunsStore } from '../store';
+	import {
+		numberofrunsStore,
+		backendsStore,
+		dataTypesStore,
+		modelTypesStore,
+		modelsStore
+	} from '../store';
+	import { models } from '$lib/config';
+	import { testQueue } from '$lib/assets/js/utils';
+	import { onMount } from 'svelte';
 
 	/**
 	 * @type {number}
@@ -10,9 +19,44 @@
 		numOfRuns = value;
 	});
 
+	/**
+	 * @type {string[]}
+	 */
+	let selectedBackends;
+	const unsubscribeBackends = backendsStore.subscribe((value) => {
+		selectedBackends = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
+	let selectedModelTypes;
+	const unsubscribeModelTypes = modelTypesStore.subscribe((value) => {
+		selectedModelTypes = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
+	let selectedDataTypes;
+	const unsubscribeDataTypes = dataTypesStore.subscribe((value) => {
+		selectedDataTypes = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
+	let selectedModels;
+	const unsubscribeModels = modelsStore.subscribe((value) => {
+		selectedModels = value;
+	});
+
 	const setNumberOfRuns = () => {
 		numberofrunsStore.update(() => numOfRuns);
+		testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 	};
+
+	onMount(() => {});
 </script>
 
 <div class="title">{numOfRuns} of Runs</div>
