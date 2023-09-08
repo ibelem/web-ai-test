@@ -1,4 +1,4 @@
-import { numberofrunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, resultStore } from '../../store'
+import { autoStore, numberofrunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, resultStore } from '../../store'
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
 
@@ -33,6 +33,7 @@ export const clearTestQueue = () => {
 }
 
 export const initStore = () => {
+  autoStore.update(() => false);
   numberofrunsStore.update(() => 1);
   backendsStore.update(() => []);
   dataTypesStore.update(() => []);
@@ -41,7 +42,8 @@ export const initStore = () => {
   testQueueStore.update(() => []);
 }
 
-export const updateStore = (numOfRuns, backends, dataTypes, modelTypes, models) => {
+export const updateStore = (auto, numOfRuns, backends, dataTypes, modelTypes, models) => {
+  autoStore.update(() => auto);
   numberofrunsStore.update(() => numOfRuns);
   backendsStore.update(() => backends);
   dataTypesStore.update(() => dataTypes);
@@ -76,7 +78,7 @@ export const goTo = (selectedModels, selectedBackends, selectedDataTypes, select
       }
 
       let modelType;
-      if (selectedModelTypes.length === 3) {
+      if (selectedModelTypes.length === 4) {
         modelType = 'all';
       } else {
         modelType = selectedModelTypes.toString();
@@ -88,7 +90,6 @@ export const goTo = (selectedModels, selectedBackends, selectedDataTypes, select
       goto(url);
     }
   } else {
-    console.log('goto else')
     let url = `${base}?`
     goto(url);
   }
@@ -131,6 +132,4 @@ export const testQueue = (models, selectedModels, selectedBackends, selectedData
 
     testQueueStore.update(() => testQueue);
   }
-
-  goTo(selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 };
