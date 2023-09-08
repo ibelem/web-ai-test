@@ -2,7 +2,7 @@
 	import { backendsStore, dataTypesStore, modelTypesStore, modelsStore } from '../store';
 	import { models } from '$lib/config';
 	import { page } from '$app/stores';
-	import { testQueue } from '$lib/assets/js/utils';
+	import { testQueue, goTo } from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 
 	/**
@@ -74,8 +74,10 @@
 		 */
 		let invertBackends = allBackends.filter((item) => !selectedBackends.includes(item));
 		backendsStore.update((arr) => invertBackends);
+
 		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+			goTo(selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
 		}
@@ -98,9 +100,9 @@
 			backendsStore.update((arr) => [...arr, backend]);
 		}
 
-		console.log($page.url.pathname);
 		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+			goTo(selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
 		}

@@ -1,5 +1,5 @@
 <script>
-	import { testQueue } from '$lib/assets/js/utils';
+	import { testQueue, goTo } from '$lib/assets/js/utils';
 	import { models } from '../config';
 	import { backendsStore, modelTypesStore, dataTypesStore, modelsStore } from '../store';
 	import { onMount } from 'svelte';
@@ -61,7 +61,8 @@
 	let modelTypes = {
 		onnx: false,
 		tflite: false,
-		npy: false
+		npy: false,
+		pt: false
 	};
 
 	const filterModels = () => {
@@ -74,7 +75,8 @@
 			const modelTypeValid =
 				(modelTypes.onnx && model.format === 'onnx') ||
 				(modelTypes.tflite && model.format === 'tflite') ||
-				(modelTypes.npy && model.format === 'npy');
+				(modelTypes.npy && model.format === 'npy') ||
+				(modelTypes.pt && model.format === 'pt');
 			return dataTypeValid && modelTypeValid;
 		});
 
@@ -131,6 +133,7 @@
 		modelsStore.update(() => []);
 		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+			goTo(selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
 		}
@@ -154,6 +157,7 @@
 		}
 		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+			goTo(selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
 		}
@@ -166,7 +170,7 @@
 			}
 		}
 		filterModels();
-		const allModelTypes = ['onnx', 'tflite', 'npy'];
+		const allModelTypes = ['onnx', 'tflite', 'npy', 'pt'];
 		/**
 		 * @type {any}
 		 */
@@ -175,6 +179,7 @@
 		modelsStore.update(() => []);
 		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+			goTo(selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
 		}
@@ -200,6 +205,7 @@
 
 		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+			goTo(selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
 		}
@@ -221,32 +227,43 @@
 
 		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+			goTo(selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
 		}
 	};
 
 	const toggleModel = (/** @type {string } */ model) => {
+		console.log('**************** ' + model);
 		for (let i = 0; i < filteredModelIds.length; i++) {
 			if (filteredModelIds[i].id === model) {
+				console.log('**************** toogle ' + model);
 				filteredModelIds[i].selected = !filteredModelIds[i].selected;
+				console.log('**************** 反选 ' + model);
 				break;
 			}
 		}
 
 		if (selectedModels.includes(model)) {
 			modelsStore.update((arr) => {
+				console.log(arr);
 				const index = arr.indexOf(model);
+				console.log('**************** Store ' + model + ' 索引' + index);
 				if (index !== -1) {
+					console.log('**************** Store ' + model + ' splice' + index);
 					arr.splice(index, 1);
 				}
+				console.log(arr);
 				return arr;
 			});
 		} else {
+			console.log('**************** Store 不包含，增加 ' + model);
 			modelsStore.update((arr) => [...arr, model]);
 		}
+
 		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+			goTo(selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
 		}
@@ -304,7 +321,7 @@
 			></svg
 		>
 	</label>
-	<label class="extra {modelTypes.tflite.toString()}" title="tflite">
+	<label class="extra {modelTypes.tflite.toString()}" title="TensorFlow Lite">
 		<input type="checkbox" on:change={() => toggleModelType('tflite')} />
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -362,7 +379,7 @@
 		>
 		<span>Lite</span>
 	</label>
-	<label class="extra {modelTypes.npy.toString()}" title="npy">
+	<label class="extra {modelTypes.npy.toString()}" title="NumPy">
 		<input type="checkbox" on:change={() => toggleModelType('npy')} />
 
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 450" id="logo_npy"
@@ -397,7 +414,23 @@
 				/></g
 			></svg
 		>
-		<span>NPY</span>
+		<span>NumPy</span>
+	</label>
+	<label class="extra {modelTypes.pt.toString()}" title="pt">
+		<input type="checkbox" on:change={() => toggleModelType('pt')} />
+
+		<svg xmlns="http://www.w3.org/2000/svg" id="logo_pt"
+			><g transform="matrix(0.45 0 0 0.45 -8 0)" fill="#ee4c2c"
+				><path
+					d="M40.8 9.3l-2.1 2.1c3.5 3.5 3.5 9.2 0 12.7s-9.2 3.5-12.7 0-3.5-9.2 0-12.7l5.6-5.6.7-.8V.8l-8.5 8.5a11.89 11.89 0 0 0 0 16.9 11.89 11.89 0 0 0 16.9 0c4.8-4.7 4.8-12.3.1-16.9z"
+				/><circle cx="36.6" cy="7.1" r="1.6" /></g
+			><g transform="matrix(0.58 0 0 0.58 -8 -11)"
+				><path
+					d="M48.008 32.028h-2v5.144h-1.493V22.57h3.65c3.872 0 5.697 1.88 5.697 4.6 0 3.208-2.268 4.812-5.863 4.867zm.1-8.075H45.96v6.693l2.102-.055c2.766-.055 4.26-1.162 4.26-3.43 0-2.046-1.438-3.208-4.204-3.208zM60.62 37.116l-.885 2.323c-.996 2.6-2 3.374-3.485 3.374-.83 0-1.438-.22-2.102-.498l.442-1.327c.498.277 1.05.442 1.66.442.83 0 1.438-.442 2.212-2.5l.72-1.88-4.148-10.564h1.55l3.374 8.85 3.32-8.85h1.493zm9.125-13.108v13.22h-1.493v-13.22h-5.144V22.57h11.78v1.383h-5.144zm9.347 13.495c-2.987 0-5.2-2.212-5.2-5.642s2.268-5.697 5.3-5.697c2.987 0 5.144 2.212 5.144 5.642s-2.268 5.697-5.255 5.697zm.055-10c-2.268 0-3.76 1.825-3.76 4.314 0 2.6 1.55 4.37 3.816 4.37s3.76-1.825 3.76-4.314c0-2.6-1.55-4.37-3.816-4.37zm8.906 9.724h-1.438v-10.73l1.438-.277v2.268c.72-1.383 1.77-2.268 3.153-2.268a3.92 3.92 0 0 1 1.88.498L92.7 28.1c-.442-.277-1.05-.442-1.66-.442-1.106 0-2.157.83-3.042 2.766v6.803zm10.73.276c-3.208 0-5.255-2.323-5.255-5.642 0-3.374 2.212-5.697 5.255-5.697 1.327 0 2.434.332 3.374.94l-.387 1.327c-.83-.553-1.825-.885-2.987-.885-2.323 0-3.76 1.715-3.76 4.26 0 2.6 1.55 4.314 3.816 4.314a5.57 5.57 0 0 0 2.987-.885l.277 1.327c-.94.608-2.102.94-3.32.94zm12.334-.276v-6.914c0-1.88-.774-2.7-2.268-2.7-1.217 0-2.434.608-3.32 1.55v8.13h-1.438v-15.82l1.438-.277v6.748c1.106-1.106 2.544-1.715 3.706-1.715 2.102 0 3.374 1.327 3.374 3.65v7.356z"
+					fill="#252525"
+				/></g
+			></svg
+		>
 	</label>
 </div>
 

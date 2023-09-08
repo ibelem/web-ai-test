@@ -7,7 +7,7 @@
 		modelsStore
 	} from '../store';
 	import { models } from '$lib/config';
-	import { testQueue } from '$lib/assets/js/utils';
+	import { testQueue, goTo } from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 
@@ -56,6 +56,7 @@
 		numberofrunsStore.update(() => numOfRuns);
 		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
 			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
+			goTo(selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
 		} else {
 			console.log('TBD for RUN pages');
 		}

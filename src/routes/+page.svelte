@@ -1,10 +1,11 @@
 <script>
 	import Environment from '$lib/components/Environment.svelte';
 	import Config from '$lib/components/Config.svelte';
-	import { beforeUpdate } from 'svelte';
+	import { beforeUpdate, onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
 	import {
+		autoStore,
 		numberofrunsStore,
 		backendsStore,
 		modelTypesStore,
@@ -13,6 +14,14 @@
 		testQueueStore
 	} from '../lib/store';
 	import { initStore, updateStore, clearTestQueue } from '../lib/assets/js/utils';
+
+	/**
+	 * @type {boolean}
+	 */
+	let auto;
+	const unsubscribeAuto = autoStore.subscribe((value) => {
+		auto = value;
+	});
 
 	/**
 	 * @type {number}
@@ -84,7 +93,7 @@
 			if (modelType.indexOf(',') > -1) {
 				modelType = stringToArray(modelType);
 			} else if (modelType.toLowerCase() === 'all') {
-				modelType = ['onnx', 'tflite', 'npy'];
+				modelType = ['onnx', 'tflite', 'npy', 'pt'];
 			} else {
 				modelType = [modelType];
 			}
@@ -130,9 +139,9 @@
 
 			if (modelType && dataType && backend && model) {
 				if (numOfRuns) {
-					updateStore(numOfRuns, backend, dataType, modelType, model);
+					updateStore(true, numOfRuns, backend, dataType, modelType, model);
 				} else {
-					updateStore(1, backend, dataType, modelType, model);
+					updateStore(true, 1, backend, dataType, modelType, model);
 				}
 				console.log('update STORE via url parameters');
 			}
@@ -142,6 +151,8 @@
 	beforeUpdate(() => {
 		urlToStore();
 	});
+
+	onMount(() => {});
 </script>
 
 <div>
