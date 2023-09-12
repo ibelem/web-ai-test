@@ -1,24 +1,31 @@
 <script>
-	import Environment from '$lib/components/Environment.svelte';
-	import { base } from '$app/paths';
 	import { beforeUpdate } from 'svelte';
-	import ConfigBackends from '$lib/components/ConfigBackends.svelte';
+	import Environment from '$lib/components/Environment.svelte';
 	import ConfigNumOfRuns from '$lib/components/ConfigNumOfRuns.svelte';
+	import ConfigBackends from '$lib/components/ConfigBackends.svelte';
+	import ConfigModelsManual from '$lib/components/ConfigModelsManual.svelte';
 	import {
-		numberofrunsStore,
+		autoStore,
+		numberOfRunsStore,
 		backendsStore,
 		modelTypesStore,
-		dataTypesStore,
-		modelsStore
-	} from '../../../lib/store';
-	import { page } from '$app/stores';
+		dataTypesStore
+	} from '../../../lib/store/store';
+
+	/**
+	 * @type {boolean}
+	 */
+	let auto;
+	autoStore.subscribe((value) => {
+		auto = value;
+	});
 
 	/**
 	 * @type {number}
 	 */
 	let selectedNumOfRuns;
 
-	const unsubscribeNumOfRuns = numberofrunsStore.subscribe((value) => {
+	numberOfRunsStore.subscribe((value) => {
 		selectedNumOfRuns = value;
 	});
 
@@ -26,7 +33,7 @@
 	 * @type {string[]}
 	 */
 	let selectedBackends;
-	const unsubscribeBackends = backendsStore.subscribe((value) => {
+	backendsStore.subscribe((value) => {
 		selectedBackends = value;
 	});
 
@@ -34,7 +41,7 @@
 	 * @type {string[]}
 	 */
 	let selectedModelTypes;
-	const unsubscribeModelTypes = modelTypesStore.subscribe((value) => {
+	modelTypesStore.subscribe((value) => {
 		selectedModelTypes = value;
 	});
 
@@ -42,43 +49,20 @@
 	 * @type {string[]}
 	 */
 	let selectedDataTypes;
-	const unsubscribeDataTypes = dataTypesStore.subscribe((value) => {
+	dataTypesStore.subscribe((value) => {
 		selectedDataTypes = value;
 	});
 
-	/**
-	 * @type {string[]}
-	 */
-	let selectedModels;
-	const unsubscribeModels = modelsStore.subscribe((value) => {
-		selectedModels = value;
-	});
+	const runTest = () => {};
 
-	let showRun = false;
-	let showConfig = false;
-
-	let runstatus = 'not started';
-
-	const run = () => {
-		runstatus = 'runing';
-	};
-
-	beforeUpdate(() => {
-		if (selectedBackends.length > 0) {
-			showConfig = false;
-			showRun = false;
-			runstatus = 'running...';
-		} else {
-			showConfig = true;
-			showRun = true;
-		}
-	});
+	beforeUpdate(() => {});
 </script>
 
 <div>
-	{#if showConfig}
+	{#if !auto}
 		<div class="config">
 			<ConfigBackends />
+			<ConfigModelsManual />
 			<ConfigNumOfRuns />
 		</div>
 	{/if}
@@ -88,15 +72,10 @@
 		<br />Backends: {selectedBackends}
 		<br />Model Types: {selectedModelTypes}
 		<br />Data Types: {selectedDataTypes}
-		<br />Models: {selectedModels}
 		<br />Number of Runs: {selectedNumOfRuns}<br /><br />
 	</div>
 
-	<div class="temp">{runstatus}</div>
-
-	{#if showRun}
-		<button on:click|once={run}> Run </button>
-	{/if}
+	<button on:click|once={runTest}> Run </button>
 
 	<Environment />
 </div>
