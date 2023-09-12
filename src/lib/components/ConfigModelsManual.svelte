@@ -1,18 +1,8 @@
 <script>
 	import { testQueue, goTo } from '$lib/assets/js/utils';
-	import { models } from '../config';
-	import { modelTypesStore, dataTypesStore, modelsStore } from '../store/store';
+	import { modelTypesStore, dataTypesStore } from '../store/store';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
-
-	let filteredModels = models;
-	/**
-	 * @type {any[]}
-	 */
-	let filteredModelIds = filteredModels;
-	for (const model of filteredModelIds) {
-		model['selected'] = false;
-	}
 
 	/**
 	 * @type {string[]}
@@ -28,14 +18,6 @@
 	let selectedDataTypes;
 	const unsubscribeDataTypes = dataTypesStore.subscribe((value) => {
 		selectedDataTypes = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedModels;
-	const unsubscribeModels = modelsStore.subscribe((value) => {
-		selectedModels = value;
 	});
 
 	/**
@@ -57,46 +39,6 @@
 		pt: false
 	};
 
-	const filterModels = () => {
-		filteredModels = models.filter((model) => {
-			const dataTypeValid =
-				(dataTypes.fp32 && model.datatype === 'fp32') ||
-				(dataTypes.fp16 && model.datatype === 'fp16') ||
-				(dataTypes.int8 && model.datatype === 'int8');
-
-			const modelTypeValid =
-				(modelTypes.onnx && model.format === 'onnx') ||
-				(modelTypes.tflite && model.format === 'tflite') ||
-				(modelTypes.npy && model.format === 'npy') ||
-				(modelTypes.pt && model.format === 'pt');
-			return dataTypeValid && modelTypeValid;
-		});
-
-		filteredModelIds = [];
-		const uniqueIds = new Set();
-
-		for (const model of filteredModels) {
-			let s = false;
-
-			for (const m of selectedModels) {
-				if (model.id === m) {
-					s = true;
-				}
-			}
-
-			if (!uniqueIds.has(model.id)) {
-				const filteredModel = {
-					id: model.id,
-					name: model.name,
-					selected: s
-				};
-				filteredModelIds.push(filteredModel);
-				uniqueIds.add(model.id);
-				filteredModelIds = filteredModelIds;
-			}
-		}
-	};
-
 	for (const dataType of selectedDataTypes) {
 		dataTypes[dataType] = true;
 	}
@@ -105,15 +47,12 @@
 		modelTypes[modelType] = true;
 	}
 
-	filterModels();
-
 	const toggleDataTypes = () => {
 		for (const dataType in dataTypes) {
 			if (dataTypes.hasOwnProperty(dataType)) {
 				dataTypes[dataType] = !dataTypes[dataType];
 			}
 		}
-		filterModels();
 
 		const allDataTypes = ['fp32', 'fp16', 'int8'];
 
@@ -122,7 +61,6 @@
 		 */
 		const invertDataTypes = allDataTypes.filter((item) => !selectedDataTypes.includes(item));
 		dataTypesStore.update((arr) => invertDataTypes);
-		modelsStore.update(() => []);
 		testQueue();
 		goTo();
 	};
@@ -131,7 +69,6 @@
 		if (dataTypes.hasOwnProperty(dataType)) {
 			dataTypes[dataType] = !dataTypes[dataType];
 		}
-		filterModels();
 		if (selectedDataTypes.includes(dataType)) {
 			dataTypesStore.update((arr) => {
 				const index = arr.indexOf(dataType);
@@ -153,14 +90,12 @@
 				modelTypes[modelType] = !modelTypes[modelType];
 			}
 		}
-		filterModels();
 		const allModelTypes = ['onnx', 'tflite', 'npy', 'pt'];
 		/**
 		 * @type {any}
 		 */
 		const invertModelTypes = allModelTypes.filter((item) => !selectedModelTypes.includes(item));
 		modelTypesStore.update((arr) => invertModelTypes);
-		modelsStore.update(() => []);
 		testQueue();
 		goTo();
 	};
@@ -169,7 +104,6 @@
 		if (modelTypes.hasOwnProperty(modelType)) {
 			modelTypes[modelType] = !modelTypes[modelType];
 		}
-		filterModels();
 
 		if (selectedModelTypes.includes(modelType)) {
 			modelTypesStore.update((arr) => {
@@ -181,56 +115,6 @@
 			});
 		} else {
 			modelTypesStore.update((arr) => [...arr, modelType]);
-		}
-
-		testQueue();
-		goTo();
-	};
-
-	const toggleModels = () => {
-		for (const model of filteredModelIds) {
-			model.selected = !model.selected;
-		}
-		filteredModelIds = filteredModelIds;
-
-		const allModels = [...new Set(filteredModelIds.map((model) => model.id))];
-
-		/**
-		 * @type {any}
-		 */
-		const invertModels = allModels.filter((item) => !selectedModels.includes(item));
-		modelsStore.update((arr) => invertModels);
-
-		testQueue();
-		goTo();
-	};
-
-	const toggleModel = (/** @type {string } */ model) => {
-		console.log('**************** ' + model);
-		for (let i = 0; i < filteredModelIds.length; i++) {
-			if (filteredModelIds[i].id === model) {
-				console.log('**************** toogle ' + model);
-				filteredModelIds[i].selected = !filteredModelIds[i].selected;
-				console.log('**************** 反选 ' + model);
-				break;
-			}
-		}
-
-		if (selectedModels.includes(model)) {
-			modelsStore.update((arr) => {
-				console.log(arr);
-				const index = arr.indexOf(model);
-				console.log('**************** Store ' + model + ' 索引' + index);
-				if (index !== -1) {
-					console.log('**************** Store ' + model + ' splice' + index);
-					arr.splice(index, 1);
-				}
-				console.log(arr);
-				return arr;
-			});
-		} else {
-			console.log('**************** Store 不包含，增加 ' + model);
-			modelsStore.update((arr) => [...arr, model]);
 		}
 
 		testQueue();
@@ -421,25 +305,6 @@
 		<input type="checkbox" on:change={() => toggleDataType('int8')} />
 		INT8
 	</label>
-</div>
-
-<div class="title">
-	<label class="" title="Toggle models">
-		<input type="checkbox" on:change={() => toggleModels()} />
-		Model
-	</label>
-</div>
-<div class="models">
-	{#if filteredModelIds.length > 0}
-		{#each filteredModelIds as { id, name, selected }, i}
-			<label class="extra {id} {selected}" title={name}>
-				<input type="checkbox" on:change={() => toggleModel(id)} />
-				{name}
-			</label>
-		{/each}
-	{:else}
-		No model is available. Please choose a different model type or data type to proceed.
-	{/if}
 </div>
 
 <style>

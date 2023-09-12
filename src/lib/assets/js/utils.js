@@ -1,4 +1,5 @@
-import { autoStore, numberofrunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, resultStore } from '../../store'
+import { autoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, resultStore } from '../../store/store'
+import { models } from '../../config';
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
 
@@ -32,19 +33,8 @@ export const clearTestQueue = () => {
   testQueueStore.update(() => []);
 }
 
-export const initStore = () => {
-  autoStore.update(() => false);
-  numberofrunsStore.update(() => 1);
-  backendsStore.update(() => []);
-  dataTypesStore.update(() => []);
-  modelTypesStore.update(() => []);
-  modelsStore.update(() => []);
-  testQueueStore.update(() => []);
-}
-
-export const updateStore = (auto, numOfRuns, backends, dataTypes, modelTypes, models) => {
-  autoStore.update(() => auto);
-  numberofrunsStore.update(() => numOfRuns);
+export const updateStore = (numOfRuns, backends, dataTypes, modelTypes, models) => {
+  numberOfRunsStore.update(() => numOfRuns);
   backendsStore.update(() => backends);
   dataTypesStore.update(() => dataTypes);
   modelTypesStore.update(() => modelTypes);
@@ -52,15 +42,55 @@ export const updateStore = (auto, numOfRuns, backends, dataTypes, modelTypes, mo
 }
 
 /**
+ * @type {boolean}
+ */
+let auto;
+autoStore.subscribe((value) => {
+  auto = value;
+});
+
+/**
  * @type {number}
  */
 let numOfRuns;
 
-numberofrunsStore.subscribe((value) => {
+numberOfRunsStore.subscribe((value) => {
   numOfRuns = value;
 });
 
-export const goTo = (selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes) => {
+/**
+ * @type {string[]}
+ */
+let selectedBackends;
+backendsStore.subscribe((value) => {
+  selectedBackends = value;
+});
+
+/**
+ * @type {string[]}
+ */
+let selectedModelTypes;
+modelTypesStore.subscribe((value) => {
+  selectedModelTypes = value;
+});
+
+/**
+ * @type {string[]}
+ */
+let selectedDataTypes;
+dataTypesStore.subscribe((value) => {
+  selectedDataTypes = value;
+});
+
+/**
+ * @type {string[]}
+ */
+let selectedModels;
+modelsStore.subscribe((value) => {
+  selectedModels = value;
+});
+
+export const goTo = () => {
   if (selectedModels.length > 0 && selectedBackends.length > 0 && selectedDataTypes.length > 0 && selectedModelTypes.length > 0) {
     if (selectedBackends.length > 0 && selectedBackends.length <= 8) {
       let backend;
@@ -85,8 +115,20 @@ export const goTo = (selectedModels, selectedBackends, selectedDataTypes, select
       }
 
       let model = selectedModels.toString();
+      let url;
 
-      let url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
+      console.log(location.href + ' ' + location.pathname)
+
+      if (location.pathname === '/' || location.pathname === '/web-ai-benchmark') {
+        url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
+      } else {
+        if (!auto) {
+          url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
+        } else {
+          url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
+        }
+      }
+
       goto(url);
     }
   } else {
@@ -95,7 +137,7 @@ export const goTo = (selectedModels, selectedBackends, selectedDataTypes, select
   }
 }
 
-export const testQueue = (models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes) => {
+export const testQueue = () => {
   /**
    * @type {string[]}
    */
@@ -131,5 +173,83 @@ export const testQueue = (models, selectedModels, selectedBackends, selectedData
     }
 
     testQueueStore.update(() => testQueue);
+  }
+};
+
+export const stringToArray = (value) => {
+  if (value.indexOf(',') > -1) {
+    value = value.split(',');
+  } else {
+    value = [value];
+  }
+  return value;
+};
+
+export const urlToStoreHome = (urlSearchParams) => {
+  if (urlSearchParams.size > 0) {
+    let modelType = urlSearchParams.get('modeltype');
+    let dataType = urlSearchParams.get('datatype');
+    let backend = urlSearchParams.get('backend');
+    let numOfRuns = urlSearchParams.get('run');
+    let model = urlSearchParams.get('model');
+
+    if (modelType.indexOf(',') > -1) {
+      modelType = stringToArray(modelType);
+    } else if (modelType.toLowerCase() === 'all') {
+      modelType = ['onnx', 'tflite', 'npy', 'pt'];
+    } else {
+      modelType = [modelType];
+    }
+
+    if (dataType.indexOf(',') > -1) {
+      dataType = stringToArray(dataType);
+    } else if (dataType.toLowerCase() === 'all') {
+      dataType = ['fp32', 'fp16', 'int8'];
+    } else {
+      dataType = [dataType];
+    }
+
+    if (backend.indexOf(',') > -1) {
+      backend = stringToArray(backend);
+    } else if (backend.toLowerCase() === 'all') {
+      backend = [
+        'wasm_1',
+        'wasm_4',
+        'webgl',
+        'webgpu',
+        'webnn_cpu_1',
+        'webnn_cpu_4',
+        'webnn_gpu',
+        'webnn_npu'
+      ];
+    } else {
+      backend = [backend];
+    }
+
+    if (model) {
+      if (model.indexOf(',') > -1) {
+        model = stringToArray(model);
+      } else {
+        model = [model];
+      }
+    } else {
+      model = 'none';
+    }
+
+    numOfRuns = parseInt(numOfRuns);
+
+    if (numOfRuns <= 1) {
+      numOfRuns = 1;
+    } else if (numOfRuns > 1000) {
+      numOfRuns = 1000;
+    }
+
+    if (modelType && dataType && backend && model) {
+      if (numOfRuns) {
+        updateStore(numOfRuns, backend, dataType, modelType, model);
+      } else {
+        updateStore(1, backend, dataType, modelType, model);
+      }
+    }
   }
 };

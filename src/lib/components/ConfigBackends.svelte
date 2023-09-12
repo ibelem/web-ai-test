@@ -1,7 +1,5 @@
 <script>
-	import { backendsStore, dataTypesStore, modelTypesStore, modelsStore } from '../store';
-	import { models } from '$lib/config';
-	import { page } from '$app/stores';
+	import { backendsStore } from '../store/store';
 	import { testQueue, goTo } from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 
@@ -25,30 +23,6 @@
 	let selectedBackends;
 	const unsubscribeBackends = backendsStore.subscribe((value) => {
 		selectedBackends = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedModelTypes;
-	const unsubscribeModelTypes = modelTypesStore.subscribe((value) => {
-		selectedModelTypes = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedDataTypes;
-	const unsubscribeDataTypes = dataTypesStore.subscribe((value) => {
-		selectedDataTypes = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedModels;
-	const unsubscribeModels = modelsStore.subscribe((value) => {
-		selectedModels = value;
 	});
 
 	const toggleBackends = () => {
@@ -75,12 +49,8 @@
 		let invertBackends = allBackends.filter((item) => !selectedBackends.includes(item));
 		backendsStore.update((arr) => invertBackends);
 
-		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
-			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
-			goTo(selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
-		} else {
-			console.log('TBD for RUN pages');
-		}
+		testQueue();
+		goTo();
 	};
 
 	const toggleBackend = (/** @type {string} */ backend) => {
@@ -100,12 +70,8 @@
 			backendsStore.update((arr) => [...arr, backend]);
 		}
 
-		if ($page.url.pathname === '/' || $page.url.pathname === '/web-ai-benchmark') {
-			testQueue(models, selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
-			goTo(selectedModels, selectedBackends, selectedDataTypes, selectedModelTypes);
-		} else {
-			console.log('TBD for RUN pages');
-		}
+		testQueue();
+		goTo();
 	};
 
 	onMount(() => {
