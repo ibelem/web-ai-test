@@ -45,7 +45,11 @@
 	};
 
 	const runTests = async () => {
-		if (testQueue[0] && location.pathname.replace('/run/', '') === testQueue[0].model) {
+		if (
+			testQueue[0] &&
+			location.pathname.replace('/web-ai-benchmark/run/', '').replace('/run/', '') ===
+				testQueue[0].model
+		) {
 			let t0 = testQueue[0];
 			let r = {
 				id: t0.id,
