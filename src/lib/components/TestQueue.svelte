@@ -1,11 +1,5 @@
 <script>
 	import { testQueueStore } from '../../lib/store/store';
-	import {
-		stringToArray,
-		urlToStoreHome,
-		updateStore,
-		clearTestQueue
-	} from '../../lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}

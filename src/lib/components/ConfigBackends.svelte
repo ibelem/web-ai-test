@@ -1,6 +1,6 @@
 <script>
 	import { backendsStore } from '../store/store';
-	import { testQueue, goTo } from '$lib/assets/js/utils';
+	import { updateTestQueue, goTo } from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 
 	/**
@@ -21,7 +21,7 @@
 	 * @type {string[]}
 	 */
 	let selectedBackends;
-	const unsubscribeBackends = backendsStore.subscribe((value) => {
+	backendsStore.subscribe((value) => {
 		selectedBackends = value;
 	});
 
@@ -49,7 +49,7 @@
 		let invertBackends = allBackends.filter((item) => !selectedBackends.includes(item));
 		backendsStore.update((arr) => invertBackends);
 
-		testQueue();
+		updateTestQueue();
 		goTo();
 	};
 
@@ -70,7 +70,7 @@
 			backendsStore.update((arr) => [...arr, backend]);
 		}
 
-		testQueue();
+		updateTestQueue();
 		goTo();
 	};
 
