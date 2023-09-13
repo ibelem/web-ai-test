@@ -1,4 +1,4 @@
-import { autoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, resultStore } from '../../store/store'
+import { autoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, resultsStore } from '../../store/store'
 import { models } from '../../config';
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
@@ -26,7 +26,11 @@ export const getGpu = () => {
 }
 
 export const addResult = (result) => {
-  resultStore.update((arr) => [...arr, result]);
+  resultsStore.update((arr) => [...arr, result]);
+}
+
+export const resetResult = () => {
+  resultsStore.update(() => []);
 }
 
 export const clearTestQueue = () => {
@@ -49,6 +53,7 @@ export const resetStore = () => {
   modelTypesStore.update(() => []);
   modelsStore.update(() => []);
   testQueueStore.update(() => []);
+  resultsStore.update(() => []);
 }
 
 /**
@@ -100,6 +105,14 @@ modelsStore.subscribe((value) => {
   selectedModels = value;
 });
 
+/**
+ * @type {string[]}
+ */
+let testQueue;
+testQueueStore.subscribe((value) => {
+  testQueue = value;
+});
+
 export const goTo = () => {
   if (selectedModels.length > 0 && selectedBackends.length > 0 && selectedDataTypes.length > 0 && selectedModelTypes.length > 0) {
     if (selectedBackends.length > 0 && selectedBackends.length <= 8) {
@@ -127,8 +140,6 @@ export const goTo = () => {
       let model = selectedModels.toString();
       let url;
 
-      console.log(location.href + ' ' + location.pathname)
-
       if (location.pathname === '/' || location.pathname === '/web-ai-benchmark') {
         url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
       } else {
@@ -147,7 +158,7 @@ export const goTo = () => {
   }
 }
 
-export const testQueue = () => {
+export const updateTestQueue = () => {
   /**
    * @type {string[]}
    */
@@ -194,6 +205,11 @@ export const stringToArray = (value) => {
   }
   return value;
 };
+
+export const filterTestQueue = (id) => {
+  let filteredTestQueue = testQueue.filter((testQueue) => testQueue.id !== id);
+  testQueueStore.update(() => filteredTestQueue);
+}
 
 export const urlToStoreHome = (urlSearchParams) => {
   if (urlSearchParams.size > 0) {
@@ -263,3 +279,5 @@ export const urlToStoreHome = (urlSearchParams) => {
     }
   }
 };
+
+export const sleep = (time) => new Promise(resolve => setTimeout(resolve, time));

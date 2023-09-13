@@ -1,14 +1,13 @@
 <script>
-	import { testQueue, goTo } from '$lib/assets/js/utils';
+	import { updateTestQueue, goTo } from '$lib/assets/js/utils';
 	import { modelTypesStore, dataTypesStore } from '../store/store';
 	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
 
 	/**
 	 * @type {string[]}
 	 */
 	let selectedModelTypes;
-	const unsubscribeModelTypes = modelTypesStore.subscribe((value) => {
+	modelTypesStore.subscribe((value) => {
 		selectedModelTypes = value;
 	});
 
@@ -16,7 +15,7 @@
 	 * @type {string[]}
 	 */
 	let selectedDataTypes;
-	const unsubscribeDataTypes = dataTypesStore.subscribe((value) => {
+	dataTypesStore.subscribe((value) => {
 		selectedDataTypes = value;
 	});
 
@@ -61,7 +60,7 @@
 		 */
 		const invertDataTypes = allDataTypes.filter((item) => !selectedDataTypes.includes(item));
 		dataTypesStore.update((arr) => invertDataTypes);
-		testQueue();
+		updateTestQueue();
 		goTo();
 	};
 
@@ -80,7 +79,7 @@
 		} else {
 			dataTypesStore.update((arr) => [...arr, dataType]);
 		}
-		testQueue();
+		updateTestQueue();
 		goTo();
 	};
 
@@ -96,7 +95,7 @@
 		 */
 		const invertModelTypes = allModelTypes.filter((item) => !selectedModelTypes.includes(item));
 		modelTypesStore.update((arr) => invertModelTypes);
-		testQueue();
+		updateTestQueue();
 		goTo();
 	};
 
@@ -117,7 +116,7 @@
 			modelTypesStore.update((arr) => [...arr, modelType]);
 		}
 
-		testQueue();
+		updateTestQueue();
 		goTo();
 	};
 

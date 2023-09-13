@@ -375,3 +375,28 @@ padding: 2px 4px 2px 4px;
     margin-bottom: 4px;
   }
 }
+
+.run {
+  text-align: center;
+  margin-top: 1em;
+}
+.run button {
+  padding: 4px 16px;
+  background-color: var(--green);
+  border: 1px solid var(--green);
+  color: white;
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+  box-shadow:
+    var(--green) 0px 10px 20px -12px,
+    var(--green) 0px 18px 16px -18px;
+}
+
+.run button:hover {
+  background-color: var(--pink);
+  border: 1px solid var(--pink);
+  box-shadow:
+    var(--pink) 0px 6px 12px -8px,
+    var(--pink) 0px 12px 10px -12px;
+}

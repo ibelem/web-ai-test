@@ -7,4 +7,4 @@ export const modelTypesStore = persisted('modelTypesStore', []);
 export const modelsStore = persisted('modelsStore', []);
 export const autoStore = persisted('autoStore', false);
 export const testQueueStore = persisted('testQueueStore', []);
-export const resultStore = persisted('resultQueueStore', []);
+export const resultsStore = persisted('resultsStore', []);
