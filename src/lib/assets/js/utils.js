@@ -41,6 +41,16 @@ export const updateStore = (numOfRuns, backends, dataTypes, modelTypes, models) 
   modelsStore.update(() => models);
 }
 
+export const resetStore = () => {
+  autoStore.update(() => false);
+  numberOfRunsStore.update(() => 1);
+  backendsStore.update(() => []);
+  dataTypesStore.update(() => []);
+  modelTypesStore.update(() => []);
+  modelsStore.update(() => []);
+  testQueueStore.update(() => []);
+}
+
 /**
  * @type {boolean}
  */
@@ -144,10 +154,10 @@ export const testQueue = () => {
   let testQueue = [];
   if (selectedModels) {
     let id = 1;
-    for (const b of selectedBackends) {
+    for (const m of selectedModels) {
       for (const dt of selectedDataTypes) {
-        for (const mt of selectedModelTypes) {
-          for (const m of selectedModels) {
+        for (const b of selectedBackends) {
+          for (const mt of selectedModelTypes) {
             const matchedModels = models.filter(
               (model) => model.id === m && model.format === mt && model.datatype === dt
             );
@@ -159,8 +169,8 @@ export const testQueue = () => {
 
               let t = {
                 id: id,
-                modeltype: mt,
                 model: m,
+                modeltype: mt,
                 datatype: dt,
                 backend: b
               }

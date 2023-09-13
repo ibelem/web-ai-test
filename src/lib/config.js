@@ -115,7 +115,7 @@ export let models = [
     id: 'fns_candy',
     name: 'FNS Candy',
     url: 'https://github.com/microsoft/Windows-Machine-Learning/raw/master/Samples/CustomTensorization/CustomTensorization/fns-candy.onnx',
-    format: 'onnx',
+    format: 'pt',
     datatype: 'fp32'
   },
 ];
