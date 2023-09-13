@@ -1,65 +1,13 @@
 <script>
 	import Environment from '$lib/components/Environment.svelte';
 	import Config from '$lib/components/Config.svelte';
+	import TestQueue from '$lib/components/TestQueue.svelte';
 	import { beforeUpdate, onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
-	import {
-		autoStore,
-		numberOfRunsStore,
-		backendsStore,
-		modelTypesStore,
-		dataTypesStore,
-		modelsStore,
-		testQueueStore
-	} from '../lib/store/store';
-	import {
-		stringToArray,
-		urlToStoreHome,
-		updateStore,
-		clearTestQueue
-	} from '../lib/assets/js/utils';
-
-	/**
-	 * @type {boolean}
-	 */
-	let auto;
-	autoStore.subscribe((value) => {
-		auto = value;
-	});
-
-	/**
-	 * @type {number}
-	 */
-	let selectedNumOfRuns;
-
-	numberOfRunsStore.subscribe((value) => {
-		selectedNumOfRuns = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedBackends;
-	backendsStore.subscribe((value) => {
-		selectedBackends = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedModelTypes;
-	modelTypesStore.subscribe((value) => {
-		selectedModelTypes = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedDataTypes;
-	dataTypesStore.subscribe((value) => {
-		selectedDataTypes = value;
-	});
+	import { goto } from '$app/navigation';
+	import { autoStore, modelsStore } from '../lib/store/store';
+	import { urlToStoreHome, clearTestQueue, resetStore } from '../lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}
@@ -69,16 +17,10 @@
 		selectedModels = value;
 	});
 
-	/**
-	 * @type {string[]}
-	 */
-	let testQueue;
-	testQueueStore.subscribe((value) => {
-		testQueue = value;
-	});
-
 	const runTests = () => {
 		autoStore.update(() => true);
+		let path = `${base}/onnx/${selectedModels[0]}`;
+		goto(path);
 	};
 
 	beforeUpdate(() => {
@@ -91,23 +33,14 @@
 
 <div>
 	<Config />
-	<div class="temp">
-		<span class="tobe">To be tested</span>
-		<br />Backends: {selectedBackends}
-		<br />Model Types: {selectedModelTypes}
-		<br />Data Types: {selectedDataTypes}
-		<br />Models: {selectedModels}
-		<br />Number of Runs: {selectedNumOfRuns}<br /><br />
-		<div class="testqueue">{JSON.stringify(testQueue)}</div>
-		<br /><br />
-		{#if selectedModels[0]}
-			<a href="{base}/onnx/{selectedModels[0]}">Go to {selectedModels[0]}</a>
-		{/if}
+	<TestQueue />
 
-		<div>
+	<div class="temp">
+		{#if selectedModels[0]}
 			<button on:click|once={runTests}>Run Tests</button>
-			<button on:click|once={clearTestQueue}> Clear STORE </button>
-		</div>
+		{/if}
+		<button on:click|once={clearTestQueue}> Clear Test Queue </button>
+		<button on:click|once={resetStore}> Reset Store </button>
 	</div>
 
 	<Environment />
@@ -116,26 +49,26 @@
 <style>
 	.temp {
 		text-align: center;
+		margin-top: 1em;
 	}
-	.tobe {
-		padding: 4px 16px;
-		background-color: var(--pink);
-		color: white;
-		display: inline-block;
-		margin: 10px;
-	}
-	a {
+	button {
 		padding: 4px 16px;
 		background-color: var(--green);
+		border: 1px solid var(--green);
 		color: white;
 		display: inline-block;
 		margin: 10px;
+		cursor: pointer;
+		box-shadow:
+			var(--green) 0px 10px 20px -12px,
+			var(--green) 0px 18px 16px -18px;
 	}
 
-	a:hover {
-		background-color: var(--red);
-	}
-	.testqueue {
-		text-align: left;
+	button:hover {
+		background-color: var(--pink);
+		border: 1px solid var(--pink);
+		box-shadow:
+			var(--pink) 0px 6px 12px -8px,
+			var(--pink) 0px 12px 10px -12px;
 	}
 </style>

@@ -68,7 +68,11 @@ header nav {
   grid-row-gap: 8px;
   padding: 10px;
   align-items: center;
-  border-bottom: 1px solid var(--grey-border);
+  border: 1px solid var(--grey-02);
+}
+
+.config:hover {
+  border: 1px solid var(--red);
 }
 
 .config label {
@@ -90,10 +94,6 @@ header nav {
 
 .config .backends, .config .models, .config .numofruns {
   justify-self: flex-start;
-}
-
-.config .title {
-  justify-self: center;
 }
 
 .config .title label {
@@ -145,7 +145,19 @@ header nav {
   color: var(--font);
 }
 
-.config label:hover {
+.config .title {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-items: center;
+}
+.config .title:hover {
+  background-color: var(--red-01);
+  color: var(--red);
+}
+
+.config .backends label:hover, .config .types label:hover, .config .backends label:hover, .config .models label:hover {
   background-color: var(--red-01);
   color: var(--red);
 }
@@ -185,6 +197,83 @@ header nav {
   height: 14px;
 }
 
+.tq {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows:auto;
+  grid-column-gap: 20px;
+  grid-row-gap: 0px;
+}
+
+.tq svg {
+  display: inline-block;
+  height: 13px;
+}
+
+.tq .onnx svg, .tq .tflite svg, .tq .npy svg, .tq .pt svg {
+  width: 16px;
+}
+
+.tq #logo_onnx {
+  margin: 0 0 -1px 0px;
+}
+
+.tq #logo_tflite {
+  margin: 0 0 -1px 0px;
+}
+
+.tq #logo_npy {
+  margin: 0 0 -1px -2px;
+}
+
+.tq #logo_pt {
+  margin: 0 0 -1px 2px;
+}
+
+.q div {
+  display: inline-block;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.q {
+  padding-top: 3px;
+  margin-bottom: 2px;
+  border: 1px solid var(--grey-02);
+}
+
+.q:hover {
+  border: 1px solid var(--red);
+}
+
+.tq .m, .tq .mt, .tq .dt, .tq .bk {
+  height: 18px;
+}
+
+.tq .m, .tq .dt, .tq .bk {
+padding: 2px 4px 2px 4px;
+}
+ 
+.tq .mt {
+  padding: 2px 2px 2px 2px;
+  width: 18px;
+  margin-bottom: -1px;
+}
+
+.q .m {
+  width: 200px;
+}
+
+.q .dt {
+  width: 60px;
+}
+
+.q .bk {
+  width: 100px;
+}
+
 .types svg#logo_pt {
   width: 60px;
   margin-bottom: -3px;
@@ -219,10 +308,10 @@ header nav {
   fill: var(--red) !important;
 }
 
-.types .npy-1 {
+.npy-1 {
   fill: rgb(77, 171, 207);
 }
-.types .npy-2 {
+.npy-2 {
   fill: rgb(77, 119, 207);
 }
 
