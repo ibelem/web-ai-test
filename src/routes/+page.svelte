@@ -9,7 +9,7 @@
 	import { goto } from '$app/navigation';
 	import { onDestroy } from 'svelte';
 	import { autoStore, testQueueStore } from '../lib/store/store';
-	import { urlToStoreHome } from '../lib/assets/js/utils';
+	import { resetResult, urlToStoreHome, sleep } from '../lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}
@@ -19,8 +19,10 @@
 		testQueue = value;
 	});
 
-	const runTests = () => {
+	const run = async () => {
 		autoStore.update(() => true);
+		resetResult();
+		sleep(5000);
 		let path = `${base}/run/${testQueue[0].model}`;
 		goto(path);
 	};
@@ -40,7 +42,7 @@
 
 	<div class="run">
 		{#if testQueue[0]}
-			<button on:click={runTests}>Run Tests</button>
+			<button on:click={run}>Run Tests</button>
 		{/if}
 	</div>
 

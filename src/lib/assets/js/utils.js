@@ -25,8 +25,43 @@ export const getGpu = () => {
   }
 }
 
-export const addResult = (result) => {
-  resultsStore.update((arr) => [...arr, result]);
+export const initResult = (newItem) => {
+  resultsStore.update(items => {
+    const exists = items.some(item =>
+      item.model === newItem.model &&
+      item.modeltype === newItem.modeltype &&
+      item.datatype === newItem.datatype
+    );
+
+    if (!exists) {
+      return [...items, newItem];
+    }
+
+    return items;
+  });
+}
+
+export const addResult = (model, modeltype, datatype, backend, backendstatus, backendinference) => {
+  resultsStore.update(items => {
+    return items.map(item => {
+      if (
+        item.model === model &&
+        item.modeltype === modeltype &&
+        item.datatype === datatype
+      ) {
+        const updatedItem = { ...item };
+        for (const key in updatedItem) {
+          if (key !== "id" && key !== "model" && key !== "modeltype" && key !== "datatype") {
+            updatedItem[backend].status = backendstatus;
+            updatedItem[backend].inference = backendinference;
+          }
+        }
+        return updatedItem;
+      }
+      return item;
+    });
+  });
+
 }
 
 export const resetResult = () => {
@@ -158,6 +193,22 @@ export const goTo = () => {
   }
 }
 
+export const filterTestQueue = (id) => {
+  let filteredTestQueue = testQueue.filter((testQueue) => testQueue.id !== id);
+  testQueueStore.update(() => filteredTestQueue);
+}
+
+export const updateTestQueueStatus = (id, status) => {
+  testQueueStore.update(items => {
+    return items.map(item => {
+      if (item.id === id) {
+        return { ...item, status: status };
+      }
+      return item;
+    });
+  });
+}
+
 export const updateTestQueue = () => {
   /**
    * @type {string[]}
@@ -172,14 +223,13 @@ export const updateTestQueue = () => {
             const matchedModels = models.filter(
               (model) => model.id === m && model.format === mt && model.datatype === dt
             );
-
             if (matchedModels.length > 0) {
-
               // t = `${mt} ${m} ${dt} ${b}`;
               // testQueue.push(t);
-
+              // Status: 0 Not selected, 1 Not started, 2 In testing, 3 Completed, 4 Fail or Error
               let t = {
                 id: id,
+                status: 1,
                 model: m,
                 modeltype: mt,
                 datatype: dt,
@@ -192,7 +242,6 @@ export const updateTestQueue = () => {
         }
       }
     }
-
     testQueueStore.update(() => testQueue);
   }
 };
@@ -205,11 +254,6 @@ export const stringToArray = (value) => {
   }
   return value;
 };
-
-export const filterTestQueue = (id) => {
-  let filteredTestQueue = testQueue.filter((testQueue) => testQueue.id !== id);
-  testQueueStore.update(() => filteredTestQueue);
-}
 
 export const urlToStoreHome = (urlSearchParams) => {
   if (urlSearchParams.size > 0) {
@@ -281,3 +325,27 @@ export const urlToStoreHome = (urlSearchParams) => {
 };
 
 export const sleep = (time) => new Promise(resolve => setTimeout(resolve, time));
+
+export const random = () => {
+  return (Math.random() * (1000 - 1) + 1).toFixed(2);
+};
+
+export const median = (arr, length) => {
+  if (arr.length == 0) {
+    return;
+  }
+  const sorted = arr.sort((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+
+  if (sorted.length % 2 === 0) {
+    let evenSum = 0;
+    if (length === 0) {
+      evenSum = parseInt(sorted[middle - 1]) + parseInt(sorted[middle]);
+    } else if (length === 2) {
+      evenSum = parseFloat(sorted[middle - 1]) + parseFloat(sorted[middle]);
+    }
+    return (evenSum / 2.0).toFixed(length);
+  } else {
+    return sorted[middle];
+  }
+};

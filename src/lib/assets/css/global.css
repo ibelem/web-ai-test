@@ -201,17 +201,72 @@ header nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows:auto;
-  grid-column-gap: 20px;
+  grid-column-gap: 0px;
   grid-row-gap: 0px;
 }
 
-.tq svg {
+.tq svg, .result svg {
   display: inline-block;
-  height: 13px;
+}
+
+.result .s {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tq .s svg, .result .s svg {
+  height: 16px;
+  padding-top: 2px;
+}
+
+.tq .s svg path, .result .s svg path {
+  fill: var(--grey);
+}
+
+@keyframes spin { 
+  from { 
+    transform: rotate(0deg); 
+  } 
+  to { 
+    transform: rotate(360deg); 
+  }
+}
+
+.q:hover .s svg path {
+  fill: var(--green);
+}
+
+.result .q:hover .status_1 svg path {
+  fill: var(--grey) !important;
+}
+
+.result .q:hover .status_2 svg path {
+  fill: var(--orange) !important;
+}
+
+.result .q:hover .status_3 svg path {
+  fill: var(--green) !important;
+}
+
+.result .q:hover .status_4 svg path {
+  fill: var(--red) !important;
+}
+
+.status_2 svg path {
+  fill: var(--green) !important;
+  animation: spin 2000ms linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 .tq .onnx svg, .tq .tflite svg, .tq .npy svg, .tq .pt svg {
   width: 16px;
+}
+
+.result .onnx svg, .result .tflite svg, .result .npy svg, .result .pt svg {
+  width: 16px;
+  margin-bottom: -2px;
 }
 
 .tq #logo_onnx {
@@ -230,7 +285,7 @@ header nav {
   margin: 0 0 -1px 2px;
 }
 
-.q div {
+.tq .q div {
   display: inline-block;
   text-align: center;
   overflow: hidden;
@@ -238,21 +293,25 @@ header nav {
   text-overflow: ellipsis;
 }
 
-.q {
+.tq .q {
   padding-top: 3px;
-  margin-bottom: 2px;
+  margin: 0 -1px -1px 0;
   border: 1px solid var(--grey-02);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows:auto;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  justify-items: center;
 }
 
-.q:hover {
-  border: 1px solid var(--red);
+.tq .q:hover, .result .q:hover {
+  background-color: var(--green-002);
+  border-bottom: 1px solid var(--green);
 }
 
-.tq .m, .tq .mt, .tq .dt, .tq .bk {
-  height: 18px;
-}
-
-.tq .m, .tq .dt, .tq .bk {
+.tq .s, .tq .m, .tq .dt, .tq .bk,
+.result .s, .result .m, .result .dt, .result .bk {
 padding: 2px 4px 2px 4px;
 }
  
@@ -262,15 +321,19 @@ padding: 2px 4px 2px 4px;
   margin-bottom: -1px;
 }
 
-.q .m {
-  width: 200px;
+.tq .q .s {
+  width: 20px;
 }
 
-.q .dt {
+.tq .q .m {
+  width: 140px;
+}
+
+.tq .q .dt {
   width: 60px;
 }
 
-.q .bk {
+.tq .q .bk {
   width: 100px;
 }
 
@@ -325,6 +388,10 @@ padding: 2px 4px 2px 4px;
 
 .types svg#logo_npy {
   margin-bottom: -2px;
+}
+
+.types div {
+  display: inline-block;
 }
 
 .types .true svg#logo_npy .npy-1, .types .true svg#logo_npy .npy-2 {
@@ -399,4 +466,97 @@ padding: 2px 4px 2px 4px;
   box-shadow:
     var(--pink) 0px 6px 12px -8px,
     var(--pink) 0px 12px 10px -12px;
+}
+
+.result .title {
+  border: 0px solid transparent !important;
+  padding: 2px 10px 6px 10px;
+  border-bottom: 1px solid var(--green) !important;
+}
+
+.result .q div {
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.result .q {
+  border-bottom: 1px solid var(--grey-02);
+  display: grid;
+  grid-template-rows:auto;
+  grid-column-gap: 0px;
+  grid-row-gap: 10px;
+  justify-items: center;
+  align-items: center;
+  padding: 6px;
+}
+
+.result .q._1 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.result .q._2 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.result .q._3 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.result .q._4 {
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.result .q._5 {
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.result .q._6 {
+  grid-template-columns: repeat(9, 1fr);
+}
+
+.result .q._7 {
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.result .q._8 {
+  grid-template-columns: repeat(11, 1fr);
+}
+
+
+@media (max-width: 1024px) { 
+  .tq {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) { 
+  .tq {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .group label {
+    margin-left: 0px;
+  }
+
+  .group.true {
+    background-color: transparent;
+  }
+
+  .group.true label {
+    background-color: var(--red);
+    color: var(--white);
+  }
+
+  .group.true span {
+    color: var(--font);
+    display: block;
+  }
+
+  .types div:last-child {
+    margin-top: 4px;
+  }
+
+  .config .models label {
+    width: 98px;
+  }
 }
