@@ -73,4 +73,10 @@
 	.numofruns label:hover {
 		background-color: transparent;
 	}
+
+	@media (max-width: 500px) {
+		input[type='range'] {
+			width: 39vw;
+		}
+	}
 </style>

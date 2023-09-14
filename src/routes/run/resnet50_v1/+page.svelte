@@ -6,8 +6,14 @@
 	import ConfigModelsManual from '$lib/components/ConfigModelsManual.svelte';
 	import Results from '$lib/components/Results.svelte';
 	import TestQueue from '$lib/components/TestQueue.svelte';
-	import { autoStore, modelsStore, testQueueStore } from '../../../lib/store/store';
-	import { addResult, filterTestQueue, sleep } from '../../../lib/assets/js/utils';
+	import { autoStore, modelsStore, backendsStore, testQueueStore } from '../../../lib/store/store';
+	import {
+		initResult,
+		addResult,
+		filterTestQueue,
+		sleep,
+		random
+	} from '../../../lib/assets/js/utils';
 	import { base } from '$app/paths';
 	import { goto } from '$app/navigation';
 
@@ -30,6 +36,14 @@
 	/**
 	 * @type {string[]}
 	 */
+	let selectedBackends;
+	backendsStore.subscribe((value) => {
+		selectedBackends = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
 	let testQueue;
 	testQueueStore.subscribe((value) => {
 		testQueue = value;
@@ -40,11 +54,7 @@
 	 */
 	let info;
 
-	const random = () => {
-		return Math.floor(Math.random() * 2);
-	};
-
-	const runTests = async () => {
+	const run = async () => {
 		if (
 			testQueue[0] &&
 			location.pathname.replace('/web-ai-benchmark/run/', '').replace('/run/', '') ===
@@ -55,13 +65,33 @@
 				id: t0.id,
 				model: t0.model,
 				modeltype: t0.modeltype,
-				datatype: t0.datatype,
-				backend: t0.backend,
-				inferencetime: [random(), random(), random(), random(), random()]
+				datatype: t0.datatype
 			};
+
+			for (const prop of selectedBackends) {
+				r[prop] = {
+					status: 1,
+					inference: []
+				};
+			}
+
+			initResult(r);
+
+			info = `${t0.model}-${t0.modeltype}-${t0.datatype}-${t0.backend} - Start`;
+			await sleep(3000);
+			addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 1, []);
+
+			await sleep(5000);
+			info = `${t0.model}-${t0.modeltype}-${t0.datatype}-${t0.backend} - Testing`;
+			addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 2, []);
+
+			await sleep(10000);
+
+			addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 3, [random(), random(), random()]);
+
+			info = `${t0.model}-${t0.modeltype}-${t0.datatype}-${t0.backend} - Completed`;
 			filterTestQueue(t0.id);
-			addResult(r);
-			runTests();
+			run();
 		} else if (testQueue[0]) {
 			console.log(testQueue[0].model);
 			let path = `${base}/run/${testQueue[0].model}`;
@@ -69,7 +99,7 @@
 			await sleep(5000);
 			goto(path);
 		} else {
-			info = `Test completed`;
+			info = `All tests completed`;
 			let path = `${base}/`;
 			goto(path);
 		}
@@ -79,7 +109,7 @@
 
 	onMount(() => {
 		if (auto) {
-			runTests();
+			run();
 		}
 	});
 </script>
@@ -97,13 +127,15 @@
 
 	<div class="run">
 		{#if selectedModels[0] && !auto}
-			<button on:click={runTests}>Run Tests</button>
+			<button on:click={run}>Run Tests</button>
 		{/if}
 	</div>
 
-	<div class="info">
-		{info}
-	</div>
+	{#if info}
+		<div class="info">
+			{info}
+		</div>
+	{/if}
 	<Results />
 	<Environment />
 </div>
