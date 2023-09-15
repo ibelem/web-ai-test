@@ -31,6 +31,9 @@
 <Info />
 
 {#if results.length > 0}
+	<div class="rqtitle">
+		<div class="title rq">Inference Time (Median)</div>
+	</div>
 	<div class="result">
 		<div class="q title _{selectedBackends.length}">
 			<div class="m">Model</div>
@@ -40,37 +43,36 @@
 				{#each selectedBackends as backend}
 					<div class="backend">
 						{#if backend === 'wasm_1'}
-							Wasm 1 thread
+							<span title="WebAssembly SIMD with 1 thread">Wasm 1T</span>
 						{/if}
 						{#if backend === 'wasm_4'}
-							Wasm 4 threads
+							<span title="WebAssembly SIMD with 4 threads">Wasm 4T</span>
 						{/if}
 						{#if backend === 'webgl'}
-							WebGL
+							<span title="WebGL">WebGL</span>
 						{/if}
 						{#if backend === 'webgpu'}
-							WebGPU
+							<span title="WebGPU">WebGPU</span>
 						{/if}
 						{#if backend === 'webnn_cpu_1'}
-							WebNN CPU 1 thread
+							<span title="WebNN CPU with 1 thread">WebNN CPU 1T</span>
 						{/if}
 						{#if backend === 'webnn_cpu_4'}
-							WebNN CPU 4 threads
+							<span title="WebNN CPU with 4 threads">WebNN CPU 4T</span>
 						{/if}
 						{#if backend === 'webnn_gpu'}
-							WebNN GPU
+							<span title="WebNN GPU">WebNN GPU</span>
 						{/if}
 						{#if backend === 'webnn_npu'}
-							WebNN NPU
+							<span title="WebNN NPU">WebNN NPU</span>
 						{/if}
-						(Median)
 					</div>
 				{/each}
 			{/if}
 		</div>
 		{#each Object.entries(results) as [index, key]}
 			<div class="q _{selectedBackends.length}">
-				<div class="m">{key.model}</div>
+				<div class="m">{key.model.replaceAll('_', ' ')}</div>
 
 				{#if key.modeltype === 'onnx'}
 					<div class="{key.modeltype} mt">
