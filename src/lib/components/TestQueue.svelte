@@ -1,10 +1,9 @@
 <script>
-	import { testQueueStore } from '../../lib/store/store';
-
+	import { testQueueStore } from '$lib/store/store';
 	/**
 	 * @type {string[]}
 	 */
-	let testQueue;
+	export let testQueue;
 	testQueueStore.subscribe((value) => {
 		testQueue = value;
 	});

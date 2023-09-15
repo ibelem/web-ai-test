@@ -1,5 +1,13 @@
 <script>
-	import { updateTestQueue, goTo } from '$lib/assets/js/utils';
+	import {
+		selectedModelTypes,
+		selectedDataTypes,
+		selectedModels,
+		updateTestQueue,
+		goTo,
+		resetInfo,
+		resetResult
+	} from '$lib/assets/js/utils';
 	import { models } from '../config';
 	import { modelTypesStore, dataTypesStore, modelsStore } from '../store/store';
 	import { onMount } from 'svelte';
@@ -12,30 +20,6 @@
 	for (const model of filteredModelIds) {
 		model['selected'] = false;
 	}
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedModelTypes;
-	modelTypesStore.subscribe((value) => {
-		selectedModelTypes = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedDataTypes;
-	dataTypesStore.subscribe((value) => {
-		selectedDataTypes = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedModels;
-	modelsStore.subscribe((value) => {
-		selectedModels = value;
-	});
 
 	/**
 	 * @type {any}
@@ -124,6 +108,7 @@
 		modelsStore.update(() => []);
 		updateTestQueue();
 		goTo();
+		resetInfo();
 	};
 
 	const toggleDataType = (/** @type {string} */ dataType) => {
@@ -144,6 +129,7 @@
 		}
 		updateTestQueue();
 		goTo();
+		resetInfo();
 	};
 
 	const toggleModelTypes = () => {
@@ -162,6 +148,7 @@
 		modelsStore.update(() => []);
 		updateTestQueue();
 		goTo();
+		resetInfo();
 	};
 
 	const toggleModelType = (/** @type {string} */ modelType) => {
@@ -184,6 +171,7 @@
 
 		updateTestQueue();
 		goTo();
+		resetInfo();
 	};
 
 	const toggleModels = () => {
@@ -202,6 +190,7 @@
 
 		updateTestQueue();
 		goTo();
+		resetInfo();
 	};
 
 	const toggleModel = (/** @type {string } */ model) => {
@@ -234,6 +223,8 @@
 
 		updateTestQueue();
 		goTo();
+		resetInfo();
+		resetResult();
 	};
 
 	onMount(() => {});
@@ -441,7 +432,7 @@
 			</label>
 		{/each}
 	{:else}
-		No model is available. Please choose a different model type or data type to proceed.
+		Choose model type and data type to get test models
 	{/if}
 </div>
 

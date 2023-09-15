@@ -55,7 +55,7 @@
 			</svg>
 		</a>
 	</div>
-	<Nav></Nav>
+	<div class="nav"><Nav></Nav></div>
 </header>
 
 <style>
