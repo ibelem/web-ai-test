@@ -9,7 +9,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { autoStore, testQueueStore } from '../lib/store/store';
-	import { resetResult, resetInfo, urlToStoreHome, sleep } from '../lib/assets/js/utils';
+	import { resetResult, resetInfo, urlToStoreHome } from '../lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}

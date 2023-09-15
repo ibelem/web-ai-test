@@ -59,6 +59,7 @@ header .nav {
 .environment {
   margin: 0px auto;
   padding: 10px;
+  text-align: center;
 }
 
 .config {
@@ -73,7 +74,7 @@ header .nav {
 }
 
 .config:hover {
-  border: 1px solid var(--red);
+  border: 1px solid var(--red-005);
 }
 
 .config label {
@@ -198,6 +199,55 @@ header .nav {
   height: 14px;
 }
 
+.tqtitle, .rqtitle {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.title.tq {
+  display: inline-block;
+  background-color: var(--red-005);
+  font-size: 1.2em;
+  padding: 6px 20px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.title.rq {
+  color: var(--green);
+  display: inline-block;
+  background-color: var(--green-005);
+  font-size: 1.2em;
+  padding: 6px 20px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.wasm_1 span, .wasm_4 span {
+  background-color: var(--pink-01);
+}
+
+.webgl span {
+  background-color: var(--blue-01);
+}
+
+.webgpu span {
+  background-color: var(--blue-02);
+}
+
+.webnn_cpu_1 span, .webnn_cpu_4 span {
+  background-color: var(--pink-03);
+}
+
+.webnn_gpu span {
+  background-color: var(--blue-03);
+}
+
+.webnn_npu span {
+  background-color: var(--purple);
+  color: var(--white);
+}
+
 .tq {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -228,7 +278,6 @@ header .nav {
 .copy {
   justify-content: flex-end;
   align-items: center;
-  margin-top: 4px;
   border-bottom: 0px solid transparent !important;
   padding-right: 20px !important;
 }
@@ -282,6 +331,22 @@ header .nav {
   fill: var(--orange) !important;
 }
 
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.q .blink_2 span {
+  animation: blink 1s steps(1, end) infinite;
+}
+
 .result .q:hover .status_2 svg path {
   fill: var(--orange) !important;
 }
@@ -310,6 +375,19 @@ header .nav {
   margin-bottom: -2px;
 }
 
+.result .onnx svg {
+  margin-bottom: -3px;
+}
+
+.result .npy svg {
+  margin-left: -2px;
+}
+
+.result .pt svg {
+  margin: 0 0 -4px 0px;
+  height: 16px;
+}
+
 .tq #logo_onnx {
   margin: 0 0 -1px 0px;
 }
@@ -323,7 +401,8 @@ header .nav {
 }
 
 .tq #logo_pt {
-  margin: 0 0 -1px 2px;
+  margin: 0 0 -4px 0px;
+  height: 16px;
 }
 
 .tq .q div {
@@ -332,10 +411,10 @@ header .nav {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding-top: 5px;
 }
 
 .tq .q {
-  padding-top: 3px;
   margin: 0 -1px -1px 0;
   border: 1px solid var(--grey-02);
   display: grid;
@@ -367,15 +446,22 @@ padding: 2px 4px 2px 4px;
 }
 
 .tq .q .m {
-  width: 140px;
+  width: 130px;
 }
 
 .tq .q .dt {
-  width: 60px;
+  width: 40px;
 }
 
 .tq .q .bk {
-  width: 100px;
+  width: 130px;
+}
+
+.tq .q .bk span {
+  display: inline-block;
+  width: 96px;
+  padding: 0px 0px 2px 0px;
+  border-radius: 9999px;
 }
 
 .types svg#logo_pt {
@@ -517,6 +603,14 @@ padding: 2px 4px 2px 4px;
 
 .result .q div {
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.result .q div.m {
+  padding-bottom: 4px;
+  height: 15px;
+  min-width: 134px;
   overflow: hidden;
   text-overflow: ellipsis;
 }

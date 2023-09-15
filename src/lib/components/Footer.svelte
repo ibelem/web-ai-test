@@ -14,7 +14,7 @@
 
 <style>
 	footer {
-		margin: 10px;
+		margin: 0 10px 20px 10px;
 		text-align: center;
 	}
 	.copyright {

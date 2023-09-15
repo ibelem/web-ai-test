@@ -323,8 +323,10 @@ export const urlToStoreHome = (urlSearchParams) => {
     if (modelType && dataType && backend && model) {
       if (numOfRuns) {
         updateStore(numOfRuns, backend, dataType, modelType, model);
+        updateTestQueue();
       } else {
         updateStore(1, backend, dataType, modelType, model);
+        updateTestQueue();
       }
     }
   }
@@ -376,9 +378,10 @@ export const runAuto = async () => {
     }
     initResult(r);
     addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 1, []);
+    updateTestQueueStatus(t0.id, 2);
     updateInfo(`Testing ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend ...`);
     addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 2, []);
-    await sleep(2000);
+    // await sleep(1000);
     updateInfo(`Test ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend completed`);
     addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 3, [random(), random(), random()]);
     filterTestQueue(t0.id);

@@ -9,11 +9,12 @@
 	});
 </script>
 
-<div class="title">
-	{#if testQueue.length > 0}
-		models to be tested
-	{/if}
-</div>
+{#if testQueue.length > 0}
+	<div class="tqtitle">
+		<div class="title tq">models to be tested</div>
+	</div>
+{/if}
+
 <div class="tq">
 	{#each testQueue as { id, status, model, modeltype, datatype, backend }, i}
 		<div class="q">
@@ -201,14 +202,13 @@
 				</div>
 			{/if}
 			<div class="{datatype} dt">{datatype}</div>
-			<div class="{backend} bk">{backend.replaceAll('_', ' ')}</div>
+			<div class="{backend} bk blink_{status}"><span>{backend.replaceAll('_', ' ')}</span></div>
 		</div>
 	{/each}
 </div>
 
 <style>
 	.title {
-		margin: 1em;
 		text-align: center;
 		color: var(--red);
 	}
