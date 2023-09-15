@@ -1,6 +1,6 @@
 <script>
 	import { numberOfRunsStore } from '../store/store';
-	import { updateTestQueue, goTo } from '$lib/assets/js/utils';
+	import { updateTestQueue, goTo, resetInfo } from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 
 	/**
@@ -16,6 +16,7 @@
 		numberOfRunsStore.update(() => numOfRuns);
 		updateTestQueue();
 		goTo();
+		resetInfo();
 	};
 
 	onMount(() => {});

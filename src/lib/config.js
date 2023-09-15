@@ -9,7 +9,8 @@ export let environment = {
   os: null,
   osVersion: null,
   webbrowser: null,
-  browserVersion: null
+  browserVersion: null,
+  onnxruntimeweb: 1.16
 };
 
 export let models = [

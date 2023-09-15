@@ -50,9 +50,10 @@ header {
   margin-top: 0;
 }
 
-header nav {
-  text-align: right;
-  margin-top: 20px;
+header .nav {
+  display: grid;
+  align-items: center;
+  justify-items: right;
 }
 
 .environment {
@@ -215,13 +216,45 @@ header nav {
   align-items: center;
 }
 
-.tq .s svg, .result .s svg {
+.tq .s svg, .result .s svg, .copy svg {
   height: 16px;
   padding-top: 2px;
 }
 
-.tq .s svg path, .result .s svg path {
+.tq .s svg path, .result .s svg path, .copy svg path {
   fill: var(--grey);
+}
+
+.copy {
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 4px;
+  border-bottom: 0px solid transparent !important;
+  padding-right: 20px !important;
+}
+
+.copy button {
+  border: 0px solid transparent;
+  background-color: transparent;
+  height: 16px;
+  cursor: pointer;
+  margin-left: -10px;
+}
+
+.copy:hover {
+  border-bottom: 0px solid transparent !important;
+}
+
+.copy:hover svg path {
+  fill: var(--orange);
+}
+
+.copy svg:hover path {
+  fill: var(--green);
+}
+
+.copy div {
+  overflow: auto !important;
 }
 
 @keyframes spin { 
@@ -237,8 +270,16 @@ header nav {
   fill: var(--green);
 }
 
-.result .q:hover .status_1 svg path {
-  fill: var(--grey) !important;
+.result .q .status_3 button {
+  border: 0px solid transparent;
+  background-color: transparent;
+  height: 16px;
+  margin: -6px 0 0 -6px;
+  cursor: pointer;
+}
+
+.result .q:hover .status_1 svg path, .tq .q:hover .status_1 svg path {
+  fill: var(--orange) !important;
 }
 
 .result .q:hover .status_2 svg path {

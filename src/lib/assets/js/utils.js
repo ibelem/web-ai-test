@@ -1,29 +1,9 @@
-import { autoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, resultsStore } from '../../store/store'
+import { autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, resultsStore } from '../../store/store'
 import { models } from '../../config';
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
-
-export const getGpu = () => {
-  const canvas = document.createElement('canvas');
-  const gl = canvas.getContext('webgl');
-  const debugInfo = gl?.getExtension('WEBGL_debug_renderer_info');
-  if (debugInfo) {
-    let renderer = gl?.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-
-    if (renderer) {
-      renderer = renderer.replace('(R)', '').replace('(TM)', '')
-        .replace('ANGLE', '').replace('0x00003EA0', '')
-        .replace('Mesa DRI', '')
-        .replace('OpenGL ES', '').replace('OpenGL 4.6', '')
-        .replace('3.2', '').replace('Open Source Technology Center', '')
-        .replace('Direct3D11', '').replace('D3D11', '')
-        .replace('vs_5_0', '').replace('ps_5_0', '')
-        .replace('(Intel', '').replace('Microsoft', '').replace('Google', '')
-        .replace('(TM', '').replaceAll('(', '').replaceAll(')', '').replaceAll(',', '').trim();
-      return renderer
-    }
-  }
-}
+import { environment } from '$lib/config.js';
+import { UAParser } from 'ua-parser-js';
 
 export const initResult = (newItem) => {
   resultsStore.update(items => {
@@ -32,11 +12,9 @@ export const initResult = (newItem) => {
       item.modeltype === newItem.modeltype &&
       item.datatype === newItem.datatype
     );
-
     if (!exists) {
       return [...items, newItem];
     }
-
     return items;
   });
 }
@@ -61,15 +39,10 @@ export const addResult = (model, modeltype, datatype, backend, backendstatus, ba
       return item;
     });
   });
-
 }
 
 export const resetResult = () => {
   resultsStore.update(() => []);
-}
-
-export const clearTestQueue = () => {
-  testQueueStore.update(() => []);
 }
 
 export const updateStore = (numOfRuns, backends, dataTypes, modelTypes, models) => {
@@ -78,6 +51,7 @@ export const updateStore = (numOfRuns, backends, dataTypes, modelTypes, models) 
   dataTypesStore.update(() => dataTypes);
   modelTypesStore.update(() => modelTypes);
   modelsStore.update(() => models);
+  infoStore.update(() => []);
 }
 
 export const resetStore = () => {
@@ -89,12 +63,44 @@ export const resetStore = () => {
   modelsStore.update(() => []);
   testQueueStore.update(() => []);
   resultsStore.update(() => []);
+  infoStore.update(() => []);
+}
+
+/**
+ * @type {string[]}
+ */
+export let info;
+infoStore.subscribe((value) => {
+  info = value;
+});
+
+const padNumber = (num, fill) => {
+  let len = ('' + num).length;
+  return Array(fill > len ? fill - len + 1 || 0 : 0).join(0) + num;
+};
+
+const getDateTime = () => {
+  let date = new Date(),
+    m = padNumber(date.getMonth() + 1, 2),
+    d = padNumber(date.getDate(), 2),
+    hour = padNumber(date.getHours(), 2),
+    min = padNumber(date.getMinutes(), 2),
+    sec = padNumber(date.getSeconds(), 2);
+  return `${m}/${d} ${hour}:${min}:${sec}`;
+};
+
+export const updateInfo = (value) => {
+  infoStore.update((arr) => [...arr, getDateTime() + ' ' + value]);
+}
+
+export const resetInfo = () => {
+  infoStore.update(() => []);
 }
 
 /**
  * @type {boolean}
  */
-let auto;
+export let auto;
 autoStore.subscribe((value) => {
   auto = value;
 });
@@ -102,7 +108,7 @@ autoStore.subscribe((value) => {
 /**
  * @type {number}
  */
-let numOfRuns;
+export let numOfRuns;
 
 numberOfRunsStore.subscribe((value) => {
   numOfRuns = value;
@@ -111,7 +117,7 @@ numberOfRunsStore.subscribe((value) => {
 /**
  * @type {string[]}
  */
-let selectedBackends;
+export let selectedBackends;
 backendsStore.subscribe((value) => {
   selectedBackends = value;
 });
@@ -119,7 +125,7 @@ backendsStore.subscribe((value) => {
 /**
  * @type {string[]}
  */
-let selectedModelTypes;
+export let selectedModelTypes;
 modelTypesStore.subscribe((value) => {
   selectedModelTypes = value;
 });
@@ -127,7 +133,7 @@ modelTypesStore.subscribe((value) => {
 /**
  * @type {string[]}
  */
-let selectedDataTypes;
+export let selectedDataTypes;
 dataTypesStore.subscribe((value) => {
   selectedDataTypes = value;
 });
@@ -135,7 +141,7 @@ dataTypesStore.subscribe((value) => {
 /**
  * @type {string[]}
  */
-let selectedModels;
+export let selectedModels;
 modelsStore.subscribe((value) => {
   selectedModels = value;
 });
@@ -143,9 +149,17 @@ modelsStore.subscribe((value) => {
 /**
  * @type {string[]}
  */
-let testQueue;
+export let testQueue;
 testQueueStore.subscribe((value) => {
   testQueue = value;
+});
+
+/**
+ * @type {string[]}
+ */
+export let results;
+resultsStore.subscribe((value) => {
+  results = value;
 });
 
 export const goTo = () => {
@@ -184,7 +198,6 @@ export const goTo = () => {
           url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
         }
       }
-
       goto(url);
     }
   } else {
@@ -262,7 +275,6 @@ export const urlToStoreHome = (urlSearchParams) => {
     let backend = urlSearchParams.get('backend');
     let numOfRuns = urlSearchParams.get('run');
     let model = urlSearchParams.get('model');
-
     if (modelType.indexOf(',') > -1) {
       modelType = stringToArray(modelType);
     } else if (modelType.toLowerCase() === 'all') {
@@ -270,7 +282,6 @@ export const urlToStoreHome = (urlSearchParams) => {
     } else {
       modelType = [modelType];
     }
-
     if (dataType.indexOf(',') > -1) {
       dataType = stringToArray(dataType);
     } else if (dataType.toLowerCase() === 'all') {
@@ -278,7 +289,6 @@ export const urlToStoreHome = (urlSearchParams) => {
     } else {
       dataType = [dataType];
     }
-
     if (backend.indexOf(',') > -1) {
       backend = stringToArray(backend);
     } else if (backend.toLowerCase() === 'all') {
@@ -295,7 +305,6 @@ export const urlToStoreHome = (urlSearchParams) => {
     } else {
       backend = [backend];
     }
-
     if (model) {
       if (model.indexOf(',') > -1) {
         model = stringToArray(model);
@@ -305,15 +314,12 @@ export const urlToStoreHome = (urlSearchParams) => {
     } else {
       model = 'none';
     }
-
     numOfRuns = parseInt(numOfRuns);
-
     if (numOfRuns <= 1) {
       numOfRuns = 1;
     } else if (numOfRuns > 1000) {
       numOfRuns = 1000;
     }
-
     if (modelType && dataType && backend && model) {
       if (numOfRuns) {
         updateStore(numOfRuns, backend, dataType, modelType, model);
@@ -336,7 +342,6 @@ export const median = (arr, length) => {
   }
   const sorted = arr.sort((a, b) => a - b);
   const middle = Math.floor(sorted.length / 2);
-
   if (sorted.length % 2 === 0) {
     let evenSum = 0;
     if (length === 0) {
@@ -349,3 +354,107 @@ export const median = (arr, length) => {
     return sorted[middle];
   }
 };
+
+export const runAuto = async () => {
+  if (
+    testQueue[0] &&
+    location.pathname.replace('/web-ai-benchmark/run/', '').replace('/run/', '') ===
+    testQueue[0].model
+  ) {
+    let t0 = testQueue[0];
+    let r = {
+      id: t0.id,
+      model: t0.model,
+      modeltype: t0.modeltype,
+      datatype: t0.datatype
+    };
+    for (const prop of selectedBackends) {
+      r[prop] = {
+        status: 1,
+        inference: []
+      };
+    }
+    initResult(r);
+    addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 1, []);
+    updateInfo(`Testing ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend ...`);
+    addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 2, []);
+    await sleep(2000);
+    updateInfo(`Test ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend completed`);
+    addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 3, [random(), random(), random()]);
+    filterTestQueue(t0.id);
+    runAuto();
+  } else if (testQueue[0]) {
+    let path = `${base}/run/${testQueue[0].model}`;
+    updateInfo(`Go to next page to test ${testQueue[0].model}`);
+    goto(path);
+  } else {
+    updateInfo(`All tests completed`);
+    let path = `${base}/`;
+    goto(path);
+  }
+};
+
+export const copyRawInference = async (value) => {
+  await navigator.clipboard.writeText(value);
+  updateInfo(`Inference time data copied`);
+}
+
+export const copyResults = async () => {
+  let json = '';
+  for (let r of results) {
+    delete r.id;
+    for (let key in r) {
+      if (r[key].hasOwnProperty("status")) {
+        delete r[key].status;
+      }
+    }
+    json = JSON.stringify(r) + '\r\n\r\n' + json;
+  }
+  json = getEnvironment() + json;
+  await navigator.clipboard.writeText(json);
+  updateInfo(`Full test data copied`);
+}
+
+export const copyInfo = async () => {
+  let log = info.toString().replaceAll(',', '\r\n');
+  await navigator.clipboard.writeText(log);
+  updateInfo(`Log history copied`);
+}
+
+export const getGpu = () => {
+  const canvas = document.createElement('canvas');
+  const gl = canvas.getContext('webgl');
+  const debugInfo = gl?.getExtension('WEBGL_debug_renderer_info');
+  if (debugInfo) {
+    let renderer = gl?.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+
+    if (renderer) {
+      renderer = renderer.replace('(R)', '').replace('(TM)', '')
+        .replace('ANGLE', '').replace('0x00003EA0', '')
+        .replace('Mesa DRI', '')
+        .replace('OpenGL ES', '').replace('OpenGL 4.6', '')
+        .replace('3.2', '').replace('Open Source Technology Center', '')
+        .replace('Direct3D11', '').replace('D3D11', '')
+        .replace('vs_5_0', '').replace('ps_5_0', '')
+        .replace('(Intel', '').replace('Microsoft', '').replace('Google', '')
+        .replace('(TM', '').replaceAll('(', '').replaceAll(')', '').replaceAll(',', '').trim();
+      return renderer
+    }
+  }
+}
+
+const getEnvironment = () => {
+  let parser = UAParser(navigator.userAgent);
+
+  let cpu = '';
+  if (parser.cpu.architecture) {
+    cpu = 'CPU: ' + parser.cpu.architecture.replace('amd64', 'x86-64') + ' ' + navigator.hardwareConcurrency + ' logical cores\r\n';
+  } else {
+    cpu = 'CPU: ' + navigator.hardwareConcurrency + ' logical cores\r\n';
+  }
+  let gpu = 'GPU: ' + getGpu() + '\r\n';
+  let os = 'OS: ' + parser.os.name + ' ' + parser.os.version + '\r\n';
+  let webbrowser = 'Browser: ' + parser.browser.name + ' ' + parser.browser.version + '\r\n';
+  let onnxruntimeweb = 'ONNX Runtime Web: ' + environment.onnxruntimeweb + '\r\n\r\n';
+  return cpu + gpu + os + webbrowser + onnxruntimeweb;
+}

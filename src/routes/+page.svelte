@@ -3,18 +3,18 @@
 	import Config from '$lib/components/Config.svelte';
 	import TestQueue from '$lib/components/TestQueue.svelte';
 	import Results from '$lib/components/Results.svelte';
-	import { beforeUpdate, onMount } from 'svelte';
+	import Info from '$lib/components/Info.svelte';
+	import { beforeUpdate, onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { onDestroy } from 'svelte';
 	import { autoStore, testQueueStore } from '../lib/store/store';
-	import { resetResult, urlToStoreHome, sleep } from '../lib/assets/js/utils';
+	import { resetResult, resetInfo, urlToStoreHome, sleep } from '../lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}
 	 */
-	let testQueue;
+	export let testQueue;
 	testQueueStore.subscribe((value) => {
 		testQueue = value;
 	});
@@ -22,7 +22,7 @@
 	const run = async () => {
 		autoStore.update(() => true);
 		resetResult();
-		sleep(5000);
+		resetInfo();
 		let path = `${base}/run/${testQueue[0].model}`;
 		goto(path);
 	};
@@ -46,6 +46,7 @@
 		{/if}
 	</div>
 
+	<Info />
 	<Results />
 	<Environment />
 </div>

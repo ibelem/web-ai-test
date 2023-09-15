@@ -1,23 +1,13 @@
 <script>
-	import { updateTestQueue, goTo } from '$lib/assets/js/utils';
+	import {
+		selectedModelTypes,
+		selectedDataTypes,
+		updateTestQueue,
+		goTo,
+		resetInfo
+	} from '$lib/assets/js/utils';
 	import { modelTypesStore, dataTypesStore } from '../store/store';
 	import { onMount } from 'svelte';
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedModelTypes;
-	modelTypesStore.subscribe((value) => {
-		selectedModelTypes = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedDataTypes;
-	dataTypesStore.subscribe((value) => {
-		selectedDataTypes = value;
-	});
 
 	/**
 	 * @type {any}
@@ -62,6 +52,7 @@
 		dataTypesStore.update((arr) => invertDataTypes);
 		updateTestQueue();
 		goTo();
+		resetInfo();
 	};
 
 	const toggleDataType = (/** @type {string} */ dataType) => {
@@ -81,6 +72,7 @@
 		}
 		updateTestQueue();
 		goTo();
+		resetInfo();
 	};
 
 	const toggleModelTypes = () => {
@@ -97,6 +89,7 @@
 		modelTypesStore.update((arr) => invertModelTypes);
 		updateTestQueue();
 		goTo();
+		resetInfo();
 	};
 
 	const toggleModelType = (/** @type {string} */ modelType) => {
@@ -118,6 +111,7 @@
 
 		updateTestQueue();
 		goTo();
+		resetInfo();
 	};
 
 	onMount(() => {});

@@ -1,6 +1,6 @@
 <script>
 	import { backendsStore } from '../store/store';
-	import { updateTestQueue, goTo } from '$lib/assets/js/utils';
+	import { selectedBackends, updateTestQueue, goTo, resetInfo } from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 
 	/**
@@ -16,14 +16,6 @@
 		webnn_gpu: false,
 		webnn_npu: false
 	};
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedBackends;
-	backendsStore.subscribe((value) => {
-		selectedBackends = value;
-	});
 
 	const toggleBackends = () => {
 		for (const backend in backends) {
@@ -51,6 +43,7 @@
 
 		updateTestQueue();
 		goTo();
+		resetInfo();
 	};
 
 	const toggleBackend = (/** @type {string} */ backend) => {
@@ -72,6 +65,7 @@
 
 		updateTestQueue();
 		goTo();
+		resetInfo();
 	};
 
 	onMount(() => {
