@@ -1,16 +1,18 @@
 <script>
+	import { testQueueStore } from '$lib/store/store';
 	import {
 		median,
 		copyResults,
 		copyInfo,
 		selectedBackends,
-		copyRawInference
+		copyRawInference,
+		downloadScreenshot
 	} from '$lib/assets/js/utils';
 	import { resultsStore } from '$lib/store/store';
 	import Info from './Info.svelte';
 	import Copy from './svg/Copy.svelte';
+	import FileCopy from './svg/FileCopy.svelte';
 	import Log from './svg/Log.svelte';
-	import Complete from './svg/Complete.svelte';
 	import Fail from './svg/Fail.svelte';
 	import Queue from './svg/Queue.svelte';
 	import Testing from './svg/Testing.svelte';
@@ -18,6 +20,7 @@
 	import Tflite from './svg/Tflite.svelte';
 	import Npy from './svg/Npy.svelte';
 	import Pt from './svg/Pt.svelte';
+	import Screenshot from './svg/Screenshot.svelte';
 
 	/**
 	 * @type {string[]}
@@ -25,6 +28,14 @@
 	export let results;
 	resultsStore.subscribe((value) => {
 		results = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
+	export let testQueue;
+	testQueueStore.subscribe((value) => {
+		testQueue = value;
 	});
 </script>
 
@@ -34,7 +45,7 @@
 	<div class="rqtitle">
 		<div class="title rq">Inference Time (Median)</div>
 	</div>
-	<div class="result">
+	<div class="result" id="result">
 		<div class="q title _{selectedBackends.length}">
 			<div class="m">Model</div>
 			<div class="mt">Model Type</div>
@@ -112,9 +123,8 @@
 					{#if key.wasm_1.status === 3}
 						<div
 							class="status_{key.wasm_1.status} s backend"
-							title={key.wasm_1.inference.toString()}
+							title={key.wasm_1.inference.toString().replaceAll(',', ' ')}
 						>
-							<Complete />
 							<span>
 								{median(key.wasm_1.inference, key.wasm_1.inference.length)}
 							</span>
@@ -147,9 +157,8 @@
 					{#if key.wasm_4.status === 3}
 						<div
 							class="status_{key.wasm_4.status} s backend"
-							title={key.wasm_4.inference.toString()}
+							title={key.wasm_4.inference.toString().replaceAll(',', ' ')}
 						>
-							<Complete />
 							<span>
 								{median(key.wasm_4.inference, key.wasm_4.inference.length)}
 							</span>
@@ -180,8 +189,10 @@
 					{/if}
 
 					{#if key.webgl.status === 3}
-						<div class="status_{key.webgl.status} s backend" title={key.webgl.inference.toString()}>
-							<Complete />
+						<div
+							class="status_{key.webgl.status} s backend"
+							title={key.webgl.inference.toString().replaceAll(',', ' ')}
+						>
 							<span>
 								{median(key.webgl.inference, key.webgl.inference.length)}
 							</span>
@@ -214,9 +225,8 @@
 					{#if key.webgpu.status === 3}
 						<div
 							class="status_{key.webgpu.status} s backend"
-							title={key.webgpu.inference.toString()}
+							title={key.webgpu.inference.toString().replaceAll(',', ' ')}
 						>
-							<Complete />
 							<span>
 								{median(key.webgpu.inference, key.webgpu.inference.length)}
 							</span>
@@ -249,9 +259,8 @@
 					{#if key.webnn_cpu_1.status === 3}
 						<div
 							class="status_{key.webnn_cpu_1.status} s backend"
-							title={key.webnn_cpu_1.inference.toString()}
+							title={key.webnn_cpu_1.inference.toString().replaceAll(',', ' ')}
 						>
-							<Complete />
 							<span>
 								{median(key.webnn_cpu_1.inference, key.webnn_cpu_1.inference.length)}
 							</span>
@@ -284,9 +293,8 @@
 					{#if key.webnn_cpu_4.status === 3}
 						<div
 							class="status_{key.webnn_cpu_4.status} s backend"
-							title={key.webnn_cpu_4.inference.toString()}
+							title={key.webnn_cpu_4.inference.toString().replaceAll(',', ' ')}
 						>
-							<Complete />
 							<span>
 								{median(key.webnn_cpu_4.inference, key.webnn_cpu_4.inference.length)}
 							</span>
@@ -319,9 +327,8 @@
 					{#if key.webnn_gpu.status === 3}
 						<div
 							class="status_{key.webnn_gpu.status} s backend"
-							title={key.webnn_gpu.inference.toString()}
+							title={key.webnn_gpu.inference.toString().replaceAll(',', ' ')}
 						>
-							<Complete />
 							<span>
 								{median(key.webnn_gpu.inference, key.webnn_gpu.inference.length)}
 							</span>
@@ -354,9 +361,8 @@
 					{#if key.webnn_npu.status === 3}
 						<div
 							class="status_{key.webnn_npu.status} s backend"
-							title={key.webnn_npu.inference.toString()}
+							title={key.webnn_npu.inference.toString().replaceAll(',', ' ')}
 						>
-							<Complete />
 							<span>
 								{median(key.webnn_npu.inference, key.webnn_npu.inference.length)}
 							</span>
@@ -374,15 +380,20 @@
 				{/if}
 			</div>
 		{/each}
+	</div>
+	{#if testQueue.length === 0}
 		<div class="q copy">
 			<div>
+				<button title="Download screenshot of test results" on:click={() => downloadScreenshot()}>
+					<Screenshot />
+				</button>
 				<button title="Copy full test results" on:click={() => copyResults()}>
-					<Copy />
+					<FileCopy />
 				</button>
 				<button title="Copy full test logs" on:click={() => copyInfo()}>
 					<Log />
 				</button>
 			</div>
 		</div>
-	</div>
+	{/if}
 {/if}

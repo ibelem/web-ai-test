@@ -1,6 +1,34 @@
 <script>
 	import Nav from './Nav.svelte';
 	import { base } from '$app/paths';
+	import { testQueueStore, testQueueLengthStore } from '$lib/store/store';
+
+	/**
+	 * @type {string[]}
+	 */
+	export let testQueue;
+	testQueueStore.subscribe((value) => {
+		testQueue = value;
+	});
+
+	/**
+	 * @type {number}
+	 */
+	export let testQueueLength;
+
+	testQueueLengthStore.subscribe((value) => {
+		testQueueLength = value;
+	});
+
+	$: percentageTestQueue = (
+		((testQueueLength - testQueue.length) * 100) /
+		(testQueueLength * 1.0)
+	).toFixed(2);
+
+	$: percentageTestQueueInt = (
+		((testQueueLength - testQueue.length) * 100) /
+		(testQueueLength * 1.0)
+	).toFixed(0);
 </script>
 
 <header>
@@ -58,7 +86,16 @@
 	<div class="nav"><Nav></Nav></div>
 </header>
 
+{#if percentageTestQueue}
+	<div style="width: {percentageTestQueue}%" class="progress _{percentageTestQueueInt}"></div>
+{/if}
+
 <style>
+	header {
+		background-color: var(--white);
+		z-index: 1;
+		position: relative;
+	}
 	#logo {
 		background: var(--red);
 		height: 60px;
@@ -72,5 +109,17 @@
 		height: 50px;
 		width: 180px;
 		padding-top: 5px;
+	}
+	.progress {
+		position: fixed;
+		top: 0px;
+		height: 1px;
+		left: 0px;
+		border-top: 1px solid var(--red);
+		z-index: 2;
+	}
+
+	._100 {
+		border-top: 1px solid var(--green) !important;
 	}
 </style>
