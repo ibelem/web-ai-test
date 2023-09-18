@@ -25,6 +25,7 @@
 			<ConfigNumOfRuns />
 		</div>
 	{/if}
+	<Results />
 
 	<TestQueue />
 
@@ -34,7 +35,6 @@
 		{/if}
 	</div>
 
-	<Results />
 	<Environment />
 </div>
 

@@ -26,6 +26,7 @@
 		</div>
 	{/if}
 
+	<Results />
 	<TestQueue />
 
 	<div class="run">
@@ -33,8 +34,6 @@
 			<button on:click={runAuto}>Run Tests</button>
 		{/if}
 	</div>
-
-	<Results />
 	<Environment />
 </div>
 

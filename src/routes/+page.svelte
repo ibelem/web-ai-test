@@ -8,7 +8,7 @@
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { autoStore, testQueueStore } from '../lib/store/store';
+	import { autoStore, testQueueStore, testQueueLengthStore } from '../lib/store/store';
 	import { resetResult, resetInfo, urlToStoreHome } from '../lib/assets/js/utils';
 
 	/**
@@ -38,17 +38,15 @@
 
 <div>
 	<Config />
+	<Results />
 	<TestQueue />
-
 	<div class="run">
 		{#if testQueue[0]}
 			<button on:click={run}>Run Tests</button>
 		{/if}
 	</div>
-
-	<Info />
-	<Results />
 	<Environment />
+	<Info />
 </div>
 
 <style>

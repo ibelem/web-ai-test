@@ -1,9 +1,10 @@
-import { autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, resultsStore } from '../../store/store'
+import { autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore } from '../../store/store'
 import { models } from '../../config';
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
 import { environment } from '$lib/config.js';
 import { UAParser } from 'ua-parser-js';
+import html2canvas from 'html2canvas';
 
 export const initResult = (newItem) => {
   resultsStore.update(items => {
@@ -155,6 +156,15 @@ testQueueStore.subscribe((value) => {
 });
 
 /**
+ * @type {number}
+ */
+export let testQueueLength;
+
+testQueueLengthStore.subscribe((value) => {
+  testQueueLength = value;
+});
+
+/**
  * @type {string[]}
  */
 export let results;
@@ -256,6 +266,7 @@ export const updateTestQueue = () => {
       }
     }
     testQueueStore.update(() => testQueue);
+    testQueueLengthStore.update(() => testQueue.length)
   }
 };
 
@@ -379,10 +390,10 @@ export const runAuto = async () => {
     initResult(r);
     addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 1, []);
     updateTestQueueStatus(t0.id, 2);
-    updateInfo(`Testing ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend ...`);
+    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Testing ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend ...`);
+    await sleep(1000);
     addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 2, []);
-    // await sleep(1000);
-    updateInfo(`Test ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend completed`);
+    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Test ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend completed`);
     addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 3, [random(), random(), random()]);
     filterTestQueue(t0.id);
     runAuto();
@@ -391,15 +402,42 @@ export const runAuto = async () => {
     updateInfo(`Go to next page to test ${testQueue[0].model}`);
     goto(path);
   } else {
-    updateInfo(`All tests completed`);
+    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);
     let path = `${base}/`;
     goto(path);
   }
 };
 
+const saveAs = (uri, filename) => {
+  var link = document.createElement('a');
+  if (typeof link.download === 'string') {
+    link.href = uri;
+    link.download = filename;
+
+    //Firefox requires the link to be in the body
+    document.body.appendChild(link);
+
+    //simulate click
+    link.click();
+
+    //remove the link when done
+    document.body.removeChild(link);
+  } else {
+    window.open(uri);
+  }
+}
+
+export const downloadScreenshot = () => {
+  html2canvas(document.querySelector('#result')).then((canvas) => {
+    saveAs(canvas.toDataURL(), 'inference_time_median.png');
+    updateInfo(`Inference time median data screenshot downloaded`);
+  });
+}
+
 export const copyRawInference = async (value) => {
-  await navigator.clipboard.writeText(value);
+  value = value.toString().replaceAll(',', ' ');
   updateInfo(`Inference time data copied`);
+  await navigator.clipboard.writeText(value);
 }
 
 export const copyResults = async () => {

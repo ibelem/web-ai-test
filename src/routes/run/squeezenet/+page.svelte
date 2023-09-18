@@ -26,6 +26,8 @@
 		</div>
 	{/if}
 
+	<Results />
+
 	<TestQueue />
 
 	<div class="run">
@@ -34,7 +36,6 @@
 		{/if}
 	</div>
 
-	<Results />
 	<Environment />
 </div>
 
