@@ -199,16 +199,14 @@ export const goTo = () => {
       let model = selectedModels.toString();
       let url;
 
-      if (location.pathname === '/' || location.pathname === '/web-ai-benchmark') {
-        url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
+      if (!auto && location.pathname.indexOf('/run') > -1) {
+        url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
       } else {
-        if (!auto) {
-          url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
-        } else {
-          url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
-        }
+        url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
       }
+
       goto(url);
+
     }
   } else {
     let url = `${base}?`
@@ -368,7 +366,7 @@ export const median = (arr, length) => {
   }
 };
 
-export const runAuto = async () => {
+export const run = async () => {
   if (
     testQueue[0] &&
     location.pathname.replace('/web-ai-benchmark/run/', '').replace('/run/', '') ===
@@ -396,15 +394,17 @@ export const runAuto = async () => {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Test ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend completed`);
     addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 3, [random(), random(), random()]);
     filterTestQueue(t0.id);
-    runAuto();
-  } else if (testQueue[0]) {
+    run();
+  } else if (testQueue[0] && auto) {
     let path = `${base}/run/${testQueue[0].model}`;
     updateInfo(`Go to next page to test ${testQueue[0].model}`);
     goto(path);
-  } else {
+  } else if (auto) {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);
     let path = `${base}/`;
     goto(path);
+  } else {
+    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);
   }
 };
 
@@ -498,4 +498,10 @@ const getEnvironment = () => {
   let webbrowser = 'Browser: ' + parser.browser.name + ' ' + parser.browser.version + '\r\n';
   let onnxruntimeweb = 'ONNX Runtime Web: ' + environment.onnxruntimeweb + '\r\n\r\n';
   return cpu + gpu + os + webbrowser + onnxruntimeweb;
+}
+
+export const getModelIdfromPath = () => {
+  let path = location.pathname;
+  path = path.replace('/web-ai-workload/run/', '').replaceAll('/run/', '').trim().toLowerCase();
+  return path;
 }

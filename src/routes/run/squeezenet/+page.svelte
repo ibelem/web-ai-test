@@ -6,13 +6,29 @@
 	import ConfigModelsManual from '$lib/components/ConfigModelsManual.svelte';
 	import Results from '$lib/components/Results.svelte';
 	import TestQueue from '$lib/components/TestQueue.svelte';
-	import { auto, selectedModels, runAuto } from '../../../lib/assets/js/utils';
+	import { auto, run, resetResult, resetInfo } from '../../../lib/assets/js/utils';
+	import { autoStore, testQueueStore } from '$lib/store/store';
+
+	/**
+	 * @type {string[]}
+	 */
+	export let testQueue;
+	testQueueStore.subscribe((value) => {
+		testQueue = value;
+	});
+
+	const runManual = () => {
+		autoStore.update(() => false);
+		resetResult();
+		resetInfo();
+		run();
+	};
 
 	beforeUpdate(() => {});
 
 	onMount(() => {
-		if (auto) {
-			runAuto();
+		if (testQueue.length > 0 && auto) {
+			run();
 		}
 	});
 </script>
@@ -27,12 +43,10 @@
 	{/if}
 
 	<Results />
-
 	<TestQueue />
-
 	<div class="run">
-		{#if selectedModels[0] && !auto}
-			<button on:click={runAuto}>Run Tests</button>
+		{#if testQueue.length > 0 && !auto}
+			<button on:click={runManual}>Run Manual Tests</button>
 		{/if}
 	</div>
 
