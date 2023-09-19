@@ -1,5 +1,5 @@
 <script>
-	import { testQueueStore } from '$lib/store/store';
+	import { testQueueStore, testQueueLengthStore } from '$lib/store/store';
 	import {
 		median,
 		copyResults,
@@ -37,6 +37,25 @@
 	testQueueStore.subscribe((value) => {
 		testQueue = value;
 	});
+
+	/**
+	 * @type {number}
+	 */
+	export let testQueueLength;
+
+	testQueueLengthStore.subscribe((value) => {
+		testQueueLength = value;
+	});
+
+	$: percentageTestQueue = (
+		((testQueueLength - testQueue.length) * 100) /
+		(testQueueLength * 1.0)
+	).toFixed(2);
+
+	$: percentageTestQueueInt = (
+		((testQueueLength - testQueue.length) * 100) /
+		(testQueueLength * 1.0)
+	).toFixed(0);
 </script>
 
 <Info />
@@ -381,9 +400,13 @@
 			</div>
 		{/each}
 	</div>
-	{#if testQueue.length === 0}
-		<div class="q copy">
-			<div>
+	<div class="q copy">
+		<div>
+			<span>
+				{testQueueLength - testQueue.length}/{testQueueLength}
+				{percentageTestQueue}%</span
+			>
+			{#if testQueue.length === 0}
 				<button title="Download screenshot of test results" on:click={() => downloadScreenshot()}>
 					<Screenshot />
 				</button>
@@ -393,7 +416,7 @@
 				<button title="Copy full test logs" on:click={() => copyInfo()}>
 					<Log />
 				</button>
-			</div>
+			{/if}
 		</div>
-	{/if}
+	</div>
 {/if}

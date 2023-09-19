@@ -338,8 +338,6 @@
 			>
 			<span>Lite</span>
 		</label>
-	</div>
-	<div>
 		<label class="extra {modelTypes.npy.toString()}" title="NumPy">
 			<input type="checkbox" on:change={() => toggleModelType('npy')} />
 
