@@ -717,6 +717,14 @@ padding: 2px 4px 2px 4px;
     width: 90%;
   }
 
+  .config .title {
+    max-width: 82px;
+  }
+
+  .config .title label {
+    min-width: 74px;
+  }
+
   .group.true {
     background-color: transparent;
   }
