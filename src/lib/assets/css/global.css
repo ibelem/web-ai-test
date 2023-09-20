@@ -756,7 +756,6 @@ padding: 2px 4px 2px 4px;
 
   .config label.true.extra, .config label.false.extra, .config label.undefined.extra, .group.true label, .group.false label {
     padding: 2px 2px 3px 2px;
-    margin-right: -2px;
   }
 
   .status_3 button, .status_3 button svg {
