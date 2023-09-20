@@ -153,6 +153,8 @@ header .nav {
   height: 100%;
   align-items: center;
   justify-items: center;
+  justify-content: center;
+  align-content: center;
 }
 .config .title:hover {
   background-color: var(--red-01);
@@ -718,11 +720,11 @@ padding: 2px 4px 2px 4px;
   }
 
   .config .title {
-    max-width: 82px;
+    max-width: 50px;
   }
 
   .config .title label {
-    min-width: 74px;
+    min-width: 46px;
   }
 
   .group.true {

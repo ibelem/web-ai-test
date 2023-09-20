@@ -22,7 +22,17 @@
 	onMount(() => {});
 </script>
 
-<div class="title">{numOfRuns} of Runs</div>
+<div class="title">
+	<span class="" title="Number of Runs">
+		{#if numOfRuns === 1}
+			{numOfRuns} Run
+		{:else if numOfRuns > 1 && numOfRuns <= 1000}
+			{numOfRuns} Runs
+		{:else}
+			# Runs
+		{/if}
+	</span>
+</div>
 <div class="numofruns">
 	<label>
 		<input type="number" bind:value={numOfRuns} min="1" max="1000" on:change={setNumberOfRuns} />
@@ -31,6 +41,10 @@
 </div>
 
 <style>
+	.title span {
+		text-align: center;
+	}
+
 	input[type='number'] {
 		padding: 4px 6px;
 		border: 1px solid var(--grey-02);
