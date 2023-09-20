@@ -406,7 +406,6 @@ header .nav {
 }
 
 .tq .q div {
-  display: inline-block;
   text-align: center;
   overflow: hidden;
   white-space: nowrap;
@@ -450,11 +449,11 @@ padding: 2px 4px 2px 4px;
 }
 
 .tq .q .dt {
-  width: 40px;
+  width: 32px;
 }
 
 .tq .q .bk {
-  width: 130px;
+  width: 100px;
 }
 
 .tq .q .bk span {
@@ -666,9 +665,47 @@ padding: 2px 4px 2px 4px;
   .tq .q .m {
     width: 90%;
   }
+
+  .status_3 button, .status_3 button svg {
+    display: none;
+  }
 }
 
-@media (max-width: 500px) { 
+@media (max-width: 800px) { 
+  .result .q._1 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .result .q._2 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .result .q._3 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .result .q._4 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .result .q._5 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .result .q._6 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .result .q._7 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .result .q._8 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (max-width: 512px) { 
   .tq {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -699,6 +736,47 @@ padding: 2px 4px 2px 4px;
   }
 
   .config .models label {
-    width: 98px;
+    width: 92px;
+  }
+
+  .result .q div.m {
+    min-width: 33%;
+    max-height: 16px;
+  }
+
+  .status_3 button, .status_3 button svg {
+    display: none;
+  }
+
+  .result .q._1 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .result .q._2 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .result .q._3 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .result .q._4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .result .q._5 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .result .q._6 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .result .q._7 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .result .q._8 {
+    grid-template-columns: repeat(4, 1fr);
   }
 }

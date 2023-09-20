@@ -77,7 +77,7 @@
 
 	@media (max-width: 500px) {
 		input[type='range'] {
-			width: 39vw;
+			width: 35vw;
 		}
 	}
 </style>
