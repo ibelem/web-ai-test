@@ -200,24 +200,15 @@ export const goTo = () => {
       let url;
 
       if (!auto && location.pathname.indexOf('/run') > -1) {
-        if (location.pathname.indexOf('web-ai-workload') > -1) {
-          console.log('BASE GITHUB PAGES: ' + base);
-          url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
-        } else {
-          console.log('BASE LOCAL: ' + base);
-          url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
-        }
+        url = `${location.pathname}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
       } else {
-        url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
+        url = `${location.pathname}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
       }
-
       goto(url);
 
     }
   } else {
-    console.log('BASE GITHUB PAGES ELSE: ' + base);
-    let url = `${base}?`
-    goto(url);
+    goto(location.pathname);
   }
 }
 
