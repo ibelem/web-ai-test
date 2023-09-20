@@ -501,6 +501,6 @@ const getEnvironment = () => {
 
 export const getModelIdfromPath = () => {
   let path = location.pathname;
-  path = path.replace('/web-ai-workload/run/', '').replaceAll('/run/', '').trim().toLowerCase();
+  path = path.replace('/web-ai-benchmark/run/', '').replaceAll('/run/', '').replaceAll('/', '').trim().toLowerCase();
   return path;
 }
