@@ -720,11 +720,11 @@ padding: 2px 4px 2px 4px;
   }
 
   .config .title {
-    max-width: 50px;
+    max-width: 52px;
   }
 
-  .config .title label {
-    min-width: 46px;
+  .config .title label,  .config .title span {
+    min-width: 52px;
   }
 
   .group.true {
@@ -752,6 +752,11 @@ padding: 2px 4px 2px 4px;
   .result .q div.m {
     min-width: 33%;
     max-height: 16px;
+  }
+
+  .config label.true.extra, .config label.false.extra, .config label.undefined.extra, .group.true label, .group.false label {
+    padding: 2px 2px 3px 2px;
+    margin-right: -2px;
   }
 
   .status_3 button, .status_3 button svg {
