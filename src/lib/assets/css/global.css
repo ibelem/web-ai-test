@@ -754,8 +754,16 @@ padding: 2px 4px 2px 4px;
     max-height: 16px;
   }
 
-  .config label.true.extra, .config label.false.extra, .config label.undefined.extra, .group.true label, .group.false label {
+  .config label.true.extra, .config label.false.extra, .config label.undefined.extra, .group label, .config .backends label {
     padding: 2px 4px 3px 4px;
+  }
+
+  .config .backends label, .group, .config label.extra {
+    margin-bottom: 8px;
+  }
+
+  .models label.extra {
+    margin-bottom: 4px;
   }
 
   .status_3 button, .status_3 button svg {
