@@ -200,7 +200,13 @@ export const goTo = () => {
       let url;
 
       if (!auto && location.pathname.indexOf('/run') > -1) {
-        url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
+        if (location.pathname.indexOf('web-ai-workload') > -1) {
+          console.log('BASE GITHUB PAGES: ' + base);
+          url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
+        } else {
+          console.log('BASE LOCAL: ' + base);
+          url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
+        }
       } else {
         url = `${base}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
       }
@@ -209,6 +215,7 @@ export const goTo = () => {
 
     }
   } else {
+    console.log('BASE GITHUB PAGES ELSE: ' + base);
     let url = `${base}?`
     goto(url);
   }
@@ -403,6 +410,7 @@ export const run = async () => {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);
     let path = `${base}/`;
     goto(path);
+    autoStore.update(() => false);
   } else {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);
   }
