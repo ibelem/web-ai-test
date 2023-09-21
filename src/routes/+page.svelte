@@ -8,8 +8,8 @@
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { autoStore, testQueueStore, testQueueLengthStore } from '../lib/store/store';
-	import { resetResult, resetInfo, urlToStoreHome } from '../lib/assets/js/utils';
+	import { autoStore, testQueueStore } from '../lib/store/store';
+	import { resetResult, resetInfo, urlToStoreHome, updateTestQueue } from '../lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}
@@ -28,7 +28,14 @@
 	};
 
 	beforeUpdate(() => {
-		urlToStoreHome($page.url.searchParams);
+		if ($page.url.searchParams.size === 0) {
+			let path = `${base}/?modeltype=none&datatype=none&backend=none&run=1&model=none`;
+			goto(path);
+		} else {
+			urlToStoreHome($page.url.searchParams);
+			updateTestQueue();
+			resetInfo();
+		}
 	});
 
 	onMount(() => {});

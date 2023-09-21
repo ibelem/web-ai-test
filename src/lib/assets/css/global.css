@@ -763,18 +763,19 @@ padding: 2px 4px 2px 4px;
   }
 
   .config .title {
-    max-width: 60px;
+    max-width: 70px;
   }
 
   .config .title label,  .config .title span {
-    min-width: 60px;
+    min-width: 68px;
   }
 
   .group.true {
     background-color: transparent;
+    border: 0px solid transparent;
   }
 
-  .group.true label {
+  .group label.true {
     background-color: var(--red);
     color: var(--white);
   }

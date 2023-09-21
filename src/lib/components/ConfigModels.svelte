@@ -2,7 +2,6 @@
 	import {
 		selectedModelTypes,
 		selectedDataTypes,
-		selectedModels,
 		updateTestQueue,
 		goTo,
 		resetInfo,
@@ -20,6 +19,14 @@
 	for (const model of filteredModelIds) {
 		model['selected'] = false;
 	}
+
+	/**
+	 * @type {string[]}
+	 */
+	let selectedModels;
+	modelsStore.subscribe((value) => {
+		selectedModels = value;
+	});
 
 	/**
 	 * @type {any}
@@ -194,37 +201,62 @@
 	};
 
 	const toggleModel = (/** @type {string } */ model) => {
-		console.log('**************** ' + model);
 		for (let i = 0; i < filteredModelIds.length; i++) {
 			if (filteredModelIds[i].id === model) {
-				console.log('**************** toogle ' + model);
 				filteredModelIds[i].selected = !filteredModelIds[i].selected;
-				console.log('**************** 反选 ' + model);
+				if (filteredModelIds[i].selected) {
+					console.log('selected: ' + filteredModelIds[i].selected);
+					if (!selectedModels.includes(model)) {
+						console.log('store 没有: 添加 store ');
+						modelsStore.update((arr) => [...arr, model]);
+					}
+				} else {
+					console.log('未选择: ' + filteredModelIds[i].selected);
+					if (selectedModels.includes(model)) {
+						console.log('store 有: 删除 store ');
+
+						let newArr = selectedModels;
+						const index = selectedModels.indexOf(model);
+						if (index !== -1) {
+							newArr.splice(index, 1);
+						}
+						console.log(selectedModels);
+						console.log(newArr);
+
+						// modelsStore.update((arr) => {
+						// 	console.log('需要删除');
+						// 	console.log(arr);
+						// 	const index = arr.indexOf(model);
+						// 	if (index !== -1) {
+						// 		arr.splice(index, 1);
+						// 	}
+						// 	console.log(arr);
+						// 	return arr;
+						// });
+					}
+				}
 				break;
 			}
 		}
 
-		if (selectedModels.includes(model)) {
-			modelsStore.update((arr) => {
-				console.log(arr);
-				const index = arr.indexOf(model);
-				console.log('**************** Store ' + model + ' 索引' + index);
-				if (index !== -1) {
-					console.log('**************** Store ' + model + ' splice' + index);
-					arr.splice(index, 1);
-				}
-				console.log(arr);
-				return arr;
-			});
-		} else {
-			console.log('**************** Store 不包含，增加 ' + model);
-			modelsStore.update((arr) => [...arr, model]);
-		}
+		// if (selectedModels.includes(model)) {
+		// 	modelsStore.update((arr) => {
+		// 		console.log(arr);
+		// 		const index = arr.indexOf(model);
+		// 		console.log('**************** Store ' + model + ' 索引' + index);
+		// 		if (index !== -1) {
+		// 			console.log('**************** Store ' + model + ' splice' + index);
+		// 			arr.splice(index, 1);
+		// 		}
+		// 		console.log(arr);
+		// 		return arr;
+		// 	});
+		// } else {
+		// 	console.log('**************** Store 不包含，增加 ' + model);
+		// 	modelsStore.update((arr) => [...arr, model]);
+		// }
 
-		updateTestQueue();
 		goTo();
-		resetInfo();
-		resetResult();
 	};
 
 	onMount(() => {});

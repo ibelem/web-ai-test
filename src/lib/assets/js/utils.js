@@ -172,44 +172,81 @@ resultsStore.subscribe((value) => {
   results = value;
 });
 
-export const goTo = () => {
-  if (selectedModels.length > 0 && selectedBackends.length > 0 && selectedDataTypes.length > 0 && selectedModelTypes.length > 0) {
-    if (selectedBackends.length > 0 && selectedBackends.length <= 8) {
-      let backend;
-      if (selectedBackends.length === 8) {
-        backend = 'all';
-      } else {
-        backend = selectedBackends.toString();
-      }
-
-      let dataType;
-      if (selectedDataTypes.length === 3) {
-        dataType = 'all';
-      } else {
-        dataType = selectedDataTypes.toString();
-      }
-
-      let modelType;
-      if (selectedModelTypes.length === 4) {
-        modelType = 'all';
-      } else {
-        modelType = selectedModelTypes.toString();
-      }
-
-      let model = selectedModels.toString();
-      let url;
-
-      if (!auto && location.pathname.indexOf('/run') > -1) {
-        url = `${location.pathname}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
-      } else {
-        url = `${location.pathname}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
-      }
-      goto(url);
-
-    }
-  } else {
-    goto(location.pathname);
+export const removeStringFromArray = (array, string) => {
+  const indexToRemove = array.indexOf(string);
+  if (indexToRemove !== -1) {
+    array.splice(indexToRemove, 1);
   }
+  return array;
+}
+
+export const getURLParameterValue = (parameter) => {
+  let url = new URL(window.location.href);
+  return url.searchParams.get(parameter);
+}
+
+export const trimComma = (string) => {
+  if (string && string.startsWith(',')) {
+    string = string.slice(1);
+  }
+
+  if (string && string.endsWith(',')) {
+    string = string.slice(0, -1);
+  }
+
+  return string;
+}
+
+export const goTo = (key, value) => {
+  console.log(value);
+  let url = new URL(window.location.href);
+  if (value) {
+    url.searchParams.set(key, value);
+  } else {
+    url.searchParams.set(key, 'none');
+  }
+  let newUrl = url.toString();
+  goto(newUrl);
+
+  // if (!auto && location.pathname.indexOf('/run') > -1) {
+  //   url = `${location.pathname}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
+  // } else {
+  //   url = `${location.pathname}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
+  // }
+
+
+  // if (selectedBackends.length > 0 && selectedBackends.length <= 8) {
+  //   let backend;
+  //   if (selectedBackends.length === 8) {
+  //     backend = 'all';
+  //   } else {
+  //     backend = selectedBackends.toString();
+  //   }
+
+  //   let dataType;
+  //   if (selectedDataTypes.length === 3) {
+  //     dataType = 'all';
+  //   } else {
+  //     dataType = selectedDataTypes.toString();
+  //   }
+
+  //   let modelType;
+  //   if (selectedModelTypes.length === 4) {
+  //     modelType = 'all';
+  //   } else {
+  //     modelType = selectedModelTypes.toString();
+  //   }
+
+  //   let model = selectedModels.toString();
+  //   let url;
+
+  //   if (!auto && location.pathname.indexOf('/run') > -1) {
+  //     url = `${location.pathname}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
+  //   } else {
+  //     url = `${location.pathname}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
+  //   }
+  //   goto(url);
+  // }
 }
 
 export const filterTestQueue = (id) => {
@@ -275,6 +312,14 @@ export const stringToArray = (value) => {
   return value;
 };
 
+export const arrayToStringWithComma = (array) => {
+  return array.join(',');
+}
+
+export const containsAllElementsInArray = (string, array) => {
+  return array.every(element => string.includes(element));
+}
+
 export const urlToStoreHome = (urlSearchParams) => {
   if (urlSearchParams.size > 0) {
     let modelType = urlSearchParams.get('modeltype');
@@ -282,15 +327,21 @@ export const urlToStoreHome = (urlSearchParams) => {
     let backend = urlSearchParams.get('backend');
     let numOfRuns = urlSearchParams.get('run');
     let model = urlSearchParams.get('model');
+
     if (modelType.indexOf(',') > -1) {
       modelType = stringToArray(modelType);
+    } else if (modelType.toLowerCase() === 'none') {
+      modelType = [];
     } else if (modelType.toLowerCase() === 'all') {
       modelType = ['onnx', 'tflite', 'npy', 'pt'];
     } else {
       modelType = [modelType];
     }
+
     if (dataType.indexOf(',') > -1) {
       dataType = stringToArray(dataType);
+    } else if (dataType.toLowerCase() === 'none') {
+      dataType = [];
     } else if (dataType.toLowerCase() === 'all') {
       dataType = ['fp32', 'fp16', 'int8'];
     } else {
@@ -298,6 +349,8 @@ export const urlToStoreHome = (urlSearchParams) => {
     }
     if (backend.indexOf(',') > -1) {
       backend = stringToArray(backend);
+    } else if (backend.toLowerCase() === 'none') {
+      backend = [];
     } else if (backend.toLowerCase() === 'all') {
       backend = [
         'wasm_1',
@@ -312,30 +365,25 @@ export const urlToStoreHome = (urlSearchParams) => {
     } else {
       backend = [backend];
     }
-    if (model) {
-      if (model.indexOf(',') > -1) {
-        model = stringToArray(model);
-      } else {
-        model = [model];
-      }
+
+    if (model.indexOf(',') > -1) {
+      model = stringToArray(model);
+    } else if (model.toLowerCase() === 'none') {
+      model = []
     } else {
-      model = 'none';
+      model = [model];
     }
+
     numOfRuns = parseInt(numOfRuns);
     if (numOfRuns <= 1) {
       numOfRuns = 1;
     } else if (numOfRuns > 1000) {
       numOfRuns = 1000;
     }
-    if (modelType && dataType && backend && model) {
-      if (numOfRuns) {
-        updateStore(numOfRuns, backend, dataType, modelType, model);
-        updateTestQueue();
-      } else {
-        updateStore(1, backend, dataType, modelType, model);
-        updateTestQueue();
-      }
-    }
+
+    updateStore(numOfRuns, backend, dataType, modelType, model);
+    updateTestQueue();
+
   }
 };
 
@@ -387,9 +435,9 @@ export const run = async () => {
     addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 1, []);
     updateTestQueueStatus(t0.id, 2);
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Testing ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend ...`);
-    await sleep(1000);
     addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 2, []);
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Test ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend completed`);
+    await sleep(1000);
     addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 3, [random(), random(), random()]);
     filterTestQueue(t0.id);
     run();
