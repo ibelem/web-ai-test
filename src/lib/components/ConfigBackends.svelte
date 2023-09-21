@@ -1,6 +1,17 @@
 <script>
 	import { backendsStore } from '../store/store';
-	import { selectedBackends, updateTestQueue, goTo, resetInfo } from '$lib/assets/js/utils';
+	import {
+		trimComma,
+		removeStringFromArray,
+		arrayToStringWithComma,
+		containsAllElementsInArray,
+		getURLParameterValue,
+		selectedBackends,
+		updateTestQueue,
+		goTo,
+		resetInfo,
+		stringToArray
+	} from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 
 	/**
@@ -17,6 +28,17 @@
 		webnn_npu: false
 	};
 
+	const allBackends = [
+		'wasm_1',
+		'wasm_4',
+		'webgl',
+		'webgpu',
+		'webnn_cpu_1',
+		'webnn_cpu_4',
+		'webnn_gpu',
+		'webnn_npu'
+	];
+
 	const toggleBackends = () => {
 		for (const backend in backends) {
 			if (backends.hasOwnProperty(backend)) {
@@ -24,26 +46,33 @@
 			}
 		}
 
-		const allBackends = [
-			'wasm_1',
-			'wasm_4',
-			'webgl',
-			'webgpu',
-			'webnn_cpu_1',
-			'webnn_cpu_4',
-			'webnn_gpu',
-			'webnn_npu'
-		];
+		let urlBackends = getURLParameterValue('backend')?.toLocaleLowerCase().trim();
+		urlBackends = decodeURIComponent(urlBackends);
+		urlBackends = trimComma(urlBackends);
 
 		/**
 		 * @type {any}
 		 */
-		let invertBackends = allBackends.filter((item) => !selectedBackends.includes(item));
-		backendsStore.update((arr) => invertBackends);
+		let invertBackends = '';
 
-		updateTestQueue();
-		goTo();
-		resetInfo();
+		if (urlBackends !== 'all' && urlBackends !== 'none') {
+			urlBackends = stringToArray(urlBackends);
+			invertBackends = arrayToStringWithComma(
+				allBackends.filter((item) => !urlBackends.includes(item))
+			);
+		} else if (urlBackends === 'all') {
+			invertBackends = 'none';
+		} else if (urlBackends === 'none') {
+			invertBackends = 'all';
+		}
+
+		if (invertBackends.length === 8) {
+			goTo('backend', 'all');
+		} else if (invertBackends.length === 0) {
+			goTo('backend', 'none');
+		} else {
+			goTo('backend', invertBackends);
+		}
 	};
 
 	const toggleBackend = (/** @type {string} */ backend) => {
@@ -51,21 +80,51 @@
 			backends[backend] = !backends[backend];
 		}
 
-		if (selectedBackends.includes(backend)) {
-			backendsStore.update((arr) => {
-				const index = arr.indexOf(backend);
-				if (index !== -1) {
-					arr.splice(index, 1);
-				}
-				return arr;
-			});
+		let urlBackends = getURLParameterValue('backend')?.toLocaleLowerCase().trim();
+		urlBackends = decodeURIComponent(urlBackends);
+
+		urlBackends = trimComma(urlBackends);
+
+		if (backends[backend]) {
+			// Add backend
+			if (urlBackends === 'none') {
+				urlBackends = backend;
+			} else {
+				urlBackends = urlBackends + ',' + backend;
+			}
 		} else {
-			backendsStore.update((arr) => [...arr, backend]);
+			// Remove backend
+			if (urlBackends && urlBackends?.indexOf(backend) > -1) {
+				if (urlBackends === backend) {
+					urlBackends = 'none';
+				} else {
+					urlBackends = urlBackends?.replaceAll(backend, '').replaceAll(',,', ',');
+				}
+			} else if (urlBackends === 'all') {
+				let removedBackends = removeStringFromArray(
+					[
+						'wasm_1',
+						'wasm_4',
+						'webgl',
+						'webgpu',
+						'webnn_cpu_1',
+						'webnn_cpu_4',
+						'webnn_gpu',
+						'webnn_npu'
+					],
+					backend
+				);
+				urlBackends = arrayToStringWithComma(removedBackends);
+			}
 		}
 
-		updateTestQueue();
-		goTo();
-		resetInfo();
+		urlBackends = trimComma(urlBackends);
+
+		if (containsAllElementsInArray(urlBackends, allBackends)) {
+			urlBackends = 'all';
+		}
+
+		goTo('backend', urlBackends);
 	};
 
 	onMount(() => {
