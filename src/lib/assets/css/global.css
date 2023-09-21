@@ -81,7 +81,7 @@ header .nav {
   margin: 0px 0px 0px 0px;
   cursor: pointer;
   display: inline-block;
-  padding: 1px 6px 2px 6px;
+  padding: 0px 6px 0px 6px;
   min-width: 45px;
   text-align: center;
 }
@@ -106,14 +106,35 @@ header .nav {
   border: 0px; 
 }
 
-.config label.true, .group.true {
+.group .block label {
+  margin-left: 0px;
+}
+
+.group .block label:first-child {
+  margin-left: 0;
+}
+
+.config label.true, .group .block label.true {
   background-color: var(--red);
   color: var(--white);
   border: 1px solid transparent;
 }
 
+.config .backends {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.config .backends .group {
+  display: flex;
+  flex-direction: row;
+}
+
+ 
+
 .config .backends label.false {
-  padding: 2px 6px 3px 6px;
+  padding: 0px 6px 0px 6px;
   border: 1px solid transparent;
 }
 
@@ -122,8 +143,9 @@ header .nav {
 }
 
 .config .backends .group label.false:hover {
-  padding: 2px 6px 3px 7px;
+  padding: 0px 6px 0px 6px;
 }
+
 
 .group {
   border: 1px solid var(--grey-02);
@@ -131,15 +153,16 @@ header .nav {
 
 .group.true span {
   border: 0px solid var(--red);
+  color: var(--red);
 }
 
 .config label.true.extra {
-  padding: 2px 6px 3px 6px;
+  padding: 0px 6px 0px 6px;
 }
 
 .config label.false.extra, .config label.undefined.extra {
   border: 1px solid var(--grey-02);
-  padding: 2px 6px 3px 6px;
+  padding: 0px 6px 0px 6px;
 }
 
 .config label.false {
@@ -157,31 +180,30 @@ header .nav {
   align-content: center;
 }
 .config .title:hover {
-  background-color: var(--red-01);
+  background-color: var(--red-005);
   color: var(--red);
 }
 
-.config .backends label:hover, .config .types label:hover, .config .backends label:hover, .config .models label:hover {
-  background-color: var(--red-01);
+.config .backends label:hover, .config .types label:hover, .config .types label:hover, .config .models label:hover {
+  background-color: var(--red-005);
   color: var(--red);
 }
 
 .group span {
-  padding: 2px 6px 3px 6px;
   width: 45px;
   display: inline-block;
   text-align: center;
-  border: 1px solid var(--white);
+  border: 0px solid transparent;
+  background-color: var(--white);
+  padding: 1px 6px 0px 6px;
 }
 
 .group:hover {
-  background-color: var(--red-01);
-  color: var(--red);
   border: 1px solid var(--red);
 }
 
 .group:hover label {
-  padding: 2px 6px 3px 7px;
+  padding: 0px 6px 0px 6px;
 }
 
 .group:hover span {
@@ -518,6 +540,10 @@ padding: 2px 4px 2px 4px;
   margin-bottom: -2px;
 }
 
+.types svg#logo_pt {
+  margin-bottom: -2px;
+}
+
 .types div {
   display: inline-block;
 }
@@ -559,16 +585,6 @@ padding: 2px 4px 2px 4px;
 .types label:hover svg .logo_onnx_6,
 .types label:hover svg .logo_onnx_7 {
   fill: transparent;
-}
-
-.group label {
-  margin-left: -8px;
-}
-
-@media (max-width: 804px) { 
-	.group, .config label.extra {
-    margin-bottom: 4px;
-  }
 }
 
 .run {
@@ -626,6 +642,10 @@ padding: 2px 4px 2px 4px;
   padding: 6px;
 }
 
+.config .models label {
+  margin: 0px 8px 0px 0px;
+}
+
 .result .q._1 {
   grid-template-columns: repeat(4, 1fr);
 }
@@ -674,6 +694,10 @@ padding: 2px 4px 2px 4px;
 }
 
 @media (max-width: 800px) { 
+  .group, .config label.extra {
+    margin-bottom: 4px;
+  }
+
   .result .q._1 {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -714,17 +738,36 @@ padding: 2px 4px 2px 4px;
   .group label {
     margin-left: 0px;
   }
+  
+  .config .backends {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .config .backends .group {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .group span {
+    width: auto !important;
+  }
+
+  .group .block label {
+    margin-left: 0px;
+  }
 
   .tq .q .m {
     width: 90%;
   }
 
   .config .title {
-    max-width: 54px;
+    max-width: 60px;
   }
 
   .config .title label,  .config .title span {
-    min-width: 54px;
+    min-width: 60px;
   }
 
   .group.true {
@@ -736,16 +779,12 @@ padding: 2px 4px 2px 4px;
     color: var(--white);
   }
 
-  .group.true span {
-    color: var(--font);
-    display: block;
-  }
-
   .types div:last-child {
     margin-top: 4px;
   }
 
   .config .models label {
+    margin: 0px 4px 0px 0px;
     width: 96px;
   }
 
@@ -754,16 +793,8 @@ padding: 2px 4px 2px 4px;
     max-height: 16px;
   }
 
-  .config label.true.extra, .config label.false.extra, .config label.undefined.extra, .group label, .config .backends label {
-    padding: 2px 4px 3px 4px;
-  }
-
-  .config .backends label, .group, .config label.extra {
-    margin-bottom: 8px;
-  }
-
-  .models label.extra {
-    margin-bottom: 4px;
+  .config label {
+    margin: 0px -4px 0px 0px;
   }
 
   .status_3 button, .status_3 button svg {
