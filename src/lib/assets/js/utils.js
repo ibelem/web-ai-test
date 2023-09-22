@@ -1,5 +1,5 @@
 import { autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore } from '../../store/store'
-import { models } from '../../config';
+import { models, uniqueBackends } from '../../config';
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
 import { environment } from '$lib/config.js';
@@ -63,6 +63,7 @@ export const resetStore = () => {
   modelTypesStore.update(() => []);
   modelsStore.update(() => []);
   testQueueStore.update(() => []);
+  testQueueLengthStore.update(() => 0);
   resultsStore.update(() => []);
   infoStore.update(() => []);
 }
@@ -197,56 +198,58 @@ export const trimComma = (string) => {
   return string;
 }
 
-export const goTo = (key, value) => {
-  console.log(value);
-  let url = new URL(window.location.href);
-  if (value) {
-    url.searchParams.set(key, value);
-  } else {
-    url.searchParams.set(key, 'none');
+export const getUniqueDataTypes = () => {
+  let uniqueDataTypes = [];
+  for (let model of models) {
+    let datatype = model.datatype;
+    if (datatype && !uniqueDataTypes.includes(datatype)) {
+      uniqueDataTypes.push(datatype);
+    }
   }
-  let newUrl = url.toString();
-  goto(newUrl);
+  return uniqueDataTypes;
+}
 
-  // if (!auto && location.pathname.indexOf('/run') > -1) {
-  //   url = `${location.pathname}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
-  // } else {
-  //   url = `${location.pathname}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
-  // }
+export const getUniqueDataTypesByModelId = (modelid) => {
+  const matchingModels = models.filter(model => model.id === modelid);
+  return [...new Set(matchingModels.map(model => model.datatype))];
+}
 
+export const getUniqueModels = () => {
+  let uniqueModels = [];
+  for (let model of models) {
+    let id = model.id;
+    if (id && !uniqueModels.includes(id)) {
+      uniqueModels.push(id);
+    }
+  }
+  return uniqueModels;
+}
 
-  // if (selectedBackends.length > 0 && selectedBackends.length <= 8) {
-  //   let backend;
-  //   if (selectedBackends.length === 8) {
-  //     backend = 'all';
-  //   } else {
-  //     backend = selectedBackends.toString();
-  //   }
+export const getUniqueModelTypes = () => {
+  let uniqueModelTypes = [];
+  for (let model of models) {
+    let format = model.format;
+    if (format && !uniqueModelTypes.includes(format)) {
+      uniqueModelTypes.push(format);
+    }
+  }
+  return uniqueModelTypes;
+}
 
-  //   let dataType;
-  //   if (selectedDataTypes.length === 3) {
-  //     dataType = 'all';
-  //   } else {
-  //     dataType = selectedDataTypes.toString();
-  //   }
+let newUrl = '';
 
-  //   let modelType;
-  //   if (selectedModelTypes.length === 4) {
-  //     modelType = 'all';
-  //   } else {
-  //     modelType = selectedModelTypes.toString();
-  //   }
-
-  //   let model = selectedModels.toString();
-  //   let url;
-
-  //   if (!auto && location.pathname.indexOf('/run') > -1) {
-  //     url = `${location.pathname}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}`
-  //   } else {
-  //     url = `${location.pathname}?modeltype=${modelType}&datatype=${dataType}&backend=${backend}&run=${numOfRuns}&model=${model}`
-  //   }
-  //   goto(url);
-  // }
+export const goTo = (key, value) => {
+  let url = new URL(window.location.href);
+  if (key !== undefined) {
+    if (value) {
+      url.searchParams.set(key, value);
+    } else {
+      url.searchParams.set(key, 'none');
+    }
+    newUrl = url.toString();
+    console.log('goto: ' + newUrl)
+    goto(newUrl);
+  }
 }
 
 export const filterTestQueue = (id) => {
@@ -266,9 +269,10 @@ export const updateTestQueueStatus = (id, status) => {
 }
 
 export const updateTestQueue = () => {
+
   /**
    * @type {string[]}
-   */
+  */
   let testQueue = [];
   if (selectedModels) {
     let id = 1;
@@ -320,7 +324,7 @@ export const containsAllElementsInArray = (string, array) => {
   return array.every(element => string.includes(element));
 }
 
-export const urlToStoreHome = (urlSearchParams) => {
+export const urlToStore = (urlSearchParams, modelIdFromUrl) => {
   if (urlSearchParams.size > 0) {
     let modelType = urlSearchParams.get('modeltype');
     let dataType = urlSearchParams.get('datatype');
@@ -333,7 +337,7 @@ export const urlToStoreHome = (urlSearchParams) => {
     } else if (modelType.toLowerCase() === 'none') {
       modelType = [];
     } else if (modelType.toLowerCase() === 'all') {
-      modelType = ['onnx', 'tflite', 'npy', 'pt'];
+      modelType = getUniqueModelTypes();
     } else {
       modelType = [modelType];
     }
@@ -343,33 +347,27 @@ export const urlToStoreHome = (urlSearchParams) => {
     } else if (dataType.toLowerCase() === 'none') {
       dataType = [];
     } else if (dataType.toLowerCase() === 'all') {
-      dataType = ['fp32', 'fp16', 'int8'];
+      dataType = getUniqueDataTypes();
     } else {
       dataType = [dataType];
     }
+
     if (backend.indexOf(',') > -1) {
       backend = stringToArray(backend);
     } else if (backend.toLowerCase() === 'none') {
       backend = [];
     } else if (backend.toLowerCase() === 'all') {
-      backend = [
-        'wasm_1',
-        'wasm_4',
-        'webgl',
-        'webgpu',
-        'webnn_cpu_1',
-        'webnn_cpu_4',
-        'webnn_gpu',
-        'webnn_npu'
-      ];
+      backend = uniqueBackends;
     } else {
       backend = [backend];
     }
 
-    if (model.indexOf(',') > -1) {
+    if (model && model.indexOf(',') > -1) {
       model = stringToArray(model);
-    } else if (model.toLowerCase() === 'none') {
-      model = []
+    } else if (model?.toLowerCase() === 'none') {
+      model = [];
+    } else if (model?.toLowerCase() === 'all') {
+      model = getUniqueModels();
     } else {
       model = [model];
     }
@@ -381,9 +379,11 @@ export const urlToStoreHome = (urlSearchParams) => {
       numOfRuns = 1000;
     }
 
-    updateStore(numOfRuns, backend, dataType, modelType, model);
-    updateTestQueue();
-
+    if (modelIdFromUrl) {
+      updateStore(numOfRuns, backend, dataType, modelType, [modelIdFromUrl]);
+    } else {
+      updateStore(numOfRuns, backend, dataType, modelType, model);
+    }
   }
 };
 
@@ -414,9 +414,7 @@ export const median = (arr, length) => {
 
 export const run = async () => {
   if (
-    testQueue[0] &&
-    location.pathname.replace('/web-ai-benchmark/run/', '').replace('/run/', '') ===
-    testQueue[0].model
+    testQueue[0] && getModelIdfromPath() === testQueue[0].model
   ) {
     let t0 = testQueue[0];
     let r = {
@@ -447,8 +445,8 @@ export const run = async () => {
     goto(path);
   } else if (auto) {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);
-    let path = `${base}/`;
-    goto(path);
+    console.log('NEW URL ' + newUrl)
+    goto(newUrl);
     autoStore.update(() => false);
   } else {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);

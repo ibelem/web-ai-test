@@ -131,8 +131,6 @@ header .nav {
   flex-direction: row;
 }
 
- 
-
 .config .backends label.false {
   padding: 0px 6px 0px 6px;
   border: 1px solid transparent;
@@ -146,14 +144,12 @@ header .nav {
   padding: 0px 6px 0px 6px;
 }
 
-
 .group {
   border: 1px solid var(--grey-02);
 }
 
 .group.true span {
   border: 0px solid var(--red);
-  color: var(--red);
 }
 
 .config label.true.extra {
@@ -694,6 +690,12 @@ padding: 2px 4px 2px 4px;
 }
 
 @media (max-width: 800px) { 
+  .group span {
+    width: auto !important;
+    display: flex;
+    align-items: center;
+  }
+
   .group, .config label.extra {
     margin-bottom: 4px;
   }
@@ -752,10 +754,17 @@ padding: 2px 4px 2px 4px;
 
   .group span {
     width: auto !important;
+    display: flex;
+    align-items: center;
+  }
+
+  #webnn_cpu_4 {
+    margin-top: 4px;
   }
 
   .group .block label {
     margin-left: 0px;
+    width: 52px;
   }
 
   .tq .q .m {

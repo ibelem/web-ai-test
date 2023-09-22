@@ -13,6 +13,17 @@ export let environment = {
   onnxruntimeweb: 1.16
 };
 
+export const uniqueBackends = [
+  'wasm_1',
+  'wasm_4',
+  'webgl',
+  'webgpu',
+  'webnn_cpu_1',
+  'webnn_cpu_4',
+  'webnn_gpu',
+  'webnn_npu'
+];
+
 export let models = [
   {
     category: 'Image Classification',

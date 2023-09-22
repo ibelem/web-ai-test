@@ -1,22 +1,14 @@
 <script>
-	import { numberOfRunsStore } from '../store/store';
-	import { updateTestQueue, goTo, resetInfo } from '$lib/assets/js/utils';
+	import { goTo } from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 
 	/**
 	 * @type {number}
 	 */
-	let numOfRuns;
-
-	numberOfRunsStore.subscribe((value) => {
-		numOfRuns = value;
-	});
+	let numOfRuns = 1;
 
 	const setNumberOfRuns = () => {
-		numberOfRunsStore.update(() => numOfRuns);
-		updateTestQueue();
-		goTo();
-		resetInfo();
+		goTo('run', numOfRuns);
 	};
 
 	onMount(() => {});
