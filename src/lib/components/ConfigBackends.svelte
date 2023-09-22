@@ -1,5 +1,5 @@
 <script>
-	import { backendsStore } from '../store/store';
+	import { uniqueBackends } from '../config';
 	import {
 		trimComma,
 		removeStringFromArray,
@@ -7,9 +7,7 @@
 		containsAllElementsInArray,
 		getURLParameterValue,
 		selectedBackends,
-		updateTestQueue,
 		goTo,
-		resetInfo,
 		stringToArray
 	} from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
@@ -27,17 +25,6 @@
 		webnn_gpu: false,
 		webnn_npu: false
 	};
-
-	const allBackends = [
-		'wasm_1',
-		'wasm_4',
-		'webgl',
-		'webgpu',
-		'webnn_cpu_1',
-		'webnn_cpu_4',
-		'webnn_gpu',
-		'webnn_npu'
-	];
 
 	const toggleBackends = () => {
 		for (const backend in backends) {
@@ -58,7 +45,7 @@
 		if (urlBackends !== 'all' && urlBackends !== 'none') {
 			urlBackends = stringToArray(urlBackends);
 			invertBackends = arrayToStringWithComma(
-				allBackends.filter((item) => !urlBackends.includes(item))
+				uniqueBackends.filter((item) => !urlBackends.includes(item))
 			);
 		} else if (urlBackends === 'all') {
 			invertBackends = 'none';
@@ -120,7 +107,7 @@
 
 		urlBackends = trimComma(urlBackends);
 
-		if (containsAllElementsInArray(urlBackends, allBackends)) {
+		if (containsAllElementsInArray(urlBackends, uniqueBackends)) {
 			urlBackends = 'all';
 		}
 
@@ -153,9 +140,9 @@
 				<input type="checkbox" on:change={() => toggleBackend('wasm_1')} />
 				Wasm
 			</label>
-			<label class={backends.wasm_4.toString()} title="WebAssembly SIMD with 4 threads">
+			<label id="wasm_4" class={backends.wasm_4.toString()} title="WebAssembly SIMD with 4 threads">
 				<input type="checkbox" on:change={() => toggleBackend('wasm_4')} />
-				Wasm 4T
+				Wasm 4
 			</label>
 			<label
 				id="webnn_cpu_1"
@@ -165,9 +152,13 @@
 				<input type="checkbox" on:change={() => toggleBackend('webnn_cpu_1')} />
 				WebNN
 			</label>
-			<label class={backends.webnn_cpu_4.toString()} title="WebNN CPU with 4 threads">
+			<label
+				id="webnn_cpu_4"
+				class={backends.webnn_cpu_4.toString()}
+				title="WebNN CPU with 4 threads"
+			>
 				<input type="checkbox" on:change={() => toggleBackend('webnn_cpu_4')} />
-				WebNN 4T
+				WebNN 4
 			</label>
 		</div>
 	</div>

@@ -1,129 +1,16 @@
 <script>
-	import { models } from '../config';
 	import {
 		trimComma,
 		removeStringFromArray,
 		arrayToStringWithComma,
 		containsAllElementsInArray,
 		getURLParameterValue,
-		getUniqueDataTypes,
+		selectedModelTypes,
 		getUniqueModelTypes,
-		selectedModels,
 		goTo,
 		stringToArray
 	} from '$lib/assets/js/utils';
-	import { modelTypesStore, dataTypesStore } from '$lib/store/store';
-	import { onMount, beforeUpdate } from 'svelte';
-
-	/**
-	 * @type {string[]}
-	 */
-	export let selectedModelTypes;
-	modelTypesStore.subscribe((value) => {
-		selectedModelTypes = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	export let selectedDataTypes;
-	dataTypesStore.subscribe((value) => {
-		selectedDataTypes = value;
-	});
-
-	/**
-	 * @type {any[]}
-	 */
-	let filteredModelIds = [];
-
-	/**
-	 * @type {any}
-	 */
-	let dataTypes = {
-		fp32: false,
-		fp16: false,
-		int8: false
-	};
-
-	const uniqueDataTypes = getUniqueDataTypes();
-
-	const toggleDataTypes = () => {
-		for (const datatype in dataTypes) {
-			if (dataTypes.hasOwnProperty(datatype)) {
-				dataTypes[datatype] = !dataTypes[datatype];
-			}
-		}
-
-		let urlDataTypes = getURLParameterValue('datatype')?.toLocaleLowerCase().trim();
-		urlDataTypes = decodeURIComponent(urlDataTypes);
-		urlDataTypes = trimComma(urlDataTypes);
-
-		/**
-		 * @type {any}
-		 */
-		let invertDataTypes = '';
-
-		if (urlDataTypes !== 'all' && urlDataTypes !== 'none') {
-			urlDataTypes = stringToArray(urlDataTypes);
-			invertDataTypes = arrayToStringWithComma(
-				uniqueDataTypes.filter((item) => !urlDataTypes.includes(item))
-			);
-		} else if (urlDataTypes === 'all') {
-			invertDataTypes = 'none';
-		} else if (urlDataTypes === 'none') {
-			invertDataTypes = 'all';
-		}
-
-		filterModelsFromSelectedModelTypeandDataTypes();
-		if (invertDataTypes.length === 8) {
-			goTo('datatype', 'all');
-		} else if (invertDataTypes.length === 0) {
-			goTo('datatype', 'none');
-		} else {
-			goTo('datatype', invertDataTypes);
-		}
-	};
-
-	const toggleDataType = (/** @type {string} */ datatype) => {
-		if (dataTypes.hasOwnProperty(datatype)) {
-			dataTypes[datatype] = !dataTypes[datatype];
-		}
-
-		let urlDataTypes = getURLParameterValue('datatype')?.toLocaleLowerCase().trim();
-		urlDataTypes = decodeURIComponent(urlDataTypes);
-
-		urlDataTypes = trimComma(urlDataTypes);
-
-		if (dataTypes[datatype]) {
-			// Add datatype
-			if (urlDataTypes === 'none') {
-				urlDataTypes = datatype;
-			} else {
-				urlDataTypes = urlDataTypes + ',' + datatype;
-			}
-		} else {
-			// Remove datatype
-			if (urlDataTypes && urlDataTypes?.indexOf(datatype) > -1) {
-				if (urlDataTypes === datatype) {
-					urlDataTypes = 'none';
-				} else {
-					urlDataTypes = urlDataTypes?.replaceAll(datatype, '').replaceAll(',,', ',');
-				}
-			} else if (urlDataTypes === 'all') {
-				let removedDataTypes = removeStringFromArray(['fp32', 'fp16', 'int8'], datatype);
-				urlDataTypes = arrayToStringWithComma(removedDataTypes);
-			}
-		}
-
-		urlDataTypes = trimComma(urlDataTypes);
-
-		if (containsAllElementsInArray(urlDataTypes, uniqueDataTypes)) {
-			urlDataTypes = 'all';
-		}
-
-		filterModelsFromSelectedModelTypeandDataTypes();
-		goTo('datatype', urlDataTypes);
-	};
+	import { onMount } from 'svelte';
 
 	/**
 	 * @type {any}
@@ -163,8 +50,6 @@
 		} else if (urlModelTypes === 'none') {
 			invertModelTypes = 'all';
 		}
-
-		filterModelsFromSelectedModelTypeandDataTypes();
 
 		if (invertModelTypes.length === 8) {
 			goTo('modeltype', 'all');
@@ -212,148 +97,15 @@
 			urlModelTypes = 'all';
 		}
 
-		filterModelsFromSelectedModelTypeandDataTypes();
 		goTo('modeltype', urlModelTypes);
 	};
 
-	// const uniqueModels = getUniqueModels();
-
-	const filterModelsFromSelectedModelTypeandDataTypes = () => {
-		const filteredModels = models
-			.filter(
-				(model) =>
-					selectedModelTypes.includes(model.format) && selectedDataTypes.includes(model.datatype)
-			)
-			.map((model) => ({
-				id: model.id,
-				name: model.name,
-				selected: false
-			}));
-
-		for (const model of filteredModels) {
-			for (const m of selectedModels) {
-				if (model.id === m) {
-					model.selected = true;
-				}
-			}
-		}
-
-		/**
-		 * @type {any[]}
-		 */
-		const uniqueObjects = [];
-
-		filteredModels.forEach((obj) => {
-			if (!uniqueObjects.some((o) => o.id === obj.id)) {
-				uniqueObjects.push(obj);
-			}
-		});
-
-		filteredModelIds = uniqueObjects;
-	};
-	for (const model of filteredModelIds) {
-		model['selected'] = false;
-	}
-	const toggleModels = () => {
-		filteredModelIds = filteredModelIds.map((item) => ({
-			...item,
-			selected: !item.selected
-		}));
-		let selectedIds = filteredModelIds
-			.filter((item) => item.selected === true)
-			.map((item) => item.id);
-		let urlModels = getURLParameterValue('model')?.toLocaleLowerCase().trim();
-		urlModels = decodeURIComponent(urlModels);
-		urlModels = trimComma(urlModels);
-
-		/**
-		 * @type {any}
-		 */
-		let invertModels = '';
-		if (selectedIds.length === 0) {
-			invertModels = 'none';
-		} else {
-			invertModels = arrayToStringWithComma(selectedIds);
-		}
-		goTo('model', invertModels);
-	};
-
-	const toggleModel = (/** @type {string} */ model) => {
-		filteredModelIds = filteredModelIds.map((item) => {
-			if (item.id === model) {
-				return { ...item, selected: !item.selected };
-			}
-			return item;
-		});
-
-		let urlModels = getURLParameterValue('model')?.toLocaleLowerCase().trim();
-		urlModels = decodeURIComponent(urlModels);
-		urlModels = trimComma(urlModels);
-
-		const selectedM = filteredModelIds.find((item) => item.id === model);
-		const selectedV = selectedM ? selectedM.selected : false;
-
-		if (selectedV) {
-			// Add model
-			if (urlModels === 'none') {
-				urlModels = model;
-			} else {
-				urlModels = urlModels + ',' + model;
-			}
-		} else {
-			// Remove model
-			if (urlModels && urlModels?.indexOf(model) > -1) {
-				if (urlModels === model) {
-					urlModels = 'none';
-				} else {
-					urlModels = urlModels?.replaceAll(model, '').replaceAll(',,', ',');
-				}
-			}
-		}
-
-		urlModels = trimComma(urlModels);
-		goTo('model', urlModels);
-	};
-
-	beforeUpdate(() => {
-		filterModelsFromSelectedModelTypeandDataTypes();
-	});
-
 	onMount(() => {
-		for (const datatype of selectedDataTypes) {
-			dataTypes[datatype] = true;
-		}
-
 		for (const modeltype of selectedModelTypes) {
 			modelTypes[modeltype] = true;
 		}
-
-		for (const model of selectedModels) {
-			filteredModelIds[model] = true;
-		}
 	});
 </script>
-
-<div class="title">
-	<label class="" title="Toggle data types">
-		<input type="checkbox" on:change={() => toggleDataTypes()} />
-		Data Type
-	</label>
-</div>
-<div class="types">
-	<label class="extra {dataTypes.fp32.toString()}" title="FP32">
-		<input type="checkbox" on:change={() => toggleDataType('fp32')} />
-		FP32
-	</label>
-	<label class="extra {dataTypes.fp16.toString()}" title="FP16">
-		<input type="checkbox" on:change={() => toggleDataType('fp16')} />
-		FP16
-	</label>
-	<label class="extra {dataTypes.int8.toString()}" title="INT8">
-		<input type="checkbox" on:change={() => toggleDataType('int8')} />
-		INT8
-	</label>
-</div>
 
 <div class="title">
 	<label class="" title="Toggle model types">
@@ -396,7 +148,7 @@
 						d="M28.372 43.45c-.086.06-.088.118-.077.213a.881.881 0 0 1-.328.862c-.243.17-.224.36-.196.6l.288 2.5.16 1.304 5.06-8.79a.503.503 0 0 0-.075.018q-2.414 1.652-4.828 3.302zm-12.64-8.408a.286.286 0 0 0 .141-.25.971.971 0 0 1 .709-.87.265.265 0 0 0 .201-.222q.54-2.322 1.085-4.644l-.042-.028-5.618 8.056a.475.475 0 0 0 .086-.019q1.718-1.012 3.438-2.023z"
 						fill="#b2b2b2"
 					/></g
-				><g transform="matrix(1.8 0 0 1.8 -54 -34)"
+				><g transform="matrix(1.8 0 0 1.8 -54 -33)"
 					><path
 						class="logo_onnx_1"
 						d="M94.93 23.994c-.18-.05-.367-.06-.55-.03-.43.078-.55.212-.55.642V37.46l-.15-.215L86.05 25.86a13.05 13.05 0 0 0-1.013-1.438c-.19-.254-.475-.423-.8-.468-.383-.033-.818.08-.817.514l.005 15.126a.46.46 0 0 0 .079.296c.17.226.645.32 1.01.2.308-.1.393-.236.393-.63V26.608l.123.176 8.076 11.956a6.85 6.85 0 0 0 .82 1.101c.252.275.644.372.995.247.244-.04.41-.267.378-.512V24.5c.036-.246-.137-.473-.383-.504zm-16.488.002a1.28 1.28 0 0 0-.574-.029c-.41.082-.528.215-.528.634v12.863l-.155-.222-7.964-11.89a7.42 7.42 0 0 0-.679-.937c-.19-.233-.452-.394-.746-.458-.56-.098-.85.132-.85.688v14.9a.5.5 0 0 0 .082.342c.18.22.653.312 1.016.2.303-.102.376-.226.376-.638V26.933a.52.52 0 0 1 .02-.259c.08.028.1.104.14.16l8.404 12.435c.152.238.334.454.542.645a.91.91 0 0 0 .926.171c.23-.052.384-.265.362-.5l-.003-15.104c.036-.238-.132-.458-.37-.486zm-15.918 7.992l-.004-3.647c-.035-1.85-.997-3.228-2.74-3.87-1.87-.688-3.8-.702-5.698-.213-2.264.58-3.368 2.07-3.368 4.403v7.103c0 1.93.984 3.383 2.803 4.02 1.875.66 3.792.658 5.7.155 1.933-.51 3.272-1.842 3.305-4.16l.003-3.792zm-1.473.135v3.383c0 1.975-.88 3.107-2.802 3.527-1.26.296-2.58.245-3.814-.147-1.434-.47-2.226-1.55-2.234-3.06v-7.42c.008-1.567.876-2.702 2.4-3.115 1.416-.414 2.926-.38 4.322.096 1.377.48 2.13 1.58 2.137 3.04l.001 3.698zm49.212 7.033l-4.828-6.93c-.1-.104-.103-.268-.006-.374l4.72-6.83a3.23 3.23 0 0 0 .256-.407c.124-.207.035-.477-.19-.57a.92.92 0 0 0-1.18.205 5.9 5.9 0 0 0-.407.539l-4.206 6.158-.103-.135L101 25.92l-1.097-1.588c-.215-.34-.632-.49-1.015-.37-.505.127-.617.417-.32.85l4.85 7.06a.24.24 0 0 1-.005.331l-4.875 7.043c-.264.384-.182.646.245.832.465.202.8.08 1.14-.42l4.485-6.556.08.09 4.404 6.4c.095.15.21.286.34.406.332.24.787.21 1.088-.066.236-.215.225-.37-.06-.78z"
@@ -517,25 +269,6 @@
 			>
 		</label>
 	</div>
-</div>
-
-<div class="title">
-	<label class="" title="Toggle models">
-		<input type="checkbox" on:change={() => toggleModels()} />
-		Model
-	</label>
-</div>
-<div class="models">
-	{#if filteredModelIds.length > 0}
-		{#each filteredModelIds as { id, name, selected }, i}
-			<label class="extra {id} {selected}" title={name}>
-				<input type="checkbox" on:change={() => toggleModel(id)} />
-				{name}
-			</label>
-		{/each}
-	{:else}
-		Choose model type and data type to get test models
-	{/if}
 </div>
 
 <style>
