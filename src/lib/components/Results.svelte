@@ -51,11 +51,6 @@
 		((testQueueLength - testQueue.length) * 100) /
 		(testQueueLength * 1.0)
 	).toFixed(2);
-
-	$: percentageTestQueueInt = (
-		((testQueueLength - testQueue.length) * 100) /
-		(testQueueLength * 1.0)
-	).toFixed(0);
 </script>
 
 <Info />

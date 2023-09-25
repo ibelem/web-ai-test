@@ -1,9 +1,7 @@
 <script>
 	import {
 		trimComma,
-		removeStringFromArray,
 		arrayToStringWithComma,
-		containsAllElementsInArray,
 		getURLParameterValue,
 		selectedDataTypes,
 		getUniqueDataTypesByModelId,
@@ -16,38 +14,37 @@
 	/**
 	 * @type {any}
 	 */
-	let dataTypes = {};
+	let dataTypes = {
+		fp32: { selected: false, show: false },
+		fp16: { selected: false, show: false },
+		int8: { selected: false, show: false }
+	};
 
 	/**
 	 * @type {any[]}
 	 */
 	let uniqueDataTypes = [];
-
 	const toggleDataTypes = () => {
 		for (const datatype in dataTypes) {
 			if (dataTypes.hasOwnProperty(datatype)) {
-				dataTypes[datatype] = !dataTypes[datatype];
+				dataTypes[datatype].selected = !dataTypes[datatype].selected;
 			}
 		}
-
 		let urlDataTypes = getURLParameterValue('datatype')?.toLocaleLowerCase().trim();
 		urlDataTypes = decodeURIComponent(urlDataTypes);
 		urlDataTypes = trimComma(urlDataTypes);
-
 		/**
 		 * @type {any}
 		 */
 		let invertDataTypes = '';
-
 		if (urlDataTypes !== 'none') {
 			urlDataTypes = stringToArray(urlDataTypes);
 			invertDataTypes = arrayToStringWithComma(
-				uniqueDataTypes.filter((item) => !urlDataTypes.includes(item))
+				uniqueDataTypes.filter((item) => !urlDataTypes?.includes(item))
 			);
 		} else if (urlDataTypes === 'none') {
-			invertDataTypes = 'all';
+			invertDataTypes = arrayToStringWithComma(uniqueDataTypes);
 		}
-
 		if (invertDataTypes.length === 0) {
 			goTo('datatype', 'none');
 		} else {
@@ -57,48 +54,44 @@
 
 	const toggleDataType = (/** @type {string} */ datatype) => {
 		if (dataTypes.hasOwnProperty(datatype)) {
-			dataTypes[datatype] = !dataTypes[datatype];
+			dataTypes[datatype].selected = !dataTypes[datatype].selected;
 		}
-
+		dataTypes = dataTypes;
 		let urlDataTypes = getURLParameterValue('datatype')?.toLocaleLowerCase().trim();
 		urlDataTypes = decodeURIComponent(urlDataTypes);
-
 		urlDataTypes = trimComma(urlDataTypes);
-
 		if (dataTypes[datatype]) {
-			// Add datatype
-			console.log(dataTypes[datatype]);
-			if (urlDataTypes === 'none') {
-				urlDataTypes = datatype;
-			} else {
-				urlDataTypes = urlDataTypes + ',' + datatype;
-			}
-		} else {
-			// Remove datatype
+			// Remove
 			if (urlDataTypes && urlDataTypes?.indexOf(datatype) > -1) {
 				if (urlDataTypes === datatype) {
 					urlDataTypes = 'none';
 				} else {
 					urlDataTypes = urlDataTypes?.replaceAll(datatype, '').replaceAll(',,', ',');
 				}
+			} else {
+				if (urlDataTypes === 'none') {
+					urlDataTypes = datatype;
+				} else {
+					urlDataTypes = urlDataTypes + ',' + datatype;
+				}
 			}
 		}
-
 		urlDataTypes = trimComma(urlDataTypes);
-
 		goTo('datatype', urlDataTypes);
 	};
 
 	beforeUpdate(() => {
 		uniqueDataTypes = getUniqueDataTypesByModelId(getModelIdfromPath());
-		for (let u of uniqueDataTypes) {
-			dataTypes[u] = false;
+		for (let dataType of uniqueDataTypes) {
+			if (dataTypes[dataType]) {
+				dataTypes[dataType].show = true;
+			}
 		}
 	});
 
 	onMount(() => {
 		for (const datatype of selectedDataTypes) {
-			dataTypes[datatype] = true;
+			dataTypes[datatype].selected = true;
 		}
 	});
 </script>
@@ -111,25 +104,31 @@
 		</label>
 	</div>
 	<div class="types">
-		{#each Object.keys(dataTypes) as dt}
-			<label class="extra {dataTypes[dt]}" title={dt}>
+		<!-- {#each Object.keys(dataTypes) as dt}
+			<label class="extra {dataTypes[dt]}" title={dt.toUpperCase()}>
 				<input type="checkbox" on:change={() => toggleDataType(dt)} />
-				{dt}
+				{dt.toUpperCase()}
 			</label>
-		{/each}
+		{/each} -->
 
-		<!-- <label class="extra {dataTypes.fp32}" title="FP32">
-			<input type="checkbox" on:change={() => toggleDataType('fp32')} />
-			FP32
-		</label>
-		<label class="extra {dataTypes.fp16}" title="FP16">
-			<input type="checkbox" on:change={() => toggleDataType('fp16')} />
-			FP16
-		</label>
-		<label class="extra {dataTypes.int8}" title="INT8">
-			<input type="checkbox" on:change={() => toggleDataType('int8')} />
-			INT8
-		</label> -->
+		{#if dataTypes.fp32.show}
+			<label class="extra {dataTypes.fp32.selected}" title="FP32">
+				<input type="checkbox" on:change={() => toggleDataType('fp32')} />
+				FP32
+			</label>
+		{/if}
+		{#if dataTypes.fp16.show}
+			<label class="extra {dataTypes.fp16.selected}" title="FP16">
+				<input type="checkbox" on:change={() => toggleDataType('fp16')} />
+				FP16
+			</label>
+		{/if}
+		{#if dataTypes.int8.show}
+			<label class="extra {dataTypes.int8.selected}" title="INT8">
+				<input type="checkbox" on:change={() => toggleDataType('int8')} />
+				INT8
+			</label>
+		{/if}
 	</div>
 {/if}
 

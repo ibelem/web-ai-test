@@ -214,6 +214,11 @@ export const getUniqueDataTypesByModelId = (modelid) => {
   return [...new Set(matchingModels.map(model => model.datatype))];
 }
 
+export const getUniqueModelTypesByModelId = (modelid) => {
+  const matchingModels = models.filter(model => model.id === modelid);
+  return [...new Set(matchingModels.map(model => model.format))];
+}
+
 export const getUniqueModels = () => {
   let uniqueModels = [];
   for (let model of models) {
@@ -447,7 +452,6 @@ export const run = async () => {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);
     console.log('NEW URL ' + newUrl)
     goto(newUrl);
-    autoStore.update(() => false);
   } else {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);
   }
