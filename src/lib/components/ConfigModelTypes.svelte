@@ -54,8 +54,6 @@
 	};
 
 	const toggleModelType = (/** @type {string} */ modeltype) => {
-		console.log(modelTypes);
-
 		if (modelTypes.hasOwnProperty(modeltype)) {
 			modelTypes[modeltype].selected = !modelTypes[modeltype].selected;
 		}

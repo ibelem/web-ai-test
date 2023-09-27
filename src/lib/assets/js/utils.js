@@ -252,7 +252,6 @@ export const goTo = (key, value) => {
       url.searchParams.set(key, 'none');
     }
     newUrl = url.toString();
-    console.log('goto: ' + newUrl)
     goto(newUrl);
   }
 }
@@ -452,7 +451,6 @@ export const run = async () => {
     goto(path);
   } else if (auto) {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);
-    console.log('NEW URL ' + newUrl)
     goto(newUrl);
   } else {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);

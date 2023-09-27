@@ -2,10 +2,10 @@
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
 	import { getModelIdfromPath } from '$lib/assets/js/utils';
-	import { beforeUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 
-	let url = base;
-	$: search = $page.url.search;
+	$: url = base;
+	$: search = '';
 	$: fullSearch = search;
 
 	const homeUrl = () => {
@@ -25,7 +25,10 @@
 			url = `${host}${fullSearch}`;
 		}
 	};
-	beforeUpdate(() => {
+
+	onMount(() => {
+		search = $page.url.search;
+
 		if ($page.url.pathname.indexOf('/run/') > -1) {
 			fullSearch = search + '&model=' + getModelIdfromPath();
 		}

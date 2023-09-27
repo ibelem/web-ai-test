@@ -13,7 +13,6 @@
 		resetResult,
 		resetInfo,
 		urlToStore,
-		updateTestQueue,
 		getModelIdfromPath
 	} from '../../lib/assets/js/utils';
 	import {
@@ -32,7 +31,7 @@
 	/**
 	 * @type {number}
 	 */
-	export let numOfRuns;
+	let numOfRuns;
 
 	numberOfRunsStore.subscribe((value) => {
 		numOfRuns = value;
@@ -41,7 +40,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	export let selectedBackends;
+	let selectedBackends;
 	backendsStore.subscribe((value) => {
 		selectedBackends = value;
 	});
@@ -49,7 +48,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	export let selectedModelTypes;
+	let selectedModelTypes;
 	modelTypesStore.subscribe((value) => {
 		selectedModelTypes = value;
 	});
@@ -57,7 +56,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	export let selectedDataTypes;
+	let selectedDataTypes;
 	dataTypesStore.subscribe((value) => {
 		selectedDataTypes = value;
 	});
@@ -65,7 +64,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	export let selectedModels;
+	let selectedModels;
 	modelsStore.subscribe((value) => {
 		selectedModels = value;
 	});
@@ -73,7 +72,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	export let testQueue;
+	let testQueue;
 	testQueueStore.subscribe((value) => {
 		testQueue = value;
 	});
@@ -81,7 +80,7 @@
 	/**
 	 * @type {number}
 	 */
-	export let testQueueLength;
+	let testQueueLength;
 
 	testQueueLengthStore.subscribe((value) => {
 		testQueueLength = value;
@@ -89,7 +88,7 @@
 
 	const runManual = () => {
 		autoStore.update(() => false);
-		updateTestQueue();
+		// updateTestQueue();
 		resetResult();
 		resetInfo();
 		run();
@@ -123,7 +122,6 @@
 			<ConfigNumOfRuns />
 		</div>
 	{/if}
-
 	<Results />
 	<TestQueue />
 	<div class="run">
