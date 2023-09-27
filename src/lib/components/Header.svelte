@@ -2,7 +2,7 @@
 	import Nav from './Nav.svelte';
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
-	import { beforeUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 	import { getModelIdfromPath } from '$lib/assets/js/utils';
 	import { testQueueStore, testQueueLengthStore } from '$lib/store/store';
 
@@ -33,8 +33,8 @@
 		(testQueueLength * 1.0)
 	).toFixed(0);
 
-	let url = base;
-	$: search = $page.url.search;
+	$: url = base;
+	$: search = '';
 	$: fullSearch = search;
 
 	const homeUrl = () => {
@@ -55,7 +55,9 @@
 		}
 	};
 
-	beforeUpdate(() => {
+	onMount(() => {
+		search = $page.url.search;
+
 		if ($page.url.pathname.indexOf('/run/') > -1) {
 			fullSearch = search + '&model=' + getModelIdfromPath();
 		}
