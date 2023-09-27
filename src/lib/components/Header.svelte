@@ -1,6 +1,9 @@
 <script>
 	import Nav from './Nav.svelte';
 	import { base } from '$app/paths';
+	import { page } from '$app/stores';
+	import { beforeUpdate } from 'svelte';
+	import { getModelIdfromPath } from '$lib/assets/js/utils';
 	import { testQueueStore, testQueueLengthStore } from '$lib/store/store';
 
 	/**
@@ -29,11 +32,39 @@
 		((testQueueLength - testQueue.length) * 100) /
 		(testQueueLength * 1.0)
 	).toFixed(0);
+
+	let url = base;
+	$: search = $page.url.search;
+	$: fullSearch = search;
+
+	const homeUrl = () => {
+		let model = getModelIdfromPath();
+		let host = $page.url.protocol + '//' + $page.url.hostname;
+		let port = $page.url.port;
+		if (port) {
+			host = host + ':' + port;
+		}
+		if ($page.url.pathname.indexOf('web-ai-benchmark') > -1) {
+			host = host + '/web-ai-benchmark';
+		}
+
+		if ($page.url.pathname.indexOf('/run/') > -1) {
+			url = `${host}${search}&model=${model}`;
+		} else {
+			url = `${host}${fullSearch}`;
+		}
+	};
+
+	beforeUpdate(() => {
+		if ($page.url.pathname.indexOf('/run/') > -1) {
+			fullSearch = search + '&model=' + getModelIdfromPath();
+		}
+	});
 </script>
 
 <header>
 	<div id="logo">
-		<a href="{base}/">
+		<a href={url} on:click={homeUrl}>
 			<svg
 				width="656"
 				height="204"

@@ -182,7 +182,7 @@ export const removeStringFromArray = (array, string) => {
 }
 
 export const getURLParameterValue = (parameter) => {
-  let url = new URL(window.location.href);
+  let url = new URL(location.href);
   return url.searchParams.get(parameter);
 }
 
@@ -389,6 +389,8 @@ export const urlToStore = (urlSearchParams, modelIdFromUrl) => {
     } else {
       updateStore(numOfRuns, backend, dataType, modelType, model);
     }
+
+    updateTestQueue();
   }
 };
 
