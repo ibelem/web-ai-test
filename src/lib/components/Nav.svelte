@@ -9,7 +9,14 @@
 	$: fullSearch = search;
 
 	const homeUrl = () => {
-		let model = getModelIdfromPath();
+		search = $page.url.search;
+
+		if ($page.url.pathname.indexOf('/run/') > -1 && search.indexOf('model=') <= -1) {
+			fullSearch = search + '&model=' + getModelIdfromPath();
+		} else {
+			fullSearch = search;
+		}
+
 		let host = $page.url.protocol + '//' + $page.url.hostname;
 		let port = $page.url.port;
 		if (port) {
@@ -18,25 +25,14 @@
 		if ($page.url.pathname.indexOf('web-ai-benchmark') > -1) {
 			host = host + '/web-ai-benchmark';
 		}
-
-		if ($page.url.pathname.indexOf('/run/') > -1) {
-			url = `${host}${search}&model=${model}`;
-		} else {
-			url = `${host}${fullSearch}`;
-		}
+		url = `${host}${fullSearch}`;
 	};
 
-	onMount(() => {
-		search = $page.url.search;
-
-		if ($page.url.pathname.indexOf('/run/') > -1) {
-			fullSearch = search + '&model=' + getModelIdfromPath();
-		}
-	});
+	onMount(() => {});
 </script>
 
 <nav>
 	<a href={url} on:click={homeUrl}>home</a>
-	<a href="{base}/tests{fullSearch}">tests</a>
-	<a href="{base}/about{fullSearch}">about</a>
+	<a href="{base}/tests{fullSearch}" on:click={homeUrl}>tests</a>
+	<a href="{base}/about{fullSearch}" on:click={homeUrl}>about</a>
 </nav>
