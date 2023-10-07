@@ -389,7 +389,13 @@ export const urlToStore = (urlSearchParams, modelIdFromUrl) => {
       updateStore(numOfRuns, backend, dataType, modelType, model);
     }
 
-    updateTestQueue();
+    // if (!auto) {
+    //   updateTestQueue();
+    // }
+
+    if (modelType.length === 0 && dataType.length === 0 && backend.length === 0) {
+      resetResult();
+    }
   }
 };
 

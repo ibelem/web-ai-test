@@ -80,7 +80,7 @@
 
 	const run = async () => {
 		autoStore.update(() => true);
-		// updateTestQueue();
+		updateTestQueue();
 		resetResult();
 		resetInfo();
 		let path = `${base}/run/${testQueue[0].model}`;
