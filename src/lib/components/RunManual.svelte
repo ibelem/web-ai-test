@@ -13,7 +13,8 @@
 		resetResult,
 		resetInfo,
 		urlToStore,
-		getModelIdfromPath
+		getModelIdfromPath,
+		updateTestQueue
 	} from '../../lib/assets/js/utils';
 	import {
 		autoStore,
@@ -88,7 +89,7 @@
 
 	const runManual = () => {
 		autoStore.update(() => false);
-		// updateTestQueue();
+		updateTestQueue();
 		resetResult();
 		resetInfo();
 		run();

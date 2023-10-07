@@ -2,7 +2,7 @@
 	import Nav from './Nav.svelte';
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
+	import { onMount, beforeUpdate } from 'svelte';
 	import { getModelIdfromPath } from '$lib/assets/js/utils';
 	import { testQueueStore, testQueueLengthStore } from '$lib/store/store';
 
@@ -33,6 +33,8 @@
 		(testQueueLength * 1.0)
 	).toFixed(0);
 
+	$: progress = '';
+
 	$: url = base;
 	$: search = '';
 	$: fullSearch = search;
@@ -55,11 +57,19 @@
 		url = `${host}${fullSearch}`;
 	};
 
+	beforeUpdate(() => {
+		if (0 < parseInt(percentageTestQueueInt) && parseInt(percentageTestQueueInt) < 100) {
+			progress = 'ing';
+		} else {
+			progress = '';
+		}
+	});
+
 	onMount(() => {});
 </script>
 
 <header>
-	<div id="logo">
+	<div id="logo" class={progress}>
 		<a href={url} on:click={homeUrl}>
 			<svg
 				width="656"
@@ -86,19 +96,19 @@
 				<path d="M27 96L87 112" stroke="white" stroke-width="6" stroke-linecap="round" />
 				<path d="M79 60L97 103" stroke="white" stroke-width="6" stroke-linecap="round" />
 				<path d="M120 35L88 45" stroke="white" stroke-width="6" stroke-linecap="round" />
-				<circle cx="38.5" cy="62.5" r="6.5" stroke="white" stroke-width="4" />
-				<circle cx="69.5" cy="87.5" r="6.5" stroke="white" stroke-width="4" />
-				<circle cx="127.5" cy="32.5" r="6.5" stroke="white" stroke-width="4" />
-				<circle cx="154.5" cy="116.5" r="6.5" stroke="white" stroke-width="4" />
-				<circle cx="112.5" cy="148.5" r="6.5" stroke="white" stroke-width="4" />
-				<circle cx="190.5" cy="148.5" r="6.5" stroke="white" stroke-width="4" />
-				<circle cx="200" cy="117" r="10" stroke="white" stroke-width="6" />
-				<circle cx="115" cy="75" r="10" stroke="white" stroke-width="6" />
-				<circle cx="15" cy="92" r="15" fill="white" />
-				<circle cx="75" cy="49" r="15" fill="white" />
-				<circle cx="163" cy="62" r="15" fill="white" />
-				<circle cx="101" cy="114" r="15" fill="white" />
-				<circle cx="156" cy="155" r="15" fill="white" />
+				<circle class="c1" cx="38.5" cy="62.5" r="6.5" stroke="white" stroke-width="4" />
+				<circle class="c2" cx="69.5" cy="87.5" r="6.5" stroke="white" stroke-width="4" />
+				<circle class="c3" cx="127.5" cy="32.5" r="6.5" stroke="white" stroke-width="4" />
+				<circle class="c4" cx="154.5" cy="116.5" r="6.5" stroke="white" stroke-width="4" />
+				<circle class="c5" cx="112.5" cy="148.5" r="6.5" stroke="white" stroke-width="4" />
+				<circle class="c6" cx="190.5" cy="148.5" r="6.5" stroke="white" stroke-width="4" />
+				<circle class="c7" cx="200" cy="117" r="10" stroke="white" stroke-width="6" />
+				<circle class="c8" cx="115" cy="75" r="10" stroke="white" stroke-width="6" />
+				<circle class="c9" cx="15" cy="92" r="15" fill="white" />
+				<circle class="c10" cx="75" cy="49" r="15" fill="white" />
+				<circle class="c11" cx="163" cy="62" r="15" fill="white" />
+				<circle class="c12" cx="101" cy="114" r="15" fill="white" />
+				<circle class="c13" cx="156" cy="155" r="15" fill="white" />
 				<path
 					d="M280.08 85H262.6L260.168 44.568V37.272H258.344V44.568L255.912 85H238.432L236.608 31.8H245.728L246.944 72.232V79.072H248.768V72.232L251.2 31.8H267.312L269.744 72.232V79.072H271.568V72.232L272.784 31.8H281.904L280.08 85ZM296.899 69.268C296.95 70.3827 297.203 71.4213 297.659 72.384C298.166 73.296 298.824 74.1067 299.635 74.816C300.496 75.4747 301.459 76.0067 302.523 76.412C303.638 76.7667 304.803 76.944 306.019 76.944C308.4 76.944 310.224 76.5387 311.491 75.728C312.758 74.8667 313.67 73.8533 314.227 72.688L322.435 77.248C321.979 78.2107 321.346 79.224 320.535 80.288C319.724 81.3013 318.66 82.2387 317.343 83.1C316.076 83.9613 314.506 84.6707 312.631 85.228C310.807 85.7853 308.654 86.064 306.171 86.064C303.334 86.064 300.75 85.608 298.419 84.696C296.088 83.784 294.062 82.4667 292.339 80.744C290.667 79.0213 289.35 76.9187 288.387 74.436C287.475 71.9533 287.019 69.1413 287.019 66V65.544C287.019 62.656 287.5 60.0213 288.463 57.64C289.476 55.2587 290.844 53.232 292.567 51.56C294.29 49.888 296.291 48.596 298.571 47.684C300.902 46.7213 303.384 46.24 306.019 46.24C309.262 46.24 312.048 46.8227 314.379 47.988C316.71 49.1027 318.635 50.5467 320.155 52.32C321.675 54.0427 322.79 55.968 323.499 58.096C324.208 60.1733 324.563 62.2 324.563 64.176V69.268H296.899ZM305.943 54.904C303.511 54.904 301.535 55.5373 300.015 56.804C298.495 58.02 297.507 59.4387 297.051 61.06H314.835C314.531 59.2867 313.568 57.8173 311.947 56.652C310.376 55.4867 308.375 54.904 305.943 54.904ZM342.978 85H333.402V31.8H342.978V52.776H344.346C345.36 50.6987 346.829 49.1027 348.754 47.988C350.68 46.8227 353.137 46.24 356.126 46.24C358.356 46.24 360.458 46.6707 362.434 47.532C364.461 48.3933 366.209 49.66 367.678 51.332C369.198 52.9533 370.389 54.9547 371.25 57.336C372.162 59.7173 372.618 62.428 372.618 65.468V66.836C372.618 69.9267 372.188 72.6627 371.326 75.044C370.465 77.4253 369.3 79.452 367.83 81.124C366.361 82.7453 364.613 83.9867 362.586 84.848C360.61 85.6587 358.457 86.064 356.126 86.064C354.404 86.064 352.909 85.8867 351.642 85.532C350.376 85.1773 349.261 84.696 348.298 84.088C347.386 83.48 346.601 82.796 345.942 82.036C345.334 81.2253 344.802 80.3893 344.346 79.528H342.978V85ZM353.01 76.944C356 76.944 358.406 76.032 360.23 74.208C362.105 72.3333 363.042 69.8 363.042 66.608V65.696C363.042 62.504 362.105 59.996 360.23 58.172C358.406 56.2973 356 55.36 353.01 55.36C350.021 55.36 347.589 56.3227 345.714 58.248C343.89 60.1227 342.978 62.6053 342.978 65.696V66.608C342.978 69.6987 343.89 72.2067 345.714 74.132C347.589 76.0067 350.021 76.944 353.01 76.944ZM454.441 73.6H436.353L433.769 85H423.281L435.973 31.8H454.821L467.513 85H457.025L454.441 73.6ZM438.481 64.024H452.237L446.081 36.816H444.713L438.481 64.024ZM474.148 31.8H509.716V41.376H496.948V75.424H509.716V85H474.148V75.424H486.916V41.376H474.148V31.8Z"
 					fill="white"
@@ -118,6 +128,145 @@
 {/if}
 
 <style>
+	#logo.ing svg path {
+		fill: var(--white-01) !important;
+		stroke: var(--white-01) !important;
+	}
+	#logo.ing svg circle.c1 {
+		animation:
+			horizontal 2.6s infinite linear alternate,
+			vertical 2s infinite linear alternate,
+			colorX 26s infinite steps(10),
+			colorY 14s infinite steps(7);
+	}
+
+	#logo.ing svg circle.c2 {
+		animation:
+			horizontal 2s infinite linear alternate,
+			vertical 2.6s infinite linear alternate,
+			colorX 26s infinite steps(10),
+			colorY 14s infinite steps(7);
+	}
+
+	#logo.ing svg circle.c3 {
+		animation:
+			horizontal 3s infinite linear alternate,
+			vertical 1s infinite linear alternate,
+			colorX 14s infinite steps(10),
+			colorY 26s infinite steps(7);
+	}
+
+	#logo.ing svg circle.c4 {
+		animation:
+			horizontal 2.6s infinite linear alternate,
+			vertical 2s infinite linear alternate,
+			colorX 26s infinite steps(20),
+			colorY 14s infinite steps(17);
+	}
+
+	#logo.ing svg circle.c5 {
+		animation:
+			horizontal 2.6s infinite linear alternate,
+			vertical 2s infinite linear alternate,
+			colorX 26s infinite steps(20),
+			colorY 14s infinite steps(17);
+	}
+
+	#logo.ing svg circle.c6 {
+		animation:
+			horizontal 2.6s infinite linear alternate,
+			vertical 2s infinite linear alternate,
+			colorX 26s infinite steps(20),
+			colorY 14s infinite steps(17);
+	}
+
+	#logo.ing svg circle.c7 {
+		animation:
+			horizontal 2.6s infinite linear alternate,
+			vertical 2s infinite linear alternate,
+			colorX 26s infinite steps(20),
+			colorY 14s infinite steps(17);
+	}
+
+	#logo.ing svg circle.c8 {
+		animation:
+			horizontal 2.6s infinite linear alternate,
+			vertical 2s infinite linear alternate,
+			colorX 26s infinite steps(20),
+			colorY 14s infinite steps(17);
+	}
+
+	#logo.ing svg circle.c9 {
+		animation:
+			horizontal 25s infinite linear alternate,
+			vertical 6s infinite linear alternate,
+			colorX 6s infinite steps(6),
+			colorY 4s infinite steps(4);
+	}
+
+	#logo.ing svg circle.c10 {
+		animation:
+			horizontal 20s infinite linear alternate,
+			vertical 5s infinite linear alternate,
+			colorX 36s infinite steps(36),
+			colorY 24s infinite steps(24);
+	}
+
+	#logo.ing svg circle.c11 {
+		animation:
+			horizontal 15s infinite linear alternate,
+			vertical 4s infinite linear alternate,
+			colorX 8s infinite steps(8),
+			colorY 3s infinite steps(3);
+	}
+
+	#logo.ing svg circle.c12 {
+		animation:
+			horizontal 10s infinite linear alternate,
+			vertical 3s infinite linear alternate,
+			colorX 19s infinite steps(19),
+			colorY 7s infinite steps(7);
+	}
+
+	#logo.ing svg circle.c13 {
+		animation:
+			horizontal 5s infinite linear alternate,
+			vertical 2s infinite linear alternate,
+			colorX 35s infinite steps(35),
+			colorY 6s infinite steps(6);
+	}
+
+	#logo.ing svg circle {
+		animation-composition: accumulate;
+	}
+
+	@keyframes horizontal {
+		from {
+			transform: translateX(-60px);
+		}
+		to {
+			transform: translateX(600px);
+		}
+	}
+	@keyframes vertical {
+		from {
+			transform: translateY(-50px);
+		}
+		to {
+			transform: translateY(130px);
+		}
+	}
+	@keyframes colorX {
+		to {
+			filter: hue-rotate(360deg);
+		}
+	}
+	@keyframes colorY {
+		to {
+			filter: hue-rotate(360deg);
+		}
+	}
+
 	header {
 		background-color: var(--white);
 		z-index: 1;

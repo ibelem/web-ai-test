@@ -115,7 +115,7 @@ header .nav {
 }
 
 .config label.true, .group .block label.true {
-  background-color: var(--red);
+  background-image: linear-gradient(to right, var(--red-09) 0%,  var(--red) 100%);
   color: var(--white);
   border: 1px solid transparent;
 }
@@ -181,6 +181,7 @@ header .nav {
 }
 
 .config .backends label:hover, .config .types label:hover, .config .types label:hover, .config .models label:hover {
+  background-image: none;
   background-color: var(--red-005);
   color: var(--red);
 }
