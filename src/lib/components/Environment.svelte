@@ -497,7 +497,7 @@
 
 	.environment #logo_onnx {
 		width: 56px;
-		margin-bottom: 0px;
+		margin-bottom: -1px;
 	}
 
 	.environment svg path {

@@ -35,6 +35,7 @@
 
 		let urlBackends = getURLParameterValue('backend')?.toLocaleLowerCase().trim();
 		urlBackends = decodeURIComponent(urlBackends);
+		urlBackends = urlBackends?.replaceAll('undefined', '');
 		urlBackends = trimComma(urlBackends);
 
 		/**
@@ -53,6 +54,7 @@
 			invertBackends = 'all';
 		}
 
+		invertBackends = invertBackends?.replaceAll('undefined', '');
 		if (invertBackends.length === 8) {
 			goTo('backend', 'all');
 		} else if (invertBackends.length === 0) {
@@ -69,7 +71,7 @@
 
 		let urlBackends = getURLParameterValue('backend')?.toLocaleLowerCase().trim();
 		urlBackends = decodeURIComponent(urlBackends);
-
+		urlBackends = urlBackends?.replaceAll('undefined', '');
 		urlBackends = trimComma(urlBackends);
 
 		if (backends[backend]) {
@@ -105,6 +107,7 @@
 			}
 		}
 
+		urlBackends = urlBackends?.replaceAll('undefined', '');
 		urlBackends = trimComma(urlBackends);
 
 		if (containsAllElementsInArray(urlBackends, uniqueBackends)) {

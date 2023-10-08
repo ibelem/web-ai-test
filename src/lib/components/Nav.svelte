@@ -12,7 +12,11 @@
 		search = $page.url.search;
 
 		if ($page.url.pathname.indexOf('/run/') > -1 && search.indexOf('model=') <= -1) {
-			fullSearch = search + '&model=' + getModelIdfromPath();
+			if (search.indexOf('?') > -1) {
+				fullSearch = search + '&model=' + getModelIdfromPath();
+			} else {
+				fullSearch = search + '?model=' + getModelIdfromPath();
+			}
 		} else {
 			fullSearch = search;
 		}

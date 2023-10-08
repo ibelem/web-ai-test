@@ -33,23 +33,26 @@
 		}
 		let urlModelTypes = getURLParameterValue('modeltype')?.toLocaleLowerCase().trim();
 		urlModelTypes = decodeURIComponent(urlModelTypes);
+		urlModelTypes = urlModelTypes?.replaceAll('undefined', '');
 		urlModelTypes = trimComma(urlModelTypes);
 		/**
 		 * @type {any}
 		 */
-		let invertDataTypes = '';
+		let invertModelTypes = '';
 		if (urlModelTypes !== 'none') {
 			urlModelTypes = stringToArray(urlModelTypes);
-			invertDataTypes = arrayToStringWithComma(
+			invertModelTypes = arrayToStringWithComma(
 				uniqueModelTypes.filter((item) => !urlModelTypes?.includes(item))
 			);
 		} else if (urlModelTypes === 'none') {
-			invertDataTypes = arrayToStringWithComma(uniqueModelTypes);
+			invertModelTypes = arrayToStringWithComma(uniqueModelTypes);
 		}
-		if (invertDataTypes.length === 0) {
+
+		invertModelTypes = invertModelTypes?.replaceAll('undefined', '');
+		if (invertModelTypes.length === 0) {
 			goTo('modeltype', 'none');
 		} else {
-			goTo('modeltype', invertDataTypes);
+			goTo('modeltype', invertModelTypes);
 		}
 	};
 
@@ -60,6 +63,7 @@
 		modelTypes = modelTypes;
 		let urlModelTypes = getURLParameterValue('modeltype')?.toLocaleLowerCase().trim();
 		urlModelTypes = decodeURIComponent(urlModelTypes);
+		urlModelTypes = urlModelTypes?.replaceAll('undefined', '');
 		urlModelTypes = trimComma(urlModelTypes);
 		if (modelTypes[modeltype]) {
 			// Remove
@@ -77,6 +81,8 @@
 				}
 			}
 		}
+
+		urlModelTypes = urlModelTypes?.replaceAll('undefined', '');
 		urlModelTypes = trimComma(urlModelTypes);
 		goTo('modeltype', urlModelTypes);
 	};

@@ -32,6 +32,7 @@
 		}
 		let urlDataTypes = getURLParameterValue('datatype')?.toLocaleLowerCase().trim();
 		urlDataTypes = decodeURIComponent(urlDataTypes);
+		urlDataTypes = urlDataTypes?.replaceAll('undefined', '');
 		urlDataTypes = trimComma(urlDataTypes);
 		/**
 		 * @type {any}
@@ -45,6 +46,8 @@
 		} else if (urlDataTypes === 'none') {
 			invertDataTypes = arrayToStringWithComma(uniqueDataTypes);
 		}
+
+		invertDataTypes = invertDataTypes?.replaceAll('undefined', '');
 		if (invertDataTypes.length === 0) {
 			goTo('datatype', 'none');
 		} else {
@@ -59,6 +62,7 @@
 		dataTypes = dataTypes;
 		let urlDataTypes = getURLParameterValue('datatype')?.toLocaleLowerCase().trim();
 		urlDataTypes = decodeURIComponent(urlDataTypes);
+		urlDataTypes = urlDataTypes?.replaceAll('undefined', '');
 		urlDataTypes = trimComma(urlDataTypes);
 		if (dataTypes[datatype]) {
 			// Remove
@@ -76,6 +80,7 @@
 				}
 			}
 		}
+		urlDataTypes = urlDataTypes?.replaceAll('undefined', '');
 		urlDataTypes = trimComma(urlDataTypes);
 		goTo('datatype', urlDataTypes);
 	};
