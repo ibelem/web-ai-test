@@ -56,6 +56,7 @@
 
 		let urlDataTypes = getURLParameterValue('datatype')?.toLocaleLowerCase().trim();
 		urlDataTypes = decodeURIComponent(urlDataTypes);
+		urlDataTypes = urlDataTypes?.replaceAll('undefined', '');
 		urlDataTypes = trimComma(urlDataTypes);
 
 		/**
@@ -64,10 +65,12 @@
 		let invertDataTypes = '';
 
 		if (urlDataTypes !== 'all' && urlDataTypes !== 'none') {
+			urlDataTypes = urlDataTypes?.replaceAll('undefined', '');
 			urlDataTypes = stringToArray(urlDataTypes);
 			invertDataTypes = arrayToStringWithComma(
 				uniqueDataTypes.filter((item) => !urlDataTypes.includes(item))
 			);
+			invertDataTypes = invertDataTypes?.replaceAll('undefined', '');
 		} else if (urlDataTypes === 'all') {
 			invertDataTypes = 'none';
 		} else if (urlDataTypes === 'none') {
@@ -91,7 +94,7 @@
 
 		let urlDataTypes = getURLParameterValue('datatype')?.toLocaleLowerCase().trim();
 		urlDataTypes = decodeURIComponent(urlDataTypes);
-
+		urlDataTypes = urlDataTypes?.replaceAll('undefined', '');
 		urlDataTypes = trimComma(urlDataTypes);
 
 		if (dataTypes[datatype]) {
@@ -115,6 +118,7 @@
 			}
 		}
 
+		urlDataTypes = urlDataTypes?.replaceAll('undefined', '');
 		urlDataTypes = trimComma(urlDataTypes);
 
 		if (containsAllElementsInArray(urlDataTypes, uniqueDataTypes)) {
@@ -146,6 +150,7 @@
 
 		let urlModelTypes = getURLParameterValue('modeltype')?.toLocaleLowerCase().trim();
 		urlModelTypes = decodeURIComponent(urlModelTypes);
+		urlModelTypes = urlModelTypes?.replaceAll('undefined', '');
 		urlModelTypes = trimComma(urlModelTypes);
 
 		/**
@@ -154,10 +159,12 @@
 		let invertModelTypes = '';
 
 		if (urlModelTypes !== 'all' && urlModelTypes !== 'none') {
+			urlModelTypes = urlModelTypes?.replaceAll('undefined', '');
 			urlModelTypes = stringToArray(urlModelTypes);
 			invertModelTypes = arrayToStringWithComma(
 				uniqueModelTypes.filter((item) => !urlModelTypes.includes(item))
 			);
+			invertModelTypes = invertModelTypes?.replaceAll('undefined', '');
 		} else if (urlModelTypes === 'all') {
 			invertModelTypes = 'none';
 		} else if (urlModelTypes === 'none') {
@@ -182,7 +189,7 @@
 
 		let urlModelTypes = getURLParameterValue('modeltype')?.toLocaleLowerCase().trim();
 		urlModelTypes = decodeURIComponent(urlModelTypes);
-
+		urlModelTypes = urlModelTypes?.replaceAll('undefined', '');
 		urlModelTypes = trimComma(urlModelTypes);
 
 		if (modelTypes[modeltype]) {
@@ -206,6 +213,7 @@
 			}
 		}
 
+		urlModelTypes = urlModelTypes?.replaceAll('undefined', '');
 		urlModelTypes = trimComma(urlModelTypes);
 
 		if (containsAllElementsInArray(urlModelTypes, uniqueModelTypes)) {
@@ -264,6 +272,7 @@
 			.map((item) => item.id);
 		let urlModels = getURLParameterValue('model')?.toLocaleLowerCase().trim();
 		urlModels = decodeURIComponent(urlModels);
+		urlModels = urlModels?.replaceAll('undefined', '');
 		urlModels = trimComma(urlModels);
 
 		/**
@@ -275,6 +284,8 @@
 		} else {
 			invertModels = arrayToStringWithComma(selectedIds);
 		}
+
+		invertModels = invertModels?.replaceAll('undefined', '');
 		goTo('model', invertModels);
 	};
 
@@ -288,6 +299,7 @@
 
 		let urlModels = getURLParameterValue('model')?.toLocaleLowerCase().trim();
 		urlModels = decodeURIComponent(urlModels);
+		urlModels = urlModels?.replaceAll('undefined', '');
 		urlModels = trimComma(urlModels);
 
 		const selectedM = filteredModelIds.find((item) => item.id === model);
@@ -311,6 +323,7 @@
 			}
 		}
 
+		urlModels = urlModels?.replaceAll('undefined', '');
 		urlModels = trimComma(urlModels);
 		goTo('model', urlModels);
 	};
