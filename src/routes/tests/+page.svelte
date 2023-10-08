@@ -5,8 +5,6 @@
 	import { models } from '$lib/config';
 	import { beforeUpdate, onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
-	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 	import { autoStore } from '../../lib/store/store';
 	import { resetStore } from '$lib/assets/js/utils';
 
@@ -37,7 +35,7 @@
 				<div class="status_1 s">
 					<Clock />
 				</div>
-				<a href="{base}/run/{model}">{model.replaceAll('_', ' ')}</a>
+				<a href="{base}/run/{model}" class="capitalize">{model.replaceAll('_', ' ')}</a>
 			</div>
 		{/each}
 	</div>

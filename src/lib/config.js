@@ -31,7 +31,8 @@ export let models = [
     name: 'DenseNet 121',
     url: 'https://github.com/onnx/models/blob/main/vision/classification/densenet-121/model/densenet-9.onnx',
     format: 'onnx',
-    datatype: 'fp32'
+    datatype: 'fp32',
+    inputshape: []
   },
   {
     category: 'Image Classification',
@@ -39,7 +40,8 @@ export let models = [
     name: 'EfficientNet Lite 4',
     url: 'https://github.com/onnx/models/raw/main/vision/classification/efficientnet-lite4/model/efficientnet-lite4-11.onnx',
     format: 'onnx',
-    datatype: 'fp32'
+    datatype: 'fp32',
+    inputshape: []
   },
   {
     category: 'Image Classification',
@@ -47,7 +49,8 @@ export let models = [
     name: 'MobileNet v2',
     url: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
     format: 'onnx',
-    datatype: 'fp32'
+    datatype: 'fp32',
+    inputshape: []
   },
   {
     category: 'Image Classification',
@@ -55,7 +58,8 @@ export let models = [
     name: 'MobileNet v2',
     url: '',
     format: 'tflite',
-    datatype: 'int8'
+    datatype: 'int8',
+    inputshape: []
   },
   {
     category: 'Image Classification',
@@ -63,7 +67,8 @@ export let models = [
     name: 'MobileNet v2',
     url: '',
     format: 'npy',
-    datatype: 'fp32'
+    datatype: 'fp32',
+    inputshape: []
   },
   {
     category: 'Image Classification',
@@ -71,7 +76,8 @@ export let models = [
     name: 'ResNet50 v1',
     url: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v1-12.onnx',
     format: 'onnx',
-    datatype: 'fp32'
+    datatype: 'fp32',
+    inputshape: []
   },
   {
     category: 'Image Classification',
@@ -79,7 +85,8 @@ export let models = [
     name: 'ResNet50 v2',
     url: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v2-7.onnx',
     format: 'onnx',
-    datatype: 'fp32'
+    datatype: 'fp32',
+    inputshape: []
   },
   {
     category: 'Image Classification',
@@ -87,7 +94,8 @@ export let models = [
     name: 'Squeezenet_1.1',
     url: 'https://github.com/onnx/models/raw/main/vision/classification/squeezenet/model/squeezenet1.1-7.onnx',
     format: 'onnx',
-    datatype: 'fp32'
+    datatype: 'fp32',
+    inputshape: []
   },
 
   {
@@ -96,7 +104,8 @@ export let models = [
     name: 'Tiny YOLO v2',
     url: 'https://github.com/onnx/models/raw/main/vision/object_detection_segmentation/tiny-yolov2/model/tinyyolov2-8.onnx',
     format: 'onnx',
-    datatype: 'fp32'
+    datatype: 'fp32',
+    inputshape: []
   },
   {
     category: 'Face Analysis',
@@ -104,7 +113,8 @@ export let models = [
     name: 'Emotion FERPlus',
     url: 'https://github.com/onnx/models/raw/main/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx',
     format: 'onnx',
-    datatype: 'fp32'
+    datatype: 'fp32',
+    inputshape: []
   },
   {
     category: 'Semantic Segmentation',
@@ -112,7 +122,8 @@ export let models = [
     name: 'Segment Anything',
     url: '',
     format: 'onnx',
-    datatype: 'fp16'
+    datatype: 'fp16',
+    inputshape: []
   },
   {
     category: 'Semantic Segmentation',
@@ -120,7 +131,8 @@ export let models = [
     name: 'Selfie Segmentation (General)',
     url: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite',
     format: 'tflite',
-    datatype: 'fp32'
+    datatype: 'fp32',
+    inputshape: []
   },
   {
     category: 'Style Transfer',
@@ -128,7 +140,8 @@ export let models = [
     name: 'FNS Candy',
     url: 'https://github.com/microsoft/Windows-Machine-Learning/raw/master/Samples/CustomTensorization/CustomTensorization/fns-candy.onnx',
     format: 'pt',
-    datatype: 'fp32'
+    datatype: 'fp32',
+    inputshape: []
   },
 ];
 
