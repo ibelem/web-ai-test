@@ -1,6 +1,7 @@
 <script>
 	import { goTo } from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	/**
 	 * @type {number}
@@ -11,7 +12,12 @@
 		goTo('run', numOfRuns);
 	};
 
-	onMount(() => {});
+	onMount(() => {
+		let para = $page.url.searchParams;
+		if (para.get('run')) {
+			numOfRuns = parseInt(para.get('run'));
+		}
+	});
 </script>
 
 <div class="title">

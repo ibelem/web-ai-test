@@ -1,5 +1,6 @@
 import { autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore } from '../../store/store'
 import { models, uniqueBackends } from '../../config';
+import { catchMain } from '../js/ort_utils'
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
 import { environment } from '$lib/config.js';
@@ -20,7 +21,7 @@ export const initResult = (newItem) => {
   });
 }
 
-export const addResult = (model, modeltype, datatype, backend, backendstatus, backendinference) => {
+export const addResult = (model, modeltype, datatype, backend, status, warmup, inference, inferencemedian) => {
   resultsStore.update(items => {
     return items.map(item => {
       if (
@@ -31,8 +32,10 @@ export const addResult = (model, modeltype, datatype, backend, backendstatus, ba
         const updatedItem = { ...item };
         for (const key in updatedItem) {
           if (key !== "id" && key !== "model" && key !== "modeltype" && key !== "datatype") {
-            updatedItem[backend].status = backendstatus;
-            updatedItem[backend].inference = backendinference;
+            updatedItem[backend].status = status;
+            updatedItem[backend].warmup = warmup;
+            updatedItem[backend].inference = inference;
+            updatedItem[backend].inferencemedian = inferencemedian;
           }
         }
         return updatedItem;
@@ -329,7 +332,7 @@ export const containsAllElementsInArray = (string, array) => {
 }
 
 export const urlToStore = (urlSearchParams, modelIdFromUrl) => {
-  if (urlSearchParams.size > 0) {
+  if (urlSearchParams.size > 0 && urlSearchParams.size != 1) {
     let modelType = urlSearchParams.get('modeltype');
     let dataType = urlSearchParams.get('datatype');
     let backend = urlSearchParams.get('backend');
@@ -405,27 +408,22 @@ export const random = () => {
   return (Math.random() * (1000 - 1) + 1).toFixed(2);
 };
 
-export const median = (arr, length) => {
-  if (arr.length == 0) {
-    return;
-  }
-  const sorted = arr.sort((a, b) => a - b);
-  const middle = Math.floor(sorted.length / 2);
+export const median = (arr) => {
+  const sorted = arr.slice().sort((a, b) => a - b);
+
+  // Check if the array length is even or odd
+  const middle = Math.floor(sorted.length / 2.0);
+
   if (sorted.length % 2 === 0) {
-    let evenSum = 0;
-    if (length === 0) {
-      evenSum = parseInt(sorted[middle - 1]) + parseInt(sorted[middle]);
-    } else if (length === 2) {
-      evenSum = parseFloat(sorted[middle - 1]) + parseFloat(sorted[middle]);
-    }
-    return (evenSum / 2.0).toFixed(length);
+    // If the array length is even, return the average of the two middle values
+    return (parseFloat(sorted[middle - 1]) + parseFloat(sorted[middle])) / 2.0;
   } else {
-    return sorted[middle];
+    // If the array length is odd, return the middle value
+    return parseFloat(sorted[middle].toFixed(2));
   }
 };
 
 const runSingleTest = async (id, model, modeltype, datatype, backend) => {
-  console.log(`== ${id}, ${model}, ${modeltype}, ${datatype}, ${backend} ==`)
   updateTestQueueStatus(id, 2); // Test in Progress
   addResult(model, modeltype, datatype, backend, 1, []);
   updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Testing ${model} (${modeltype}/${datatype}) with ${backend} backend ...`);
@@ -454,7 +452,7 @@ export const run = async () => {
     }
     initResult(r);
 
-    await runSingleTest(t0.id, t0.model, t0.modeltype, t0.datatype, t0.backend);
+    await catchMain(t0.id, t0.model, t0.modeltype, t0.datatype, t0.backend);
 
     filterTestQueue(t0.id);
     run();
@@ -576,4 +574,9 @@ export const getModelIdfromPath = () => {
   let path = location.pathname;
   path = path.replace('/web-ai-benchmark/run/', '').replaceAll('/run/', '').replaceAll('/', '').trim().toLowerCase();
   return path;
+}
+
+export const catchEm = (promise) => {
+  return promise.then(data => [null, data])
+    .catch(err => [err]);
 }

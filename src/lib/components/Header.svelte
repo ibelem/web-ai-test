@@ -45,7 +45,7 @@
 			if (search.indexOf('?') > -1) {
 				fullSearch = search + '&model=' + getModelIdfromPath();
 			} else {
-				fullSearch = search + '?model=' + getModelIdfromPath();
+				fullSearch = search;
 			}
 		} else {
 			fullSearch = search;

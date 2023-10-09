@@ -15,7 +15,7 @@
 			if (search.indexOf('?') > -1) {
 				fullSearch = search + '&model=' + getModelIdfromPath();
 			} else {
-				fullSearch = search + '?model=' + getModelIdfromPath();
+				fullSearch = search;
 			}
 		} else {
 			fullSearch = search;
@@ -36,7 +36,7 @@
 </script>
 
 <nav>
-	<a href={url} on:click={homeUrl}>home</a>
-	<a href="{base}/tests{fullSearch}" on:click={homeUrl}>tests</a>
-	<a href="{base}/about{fullSearch}" on:click={homeUrl}>about</a>
+	<a href={url} on:click={homeUrl}>Home</a>
+	<a href="{base}/tests{fullSearch}" on:click={homeUrl}>Tests</a>
+	<a href="{base}/about{fullSearch}" on:click={homeUrl}>About</a>
 </nav>
