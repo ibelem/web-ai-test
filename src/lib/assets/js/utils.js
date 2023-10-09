@@ -424,6 +424,17 @@ export const median = (arr, length) => {
   }
 };
 
+const runSingleTest = async (id, model, modeltype, datatype, backend) => {
+  console.log(`== ${id}, ${model}, ${modeltype}, ${datatype}, ${backend} ==`)
+  updateTestQueueStatus(id, 2); // Test in Progress
+  addResult(model, modeltype, datatype, backend, 1, []);
+  updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Testing ${model} (${modeltype}/${datatype}) with ${backend} backend ...`);
+  addResult(model, modeltype, datatype, backend, 2, []);
+  updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Test ${model} (${modeltype}/${datatype}) with ${backend} backend completed`);
+  await sleep(1000);
+  addResult(model, modeltype, datatype, backend, 3, [random(), random(), random()]);
+}
+
 export const run = async () => {
   if (
     testQueue[0] && getModelIdfromPath() === testQueue[0].model
@@ -442,13 +453,9 @@ export const run = async () => {
       };
     }
     initResult(r);
-    addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 1, []);
-    updateTestQueueStatus(t0.id, 2);
-    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Testing ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend ...`);
-    addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 2, []);
-    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Test ${t0.model} (${t0.modeltype}/${t0.datatype}) with ${t0.backend} backend completed`);
-    await sleep(1000);
-    addResult(t0.model, t0.modeltype, t0.datatype, t0.backend, 3, [random(), random(), random()]);
+
+    await runSingleTest(t0.id, t0.model, t0.modeltype, t0.datatype, t0.backend);
+
     filterTestQueue(t0.id);
     run();
   } else if (testQueue[0] && auto) {
@@ -523,17 +530,32 @@ export const getGpu = () => {
   const debugInfo = gl?.getExtension('WEBGL_debug_renderer_info');
   if (debugInfo) {
     let renderer = gl?.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+    console.log(renderer);
+
+    // .replace('0x00003EA0', '').replace('0x000056A0', '').replace('0x00004680', '')
 
     if (renderer) {
-      renderer = renderer.replace('(R)', '').replace('(TM)', '')
-        .replace('ANGLE', '').replace('0x00003EA0', '')
-        .replace('Mesa DRI', '')
-        .replace('OpenGL ES', '').replace('OpenGL 4.6', '')
-        .replace('3.2', '').replace('Open Source Technology Center', '')
-        .replace('Direct3D11', '').replace('D3D11', '')
-        .replace('vs_5_0', '').replace('ps_5_0', '')
-        .replace('(Intel', '').replace('Microsoft', '').replace('Google', '')
-        .replace('(TM', '').replaceAll('(', '').replaceAll(')', '').replaceAll(',', '').trim();
+      renderer = renderer.split(',')[1].replace('vs_5_0', '').replace('ps_5_0', '')
+        .replace(/0x[a-fA-F0-9]+/g, '').replace('()', '').replace(' )', ')')
+        .replace('  ', ' ').trim();
+      console.log(renderer)
+      // renderer = renderer.replace('(R)', '').replace('(TM)', '')
+      //   .replace('ANGLE', '')
+      //   .replace('SwiftShader driver', '')
+      //   .replace('Subzero', '')
+      //   .replace('Device', '')
+      //   .replace(/0x[a-fA-F0-9]+/g, '')
+      //   .replace('Mesa DRI', '')
+      //   .replace('OpenGL ES', '').replace('OpenGL 4.6', '')
+      //   .replace('3.2', '').replace('Open Source Technology Center', '')
+      //   .replace('Direct3D11', '').replace('D3D11', '')
+      //   .replace('vs_5_0', '').replace('ps_5_0', '')
+      //   .replace('(Intel', '').replace('Microsoft', '')
+      //   .replace('(Google', 'Google')
+      //   .replace('(TM', '').replaceAll('(', '').replaceAll(')', '')
+      //   .replaceAll(',', '')
+      //   .replace('NVIDIA NVIDIA', 'NVIDIA')
+      //   .trim();
       return renderer
     }
   }

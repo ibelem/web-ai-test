@@ -183,38 +183,38 @@
 
 	{#if (connectionType && connectionType !== 'none' && connectionType !== 'unknown' && connectionType !== 'other') || connectionEffectiveType}
 		<div>
-			{#if connectionType.toLowerCase().indexOf('bluetooth') > -1}
+			{#if connectionType?.toLowerCase().indexOf('bluetooth') > -1}
 				<svg viewBox="0 -960 960 960"
 					><path
 						d="M440-80v-304L256-200l-56-56 224-224-224-224 56-56 184 184v-304h40l228 228-172 172 172 172L480-80h-40Zm80-496 76-76-76-74v150Zm0 342 76-74-76-76v150ZM200-420q-25 0-42.5-17.5T140-480q0-25 17.5-42.5T200-540q25 0 42.5 17.5T260-480q0 25-17.5 42.5T200-420Zm560 0q-25 0-42.5-17.5T700-480q0-25 17.5-42.5T760-540q25 0 42.5 17.5T820-480q0 25-17.5 42.5T760-420Z"
 					/></svg
 				>{/if}
-			{#if connectionType.toLowerCase().indexOf('cellular') > -1}
+			{#if connectionType?.toLowerCase().indexOf('cellular') > -1}
 				<svg viewBox="0 -960 960 960"
 					><path
 						d="M200-160v-240h120v240H200Zm240 0v-440h120v440H440Zm240 0v-640h120v640H680Z"
 					/></svg
 				>{/if}
-			{#if connectionType.toLowerCase().indexOf('ethernet') > -1}
+			{#if connectionType?.toLowerCase().indexOf('ethernet') > -1}
 				<svg viewBox="0 -960 960 960"
 					><path
 						d="m680-240-56-56 182-184-182-184 56-56 240 240-240 240Zm-400 0L40-480l240-240 56 56-182 184 182 184-56 56Zm40-200q-17 0-28.5-11.5T280-480q0-17 11.5-28.5T320-520q17 0 28.5 11.5T360-480q0 17-11.5 28.5T320-440Zm160 0q-17 0-28.5-11.5T440-480q0-17 11.5-28.5T480-520q17 0 28.5 11.5T520-480q0 17-11.5 28.5T480-440Zm160 0q-17 0-28.5-11.5T600-480q0-17 11.5-28.5T640-520q17 0 28.5 11.5T680-480q0 17-11.5 28.5T640-440Z"
 					/></svg
 				>
 			{/if}
-			{#if connectionType.toLowerCase().indexOf('mixed') > -1}
+			{#if connectionType?.toLowerCase().indexOf('mixed') > -1}
 				<svg viewBox="0 -960 960 960"
 					><path
 						d="m442-440-77-77q16-16 35.5-24.5T442-550q22 0 41.5 8.5T519-517l-77 77ZM240-80l640-642v642H240Zm480-80h80v-368l-80 80v288ZM314-568l-52-52q36-36 82.5-55t97.5-19q51 0 97.5 19t82.5 55l-52 52q-26-26-59-40t-69-14q-36 0-69 14t-59 40ZM212-672l-52-50q57-57 129.5-87.5T442-840q81 0 154 30.5T726-722l-52 50q-46-46-106-70t-126-24q-65 0-124.5 24T212-672Z"
 					/></svg
 				>{/if}
-			{#if connectionType.toLowerCase().indexOf('wifi') > -1}
+			{#if connectionType?.toLowerCase().indexOf('wifi') > -1}
 				<svg viewBox="0 -960 960 960"
 					><path
 						d="M480-120q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM254-346l-84-86q59-59 138.5-93.5T480-560q92 0 171.5 35T790-430l-84 84q-44-44-102-69t-124-25q-66 0-124 25t-102 69ZM84-516 0-600q92-94 215-147t265-53q142 0 265 53t215 147l-84 84q-77-77-178.5-120.5T480-680q-116 0-217.5 43.5T84-516Z"
 					/></svg
 				>{/if}
-			{#if connectionType.toLowerCase().indexOf('wimax') > -1}
+			{#if connectionType?.toLowerCase().indexOf('wimax') > -1}
 				<svg viewBox="0 -960 960 960"
 					><path
 						d="M480-120q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM254-346l-84-86q59-59 138.5-93.5T480-560q92 0 171.5 35T790-430l-84 84q-44-44-102-69t-124-25q-66 0-124 25t-102 69ZM84-516 0-600q92-94 215-147t265-53q142 0 265 53t215 147l-84 84q-77-77-178.5-120.5T480-680q-116 0-217.5 43.5T84-516Z"
@@ -377,7 +377,7 @@
 				>
 			{:else if environment.os.toLowerCase().indexOf('mac os') > -1 || environment.os
 					.toLowerCase()
-					.indexOf('iPhone OS') > -1}
+					.indexOf('iphone os') > -1 || environment.os.toLowerCase().indexOf('ios') > -1}
 				<svg viewBox="0 0 384 512"
 					><path
 						d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"
