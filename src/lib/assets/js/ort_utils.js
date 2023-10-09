@@ -1,3 +1,5 @@
+import ort from 'onnxruntime-web';
+
 export const generateTensor = (dataType, shape, val) => {
   let size = 1;
   shape.forEach((element) => {

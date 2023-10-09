@@ -50,7 +50,7 @@ export let models = [
     url: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
     format: 'onnx',
     datatype: 'fp32',
-    inputshape: []
+    inputshape: [1, 3, 224, 224]
   },
   {
     category: 'Image Classification',
