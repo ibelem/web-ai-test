@@ -105,7 +105,7 @@
 	<div class="title">
 		<label class="" title="Toggle data types">
 			<input type="checkbox" on:change={() => toggleDataTypes()} />
-			Data Type
+			Operand Type
 		</label>
 	</div>
 	<div class="types">

@@ -1,7 +1,6 @@
 <script>
 	import { testQueueStore, testQueueLengthStore } from '$lib/store/store';
 	import {
-		median,
 		copyResults,
 		copyInfo,
 		selectedBackends,
@@ -137,10 +136,13 @@
 					{#if key.wasm_1.status === 3}
 						<div
 							class="status_{key.wasm_1.status} s backend"
-							title={key.wasm_1.inference.toString().replaceAll(',', ' ')}
+							title="Warmup Time: {key.wasm_1.warmup.toString()} Inference Time (Median): {key
+								.wasm_1.inferencemedian} Inference Time: [{key.wasm_1.inference
+								.toString()
+								.replace(',', ', ')}]"
 						>
 							<span>
-								{median(key.wasm_1.inference, key.wasm_1.inference.length)}
+								{key.wasm_1.inferencemedian}
 							</span>
 							<button on:click={() => copyRawInference(key.wasm_1.inference)}>
 								<Copy />
@@ -171,10 +173,13 @@
 					{#if key.wasm_4.status === 3}
 						<div
 							class="status_{key.wasm_4.status} s backend"
-							title={key.wasm_4.inference.toString().replaceAll(',', ' ')}
+							title="Warmup Time: {key.wasm_4.warmup.toString()} Inference Time (Median): {key
+								.wasm_4.inferencemedian} Inference Time: [{key.wasm_4.inference
+								.toString()
+								.replace(',', ', ')}]"
 						>
 							<span>
-								{median(key.wasm_4.inference, key.wasm_4.inference.length)}
+								{key.wasm_4.inferencemedian}
 							</span>
 							<button on:click={() => copyRawInference(key.wasm_4.inference)}>
 								<Copy />
@@ -205,10 +210,13 @@
 					{#if key.webgl.status === 3}
 						<div
 							class="status_{key.webgl.status} s backend"
-							title={key.webgl.inference.toString().replaceAll(',', ' ')}
+							title="Warmup Time: {key.webgl.warmup.toString()} Inference Time (Median): {key.webgl
+								.inferencemedian} Inference Time: [{key.webgl.inference
+								.toString()
+								.replace(',', ', ')}]"
 						>
 							<span>
-								{median(key.webgl.inference, key.webgl.inference.length)}
+								{key.webgl.inferencemedian}
 							</span>
 							<button on:click={() => copyRawInference(key.webgl.inference)}>
 								<Copy />
@@ -239,10 +247,13 @@
 					{#if key.webgpu.status === 3}
 						<div
 							class="status_{key.webgpu.status} s backend"
-							title={key.webgpu.inference.toString().replaceAll(',', ' ')}
+							title="Warmup Time: {key.webgpu.warmup.toString()} Inference Time (Median): {key
+								.webgpu.inferencemedian} Inference Time: [{key.webgpu.inference
+								.toString()
+								.replace(',', ', ')}]"
 						>
 							<span>
-								{median(key.webgpu.inference, key.webgpu.inference.length)}
+								{key.webgpu.inferencemedian}
 							</span>
 							<button on:click={() => copyRawInference(key.webgpu.inference)}>
 								<Copy />
@@ -273,10 +284,13 @@
 					{#if key.webnn_cpu_1.status === 3}
 						<div
 							class="status_{key.webnn_cpu_1.status} s backend"
-							title={key.webnn_cpu_1.inference.toString().replaceAll(',', ' ')}
+							title="Warmup Time: {key.webnn_cpu_1.warmup.toString()} Inference Time (Median): {key
+								.webnn_cpu_1.inferencemedian}  Inference Time: [{key.webnn_cpu_1.inference
+								.toString()
+								.replace(',', ', ')}]"
 						>
 							<span>
-								{median(key.webnn_cpu_1.inference, key.webnn_cpu_1.inference.length)}
+								{key.webnn_cpu_1.inferencemedian}
 							</span>
 							<button on:click={() => copyRawInference(key.webnn_cpu_1.inference)}>
 								<Copy />
@@ -307,10 +321,13 @@
 					{#if key.webnn_cpu_4.status === 3}
 						<div
 							class="status_{key.webnn_cpu_4.status} s backend"
-							title={key.webnn_cpu_4.inference.toString().replaceAll(',', ' ')}
+							title="Warmup Time: {key.webnn_cpu_4.warmup.toString()} Inference Time (Median): {key
+								.webnn_cpu_4.inferencemedian} Inference Time: [{key.webnn_cpu_4.inference
+								.toString()
+								.replace(',', ', ')}]"
 						>
 							<span>
-								{median(key.webnn_cpu_4.inference, key.webnn_cpu_4.inference.length)}
+								{key.webnn_cpu_4.inferencemedian}
 							</span>
 							<button on:click={() => copyRawInference(key.webnn_cpu_4.inference)}>
 								<Copy />
@@ -341,10 +358,13 @@
 					{#if key.webnn_gpu.status === 3}
 						<div
 							class="status_{key.webnn_gpu.status} s backend"
-							title={key.webnn_gpu.inference.toString().replaceAll(',', ' ')}
+							title="Warmup Time: {key.webnn_gpu.warmup.toString()} Inference Time (Median): {key
+								.webnn_gpu.inferencemedian} Inference Time: [{key.webnn_gpu.inference
+								.toString()
+								.replace(',', ', ')}]"
 						>
 							<span>
-								{median(key.webnn_gpu.inference, key.webnn_gpu.inference.length)}
+								{key.webnn_gpu.inferencemedian}
 							</span>
 							<button on:click={() => copyRawInference(key.webnn_gpu.inference)}>
 								<Copy />
@@ -375,10 +395,13 @@
 					{#if key.webnn_npu.status === 3}
 						<div
 							class="status_{key.webnn_npu.status} s backend"
-							title={key.webnn_npu.inference.toString().replaceAll(',', ' ')}
+							title="Warmup Time: {key.webnn_npu.warmup.toString()} Inference Time (Median): {key
+								.webnn_npu.inferencemedian} Inference Time: [{key.webnn_npu.inference
+								.toString()
+								.replace(',', ', ')}]"
 						>
 							<span>
-								{median(key.webnn_npu.inference, key.webnn_npu.inference.length)}
+								{key.webnn_npu.inferencemedian}
 							</span>
 							<button on:click={() => copyRawInference(key.webnn_npu.inference)}>
 								<Copy />

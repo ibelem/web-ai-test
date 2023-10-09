@@ -1,4 +1,41 @@
-import ort from 'onnxruntime-web';
+import * as ort from 'onnxruntime-web';
+import { models } from '../../config';
+import { updateTestQueueStatus, addResult, updateInfo, sleep, catchEm, median } from '../js/utils';
+import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore } from '../../store/store'
+
+/**
+ * @type {number}
+ */
+export let numOfRuns;
+
+numberOfRunsStore.subscribe((value) => {
+  numOfRuns = value;
+});
+
+/**
+ * @type {string[]}
+ */
+export let testQueue;
+testQueueStore.subscribe((value) => {
+  testQueue = value;
+});
+
+/**
+ * @type {number}
+ */
+export let testQueueLength;
+
+testQueueLengthStore.subscribe((value) => {
+  testQueueLength = value;
+});
+
+/**
+ * @type {string[]}
+ */
+export let results;
+resultsStore.subscribe((value) => {
+  results = value;
+});
 
 export const generateTensor = (dataType, shape, val) => {
   let size = 1;
@@ -60,4 +97,204 @@ export const clone = (x) => {
     );
   }
   return feed;
+}
+
+const l = (i) => {
+  console.log(i);
+}
+
+const getUrlById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      return models[i].url;
+    }
+  }
+  return null;
+}
+
+const getInputShapeById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      return models[i].inputshape;
+    }
+  }
+  return null;
+}
+
+const getFeeds = (_model, _dataType) => {
+  let feed = {};
+  let datatype = 'float32';
+  switch (_dataType) {
+    case 'fp32':
+      datatype = 'float32';
+      break;
+    case 'fp16':
+      datatype = 'float16';
+      break;
+    case 'int64':
+      datatype = 'int64';
+      break;
+    case 'uint64':
+      datatype = 'uint64';
+      break;
+    case 'int32':
+      datatype = 'int32';
+      break;
+    case 'uint32':
+      datatype = 'uint32';
+      break;
+    case 'int8':
+      datatype = 'int8';
+      break;
+    case 'uint8':
+      datatype = 'uint8';
+      break;
+    default:
+      datatype = 'float32';
+      break;
+  }
+
+  switch (_model) {
+    case 'mobilenet_v2':
+      feed["input"] = generateTensor(datatype, getInputShapeById(_model), 0.5);
+      break;
+    default:
+      break;
+  }
+
+  if (feed) {
+    // Without clone(), you'll get DOMException: Failed to execute 'postMessage' on 'Worker': ArrayBuffer at index 0 is already detached.
+    return feed;
+  }
+
+}
+
+const main = async (_id, _model, _modelType, _dataType, _backend) => {
+
+  let backend = 'wasm';
+  let wasmSimd = true;
+  let numThreads = 1;
+  let deviceType = 'cpu';
+
+  switch (_backend) {
+    case 'wasm_1':
+      backend = 'wasm';
+      wasmSimd = true;
+      numThreads = 1;
+      deviceType = 'cpu';
+      break;
+    case 'wasm_4':
+      backend = 'wasm';
+      wasmSimd = true;
+      numThreads = 4;
+      deviceType = 'cpu';
+      break;
+    case 'webgl':
+      backend = 'webgl';
+      wasmSimd = false;
+      numThreads = 1;
+      deviceType = 'gpu';
+      break;
+    case 'webgpu':
+      backend = 'webgpu';
+      wasmSimd = false;
+      numThreads = 1;
+      deviceType = 'gpu';
+      break;
+    case 'webnn_cpu_1':
+      backend = 'webnn';
+      wasmSimd = true;
+      numThreads = 1;
+      deviceType = 'cpu';
+      break;
+    case 'webnn_cpu_4':
+      backend = 'webnn';
+      wasmSimd = true;
+      numThreads = 4;
+      deviceType = 'cpu';
+      break;
+    case 'webnn_gpu':
+      backend = 'webnn';
+      wasmSimd = true;
+      numThreads = 1;
+      deviceType = 'gpu';
+      break;
+    case 'webnn_npu':
+      backend = 'webnn';
+      wasmSimd = true;
+      numThreads = 1;
+      deviceType = 'npu';
+      break;
+    default:
+      backend = 'wasm';
+      wasmSimd = true;
+      numThreads = 1;
+      deviceType = 'cpu';
+      break;
+  }
+
+  if (_modelType === 'onnx') {
+    // https://github.com/microsoft/onnxruntime/blob/main/js/common/lib/env.ts
+    ort.env.wasm.numThreads = numThreads;
+    ort.env.wasm.simd = wasmSimd;
+    // ort.env.wasm.wasmPaths = '../node_modules/onnxruntime-web/dist/'
+    ort.env.wasm.wasmPaths = 'https://10.239.115.52:5173/node_modules/onnxruntime-web/dist/'
+    ort.env.wasm.proxy = true;
+    // ort.env.logLevel = "verbose"; // "error";
+    // ort.env.debug = false;
+
+    updateTestQueueStatus(_id, 2);
+    addResult(_model, _modelType, _dataType, _backend, 1, []);
+
+    let modelPath = getUrlById(_model);
+
+    const options = {
+      executionProviders: [
+        {
+          name: backend,
+          deviceType: deviceType,
+          powerPreference: "default",
+        },
+      ],
+      //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
+    };
+
+    addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0);
+    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Testing ${_model} (${_modelType}/${_dataType}) with ${backend} backend ...`);
+    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Creating session for ${_model} (${_modelType}/${_dataType}) with ${backend} backend ...`);
+
+    const sess = await ort.InferenceSession.create(modelPath, options);
+    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Warming up ${_model} (${_modelType}/${_dataType}) with ${backend} backend ...`);
+    let feeds = clone(getFeeds(_model, _dataType));
+
+    let warmupTime = 0;
+    const warmupstart = performance.now();
+    await sess.run(feeds);
+    warmupTime = performance.now() - warmupstart;
+
+    let inferenceTimes = [];
+    for (var i = 0; i < numOfRuns; i++) {
+      const start = performance.now();
+      feeds = clone(getFeeds(_model, _dataType));
+      const outputs = await sess.run(feeds);
+      inferenceTimes.push(performance.now() - start);
+    }
+
+    let inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
+
+    addResult(_model, _modelType, _dataType, _backend, 3, warmupTime, inferenceTimes, inferenceTimesMedian);
+    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Test ${_model} (${_modelType}/${_dataType}) with ${backend} backend completed`);
+  }
+}
+
+export const catchMain = async (_id, _model, _modelType, _dataType, _backend) => {
+  // const [err, data] = await catchEm(main(_id, _model, _modelType, _dataType, _backend));
+  // if (err) {
+  //   addResult(_model, _modelType, _dataType, _backend, 4, []);
+  //   updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend ...`);
+  // } else {
+  //   // use data
+  // }
+
+  await main(_id, _model, _modelType, _dataType, _backend);
 }
