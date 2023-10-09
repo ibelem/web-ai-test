@@ -96,7 +96,7 @@
 </script>
 
 <div class="environment">
-	<div>
+	<div title="CPU Model">
 		{#if environment.cpu}
 			<svg width="1em" height="1em" viewBox="0 0 24 24"
 				><path
@@ -123,12 +123,12 @@
 				>
 			{/if}
 			<span title="Please identify the specific CPU model of the DUT"
-				>{environment.logicCores} logical cores</span
+				>{environment.logicCores} Logical Cores</span
 			>
 		{/if}
 	</div>
 	{#if cpState}
-		<div>
+		<div title="CPU Pressure">
 			<a
 				href="https://www.w3.org/TR/compute-pressure/#pressure-states"
 				title="Compute Pressure API"
@@ -160,13 +160,13 @@
 							d="M480-420q-68 0-123.5 38.5T276-280h408q-25-63-80.5-101.5T480-420Zm-168-60 44-42 42 42 42-42-42-42 42-44-42-42-42 42-44-42-42 42 42 44-42 42 42 42Zm250 0 42-42 44 42 42-42-42-42 42-44-42-42-44 42-42-42-42 42 42 44-42 42 42 42ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Z"
 						/></svg
 					> Critical{/if}
-				CPU pressure</a
+				CPU Pressure</a
 			>
 		</div>
 	{/if}
 
 	{#if environment.gpu}
-		<div>
+		<div title="GPU Model">
 			<svg width="1em" height="1em" viewBox="0 0 16 16"
 				><g fill="currentColor"
 					><path
@@ -182,7 +182,7 @@
 		</div>{/if}
 
 	{#if (connectionType && connectionType !== 'none' && connectionType !== 'unknown' && connectionType !== 'other') || connectionEffectiveType}
-		<div>
+		<div title="Connection Type">
 			{#if connectionType?.toLowerCase().indexOf('bluetooth') > -1}
 				<svg viewBox="0 -960 960 960"
 					><path
@@ -257,7 +257,7 @@
 	{/if}
 
 	{#if batteryLevel}
-		<div>
+		<div title="Battery Status">
 			{#if batteryCharging}
 				{#if batteryLevel < 30}
 					<svg viewBox="0 -960 960 960"
@@ -306,7 +306,7 @@
 						/></svg
 					>
 				{/if}
-				AC
+				{batteryLevel}% AC
 			{:else}
 				{#if batteryLevel <= 10}
 					<svg viewBox="0 -960 960 960"
@@ -344,13 +344,13 @@
 						/></svg
 					>
 				{/if}
-				DC
+				{batteryLevel}% DC
 			{/if}
 		</div>
 	{/if}
 
 	{#if environment.os}
-		<div>
+		<div title="Operation System">
 			{#if environment.os.toLowerCase().indexOf('windows') > -1}
 				<svg viewBox="0 0 448 512"
 					><path
@@ -390,7 +390,7 @@
 	{/if}
 
 	{#if environment.webbrowser}
-		<div>
+		<div title="Browser Version">
 			{#if environment.webbrowser.toLowerCase().indexOf('chrome') > -1 || environment.webbrowser
 					.toLowerCase()
 					.indexOf('chromium') > -1}
@@ -436,7 +436,7 @@
 			>
 		</div>
 
-		<div>
+		<div title="JS ML Framework">
 			<svg viewBox="0 0 120 44" id="logo_onnx"
 				><g transform="matrix(1.8 0 0 1.8 -44 -45)"
 					><path
