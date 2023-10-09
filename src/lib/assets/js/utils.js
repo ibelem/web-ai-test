@@ -530,31 +530,26 @@ export const getGpu = () => {
   const debugInfo = gl?.getExtension('WEBGL_debug_renderer_info');
   if (debugInfo) {
     let renderer = gl?.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-    console.log(renderer);
-
     // .replace('0x00003EA0', '').replace('0x000056A0', '').replace('0x00004680', '')
 
     if (renderer) {
       renderer = renderer.split(',')[1].replace('vs_5_0', '').replace('ps_5_0', '')
-        .replace(/0x[a-fA-F0-9]+/g, '').replace('()', '').replace(' )', ')')
+        .replace('(R)', '').replace('(TM)', '')
+        .replace(/0x[a-fA-F0-9]+/g, '')
+        .replace('()', '').replace(' )', ')')
         .replace('  ', ' ').trim();
-      console.log(renderer)
-      // renderer = renderer.replace('(R)', '').replace('(TM)', '')
+      // renderer = renderer
       //   .replace('ANGLE', '')
       //   .replace('SwiftShader driver', '')
       //   .replace('Subzero', '')
       //   .replace('Device', '')
-      //   .replace(/0x[a-fA-F0-9]+/g, '')
       //   .replace('Mesa DRI', '')
       //   .replace('OpenGL ES', '').replace('OpenGL 4.6', '')
       //   .replace('3.2', '').replace('Open Source Technology Center', '')
       //   .replace('Direct3D11', '').replace('D3D11', '')
-      //   .replace('vs_5_0', '').replace('ps_5_0', '')
       //   .replace('(Intel', '').replace('Microsoft', '')
       //   .replace('(Google', 'Google')
       //   .replace('(TM', '').replaceAll('(', '').replaceAll(')', '')
-      //   .replaceAll(',', '')
-      //   .replace('NVIDIA NVIDIA', 'NVIDIA')
       //   .trim();
       return renderer
     }
@@ -566,9 +561,9 @@ const getEnvironment = () => {
 
   let cpu = '';
   if (parser.cpu.architecture) {
-    cpu = 'CPU: ' + parser.cpu.architecture.replace('amd64', 'x86-64') + ' ' + navigator.hardwareConcurrency + ' logical cores\r\n';
+    cpu = 'CPU: ' + parser.cpu.architecture.replace('amd64', 'x86-64') + ' ' + navigator.hardwareConcurrency + ' Logical Cores\r\n';
   } else {
-    cpu = 'CPU: ' + navigator.hardwareConcurrency + ' logical cores\r\n';
+    cpu = 'CPU: ' + navigator.hardwareConcurrency + ' Logical Cores\r\n';
   }
   let gpu = 'GPU: ' + getGpu() + '\r\n';
   let os = 'OS: ' + parser.os.name + ' ' + parser.os.version + '\r\n';
