@@ -13,7 +13,7 @@
 		stringToArray
 	} from '$lib/assets/js/utils';
 	import { modelTypesStore, dataTypesStore } from '$lib/store/store';
-	import { onMount, beforeUpdate } from 'svelte';
+	import { afterUpdate, beforeUpdate } from 'svelte';
 
 	/**
 	 * @type {string[]}
@@ -332,7 +332,7 @@
 		filterModelsFromSelectedModelTypeandDataTypes();
 	});
 
-	onMount(() => {
+	afterUpdate(() => {
 		for (const datatype of selectedDataTypes) {
 			dataTypes[datatype] = true;
 		}

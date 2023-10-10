@@ -1,10 +1,11 @@
 <script>
-	import { beforeUpdate, onMount } from 'svelte';
+	import { onMount, afterUpdate } from 'svelte';
 	import Environment from '$lib/components/Environment.svelte';
 	import ConfigNumOfRuns from '$lib/components/ConfigNumOfRuns.svelte';
 	import ConfigBackends from '$lib/components/ConfigBackends.svelte';
 	import ConfigDataTypes from '$lib/components/ConfigDataTypes.svelte';
 	import ConfigModelTypes from '$lib/components/ConfigModelTypes.svelte';
+	import InferenceLog from '$lib/components/InferenceLog.svelte';
 	import Results from '$lib/components/Results.svelte';
 	import TestQueue from '$lib/components/TestQueue.svelte';
 	import {
@@ -95,21 +96,20 @@
 		run();
 	};
 
-	beforeUpdate(() => {
+	onMount(() => {
+		if (testQueue.length > 0 && auto) {
+			run();
+		}
+	});
+
+	afterUpdate(() => {
 		if (!auto) {
 			if ($page.url.searchParams.size === 0) {
 				let path = `${location.pathname}/?modeltype=none&datatype=none&backend=none&run=1`;
 				goto(path);
 			} else {
 				urlToStore($page.url.searchParams, getModelIdfromPath());
-				resetInfo();
 			}
-		}
-	});
-
-	onMount(() => {
-		if (testQueue.length > 0 && auto) {
-			run();
 		}
 	});
 </script>
@@ -124,6 +124,7 @@
 		</div>
 	{/if}
 	<Results />
+	<InferenceLog />
 	<TestQueue />
 	<div class="run">
 		{#if selectedBackends.length > 0 && selectedDataTypes.length > 0 && selectedModelTypes.length > 0 && !auto}

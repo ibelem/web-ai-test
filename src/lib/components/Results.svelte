@@ -2,7 +2,6 @@
 	import { testQueueStore, testQueueLengthStore } from '$lib/store/store';
 	import {
 		copyResults,
-		copyInfo,
 		selectedBackends,
 		copyRawInference,
 		downloadScreenshot
@@ -11,7 +10,6 @@
 	import Info from './Info.svelte';
 	import Copy from './svg/Copy.svelte';
 	import FileCopy from './svg/FileCopy.svelte';
-	import Log from './svg/Log.svelte';
 	import Fail from './svg/Fail.svelte';
 	import Queue from './svg/Queue.svelte';
 	import Testing from './svg/Testing.svelte';
@@ -430,9 +428,6 @@
 				</button>
 				<button title="Copy full test results" on:click={() => copyResults()}>
 					<FileCopy />
-				</button>
-				<button title="Copy full test logs" on:click={() => copyInfo()}>
-					<Log />
 				</button>
 			{/if}
 		</div>

@@ -9,7 +9,7 @@
 		stringToArray,
 		getModelIdfromPath
 	} from '$lib/assets/js/utils';
-	import { beforeUpdate, onMount } from 'svelte';
+	import { beforeUpdate, afterUpdate } from 'svelte';
 
 	/**
 	 * @type {any}
@@ -94,7 +94,7 @@
 		}
 	});
 
-	onMount(() => {
+	afterUpdate(() => {
 		for (const datatype of selectedDataTypes) {
 			dataTypes[datatype].selected = true;
 		}

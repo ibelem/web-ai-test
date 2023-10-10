@@ -4,7 +4,8 @@
 	import TestQueue from '$lib/components/TestQueue.svelte';
 	import Results from '$lib/components/Results.svelte';
 	import Info from '$lib/components/Info.svelte';
-	import { beforeUpdate, onMount, onDestroy } from 'svelte';
+	import InferenceLog from '$lib/components/InferenceLog.svelte';
+	import { afterUpdate, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -87,17 +88,14 @@
 		goto(path);
 	};
 
-	beforeUpdate(() => {
+	afterUpdate(() => {
 		if ($page.url.searchParams.size === 0) {
 			let path = `${base}/?modeltype=none&datatype=none&backend=none&run=1&model=none`;
 			goto(path);
 		} else {
 			urlToStore($page.url.searchParams, false);
-			resetInfo();
 		}
 	});
-
-	onMount(() => {});
 
 	onDestroy(() => {});
 </script>
@@ -105,6 +103,7 @@
 <div>
 	<Config />
 	<Results />
+	<InferenceLog />
 	<TestQueue />
 	<div class="run">
 		{#if selectedModels.length > 0}
