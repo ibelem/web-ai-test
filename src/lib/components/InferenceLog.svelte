@@ -39,20 +39,22 @@
 	});
 </script>
 
-<div class="inferlog" bind:this={element}>
-	{#each info as i}
-		<div>{i}</div>
-	{/each}
-</div>
-<div class="q copy">
-	<div>
-		{#if testQueue.length === 0}
-			<button title="Copy full test logs" on:click={() => copyInfo()}>
-				<Log />
-			</button>
-		{/if}
+{#if info}
+	<div class="inferlog" bind:this={element}>
+		{#each info as i}
+			<div>{i}</div>
+		{/each}
 	</div>
-</div>
+	<div class="q copy">
+		<div>
+			{#if testQueue.length === 0}
+				<button title="Copy full test logs" on:click={() => copyInfo()}>
+					<Log />
+				</button>
+			{/if}
+		</div>
+	</div>
+{/if}
 
 <style>
 	.inferlog {
