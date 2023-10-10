@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width" />
 	%sveltekit.head%
 	<style>
-		@font-face {
+		/* @font-face {
 			font-family: 'Intel One Mono';
 			font-style: normal;
 			font-weight: 200;
@@ -23,7 +23,7 @@
 			font-weight: 200;
 			font-display: swap;
 			src: url('%sveltekit.assets%/fonts/intelonemono/IntelOneMono-Light.woff2') format('woff2');
-		}
+		} */
 
 		@font-face {
 			font-display: swap;
@@ -37,6 +37,7 @@
 
 <body data-sveltekit-preload-data="hover">
 	<div style="display: contents">%sveltekit.body%</div>
+	<script src="https://ibelem.github.io/onnxruntime-web-dist/1.16/web/dist/ort.js"></script>
 </body>
 
 </html>

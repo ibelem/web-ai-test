@@ -10,7 +10,7 @@
 		goTo,
 		stringToArray
 	} from '$lib/assets/js/utils';
-	import { onMount } from 'svelte';
+	import { onMount, afterUpdate } from 'svelte';
 
 	/**
 	 * @type {any}
@@ -117,7 +117,7 @@
 		goTo('backend', urlBackends);
 	};
 
-	onMount(() => {
+	afterUpdate(() => {
 		for (const backend of selectedBackends) {
 			backends[backend] = true;
 		}

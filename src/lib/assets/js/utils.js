@@ -55,7 +55,6 @@ export const updateStore = (numOfRuns, backends, dataTypes, modelTypes, models) 
   dataTypesStore.update(() => dataTypes);
   modelTypesStore.update(() => modelTypes);
   modelsStore.update(() => models);
-  infoStore.update(() => []);
 }
 
 export const resetStore = () => {
