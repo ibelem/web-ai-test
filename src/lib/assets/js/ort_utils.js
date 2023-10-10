@@ -1,5 +1,5 @@
 import * as ort from 'onnxruntime-web';
-import { models } from '../../config';
+import { models, localhost } from '../../config';
 import { updateTestQueueStatus, addResult, updateInfo, sleep, catchEm, median } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore } from '../../store/store'
 
@@ -234,11 +234,20 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   }
 
   if (_modelType === 'onnx') {
+    let wasmPaths = `https://${localhost}/node_modules/onnxruntime-web/dist/`
+
+    if (location.hostname.indexOf('github') > -1) {
+      wasmPaths = 'https://ibelem.github.io/onnxruntime-web-dist/1.16/web/dist/'
+    }
+
+    console.log(location.hostname);
+    console.log(wasmPaths);
+
     // https://github.com/microsoft/onnxruntime/blob/main/js/common/lib/env.ts
     ort.env.wasm.numThreads = numThreads;
     ort.env.wasm.simd = wasmSimd;
     // ort.env.wasm.wasmPaths = '../node_modules/onnxruntime-web/dist/'
-    ort.env.wasm.wasmPaths = 'https://10.239.115.52:5173/node_modules/onnxruntime-web/dist/'
+    ort.env.wasm.wasmPaths = wasmPaths;
     ort.env.wasm.proxy = true;
     // ort.env.logLevel = "verbose"; // "error";
     // ort.env.debug = false;
