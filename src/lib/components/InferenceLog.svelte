@@ -1,7 +1,7 @@
 <script>
 	import { infoStore } from '$lib/store/store';
 	import { copyInfo } from '$lib/assets/js/utils';
-	import { afterUpdate } from 'svelte';
+	import { afterUpdate, onMount } from 'svelte';
 	import Log from './svg/Log.svelte';
 	import { testQueueStore } from '$lib/store/store';
 
@@ -31,7 +31,7 @@
 	}
 
 	const scrollToBottom = async (/** @type {HTMLDivElement} */ node) => {
-		node.scroll({ top: node.scrollHeight, behavior: 'smooth' });
+		node?.scroll({ top: node.scrollHeight, behavior: 'smooth' });
 	};
 
 	afterUpdate(() => {
@@ -39,7 +39,7 @@
 	});
 </script>
 
-{#if info}
+{#if info.length > 0}
 	<div class="inferlog" bind:this={element}>
 		{#each info as i}
 			<div>{i}</div>
