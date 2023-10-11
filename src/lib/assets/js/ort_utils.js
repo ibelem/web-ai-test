@@ -272,6 +272,8 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
       //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
     };
 
+    l(`ort.env.wasm.numThreads ${ort.env.wasm.numThreads} thread(s)`)
+    l(`ort.env.wasm.simd ${ort.env.wasm.simd}`)
     l(options.executionProviders)
 
     addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0);
