@@ -1,16 +1,24 @@
 <script>
 	import { uniqueBackends } from '../config';
+	// import { backendsStore } from '$lib/store/store';
 	import {
 		trimComma,
 		removeStringFromArray,
 		arrayToStringWithComma,
 		containsAllElementsInArray,
 		getURLParameterValue,
-		selectedBackends,
 		goTo,
 		stringToArray
 	} from '$lib/assets/js/utils';
-	import { onMount, afterUpdate } from 'svelte';
+	import { onMount } from 'svelte';
+
+	// /**
+	//  * @type {string[]}
+	//  */
+	// let selectedBackends;
+	// backendsStore.subscribe((value) => {
+	// 	selectedBackends = value;
+	// });
 
 	/**
 	 * @type {any}
@@ -25,6 +33,8 @@
 		webnn_gpu: false,
 		webnn_npu: false
 	};
+
+	let backendsFromUrl;
 
 	const toggleBackends = () => {
 		for (const backend in backends) {
@@ -117,10 +127,36 @@
 		goTo('backend', urlBackends);
 	};
 
-	afterUpdate(() => {
-		for (const backend of selectedBackends) {
-			backends[backend] = true;
+	const highlightBackend = () => {
+		backendsFromUrl = getURLParameterValue('backend')?.toLocaleLowerCase().trim();
+		backendsFromUrl = decodeURIComponent(backendsFromUrl);
+		backendsFromUrl = backendsFromUrl?.replaceAll('undefined', '');
+		backendsFromUrl = trimComma(backendsFromUrl);
+
+		if (backendsFromUrl === 'all') {
+			backendsFromUrl = [
+				'wasm_1',
+				'wasm_4',
+				'webgl',
+				'webgpu',
+				'webnn_cpu_1',
+				'webnn_cpu_4',
+				'webnn_gpu',
+				'webnn_npu'
+			];
+		} else {
+			backendsFromUrl = stringToArray(backendsFromUrl);
 		}
+
+		if (backendsFromUrl.length > 0) {
+			for (const backend of backendsFromUrl) {
+				backends[backend] = true;
+			}
+		}
+	};
+
+	onMount(() => {
+		highlightBackend();
 	});
 </script>
 
