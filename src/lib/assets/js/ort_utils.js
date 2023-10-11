@@ -106,7 +106,7 @@ const l = (i) => {
 const getUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      let isCors = corsSites.some(site => site === location.hostname.toLowerCase());
+      let isCors = corsSites.some(site => location.hostname.toLowerCase().indexOf(site) > -1);
       if (isCors) {
         return models[i].url.github;
       } else {
