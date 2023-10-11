@@ -31,7 +31,13 @@ export let models = [
     category: 'Image Classification',
     id: 'densenet',
     name: 'DenseNet 121',
-    url: 'https://github.com/onnx/models/blob/main/vision/classification/densenet-121/model/densenet-9.onnx',
+    url:
+    {
+      source: 'https://github.com/onnx/models/blob/main/vision/classification/densenet-121/model/densenet-9.onnx',
+      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/densenet-9.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/densenet-9.onnx',
+      local: 'models/densenet-9.onnx'
+    },
     format: 'onnx',
     datatype: 'fp32',
     inputshape: []
@@ -40,7 +46,13 @@ export let models = [
     category: 'Image Classification',
     id: 'efficientnet_lite',
     name: 'EfficientNet Lite 4',
-    url: 'https://github.com/onnx/models/raw/main/vision/classification/efficientnet-lite4/model/efficientnet-lite4-11.onnx',
+    url:
+    {
+      source: 'https://github.com/onnx/models/raw/main/vision/classification/efficientnet-lite4/model/efficientnet-lite4-11.onnx',
+      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/efficientnet-lite4-11.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/efficientnet-lite4-11.onnx',
+      local: 'models/efficientnet-lite4-11.onnx'
+    },
     format: 'onnx',
     datatype: 'fp32',
     inputshape: []
@@ -49,7 +61,13 @@ export let models = [
     category: 'Image Classification',
     id: 'mobilenet_v2',
     name: 'MobileNet v2',
-    url: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
+    url:
+    {
+      source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
+      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/mobilenetv2-10.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/mobilenetv2-10.onnx',
+      local: 'models/mobilenetv2-10.onnx'
+    },
     format: 'onnx',
     datatype: 'fp32',
     inputshape: [1, 3, 224, 224]
@@ -76,7 +94,13 @@ export let models = [
     category: 'Image Classification',
     id: 'resnet50_v1',
     name: 'ResNet50 v1',
-    url: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v1-12.onnx',
+    url:
+    {
+      source: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v1-12.onnx',
+      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/resnet50-v1-12.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/resnet50-v1-12.onnx',
+      local: 'models/resnet50-v1-12.onnx'
+    },
     format: 'onnx',
     datatype: 'fp32',
     inputshape: []
@@ -85,7 +109,13 @@ export let models = [
     category: 'Image Classification',
     id: 'resnet50_v2',
     name: 'ResNet50 v2',
-    url: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v2-7.onnx',
+    url:
+    {
+      source: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v2-7.onnx',
+      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/resnet50-v2-7.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/resnet50-v2-7.onnx',
+      local: 'models/resnet50-v2-7.onnx'
+    },
     format: 'onnx',
     datatype: 'fp32',
     inputshape: []
@@ -94,7 +124,13 @@ export let models = [
     category: 'Image Classification',
     id: 'squeezenet',
     name: 'Squeezenet_1.1',
-    url: 'https://github.com/onnx/models/raw/main/vision/classification/squeezenet/model/squeezenet1.1-7.onnx',
+    url:
+    {
+      source: 'https://github.com/onnx/models/raw/main/vision/classification/squeezenet/model/squeezenet1.1-7.onnx',
+      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/squeezenet1.1-7.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/squeezenet1.1-7.onnx',
+      local: 'models/squeezenet1.1-7.onnx'
+    },
     format: 'onnx',
     datatype: 'fp32',
     inputshape: []
@@ -104,7 +140,13 @@ export let models = [
     category: 'Object Detection',
     id: 'tinyyolo_v2',
     name: 'Tiny YOLO v2',
-    url: 'https://github.com/onnx/models/raw/main/vision/object_detection_segmentation/tiny-yolov2/model/tinyyolov2-8.onnx',
+    url:
+    {
+      source: 'https://github.com/onnx/models/raw/main/vision/object_detection_segmentation/tiny-yolov2/model/tinyyolov2-8.onnx',
+      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/tinyyolov2-8.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/tinyyolov2-8.onnx',
+      local: 'models/tinyyolov2-8.onnx'
+    },
     format: 'onnx',
     datatype: 'fp32',
     inputshape: []
@@ -113,7 +155,13 @@ export let models = [
     category: 'Face Analysis',
     id: 'emotion_ferplus',
     name: 'Emotion FERPlus',
-    url: 'https://github.com/onnx/models/raw/main/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx',
+    url:
+    {
+      source: 'https://github.com/onnx/models/raw/main/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx',
+      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/emotion-ferplus-8.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/emotion-ferplus-8.onnx',
+      local: 'models/emotion-ferplus-8.onnx'
+    },
     format: 'onnx',
     datatype: 'fp32',
     inputshape: []
@@ -131,7 +179,13 @@ export let models = [
     category: 'Semantic Segmentation',
     id: 'selfie_segmentation_general',
     name: 'Selfie Segmentation (General)',
-    url: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite',
+    url:
+    {
+      source: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite',
+      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/selfie_segmentation.tflite',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/selfie_segmentation.tflite',
+      local: 'models/selfie_segmentation.tflite'
+    },
     format: 'tflite',
     datatype: 'fp32',
     inputshape: []
@@ -140,7 +194,13 @@ export let models = [
     category: 'Style Transfer',
     id: 'fns_candy',
     name: 'FNS Candy',
-    url: 'https://github.com/microsoft/Windows-Machine-Learning/raw/master/Samples/CustomTensorization/CustomTensorization/fns-candy.onnx',
+    url:
+    {
+      source: 'https://github.com/microsoft/Windows-Machine-Learning/raw/master/Samples/CustomTensorization/CustomTensorization/fns-candy.onnx',
+      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/fns-candy.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/fns-candy.onnx',
+      local: 'models/fns-candy.onnx'
+    },
     format: 'pt',
     datatype: 'fp32',
     inputshape: []
