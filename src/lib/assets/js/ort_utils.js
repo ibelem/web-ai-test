@@ -1,6 +1,6 @@
 // import * as ort from 'onnxruntime-web';
 import { models, localhost } from '../../config';
-import { updateTestQueueStatus, addResult, updateInfo, sleep, catchEm, median } from '../js/utils';
+import { updateTestQueueStatus, addResult, updateInfo, sleep, catchEm, median, corsSites } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore } from '../../store/store'
 
 /**
@@ -106,7 +106,8 @@ const l = (i) => {
 const getUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      if (location.hostname.indexOf('github.io') > -1 || location.hostname.indexOf('vercel.app') > -1) {
+      let isCors = corsSites.some(site => site === location.hostname.toLowerCase());
+      if (isCors) {
         return models[i].url.github;
       } else {
         return `https://${localhost}/` + models[i].url.local;
