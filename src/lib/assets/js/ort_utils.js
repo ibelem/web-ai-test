@@ -107,7 +107,7 @@ const getUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
       if (location.hostname.indexOf('github.io') > -1) {
-        return models[i].url.github;
+        return models[i].url.cf;
       } else {
         return `https://${localhost}/` + models[i].url.local;
       }
