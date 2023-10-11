@@ -106,7 +106,7 @@ const l = (i) => {
 const getUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      if (location.hostname.indexOf('github.io') > -1) {
+      if (location.hostname.indexOf('github.io') > -1 || location.hostname.indexOf('vercel.app') > -1) {
         return models[i].url.github;
       } else {
         return `https://${localhost}/` + models[i].url.local;
