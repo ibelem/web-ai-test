@@ -1,11 +1,6 @@
 <script>
-	import { testQueueStore, testQueueLengthStore } from '$lib/store/store';
-	import {
-		copyResults,
-		selectedBackends,
-		copyRawInference,
-		downloadScreenshot
-	} from '$lib/assets/js/utils';
+	import { testQueueStore, testQueueLengthStore, backendsStore } from '$lib/store/store';
+	import { copyResults, copyRawInference, downloadScreenshot } from '$lib/assets/js/utils';
 	import { resultsStore } from '$lib/store/store';
 	import Info from './Info.svelte';
 	import Copy from './svg/Copy.svelte';
@@ -22,7 +17,15 @@
 	/**
 	 * @type {string[]}
 	 */
-	export let results;
+	let selectedBackends;
+	backendsStore.subscribe((value) => {
+		selectedBackends = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
+	let results;
 	resultsStore.subscribe((value) => {
 		results = value;
 	});
@@ -30,7 +33,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	export let testQueue;
+	let testQueue;
 	testQueueStore.subscribe((value) => {
 		testQueue = value;
 	});
@@ -38,7 +41,7 @@
 	/**
 	 * @type {number}
 	 */
-	export let testQueueLength;
+	let testQueueLength;
 
 	testQueueLengthStore.subscribe((value) => {
 		testQueueLength = value;
@@ -135,7 +138,7 @@
 						<div
 							class="status_{key.wasm_1.status} s backend"
 							title="Warmup Time: {key.wasm_1.warmup.toString()} ms; Inference Time (Median): {key
-								.wasm_1.inferencemedian} ms; Inference Time: [{key.wasm_1.inference
+								.wasm_1.inferencemedian} ms; Inference Times: [{key.wasm_1.inference
 								.toString()
 								.replace(',', ', ')}] ms"
 						>
@@ -147,7 +150,7 @@
 									copyRawInference(
 										`Warmup Time: ${key.wasm_1.warmup.toString()} ms; Inference Time (Median): ${
 											key.wasm_1.inferencemedian
-										} ms; Inference Time: [${key.wasm_1.inference
+										} ms; Inference Times: [${key.wasm_1.inference
 											.toString()
 											.replace(',', ', ')}] ms`
 									)}
@@ -181,7 +184,7 @@
 						<div
 							class="status_{key.wasm_4.status} s backend"
 							title="Warmup Time: {key.wasm_4.warmup.toString()} ms; Inference Time (Median): {key
-								.wasm_4.inferencemedian} ms; Inference Time: [{key.wasm_4.inference
+								.wasm_4.inferencemedian} ms; Inference Times: [{key.wasm_4.inference
 								.toString()
 								.replace(',', ', ')}] ms"
 						>
@@ -193,7 +196,7 @@
 									copyRawInference(
 										`Warmup Time: ${key.wasm_4.warmup.toString()} ms; Inference Time (Median): ${
 											key.wasm_4.inferencemedian
-										} ms; Inference Time: [${key.wasm_4.inference
+										} ms; Inference Times: [${key.wasm_4.inference
 											.toString()
 											.replace(',', ', ')}] ms`
 									)}
@@ -227,7 +230,7 @@
 						<div
 							class="status_{key.webgl.status} s backend"
 							title="Warmup Time: {key.webgl.warmup.toString()} ms; Inference Time (Median): {key
-								.webgl.inferencemedian} ms; Inference Time: [{key.webgl.inference
+								.webgl.inferencemedian} ms; Inference Times: [{key.webgl.inference
 								.toString()
 								.replace(',', ', ')}] ms"
 						>
@@ -239,7 +242,9 @@
 									copyRawInference(
 										`Warmup Time: ${key.webgl.warmup.toString()} ms; Inference Time (Median): ${
 											key.webgl.inferencemedian
-										} ms; Inference Time: [${key.webgl.inference.toString().replace(',', ', ')}] ms`
+										} ms; Inference Times: [${key.webgl.inference
+											.toString()
+											.replace(',', ', ')}] ms`
 									)}
 							>
 								<Copy />
@@ -271,7 +276,7 @@
 						<div
 							class="status_{key.webgpu.status} s backend"
 							title="Warmup Time: {key.webgpu.warmup.toString()} ms; Inference Time (Median): {key
-								.webgpu.inferencemedian} ms; Inference Time: [{key.webgpu.inference
+								.webgpu.inferencemedian} ms; Inference Times: [{key.webgpu.inference
 								.toString()
 								.replace(',', ', ')}] ms"
 						>
@@ -283,7 +288,7 @@
 									copyRawInference(
 										`Warmup Time: ${key.webgpu.warmup.toString()} ms; Inference Time (Median): ${
 											key.webgpu.inferencemedian
-										} ms; Inference Time: [${key.webgpu.inference
+										} ms; Inference Times: [${key.webgpu.inference
 											.toString()
 											.replace(',', ', ')}] ms`
 									)}
@@ -317,7 +322,7 @@
 						<div
 							class="status_{key.webnn_cpu_1.status} s backend"
 							title="Warmup Time: {key.webnn_cpu_1.warmup.toString()} ms; Inference Time (Median): {key
-								.webnn_cpu_1.inferencemedian} ms; Inference Time: [{key.webnn_cpu_1.inference
+								.webnn_cpu_1.inferencemedian} ms; Inference Times: [{key.webnn_cpu_1.inference
 								.toString()
 								.replace(',', ', ')}] ms"
 						>
@@ -329,7 +334,7 @@
 									copyRawInference(
 										`Warmup Time: ${key.webnn_cpu_1.warmup.toString()} ms; Inference Time (Median): ${
 											key.webnn_cpu_1.inferencemedian
-										} ms; Inference Time: [${key.webnn_cpu_1.inference
+										} ms; Inference Times: [${key.webnn_cpu_1.inference
 											.toString()
 											.replace(',', ', ')}] ms`
 									)}
@@ -363,7 +368,7 @@
 						<div
 							class="status_{key.webnn_cpu_4.status} s backend"
 							title="Warmup Time: {key.webnn_cpu_4.warmup.toString()} ms; Inference Time (Median): {key
-								.webnn_cpu_4.inferencemedian} ms; Inference Time: [{key.webnn_cpu_4.inference
+								.webnn_cpu_4.inferencemedian} ms; Inference Times: [{key.webnn_cpu_4.inference
 								.toString()
 								.replace(',', ', ')}] ms"
 						>
@@ -375,7 +380,7 @@
 									copyRawInference(
 										`Warmup Time: ${key.webnn_cpu_4.warmup.toString()} ms; Inference Time (Median): ${
 											key.webnn_cpu_4.inferencemedian
-										} ms; Inference Time: [${key.webnn_cpu_4.inference
+										} ms; Inference Times: [${key.webnn_cpu_4.inference
 											.toString()
 											.replace(',', ', ')}] ms`
 									)}
@@ -409,7 +414,7 @@
 						<div
 							class="status_{key.webnn_gpu.status} s backend"
 							title="Warmup Time: {key.webnn_gpu.warmup.toString()} ms; Inference Time (Median): {key
-								.webnn_gpu.inferencemedian} ms; Inference Time: [{key.webnn_gpu.inference
+								.webnn_gpu.inferencemedian} ms; Inference Times: [{key.webnn_gpu.inference
 								.toString()
 								.replace(',', ', ')}] ms"
 						>
@@ -421,7 +426,7 @@
 									copyRawInference(
 										`Warmup Time: ${key.webnn_gpu.warmup.toString()} ms; Inference Time (Median): ${
 											key.webnn_gpu.inferencemedian
-										} ms; Inference Time: [${key.webnn_gpu.inference
+										} ms; Inference Times: [${key.webnn_gpu.inference
 											.toString()
 											.replace(',', ', ')}] ms`
 									)}
@@ -455,7 +460,7 @@
 						<div
 							class="status_{key.webnn_npu.status} s backend"
 							title="Warmup Time: {key.webnn_npu.warmup.toString()} ms; Inference Time (Median): {key
-								.webnn_npu.inferencemedian} ms; Inference Time: [{key.webnn_npu.inference
+								.webnn_npu.inferencemedian} ms; Inference Times: [{key.webnn_npu.inference
 								.toString()
 								.replace(',', ', ')}] ms"
 						>
@@ -467,7 +472,7 @@
 									copyRawInference(
 										`Warmup Time: ${key.webnn_npu.warmup.toString()} ms; Inference Time (Median): ${
 											key.webnn_npu.inferencemedian
-										} ms; Inference Time: [${key.webnn_npu.inference
+										} ms; Inference Times: [${key.webnn_npu.inference
 											.toString()
 											.replace(',', ', ')}] ms`
 									)}

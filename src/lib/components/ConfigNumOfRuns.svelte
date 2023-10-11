@@ -1,23 +1,19 @@
 <script>
 	import { goTo } from '$lib/assets/js/utils';
-	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
+	import { numberOfRunsStore } from '$lib/store/store';
 
 	/**
 	 * @type {number}
 	 */
-	let numOfRuns = 1;
+	let numOfRuns;
+
+	numberOfRunsStore.subscribe((value) => {
+		numOfRuns = value;
+	});
 
 	const setNumberOfRuns = () => {
 		goTo('run', numOfRuns);
 	};
-
-	onMount(() => {
-		let para = $page.url.searchParams;
-		if (para.get('run')) {
-			numOfRuns = parseInt(para.get('run'));
-		}
-	});
 </script>
 
 <div class="title">

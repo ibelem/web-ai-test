@@ -8,12 +8,11 @@
 		getURLParameterValue,
 		getUniqueDataTypes,
 		getUniqueModelTypes,
-		selectedModels,
 		goTo,
 		stringToArray
 	} from '$lib/assets/js/utils';
-	import { modelTypesStore, dataTypesStore } from '$lib/store/store';
-	import { afterUpdate, beforeUpdate } from 'svelte';
+	import { modelTypesStore, dataTypesStore, modelsStore } from '$lib/store/store';
+	import { onMount, beforeUpdate } from 'svelte';
 
 	/**
 	 * @type {string[]}
@@ -29,6 +28,14 @@
 	export let selectedDataTypes;
 	dataTypesStore.subscribe((value) => {
 		selectedDataTypes = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
+	let selectedModels;
+	modelsStore.subscribe((value) => {
+		selectedModels = value;
 	});
 
 	/**
@@ -332,18 +339,77 @@
 		filterModelsFromSelectedModelTypeandDataTypes();
 	});
 
-	afterUpdate(() => {
-		for (const datatype of selectedDataTypes) {
-			dataTypes[datatype] = true;
+	let dataTypesFromUrl;
+	const highlightDataTypes = () => {
+		dataTypesFromUrl = getURLParameterValue('datatype')?.toLocaleLowerCase().trim();
+		dataTypesFromUrl = decodeURIComponent(dataTypesFromUrl);
+		dataTypesFromUrl = dataTypesFromUrl?.replaceAll('undefined', '');
+		dataTypesFromUrl = trimComma(dataTypesFromUrl);
+
+		if (dataTypesFromUrl === 'all') {
+			dataTypesFromUrl = ['fp32', 'fp16', 'int8'];
+		} else {
+			dataTypesFromUrl = stringToArray(dataTypesFromUrl);
 		}
 
-		for (const modeltype of selectedModelTypes) {
-			modelTypes[modeltype] = true;
+		if (dataTypesFromUrl.length > 0) {
+			for (const datatype of dataTypesFromUrl) {
+				dataTypes[datatype] = true;
+			}
+		}
+	};
+
+	let modelTypesFromUrl;
+	const highlightModelTypes = () => {
+		modelTypesFromUrl = getURLParameterValue('modeltype')?.toLocaleLowerCase().trim();
+		modelTypesFromUrl = decodeURIComponent(modelTypesFromUrl);
+		modelTypesFromUrl = modelTypesFromUrl?.replaceAll('undefined', '');
+		modelTypesFromUrl = trimComma(modelTypesFromUrl);
+
+		if (modelTypesFromUrl === 'all') {
+			modelTypesFromUrl = ['onnx', 'tflite', 'npy', 'pt'];
+		} else {
+			modelTypesFromUrl = stringToArray(modelTypesFromUrl);
 		}
 
-		for (const model of selectedModels) {
-			filteredModelIds[model] = true;
+		if (modelTypesFromUrl.length > 0) {
+			for (const modeltype of modelTypesFromUrl) {
+				modelTypes[modeltype] = true;
+			}
 		}
+	};
+
+	let modelsFromUrl;
+	const highlightModels = () => {
+		modelsFromUrl = getURLParameterValue('model')?.toLocaleLowerCase().trim();
+		modelsFromUrl = decodeURIComponent(modelsFromUrl);
+		modelsFromUrl = modelsFromUrl?.replaceAll('undefined', '');
+		modelsFromUrl = trimComma(modelsFromUrl);
+		modelsFromUrl = stringToArray(modelsFromUrl);
+
+		if (modelsFromUrl.length > 0) {
+			for (const model of modelsFromUrl) {
+				filteredModelIds[model] = true;
+			}
+		}
+	};
+
+	onMount(() => {
+		// for (const datatype of selectedDataTypes) {
+		// 	dataTypes[datatype] = true;
+		// }
+
+		// for (const modeltype of selectedModelTypes) {
+		// 	modelTypes[modeltype] = true;
+		// }
+
+		// for (const model of selectedModels) {
+		// 	filteredModelIds[model] = true;
+		// }
+
+		highlightDataTypes();
+		highlightModelTypes();
+		highlightModels();
 	});
 </script>
 

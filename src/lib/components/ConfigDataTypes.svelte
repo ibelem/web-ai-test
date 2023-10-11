@@ -3,13 +3,23 @@
 		trimComma,
 		arrayToStringWithComma,
 		getURLParameterValue,
-		selectedDataTypes,
 		getUniqueDataTypesByModelId,
 		goTo,
 		stringToArray,
 		getModelIdfromPath
 	} from '$lib/assets/js/utils';
-	import { beforeUpdate, afterUpdate } from 'svelte';
+	// import { dataTypesStore } from '$lib/store/store';
+	import { beforeUpdate, onMount } from 'svelte';
+
+	// /**
+	//  * @type {string[]}
+	//  */
+	// let selectedDataTypes;
+	// dataTypesStore.subscribe((value) => {
+	// 	selectedDataTypes = value;
+	// });
+
+	let dataTypesFromUrl;
 
 	/**
 	 * @type {any}
@@ -94,10 +104,27 @@
 		}
 	});
 
-	afterUpdate(() => {
-		for (const datatype of selectedDataTypes) {
-			dataTypes[datatype].selected = true;
+	const highlightDataTypes = () => {
+		dataTypesFromUrl = getURLParameterValue('datatype')?.toLocaleLowerCase().trim();
+		dataTypesFromUrl = decodeURIComponent(dataTypesFromUrl);
+		dataTypesFromUrl = dataTypesFromUrl?.replaceAll('undefined', '');
+		dataTypesFromUrl = trimComma(dataTypesFromUrl);
+
+		if (dataTypesFromUrl === 'all') {
+			dataTypesFromUrl = ['fp32', 'fp16', 'int8'];
+		} else {
+			dataTypesFromUrl = stringToArray(dataTypesFromUrl);
 		}
+
+		if (dataTypesFromUrl.length > 0) {
+			for (const datatype of dataTypesFromUrl) {
+				dataTypes[datatype] = true;
+			}
+		}
+	};
+
+	onMount(() => {
+		highlightDataTypes();
 	});
 </script>
 

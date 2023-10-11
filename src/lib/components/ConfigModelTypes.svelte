@@ -3,13 +3,23 @@
 		trimComma,
 		arrayToStringWithComma,
 		getURLParameterValue,
-		selectedModelTypes,
 		getUniqueModelTypesByModelId,
 		goTo,
 		stringToArray,
 		getModelIdfromPath
 	} from '$lib/assets/js/utils';
-	import { beforeUpdate, afterUpdate } from 'svelte';
+	// import { modelTypesStore } from '$lib/store/store';
+	import { beforeUpdate, onMount } from 'svelte';
+
+	let modelTypesFromUrl;
+
+	// /**
+	//  * @type {string[]}
+	//  */
+	// let selectedModelTypes;
+	// modelTypesStore.subscribe((value) => {
+	// 	selectedModelTypes = value;
+	// });
 
 	/**
 	 * @type {any}
@@ -96,10 +106,27 @@
 		}
 	});
 
-	afterUpdate(() => {
-		for (const modeltype of selectedModelTypes) {
-			modelTypes[modeltype].selected = true;
+	const highlightModelTypes = () => {
+		modelTypesFromUrl = getURLParameterValue('modeltype')?.toLocaleLowerCase().trim();
+		modelTypesFromUrl = decodeURIComponent(modelTypesFromUrl);
+		modelTypesFromUrl = modelTypesFromUrl?.replaceAll('undefined', '');
+		modelTypesFromUrl = trimComma(modelTypesFromUrl);
+
+		if (modelTypesFromUrl === 'all') {
+			modelTypesFromUrl = ['onnx', 'tflite', 'npy', 'pt'];
+		} else {
+			modelTypesFromUrl = stringToArray(modelTypesFromUrl);
 		}
+
+		if (modelTypesFromUrl.length > 0) {
+			for (const modeltype of modelTypesFromUrl) {
+				modelTypes[modeltype] = true;
+			}
+		}
+	};
+
+	onMount(() => {
+		highlightModelTypes();
 	});
 </script>
 
