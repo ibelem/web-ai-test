@@ -691,11 +691,35 @@ padding: 2px 4px 2px 4px;
   }
 }
 
+@media (max-width: 900px) { 
+  .group span {
+    width: auto !important;
+    display: flex;
+    align-items: center;
+  }
+
+  #webnn_cpu_4, #webnn_gpu {
+    margin-top: 4px;
+  }
+
+  .config .backends label {
+    width: 56px;
+  }
+}
+
 @media (max-width: 800px) { 
   .group span {
     width: auto !important;
     display: flex;
     align-items: center;
+  }
+
+   #webnn_cpu_4, #webnn_gpu {
+    margin-top: 4px;
+  }
+
+  .config .backends label {
+    width: 54px;
   }
 
   .group, .config label.extra {
