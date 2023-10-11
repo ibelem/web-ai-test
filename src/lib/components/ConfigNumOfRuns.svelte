@@ -85,6 +85,11 @@
 		cursor: pointer;
 	}
 
+	.numofruns label {
+		display: flex;
+		align-items: center;
+	}
+
 	.numofruns label:hover {
 		background-color: transparent;
 	}

@@ -613,7 +613,7 @@
 			</label>
 		{/each}
 	{:else}
-		Choose model type and data type to get test models
+		Choose model type and operand type at first
 	{/if}
 </div>
 

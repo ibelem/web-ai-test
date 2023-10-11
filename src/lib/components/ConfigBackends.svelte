@@ -212,7 +212,7 @@
 				<input type="checkbox" on:change={() => toggleBackend('webgpu')} />
 				WebGPU
 			</label>
-			<label class={backends.webnn_gpu.toString()} title="WebNN GPU">
+			<label id="webnn_gpu" class={backends.webnn_gpu.toString()} title="WebNN GPU">
 				<input type="checkbox" on:change={() => toggleBackend('webnn_gpu')} />
 				WebNN
 			</label>
