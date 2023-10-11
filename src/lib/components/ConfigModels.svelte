@@ -414,7 +414,7 @@
 </script>
 
 <div class="title">
-	<label class="" title="Toggle data types">
+	<label class="" title="Toggle operand types">
 		<input type="checkbox" on:change={() => toggleDataTypes()} />
 		Operand Type
 	</label>

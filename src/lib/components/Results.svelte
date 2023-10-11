@@ -63,7 +63,7 @@
 		<div class="q title _{selectedBackends.length}">
 			<div class="m">Model</div>
 			<div class="mt">Model Type</div>
-			<div class="dt">Data Type</div>
+			<div class="dt">Operand Type</div>
 			{#if selectedBackends && selectedBackends.length > 0}
 				{#each selectedBackends as backend}
 					<div class="backend">
