@@ -1,6 +1,6 @@
 // import * as ort from 'onnxruntime-web';
-import { models, localhost } from '../../config';
-import { updateTestQueueStatus, addResult, updateInfo, sleep, catchEm, median, corsSites } from '../js/utils';
+import { models, localhost, corsSites } from '../../config';
+import { updateTestQueueStatus, addResult, updateInfo, sleep, catchEm, median } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore } from '../../store/store'
 
 /**
