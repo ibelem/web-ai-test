@@ -9,6 +9,7 @@ export default defineConfig({
 		cors: true,
 		headers: {
 			"Cache-Control": "max-age=31536000,immutable",
+			"Access-Control-Allow-Origin": "*",
 			"Cross-Origin-Opener-Policy": "same-origin",
 			"Cross-Origin-Embedder-Policy": "require-corp"
 		}
