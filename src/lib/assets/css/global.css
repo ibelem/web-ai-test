@@ -692,13 +692,30 @@ padding: 2px 4px 2px 4px;
 }
 
 @media (max-width: 900px) { 
+
+   .config .backends {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .config .backends .group {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .group.true {
+    background-color: transparent;
+    border: 0px solid transparent;
+  }
+
   .group span {
     width: auto !important;
     display: flex;
     align-items: center;
   }
 
-  #webnn_cpu_4, #webnn_gpu {
+  #webnn_cpu_4, #webnn_gpu, #webnn_npu {
     margin-top: 4px;
   }
 
@@ -708,6 +725,18 @@ padding: 2px 4px 2px 4px;
 }
 
 @media (max-width: 800px) { 
+
+   .config .backends {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .config .backends .group {
+    display: flex;
+    flex-direction: row;
+  }
+
   .group span {
     width: auto !important;
     display: flex;

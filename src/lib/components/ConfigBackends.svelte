@@ -222,7 +222,7 @@
 	<div class="group {backends.webnn_npu}">
 		<span>NPU</span>
 		<div class="block">
-			<label class={backends.webnn_npu.toString()} title="WebNN NPU">
+			<label id="webnn_npu" class={backends.webnn_npu.toString()} title="WebNN NPU">
 				<input type="checkbox" on:change={() => toggleBackend('webnn_npu')} />
 				WebNN
 			</label>
