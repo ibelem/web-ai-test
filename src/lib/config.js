@@ -26,6 +26,12 @@ export const uniqueBackends = [
   'webnn_npu'
 ];
 
+export let corsSites = [
+  'ibelem.github.io',
+  'belem.dev',
+  'ai-benchmark.vercel.app'
+]
+
 export let models = [
   {
     category: 'Image Classification',
