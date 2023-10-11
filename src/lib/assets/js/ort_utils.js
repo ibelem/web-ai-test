@@ -107,7 +107,7 @@ const getUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
       if (location.hostname.indexOf('github.io') > -1) {
-        return models[i].url.cf;
+        return models[i].url.github;
       } else {
         return `https://${localhost}/` + models[i].url.local;
       }
@@ -276,9 +276,9 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
 
     addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0);
     updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Testing ${_model} (${_modelType}/${_dataType}) with ${backend} backend`);
-    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Creating onnx runtime web inference session ...`);
+    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Creating onnx runtime web inference session`);
 
-    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Downloading model from ${modelPath}...`);
+    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Downloading model from ${modelPath}`);
     const sess = await ort.InferenceSession.create(modelPath, options);
     updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warming up ...`);
     let feeds = clone(getFeeds(_model, _dataType));
