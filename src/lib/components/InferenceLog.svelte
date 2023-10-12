@@ -45,15 +45,15 @@
 			<div>{i}</div>
 		{/each}
 	</div>
-	<div class="q copy">
-		<div>
-			{#if testQueue.length === 0}
+	{#if testQueue.length === 0}
+		<div class="q copy">
+			<div>
 				<button title="Copy full test logs" on:click={() => copyInfo()}>
 					<Log />
 				</button>
-			{/if}
+			</div>
 		</div>
-	</div>
+	{/if}
 {/if}
 
 <style>

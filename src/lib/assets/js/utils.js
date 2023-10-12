@@ -381,8 +381,8 @@ export const urlToStore = (urlSearchParams, modelIdFromUrl) => {
     numOfRuns = parseInt(numOfRuns);
     if (numOfRuns <= 1) {
       numOfRuns = 1;
-    } else if (numOfRuns > 500) {
-      numOfRuns = 500;
+    } else if (numOfRuns > 200) {
+      numOfRuns = 200;
     }
 
     if (modelIdFromUrl) {

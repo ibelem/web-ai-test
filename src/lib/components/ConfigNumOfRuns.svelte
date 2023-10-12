@@ -20,7 +20,7 @@
 	<span class="" title="Number of Runs">
 		{#if numOfRuns === 1}
 			{numOfRuns} Run
-		{:else if numOfRuns > 1 && numOfRuns <= 500}
+		{:else if numOfRuns > 1 && numOfRuns <= 200}
 			{numOfRuns} Runs
 		{:else}
 			# Runs
@@ -29,8 +29,8 @@
 </div>
 <div class="numofruns">
 	<label>
-		<input type="number" bind:value={numOfRuns} min="1" max="500" on:change={setNumberOfRuns} />
-		<input type="range" bind:value={numOfRuns} min="1" max="500" on:change={setNumberOfRuns} />
+		<input type="number" bind:value={numOfRuns} min="1" max="200" on:change={setNumberOfRuns} />
+		<input type="range" bind:value={numOfRuns} min="1" max="200" on:change={setNumberOfRuns} />
 	</label>
 </div>
 
