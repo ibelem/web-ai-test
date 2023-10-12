@@ -46,7 +46,7 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputshape: []
+    inputs: 'img224'
   },
   {
     category: 'Image Classification',
@@ -61,7 +61,7 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputshape: []
+    inputs: { 'images:0': ['float32', 'random', [1, 224, 224, 3]] }
   },
   {
     category: 'Image Classification',
@@ -76,25 +76,35 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputshape: [1, 3, 224, 224]
+    inputs: 'img224'
   },
   {
     category: 'Image Classification',
     id: 'mobilenet_v2',
     name: 'MobileNet v2',
-    url: '',
+    url: {
+      source: '',
+      github: '',
+      hf: '',
+      local: ''
+    },
     format: 'tflite',
     datatype: 'int8',
-    inputshape: []
+    inputs: 'img224'
   },
   {
     category: 'Image Classification',
     id: 'mobilenet_v2',
     name: 'MobileNet v2',
-    url: '',
+    url: {
+      source: '',
+      github: '',
+      hf: '',
+      local: ''
+    },
     format: 'npy',
     datatype: 'fp32',
-    inputshape: []
+    inputs: 'img224'
   },
   {
     category: 'Image Classification',
@@ -109,7 +119,7 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputshape: []
+    inputs: 'img224'
   },
   {
     category: 'Image Classification',
@@ -124,7 +134,7 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputshape: []
+    inputs: 'img224'
   },
   {
     category: 'Image Classification',
@@ -139,7 +149,7 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputshape: []
+    inputs: 'img224'
   },
 
   {
@@ -155,7 +165,7 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputshape: []
+    inputs: { 'image': ['float32', 'random', [1, 3, 416, 416]] }
   },
   {
     category: 'Face Analysis',
@@ -170,16 +180,35 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputshape: []
+    inputs: { 'Input3': ['float32', 'random', [1, 1, 64, 64]] }
   },
   {
     category: 'Semantic Segmentation',
-    id: 'segment_anything',
-    name: 'Segment Anything',
-    url: '',
+    id: 'segment_anything_decoder',
+    name: 'Segment Anything Decoder',
+    url: {
+      source: '',
+      github: '',
+      hf: '',
+      local: ''
+    },
     format: 'onnx',
     datatype: 'fp16',
-    inputshape: []
+    inputs: 'sam-decoder'
+  },
+  {
+    category: 'Semantic Segmentation',
+    id: 'segment_anything_encoder',
+    name: 'Segment Anything Encoder',
+    url: {
+      source: '',
+      github: '',
+      hf: '',
+      local: ''
+    },
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: 'sam-encoder'
   },
   {
     category: 'Semantic Segmentation',
@@ -194,7 +223,7 @@ export let models = [
     },
     format: 'tflite',
     datatype: 'fp32',
-    inputshape: []
+    inputs: ''
   },
   {
     category: 'Style Transfer',
@@ -209,7 +238,7 @@ export let models = [
     },
     format: 'pt',
     datatype: 'fp32',
-    inputshape: []
+    inputs: ''
   },
 ];
 

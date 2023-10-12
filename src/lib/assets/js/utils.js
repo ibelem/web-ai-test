@@ -577,7 +577,23 @@ export const getModelIdfromPath = () => {
   return path;
 }
 
-export const catchEm = (promise) => {
-  return promise.then(data => [null, data])
-    .catch(err => [err]);
+export const loadScript = async (id, url) => {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.onload = resolve;
+    script.onerror = reject;
+    script.id = id;
+    script.src = url;
+    if (url.startsWith('http')) {
+      script.crossOrigin = 'anonymous';
+    }
+    document.body.append(script);
+  })
+}
+
+export const removeElement = async (id) => {
+  let el = document.querySelector(`#${id}`);
+  if (el) {
+    el.parentNode.removeChild(el);
+  }
 }
