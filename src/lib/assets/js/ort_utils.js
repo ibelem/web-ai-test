@@ -238,83 +238,83 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
       break;
   }
 
-  if (_modelType === 'onnx') {
-    // let wasmPaths = `https://${localhost}/node_modules/onnxruntime-web/dist/`
+  // let wasmPaths = `https://${localhost}/node_modules/onnxruntime-web/dist/`
 
-    // if (location.hostname.indexOf('github') > -1) {
-    //   wasmPaths = 'https://ibelem.github.io/onnxruntime-web-dist/1.16/web/dist/'
-    // }
+  // if (location.hostname.indexOf('github') > -1) {
+  //   wasmPaths = 'https://ibelem.github.io/onnxruntime-web-dist/1.16/web/dist/'
+  // }
 
-    // console.log(location.hostname);
-    // console.log(wasmPaths);
+  // console.log(location.hostname);
+  // console.log(wasmPaths);
 
-    // https://github.com/microsoft/onnxruntime/blob/main/js/common/lib/env.ts
-    ort.env.wasm.numThreads = numThreads;
-    ort.env.wasm.simd = wasmSimd;
-    // ort.env.wasm.wasmPaths = '../node_modules/onnxruntime-web/dist/'
-    // ort.env.wasm.wasmPaths = wasmPaths;
-    ort.env.wasm.proxy = true;
-    // ort.env.logLevel = "verbose"; // "error";
-    // ort.env.debug = false;
+  // https://github.com/microsoft/onnxruntime/blob/main/js/common/lib/env.ts
+  ort.env.wasm.numThreads = numThreads;
+  ort.env.wasm.simd = wasmSimd;
+  // ort.env.wasm.wasmPaths = '../node_modules/onnxruntime-web/dist/'
+  // ort.env.wasm.wasmPaths = wasmPaths;
+  ort.env.wasm.proxy = true;
+  // ort.env.logLevel = "verbose"; // "error";
+  // ort.env.debug = false;
 
-    updateTestQueueStatus(_id, 2);
-    addResult(_model, _modelType, _dataType, _backend, 1, []);
+  updateTestQueueStatus(_id, 2);
+  addResult(_model, _modelType, _dataType, _backend, 1, []);
 
-    let modelPath = getUrlById(_model);
+  let modelPath = getUrlById(_model);
 
-    const options = {
-      executionProviders: [
-        {
-          name: backend,
-          deviceType: deviceType,
-          powerPreference: "default",
-        },
-      ],
-      //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
-    };
+  const options = {
+    executionProviders: [
+      {
+        name: backend,
+        deviceType: deviceType,
+        powerPreference: "default",
+      },
+    ],
+    //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
+  };
 
-    l(`ort.env.wasm.numThreads ${ort.env.wasm.numThreads} thread(s)`)
-    l(`ort.env.wasm.simd ${ort.env.wasm.simd}`)
-    l(options.executionProviders)
+  l(`ort.env.wasm.numThreads ${ort.env.wasm.numThreads} thread(s)`)
+  l(`ort.env.wasm.simd ${ort.env.wasm.simd}`)
+  l(options.executionProviders)
 
-    addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0);
-    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Testing ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Creating onnx runtime web inference session`);
+  addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0);
+  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Testing ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Creating onnx runtime web inference session`);
 
-    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Downloading model from ${modelPath}`);
-    const sess = await ort.InferenceSession.create(modelPath, options);
-    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warming up`);
-    let feeds = clone(getFeeds(_model, _dataType));
+  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Downloading model from ${modelPath}`);
+  const sess = await ort.InferenceSession.create(modelPath, options);
+  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warming up`);
+  let feeds = clone(getFeeds(_model, _dataType));
 
-    let warmupTime = 0;
-    const warmupstart = performance.now();
-    await sess.run(feeds);
-    warmupTime = performance.now() - warmupstart;
+  let warmupTime = 0;
+  const warmupstart = performance.now();
+  await sess.run(feeds);
+  warmupTime = performance.now() - warmupstart;
 
-    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warm Up Time: ${warmupTime} ms`);
+  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warm Up Time: ${warmupTime} ms`);
 
-    let inferenceTimes = [];
-    let inferenceTimesMedian = null;
-    for (var i = 0; i < numOfRuns; i++) {
-      const start = performance.now();
-      feeds = clone(getFeeds(_model, _dataType));
-      const outputs = await sess.run(feeds);
-      let inferenceTime = performance.now() - start;
-      inferenceTimes.push(inferenceTime);
-      inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
-      updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} - ${i + 1}/${numOfRuns} Inference Time: ${inferenceTime} ms`);
-      addResult(_model, _modelType, _dataType, _backend, 3, warmupTime, inferenceTimes, inferenceTimesMedian);
-    }
-
-    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Inference Times: [${inferenceTimes}] ms`);
-    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Inference Time (Median): ${inferenceTimesMedian} ms`);
-
-    await sess.release();
-    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
+  let inferenceTimes = [];
+  let inferenceTimesMedian = null;
+  for (var i = 0; i < numOfRuns; i++) {
+    const start = performance.now();
+    feeds = clone(getFeeds(_model, _dataType));
+    const outputs = await sess.run(feeds);
+    console.log(outputs)
+    let inferenceTime = performance.now() - start;
+    inferenceTimes.push(inferenceTime);
+    inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
+    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} - ${i + 1}/${numOfRuns} Inference Time: ${inferenceTime} ms`);
+    addResult(_model, _modelType, _dataType, _backend, 3, warmupTime, inferenceTimes, inferenceTimesMedian);
   }
+
+  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Inference Times: [${inferenceTimes}] ms`);
+  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Inference Time (Median): ${inferenceTimesMedian} ms`);
+
+  await sess.release();
+  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
+
 }
 
-export const catchMain = async (_id, _model, _modelType, _dataType, _backend) => {
+export const runOnnx = async (_id, _model, _modelType, _dataType, _backend) => {
   // const [err, data] = await catchEm(main(_id, _model, _modelType, _dataType, _backend));
   // if (err) {
   //   addResult(_model, _modelType, _dataType, _backend, 4, []);
