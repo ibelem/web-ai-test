@@ -62,16 +62,16 @@
 	<div class="result" id="result">
 		<div class="q title _{selectedBackends.length}">
 			<div class="m">Model</div>
-			<div class="mt">Model Type</div>
-			<div class="dt">Operand Type</div>
+			<div class="mt"><span class="hide">Model </span>Type</div>
+			<div class="dt">Operand <span class="hide">Type</span></div>
 			{#if selectedBackends && selectedBackends.length > 0}
 				{#each selectedBackends as backend}
 					<div class="backend">
 						{#if backend === 'wasm_1'}
-							<span title="WebAssembly SIMD with 1 thread">Wasm 1T</span>
+							<span title="WebAssembly SIMD with 1 Thread">Wasm 1T</span>
 						{/if}
 						{#if backend === 'wasm_4'}
-							<span title="WebAssembly SIMD with 4 threads">Wasm 4T</span>
+							<span title="WebAssembly SIMD with 4 Threads">Wasm 4T</span>
 						{/if}
 						{#if backend === 'webgl'}
 							<span title="WebGL">WebGL</span>
@@ -80,16 +80,16 @@
 							<span title="WebGPU">WebGPU</span>
 						{/if}
 						{#if backend === 'webnn_cpu_1'}
-							<span title="WebNN CPU with 1 thread">WebNN CPU 1T</span>
+							<span title="WebNN CPU with 1 Thread"><span class="hide">Web</span>NN CPU 1T</span>
 						{/if}
 						{#if backend === 'webnn_cpu_4'}
-							<span title="WebNN CPU with 4 threads">WebNN CPU 4T</span>
+							<span title="WebNN CPU with 4 Threads"><span class="hide">Web</span>NN CPU 4T</span>
 						{/if}
 						{#if backend === 'webnn_gpu'}
-							<span title="WebNN GPU">WebNN GPU</span>
+							<span title="WebNN GPU"><span class="hide">Web</span>NN GPU</span>
 						{/if}
 						{#if backend === 'webnn_npu'}
-							<span title="WebNN NPU">WebNN NPU</span>
+							<span title="WebNN NPU"><span class="hide">Web</span>NN NPU</span>
 						{/if}
 					</div>
 				{/each}
