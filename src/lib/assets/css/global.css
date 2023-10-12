@@ -801,6 +801,10 @@ padding: 2px 4px 2px 4px;
 }
 
 @media (max-width: 512px) { 
+  .hide {
+    display: none;
+  }
+  
   .tq {
     grid-template-columns: repeat(1, 1fr);
   }
