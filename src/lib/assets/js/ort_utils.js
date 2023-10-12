@@ -478,9 +478,16 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
 
   if (backend === 'webnn') {
     ort.env.wasm.proxy = true;
-    options.freeDimensionOverrides = true;
   } else {
     ort.env.wasm.proxy = false;
+  }
+
+  if (_model === 'mobilenet_v2') {
+    options.freeDimensionOverrides = { "batch_size": 1 };
+  }
+
+  if (_model === 'resnet50_v2' || _model === 'resnet50_v1') {
+    options.freeDimensionOverrides = { "N": 1 };
   }
 
   l(`ort.env.wasm.numThreads ${ort.env.wasm.numThreads} thread(s)`)
