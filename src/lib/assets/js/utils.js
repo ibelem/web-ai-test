@@ -1,6 +1,6 @@
 import { autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore } from '../../store/store'
 import { models, uniqueBackends } from '../../config';
-import { catchMain } from '../js/ort_utils'
+import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
 import { environment } from '$lib/config.js';
@@ -451,7 +451,9 @@ export const run = async () => {
     }
     initResult(r);
 
-    await catchMain(t0.id, t0.model, t0.modeltype, t0.datatype, t0.backend);
+    if (t0.modeltype === 'onnx') {
+      await runOnnx(t0.id, t0.model, t0.modeltype, t0.datatype, t0.backend);
+    }
 
     filterTestQueue(t0.id);
     run();
