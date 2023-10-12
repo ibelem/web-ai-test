@@ -470,7 +470,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
   };
 
-  // options.logSeverityLevel = 0;
+  options.logSeverityLevel = 0;
   // options.logVerbosityLevel = 0;
 
   ort.env.wasm.numThreads = numThreads;
@@ -490,7 +490,8 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     options = { executionProviders: ["webgpu"] };
   }
 
-  l(`EP options: ${options.executionProviders[0]}`)
+  l(`EP options:`)
+  l(options.executionProviders[0])
 
   updateTestQueueStatus(_id, 2);
   addResult(_model, _modelType, _dataType, _backend, 1, []);
@@ -543,7 +544,6 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
 
   await sess.release();
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
-
 }
 
 export const runOnnx = async (_id, _model, _modelType, _dataType, _backend) => {

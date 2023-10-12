@@ -58,7 +58,6 @@ header .nav {
 
 .environment {
   margin: 0px auto;
-  margin-top: 20px;
   padding: 10px;
   text-align: center;
 }
@@ -221,10 +220,16 @@ header .nav {
   height: 14px;
 }
 
+
+
 .tqtitle, .rqtitle {
   text-align: center;
   margin: 10px 0;
 }
+
+ .tqtitle {
+  margin-top: 20px;
+ }
 
 .title.tq {
   display: inline-block;
@@ -308,9 +313,13 @@ header .nav {
   align-items: center;
   border: 1px solid var(--grey-02);
   border-top: 0px solid transparent;
-  padding: 4px 8px 4px 8px;
+  padding:3px 6px 2px 6px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+.q.copy span {
+  margin-left: 8px;
 }
 
 .copy button {
@@ -386,6 +395,10 @@ header .nav {
   animation: spin 2000ms linear infinite;
   transform-box: fill-box;
   transform-origin: center;
+}
+
+.tq {
+  margin-bottom: 10px;
 }
 
 .tq .onnx svg, .tq .tflite svg, .tq .npy svg, .tq .pt svg {
@@ -587,7 +600,6 @@ padding: 2px 4px 2px 4px;
 
 .run {
   text-align: center;
-  margin-top: 1em;
 }
 .run button {
   padding: 4px 16px;
@@ -637,7 +649,7 @@ padding: 2px 4px 2px 4px;
   grid-row-gap: 10px;
   justify-items: center;
   align-items: center;
-  padding: 6px;
+  padding: 2px 6px;
 }
 
 .config .models label {
