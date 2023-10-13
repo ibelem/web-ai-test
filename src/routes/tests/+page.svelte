@@ -6,7 +6,7 @@
 	import { beforeUpdate, onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
 	import { autoStore } from '../../lib/store/store';
-	import { resetStore } from '$lib/assets/js/utils';
+	import { resetStore, getModelNameById } from '$lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}
@@ -35,7 +35,7 @@
 				<div class="status_1 s">
 					<Clock />
 				</div>
-				<a href="{base}/run/{model}" class="capitalize">{model.replaceAll('_', ' ')}</a>
+				<a href="{base}/run/{model}" class="">{getModelNameById(model)}</a>
 			</div>
 		{/each}
 	</div>

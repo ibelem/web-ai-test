@@ -76,7 +76,8 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputs: 'img224'
+    inputs: 'img224',
+    freeDimensionOverrides: { "batch_size": 1 }
   },
   {
     category: 'Image Classification',
@@ -90,7 +91,8 @@ export let models = [
     },
     format: 'tflite',
     datatype: 'int8',
-    inputs: 'img224'
+    inputs: 'img224',
+    freeDimensionOverrides: { "batch_size": 1 }
   },
   {
     category: 'Image Classification',
@@ -104,7 +106,8 @@ export let models = [
     },
     format: 'npy',
     datatype: 'fp32',
-    inputs: 'img224'
+    inputs: 'img224',
+    freeDimensionOverrides: { "batch_size": 1 }
   },
   {
     category: 'Image Classification',
@@ -119,7 +122,8 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputs: 'img224'
+    inputs: 'img224',
+    freeDimensionOverrides: { "N": 1 }
   },
   {
     category: 'Image Classification',
@@ -134,12 +138,13 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputs: 'img224'
+    inputs: 'img224',
+    freeDimensionOverrides: { "N": 1 }
   },
   {
     category: 'Image Classification',
     id: 'squeezenet',
-    name: 'Squeezenet_1.1',
+    name: 'SqueezeNet 1.1',
     url:
     {
       source: 'https://github.com/onnx/models/raw/main/vision/classification/squeezenet/model/squeezenet1.1-7.onnx',
@@ -165,7 +170,8 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputs: { 'image': ['float32', 'random', [1, 3, 416, 416]] }
+    inputs: { 'image': ['float32', 'random', [1, 3, 416, 416]] },
+    freeDimensionOverrides: { "None": 1 }
   },
   {
     category: 'Face Analysis',

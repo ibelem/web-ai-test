@@ -1,6 +1,11 @@
 <script>
 	import { testQueueStore, testQueueLengthStore, backendsStore } from '$lib/store/store';
-	import { copyResults, copyRawInference, downloadScreenshot } from '$lib/assets/js/utils';
+	import {
+		getModelNameById,
+		copyResults,
+		copyRawInference,
+		downloadScreenshot
+	} from '$lib/assets/js/utils';
 	import { resultsStore } from '$lib/store/store';
 	import Info from './Info.svelte';
 	import Copy from './svg/Copy.svelte';
@@ -97,7 +102,7 @@
 		</div>
 		{#each Object.entries(results) as [index, key]}
 			<div class="q _{selectedBackends.length}">
-				<div class="m">{key.model.replaceAll('_', ' ')}</div>
+				<div class="m">{getModelNameById(key.model)}</div>
 
 				{#if key.modeltype === 'onnx'}
 					<div class="{key.modeltype} mt">
