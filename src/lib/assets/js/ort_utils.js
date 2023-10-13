@@ -329,6 +329,15 @@ const getUrlById = (id) => {
   return null;
 }
 
+const getFreeDimensionOverridesById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      return models[i].freeDimensionOverrides;
+    }
+  }
+  return null;
+}
+
 // const getInputShapeById = (id) => {
 //   for (let i = 0; i < models.length; i++) {
 //     if (models[i].id === id) {
@@ -470,8 +479,8 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
   };
 
-  options.logSeverityLevel = 0;
-  // options.logVerbosityLevel = 0;
+  // options.logSeverityLevel = 0;
+  //// options.logVerbosityLevel = 0;
 
   ort.env.wasm.numThreads = numThreads;
   ort.env.wasm.simd = wasmSimd;
@@ -482,12 +491,19 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     ort.env.wasm.proxy = false;
   }
 
-  if (_model === 'mobilenet_v2') {
-    options.freeDimensionOverrides = { "batch_size": 1 };
-  }
+  // if (_model === 'mobilenet_v2') {
+  //   options.freeDimensionOverrides = { "batch_size": 1 };
+  // } else if (_model === 'resnet50_v2' || _model === 'resnet50_v1') {
+  //   options.freeDimensionOverrides = { "N": 1 };
+  // } else if (_model === 'tinyyolo_v2') {
+  //   options.freeDimensionOverrides = { "None": 1 };
+  // }
 
-  if (_model === 'resnet50_v2' || _model === 'resnet50_v1') {
-    options.freeDimensionOverrides = { "N": 1 };
+  let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
+  console.log('options.freeDimensionOverrides:');
+  console.log(freeDimensionOverrides)
+  if (freeDimensionOverrides) {
+    options.freeDimensionOverrides = freeDimensionOverrides;
   }
 
   l(`ort.env.wasm.numThreads ${ort.env.wasm.numThreads} thread(s)`)

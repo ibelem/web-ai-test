@@ -200,6 +200,11 @@ export const trimComma = (string) => {
   return string;
 }
 
+export const getModelNameById = (id) => {
+  const model = models.find(item => item.id === id);
+  return model.name;
+}
+
 export const getUniqueDataTypes = () => {
   let uniqueDataTypes = [];
   for (let model of models) {
