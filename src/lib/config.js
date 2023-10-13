@@ -17,7 +17,7 @@ export const localhost = '10.239.115.52:5173';
 
 export let corsSites = [
   'ibelem.github.io',
-  'belem.dev',
+  'webai.run',
   'ai-benchmark.vercel.app'
 ]
 
