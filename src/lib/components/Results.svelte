@@ -2,11 +2,13 @@
 	import { testQueueStore, testQueueLengthStore, backendsStore } from '$lib/store/store';
 	import {
 		getModelNameById,
+		getModelHFUrlById,
 		copyResults,
 		copyRawInference,
 		downloadScreenshot
 	} from '$lib/assets/js/utils';
 	import { resultsStore } from '$lib/store/store';
+	import ArrowOutward from './svg/ArrowOutward.svelte';
 	import Info from './Info.svelte';
 	import Copy from './svg/Copy.svelte';
 	import FileCopy from './svg/FileCopy.svelte';
@@ -102,7 +104,15 @@
 		</div>
 		{#each Object.entries(results) as [index, key]}
 			<div class="q _{selectedBackends.length}">
-				<div class="m">{getModelNameById(key.model)}</div>
+				<div class="m">
+					{getModelNameById(key.model)}
+
+					<a
+						title="WebNN support status of {getModelNameById(key.model)}"
+						href="https://ibelem.github.io/netron/?url={getModelHFUrlById(key.model)}"
+						><ArrowOutward /></a
+					>
+				</div>
 
 				{#if key.modeltype === 'onnx'}
 					<div class="{key.modeltype} mt">
@@ -166,7 +176,7 @@
 					{/if}
 
 					{#if key.wasm_1.status === 4}
-						<div class="status_{key.wasm_1.status} s">
+						<div class="status_{key.wasm_1.status} s" title={key.wasm_1.error}>
 							<Fail />
 						</div>
 					{/if}
@@ -212,7 +222,7 @@
 					{/if}
 
 					{#if key.wasm_4.status === 4}
-						<div class="status_{key.wasm_4.status} s">
+						<div class="status_{key.wasm_4.status} s" title={key.wasm_4.error}>
 							<Fail />
 						</div>
 					{/if}
@@ -258,7 +268,7 @@
 					{/if}
 
 					{#if key.webgl.status === 4}
-						<div class="status_{key.webgl.status} s">
+						<div class="status_{key.webgl.status} s" title={key.webgl.error}>
 							<Fail />
 						</div>
 					{/if}
@@ -304,7 +314,7 @@
 					{/if}
 
 					{#if key.webgpu.status === 4}
-						<div class="status_{key.webgpu.status} s">
+						<div class="status_{key.webgpu.status} s" title={key.webgpu.error}>
 							<Fail />
 						</div>
 					{/if}
@@ -350,7 +360,7 @@
 					{/if}
 
 					{#if key.webnn_cpu_1.status === 4}
-						<div class="status_{key.webnn_cpu_1.status} s">
+						<div class="status_{key.webnn_cpu_1.status} s" title={key.webnn_cpu_1.error}>
 							<Fail />
 						</div>
 					{/if}
@@ -396,7 +406,7 @@
 					{/if}
 
 					{#if key.webnn_cpu_4.status === 4}
-						<div class="status_{key.webnn_cpu_4.status} s">
+						<div class="status_{key.webnn_cpu_4.status} s" title={key.webnn_cpu_4.error}>
 							<Fail />
 						</div>
 					{/if}
@@ -442,7 +452,7 @@
 					{/if}
 
 					{#if key.webnn_gpu.status === 4}
-						<div class="status_{key.webnn_gpu.status} s">
+						<div class="status_{key.webnn_gpu.status} s" title={key.webnn_gpu.error}>
 							<Fail />
 						</div>
 					{/if}
@@ -488,7 +498,7 @@
 					{/if}
 
 					{#if key.webnn_npu.status === 4}
-						<div class="status_{key.webnn_npu.status} s">
+						<div class="status_{key.webnn_npu.status} s" title={key.webnn_npu.error}>
 							<Fail />
 						</div>
 					{/if}
