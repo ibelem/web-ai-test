@@ -21,7 +21,7 @@ export const initResult = (newItem) => {
   });
 }
 
-export const addResult = (model, modeltype, datatype, backend, status, warmup, inference, inferencemedian) => {
+export const addResult = (model, modeltype, datatype, backend, status, warmup, inference, inferencemedian, err) => {
   resultsStore.update(items => {
     return items.map(item => {
       if (
@@ -36,6 +36,7 @@ export const addResult = (model, modeltype, datatype, backend, status, warmup, i
             updatedItem[backend].warmup = warmup;
             updatedItem[backend].inference = inference;
             updatedItem[backend].inferencemedian = inferencemedian;
+            updatedItem[backend].error = err;
           }
         }
         return updatedItem;
@@ -203,6 +204,11 @@ export const trimComma = (string) => {
 export const getModelNameById = (id) => {
   const model = models.find(item => item.id === id);
   return model.name;
+}
+
+export const getModelHFUrlById = (id) => {
+  const model = models.find(item => item.id === id);
+  return model.url.hf;
 }
 
 export const getUniqueDataTypes = () => {

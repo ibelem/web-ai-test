@@ -293,13 +293,17 @@ header .nav {
   align-items: center;
 }
 
-.tq .s svg, .result .s svg, .copy svg {
+.tq .s svg, .result .s svg, .result .q svg, .copy svg {
   height: 16px;
   padding-top: 2px;
 }
 
-.tq .s svg path, .result .s svg path, .copy svg path {
+.tq .s svg path, .result .s svg path, .result .q svg, .copy svg path {
   fill: var(--grey);
+}
+
+.result .q svg {
+  margin-bottom: -4px;
 }
 
 .copy {
@@ -382,8 +386,12 @@ header .nav {
   fill: var(--orange) !important;
 }
 
-.result .q .status_3 svg:hover path {
+.result .q .m svg:hover path, .result .q .status_3 svg:hover path {
   fill: var(--green) !important;
+}
+
+.result .q .status_4 svg {
+  margin-bottom: 1px;
 }
 
 .result .q .status_4 svg:hover path {
@@ -650,6 +658,10 @@ padding: 2px 4px 2px 4px;
   justify-items: center;
   align-items: center;
   padding: 2px 6px;
+}
+
+.result .q .onnx {
+  margin-bottom: 2px;
 }
 
 .config .models label {

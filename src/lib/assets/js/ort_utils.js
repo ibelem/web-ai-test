@@ -517,13 +517,13 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   l(options.executionProviders[0])
 
   updateTestQueueStatus(_id, 2);
-  addResult(_model, _modelType, _dataType, _backend, 1, []);
+  addResult(_model, _modelType, _dataType, _backend, 1, [], null);
 
   let modelPath = getUrlById(_model);
   const modelBuffer = await getModelOPFS(_model, modelPath, false);
 
 
-  addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0);
+  addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0, null);
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Testing ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
   updateInfo(`${testQueueLength - testQueue.length + 1} /${testQueueLength} Creating onnx runtime web inference session`);
 
@@ -559,7 +559,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     inferenceTimes.push(inferenceTime);
     inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
     updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} - ${i + 1}/${numOfRuns} Inference Time: ${inferenceTime} ms`);
-    addResult(_model, _modelType, _dataType, _backend, 3, warmupTime, inferenceTimes, inferenceTimesMedian);
+    addResult(_model, _modelType, _dataType, _backend, 3, warmupTime, inferenceTimes, inferenceTimesMedian, null);
   }
 
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Inference Times: [${inferenceTimes}] ms`);
@@ -574,9 +574,10 @@ export const runOnnx = async (_id, _model, _modelType, _dataType, _backend) => {
 
   const [err, data] = await to(main(_id, _model, _modelType, _dataType, _backend));
   if (err) {
-    addResult(_model, _modelType, _dataType, _backend, 4, []);
+    console.log(err)
+    addResult(_model, _modelType, _dataType, _backend, 4, 0, [], 0, err.message);
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-    updateInfo(err);
+    updateInfo(err.message);
   } else {
     // use data 
   }
