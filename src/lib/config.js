@@ -46,7 +46,10 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputs: 'img224'
+    inputs: {
+      value: 'img224',
+      batch: {}
+    }
   },
   {
     category: 'Image Classification',
@@ -61,7 +64,10 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputs: { 'images:0': ['float32', 'random', [1, 224, 224, 3]] }
+    inputs: {
+      value: { 'images:0': ['float32', 'random', [1, 224, 224, 3]] },
+      batch: {}
+    }
   },
   {
     category: 'Image Classification',
@@ -76,8 +82,10 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputs: 'img224',
-    freeDimensionOverrides: { "batch_size": 1 }
+    inputs: {
+      value: 'img224',
+      batch: { "batch_size": 1 }
+    }
   },
   {
     category: 'Image Classification',
@@ -91,8 +99,10 @@ export let models = [
     },
     format: 'tflite',
     datatype: 'int8',
-    inputs: 'img224',
-    freeDimensionOverrides: { "batch_size": 1 }
+    inputs: {
+      value: 'img224',
+      batch: { "batch_size": 1 }
+    }
   },
   {
     category: 'Image Classification',
@@ -106,8 +116,10 @@ export let models = [
     },
     format: 'npy',
     datatype: 'fp32',
-    inputs: 'img224',
-    freeDimensionOverrides: { "batch_size": 1 }
+    inputs: {
+      value: 'img224',
+      batch: { "batch_size": 1 }
+    }
   },
   {
     category: 'Image Classification',
@@ -122,8 +134,10 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputs: 'img224',
-    freeDimensionOverrides: { "N": 1 }
+    inputs: {
+      value: 'img224',
+      batch: { "N": 1 }
+    }
   },
   {
     category: 'Image Classification',
@@ -138,8 +152,10 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputs: 'img224',
-    freeDimensionOverrides: { "N": 1 }
+    inputs: {
+      value: 'img224',
+      batch: { "N": 1 }
+    }
   },
   {
     category: 'Image Classification',
@@ -154,7 +170,10 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputs: 'img224'
+    inputs: {
+      value: 'img224',
+      batch: {}
+    }
   },
 
   {
@@ -170,8 +189,10 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputs: { 'image': ['float32', 'random', [1, 3, 416, 416]] },
-    freeDimensionOverrides: { "None": 1 }
+    inputs: {
+      value: { 'image': ['float32', 'random', [1, 3, 416, 416]] },
+      batch: { "None": 1 }
+    }
   },
   {
     category: 'Face Analysis',
@@ -186,7 +207,10 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp32',
-    inputs: { 'Input3': ['float32', 'random', [1, 1, 64, 64]] }
+    inputs: {
+      value: { 'Input3': ['float32', 'random', [1, 1, 64, 64]] },
+      batch: {}
+    }
   },
   {
     category: 'Semantic Segmentation',
@@ -200,7 +224,10 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp16',
-    inputs: 'sam-decoder'
+    inputs: {
+      value: '',
+      batch: {}
+    }
   },
   {
     category: 'Semantic Segmentation',
@@ -214,7 +241,10 @@ export let models = [
     },
     format: 'onnx',
     datatype: 'fp16',
-    inputs: 'sam-encoder'
+    inputs: {
+      value: '',
+      batch: {}
+    }
   },
   {
     category: 'Semantic Segmentation',
@@ -229,7 +259,10 @@ export let models = [
     },
     format: 'tflite',
     datatype: 'fp32',
-    inputs: ''
+    inputs: {
+      value: '',
+      batch: {}
+    }
   },
   {
     category: 'Style Transfer',
@@ -242,9 +275,12 @@ export let models = [
       hf: 'https://huggingface.co/webml/models/resolve/main/fns-candy.onnx',
       local: 'models/fns-candy.onnx'
     },
-    format: 'pt',
+    format: 'onnx',
     datatype: 'fp32',
-    inputs: ''
+    inputs: {
+      value: { 'inputImage': ['float32', 'random', [1, 3, 720, 720]] },
+      batch: { 'None': 1 }
+    }
   },
 ];
 

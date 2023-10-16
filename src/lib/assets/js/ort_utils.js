@@ -86,7 +86,7 @@ resultsStore.subscribe((value) => {
 const getInputsById = (id) => {
   for (const model of models) {
     if (model.id === id) {
-      return model.inputs;
+      return model.inputs.value;
     }
   }
   return null;
@@ -147,11 +147,7 @@ const getFeeds = (session, modelName, _backend) => {
   // }
 
   if (inputs === 'img224') {
-    if (_backend === 'webgl') {
-      feeds[inputNames[0]] = getTensor('float32', 'random', [null, 3, 224, 224]);
-    } else {
-      feeds[inputNames[0]] = getTensor('float32', 'random', [1, 3, 224, 224]);
-    }
+    feeds[inputNames[0]] = getTensor('float32', 'random', [1, 3, 224, 224]);
   }
 
   // if (inputs == 'llm-decoder') {
@@ -338,7 +334,7 @@ const getUrlById = (id) => {
 const getFreeDimensionOverridesById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      return models[i].freeDimensionOverrides;
+      return models[i].inputs.batch;
     }
   }
   return null;
