@@ -92,10 +92,12 @@ const getInputsById = (id) => {
   return null;
 }
 
-const getFeeds = (session, modelName) => {
+const getFeeds = (session, modelName, _backend) => {
   let feeds = {};
   let inputs = getInputsById(modelName);
   let inputNames = session.inputNames;
+  console.log('--- session.inputNames ---');
+  console.log(inputNames)
   // let decSeqLen = 128;
   // let encSeqLen = 128;
 
@@ -145,7 +147,11 @@ const getFeeds = (session, modelName) => {
   // }
 
   if (inputs === 'img224') {
-    feeds[inputNames[0]] = getTensor('float32', 'random', [1, 3, 224, 224]);
+    if (_backend === 'webgl') {
+      feeds[inputNames[0]] = getTensor('float32', 'random', [null, 3, 224, 224]);
+    } else {
+      feeds[inputNames[0]] = getTensor('float32', 'random', [1, 3, 224, 224]);
+    }
   }
 
   // if (inputs == 'llm-decoder') {
@@ -522,14 +528,13 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   let modelPath = getUrlById(_model);
   const modelBuffer = await getModelOPFS(_model, modelPath, false);
 
-
   addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0, null);
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Testing ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
   updateInfo(`${testQueueLength - testQueue.length + 1} /${testQueueLength} Creating onnx runtime web inference session`);
 
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Downloading model from ${modelPath}`);
   const sess = await ort.InferenceSession.create(modelBuffer, options);
-  let feeds = getFeeds(sess, _model);
+  let feeds = getFeeds(sess, _model, _backend);
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warming up`);
 
   let warmupTime = 0;

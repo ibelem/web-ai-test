@@ -118,9 +118,11 @@
 			modelTypesFromUrl = stringToArray(modelTypesFromUrl);
 		}
 
+		modelTypesFromUrl = modelTypesFromUrl.filter((item) => item !== 'none');
+
 		if (modelTypesFromUrl.length > 0) {
 			for (const modeltype of modelTypesFromUrl) {
-				modelTypes[modeltype] = true;
+				modelTypes[modeltype].selected = true;
 			}
 		}
 	};

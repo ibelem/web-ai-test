@@ -116,9 +116,11 @@
 			dataTypesFromUrl = stringToArray(dataTypesFromUrl);
 		}
 
+		dataTypesFromUrl = dataTypesFromUrl.filter((item) => item !== 'none');
+
 		if (dataTypesFromUrl.length > 0) {
 			for (const datatype of dataTypesFromUrl) {
-				dataTypes[datatype] = true;
+				dataTypes[datatype].selected = true;
 			}
 		}
 	};
