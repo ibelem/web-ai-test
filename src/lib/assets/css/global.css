@@ -74,7 +74,7 @@ header .nav {
 }
 
 .config:hover {
-  border: 1px solid var(--red-005);
+  border: 1px solid var(--grey-04);
 }
 
 .config label {
