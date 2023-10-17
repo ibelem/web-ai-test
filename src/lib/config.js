@@ -104,23 +104,40 @@ export let models = [
       batch: { "batch_size": 1 }
     }
   },
-  {
-    category: 'Image Classification',
-    id: 'mobilenet_v2',
-    name: 'MobileNet v2',
-    url: {
-      source: '',
-      github: '',
-      hf: '',
-      local: ''
-    },
-    format: 'npy',
-    datatype: 'fp32',
-    inputs: {
-      value: 'img224',
-      batch: { "batch_size": 1 }
-    }
-  },
+  // {
+  //   category: 'Image Classification',
+  //   id: 'mobilenet_v2',
+  //   name: 'MobileNet v2',
+  //   url: {
+  //     source: '',
+  //     github: '',
+  //     hf: '',
+  //     local: ''
+  //   },
+  //   format: 'npy',
+  //   datatype: 'fp32',
+  //   inputs: {
+  //     value: 'img224',
+  //     batch: { "batch_size": 1 }
+  //   }
+  // },
+  // {
+  //   category: 'Image Classification',
+  //   id: 'mobilenet_v2',
+  //   name: 'MobileNet v2',
+  //   url: {
+  //     source: '',
+  //     github: '',
+  //     hf: '',
+  //     local: ''
+  //   },
+  //   format: 'pt',
+  //   datatype: 'fp32',
+  //   inputs: {
+  //     value: 'img224',
+  //     batch: { "batch_size": 1 }
+  //   }
+  // },
   {
     category: 'Image Classification',
     id: 'resnet50_v1',

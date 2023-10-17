@@ -56,11 +56,12 @@
 	}
 	input[type='range'] {
 		-webkit-appearance: none;
-		width: 70vw;
+		width: 71vw;
 		height: 1px;
 		border-radius: 5px;
 		background-color: var(--grey-02);
 		outline: none;
+		margin-left: 8px;
 	}
 	input[type='range']::-webkit-slider-thumb {
 		-webkit-appearance: none;
@@ -92,6 +93,24 @@
 
 	.numofruns label:hover {
 		background-color: transparent;
+	}
+
+	@media (max-width: 1100px) {
+		input[type='range'] {
+			width: 64vw;
+		}
+	}
+
+	@media (max-width: 800px) {
+		input[type='range'] {
+			width: 60vw;
+		}
+	}
+
+	@media (max-width: 660px) {
+		input[type='range'] {
+			width: 48vw;
+		}
 	}
 
 	@media (max-width: 500px) {
