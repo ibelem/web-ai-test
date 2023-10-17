@@ -62,27 +62,35 @@
 		border: 1px solid var(--grey-02);
 		padding: 10px;
 		height: 140px;
-		overflow: scroll;
+		overflow-y: scroll;
 		scroll-behavior: smooth;
 	}
 
-	* {
+	.inferlog:hover {
+		border: 1px solid var(--grey-04);
+	}
+
+	.inferlog {
 		scrollbar-width: auto;
-		scrollbar-color: var(--grey-02) #ffffff;
+		scrollbar-color: var(--grey-02), #ffffff;
 	}
 
-	*::-webkit-scrollbar {
-		width: 13px;
-		height: 12px;
+	.inferlog::-webkit-scrollbar {
+		width: 12px !important;
+		height: 11px !important;
 	}
 
-	*::-webkit-scrollbar-track {
-		background: #ffffff;
+	.inferlog::-webkit-scrollbar-track {
+		background: transparent;
 	}
 
-	*::-webkit-scrollbar-thumb {
+	.inferlog::-webkit-scrollbar-thumb {
 		background-color: var(--grey-04);
 		border-radius: 10px;
 		border: 5px solid #ffffff;
+	}
+
+	.inferlog:hover::-webkit-scrollbar-thumb {
+		background-color: var(--green);
 	}
 </style>
