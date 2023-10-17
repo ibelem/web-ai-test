@@ -87,7 +87,7 @@ header .nav {
 }
 
 .config .models label {
-  width: 128px;
+  width: 176px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

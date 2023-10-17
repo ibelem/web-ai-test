@@ -556,6 +556,8 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     } else {
       output = await sess.run(feeds);
     }
+
+    console.log(feeds);
     let inferenceTime = performance.now() - start;
     inferenceTimes.push(inferenceTime);
     inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
