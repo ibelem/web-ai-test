@@ -117,8 +117,6 @@ const getSum = (data) => {
   }, 0);
 }
 
-
-
 const compare = (actual, expected, epsilon = 1e-3) => {
   try {
     areCloseObjects(actual, expected, epsilon);
