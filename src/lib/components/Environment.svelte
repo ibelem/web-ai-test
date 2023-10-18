@@ -4,6 +4,7 @@
 	import { getGpu } from '$lib/assets/js/utils.js';
 	// @ts-ignore
 	import { UAParser } from 'ua-parser-js';
+	import to from 'await-to-js';
 
 	let cpState = '';
 	let observer;
@@ -88,8 +89,9 @@
 		environment.osVersion = parser.os.version;
 		environment.webbrowser = parser.browser.name;
 		environment.browserVersion = parser.browser.version;
-		await getCP();
-		await getNetworkInfomation();
+
+		const [err, data] = await to(getCP());
+		const [errNI, dataNI] = await to(getNetworkInfomation());
 		navigator.connection?.addEventListener('change', getNetworkInfomation);
 		getBattery();
 	});
@@ -481,7 +483,7 @@
 		</div>
 		<div
 			class="cap"
-			title="Cross Origin Embedder Policy and Cross Origin Opener Policy to enable SharedArrayBuffer for multiple threads testsing"
+			title="Check if cross origin isolated via Cross Origin Opener Policy and Cross Origin Embedder Policy to enable SharedArrayBuffer for multiple threads testsing"
 		>
 			COOP/COEP: {self.crossOriginIsolated}
 		</div>
