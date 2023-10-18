@@ -25,7 +25,8 @@
 		backendsStore,
 		modelTypesStore,
 		modelsStore,
-		dataTypesStore
+		dataTypesStore,
+		modelDownloadProgressStore
 	} from '$lib/store/store';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -90,6 +91,7 @@
 
 	const runManual = () => {
 		autoStore.update(() => false);
+		modelDownloadProgressStore.update(() => []);
 		updateTestQueue();
 		resetResult();
 		resetInfo();

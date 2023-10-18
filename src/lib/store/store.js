@@ -10,3 +10,4 @@ export const testQueueStore = persisted('testQueueStore', []);
 export const testQueueLengthStore = persisted('testQueueLengthStore', 0);
 export const resultsStore = persisted('resultsStore', []);
 export const infoStore = persisted('infoStore', []);
+export const modelDownloadProgressStore = persisted('modelDownloadProgressStore', []);
