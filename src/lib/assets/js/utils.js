@@ -1,4 +1,4 @@
-import { autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore } from '../../store/store'
+import { autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
 import { models, uniqueBackends } from '../../config';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
@@ -47,6 +47,7 @@ export const addResult = (model, modeltype, datatype, backend, status, warmup, i
 }
 
 export const resetResult = () => {
+  modelDownloadProgressStore.update(() => []);
   resultsStore.update(() => []);
 }
 
@@ -69,6 +70,7 @@ export const resetStore = () => {
   testQueueLengthStore.update(() => 0);
   resultsStore.update(() => []);
   infoStore.update(() => []);
+  modelDownloadProgressStore.update(() => []);
 }
 
 /**

@@ -479,6 +479,12 @@
 			Runtime Web
 			{environment.onnxruntimeweb}
 		</div>
+		<div
+			class="cap"
+			title="Cross Origin Embedder Policy and Cross Origin Opener Policy to enable SharedArrayBuffer for multiple threads testsing"
+		>
+			COOP/COEP: {self.crossOriginIsolated}
+		</div>
 	{/if}
 </div>
 
@@ -570,5 +576,9 @@
 
 	.environment svg#logo_onnx .logo_onnx_7 {
 		fill: var(--font);
+	}
+
+	.cap {
+		text-transform: capitalize;
 	}
 </style>

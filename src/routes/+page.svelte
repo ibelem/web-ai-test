@@ -17,7 +17,8 @@
 		backendsStore,
 		modelTypesStore,
 		dataTypesStore,
-		modelsStore
+		modelsStore,
+		modelDownloadProgressStore
 	} from '../lib/store/store';
 	import { resetResult, resetInfo, urlToStore, updateTestQueue } from '../lib/assets/js/utils';
 
@@ -81,6 +82,7 @@
 
 	const run = async () => {
 		autoStore.update(() => true);
+		modelDownloadProgressStore.update(() => []);
 		updateTestQueue();
 		resetResult();
 		resetInfo();

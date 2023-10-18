@@ -520,15 +520,12 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
 
   updateTestQueueStatus(_id, 2);
   addResult(_model, _modelType, _dataType, _backend, 1, [], null);
-
-  let modelPath = getUrlById(_model);
-  const modelBuffer = await getModelOPFS(_model, modelPath, false);
-
   addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0, null);
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Testing ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-  updateInfo(`${testQueueLength - testQueue.length + 1} /${testQueueLength} Creating onnx runtime web inference session`);
-
+  let modelPath = getUrlById(_model);
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Downloading model from ${modelPath}`);
+  const modelBuffer = await getModelOPFS(_model, modelPath, false);
+  updateInfo(`${testQueueLength - testQueue.length + 1} /${testQueueLength} Creating onnx runtime web inference session`);
   const sess = await ort.InferenceSession.create(modelBuffer, options);
   let feeds = getFeeds(sess, _model, _backend);
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warming up`);

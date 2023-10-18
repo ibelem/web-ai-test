@@ -1,17 +1,77 @@
 
+import { modelDownloadProgressStore } from '../../store/store'
+
 // Get model via Origin Private File System
+
+const isItemInArray = (item, array) => {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].name === item.name) {
+      return true;
+    }
+  }
+}
+
+let downloadProgress = [];
+
+const updateProgress = (name, event) => {
+  let percentComplete = (event.loaded / event.total) * 100;
+  percentComplete = percentComplete.toFixed(1);
+
+  for (let i = 0; i < downloadProgress.length; i++) {
+    if (downloadProgress[i].name === name) {
+      downloadProgress[i].progress = percentComplete;
+      modelDownloadProgressStore.update(() => downloadProgress);
+    }
+  }
+}
+
+const readResponse = async (name, response) => {
+  const contentLength = response.headers.get('Content-Length');
+  let total = parseInt(contentLength ?? '0');
+  let buffer = new Uint8Array(total);
+  let loaded = 0;
+
+  const reader = response.body.getReader();
+  async function read() {
+    const { done, value } = await reader.read();
+    if (done) return;
+
+    let newLoaded = loaded + value.length;
+    updateProgress(name, { loaded: newLoaded, total: contentLength });
+    if (newLoaded > total) {
+      total = newLoaded;
+      let newBuffer = new Uint8Array(total);
+      newBuffer.set(buffer);
+      buffer = newBuffer;
+    }
+    buffer.set(value, loaded);
+    loaded = newLoaded;
+    return read();
+  }
+
+  await read();
+  return buffer;
+}
+
 export const getModelOPFS = async (name, url, updateModel) => {
   const root = await navigator.storage.getDirectory();
   let fileHandle;
 
   const updateFile = async () => {
     const response = await fetch(url);
-    const buffer = await readResponse(response);
+
+    let item = { 'name': name, 'progress': 0 };
+    if (!isItemInArray(item, downloadProgress)) {
+      downloadProgress.push(item);
+    }
+
+    const buffer = await readResponse(name, response);
     fileHandle = await root.getFileHandle(name, { create: true });
     const writable = await fileHandle.createWritable();
     await writable.write(buffer);
     await writable.close();
     return buffer;
+
   }
 
   if (updateModel) {
@@ -21,6 +81,11 @@ export const getModelOPFS = async (name, url, updateModel) => {
   try {
     fileHandle = await root.getFileHandle(name);
     const blob = await fileHandle.getFile();
+    let item = { 'name': name, 'progress': '100.0' };
+    if (!isItemInArray(item, downloadProgress)) {
+      downloadProgress.push(item);
+    }
+    modelDownloadProgressStore.update(() => downloadProgress);
     return await blob.arrayBuffer();
   } catch (e) {
     return await updateFile();
@@ -38,34 +103,7 @@ const getModelCache = async (name, url, updateModel) => {
     await cache.add(url);
     response = await cache.match(url);
   }
-  const buffer = await readResponse(response);
-  return buffer;
-}
-
-const readResponse = async (response) => {
-  const contentLength = response.headers.get('Content-Length');
-  let total = parseInt(contentLength ?? '0');
-  let buffer = new Uint8Array(total);
-  let loaded = 0;
-
-  const reader = response.body.getReader();
-  async function read() {
-    const { done, value } = await reader.read();
-    if (done) return;
-
-    let newLoaded = loaded + value.length;
-    if (newLoaded > total) {
-      total = newLoaded;
-      let newBuffer = new Uint8Array(total);
-      newBuffer.set(buffer);
-      buffer = newBuffer;
-    }
-    buffer.set(value, loaded);
-    loaded = newLoaded;
-    return read();
-  }
-
-  await read();
+  const buffer = await readResponse(name, response);
   return buffer;
 }
 
