@@ -86,14 +86,13 @@
 	let memory;
 
 	const runMemoryMeasurements = () => {
-		const interval = -Math.log(Math.random()) * 5 * 60 * 1000;
-		console.log(`Next measurement in ${Math.round(interval / 1000)} seconds.`);
+		const interval = 1000;
+		// 1 second
 		setTimeout(measureMemory, interval);
 	};
 
 	const measureMemory = async () => {
 		memory = await performance.measureUserAgentSpecificMemory();
-		console.log(memory);
 		runMemoryMeasurements();
 	};
 
@@ -111,7 +110,7 @@
 		const [errNI, dataNI] = await to(getNetworkInfomation());
 		navigator.connection?.addEventListener('change', getNetworkInfomation);
 		getBattery();
-		if (crossOriginIsolated) {
+		if (crossOriginIsolated && performance.measureUserAgentSpecificMemory) {
 			runMemoryMeasurements();
 		}
 	});
