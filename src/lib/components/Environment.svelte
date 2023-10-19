@@ -93,6 +93,7 @@
 
 	const measureMemory = async () => {
 		memory = await performance.measureUserAgentSpecificMemory();
+		console.log(memory);
 		runMemoryMeasurements();
 	};
 
