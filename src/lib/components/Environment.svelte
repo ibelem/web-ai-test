@@ -80,6 +80,23 @@
 			);
 	};
 
+	/**
+	 * @type {any}
+	 */
+	let memory;
+
+	const runMemoryMeasurements = () => {
+		const interval = -Math.log(Math.random()) * 5 * 60 * 1000;
+		console.log(`Next measurement in ${Math.round(interval / 1000)} seconds.`);
+		setTimeout(measureMemory, interval);
+	};
+
+	const measureMemory = async () => {
+		memory = await performance.measureUserAgentSpecificMemory();
+		console.log(memory);
+		runMemoryMeasurements();
+	};
+
 	onMount(async () => {
 		let parser = UAParser(navigator.userAgent);
 		environment.cpu = parser.cpu.architecture;
@@ -94,6 +111,9 @@
 		const [errNI, dataNI] = await to(getNetworkInfomation());
 		navigator.connection?.addEventListener('change', getNetworkInfomation);
 		getBattery();
+		if (crossOriginIsolated) {
+			runMemoryMeasurements();
+		}
 	});
 </script>
 
@@ -181,7 +201,17 @@
 				></svg
 			>
 			{environment.gpu}
-		</div>{/if}
+		</div>
+	{/if}
+
+	{#if memory}
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+			><path
+				d="M240-360h80v-240h-80v240Zm200 0h80v-240h-80v240Zm200 0h80v-240h-80v240Zm-480 80h640v-400H160v400Zm0 0v-400 400Zm40 160v-80h-40q-33 0-56.5-23.5T80-280v-400q0-33 23.5-56.5T160-760h40v-80h80v80h160v-80h80v80h160v-80h80v80h40q33 0 56.5 23.5T880-680v400q0 33-23.5 56.5T800-200h-40v80h-80v-80H520v80h-80v-80H280v80h-80Z"
+			/></svg
+		>
+		{memory}
+	{/if}
 
 	{#if (connectionType && connectionType !== 'none' && connectionType !== 'unknown' && connectionType !== 'other') || connectionEffectiveType}
 		<div title="Connection Type">
@@ -485,7 +515,22 @@
 			class="cap"
 			title="Check if cross origin isolated via Cross Origin Opener Policy and Cross Origin Embedder Policy to enable SharedArrayBuffer for multiple threads testsing"
 		>
-			COOP/COEP: {self.crossOriginIsolated}
+			{#if crossOriginIsolated}
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+					><path
+						d="M420-340h120v-100h100v-120H540v-100H420v100H320v120h100v100Zm60 260q-139-35-229.5-159.5T160-516v-244l320-120 320 120v244q0 152-90.5 276.5T480-80Zm0-84q104-33 172-132t68-220v-189l-240-90-240 90v189q0 121 68 220t172 132Zm0-316Z"
+					/></svg
+				>
+
+				Cross Origin Isolated
+			{:else}
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+					><path
+						d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240ZM330-120 120-330v-300l210-210h300l210 210v300L630-120H330Zm34-80h232l164-164v-232L596-760H364L200-596v232l164 164Zm116-280Z"
+					/></svg
+				>
+				Cross Origin Not Isolated
+			{/if}
 		</div>
 	{/if}
 </div>
