@@ -419,14 +419,10 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
       break;
     case 'webgl':
       backend = 'webgl';
-      wasmSimd = false;
-      numThreads = 1;
       deviceType = 'gpu';
       break;
     case 'webgpu':
       backend = 'webgpu';
-      wasmSimd = false;
-      numThreads = 1;
       deviceType = 'gpu';
       break;
     case 'webnn_cpu_1':
@@ -443,8 +439,6 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
       break;
     case 'webnn_gpu':
       backend = 'webnn';
-      wasmSimd = true;
-      numThreads = 1;
       deviceType = 'gpu';
       break;
     case 'webnn_npu':
@@ -485,8 +479,10 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   // options.logSeverityLevel = 0;
   //// options.logVerbosityLevel = 0;
 
-  ort.env.wasm.numThreads = numThreads;
-  ort.env.wasm.simd = wasmSimd;
+  if (backend === 'wasm') {
+    ort.env.wasm.numThreads = numThreads;
+    ort.env.wasm.simd = wasmSimd;
+  }
 
   if (backend === 'webnn') {
     ort.env.wasm.proxy = true;
