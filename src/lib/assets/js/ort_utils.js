@@ -487,7 +487,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     ort.env.wasm.simd = wasmSimd;
   }
 
-  if (backend === 'webnn' || (backend === 'wasm' && numThreads > 1)) {
+  if (backend === 'webnn') {
     ort.env.wasm.proxy = true;
   } else {
     ort.env.wasm.proxy = false;
@@ -526,7 +526,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   let warmupTime = 0;
   const warmupstart = performance.now();
 
-  if (backend === 'webnn' || (backend === 'wasm' && numThreads > 1)) {
+  if (backend === 'webnn') {
     await sess.run(clone(feeds));
   } else {
     await sess.run(feeds);
