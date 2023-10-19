@@ -331,6 +331,20 @@ const getUrlById = (id) => {
   return null;
 }
 
+const getBackupUrlById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      let isCors = corsSites.some(site => location.hostname.toLowerCase().indexOf(site) > -1);
+      if (isCors) {
+        return models[i].url.cf;
+      } else {
+        return `https://${localhost}/` + models[i].url.local;
+      }
+    }
+  }
+  return null;
+}
+
 const getFreeDimensionOverridesById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
@@ -516,8 +530,9 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0, null);
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Testing ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
   let modelPath = getUrlById(_model);
+  let modelBackupPath = getBackupUrlById(_model);
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Downloading model from ${modelPath}`);
-  const modelBuffer = await getModelOPFS(_model, modelPath, false);
+  const modelBuffer = await getModelOPFS(_model, modelPath, modelBackupPath, false);
   updateInfo(`${testQueueLength - testQueue.length + 1} /${testQueueLength} Creating onnx runtime web inference session`);
   const sess = await ort.InferenceSession.create(modelBuffer, options);
   let feeds = getFeeds(sess, _model, _backend);

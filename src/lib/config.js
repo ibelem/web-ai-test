@@ -42,6 +42,7 @@ export let models = [
       source: 'https://github.com/onnx/models/blob/main/vision/classification/densenet-121/model/densenet-9.onnx',
       github: 'https://ibelem.github.io/onnxruntime-web-dist/models/densenet-9.onnx',
       hf: 'https://huggingface.co/webml/models/resolve/main/densenet-9.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/densenet-9.onnx',
       local: 'models/densenet-9.onnx'
     },
     format: 'onnx',
@@ -60,6 +61,7 @@ export let models = [
       source: 'https://github.com/onnx/models/raw/main/vision/classification/efficientnet-lite4/model/efficientnet-lite4-11.onnx',
       github: 'https://ibelem.github.io/onnxruntime-web-dist/models/efficientnet-lite4-11.onnx',
       hf: 'https://huggingface.co/webml/models/resolve/main/efficientnet-lite4-11.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/efficientnet-lite4-11.onnx',
       local: 'models/efficientnet-lite4-11.onnx'
     },
     format: 'onnx',
@@ -78,6 +80,7 @@ export let models = [
       source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
       github: 'https://ibelem.github.io/onnxruntime-web-dist/models/mobilenetv2-10.onnx',
       hf: 'https://huggingface.co/webml/models/resolve/main/mobilenetv2-10.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/mobilenetv2-10.onnx',
       local: 'models/mobilenetv2-10.onnx'
     },
     format: 'onnx',
@@ -147,6 +150,7 @@ export let models = [
       source: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v1-12.onnx',
       github: 'https://ibelem.github.io/onnxruntime-web-dist/models/resnet50-v1-12.onnx',
       hf: 'https://huggingface.co/webml/models/resolve/main/resnet50-v1-12.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/resnet50-v1-12.onnx',
       local: 'models/resnet50-v1-12.onnx'
     },
     format: 'onnx',
@@ -165,6 +169,7 @@ export let models = [
       source: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v2-7.onnx',
       github: 'https://ibelem.github.io/onnxruntime-web-dist/models/resnet50-v2-7.onnx',
       hf: 'https://huggingface.co/webml/models/resolve/main/resnet50-v2-7.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/resnet50-v2-7.onnx',
       local: 'models/resnet50-v2-7.onnx'
     },
     format: 'onnx',
@@ -183,6 +188,7 @@ export let models = [
       source: 'https://github.com/onnx/models/raw/main/vision/classification/squeezenet/model/squeezenet1.1-7.onnx',
       github: 'https://ibelem.github.io/onnxruntime-web-dist/models/squeezenet1.1-7.onnx',
       hf: 'https://huggingface.co/webml/models/resolve/main/squeezenet1.1-7.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/squeezenet1.1-7.onnx',
       local: 'models/squeezenet1.1-7.onnx'
     },
     format: 'onnx',
@@ -202,6 +208,7 @@ export let models = [
       source: 'https://github.com/onnx/models/raw/main/vision/object_detection_segmentation/tiny-yolov2/model/tinyyolov2-8.onnx',
       github: 'https://ibelem.github.io/onnxruntime-web-dist/models/tinyyolov2-8.onnx',
       hf: 'https://huggingface.co/webml/models/resolve/main/tinyyolov2-8.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/tinyyolov2-8.onnx',
       local: 'models/tinyyolov2-8.onnx'
     },
     format: 'onnx',
@@ -220,6 +227,7 @@ export let models = [
       source: 'https://github.com/onnx/models/raw/main/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx',
       github: 'https://ibelem.github.io/onnxruntime-web-dist/models/emotion-ferplus-8.onnx',
       hf: 'https://huggingface.co/webml/models/resolve/main/emotion-ferplus-8.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/emotion-ferplus-8.onnx',
       local: 'models/emotion-ferplus-8.onnx'
     },
     format: 'onnx',
@@ -272,6 +280,7 @@ export let models = [
       source: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite',
       github: 'https://ibelem.github.io/onnxruntime-web-dist/models/selfie_segmentation.tflite',
       hf: 'https://huggingface.co/webml/models/resolve/main/selfie_segmentation.tflite',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/selfie_segmentation.tflite',
       local: 'models/selfie_segmentation.tflite'
     },
     format: 'tflite',
@@ -290,6 +299,7 @@ export let models = [
       source: 'https://github.com/microsoft/Windows-Machine-Learning/raw/master/Samples/CustomTensorization/CustomTensorization/fns-candy.onnx',
       github: 'https://ibelem.github.io/onnxruntime-web-dist/models/fns-candy.onnx',
       hf: 'https://huggingface.co/webml/models/resolve/main/fns-candy.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/fns-candy.onnx',
       local: 'models/fns-candy.onnx'
     },
     format: 'onnx',
