@@ -487,12 +487,11 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     ort.env.wasm.simd = wasmSimd;
   }
 
-  if (backend === 'webnn') {
+  if (backend === 'webnn' || (backend === 'wasm' && numThreads > 1)) {
     ort.env.wasm.proxy = true;
   } else {
     ort.env.wasm.proxy = false;
   }
-
 
   let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
   console.log('options.freeDimensionOverrides:');
