@@ -476,6 +476,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
         deviceType: deviceType,
         powerPreference: "default",
         preferredLayout: 'NHWC',
+        numThreads: numThreads
       },
     ],
     //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
