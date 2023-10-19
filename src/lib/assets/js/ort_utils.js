@@ -400,7 +400,7 @@ const getFreeDimensionOverridesById = (id) => {
 const main = async (_id, _model, _modelType, _dataType, _backend) => {
 
   let backend = 'wasm';
-  let wasmSimd = true;
+  let wasmSimd = false;
   let numThreads = 1;
   let deviceType = 'cpu';
 
@@ -482,6 +482,9 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   if (backend === 'wasm') {
     ort.env.wasm.numThreads = numThreads;
     ort.env.wasm.simd = wasmSimd;
+  } else {
+    ort.env.wasm.numThreads = 1;
+    ort.env.wasm.simd = wasmSimd;
   }
 
   if (backend === 'webnn') {
@@ -490,13 +493,6 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     ort.env.wasm.proxy = false;
   }
 
-  // if (_model === 'mobilenet_v2') {
-  //   options.freeDimensionOverrides = { "batch_size": 1 };
-  // } else if (_model === 'resnet50_v2' || _model === 'resnet50_v1') {
-  //   options.freeDimensionOverrides = { "N": 1 };
-  // } else if (_model === 'tinyyolo_v2') {
-  //   options.freeDimensionOverrides = { "None": 1 };
-  // }
 
   let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
   console.log('options.freeDimensionOverrides:');
@@ -507,6 +503,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
 
   l(`ort.env.wasm.numThreads ${ort.env.wasm.numThreads} thread(s)`)
   l(`ort.env.wasm.simd ${ort.env.wasm.simd}`)
+  l(`EP options numThreads ${numThreads} thread(s)`)
 
   if (backend === 'webgpu') {
     options = { executionProviders: ["webgpu"] };
