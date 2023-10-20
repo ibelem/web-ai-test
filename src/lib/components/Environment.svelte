@@ -85,10 +85,6 @@
 	 */
 	let memory;
 
-	const runMemoryMeasurements = () => {
-		setInterval(runMemoryMeasurements, 1 * 1000);
-	};
-
 	const measureMemory = async () => {
 		memory = await performance.measureUserAgentSpecificMemory();
 		console.log(memory);
@@ -96,7 +92,10 @@
 			memory = memory.bytes / (1024 * 1024.0);
 			memory = memory.toFixed(2);
 		}
-		runMemoryMeasurements();
+	};
+
+	const runMemoryMeasurements = () => {
+		setInterval(measureMemory, 1 * 1000);
 	};
 
 	onMount(async () => {
