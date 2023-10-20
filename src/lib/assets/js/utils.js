@@ -221,11 +221,11 @@ export const setModelDownloadUrl = async () => {
       if (err2) {
         updateInfo(`AI models can NOT be fetched from Amazon S3`);
       } else {
-        updateInfo(`AI models can be fetched from Amazon S3`);
+        updateInfo(`AI models will be fetched from Amazon S3`);
       }
     } else {
       modelDownloadUrlStore.update(() => 1);
-      updateInfo(`AI models can be fetched from huggingface.co`);
+      updateInfo(`AI models will be fetched from huggingface.co`);
     }
   } else {
     modelDownloadUrlStore.update(() => 0);
