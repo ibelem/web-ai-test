@@ -447,6 +447,8 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
       break;
     case 'webnn_gpu':
       backend = 'webnn';
+      wasmSimd = true;
+      numThreads = 4;
       deviceType = 'gpu';
       break;
     case 'webnn_npu':
@@ -465,10 +467,10 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
 
   if (backend === 'webgpu') {
     removeElement('default');
-    await loadScript('webgpu', `../ort/1.16/web/ort.webgpu.js`);
+    await loadScript('webgpu', `../ort/1.17/web/webgpu/ort.webgpu.min.js`);
   } else {
     removeElement('webgpu');
-    await loadScript('default', `../ort/1.16/web/ort.js`);
+    await loadScript('default', `../ort/1.16_20/web/ort.js`);
   }
 
   let options = {
@@ -512,12 +514,12 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   l(`ort.env.wasm.simd ${ort.env.wasm.simd}`)
   l(`EP options numThreads ${numThreads} thread(s)`)
 
-  if (backend === 'webgpu') {
-    options = { executionProviders: ["webgpu"] };
-  }
+  // if (backend === 'webgpu') {
+  //   options = { executionProviders: ["webgpu"] };
+  // }
 
   l(`EP options:`)
-  l(options.executionProviders[0])
+  l(options)
 
   updateTestQueueStatus(_id, 2);
   addResult(_model, _modelType, _dataType, _backend, 1, [], null);
