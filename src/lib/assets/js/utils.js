@@ -1,11 +1,12 @@
-import { autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
-import { models, uniqueBackends } from '../../config';
+import { modelDownloadUrlStore, autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
+import { models, uniqueBackends, localhost, corsSites } from '../../config';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
 import { environment } from '$lib/config.js';
 import { UAParser } from 'ua-parser-js';
 import html2canvas from 'html2canvas';
+import to from 'await-to-js';
 
 export const initResult = (newItem) => {
   resultsStore.update(items => {
@@ -177,6 +178,60 @@ export let results;
 resultsStore.subscribe((value) => {
   results = value;
 });
+
+export const getUrlById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      return models[i].url.hf;
+    }
+  }
+  return null;
+};
+
+export const getBackupUrlById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      return models[i].url.cf;
+    }
+  }
+  return null;
+};
+
+export const getLocalUrlById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      return `https://${localhost}/` + models[i].url.local;
+    }
+  }
+  return null;
+};
+
+export const setModelDownloadUrl = async () => {
+  let hf = getUrlById('model_access_check');
+  let cf = getBackupUrlById('model_access_check');
+  // let local = getLocalUrlById('model_access_check');
+
+  let isCors = corsSites.some((site) => location.hostname.toLowerCase().indexOf(site) > -1);
+  if (isCors) {
+    let [err, response] = await to(fetch(hf));
+    if (err) {
+      modelDownloadUrlStore.update(() => 2);
+      updateInfo(`AI models can NOT be fetched from huggingface.co`);
+      let [err2, response2] = await to(fetch(cf));
+      if (err2) {
+        updateInfo(`AI models can NOT be fetched from Amazon S3`);
+      } else {
+        updateInfo(`AI models can be fetched from Amazon S3`);
+      }
+    } else {
+      modelDownloadUrlStore.update(() => 1);
+      updateInfo(`AI models can be fetched from huggingface.co`);
+    }
+  } else {
+    modelDownloadUrlStore.update(() => 0);
+    updateInfo(`AI models will be fetched from localhost`);
+  }
+};
 
 export const removeStringFromArray = (array, string) => {
   const indexToRemove = array.indexOf(string);

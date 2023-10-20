@@ -15,7 +15,8 @@
 		resetInfo,
 		urlToStore,
 		getModelIdfromPath,
-		updateTestQueue
+		updateTestQueue,
+		setModelDownloadUrl
 	} from '../../lib/assets/js/utils';
 	import {
 		autoStore,
@@ -89,12 +90,13 @@
 		testQueueLength = value;
 	});
 
-	const runManual = () => {
+	const runManual = async () => {
 		autoStore.update(() => false);
 		modelDownloadProgressStore.update(() => []);
 		updateTestQueue();
 		resetResult();
 		resetInfo();
+		await setModelDownloadUrl();
 		run();
 	};
 

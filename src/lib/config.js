@@ -15,7 +15,7 @@ export let environment = {
 
 export const localhost = '10.239.115.52:5173';
 
-export let corsSites = [
+export const corsSites = [
   'ibelem.github.io',
   'webai.run',
   'ai-benchmark.vercel.app'
@@ -33,6 +33,19 @@ export const uniqueBackends = [
 ];
 
 export let models = [
+  {
+    category: 'Model Access Check',
+    id: 'model_access_check',
+    name: 'Model Access Check',
+    url:
+    {
+      source: '',
+      github: '',
+      hf: 'https://huggingface.co/webml/models/resolve/main/01.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/01.onnx',
+      local: 'models/01.onnx'
+    }
+  },
   {
     category: 'Image Classification',
     id: 'densenet',
