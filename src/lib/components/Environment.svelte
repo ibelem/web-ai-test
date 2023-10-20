@@ -86,9 +86,7 @@
 	let memory;
 
 	const runMemoryMeasurements = () => {
-		const interval = 5 * 1000;
-		// 1 second
-		setTimeout(measureMemory, interval);
+		setInterval(runMemoryMeasurements, 1 * 1000);
 	};
 
 	const measureMemory = async () => {
