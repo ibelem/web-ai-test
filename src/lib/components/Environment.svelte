@@ -93,9 +93,9 @@
 
 	const measureMemory = async () => {
 		memory = await performance.measureUserAgentSpecificMemory();
+		console.log(memory);
 		if (memory) {
-			memory = memory / (1024 * 1024.0);
-			console.log(memory);
+			memory = memory.bytes / (1024 * 1024.0);
 		}
 		runMemoryMeasurements();
 	};
