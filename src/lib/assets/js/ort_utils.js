@@ -1,9 +1,8 @@
 // import * as ort from 'onnxruntime-web';
-import { models, localhost, corsSites } from '../../config';
-import { updateTestQueueStatus, addResult, updateInfo, sleep, median, loadScript, removeElement } from '../js/utils';
-import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore } from '../../store/store';
+import { models } from '../../config';
+import { updateTestQueueStatus, addResult, updateInfo, sleep, median, loadScript, removeElement, getUrlById, getBackupUrlById, getLocalUrlById, setModelDownloadUrl } from '../js/utils';
+import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { getModelOPFS } from '../js/nn_utils'
-import to from 'await-to-js';
 
 /**
  * @type {number}
@@ -12,6 +11,15 @@ export let numOfRuns;
 
 numberOfRunsStore.subscribe((value) => {
   numOfRuns = value;
+});
+
+/**
+ * @type {number}
+ */
+export let modelDownloadUrl;
+
+modelDownloadUrlStore.subscribe((value) => {
+  modelDownloadUrl = value;
 });
 
 /**
@@ -317,34 +325,6 @@ const l = (i) => {
   console.log(i);
 }
 
-const getUrlById = (id) => {
-  for (let i = 0; i < models.length; i++) {
-    if (models[i].id === id) {
-      let isCors = corsSites.some(site => location.hostname.toLowerCase().indexOf(site) > -1);
-      if (isCors) {
-        return models[i].url.hf;
-      } else {
-        return `https://${localhost}/` + models[i].url.local;
-      }
-    }
-  }
-  return null;
-}
-
-const getBackupUrlById = (id) => {
-  for (let i = 0; i < models.length; i++) {
-    if (models[i].id === id) {
-      let isCors = corsSites.some(site => location.hostname.toLowerCase().indexOf(site) > -1);
-      if (isCors) {
-        return models[i].url.cf;
-      } else {
-        return `https://${localhost}/` + models[i].url.local;
-      }
-    }
-  }
-  return null;
-}
-
 const getFreeDimensionOverridesById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
@@ -352,6 +332,19 @@ const getFreeDimensionOverridesById = (id) => {
     }
   }
   return null;
+}
+
+const getModelUrl = (_model) => {
+  let modelPath = getUrlById(_model);
+  if (modelDownloadUrl === 1) {
+    modelPath = getUrlById(_model);
+  } else if (modelDownloadUrl === 2) {
+    modelPath = getBackupUrlById(_model);
+  } else if (modelDownloadUrl === 0) {
+    modelPath = getLocalUrlById(_model);
+  }
+
+  return modelPath;
 }
 
 // const getInputShapeById = (id) => {
@@ -529,10 +522,11 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   addResult(_model, _modelType, _dataType, _backend, 1, [], null);
   addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0, null);
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Testing ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-  let modelPath = getUrlById(_model);
-  let modelBackupPath = getBackupUrlById(_model);
+
+  let modelPath = getModelUrl(_model);
+
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Downloading model from ${modelPath}`);
-  const modelBuffer = await getModelOPFS(_model, modelPath, modelBackupPath, false);
+  const modelBuffer = await getModelOPFS(_model, modelPath, true);
   updateInfo(`${testQueueLength - testQueue.length + 1} /${testQueueLength} Creating onnx runtime web inference session`);
   const sess = await ort.InferenceSession.create(modelBuffer, options);
   let feeds = getFeeds(sess, _model, _backend);
@@ -555,14 +549,13 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   let inferenceTimesMedian = null;
   for (var i = 0; i < numOfRuns; i++) {
     const start = performance.now();
-    let output;
+    l(feeds);
     if (backend === 'webnn') {
-      output = await sess.run(clone(feeds));
+      await sess.run(clone(feeds));
     } else {
-      output = await sess.run(feeds);
+      await sess.run(feeds);
     }
 
-    console.log(feeds);
     let inferenceTime = performance.now() - start;
     inferenceTimes.push(inferenceTime);
     inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
@@ -578,15 +571,14 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
 }
 
 export const runOnnx = async (_id, _model, _modelType, _dataType, _backend) => {
-  // await main(_id, _model, _modelType, _dataType, _backend);
+  await main(_id, _model, _modelType, _dataType, _backend);
 
-  const [err, data] = await to(main(_id, _model, _modelType, _dataType, _backend));
-  if (err) {
-    console.log(err)
-    addResult(_model, _modelType, _dataType, _backend, 4, 0, [], 0, err.message);
-    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-    updateInfo(err.message);
-  } else {
-    // use data 
-  }
+  // const [err, data] = await to(main(_id, _model, _modelType, _dataType, _backend));
+  // if (err) {
+  //   addResult(_model, _modelType, _dataType, _backend, 4, 0, [], 0, err.message);
+  //   updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+  //   updateInfo(err.message);
+  // } else {
+  //   // use data 
+  // }
 }

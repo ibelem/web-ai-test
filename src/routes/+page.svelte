@@ -20,7 +20,13 @@
 		modelsStore,
 		modelDownloadProgressStore
 	} from '../lib/store/store';
-	import { resetResult, resetInfo, urlToStore, updateTestQueue } from '../lib/assets/js/utils';
+	import {
+		resetResult,
+		resetInfo,
+		urlToStore,
+		updateTestQueue,
+		setModelDownloadUrl
+	} from '../lib/assets/js/utils';
 
 	/**
 	 * @type {number}
@@ -86,6 +92,7 @@
 		updateTestQueue();
 		resetResult();
 		resetInfo();
+		await setModelDownloadUrl();
 		let path = `${base}/run/${testQueue[0].model}`;
 		goto(path);
 	};

@@ -1,7 +1,7 @@
 <script>
 	import { infoStore } from '$lib/store/store';
 	import { copyInfo } from '$lib/assets/js/utils';
-	import { afterUpdate, onMount } from 'svelte';
+	import { beforeUpdate } from 'svelte';
 	import Log from './svg/Log.svelte';
 	import { testQueueStore } from '$lib/store/store';
 
@@ -34,7 +34,7 @@
 		node?.scroll({ top: node.scrollHeight, behavior: 'smooth' });
 	};
 
-	afterUpdate(() => {
+	beforeUpdate(() => {
 		if (info) scrollToBottom(element);
 	});
 </script>

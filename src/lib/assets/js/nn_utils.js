@@ -1,6 +1,5 @@
 
 import { modelDownloadProgressStore } from '../../store/store'
-import to from 'await-to-js';
 
 // Get model via Origin Private File System
 
@@ -54,25 +53,16 @@ const readResponse = async (name, response) => {
   return buffer;
 }
 
-export const getModelOPFS = async (name, url, backupUrl, updateModel) => {
+export const getModelOPFS = async (name, url, updateModel) => {
   const root = await navigator.storage.getDirectory();
   let fileHandle;
 
   const updateFile = async () => {
-    // const response = await fetch(url);
-
-    let [err, response] = await to(fetch(url));
-    if (err) {
-      response = await fetch(backupUrl);
-    } else {
-      //
-    }
-
+    const response = await fetch(url);
     let item = { 'name': name, 'progress': 0 };
     if (!isItemInArray(item, downloadProgress)) {
       downloadProgress.push(item);
     }
-
     const buffer = await readResponse(name, response);
     fileHandle = await root.getFileHandle(name, { create: true });
     const writable = await fileHandle.createWritable();

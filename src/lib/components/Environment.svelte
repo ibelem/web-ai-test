@@ -87,7 +87,6 @@
 
 	const measureMemory = async () => {
 		memory = await performance.measureUserAgentSpecificMemory();
-		console.log(memory);
 		if (memory) {
 			memory = memory.bytes / (1024 * 1024.0);
 			memory = memory.toFixed(2);
@@ -95,7 +94,7 @@
 	};
 
 	const runMemoryMeasurements = () => {
-		setInterval(measureMemory, 1 * 1000);
+		setInterval(measureMemory, 1000);
 	};
 
 	onMount(async () => {
@@ -119,7 +118,7 @@
 </script>
 
 <div class="environment">
-	<div title="CPU Model">
+	<div title="CPU model">
 		{#if environment.cpu}
 			<svg width="1em" height="1em" viewBox="0 0 24 24"
 				><path
@@ -129,7 +128,7 @@
 					clip-rule="evenodd"
 				/></svg
 			>
-			<span title="Please identify the specific CPU model of the DUT"
+			<span
 				>{#if environment.cpu === 'amd64'}x86-64{/if}</span
 			>
 		{/if}
@@ -145,17 +144,12 @@
 					/></svg
 				>
 			{/if}
-			<span title="Please identify the specific CPU model of the DUT"
-				>{environment.logicCores} Logical Cores</span
-			>
+			<span>{environment.logicCores} Logical Cores</span>
 		{/if}
 	</div>
 	{#if cpState}
-		<div title="CPU Pressure" class={cpState}>
-			<a
-				href="https://www.w3.org/TR/compute-pressure/#pressure-states"
-				title="Compute Pressure API"
-			>
+		<div title="CPU pressure" class={cpState}>
+			<a href="https://www.w3.org/TR/compute-pressure/#pressure-states">
 				{#if cpState === 'nominal'}
 					<svg viewBox="0 -960 960 960"
 						><path
@@ -189,7 +183,7 @@
 	{/if}
 
 	{#if environment.gpu}
-		<div title="GPU Model">
+		<div title="GPU: {environment.gpu}">
 			<svg width="1em" height="1em" viewBox="0 0 16 16"
 				><g fill="currentColor"
 					><path
@@ -217,7 +211,7 @@
 	{/if}
 
 	{#if (connectionType && connectionType !== 'none' && connectionType !== 'unknown' && connectionType !== 'other') || connectionEffectiveType}
-		<div title="Connection Type">
+		<div title="Connection type">
 			{#if connectionType?.toLowerCase().indexOf('bluetooth') > -1}
 				<svg viewBox="0 -960 960 960"
 					><path
@@ -292,7 +286,7 @@
 	{/if}
 
 	{#if batteryLevel}
-		<div title="Battery Status">
+		<div title="Battery status">
 			{#if batteryCharging}
 				{#if batteryLevel < 30}
 					<svg viewBox="0 -960 960 960"
@@ -385,7 +379,7 @@
 	{/if}
 
 	{#if environment.os}
-		<div title="Operation System">
+		<div title="Operation system">
 			{#if environment.os.toLowerCase().indexOf('windows') > -1}
 				<svg viewBox="0 0 448 512"
 					><path
@@ -425,7 +419,7 @@
 	{/if}
 
 	{#if environment.webbrowser}
-		<div title="Browser Version">
+		<div title="Browser version">
 			{#if environment.webbrowser.toLowerCase().indexOf('chrome') > -1 || environment.webbrowser
 					.toLowerCase()
 					.indexOf('chromium') > -1}
@@ -524,7 +518,6 @@
 						d="M420-340h120v-100h100v-120H540v-100H420v100H320v120h100v100Zm60 260q-139-35-229.5-159.5T160-516v-244l320-120 320 120v244q0 152-90.5 276.5T480-80Zm0-84q104-33 172-132t68-220v-189l-240-90-240 90v189q0 121 68 220t172 132Zm0-316Z"
 					/></svg
 				>
-
 				Cross Origin Isolated
 			{:else}
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
