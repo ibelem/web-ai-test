@@ -302,6 +302,10 @@ header .nav {
    height: 16px;
  }
 
+ .result .q div.m svg {
+  margin-bottom: -4px;
+ }
+
 .tq .s svg path, .result .s svg path, .result .q svg, .copy svg path {
   fill: var(--grey);
 }
