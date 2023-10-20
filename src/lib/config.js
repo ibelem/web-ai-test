@@ -211,7 +211,25 @@ export let models = [
       batch: {}
     }
   },
-
+  {
+    category: 'Semantic Segmentation',
+    id: 'deeplab_v3',
+    name: 'DeepLab v3',
+    url:
+    {
+      source: 'https://huggingface.co/Xenova/deeplabv3-mobilevit-small/blob/main/onnx/model.onnx',
+      github: '',
+      hf: 'https://huggingface.co/webml/models/resolve/main/deeplabv3-mobilevit-small.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/deeplabv3-mobilevit-small.onnx',
+      local: 'models/deeplabv3-mobilevit-small.onnx'
+    },
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: {
+      value: { 'pixel_values': ['float32', 'random', [1, 3, 512, 512]] },
+      batch: { "batch_size": 1 }
+    }
+  },
   {
     category: 'Object Detection',
     id: 'tinyyolo_v2',
