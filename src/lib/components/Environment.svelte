@@ -96,6 +96,7 @@
 		console.log(memory);
 		if (memory) {
 			memory = memory.bytes / (1024 * 1024.0);
+			memory = memory.toFixed(2);
 		}
 		runMemoryMeasurements();
 	};
