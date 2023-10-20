@@ -3,6 +3,7 @@ import { models } from '../../config';
 import { updateTestQueueStatus, addResult, updateInfo, sleep, median, loadScript, removeElement, getUrlById, getBackupUrlById, getLocalUrlById, setModelDownloadUrl } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { getModelOPFS } from '../js/nn_utils'
+import to from 'await-to-js';
 
 /**
  * @type {number}
