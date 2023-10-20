@@ -563,12 +563,6 @@
 		fill: white !important;
 	}
 
-	.fair {
-		padding: 1px 8px;
-		background-color: var(--green-005);
-		border-radius: 5px;
-	}
-
 	.serious {
 		color: white !important;
 		background-color: var(--orange);
