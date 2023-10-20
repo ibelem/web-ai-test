@@ -526,7 +526,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   let modelPath = getModelUrl(_model);
 
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Downloading model from ${modelPath}`);
-  const modelBuffer = await getModelOPFS(_model, modelPath, true);
+  const modelBuffer = await getModelOPFS(_model, modelPath, false);
   updateInfo(`${testQueueLength - testQueue.length + 1} /${testQueueLength} Creating onnx runtime web inference session`);
   const sess = await ort.InferenceSession.create(modelBuffer, options);
   let feeds = getFeeds(sess, _model, _backend);
