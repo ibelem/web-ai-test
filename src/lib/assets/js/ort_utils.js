@@ -469,10 +469,16 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
 
   if (backend === 'webgpu') {
     removeElement('default');
+    removeElement('webnn');
     await loadScript('webgpu', `../ort/1.17/web/webgpu/ort.webgpu.min.js`);
-  } else {
+  } else if (backend === 'webnn') {
     removeElement('webgpu');
-    await loadScript('default', `../ort/1.16_20/web/ort.js`);
+    removeElement('default');
+    await loadScript('webnn', `../ort/1.16_20/web/ort.js`);
+  } else {
+    removeElement('webnn');
+    removeElement('webgpu');
+    await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js`);
   }
 
   let options = {
@@ -521,7 +527,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   // }
 
   l(`EP options:`)
-  l(options)
+  l(options.executionProviders[0])
 
   updateTestQueueStatus(_id, 2);
   addResult(_model, _modelType, _dataType, _backend, 1, [], null);
@@ -554,7 +560,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   let inferenceTimesMedian = null;
   for (var i = 0; i < numOfRuns; i++) {
     const start = performance.now();
-    l(feeds);
+    // l(feeds);
     if (backend === 'webnn') {
       await sess.run(clone(feeds));
     } else {
