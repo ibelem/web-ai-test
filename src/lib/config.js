@@ -211,25 +211,25 @@ export let models = [
       batch: {}
     }
   },
-  {
-    category: 'Semantic Segmentation',
-    id: 'deeplab_v3',
-    name: 'DeepLab v3',
-    url:
-    {
-      source: 'ftlite converted',
-      github: '',
-      hf: 'https://huggingface.co/webml/models/resolve/main/deeplab-mobilenetv2.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/deeplab-mobilenetv2.onnx',
-      local: 'models/deeplab-mobilenetv2.onnx'
-    },
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: {
-      value: { 'sub_7': ['float32', 'random', [1, 513, 513, 3]] },
-      batch: {}
-    }
-  },
+  // {
+  //   category: 'Semantic Segmentation',
+  //   id: 'deeplab_v3',
+  //   name: 'DeepLab v3',
+  //   url:
+  //   {
+  //     source: 'ftlite converted',
+  //     github: '',
+  //     hf: 'https://huggingface.co/webml/models/resolve/main/deeplab-mobilenetv2.onnx',
+  //     cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/deeplab-mobilenetv2.onnx',
+  //     local: 'models/deeplab-mobilenetv2.onnx'
+  //   },
+  //   format: 'onnx',
+  //   datatype: 'fp32',
+  //   inputs: {
+  //     value: { 'sub_7': ['float32', 'random', [1, 513, 513, 3]] },
+  //     batch: {}
+  //   }
+  // },
   {
     category: 'Object Detection',
     id: 'tinyyolo_v2',

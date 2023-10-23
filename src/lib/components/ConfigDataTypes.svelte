@@ -120,7 +120,9 @@
 
 		if (dataTypesFromUrl.length > 0) {
 			for (const datatype of dataTypesFromUrl) {
-				dataTypes[datatype].selected = true;
+				if (dataTypes[datatype]) {
+					dataTypes[datatype].selected = true;
+				}
 			}
 		}
 	};

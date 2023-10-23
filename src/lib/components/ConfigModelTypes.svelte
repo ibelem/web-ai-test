@@ -122,7 +122,9 @@
 
 		if (modelTypesFromUrl.length > 0) {
 			for (const modeltype of modelTypesFromUrl) {
-				modelTypes[modeltype].selected = true;
+				if (modelTypes[modeltype]) {
+					modelTypes[modeltype].selected = true;
+				}
 			}
 		}
 	};
