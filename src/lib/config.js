@@ -217,17 +217,17 @@ export let models = [
     name: 'DeepLab v3',
     url:
     {
-      source: 'https://huggingface.co/Xenova/deeplabv3-mobilevit-small/blob/main/onnx/model.onnx',
+      source: 'ftlite converted',
       github: '',
-      hf: 'https://huggingface.co/webml/models/resolve/main/deeplabv3-mobilevit-small.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/deeplabv3-mobilevit-small.onnx',
-      local: 'models/deeplabv3-mobilevit-small.onnx'
+      hf: 'https://huggingface.co/webml/models/resolve/main/deeplab-mobilenetv2.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/deeplab-mobilenetv2.onnx',
+      local: 'models/deeplab-mobilenetv2.onnx'
     },
     format: 'onnx',
     datatype: 'fp32',
     inputs: {
-      value: { 'pixel_values': ['float32', 'random', [1, 3, 512, 512]] },
-      batch: { "batch_size": 1 }
+      value: { 'sub_7': ['float32', 'random', [1, 513, 513, 3]] },
+      batch: {}
     }
   },
   {

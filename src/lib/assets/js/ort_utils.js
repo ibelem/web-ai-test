@@ -431,6 +431,8 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
       break;
     case 'webgpu':
       backend = 'webgpu';
+      wasmSimd = true;
+      numThreads = 4;
       deviceType = 'gpu';
       break;
     case 'webnn_cpu_1':
@@ -489,7 +491,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   // options.logSeverityLevel = 0;
   //// options.logVerbosityLevel = 0;
 
-  if (backend === 'wasm') {
+  if (backend === 'wasm' || backend === 'webgpu') {
     ort.env.wasm.numThreads = numThreads;
     ort.env.wasm.simd = wasmSimd;
   } else {
