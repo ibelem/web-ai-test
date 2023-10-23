@@ -87,7 +87,7 @@ export let models = [
   {
     category: 'Image Classification',
     id: 'mobilenet_v2',
-    name: 'MobileNet v2',
+    name: 'MobileNet v2_10',
     url:
     {
       source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
@@ -105,21 +105,40 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    id: 'mobilenet_v2',
-    name: 'MobileNet v2',
-    url: {
-      source: '',
+    id: 'mobilenet_v2_12',
+    name: 'MobileNet v2_12',
+    url:
+    {
+      source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-12.onnx',
       github: '',
-      hf: '',
-      local: ''
+      hf: 'https://huggingface.co/webml/models/resolve/main/mobilenetv2-12.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/mobilenetv2-12.onnx',
+      local: 'models/mobilenetv2-12.onnx'
     },
-    format: 'tflite',
-    datatype: 'int8',
+    format: 'onnx',
+    datatype: 'fp32',
     inputs: {
       value: 'img224',
       batch: { "batch_size": 1 }
     }
   },
+  // {
+  //   category: 'Image Classification',
+  //   id: 'mobilenet_v2',
+  //   name: 'MobileNet v2',
+  //   url: {
+  //     source: '',
+  //     github: '',
+  //     hf: '',
+  //     local: ''
+  //   },
+  //   format: 'tflite',
+  //   datatype: 'int8',
+  //   inputs: {
+  //     value: 'img224',
+  //     batch: { "batch_size": 1 }
+  //   }
+  // },
   // {
   //   category: 'Image Classification',
   //   id: 'mobilenet_v2',
@@ -211,25 +230,25 @@ export let models = [
       batch: {}
     }
   },
-  // {
-  //   category: 'Semantic Segmentation',
-  //   id: 'deeplab_v3',
-  //   name: 'DeepLab v3',
-  //   url:
-  //   {
-  //     source: 'ftlite converted',
-  //     github: '',
-  //     hf: 'https://huggingface.co/webml/models/resolve/main/deeplab-mobilenetv2.onnx',
-  //     cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/deeplab-mobilenetv2.onnx',
-  //     local: 'models/deeplab-mobilenetv2.onnx'
-  //   },
-  //   format: 'onnx',
-  //   datatype: 'fp32',
-  //   inputs: {
-  //     value: { 'sub_7': ['float32', 'random', [1, 513, 513, 3]] },
-  //     batch: {}
-  //   }
-  // },
+  {
+    category: 'Semantic Segmentation',
+    id: 'deeplab_v3',
+    name: 'DeepLab v3',
+    url:
+    {
+      source: 'ftlite converted',
+      github: '',
+      hf: 'https://huggingface.co/webml/models/resolve/main/deeplab-mobilenetv2.onnx',
+      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/deeplab-mobilenetv2.onnx',
+      local: 'models/deeplab-mobilenetv2.onnx'
+    },
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: {
+      value: { 'sub_7': ['float32', 'random', [1, 513, 513, 3]] },
+      batch: {}
+    }
+  },
   {
     category: 'Object Detection',
     id: 'tinyyolo_v2',
