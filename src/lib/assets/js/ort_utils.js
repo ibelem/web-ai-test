@@ -471,7 +471,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     removeElement('default');
     removeElement('webnn');
     await loadScript('webgpu', `../ort/1.17/web/webgpu/ort.webgpu.min.js`);
-  } else if (backend === 'webnn') {
+  } else if (backend === 'webnn' || backend === 'webgl') {
     removeElement('webgpu');
     removeElement('default');
     await loadScript('webnn', `../ort/1.16_20/web/ort.js`);
@@ -543,22 +543,31 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   let feeds = getFeeds(sess, _model, _backend);
   updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warming up`);
 
-  let warmupTime = 0;
-  const warmupstart = performance.now();
+  let numOfWarmups = 3;
 
-  if (backend === 'webnn') {
-    await sess.run(clone(feeds));
-  } else {
-    await sess.run(feeds);
+  if (backend === 'webgl' || backend === 'webgpu' || (backend === 'webnn' && deviceType === 'gpu')) {
+    numOfWarmups = 10
   }
 
-  warmupTime = performance.now() - warmupstart;
+  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warm Up ${numOfWarmups} time(s)`);
 
-  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warm Up Time: ${warmupTime} ms`);
+  let warmupTime = 0;
+  for (let j = 0; j < numOfWarmups; j++) {
+    const warmupstart = performance.now();
+
+    if (backend === 'webnn') {
+      await sess.run(clone(feeds));
+    } else {
+      await sess.run(feeds);
+    }
+
+    warmupTime = performance.now() - warmupstart;
+    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warm Up Time: ${warmupTime} ms`);
+  }
 
   let inferenceTimes = [];
   let inferenceTimesMedian = null;
-  for (var i = 0; i < numOfRuns; i++) {
+  for (let i = 0; i < numOfRuns; i++) {
     const start = performance.now();
     // l(feeds);
     if (backend === 'webnn') {
