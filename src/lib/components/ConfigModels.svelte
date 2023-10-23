@@ -374,7 +374,9 @@
 
 		if (modelTypesFromUrl.length > 0) {
 			for (const modeltype of modelTypesFromUrl) {
-				modelTypes[modeltype] = true;
+				if (modelTypes[modeltype]) {
+					modelTypes[modeltype] = true;
+				}
 			}
 		}
 	};
