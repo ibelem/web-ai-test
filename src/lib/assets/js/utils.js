@@ -3,7 +3,7 @@ import { models, uniqueBackends, localhost, corsSites } from '../../config';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
-import { environment } from '$lib/config.js';
+import { environment, modelHosts } from '$lib/config.js';
 import { UAParser } from 'ua-parser-js';
 import html2canvas from 'html2canvas';
 import to from 'await-to-js';
@@ -179,19 +179,28 @@ resultsStore.subscribe((value) => {
   results = value;
 });
 
-export const getUrlById = (id) => {
+export const getHfUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      return models[i].url.hf;
+      return modelHosts.hf + models[i].model;
     }
   }
   return null;
 };
 
-export const getBackupUrlById = (id) => {
+export const getHfMirrorUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      return models[i].url.cf;
+      return modelHosts.hfmirror + models[i].model;
+    }
+  }
+  return null;
+};
+
+export const getAwsUrlById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      return modelHosts.cf + models[i].model;
     }
   }
   return null;
@@ -200,15 +209,16 @@ export const getBackupUrlById = (id) => {
 export const getLocalUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      return `https://${localhost}/` + models[i].url.local;
+      return `https://${localhost}/` + modelHosts.local + models[i].model;
     }
   }
   return null;
 };
 
 export const setModelDownloadUrl = async () => {
-  let hf = getUrlById('model_access_check');
-  let cf = getBackupUrlById('model_access_check');
+  let hf = getHfUrlById('model_access_check');
+  let hfmirror = getHfMirrorUrlById('model_access_check');
+  let cf = getAwsUrlById('model_access_check');
   // let local = getLocalUrlById('model_access_check');
 
   let isCors = corsSites.some((site) => location.hostname.toLowerCase().indexOf(site) > -1);
@@ -217,11 +227,18 @@ export const setModelDownloadUrl = async () => {
     if (err) {
       modelDownloadUrlStore.update(() => 2);
       updateInfo(`AI models can NOT be fetched from huggingface.co`);
-      let [err2, response2] = await to(fetch(cf));
+      let [err2, response2] = await to(fetch(hfmirror));
       if (err2) {
-        updateInfo(`AI models can NOT be fetched from Amazon S3`);
+        modelDownloadUrlStore.update(() => 3);
+        updateInfo(`AI models can NOT be fetched from huggface mirror`);
+        let [err3, response3] = await to(fetch(cf));
+        if (err3) {
+          updateInfo(`AI models can NOT be fetched from Amazon S3`);
+        } else {
+          updateInfo(`AI models will be fetched from Amazon S3`);
+        }
       } else {
-        updateInfo(`AI models will be fetched from Amazon S3`);
+        updateInfo(`AI models will be fetched from huggface mirror`);
       }
     } else {
       modelDownloadUrlStore.update(() => 1);
@@ -265,7 +282,7 @@ export const getModelNameById = (id) => {
 
 export const getModelHFUrlById = (id) => {
   const model = models.find(item => item.id === id);
-  return model.url.hf;
+  return modelHosts.hf + model.model;
 }
 
 export const getUniqueDataTypes = () => {
@@ -530,10 +547,10 @@ export const run = async () => {
     updateInfo(`Go to next page to test ${testQueue[0].model}`);
     goto(path);
   } else if (auto) {
-    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);
+    updateInfo(`[${testQueueLength - testQueue.length}/${testQueueLength}] All tests completed`);
     goto(newUrl);
   } else {
-    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} All tests completed`);
+    updateInfo(`[${testQueueLength - testQueue.length}/${testQueueLength}] All tests completed`);
   }
 };
 
