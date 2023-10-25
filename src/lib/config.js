@@ -58,6 +58,7 @@ export let models = [
     name: 'DenseNet 121',
     source: 'https://github.com/onnx/models/blob/main/vision/classification/densenet-121/model/densenet-9.onnx',
     model: 'densenet-9.onnx',
+    size: '31.2MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'data_0': ['float32', 'random', [1, 3, 224, 224], {}] }]
@@ -68,6 +69,7 @@ export let models = [
     name: 'EfficientNet Lite 4',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/efficientnet-lite4/model/efficientnet-lite4-11.onnx',
     model: 'efficientnet-lite4-11.onnx',
+    size: '49.5MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'images:0': ['float32', 'random', [1, 224, 224, 3], {}] }]
@@ -78,6 +80,7 @@ export let models = [
     name: 'MobileNet v2_10',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
     model: 'mobilenetv2-10.onnx',
+    size: '13.3MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }]
@@ -88,6 +91,7 @@ export let models = [
     name: 'MobileNet v2_12',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-12.onnx',
     model: 'mobilenetv2-12.onnx',
+    size: '13.3MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }]
@@ -137,6 +141,7 @@ export let models = [
     name: 'ResNet50 v1',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v1-12.onnx',
     model: 'resnet50-v1-12.onnx',
+    size: '97.8MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], { "N": 1 }] }]
@@ -147,6 +152,7 @@ export let models = [
     name: 'ResNet50 v2',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v2-7.onnx',
     model: 'resnet50-v2-7.onnx',
+    size: '97.7MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], { "N": 1 }] }]
@@ -157,6 +163,7 @@ export let models = [
     name: 'SqueezeNet 1.1',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/squeezenet/model/squeezenet1.1-7.onnx',
     model: 'squeezenet1.1-7.onnx',
+    size: '4.72MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], {}] }]
@@ -167,6 +174,7 @@ export let models = [
     name: 'DeepLab v3',
     source: 'ftlite converted',
     model: 'deeplab-mobilenetv2.onnx',
+    size: '8.46MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'sub_7': ['float32', 'random', [1, 513, 513, 3], {}] }]
@@ -177,6 +185,7 @@ export let models = [
     name: 'Tiny YOLO v2',
     source: 'https://github.com/onnx/models/raw/main/vision/object_detection_segmentation/tiny-yolov2/model/tinyyolov2-8.onnx',
     model: 'tinyyolov2-8.onnx',
+    size: '60.5MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'image': ['float32', 'random', [1, 3, 416, 416], { "None": 1 }] }]
@@ -187,6 +196,7 @@ export let models = [
     name: 'Emotion FERPlus',
     source: 'https://github.com/onnx/models/raw/main/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx',
     model: 'emotion-ferplus-8.onnx',
+    size: '35MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'Input3': ['float32', 'random', [1, 1, 64, 64], {}] }]
@@ -197,6 +207,7 @@ export let models = [
     name: 'Segment Anything (FP32)',
     source: 'MSFT',
     model: 'segment-anything-vit-h-static-shapes-origin-im-size-initializer-optimized-float32.onnx',
+    size: '19.6MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'image_embeddings': ['float32', 'random', [1, 256, 64, 64], {}] },
@@ -211,6 +222,7 @@ export let models = [
     name: 'Segment Anything (FP16)',
     source: 'MSFT',
     model: 'segment-anything-vit-h-static-shapes-origin-im-size-initializer-optimized-float16.onnx',
+    size: '9.8MB',
     format: 'onnx',
     datatype: 'fp16',
     inputs: [{ 'image_embeddings': ['float16', 'random', [1, 256, 64, 64], {}] },
@@ -224,7 +236,8 @@ export let models = [
     id: 'selfie_segmentation_general',
     name: 'Selfie Segmentation (General)',
     source: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite',
-    model: 'selfie_segmentation.tflite',
+    model: 'selfie-segmentation.tflite',
+    size: '',
     format: 'tflite',
     datatype: 'fp32',
     inputs: []
@@ -235,6 +248,7 @@ export let models = [
     name: 'FNS Candy',
     source: 'https://github.com/microsoft/Windows-Machine-Learning/raw/master/Samples/CustomTensorization/CustomTensorization/fns-candy.onnx',
     model: 'fns-candy.onnx',
+    size: '1.63MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'inputImage': ['float32', 'random', [1, 3, 720, 720], { 'None': 1 }] }]
@@ -245,6 +259,7 @@ export let models = [
     name: 'T5 Small Encoder',
     source: 'https://huggingface.co/t5-small/tree/main/onnx',
     model: 't5-small-encoder.onnx',
+    size: '134.9MB',
     format: 'onnx',
     datatype: 'int64',
     inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] }, { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] }]
@@ -255,6 +270,7 @@ export let models = [
     name: 'T5 Small Decoder',
     source: 'https://huggingface.co/t5-small/tree/main/onnx',
     model: 't5-small-decoder.onnx',
+    size: '221MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] }, { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1 }] }]
@@ -265,6 +281,7 @@ export let models = [
     name: 'Whisper Tiny Encoder',
     source: 'https://huggingface.co/Xenova/whisper-tiny.en/tree/main/onnx',
     model: 'whisper-tiny-encoder.onnx',
+    size: '31.4MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
@@ -277,11 +294,55 @@ export let models = [
     name: 'Whisper Tiny Decoder',
     source: 'https://huggingface.co/Xenova/whisper-tiny.en/tree/main/onnx',
     model: 'whisper-tiny-decoder.onnx',
+    size: '189MB',
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
       'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
       'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1 }]
+    }]
+  },
+  {
+    category: 'Text Generation Transformer',
+    id: 'gpt2_decoder',
+    name: 'GPT-2 Decoder',
+    source: 'https://huggingface.co/gpt2/tree/main/onnx',
+    model: 'gpt2-decoder.onnx',
+    size: '623MB',
+    format: 'onnx',
+    datatype: 'int64',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }]
+    }]
+  },
+  {
+    category: 'Multilingual Translation Transformer',
+    id: 'm2m100_decoder',
+    name: 'M2M100 418M Decoder',
+    source: 'https://huggingface.co/Xenova/m2m100_418M/tree/main/onnx',
+    model: 'm2m100-decoder.onnx',
+    size: '1.24GB',
+    format: 'onnx',
+    datatype: 'int64',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }],
+      'encoder_hidden_states': ['float32', 1, [1, 128, 1024], { "batch_size": 1 }]
+    }]
+  },
+  {
+    category: 'Multilingual Translation Transformer',
+    id: 'm2m100_encoder',
+    name: 'M2M100 418M Encoder',
+    source: 'https://huggingface.co/Xenova/m2m100_418M/tree/main/onnx',
+    model: 'm2m100-encoder.onnx',
+    size: '1.05GB',
+    format: 'onnx',
+    datatype: 'int64',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }],
     }]
   },
 ];
