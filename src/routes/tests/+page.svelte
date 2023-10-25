@@ -31,12 +31,14 @@
 <div>
 	<div class="tq">
 		{#each uniqueModels as model}
-			<div class="q tests">
-				<div class="status_1 s">
-					<Clock />
+			{#if model !== 'model_access_check'}
+				<div class="q tests">
+					<div class="status_1 s">
+						<Clock />
+					</div>
+					<a href="{base}/run/{model}" class="">{getModelNameById(model)}</a>
 				</div>
-				<a href="{base}/run/{model}" class="">{getModelNameById(model)}</a>
-			</div>
+			{/if}
 		{/each}
 	</div>
 
