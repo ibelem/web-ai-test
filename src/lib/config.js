@@ -21,6 +21,19 @@ export const corsSites = [
   'ai-benchmark.vercel.app'
 ]
 
+export const ortDists = {
+  public: 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js',
+  webgpu: '../ort/1.17/web/webgpu/ort.webgpu.min.js',
+  webnn_webglfix: 'https://ibelem.github.io/onnxruntime-web-dist/1.16_20/ort.min.js'
+}
+
+export const modelHosts = {
+  hf: 'https://huggingface.co/webml/models/resolve/main/',
+  hfmirror: 'https://hf-mirror.com/webml/models/resolve/main/',
+  cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/',
+  local: 'models/'
+}
+
 export const uniqueBackends = [
   'wasm_1',
   'wasm_4',
@@ -37,27 +50,15 @@ export let models = [
     category: 'Model Access Check',
     id: 'model_access_check',
     name: 'Model Access Check',
-    url:
-    {
-      source: '',
-      github: '',
-      hf: 'https://huggingface.co/webml/models/resolve/main/01.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/01.onnx',
-      local: 'models/01.onnx'
-    }
+    source: '',
+    model: '01.onnx'
   },
   {
     category: 'Image Classification',
     id: 'densenet',
     name: 'DenseNet 121',
-    url:
-    {
-      source: 'https://github.com/onnx/models/blob/main/vision/classification/densenet-121/model/densenet-9.onnx',
-      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/densenet-9.onnx',
-      hf: 'https://huggingface.co/webml/models/resolve/main/densenet-9.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/densenet-9.onnx',
-      local: 'models/densenet-9.onnx'
-    },
+    source: 'https://github.com/onnx/models/blob/main/vision/classification/densenet-121/model/densenet-9.onnx',
+    model: 'densenet-9.onnx',
     format: 'onnx',
     datatype: 'fp32',
     inputs: {
@@ -69,14 +70,8 @@ export let models = [
     category: 'Image Classification',
     id: 'efficientnet_lite',
     name: 'EfficientNet Lite 4',
-    url:
-    {
-      source: 'https://github.com/onnx/models/raw/main/vision/classification/efficientnet-lite4/model/efficientnet-lite4-11.onnx',
-      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/efficientnet-lite4-11.onnx',
-      hf: 'https://huggingface.co/webml/models/resolve/main/efficientnet-lite4-11.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/efficientnet-lite4-11.onnx',
-      local: 'models/efficientnet-lite4-11.onnx'
-    },
+    source: 'https://github.com/onnx/models/raw/main/vision/classification/efficientnet-lite4/model/efficientnet-lite4-11.onnx',
+    model: 'efficientnet-lite4-11.onnx',
     format: 'onnx',
     datatype: 'fp32',
     inputs: {
@@ -88,14 +83,8 @@ export let models = [
     category: 'Image Classification',
     id: 'mobilenet_v2',
     name: 'MobileNet v2_10',
-    url:
-    {
-      source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
-      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/mobilenetv2-10.onnx',
-      hf: 'https://huggingface.co/webml/models/resolve/main/mobilenetv2-10.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/mobilenetv2-10.onnx',
-      local: 'models/mobilenetv2-10.onnx'
-    },
+    source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
+    model: 'mobilenetv2-10.onnx',
     format: 'onnx',
     datatype: 'fp32',
     inputs: {
@@ -107,14 +96,8 @@ export let models = [
     category: 'Image Classification',
     id: 'mobilenet_v2_12',
     name: 'MobileNet v2_12',
-    url:
-    {
-      source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-12.onnx',
-      github: '',
-      hf: 'https://huggingface.co/webml/models/resolve/main/mobilenetv2-12.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/mobilenetv2-12.onnx',
-      local: 'models/mobilenetv2-12.onnx'
-    },
+    source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-12.onnx',
+    model: 'mobilenetv2-12.onnx',
     format: 'onnx',
     datatype: 'fp32',
     inputs: {
@@ -126,12 +109,8 @@ export let models = [
   //   category: 'Image Classification',
   //   id: 'mobilenet_v2',
   //   name: 'MobileNet v2',
-  //   url: {
-  //     source: '',
-  //     github: '',
-  //     hf: '',
-  //     local: ''
-  //   },
+  //   source: '',
+  //   model: '',
   //   format: 'tflite',
   //   datatype: 'int8',
   //   inputs: {
@@ -143,12 +122,8 @@ export let models = [
   //   category: 'Image Classification',
   //   id: 'mobilenet_v2',
   //   name: 'MobileNet v2',
-  //   url: {
-  //     source: '',
-  //     github: '',
-  //     hf: '',
-  //     local: ''
-  //   },
+  //   source: '',
+  //   model: '',
   //   format: 'npy',
   //   datatype: 'fp32',
   //   inputs: {
@@ -160,12 +135,8 @@ export let models = [
   //   category: 'Image Classification',
   //   id: 'mobilenet_v2',
   //   name: 'MobileNet v2',
-  //   url: {
-  //     source: '',
-  //     github: '',
-  //     hf: '',
-  //     local: ''
-  //   },
+  //   source: '',
+  //   model: '',
   //   format: 'pt',
   //   datatype: 'fp32',
   //   inputs: {
@@ -177,14 +148,8 @@ export let models = [
     category: 'Image Classification',
     id: 'resnet50_v1',
     name: 'ResNet50 v1',
-    url:
-    {
-      source: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v1-12.onnx',
-      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/resnet50-v1-12.onnx',
-      hf: 'https://huggingface.co/webml/models/resolve/main/resnet50-v1-12.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/resnet50-v1-12.onnx',
-      local: 'models/resnet50-v1-12.onnx'
-    },
+    source: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v1-12.onnx',
+    model: 'resnet50-v1-12.onnx',
     format: 'onnx',
     datatype: 'fp32',
     inputs: {
@@ -196,14 +161,8 @@ export let models = [
     category: 'Image Classification',
     id: 'resnet50_v2',
     name: 'ResNet50 v2',
-    url:
-    {
-      source: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v2-7.onnx',
-      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/resnet50-v2-7.onnx',
-      hf: 'https://huggingface.co/webml/models/resolve/main/resnet50-v2-7.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/resnet50-v2-7.onnx',
-      local: 'models/resnet50-v2-7.onnx'
-    },
+    source: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v2-7.onnx',
+    model: 'resnet50-v2-7.onnx',
     format: 'onnx',
     datatype: 'fp32',
     inputs: {
@@ -215,14 +174,8 @@ export let models = [
     category: 'Image Classification',
     id: 'squeezenet',
     name: 'SqueezeNet 1.1',
-    url:
-    {
-      source: 'https://github.com/onnx/models/raw/main/vision/classification/squeezenet/model/squeezenet1.1-7.onnx',
-      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/squeezenet1.1-7.onnx',
-      hf: 'https://huggingface.co/webml/models/resolve/main/squeezenet1.1-7.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/squeezenet1.1-7.onnx',
-      local: 'models/squeezenet1.1-7.onnx'
-    },
+    source: 'https://github.com/onnx/models/raw/main/vision/classification/squeezenet/model/squeezenet1.1-7.onnx',
+    model: 'squeezenet1.1-7.onnx',
     format: 'onnx',
     datatype: 'fp32',
     inputs: {
@@ -234,14 +187,8 @@ export let models = [
     category: 'Semantic Segmentation',
     id: 'deeplab_v3',
     name: 'DeepLab v3',
-    url:
-    {
-      source: 'ftlite converted',
-      github: '',
-      hf: 'https://huggingface.co/webml/models/resolve/main/deeplab-mobilenetv2.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/deeplab-mobilenetv2.onnx',
-      local: 'models/deeplab-mobilenetv2.onnx'
-    },
+    source: 'ftlite converted',
+    model: 'deeplab-mobilenetv2.onnx',
     format: 'onnx',
     datatype: 'fp32',
     inputs: {
@@ -253,14 +200,8 @@ export let models = [
     category: 'Object Detection',
     id: 'tinyyolo_v2',
     name: 'Tiny YOLO v2',
-    url:
-    {
-      source: 'https://github.com/onnx/models/raw/main/vision/object_detection_segmentation/tiny-yolov2/model/tinyyolov2-8.onnx',
-      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/tinyyolov2-8.onnx',
-      hf: 'https://huggingface.co/webml/models/resolve/main/tinyyolov2-8.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/tinyyolov2-8.onnx',
-      local: 'models/tinyyolov2-8.onnx'
-    },
+    source: 'https://github.com/onnx/models/raw/main/vision/object_detection_segmentation/tiny-yolov2/model/tinyyolov2-8.onnx',
+    model: 'tinyyolov2-8.onnx',
     format: 'onnx',
     datatype: 'fp32',
     inputs: {
@@ -272,14 +213,8 @@ export let models = [
     category: 'Face Analysis',
     id: 'emotion_ferplus',
     name: 'Emotion FERPlus',
-    url:
-    {
-      source: 'https://github.com/onnx/models/raw/main/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx',
-      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/emotion-ferplus-8.onnx',
-      hf: 'https://huggingface.co/webml/models/resolve/main/emotion-ferplus-8.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/emotion-ferplus-8.onnx',
-      local: 'models/emotion-ferplus-8.onnx'
-    },
+    source: 'https://github.com/onnx/models/raw/main/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx',
+    model: 'emotion-ferplus-8.onnx',
     format: 'onnx',
     datatype: 'fp32',
     inputs: {
@@ -291,12 +226,8 @@ export let models = [
     category: 'Semantic Segmentation',
     id: 'segment_anything_decoder',
     name: 'Segment Anything Decoder',
-    url: {
-      source: '',
-      github: '',
-      hf: '',
-      local: ''
-    },
+    source: '',
+    model: '',
     format: 'onnx',
     datatype: 'fp16',
     inputs: {
@@ -308,12 +239,8 @@ export let models = [
     category: 'Semantic Segmentation',
     id: 'segment_anything_encoder',
     name: 'Segment Anything Encoder',
-    url: {
-      source: '',
-      github: '',
-      hf: '',
-      local: ''
-    },
+    source: '',
+    model: '',
     format: 'onnx',
     datatype: 'fp16',
     inputs: {
@@ -325,14 +252,8 @@ export let models = [
     category: 'Semantic Segmentation',
     id: 'selfie_segmentation_general',
     name: 'Selfie Segmentation (General)',
-    url:
-    {
-      source: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite',
-      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/selfie_segmentation.tflite',
-      hf: 'https://huggingface.co/webml/models/resolve/main/selfie_segmentation.tflite',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/selfie_segmentation.tflite',
-      local: 'models/selfie_segmentation.tflite'
-    },
+    source: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite',
+    model: 'selfie_segmentation.tflite',
     format: 'tflite',
     datatype: 'fp32',
     inputs: {
@@ -344,14 +265,8 @@ export let models = [
     category: 'Style Transfer',
     id: 'fns_candy',
     name: 'FNS Candy',
-    url:
-    {
-      source: 'https://github.com/microsoft/Windows-Machine-Learning/raw/master/Samples/CustomTensorization/CustomTensorization/fns-candy.onnx',
-      github: 'https://ibelem.github.io/onnxruntime-web-dist/models/fns-candy.onnx',
-      hf: 'https://huggingface.co/webml/models/resolve/main/fns-candy.onnx',
-      cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/fns-candy.onnx',
-      local: 'models/fns-candy.onnx'
-    },
+    source: 'https://github.com/microsoft/Windows-Machine-Learning/raw/master/Samples/CustomTensorization/CustomTensorization/fns-candy.onnx',
+    model: 'fns-candy.onnx',
     format: 'onnx',
     datatype: 'fp32',
     inputs: {

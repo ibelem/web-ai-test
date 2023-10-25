@@ -1,6 +1,6 @@
 // import * as ort from 'onnxruntime-web';
-import { models } from '../../config';
-import { updateTestQueueStatus, addResult, updateInfo, sleep, median, loadScript, removeElement, getUrlById, getBackupUrlById, getLocalUrlById, setModelDownloadUrl } from '../js/utils';
+import { models, ortDists } from '../../config';
+import { updateTestQueueStatus, addResult, updateInfo, sleep, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, setModelDownloadUrl, getHfMirrorUrlById } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { getModelOPFS } from '../js/nn_utils'
 import to from 'await-to-js';
@@ -336,11 +336,13 @@ const getFreeDimensionOverridesById = (id) => {
 }
 
 const getModelUrl = (_model) => {
-  let modelPath = getUrlById(_model);
+  let modelPath = getHfUrlById(_model);
   if (modelDownloadUrl === 1) {
-    modelPath = getUrlById(_model);
+    modelPath = getHfUrlById(_model);
   } else if (modelDownloadUrl === 2) {
-    modelPath = getBackupUrlById(_model);
+    modelPath = getHfMirrorUrlById(_model);
+  } else if (modelDownloadUrl === 3) {
+    modelPath = getAwsUrlById(_model);
   } else if (modelDownloadUrl === 0) {
     modelPath = getLocalUrlById(_model);
   }
@@ -470,15 +472,15 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   if (backend === 'webgpu') {
     removeElement('default');
     removeElement('webnn');
-    await loadScript('webgpu', `../ort/1.17/web/webgpu/ort.webgpu.min.js`);
+    await loadScript('webgpu', ortDists.webgpu);
   } else if (backend === 'webnn' || backend === 'webgl') {
     removeElement('webgpu');
     removeElement('default');
-    await loadScript('webnn', `../ort/1.16_20/web/ort.js`);
+    await loadScript('webnn', ortDists.webnn_webglfix);
   } else {
     removeElement('webnn');
     removeElement('webgpu');
-    await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js`);
+    await loadScript('default', ortDists.public);
   }
 
   let options = {
@@ -532,16 +534,15 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   updateTestQueueStatus(_id, 2);
   addResult(_model, _modelType, _dataType, _backend, 1, [], null);
   addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0, null);
-  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Testing ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
 
   let modelPath = getModelUrl(_model);
 
-  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Downloading model from ${modelPath}`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Downloading model from ${modelPath}`);
   const modelBuffer = await getModelOPFS(_model, modelPath, false);
-  updateInfo(`${testQueueLength - testQueue.length + 1} /${testQueueLength} Creating onnx runtime web inference session`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Creating onnx runtime web inference session`);
   const sess = await ort.InferenceSession.create(modelBuffer, options);
   let feeds = getFeeds(sess, _model, _backend);
-  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warming up`);
 
   let numOfWarmups = 3;
 
@@ -549,8 +550,9 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     numOfWarmups = 10
   }
 
-  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warm Up ${numOfWarmups} time(s)`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Warming up ${numOfWarmups} time(s)`);
 
+  let firstWarmupTime = 0;
   let warmupTime = 0;
   for (let j = 0; j < numOfWarmups; j++) {
     const warmupstart = performance.now();
@@ -562,7 +564,10 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     }
 
     warmupTime = performance.now() - warmupstart;
-    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Warm Up Time: ${warmupTime} ms`);
+    if (j === 0) {
+      firstWarmupTime = warmupTime;
+    }
+    updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Warm Up Time [${j + 1}/${numOfWarmups}]: ${warmupTime} ms`);
   }
 
   let inferenceTimes = [];
@@ -579,15 +584,15 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     let inferenceTime = performance.now() - start;
     inferenceTimes.push(inferenceTime);
     inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
-    updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} - ${i + 1}/${numOfRuns} Inference Time: ${inferenceTime} ms`);
-    addResult(_model, _modelType, _dataType, _backend, 3, warmupTime, inferenceTimes, inferenceTimesMedian, null);
+    updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
+    addResult(_model, _modelType, _dataType, _backend, 3, firstWarmupTime, inferenceTimes, inferenceTimesMedian, null);
   }
 
-  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Inference Times: [${inferenceTimes}] ms`);
-  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Inference Time (Median): ${inferenceTimesMedian} ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Times: [${inferenceTimes}] ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Median): ${inferenceTimesMedian} ms`);
 
   await sess.release();
-  updateInfo(`${testQueueLength - testQueue.length + 1}/${testQueueLength} Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
 }
 
 export const runOnnx = async (_id, _model, _modelType, _dataType, _backend) => {
