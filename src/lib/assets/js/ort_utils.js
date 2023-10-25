@@ -95,7 +95,7 @@ resultsStore.subscribe((value) => {
 const getInputsById = (id) => {
   for (const model of models) {
     if (model.id === id) {
-      return model.inputs.value;
+      return model.inputs;
     }
   }
   return null;
@@ -104,165 +104,172 @@ const getInputsById = (id) => {
 const getFeeds = (session, modelName, _backend) => {
   let feeds = {};
   let inputs = getInputsById(modelName);
+  console.log(inputs);
   let inputNames = session.inputNames;
-  console.log('--- session.inputNames ---');
-  console.log(inputNames)
-  // let decSeqLen = 128;
-  // let encSeqLen = 128;
+  console.log('session.inputNames: ' + inputNames);
 
-  // if (['bart-large', 'bart-large-12'].indexOf(inputs) >= 0) {
-  //   const kvdim = (modelName === 'bart-large') ? 16 : 12;
-  //   const hiddendim = (modelName === 'bart-large') ? 1024 : 768;
-  //   for (var k in inputNames) {
-  //     const v = inputNames[k];
-  //     if (v.startsWith('past_key_values')) {
-  //       feeds[v] = getTensor('float32', 1., [1, kvdim, decSeqLen, 64]);
-  //     }
-  //     if (v.startsWith('encoder_attention_mask')) {
-  //       feeds['encoder_attention_mask'] = getTensor('int64', 1n, [1, encSeqLen]);
-  //     }
-  //   }
-  //   feeds['use_cache_branch'] = getTensor('bool', false);
-  //   feeds['input_ids'] = getTensor('int64', 99n, [1, decSeqLen]);
-  //   feeds['encoder_hidden_states'] = getTensor('float32', 1, [1, encSeqLen, hiddendim]);
-  // }
+  for (let input of inputs) {
 
-  // if (['bert', 'bert64'].indexOf(inputs) >= 0) {
-  //   if ([].indexOf(modelName) >= 0) {
-  //     decSeqLen = 1;
-  //   }
-  //   const dtype = inputs == 'bert' ? 'int32' : 'int64';
-  //   const value = inputs == 'bert' ? 99 : 99n;
-  //   const one = inputs == 'bert' ? 1 : 1n;
+    // let decSeqLen = 128;
+    // let encSeqLen = 128;
 
-  //   for (var k in inputNames) {
-  //     const v = inputNames[k];
-  //     if (v === 'input_ids') {
-  //       feeds[v] = getTensor(dtype, value, [1, decSeqLen]);
-  //     }
-  //     if (v === 'input_mask' || v === 'attention_mask') {
-  //       feeds[v] = getTensor(dtype, one, [1, decSeqLen]);
-  //     }
-  //     if (v === 'token_type_ids' || v == 'segment_ids') {
-  //       feeds[v] = getTensor(dtype, one, [1, decSeqLen]);
-  //     }
-  //   }
-  // }
+    // if (['bart-large', 'bart-large-12'].indexOf(inputs) >= 0) {
+    //   const kvdim = (modelName === 'bart-large') ? 16 : 12;
+    //   const hiddendim = (modelName === 'bart-large') ? 1024 : 768;
+    //   for (var k in inputNames) {
+    //     const v = inputNames[k];
+    //     if (v.startsWith('past_key_values')) {
+    //       feeds[v] = getTensor('float32', 1., [1, kvdim, decSeqLen, 64]);
+    //     }
+    //     if (v.startsWith('encoder_attention_mask')) {
+    //       feeds['encoder_attention_mask'] = getTensor('int64', 1n, [1, encSeqLen]);
+    //     }
+    //   }
+    //   feeds['use_cache_branch'] = getTensor('bool', false);
+    //   feeds['input_ids'] = getTensor('int64', 99n, [1, decSeqLen]);
+    //   feeds['encoder_hidden_states'] = getTensor('float32', 1, [1, encSeqLen, hiddendim]);
+    // }
 
-  // if (inputs === 'clip') {
-  //   feeds['input_ids'] = getTensor('int64', 49407n, [1, 77]);
-  //   feeds['pixel_values'] = getTensor('float32', 99, [1, 3, 224, 224]);
-  //   feeds['attention_mask'] = getTensor('int64', 1n, [1, 77]);
-  // }
+    // if (['bert', 'bert64'].indexOf(inputs) >= 0) {
+    //   if ([].indexOf(modelName) >= 0) {
+    //     decSeqLen = 1;
+    //   }
+    //   const dtype = inputs == 'bert' ? 'int32' : 'int64';
+    //   const value = inputs == 'bert' ? 99 : 99n;
+    //   const one = inputs == 'bert' ? 1 : 1n;
 
-  if (inputs === 'img224') {
-    feeds[inputNames[0]] = getTensor('float32', 'random', [1, 3, 224, 224]);
-  }
+    //   for (var k in inputNames) {
+    //     const v = inputNames[k];
+    //     if (v === 'input_ids') {
+    //       feeds[v] = getTensor(dtype, value, [1, decSeqLen]);
+    //     }
+    //     if (v === 'input_mask' || v === 'attention_mask') {
+    //       feeds[v] = getTensor(dtype, one, [1, decSeqLen]);
+    //     }
+    //     if (v === 'token_type_ids' || v == 'segment_ids') {
+    //       feeds[v] = getTensor(dtype, one, [1, decSeqLen]);
+    //     }
+    //   }
+    // }
 
-  // if (inputs == 'llm-decoder') {
-  //   if (modelName === 'gpt2') {
-  //     decSeqLen = 8;
-  //   } else if (modelName === 'distilgpt2') {
-  //     decSeqLen = 16;
-  //   }
-  //   for (var k in inputNames) {
-  //     const v = inputNames[k];
-  //     if (v.startsWith('past_key_values')) {
-  //       feeds[v] = getTensor('float32', 1., [1, 12, decSeqLen, 64]);
-  //     }
-  //   }
-  //   feeds['use_cache_branch'] = getTensor('bool', false);
-  //   feeds['input_ids'] = getTensor('int64', 99n, [1, decSeqLen]);
-  //   feeds['attention_mask'] = getTensor('int64', 1n, [1, decSeqLen]);
-  // }
+    // if (inputs === 'clip') {
+    //   feeds['input_ids'] = getTensor('int64', 49407n, [1, 77]);
+    //   feeds['pixel_values'] = getTensor('float32', 99, [1, 3, 224, 224]);
+    //   feeds['attention_mask'] = getTensor('int64', 1n, [1, 77]);
+    // }
 
-  // if (inputs == 'm2m100-decoder') {
-  //   feeds['encoder_attention_mask'] = getTensor('int64', 1n, [1, encSeqLen]);
-  //   feeds['input_ids'] = getTensor('int64', 99n, [1, decSeqLen]);
-  //   feeds['encoder_hidden_states'] = getTensor('float32', 1, [1, encSeqLen, 1024]);
-  //   const encoder_shape = [1, 16, encSeqLen, 64];
-  //   const decoder_shape = [1, 16, decSeqLen, 64];
-  //   for (var k in inputNames) {
-  //     const v = inputNames[k];
-  //     if (v.startsWith('past_key_values.')) {
-  //       if (v.includes('decoder')) {
-  //         feeds[v] = getTensor('float32', 1, decoder_shape);
-  //       } else if (v.includes('encoder')) {
-  //         feeds[v] = getTensor('float32', 1, encoder_shape);
-  //       }
-  //     }
-  //   }
-  //   feeds['use_cache_branch'] = getTensor('bool', true);
-  // }
+    // if (inputs === 'img224') {
+    //   feeds[inputNames[0]] = getTensor('float32', 'random', [1, 3, 224, 224]);
+    // }
 
-  // if (inputs == 'm2m100-encoder') {
-  //   feeds['input_ids'] = getTensor('int64', 99n, [1, encSeqLen]);
-  //   feeds['attention_mask'] = getTensor('int64', 1n, [1, encSeqLen]);
-  // }
+    // if (inputs == 'llm-decoder') {
+    //   if (modelName === 'gpt2') {
+    //     decSeqLen = 8;
+    //   } else if (modelName === 'distilgpt2') {
+    //     decSeqLen = 16;
+    //   }
+    //   for (var k in inputNames) {
+    //     const v = inputNames[k];
+    //     if (v.startsWith('past_key_values')) {
+    //       feeds[v] = getTensor('float32', 1., [1, 12, decSeqLen, 64]);
+    //     }
+    //   }
+    //   feeds['use_cache_branch'] = getTensor('bool', false);
+    //   feeds['input_ids'] = getTensor('int64', 99n, [1, decSeqLen]);
+    //   feeds['attention_mask'] = getTensor('int64', 1n, [1, decSeqLen]);
+    // }
 
-  // if (inputs == 'sam-decoder') {
-  //   feeds['image_embeddings'] = getTensor('float32', 0.5, [1, 256, 64, 64]);
-  //   feeds['point_coords'] = new ort.Tensor(new Float32Array([327.1111, 426.875, 241.77777, 341.5, 398.22223, 498.02084]), [1, 3, 2]);
-  //   feeds['point_labels'] = new ort.Tensor(new Float32Array([0., 2., 3.]), [1, 3]);
-  //   feeds['mask_input'] = getTensor('float32', 0., [1, 1, 256, 256]);
-  //   feeds['has_mask_input'] = getTensor('float32', 1., [1]);
-  //   if (inputNames.includes('orig_im_size')) {
-  //     feeds['orig_im_size'] = new ort.Tensor(new Float32Array([512., 512.]), [2]);
-  //   }
-  // }
+    // if (inputs == 'm2m100-decoder') {
+    //   feeds['encoder_attention_mask'] = getTensor('int64', 1n, [1, encSeqLen]);
+    //   feeds['input_ids'] = getTensor('int64', 99n, [1, decSeqLen]);
+    //   feeds['encoder_hidden_states'] = getTensor('float32', 1, [1, encSeqLen, 1024]);
+    //   const encoder_shape = [1, 16, encSeqLen, 64];
+    //   const decoder_shape = [1, 16, decSeqLen, 64];
+    //   for (var k in inputNames) {
+    //     const v = inputNames[k];
+    //     if (v.startsWith('past_key_values.')) {
+    //       if (v.includes('decoder')) {
+    //         feeds[v] = getTensor('float32', 1, decoder_shape);
+    //       } else if (v.includes('encoder')) {
+    //         feeds[v] = getTensor('float32', 1, encoder_shape);
+    //       }
+    //     }
+    //   }
+    //   feeds['use_cache_branch'] = getTensor('bool', true);
+    // }
 
-  // if (inputs == 'sam-encoder') {
-  //   feeds['input_image'] = fillTensor('float32', 1., [224, 224, 3]);
-  // }
+    // if (inputs == 'm2m100-encoder') {
+    //   feeds['input_ids'] = getTensor('int64', 99n, [1, encSeqLen]);
+    //   feeds['attention_mask'] = getTensor('int64', 1n, [1, encSeqLen]);
+    // }
 
-  // if (['t5-decoder', 'flan-t5-decoder'].indexOf(inputs) >= 0) {
-  //   decSeqLen = 1;
-  //   feeds['input_ids'] = getTensor('int64', 99n, [1, decSeqLen]);
-  //   feeds['encoder_hidden_states'] = getTensor('float32', 1, [1, decSeqLen, 512]);
-  //   const encoder_shape = (inputs == 't5-decoder') ? [1, 8, encSeqLen, 64] : [1, 6, encSeqLen, 64];
-  //   const decoder_shape = (inputs == 't5-decoder') ? [1, 8, decSeqLen, 64] : [1, 6, decSeqLen, 64];
-  //   for (var k in inputNames) {
-  //     const v = inputNames[k];
-  //     if (v.startsWith('past_key_values.')) {
-  //       if (v.includes('decoder')) {
-  //         feeds[v] = getTensor('float32', 1, decoder_shape);
-  //       } else if (v.includes('encoder')) {
-  //         feeds[v] = getTensor('float32', 1, encoder_shape);
-  //       }
-  //     }
-  //     if (v == 'encoder_attention_mask') {
-  //       feeds['encoder_attention_mask'] = getTensor('int64', 1n, [1, encSeqLen]);
-  //     }
-  //   }
-  //   feeds['use_cache_branch'] = getTensor('bool', true);
-  // }
+    // if (inputs == 'sam-decoder') {
+    //   feeds['image_embeddings'] = getTensor('float32', 0.5, [1, 256, 64, 64]);
+    //   feeds['point_coords'] = new ort.Tensor(new Float32Array([327.1111, 426.875, 241.77777, 341.5, 398.22223, 498.02084]), [1, 3, 2]);
+    //   feeds['point_labels'] = new ort.Tensor(new Float32Array([0., 2., 3.]), [1, 3]);
+    //   feeds['mask_input'] = getTensor('float32', 0., [1, 1, 256, 256]);
+    //   feeds['has_mask_input'] = getTensor('float32', 1., [1]);
+    //   if (inputNames.includes('orig_im_size')) {
+    //     feeds['orig_im_size'] = new ort.Tensor(new Float32Array([512., 512.]), [2]);
+    //   }
+    // }
 
-  // if (inputs === 't5-encoder') {
-  //   feeds['input_ids'] = getTensor('int64', 99n, [1, decSeqLen]);
-  // }
+    // if (inputs == 'sam-encoder') {
+    //   feeds['input_image'] = fillTensor('float32', 1., [224, 224, 3]);
+    // }
 
-  // if (inputs === 'whisper-decoder') {
-  //   feeds['input_ids'] = getTensor('int64', 1n, [1, 1]);
-  //   feeds['encoder_hidden_states'] = getTensor('float32', 'random', [1, 1500, 384]);
-  //   for (var k in inputNames) {
-  //     const v = inputNames[k];
-  //     if (v.startsWith('past_key_values.')) {
-  //       if (v.includes('decoder')) {
-  //         feeds[v] = getTensor('float32', 1, [1, 6, decSeqLen, 64]);
-  //       } else if (v.includes('encoder')) {
-  //         feeds[v] = getTensor('float32', 1, [1, 6, 1500, 64]);
-  //       }
-  //     }
-  //   }
-  //   feeds['use_cache_branch'] = getTensor('bool', false);
-  // }
+    // if (['t5-decoder', 'flan-t5-decoder'].indexOf(inputs) >= 0) {
+    //   decSeqLen = 1;
+    //   feeds['input_ids'] = getTensor('int64', 99n, [1, decSeqLen]);
+    //   feeds['encoder_hidden_states'] = getTensor('float32', 1, [1, decSeqLen, 512]);
+    //   const encoder_shape = (inputs == 't5-decoder') ? [1, 8, encSeqLen, 64] : [1, 6, encSeqLen, 64];
+    //   const decoder_shape = (inputs == 't5-decoder') ? [1, 8, decSeqLen, 64] : [1, 6, decSeqLen, 64];
+    //   for (var k in inputNames) {
+    //     const v = inputNames[k];
+    //     if (v.startsWith('past_key_values.')) {
+    //       if (v.includes('decoder')) {
+    //         feeds[v] = getTensor('float32', 1, decoder_shape);
+    //       } else if (v.includes('encoder')) {
+    //         feeds[v] = getTensor('float32', 1, encoder_shape);
+    //       }
+    //     }
+    //     if (v == 'encoder_attention_mask') {
+    //       feeds['encoder_attention_mask'] = getTensor('int64', 1n, [1, encSeqLen]);
+    //     }
+    //   }
+    //   feeds['use_cache_branch'] = getTensor('bool', true);
+    // }
 
-  if (isDict(inputs)) {
-    for (let key in inputs) {
-      let value = inputs[key];
-      feeds[key] = getTensor(value[0], value[1], value[2]);
+    // if (inputs === 't5-encoder') {
+    //   feeds['input_ids'] = getTensor('int64', 99n, [1, decSeqLen]);
+    // }
+
+    // if (inputs === 'whisper-decoder') {
+    //   feeds['input_ids'] = getTensor('int64', 1n, [1, 1]);
+    //   feeds['encoder_hidden_states'] = getTensor('float32', 'random', [1, 1500, 384]);
+    //   for (var k in inputNames) {
+    //     const v = inputNames[k];
+    //     if (v.startsWith('past_key_values.')) {
+    //       if (v.includes('decoder')) {
+    //         feeds[v] = getTensor('float32', 1, [1, 6, decSeqLen, 64]);
+    //       } else if (v.includes('encoder')) {
+    //         feeds[v] = getTensor('float32', 1, [1, 6, 1500, 64]);
+    //       }
+    //     }
+    //   }
+    //   feeds['use_cache_branch'] = getTensor('bool', false);
+    // }
+
+    if (isDict(input)) {
+      for (let key in input) {
+        let value = input[key];
+        feeds[key] = getTensor(value[0], value[1], value[2]);
+      }
     }
   }
+
+  console.log('------ feeds ------');
+  console.log(feeds);
 
   return feeds;
 }
@@ -329,7 +336,8 @@ const l = (i) => {
 const getFreeDimensionOverridesById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      return models[i].inputs.batch;
+      const firstKey = Object.keys(models[i].inputs[0])[0];
+      return models[i].inputs[0][firstKey][3];
     }
   }
   return null;
@@ -422,7 +430,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     case 'wasm_4':
       backend = 'wasm';
       wasmSimd = true;
-      numThreads = 2;
+      numThreads = 4;
       deviceType = 'cpu';
       break;
     case 'webgl':
@@ -512,15 +520,15 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   }
 
   let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
-  console.log('options.freeDimensionOverrides:');
-  console.log(freeDimensionOverrides)
+  console.log('options.freeDimensionOverrides: ');
+  console.log(freeDimensionOverrides);
   if (freeDimensionOverrides) {
     options.freeDimensionOverrides = freeDimensionOverrides;
   }
 
-  l(`ort.env.wasm.numThreads ${ort.env.wasm.numThreads} thread(s)`)
-  l(`ort.env.wasm.simd ${ort.env.wasm.simd}`)
-  l(`EP options numThreads ${numThreads} thread(s)`)
+  l(`ort.env.wasm.numThreads: ${ort.env.wasm.numThreads}`)
+  l(`ort.env.wasm.simd: ${ort.env.wasm.simd}`)
+  l(`EP options numThreads: ${numThreads}`)
 
   // if (backend === 'webgpu') {
   //   options = { executionProviders: ["webgpu"] };
@@ -537,8 +545,13 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   let modelPath = getModelUrl(_model);
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Downloading model from ${modelPath}`);
-  const modelBuffer = await getModelOPFS(_model, modelPath, false);
+
+  let modelBuffer = await getModelOPFS(_model, modelPath, false);
+  if (modelBuffer.byteLength < 1024) {
+    modelBuffer = await getModelOPFS(_model, modelPath, true);
+  }
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Creating onnx runtime web inference session`);
+
   const sess = await ort.InferenceSession.create(modelBuffer, options);
   let feeds = getFeeds(sess, _model, _backend);
 
