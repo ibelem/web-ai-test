@@ -193,26 +193,34 @@ export let models = [
   },
   {
     category: 'Semantic Segmentation',
-    id: 'segment_anything_decoder',
-    name: 'Segment Anything Decoder',
-    source: '',
-    model: '',
+    id: 'segment_anything_fp32',
+    name: 'Segment Anything (FP32)',
+    source: 'MSFT',
+    model: 'segment-anything-vit-h-static-shapes-origin-im-size-initializer-optimized-float32.onnx',
     format: 'onnx',
-    datatype: 'fp16',
-    inputs: []
+    datatype: 'fp32',
+    inputs: [{ 'image_embeddings': ['float32', 'random', [1, 256, 64, 64], {}] },
+    { 'point_coords': ['float32', 'random', [1, 2, 2], {}] },
+    { 'point_labels': ['float32', 'random', [1, 2], {}] },
+    { 'mask_input': ['float32', 'random', [1, 1, 256, 256], {}] },
+    { 'has_mask_input': ['float32', 'random', [1], {}] }]
   },
   {
-    category: 'Semantic Segmentation',
-    id: 'segment_anything_encoder',
-    name: 'Segment Anything Encoder',
-    source: '',
-    model: '',
+    category: 'Semantic Segmentation Transformer',
+    id: 'segment_anything_fp16',
+    name: 'Segment Anything (FP16)',
+    source: 'MSFT',
+    model: 'segment-anything-vit-h-static-shapes-origin-im-size-initializer-optimized-float16.onnx',
     format: 'onnx',
     datatype: 'fp16',
-    inputs: []
+    inputs: [{ 'image_embeddings': ['float16', 'random', [1, 256, 64, 64], {}] },
+    { 'point_coords': ['float16', 'random', [1, 2, 2], {}] },
+    { 'point_labels': ['float16', 'random', [1, 2], {}] },
+    { 'mask_input': ['float16', 'random', [1, 1, 256, 256], {}] },
+    { 'has_mask_input': ['float16', 'random', [1], {}] }]
   },
   {
-    category: 'Semantic Segmentation',
+    category: 'Semantic Segmentation Transformer',
     id: 'selfie_segmentation_general',
     name: 'Selfie Segmentation (General)',
     source: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite',
@@ -230,6 +238,51 @@ export let models = [
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'inputImage': ['float32', 'random', [1, 3, 720, 720], { 'None': 1 }] }]
+  },
+  {
+    category: 'Text-To-Text Transfer Transformer',
+    id: 't5_small_encoder',
+    name: 'T5 Small Encoder',
+    source: 'https://huggingface.co/t5-small/tree/main/onnx',
+    model: 't5-small-encoder.onnx',
+    format: 'onnx',
+    datatype: 'int64',
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] }, { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] }]
+  },
+  {
+    category: 'Text-To-Text Transfer Transformer',
+    id: 't5_small_decoder',
+    name: 'T5 Small Decoder',
+    source: 'https://huggingface.co/t5-small/tree/main/onnx',
+    model: 't5-small-decoder.onnx',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] }, { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1 }] }]
+  },
+  {
+    category: 'Speech Recognition Transformer',
+    id: 'whisper_tiny_encoder',
+    name: 'Whisper Tiny Encoder',
+    source: 'https://huggingface.co/Xenova/whisper-tiny.en/tree/main/onnx',
+    model: 'whisper-tiny-encoder.onnx',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1 }]
+    }]
+  },
+  {
+    category: 'Speech Recognition Transformer',
+    id: 'whisper_tiny_decoder',
+    name: 'Whisper Tiny Decoder',
+    source: 'https://huggingface.co/Xenova/whisper-tiny.en/tree/main/onnx',
+    model: 'whisper-tiny-decoder.onnx',
+    format: 'onnx',
+    datatype: 'int64',
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1 }]
+    }]
   },
 ];
 
