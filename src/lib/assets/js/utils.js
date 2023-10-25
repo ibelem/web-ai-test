@@ -188,15 +188,6 @@ export const getHfUrlById = (id) => {
   return null;
 };
 
-export const getHfMirrorUrlById = (id) => {
-  for (let i = 0; i < models.length; i++) {
-    if (models[i].id === id) {
-      return modelHosts.hfmirror + models[i].model;
-    }
-  }
-  return null;
-};
-
 export const getAwsUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
@@ -217,7 +208,6 @@ export const getLocalUrlById = (id) => {
 
 export const setModelDownloadUrl = async () => {
   let hf = getHfUrlById('model_access_check');
-  let hfmirror = getHfMirrorUrlById('model_access_check');
   let cf = getAwsUrlById('model_access_check');
   // let local = getLocalUrlById('model_access_check');
 
@@ -226,19 +216,12 @@ export const setModelDownloadUrl = async () => {
     let [err, response] = await to(fetch(hf));
     if (err) {
       modelDownloadUrlStore.update(() => 2);
-      updateInfo(`AI models can NOT be fetched from huggingface.co`);
-      let [err2, response2] = await to(fetch(hfmirror));
+      updateInfo(`Failed to fetch AI models from huggingface.co`);
+      let [err2, response2] = await to(fetch(cf));
       if (err2) {
-        modelDownloadUrlStore.update(() => 3);
-        updateInfo(`AI models can NOT be fetched from huggface mirror`);
-        let [err3, response3] = await to(fetch(cf));
-        if (err3) {
-          updateInfo(`AI models can NOT be fetched from Amazon S3`);
-        } else {
-          updateInfo(`AI models will be fetched from Amazon S3`);
-        }
+        updateInfo(`Failed to fetch AI models from Amazon Web Services (AWS)`);
       } else {
-        updateInfo(`AI models will be fetched from huggface mirror`);
+        updateInfo(`AI models will be fetched from Amazon Web Services (AWS)`);
       }
     } else {
       modelDownloadUrlStore.update(() => 1);

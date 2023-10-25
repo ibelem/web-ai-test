@@ -29,7 +29,6 @@ export const ortDists = {
 
 export const modelHosts = {
   hf: 'https://huggingface.co/webml/models/resolve/main/',
-  hfmirror: 'https://hf-mirror.com/webml/models/resolve/main/',
   cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/',
   local: 'models/'
 }
