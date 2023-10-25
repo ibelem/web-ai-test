@@ -132,6 +132,7 @@
 						<span title="{getModelNameById(key.model)} downloaded"
 							>{getModelNameById(key.model)}</span
 						>
+						{getModelSizeById(key.model)}
 					{:else}
 						{getModelNameById(key.model)}
 					{/if}
