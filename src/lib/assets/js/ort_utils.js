@@ -542,10 +542,10 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   const sess = await ort.InferenceSession.create(modelBuffer, options);
   let feeds = getFeeds(sess, _model, _backend);
 
-  let numOfWarmups = 3;
+  let numOfWarmups = 1;
 
   if (backend === 'webgl' || backend === 'webgpu' || (backend === 'webnn' && deviceType === 'gpu')) {
-    numOfWarmups = 10
+    numOfWarmups = 5;
   }
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Warming up ${numOfWarmups} time(s)`);
