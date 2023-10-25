@@ -60,10 +60,7 @@ export let models = [
     model: 'densenet-9.onnx',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: {
-      value: 'img224',
-      batch: {}
-    }
+    inputs: [{ 'data_0': ['float32', 'random', [1, 3, 224, 224], {}] }]
   },
   {
     category: 'Image Classification',
@@ -73,10 +70,7 @@ export let models = [
     model: 'efficientnet-lite4-11.onnx',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: {
-      value: { 'images:0': ['float32', 'random', [1, 224, 224, 3]] },
-      batch: {}
-    }
+    inputs: [{ 'images:0': ['float32', 'random', [1, 224, 224, 3], {}] }]
   },
   {
     category: 'Image Classification',
@@ -86,10 +80,7 @@ export let models = [
     model: 'mobilenetv2-10.onnx',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: {
-      value: 'img224',
-      batch: { "batch_size": 1 }
-    }
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }]
   },
   {
     category: 'Image Classification',
@@ -99,10 +90,7 @@ export let models = [
     model: 'mobilenetv2-12.onnx',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: {
-      value: 'img224',
-      batch: { "batch_size": 1 }
-    }
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }]
   },
   // {
   //   category: 'Image Classification',
@@ -113,7 +101,7 @@ export let models = [
   //   format: 'tflite',
   //   datatype: 'int8',
   //   inputs: {
-  //     value: 'img224',
+  //     value: { 'input': ['float32', 'random', [1, 3, 224, 224]] },
   //     batch: { "batch_size": 1 }
   //   }
   // },
@@ -126,7 +114,7 @@ export let models = [
   //   format: 'npy',
   //   datatype: 'fp32',
   //   inputs: {
-  //     value: 'img224',
+  //     value: { 'input': ['float32', 'random', [1, 3, 224, 224]] },
   //     batch: { "batch_size": 1 }
   //   }
   // },
@@ -139,7 +127,7 @@ export let models = [
   //   format: 'pt',
   //   datatype: 'fp32',
   //   inputs: {
-  //     value: 'img224',
+  //     value: { 'input': ['float32', 'random', [1, 3, 224, 224]] },
   //     batch: { "batch_size": 1 }
   //   }
   // },
@@ -151,10 +139,7 @@ export let models = [
     model: 'resnet50-v1-12.onnx',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: {
-      value: 'img224',
-      batch: { "N": 1 }
-    }
+    inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], { "N": 1 }] }]
   },
   {
     category: 'Image Classification',
@@ -164,10 +149,7 @@ export let models = [
     model: 'resnet50-v2-7.onnx',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: {
-      value: 'img224',
-      batch: { "N": 1 }
-    }
+    inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], { "N": 1 }] }]
   },
   {
     category: 'Image Classification',
@@ -177,10 +159,7 @@ export let models = [
     model: 'squeezenet1.1-7.onnx',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: {
-      value: 'img224',
-      batch: {}
-    }
+    inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], {}] }]
   },
   {
     category: 'Semantic Segmentation',
@@ -190,10 +169,7 @@ export let models = [
     model: 'deeplab-mobilenetv2.onnx',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: {
-      value: { 'sub_7': ['float32', 'random', [1, 513, 513, 3]] },
-      batch: {}
-    }
+    inputs: [{ 'sub_7': ['float32', 'random', [1, 513, 513, 3], {}] }]
   },
   {
     category: 'Object Detection',
@@ -203,10 +179,7 @@ export let models = [
     model: 'tinyyolov2-8.onnx',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: {
-      value: { 'image': ['float32', 'random', [1, 3, 416, 416]] },
-      batch: { "None": 1 }
-    }
+    inputs: [{ 'image': ['float32', 'random', [1, 3, 416, 416], { "None": 1 }] }]
   },
   {
     category: 'Face Analysis',
@@ -216,10 +189,7 @@ export let models = [
     model: 'emotion-ferplus-8.onnx',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: {
-      value: { 'Input3': ['float32', 'random', [1, 1, 64, 64]] },
-      batch: {}
-    }
+    inputs: [{ 'Input3': ['float32', 'random', [1, 1, 64, 64], {}] }]
   },
   {
     category: 'Semantic Segmentation',
@@ -229,10 +199,7 @@ export let models = [
     model: '',
     format: 'onnx',
     datatype: 'fp16',
-    inputs: {
-      value: '',
-      batch: {}
-    }
+    inputs: []
   },
   {
     category: 'Semantic Segmentation',
@@ -242,10 +209,7 @@ export let models = [
     model: '',
     format: 'onnx',
     datatype: 'fp16',
-    inputs: {
-      value: '',
-      batch: {}
-    }
+    inputs: []
   },
   {
     category: 'Semantic Segmentation',
@@ -255,10 +219,7 @@ export let models = [
     model: 'selfie_segmentation.tflite',
     format: 'tflite',
     datatype: 'fp32',
-    inputs: {
-      value: '',
-      batch: {}
-    }
+    inputs: []
   },
   {
     category: 'Style Transfer',
@@ -268,10 +229,7 @@ export let models = [
     model: 'fns-candy.onnx',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: {
-      value: { 'inputImage': ['float32', 'random', [1, 3, 720, 720]] },
-      batch: { 'None': 1 }
-    }
+    inputs: [{ 'inputImage': ['float32', 'random', [1, 3, 720, 720], { 'None': 1 }] }]
   },
 ];
 
