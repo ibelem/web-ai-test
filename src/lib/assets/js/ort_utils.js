@@ -422,7 +422,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     case 'wasm_4':
       backend = 'wasm';
       wasmSimd = true;
-      numThreads = 4;
+      numThreads = 2;
       deviceType = 'cpu';
       break;
     case 'webgl':
