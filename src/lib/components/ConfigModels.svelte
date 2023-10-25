@@ -49,7 +49,8 @@
 	let dataTypes = {
 		fp32: false,
 		fp16: false,
-		int8: false
+		int8: false,
+		int64: false
 	};
 
 	const uniqueDataTypes = getUniqueDataTypes();
@@ -120,7 +121,7 @@
 					urlDataTypes = urlDataTypes?.replaceAll(datatype, '').replaceAll(',,', ',');
 				}
 			} else if (urlDataTypes === 'all') {
-				let removedDataTypes = removeStringFromArray(['fp32', 'fp16', 'int8'], datatype);
+				let removedDataTypes = removeStringFromArray(['fp32', 'fp16', 'int8', 'int64'], datatype);
 				urlDataTypes = arrayToStringWithComma(removedDataTypes);
 			}
 		}
@@ -347,7 +348,7 @@
 		dataTypesFromUrl = trimComma(dataTypesFromUrl);
 
 		if (dataTypesFromUrl === 'all') {
-			dataTypesFromUrl = ['fp32', 'fp16', 'int8'];
+			dataTypesFromUrl = ['fp32', 'fp16', 'int8', 'int64'];
 		} else {
 			dataTypesFromUrl = stringToArray(dataTypesFromUrl);
 		}
@@ -425,6 +426,10 @@
 	<label class="extra {dataTypes.fp32.toString()}" title="FP32">
 		<input type="checkbox" on:change={() => toggleDataType('fp32')} />
 		FP32
+	</label>
+	<label class="extra {dataTypes.int64.toString()}" title="INT64">
+		<input type="checkbox" on:change={() => toggleDataType('int64')} />
+		INT64
 	</label>
 	<label class="extra {dataTypes.fp16.toString()}" title="FP16">
 		<input type="checkbox" on:change={() => toggleDataType('fp16')} />

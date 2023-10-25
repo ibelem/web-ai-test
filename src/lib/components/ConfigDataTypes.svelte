@@ -27,7 +27,8 @@
 	let dataTypes = {
 		fp32: { selected: false, show: false },
 		fp16: { selected: false, show: false },
-		int8: { selected: false, show: false }
+		int8: { selected: false, show: false },
+		int64: { selected: false, show: false }
 	};
 
 	/**
@@ -111,7 +112,7 @@
 		dataTypesFromUrl = trimComma(dataTypesFromUrl);
 
 		if (dataTypesFromUrl === 'all') {
-			dataTypesFromUrl = ['fp32', 'fp16', 'int8'];
+			dataTypesFromUrl = ['fp32', 'fp16', 'int8', 'int64'];
 		} else {
 			dataTypesFromUrl = stringToArray(dataTypesFromUrl);
 		}
@@ -151,6 +152,12 @@
 			<label class="extra {dataTypes.fp32.selected}" title="FP32">
 				<input type="checkbox" on:change={() => toggleDataType('fp32')} />
 				FP32
+			</label>
+		{/if}
+		{#if dataTypes.int64.show}
+			<label class="extra {dataTypes.int64.selected}" title="INT64">
+				<input type="checkbox" on:change={() => toggleDataType('int64')} />
+				INT64
 			</label>
 		{/if}
 		{#if dataTypes.fp16.show}
