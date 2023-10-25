@@ -1,6 +1,7 @@
 <script>
 	import { testQueueStore } from '$lib/store/store';
 	import Clock from './svg/Clock.svelte';
+	import { getModelNameById } from '$lib/assets/js/utils';
 	/**
 	 * @type {string[]}
 	 */
@@ -55,7 +56,7 @@
 				</div>
 			{/if}
 
-			<div class="{model} m">{model.replaceAll('_', ' ')}</div>
+			<div class="{model} m">{getModelNameById(model)}</div>
 			{#if modeltype === 'onnx'}
 				<div class="{modeltype} mt">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" id="logo_onnx"
