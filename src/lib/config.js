@@ -98,10 +98,11 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    id: 'mobilenet_v2_int8',
-    name: 'MobileNet v2',
-    source: '',
-    model: '',
+    id: 'mobilenet_v2_12_int8',
+    name: 'MobileNet v2_12',
+    source: 'https://github.com/onnx/models/tree/main/vision/classification/mobilenet',
+    model: 'mobilenetv2-12-int8.onnx',
+    size: '13.3MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }]
@@ -201,7 +202,7 @@ export let models = [
   {
     category: 'Semantic Segmentation',
     id: 'segment_anything_fp32',
-    name: 'Segment Anything (FP32)',
+    name: 'Segment Anything',
     source: 'MSFT',
     model: 'segment-anything-vit-h-static-shapes-origin-im-size-initializer-optimized-float32.onnx',
     size: '19.6MB',
@@ -216,7 +217,7 @@ export let models = [
   {
     category: 'Semantic Segmentation Transformer',
     id: 'segment_anything_fp16',
-    name: 'Segment Anything (FP16)',
+    name: 'Segment Anything',
     source: 'MSFT',
     model: 'segment-anything-vit-h-static-shapes-origin-im-size-initializer-optimized-float16.onnx',
     size: '9.8MB',
