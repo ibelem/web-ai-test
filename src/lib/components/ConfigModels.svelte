@@ -11,6 +11,7 @@
 		getModelDataTypeById,
 		getModelTypeById,
 		getModelDescriptionById,
+		getModelSizeById,
 		goTo,
 		stringToArray
 	} from '$lib/assets/js/utils';
@@ -619,7 +620,7 @@
 		{#each filteredModelIds as { id, name, selected }, i}
 			<label
 				class="extra {id} {selected} {getModelDataTypeById(id)}"
-				title="{name} / {getModelTypeById(id)} / {getModelDataTypeById(
+				title="{name} / {getModelSizeById(id)} / {getModelTypeById(id)} / {getModelDataTypeById(
 					id
 				)}: {getModelDescriptionById(id)}"
 			>
