@@ -649,7 +649,7 @@ padding: 2px 4px 2px 4px;
 }
 
 .result .q div.m {
-  min-width: 210px;
+  min-width: 190px;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -687,37 +687,131 @@ padding: 2px 4px 2px 4px;
 }
 
 .result .q._1 {
-  grid-template-columns: repeat(4, 1fr);
-}
-
-.result .q._2 {
   grid-template-columns: repeat(5, 1fr);
 }
 
-.result .q._3 {
+.result .q._2 {
   grid-template-columns: repeat(6, 1fr);
 }
 
-.result .q._4 {
+.result .q._3 {
   grid-template-columns: repeat(7, 1fr);
 }
 
-.result .q._5 {
+.result .q._4 {
   grid-template-columns: repeat(8, 1fr);
 }
 
-.result .q._6 {
+.result .q._5 {
   grid-template-columns: repeat(9, 1fr);
 }
 
-.result .q._7 {
+.result .q._6 {
   grid-template-columns: repeat(10, 1fr);
 }
 
-.result .q._8 {
+.result .q._7 {
   grid-template-columns: repeat(11, 1fr);
 }
 
+.result .q._8 {
+  grid-template-columns: repeat(12, 1fr);
+}
+
+
+.config label.false.extra.int64:hover
+{  
+  border: 1px solid var(--blue) !important;
+  color: var(--blue);
+  background-color: var(--blue-01);
+}
+
+.config label.true.extra.int64:hover
+{  
+  border: 1px solid var(--blue) !important;
+  color: var(--blue);
+  background-image: none !important;
+  background-color: var(--blue-01);
+}
+
+.config label.false.extra.fp16:hover
+{  
+  border: 1px solid var(--pink) !important;
+  color: var(--pink);
+  background-color: var(--pink-01);
+}
+
+.config label.true.extra.fp16:hover
+{  
+  border: 1px solid var(--pink) !important;
+  color: var(--pink);
+  background-image: none !important;
+  background-color: var(--pink-01);
+}
+
+.config label.false.extra.int8:hover
+{  
+  border: 1px solid var(--p) !important;
+  color: var(--p);
+  background-color: var(--p-01);
+}
+
+.config label.true.extra.int8:hover
+{  
+  border: 1px solid var(--p) !important;
+  color: var(--p);
+  background-image: none !important;
+  background-color: var(--p-01);
+}
+
+
+.models label.false.extra.int64:hover {
+  border: 1px solid var(--blue) !important;
+  color: var(--blue);
+  background-color: var(--blue-01);
+}
+
+.models label.true.extra.int64:hover {
+  color: var(--blue);
+  background-image: none !important;
+  background-color: var(--blue-01);
+}
+
+.config label.true.extra.int64 {
+  background-image: linear-gradient(to right, var(--blue-09) 0%,  var(--blue) 100%) !important;
+}
+
+.models label.false.extra.fp16:hover {
+  border: 1px solid var(--pink) !important;
+  color: var(--pink);
+  background-color: var(--pink-01);
+}
+
+.models label.true.extra.fp16:hover {
+  color: var(--pink);
+  background-image: none !important;
+  background-color: var(--pink-01);
+}
+
+.config label.true.extra.fp16 {
+  background-image: linear-gradient(to right, var(--pink-09) 0%,  var(--pink) 100%) !important;
+}
+
+.models label.false.extra.int8:hover {
+  border: 1px solid var(--p) !important;
+  color: var(--p);
+  background-color: var(--p-01);
+}
+
+.models label.true.extra.int8:hover {
+  color: var(--p);
+  background-image: none !important;
+  background-color: var(--p-01);
+}
+
+.config label.true.extra.int8 {
+  background-image: linear-gradient(to right, var(--p-09) 0%,  var(--p) 100%) !important;
+}
 
 @media (max-width: 1024px) { 
   .tq {

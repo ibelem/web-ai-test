@@ -8,6 +8,8 @@
 		getURLParameterValue,
 		getUniqueDataTypes,
 		getUniqueModelTypes,
+		getModelDataTypeById,
+		getModelTypeById,
 		goTo,
 		stringToArray
 	} from '$lib/assets/js/utils';
@@ -128,6 +130,8 @@
 
 		urlDataTypes = urlDataTypes?.replaceAll('undefined', '');
 		urlDataTypes = trimComma(urlDataTypes);
+
+		console.log(uniqueDataTypes);
 
 		if (containsAllElementsInArray(urlDataTypes, uniqueDataTypes)) {
 			urlDataTypes = 'all';
@@ -423,19 +427,19 @@
 	</label>
 </div>
 <div class="types">
-	<label class="extra {dataTypes.fp32.toString()}" title="FP32">
+	<label class="extra {dataTypes.fp32.toString()} fp32" title="FP32">
 		<input type="checkbox" on:change={() => toggleDataType('fp32')} />
 		FP32
 	</label>
-	<label class="extra {dataTypes.int64.toString()}" title="INT64">
+	<label class="extra {dataTypes.int64.toString()} int64" title="INT64">
 		<input type="checkbox" on:change={() => toggleDataType('int64')} />
 		INT64
 	</label>
-	<label class="extra {dataTypes.fp16.toString()}" title="FP16">
+	<label class="extra {dataTypes.fp16.toString()} fp16" title="FP16">
 		<input type="checkbox" on:change={() => toggleDataType('fp16')} />
 		FP16
 	</label>
-	<label class="extra {dataTypes.int8.toString()}" title="INT8">
+	<label class="extra {dataTypes.int8.toString()} int8" title="INT8">
 		<input type="checkbox" on:change={() => toggleDataType('int8')} />
 		INT8
 	</label>
@@ -614,7 +618,10 @@
 <div class="models">
 	{#if filteredModelIds.length > 0}
 		{#each filteredModelIds as { id, name, selected }, i}
-			<label class="extra {id} {selected}" title={name}>
+			<label
+				class="extra {id} {selected} {getModelDataTypeById(id)}"
+				title="{name} / {getModelTypeById(id)} / {getModelDataTypeById(id)}"
+			>
 				<input type="checkbox" on:change={() => toggleModel(id)} />
 				{name}
 			</label>

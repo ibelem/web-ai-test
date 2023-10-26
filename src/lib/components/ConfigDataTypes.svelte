@@ -149,25 +149,25 @@
 		{/each} -->
 
 		{#if dataTypes.fp32.show}
-			<label class="extra {dataTypes.fp32.selected}" title="FP32">
+			<label class="extra {dataTypes.fp32.selected} fp32" title="FP32">
 				<input type="checkbox" on:change={() => toggleDataType('fp32')} />
 				FP32
 			</label>
 		{/if}
 		{#if dataTypes.int64.show}
-			<label class="extra {dataTypes.int64.selected}" title="INT64">
+			<label class="extra {dataTypes.int64.selected} int64" title="INT64">
 				<input type="checkbox" on:change={() => toggleDataType('int64')} />
 				INT64
 			</label>
 		{/if}
 		{#if dataTypes.fp16.show}
-			<label class="extra {dataTypes.fp16.selected}" title="FP16">
+			<label class="extra {dataTypes.fp16.selected} fp16" title="FP16">
 				<input type="checkbox" on:change={() => toggleDataType('fp16')} />
 				FP16
 			</label>
 		{/if}
 		{#if dataTypes.int8.show}
-			<label class="extra {dataTypes.int8.selected}" title="INT8">
+			<label class="extra {dataTypes.int8.selected} int8" title="INT8">
 				<input type="checkbox" on:change={() => toggleDataType('int8')} />
 				INT8
 			</label>

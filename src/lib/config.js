@@ -96,19 +96,16 @@ export let models = [
     datatype: 'fp32',
     inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }]
   },
-  // {
-  //   category: 'Image Classification',
-  //   id: 'mobilenet_v2',
-  //   name: 'MobileNet v2',
-  //   source: '',
-  //   model: '',
-  //   format: 'tflite',
-  //   datatype: 'int8',
-  //   inputs: {
-  //     value: { 'input': ['float32', 'random', [1, 3, 224, 224]] },
-  //     batch: { "batch_size": 1 }
-  //   }
-  // },
+  {
+    category: 'Image Classification',
+    id: 'mobilenet_v2_int8',
+    name: 'MobileNet v2',
+    source: '',
+    model: '',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }]
+  },
   // {
   //   category: 'Image Classification',
   //   id: 'mobilenet_v2',
