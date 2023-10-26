@@ -91,9 +91,10 @@
 	</div>
 	<div class="result" id="result">
 		<div class="q title _{selectedBackends.length}">
-			<div class="m">Model</div>
-			<div class="mt"><span class="hide">Model </span>Type</div>
-			<div class="dt">Operand <span class="hide">Type</span></div>
+			<div class="m" title="Model Name">Model</div>
+			<div class="ms" title="Model Size">Size</div>
+			<div class="mt" title="Model Type">Type</div>
+			<div class="dt" title="Operand Type">Operand</div>
 			{#if results[0].wasm_1 && results[0].wasm_1.status !== 0}<div class="backend">
 					<span title="WebAssembly SIMD with 1 Thread">Wasm 1T</span>
 				</div>{/if}
@@ -132,11 +133,18 @@
 						<span title="{getModelNameById(key.model)} downloaded"
 							>{getModelNameById(key.model)}</span
 						>
-						{getModelSizeById(key.model)}
 					{:else}
 						{getModelNameById(key.model)}
 					{/if}
 
+					<a
+						title="Check WebNN support status of {getModelNameById(key.model)}"
+						href="https://ibelem.github.io/netron/?url={getModelHFUrlById(key.model)}"
+						><ArrowOutward /></a
+					>
+				</div>
+
+				<div class="ms">
 					<!-- {#if getProgress(key.model) === '100.0'}
 						<span title="{getModelNameById(key.model)} downloaded" class="download">
 							<svg
@@ -150,6 +158,12 @@
 							>
 						</span>
 					{:else} -->
+					{#if getProgress(key.model) === '100.0'}
+						<span title="{getModelNameById(key.model)} downloaded"
+							>{getModelSizeById(key.model)}</span
+						>
+					{/if}
+
 					{#if getProgress(key.model) !== '100.0'}
 						<svg
 							class="downloading"
@@ -165,12 +179,6 @@
 							>{getModelSizeById(key.model)}/{getProgress(key.model)}%</span
 						>
 					{/if}
-
-					<a
-						title="Check WebNN support status of {getModelNameById(key.model)}"
-						href="https://ibelem.github.io/netron/?url={getModelHFUrlById(key.model)}"
-						><ArrowOutward /></a
-					>
 				</div>
 
 				{#if key.modeltype === 'onnx'}

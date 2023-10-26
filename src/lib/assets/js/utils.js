@@ -268,6 +268,16 @@ export const getModelSizeById = (id) => {
   return model.size;
 }
 
+export const getModelTypeById = (id) => {
+  const model = models.find(item => item.id === id);
+  return model.format;
+}
+
+export const getModelDataTypeById = (id) => {
+  const model = models.find(item => item.id === id);
+  return model.datatype;
+}
+
 export const getModelHFUrlById = (id) => {
   const model = models.find(item => item.id === id);
   return modelHosts.hf + model.model;

@@ -16,7 +16,8 @@
 		urlToStore,
 		getModelIdfromPath,
 		updateTestQueue,
-		setModelDownloadUrl
+		setModelDownloadUrl,
+		getModelNameById
 	} from '../../lib/assets/js/utils';
 	import {
 		autoStore,
@@ -100,7 +101,10 @@
 		run();
 	};
 
+	let modelname = '';
+
 	onMount(() => {
+		modelname = getModelNameById(getModelIdfromPath());
 		if (testQueue.length > 0 && auto) {
 			run();
 		}
@@ -120,6 +124,7 @@
 
 <div>
 	{#if !auto}
+		<div class="tqtitle"><div class="title tq s">{modelname}</div></div>
 		<div class="config">
 			<ConfigBackends />
 			<ConfigModelTypes />
@@ -140,4 +145,16 @@
 </div>
 
 <style>
+	.title {
+		text-align: center;
+		color: var(--red);
+	}
+
+	.tqtitle {
+		margin-top: 10px;
+	}
+
+	.tq {
+		margin-bottom: 10px;
+	}
 </style>
