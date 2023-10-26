@@ -20,6 +20,8 @@ const updateProgress = (name, event) => {
   for (let i = 0; i < downloadProgress.length; i++) {
     if (downloadProgress[i].name === name) {
       downloadProgress[i].progress = percentComplete;
+      downloadProgress[i].current = (event.loaded / (1024 * 1024.0)).toFixed(2);
+      downloadProgress[i].total = (event.total / (1024 * 1024.0)).toFixed(2);
       modelDownloadProgressStore.update(() => downloadProgress);
     }
   }

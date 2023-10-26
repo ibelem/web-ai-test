@@ -6,7 +6,7 @@
 	import { beforeUpdate, onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
 	import { autoStore } from '../../lib/store/store';
-	import { resetStore, getModelNameById } from '$lib/assets/js/utils';
+	import { resetStore, getModelNameById, getModelDataTypeById } from '$lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}
@@ -29,15 +29,66 @@
 </div>
 
 <div>
+	<div class="title tq">FLOAT32</div>
 	<div class="tq">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				<div class="q tests">
-					<div class="status_1 s">
-						<Clock />
+				{#if getModelDataTypeById(model) === 'fp32'}
+					<div class="q tests">
+						<div class="status_1 s">
+							<Clock />
+						</div>
+						<a href="{base}/run/{model}" class="">{getModelNameById(model)}</a>
 					</div>
-					<a href="{base}/run/{model}" class="">{getModelNameById(model)}</a>
-				</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq">INT64</div>
+	<div class="tq">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if getModelDataTypeById(model) === 'int64'}
+					<div class="q tests">
+						<div class="status_1 s">
+							<Clock />
+						</div>
+						<a href="{base}/run/{model}" class="">{getModelNameById(model)}</a>
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq">FLOAT16</div>
+	<div class="tq">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if getModelDataTypeById(model) === 'fp16'}
+					<div class="q tests">
+						<div class="status_1 s">
+							<Clock />
+						</div>
+						<a href="{base}/run/{model}" class="">{getModelNameById(model)}</a>
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq">INT8</div>
+	<div class="tq">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if getModelDataTypeById(model) === 'int8'}
+					<div class="q tests">
+						<div class="status_1 s">
+							<Clock />
+						</div>
+						<a href="{base}/run/{model}" class="">{getModelNameById(model)}</a>
+					</div>
+				{/if}
 			{/if}
 		{/each}
 	</div>
