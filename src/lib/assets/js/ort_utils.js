@@ -324,7 +324,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   for (let j = 0; j < numOfWarmups; j++) {
     const warmupstart = performance.now();
 
-    if (backend === 'webnn') {
+    if (backend === 'webnn' || (backend === 'wasm' && numThreads > 1)) {
       await sess.run(clone(feeds));
     } else {
       await sess.run(feeds);
