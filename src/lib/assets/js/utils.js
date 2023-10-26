@@ -263,6 +263,11 @@ export const getModelNameById = (id) => {
   return model.name;
 }
 
+export const getModelDescriptionById = (id) => {
+  const model = models.find(item => item.id === id);
+  return model.description;
+}
+
 export const getModelSizeById = (id) => {
   const model = models.find(item => item.id === id);
   return model.size;

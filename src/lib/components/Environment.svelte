@@ -89,7 +89,7 @@
 	 * @type {any}
 	 */
 	let storage = null;
-	// let _remaining = null;
+	let _used = null;
 	// let _quota = null;
 
 	const performMeasurement = async () => {
@@ -124,6 +124,7 @@
 		navigator.storage
 			.estimate()
 			.then((quota) => {
+				_used = formatToMB(quota?.usage);
 				// _remaining = formatToMB(quota?.quota - quota?.usage);
 				// _quota = formatToMB(quota.quota);
 				storage = ((quota.usage * 100) / quota.quota).toFixed(2);
@@ -259,14 +260,14 @@
 	{/if}
 
 	{#if storage}
-		<div>
+		<div title="Storage usage">
 			<!-- {_remaining}/{_quota} -->
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
 				><path
 					d="M160-280h640v-240H160v240Zm520-60q25 0 42.5-17.5T740-400q0-25-17.5-42.5T680-460q-25 0-42.5 17.5T620-400q0 25 17.5 42.5T680-340Zm200-260H767l-80-80H273l-80 80H80l137-137q11-11 25.5-17t30.5-6h414q16 0 30.5 6t25.5 17l137 137ZM160-200q-33 0-56.5-23.5T80-280v-320h800v320q0 33-23.5 56.5T800-200H160Z"
 				/></svg
 			>
-			{storage}% Storage Used
+			{_used} / {storage}% Storage Used
 		</div>
 	{/if}
 
@@ -628,7 +629,7 @@
 
 	.environment div {
 		display: inline-block;
-		margin: 0 2px;
+		margin: 0 8px;
 	}
 
 	.environment svg {
