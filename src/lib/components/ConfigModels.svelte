@@ -10,6 +10,7 @@
 		getUniqueModelTypes,
 		getModelDataTypeById,
 		getModelTypeById,
+		getModelDescriptionById,
 		goTo,
 		stringToArray
 	} from '$lib/assets/js/utils';
@@ -130,8 +131,6 @@
 
 		urlDataTypes = urlDataTypes?.replaceAll('undefined', '');
 		urlDataTypes = trimComma(urlDataTypes);
-
-		console.log(uniqueDataTypes);
 
 		if (containsAllElementsInArray(urlDataTypes, uniqueDataTypes)) {
 			urlDataTypes = 'all';
@@ -620,7 +619,9 @@
 		{#each filteredModelIds as { id, name, selected }, i}
 			<label
 				class="extra {id} {selected} {getModelDataTypeById(id)}"
-				title="{name} / {getModelTypeById(id)} / {getModelDataTypeById(id)}"
+				title="{name} / {getModelTypeById(id)} / {getModelDataTypeById(
+					id
+				)}: {getModelDescriptionById(id)}"
 			>
 				<input type="checkbox" on:change={() => toggleModel(id)} />
 				{name}
