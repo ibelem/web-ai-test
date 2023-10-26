@@ -298,13 +298,22 @@ header .nav {
   padding-top: 2px;
 }
 
- .result .q svg {
-   height: 16px;
- }
+.result .q svg {
+  height: 16px;
+}
 
- .result .q div.m svg {
+.result .q div.m svg {
   margin-bottom: -4px;
- }
+}
+
+.result .q .ms svg { 
+  margin-bottom: -4px;
+  animation: blink 1s steps(1, end) infinite;
+}
+
+.downloadprogress {
+  margin-left: -6px;
+}
 
 .tq .s svg path, .result .s svg path, .result .q svg, .copy svg path {
   fill: var(--grey);
@@ -657,14 +666,6 @@ padding: 2px 4px 2px 4px;
 
 .result .q div.m a {
   margin-left: -8px;
-}
-
-.result .q div.m .downloadprogress {
-  margin-left: -8px;
-}
-
-.result .q div.m .downloading {
-  animation: blink 1s steps(1, end) infinite;
 }
 
 .result .q {
