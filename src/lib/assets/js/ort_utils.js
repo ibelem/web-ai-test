@@ -284,6 +284,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   l(`ort.env.wasm.numThreads: ${ort.env.wasm.numThreads}`)
   l(`ort.env.wasm.simd: ${ort.env.wasm.simd}`)
   l(`EP options numThreads: ${numThreads}`)
+  l(`ort.env.wasm.proxy: ${ort.env.wasm.proxy}`)
 
   // if (backend === 'webgpu') {
   //   options = { executionProviders: ["webgpu"] };
