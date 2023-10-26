@@ -234,7 +234,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     removeElement('default');
     removeElement('webnn');
     await loadScript('webgpu', ortDists.webgpu);
-  } else if (backend === 'webnn' || backend === 'webgl' || (backend === 'wasm' && numThreads > 1)) {
+  } else if (backend === 'webnn' || backend === 'webgl') {
     removeElement('webgpu');
     removeElement('default');
     await loadScript('webnn', ortDists.webnn_webglfix);
