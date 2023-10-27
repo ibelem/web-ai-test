@@ -251,28 +251,66 @@ header .nav {
 }
 
 .wasm_1 span, .wasm_4 span {
-  background-color: var(--pink-01);
+  background-color: var(--b1-01);
 }
 
 .webgl span {
-  background-color: var(--blue-01);
+  background-color: var(--pink-01);
 }
 
 .webgpu span {
-  background-color: var(--blue-02);
+  background-color: var(--pink-01);
 }
 
 .webnn_cpu_1 span, .webnn_cpu_4 span {
-  background-color: var(--pink-03);
+  background-color: var(--b1-01);
 }
 
 .webnn_gpu span {
-  background-color: var(--blue-03);
+  background-color: var(--pink-01);
 }
 
 .webnn_npu span {
+  background-color: var(--purple-01);
+}
+
+.result .backend.cpu {
+  padding: 2px 0;
+  width: 100%;
+  background-color: var(--b1-005);
+  margin-left: 1px;
+  border-left: 1px solid var(--white);
+}
+
+.result .backend.cpu:hover {
+  background-color: var(--b1);
+  color: var(--white);
+}
+
+.result .backend.gpu:hover {
+  background-color: var(--pink);
+  color: var(--white);
+}
+
+.result .backend.npu:hover {
   background-color: var(--purple);
   color: var(--white);
+}
+
+.result .backend.gpu {
+  padding: 2px 0;
+  width: 100%;
+  background-color: var(--pink-005);
+  margin-left: 1px;
+  border-left: 1px solid var(--white);
+}
+
+.result .backend.npu {
+  padding: 2px 0;
+  width: 100%;
+  background-color: var(--purple-005);
+  margin-left: 1px;
+  border-left: 1px solid var(--white);
 }
 
 .tq {

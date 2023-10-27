@@ -105,29 +105,31 @@
 			<div class="ms" title="Model Size">Size</div>
 			<div class="mt" title="Model Type">Type</div>
 			<div class="dt" title="Operand Type">Operand</div>
-			{#if results[0].wasm_1 && results[0].wasm_1.status !== 0}<div class="backend">
-					<span title="WebAssembly SIMD with 1 Thread">Wasm 1T</span>
+			{#if results[0].wasm_1 && results[0].wasm_1.status !== 0}<div class="backend cpu">
+					<span title="WebAssembly SIMD with 1 Thread on CPU">Wasm 1T</span>
 				</div>{/if}
-			{#if results[0].wasm_4 && results[0].wasm_4.status !== 0}<div class="backend">
-					<span title="WebAssembly SIMD with 4 Threads">Wasm 4T</span>
+			{#if results[0].wasm_4 && results[0].wasm_4.status !== 0}<div class="backend cpu">
+					<span title="WebAssembly SIMD with 4 Threads on CPU">Wasm 4T</span>
 				</div>{/if}
-			{#if results[0].webgl && results[0].webgl.status !== 0}<div class="backend">
-					<span title="WebGL">WebGL</span>
+			{#if results[0].webnn_cpu_1 && results[0].webnn_cpu_1.status !== 0}<div class="backend cpu">
+					<span title="WebNN CPU with 1 Thread on CPU"><span class="hide">Web</span>NN CPU 1T</span>
 				</div>{/if}
-			{#if results[0].webgpu && results[0].webgpu.status !== 0}<div class="backend">
-					<span title="WebGPU">WebGPU</span>
+			{#if results[0].webnn_cpu_4 && results[0].webnn_cpu_4.status !== 0}<div class="backend cpu">
+					<span title="WebNN CPU with 4 Threads on CPU"><span class="hide">Web</span>NN CPU 4T</span
+					>
 				</div>{/if}
-			{#if results[0].webnn_cpu_1 && results[0].webnn_cpu_1.status !== 0}<div class="backend">
-					<span title="WebNN CPU with 1 Thread"><span class="hide">Web</span>NN CPU 1T</span>
+
+			{#if results[0].webgl && results[0].webgl.status !== 0}<div class="backend gpu">
+					<span title="WebGL on GPU">WebGL</span>
 				</div>{/if}
-			{#if results[0].webnn_cpu_4 && results[0].webnn_cpu_4.status !== 0}<div class="backend">
-					<span title="WebNN CPU with 4 Threads"><span class="hide">Web</span>NN CPU 4T</span>
+			{#if results[0].webgpu && results[0].webgpu.status !== 0}<div class="backend gpu">
+					<span title="WebGPU on GPU">WebGPU</span>
 				</div>{/if}
-			{#if results[0].webnn_gpu && results[0].webnn_gpu.status !== 0}<div class="backend">
-					<span title="WebNN GPU"><span class="hide">Web</span>NN GPU</span>
+			{#if results[0].webnn_gpu && results[0].webnn_gpu.status !== 0}<div class="backend gpu">
+					<span title="WebNN GPU on GPU"><span class="hide">Web</span>NN GPU</span>
 				</div>{/if}
-			{#if results[0].webnn_npu && results[0].webnn_npu.status !== 0}<div class="backend">
-					<span title="WebNN NPU"><span class="hide">Web</span>NN NPU</span>
+			{#if results[0].webnn_npu && results[0].webnn_npu.status !== 0}<div class="backend npu">
+					<span title="WebNN NPU on NPU"><span class="hide">Web</span>NN NPU</span>
 				</div>{/if}
 		</div>
 
@@ -308,98 +310,6 @@
 					{/if}
 				{/if}
 
-				{#if key.webgl && key.webgl.status !== 0}
-					{#if key.webgl.status === 1}
-						<div class="status_{key.webgl.status} s">
-							<Queue />
-						</div>
-					{/if}
-
-					{#if key.webgl.status === 2}
-						<div class="status_{key.webgl.status} s">
-							<Testing />
-						</div>
-					{/if}
-
-					{#if key.webgl.status === 3}
-						<div
-							class="status_{key.webgl.status} s backend"
-							title="Warmup Time: {key.webgl.warmup.toString()} ms; Inference Time (Median): {key
-								.webgl.inferencemedian} ms; Inference Times: [{key.webgl.inference
-								.toString()
-								.replace(',', ', ')}] ms"
-						>
-							<span>
-								{key.webgl.inferencemedian}
-							</span>
-							<button
-								on:click={() =>
-									copyRawInference(
-										`Warmup Time: ${key.webgl.warmup.toString()} ms; Inference Time (Median): ${
-											key.webgl.inferencemedian
-										} ms; Inference Times: [${key.webgl.inference
-											.toString()
-											.replace(',', ', ')}] ms`
-									)}
-							>
-								<Copy />
-							</button>
-						</div>
-					{/if}
-
-					{#if key.webgl.status === 4}
-						<div class="status_{key.webgl.status} s" title={key.webgl.error}>
-							<Fail />
-						</div>
-					{/if}
-				{/if}
-
-				{#if key.webgpu && key.webgpu.status !== 0}
-					{#if key.webgpu.status === 1}
-						<div class="status_{key.webgpu.status} s">
-							<Queue />
-						</div>
-					{/if}
-
-					{#if key.webgpu.status === 2}
-						<div class="status_{key.webgpu.status} s">
-							<Testing />
-						</div>
-					{/if}
-
-					{#if key.webgpu.status === 3}
-						<div
-							class="status_{key.webgpu.status} s backend"
-							title="Warmup Time: {key.webgpu.warmup.toString()} ms; Inference Time (Median): {key
-								.webgpu.inferencemedian} ms; Inference Times: [{key.webgpu.inference
-								.toString()
-								.replace(',', ', ')}] ms"
-						>
-							<span>
-								{key.webgpu.inferencemedian}
-							</span>
-							<button
-								on:click={() =>
-									copyRawInference(
-										`Warmup Time: ${key.webgpu.warmup.toString()} ms; Inference Time (Median): ${
-											key.webgpu.inferencemedian
-										} ms; Inference Times: [${key.webgpu.inference
-											.toString()
-											.replace(',', ', ')}] ms`
-									)}
-							>
-								<Copy />
-							</button>
-						</div>
-					{/if}
-
-					{#if key.webgpu.status === 4}
-						<div class="status_{key.webgpu.status} s" title={key.webgpu.error}>
-							<Fail />
-						</div>
-					{/if}
-				{/if}
-
 				{#if key.webnn_cpu_1 && key.webnn_cpu_1.status !== 0}
 					{#if key.webnn_cpu_1.status === 1}
 						<div class="status_{key.webnn_cpu_1.status} s">
@@ -487,6 +397,98 @@
 
 					{#if key.webnn_cpu_4.status === 4}
 						<div class="status_{key.webnn_cpu_4.status} s" title={key.webnn_cpu_4.error}>
+							<Fail />
+						</div>
+					{/if}
+				{/if}
+
+				{#if key.webgl && key.webgl.status !== 0}
+					{#if key.webgl.status === 1}
+						<div class="status_{key.webgl.status} s">
+							<Queue />
+						</div>
+					{/if}
+
+					{#if key.webgl.status === 2}
+						<div class="status_{key.webgl.status} s">
+							<Testing />
+						</div>
+					{/if}
+
+					{#if key.webgl.status === 3}
+						<div
+							class="status_{key.webgl.status} s backend"
+							title="Warmup Time: {key.webgl.warmup.toString()} ms; Inference Time (Median): {key
+								.webgl.inferencemedian} ms; Inference Times: [{key.webgl.inference
+								.toString()
+								.replace(',', ', ')}] ms"
+						>
+							<span>
+								{key.webgl.inferencemedian}
+							</span>
+							<button
+								on:click={() =>
+									copyRawInference(
+										`Warmup Time: ${key.webgl.warmup.toString()} ms; Inference Time (Median): ${
+											key.webgl.inferencemedian
+										} ms; Inference Times: [${key.webgl.inference
+											.toString()
+											.replace(',', ', ')}] ms`
+									)}
+							>
+								<Copy />
+							</button>
+						</div>
+					{/if}
+
+					{#if key.webgl.status === 4}
+						<div class="status_{key.webgl.status} s" title={key.webgl.error}>
+							<Fail />
+						</div>
+					{/if}
+				{/if}
+
+				{#if key.webgpu && key.webgpu.status !== 0}
+					{#if key.webgpu.status === 1}
+						<div class="status_{key.webgpu.status} s">
+							<Queue />
+						</div>
+					{/if}
+
+					{#if key.webgpu.status === 2}
+						<div class="status_{key.webgpu.status} s">
+							<Testing />
+						</div>
+					{/if}
+
+					{#if key.webgpu.status === 3}
+						<div
+							class="status_{key.webgpu.status} s backend"
+							title="Warmup Time: {key.webgpu.warmup.toString()} ms; Inference Time (Median): {key
+								.webgpu.inferencemedian} ms; Inference Times: [{key.webgpu.inference
+								.toString()
+								.replace(',', ', ')}] ms"
+						>
+							<span>
+								{key.webgpu.inferencemedian}
+							</span>
+							<button
+								on:click={() =>
+									copyRawInference(
+										`Warmup Time: ${key.webgpu.warmup.toString()} ms; Inference Time (Median): ${
+											key.webgpu.inferencemedian
+										} ms; Inference Times: [${key.webgpu.inference
+											.toString()
+											.replace(',', ', ')}] ms`
+									)}
+							>
+								<Copy />
+							</button>
+						</div>
+					{/if}
+
+					{#if key.webgpu.status === 4}
+						<div class="status_{key.webgpu.status} s" title={key.webgpu.error}>
 							<Fail />
 						</div>
 					{/if}
