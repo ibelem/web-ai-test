@@ -1,4 +1,4 @@
-import { modelDownloadUrlStore, autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
+import { refererStore, modelDownloadUrlStore, autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
 import { models, uniqueBackends, localhost, corsSites } from '../../config';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
@@ -73,6 +73,14 @@ export const resetStore = () => {
   infoStore.update(() => []);
   modelDownloadProgressStore.update(() => []);
 }
+
+/**
+ * @type {string[]}
+ */
+export let referer;
+refererStore.subscribe((value) => {
+  referer = value;
+});
 
 /**
  * @type {string[]}
@@ -334,7 +342,7 @@ export const getUniqueModelTypes = () => {
 let newUrl = '';
 
 export const goTo = (key, value) => {
-  let url = new URL(window.location.href);
+  let url = new URL(location.href);
   if (key !== undefined) {
     if (value) {
       url.searchParams.set(key, value);
@@ -342,6 +350,7 @@ export const goTo = (key, value) => {
       url.searchParams.set(key, 'none');
     }
     newUrl = url.toString();
+    refererStore.update(() => location.href);
     goto(newUrl);
   }
 }
@@ -510,16 +519,6 @@ export const median = (arr) => {
   }
 };
 
-const runSingleTest = async (id, model, modeltype, datatype, backend) => {
-  updateTestQueueStatus(id, 2); // Test in Progress
-  addResult(model, modeltype, datatype, backend, 1, []);
-  updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Testing ${model} (${modeltype}/${datatype}) with ${backend} backend ...`);
-  addResult(model, modeltype, datatype, backend, 2, []);
-  updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Test ${model} (${modeltype}/${datatype}) with ${backend} backend completed`);
-  await sleep(1000);
-  addResult(model, modeltype, datatype, backend, 3, [random(), random(), random()]);
-}
-
 export const run = async () => {
   if (
     testQueue[0] && getModelIdfromPath() === testQueue[0].model
@@ -551,7 +550,7 @@ export const run = async () => {
     goto(path);
   } else if (auto) {
     updateInfo(`[${testQueueLength - testQueue.length}/${testQueueLength}] All tests completed`);
-    goto(newUrl);
+    goto(referer);
   } else {
     updateInfo(`[${testQueueLength - testQueue.length}/${testQueueLength}] All tests completed`);
   }
@@ -562,14 +561,8 @@ const saveAs = (uri, filename) => {
   if (typeof link.download === 'string') {
     link.href = uri;
     link.download = filename;
-
-    //Firefox requires the link to be in the body
     document.body.appendChild(link);
-
-    //simulate click
     link.click();
-
-    //remove the link when done
     document.body.removeChild(link);
   } else {
     window.open(uri);

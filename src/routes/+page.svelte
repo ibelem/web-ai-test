@@ -18,7 +18,8 @@
 		modelTypesStore,
 		dataTypesStore,
 		modelsStore,
-		modelDownloadProgressStore
+		modelDownloadProgressStore,
+		refererStore
 	} from '../lib/store/store';
 	import {
 		resetResult,
@@ -104,6 +105,8 @@
 		} else {
 			urlToStore($page.url.searchParams, false);
 		}
+
+		refererStore.update(() => $page.url.href);
 	});
 
 	onMount(() => {
