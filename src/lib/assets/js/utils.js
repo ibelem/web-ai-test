@@ -268,32 +268,32 @@ export const trimComma = (string) => {
 
 export const getModelNameById = (id) => {
   const model = models.find(item => item.id === id);
-  return model.name;
+  return model?.name;
 }
 
 export const getModelDescriptionById = (id) => {
   const model = models.find(item => item.id === id);
-  return model.description;
+  return model?.description;
 }
 
 export const getModelSizeById = (id) => {
   const model = models.find(item => item.id === id);
-  return model.size;
+  return model?.size;
 }
 
 export const getModelTypeById = (id) => {
   const model = models.find(item => item.id === id);
-  return model.format;
+  return model?.format;
 }
 
 export const getModelDataTypeById = (id) => {
   const model = models.find(item => item.id === id);
-  return model.datatype;
+  return model?.datatype;
 }
 
 export const getModelHFUrlById = (id) => {
   const model = models.find(item => item.id === id);
-  return modelHosts.hf + model.model;
+  return modelHosts.hf + model?.model;
 }
 
 export const getUniqueDataTypes = () => {
