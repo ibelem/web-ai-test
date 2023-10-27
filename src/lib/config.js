@@ -55,18 +55,6 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    id: 'densenet',
-    name: 'DenseNet 121',
-    description: 'A type of convolutional neural network that utilises dense connections between layers',
-    source: 'https://github.com/onnx/models/blob/main/vision/classification/densenet-121/model/densenet-9.onnx',
-    model: 'densenet-9.onnx',
-    size: '31.2 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{ 'data_0': ['float32', 'random', [1, 3, 224, 224], {}] }]
-  },
-  {
-    category: 'Image Classification',
     id: 'efficientnet_lite',
     name: 'EfficientNet Lite 4',
     description: 'A convolutional neural network architecture and scaling method',
@@ -176,6 +164,18 @@ export let models = [
     inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], {}] }]
   },
   {
+    category: 'Image Classification',
+    id: 'densenet',
+    name: 'DenseNet 121',
+    description: 'A type of convolutional neural network that utilises dense connections between layers',
+    source: 'https://github.com/onnx/models/blob/main/vision/classification/densenet-121/model/densenet-9.onnx',
+    model: 'densenet-9.onnx',
+    size: '31.2 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'data_0': ['float32', 'random', [1, 3, 224, 224], {}] }]
+  },
+  {
     category: 'Semantic Segmentation',
     id: 'deeplab_v3',
     name: 'DeepLab v3',
@@ -186,6 +186,30 @@ export let models = [
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'sub_7': ['float32', 'random', [1, 513, 513, 3], {}] }]
+  },
+  {
+    category: 'Face Analysis',
+    id: 'emotion_ferplus',
+    name: 'Emotion FERPlus',
+    description: 'A deep convolutional neural network for emotion recognition in faces',
+    source: 'https://github.com/onnx/models/raw/main/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx',
+    model: 'emotion-ferplus-8.onnx',
+    size: '35 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'Input3': ['float32', 'random', [1, 1, 64, 64], {}] }]
+  },
+  {
+    category: 'Style Transfer',
+    id: 'fns_candy',
+    name: 'FNS Candy',
+    description: 'A style transfer model to re-style images or video streams',
+    source: 'https://github.com/microsoft/Windows-Machine-Learning/raw/master/Samples/CustomTensorization/CustomTensorization/fns-candy.onnx',
+    model: 'fns-candy.onnx',
+    size: '1.63 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'inputImage': ['float32', 'random', [1, 3, 720, 720], { 'None': 1 }] }]
   },
   {
     category: 'Object Detection',
@@ -200,17 +224,44 @@ export let models = [
     inputs: [{ 'image': ['float32', 'random', [1, 3, 416, 416], { "None": 1 }] }]
   },
   {
-    category: 'Face Analysis',
-    id: 'emotion_ferplus',
-    name: 'Emotion FERPlus',
-    description: 'A deep convolutional neural network for emotion recognition in faces',
-    source: 'https://github.com/onnx/models/raw/main/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx',
-    model: 'emotion-ferplus-8.onnx',
-    size: '35 MB',
+    category: 'Text Generation Transformer',
+    id: 'gpt2_decoder',
+    name: 'GPT-2 Decoder',
+    description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion',
+    source: 'https://huggingface.co/gpt2/tree/main/onnx',
+    model: 'gpt2-decoder.onnx',
+    size: '623 MB',
+    format: 'onnx',
+    datatype: 'int64',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }]
+    }]
+  },
+  {
+    category: 'Semantic Segmentation',
+    id: 'selfie_segmentation_general',
+    name: 'Selfie Segmentation Landscape',
+    description: 'Easily separate the background from users within a scene and focus on what matters',
+    source: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite',
+    model: 'selfie-segmentation-landscape.onnx',
+    size: '435 KB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'Input3': ['float32', 'random', [1, 1, 64, 64], {}] }]
+    inputs: [{ 'input_1:0': ['float32', 'random', [1, 144, 256, 3], {}] }]
   },
+  // {
+  //   category: 'Semantic Segmentation',
+  //   id: 'selfie_segmentation_general',
+  //   name: 'Selfie Segmentation (General)',
+  //   description: 'Easily separate the background from users within a scene and focus on what matters',
+  //   source: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite',
+  //   model: 'selfie-segmentation.tflite',
+  //   size: '',
+  //   format: 'tflite',
+  //   datatype: 'fp32',
+  //   inputs: []
+  // },
   {
     category: 'Semantic Segmentation',
     id: 'segment_anything_fp32',
@@ -244,28 +295,32 @@ export let models = [
     { 'has_mask_input': ['float16', 'random', [1], {}] }]
   },
   {
-    category: 'Semantic Segmentation Transformer',
-    id: 'selfie_segmentation_general',
-    name: 'Selfie Segmentation (General)',
-    description: 'Easily separate the background from users within a scene and focus on what matters',
-    source: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite',
-    model: 'selfie-segmentation.tflite',
-    size: '',
-    format: 'tflite',
-    datatype: 'fp32',
-    inputs: []
-  },
-  {
-    category: 'Style Transfer',
-    id: 'fns_candy',
-    name: 'FNS Candy',
-    description: 'A style transfer model to re-style images or video streams',
-    source: 'https://github.com/microsoft/Windows-Machine-Learning/raw/master/Samples/CustomTensorization/CustomTensorization/fns-candy.onnx',
-    model: 'fns-candy.onnx',
-    size: '1.63 MB',
+    category: 'Stable Diffusion 2.1 Transformer',
+    id: 'sd_2_1_vae_decoder',
+    name: 'SD 2.1 VAE Decoder',
+    description: 'Stable Diffusion 2.1 (text-to-image diffusion model)',
+    source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
+    model: 'sd-2.1-vae-decoder.onnx',
+    size: '94.5 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'inputImage': ['float32', 'random', [1, 3, 720, 720], { 'None': 1 }] }]
+    inputs: [{
+      'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "vaedec_sample_batch": 1 }]
+    }]
+  },
+  {
+    category: 'Stable Diffusion 2.1 Transformer',
+    id: 'sd_2_1_vae_encoder',
+    name: 'SD 2.1 VAE Encoder',
+    description: 'Stable Diffusion 2.1 (text-to-image diffusion model)',
+    source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
+    model: 'sd-2.1-vae-encoder.onnx',
+    size: '130 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "vaedec_sample_batch": 1 }]
+    }]
   },
   {
     category: 'Text-To-Text Transfer Transformer',
@@ -321,21 +376,6 @@ export let models = [
     }]
   },
   {
-    category: 'Text Generation Transformer',
-    id: 'gpt2_decoder',
-    name: 'GPT-2 Decoder',
-    description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion',
-    source: 'https://huggingface.co/gpt2/tree/main/onnx',
-    model: 'gpt2-decoder.onnx',
-    size: '623 MB',
-    format: 'onnx',
-    datatype: 'int64',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }]
-    }]
-  },
-  {
     category: 'Multilingual Translation Transformer',
     id: 'm2m100_decoder',
     name: 'M2M100 418M Decoder',
@@ -364,34 +404,6 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }],
       'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }],
-    }]
-  },
-  {
-    category: 'Stable Diffusion 2.1 Transformer',
-    id: 'sd_2_1_vae_decoder',
-    name: 'SD 2.1 VAE Decoder',
-    description: 'Stable Diffusion 2.1 (text-to-image diffusion model)',
-    source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
-    model: 'sd-2.1-vae-decoder.onnx',
-    size: '94.5 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "vaedec_sample_batch": 1 }]
-    }]
-  },
-  {
-    category: 'Stable Diffusion 2.1 Transformer',
-    id: 'sd_2_1_vae_encoder',
-    name: 'SD 2.1 VAE Encoder',
-    description: 'Stable Diffusion 2.1 (text-to-image diffusion model)',
-    source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
-    model: 'sd-2.1-vae-encoder.onnx',
-    size: '130 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "vaedec_sample_batch": 1 }]
     }]
   },
 ];
