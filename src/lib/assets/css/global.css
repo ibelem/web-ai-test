@@ -697,7 +697,6 @@ padding: 2px 4px 2px 4px;
 
 .result .q div.m {
   min-width: 190px;
-  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -714,7 +713,7 @@ padding: 2px 4px 2px 4px;
   grid-row-gap: 10px;
   justify-items: center;
   align-items: center;
-  padding: 1px 6px;
+  padding: 0px 1px;
 }
 
 .result .q .onnx {

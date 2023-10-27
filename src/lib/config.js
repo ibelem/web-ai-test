@@ -241,8 +241,8 @@ export let models = [
   {
     category: 'Semantic Segmentation',
     id: 'selfie_segmentation_landscape',
-    name: 'Selfie Segmentation Landscape',
-    description: 'Easily separate the background from users within a scene and focus on what matters',
+    name: 'Selfie Segmentation L',
+    description: 'Selfie Segmentation Landscape: Easily separate the background from users within a scene and focus on what matters',
     source: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite https://github.com/keijiro/SelfieBarracuda',
     model: 'selfie-segmentation-landscape.onnx',
     size: '435 KB',
