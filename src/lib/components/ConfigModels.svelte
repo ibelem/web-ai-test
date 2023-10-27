@@ -359,7 +359,9 @@
 
 		if (dataTypesFromUrl.length > 0) {
 			for (const datatype of dataTypesFromUrl) {
-				dataTypes[datatype] = true;
+				if (dataTypes.hasOwnProperty(datatype)) {
+					dataTypes[datatype] = true;
+				}
 			}
 		}
 	};
@@ -379,7 +381,7 @@
 
 		if (modelTypesFromUrl.length > 0) {
 			for (const modeltype of modelTypesFromUrl) {
-				if (modelTypes[modeltype]) {
+				if (modelTypes.hasOwnProperty(modeltype)) {
 					modelTypes[modeltype] = true;
 				}
 			}

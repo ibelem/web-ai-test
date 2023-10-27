@@ -325,7 +325,6 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     const warmupstart = performance.now();
 
     if (backend === 'webnn' || _backend === 'wasm_4') {
-      l('Clone feeds for: ' + backend + ' ' + _backend);
       await sess.run(clone(feeds));
     } else {
       await sess.run(feeds);
