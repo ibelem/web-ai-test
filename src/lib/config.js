@@ -335,10 +335,10 @@ export let models = [
     }]
   },
   {
-    category: 'Text-To-Text Transfer',
+    category: 'Text-To-Text Translation',
     id: 't5_small_encoder',
     name: 'T5 Small Encoder',
-    description: 'A Text-To-Text transfer transformer model',
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings',
     source: 'https://huggingface.co/Xenova/t5-small/tree/main/onnx',
     model: 'transformer.js/t5-small/encoder_model.onnx',
     size: '134 MB',
@@ -347,10 +347,10 @@ export let models = [
     inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] }, { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] }]
   },
   {
-    category: 'Text-To-Text Transfer',
+    category: 'Text-To-Text Translation',
     id: 't5_small_encoder_int8',
     name: 'T5 Small Encoder',
-    description: 'A Text-To-Text transfer transformer model',
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings',
     source: 'https://huggingface.co/Xenova/t5-small/tree/main/onnx',
     model: 'transformer.js/t5-small/encoder_model_quantized.onnx',
     size: '33.9 MB',
@@ -360,10 +360,10 @@ export let models = [
     { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] }]
   },
   {
-    category: 'Text-To-Text Transfer',
+    category: 'Text-To-Text Translation',
     id: 't5_small_decoder',
     name: 'T5 Small Decoder',
-    description: 'A Text-To-Text transfer transformer model',
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings',
     source: 'https://huggingface.co/Xenova/t5-small/tree/main/onnx',
     model: 'transformer.js/t5-small/decoder_model.onnx',
     size: '158 MB',
@@ -374,10 +374,10 @@ export let models = [
     { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1 }] }]
   },
   {
-    category: 'Text-To-Text Transfer',
+    category: 'Text-To-Text Translation',
     id: 't5_small_decoder_int8',
     name: 'T5 Small Decoder',
-    description: 'A Text-To-Text transfer transformer model',
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings',
     source: 'https://huggingface.co/Xenova/t5-small/tree/main/onnx',
     model: 'transformer.js/t5-small/decoder_model_quantized.onnx',
     size: '40.2 MB',
@@ -497,7 +497,7 @@ export let models = [
     category: 'Token Classification',
     id: 'bert_base_multilingual_cased_ner_hrl_int8',
     name: 'BERT Base Multilingual Cased NER HRL',
-    description: 'a Named Entity Recognition model for 10 high resourced languages (Arabic, German, English, Spanish, French, Italian, Latvian, Dutch, Portuguese and Chinese) based on a fine-tuned mBERT base model',
+    description: 'A Named Entity Recognition model for 10 high resourced languages (Arabic, German, English, Spanish, French, Italian, Latvian, Dutch, Portuguese and Chinese) based on a fine-tuned mBERT base model',
     source: 'https://huggingface.co/Xenova/bert-base-multilingual-cased-ner-hrl/tree/main/onnx',
     model: 'transformer.js/bert-base-multilingual-cased-ner-hrl/model_quantized.onnx',
     size: '170MB',

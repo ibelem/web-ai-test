@@ -14,7 +14,8 @@
 		getModelSizeById,
 		getModelCategoryById,
 		goTo,
-		stringToArray
+		stringToArray,
+		getModelNameById
 	} from '$lib/assets/js/utils';
 	import { modelTypesStore, dataTypesStore, modelsStore } from '$lib/store/store';
 	import { onMount, beforeUpdate } from 'svelte';
@@ -404,6 +405,25 @@
 		}
 	};
 
+	const hideModelInfo = () => {
+		let modeldesc = document.querySelector('#modeldesc');
+		if (modeldesc) modeldesc.style = 'display: none';
+	};
+	const showModelInfo = (/** @type {any} */ id) => {
+		let modeldesc = document.querySelector('#modeldesc');
+		let inner = '';
+		if (modeldesc) {
+			modeldesc.style = 'display: block; padding: 10px';
+			inner += `<span class="modeldes">${getModelCategoryById(id)}</span>`;
+			inner += `<span class="modeldes">${getModelNameById(id)}</span>`;
+			inner += `<span class="modeldes">${getModelTypeById(id)}</span>`;
+			inner += `<span class="modeldes">${getModelDataTypeById(id)}</span>`;
+			inner += `<span class="modeldes">${getModelSizeById(id)}</span>`;
+			inner += `<div>${getModelDescriptionById(id)}</div>`;
+			modeldesc.innerHTML = inner;
+		}
+	};
+
 	onMount(() => {
 		// for (const datatype of selectedDataTypes) {
 		// 	dataTypes[datatype] = true;
@@ -618,14 +638,14 @@
 		Model
 	</label>
 </div>
-<div class="models">
+<div class="models" role="button" tabindex="0" id="models" on:mouseleave={() => hideModelInfo()}>
 	{#if filteredModelIds.length > 0}
 		{#each filteredModelIds as { id, name, selected }, i}
 			<label
 				class="extra {id} {selected} {getModelDataTypeById(id)}"
-				title=" {getModelCategoryById(id)} / {name} / {getModelSizeById(id)} / {getModelTypeById(
-					id
-				)} / {getModelDataTypeById(id)}: {getModelDescriptionById(id)}"
+				title={name}
+				on:focus={() => {}}
+				on:mouseover={() => showModelInfo(id)}
 			>
 				<input type="checkbox" on:change={() => toggleModel(id)} />
 				{name}
@@ -634,6 +654,8 @@
 	{:else}
 		Choose model type and operand type at first
 	{/if}
+
+	<div id="modeldesc"></div>
 </div>
 
 <style>
