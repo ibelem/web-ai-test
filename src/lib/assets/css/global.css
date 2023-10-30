@@ -851,6 +851,15 @@ padding: 2px 4px 2px 4px;
   background-image: linear-gradient(to right, var(--p-09) 0%,  var(--p) 100%) !important;
 }
 
+.modeldes {
+  display: inline-block;
+  padding: 1px 10px 1px 10px;
+  border-radius: 9999px;
+  color: var(--red);
+  border: 1px solid var(--red);
+  margin: 4px 4px;
+}
+
 @media (max-width: 1024px) { 
   .tq {
     grid-template-columns: repeat(2, 1fr);
@@ -963,6 +972,16 @@ padding: 2px 4px 2px 4px;
 }
 
 @media (max-width: 512px) { 
+  #layout {
+    width: auto;
+    padding: 0;
+  }
+
+  .config, #result, .q.copy, .inferlog {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+
   .hide {
     display: none;
   }
