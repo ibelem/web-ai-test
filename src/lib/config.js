@@ -224,7 +224,7 @@ export let models = [
     inputs: [{ 'image': ['float32', 'random', [1, 3, 416, 416], { "None": 1 }] }]
   },
   {
-    category: 'Text Generation Transformer',
+    category: 'Text Generation',
     id: 'gpt2_decoder',
     name: 'GPT-2 Decoder',
     description: 'GPT-2 Decoder: A transformers model pretrained on a very large corpus of English data in a self-supervised fashion',
@@ -276,7 +276,7 @@ export let models = [
   // },
   {
     category: 'Semantic Segmentation',
-    id: 'segment_anything_fp32',
+    id: 'segment_anything',
     name: 'Segment Anything',
     description: 'An AI model from Meta AI that can cut out any object in any image',
     source: 'MSFT',
@@ -291,7 +291,7 @@ export let models = [
     { 'has_mask_input': ['float32', 'random', [1], {}] }]
   },
   {
-    category: 'Semantic Segmentation Transformer',
+    category: 'Semantic Segmentation',
     id: 'segment_anything_fp16',
     name: 'Segment Anything',
     description: 'An AI model from Meta AI that can cut out any object in any image',
@@ -307,7 +307,7 @@ export let models = [
     { 'has_mask_input': ['float16', 'random', [1], {}] }]
   },
   {
-    category: 'Stable Diffusion 2.1 Transformer',
+    category: 'Text To Image',
     id: 'sd_2_1_vae_decoder',
     name: 'SD 2.1 VAE Decoder',
     description: 'Stable Diffusion 2.1 (text-to-image diffusion model)',
@@ -321,7 +321,7 @@ export let models = [
     }]
   },
   {
-    category: 'Stable Diffusion 2.1 Transformer',
+    category: 'Text To Image',
     id: 'sd_2_1_vae_encoder',
     name: 'SD 2.1 VAE Encoder',
     description: 'Stable Diffusion 2.1 (text-to-image diffusion model)',
@@ -335,7 +335,7 @@ export let models = [
     }]
   },
   {
-    category: 'Text-To-Text Transfer Transformer',
+    category: 'Text-To-Text Transfer',
     id: 't5_small_encoder',
     name: 'T5 Small Encoder',
     description: 'A Text-To-Text transfer transformer model',
@@ -347,7 +347,7 @@ export let models = [
     inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] }, { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] }]
   },
   {
-    category: 'Text-To-Text Transfer Transformer',
+    category: 'Text-To-Text Transfer',
     id: 't5_small_encoder_int8',
     name: 'T5 Small Encoder',
     description: 'A Text-To-Text transfer transformer model',
@@ -360,7 +360,7 @@ export let models = [
     { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] }]
   },
   {
-    category: 'Text-To-Text Transfer Transformer',
+    category: 'Text-To-Text Transfer',
     id: 't5_small_decoder',
     name: 'T5 Small Decoder',
     description: 'A Text-To-Text transfer transformer model',
@@ -374,7 +374,7 @@ export let models = [
     { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1 }] }]
   },
   {
-    category: 'Text-To-Text Transfer Transformer',
+    category: 'Text-To-Text Transfer',
     id: 't5_small_decoder_int8',
     name: 'T5 Small Decoder',
     description: 'A Text-To-Text transfer transformer model',
@@ -388,7 +388,7 @@ export let models = [
     { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1 }] }]
   },
   {
-    category: 'Speech Recognition Transformer',
+    category: 'Speech Recognition',
     id: 'whisper_tiny_encoder',
     name: 'Whisper Tiny Encoder',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation',
@@ -402,7 +402,7 @@ export let models = [
     }]
   },
   {
-    category: 'Speech Recognition Transformer',
+    category: 'Speech Recognition',
     id: 'whisper_tiny_decoder',
     name: 'Whisper Tiny Decoder',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation',
@@ -417,7 +417,7 @@ export let models = [
     }]
   },
   {
-    category: 'Speech Recognition Transformer',
+    category: 'Speech Recognition',
     id: 'whisper_tiny_encoder_int8',
     name: 'Whisper Tiny Encoder',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation',
@@ -431,7 +431,7 @@ export let models = [
     }]
   },
   {
-    category: 'Speech Recognition Transformer',
+    category: 'Speech Recognition',
     id: 'whisper_tiny_decoder_int8',
     name: 'Whisper Tiny Decoder',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation',
@@ -446,7 +446,7 @@ export let models = [
     }]
   },
   {
-    category: 'Multilingual Translation Transformer',
+    category: 'Multilingual Translation',
     id: 'm2m100_decoder',
     name: 'M2M100 418M Decoder',
     description: 'A multilingual encoder-decoder (seq-to-seq) model',
@@ -462,7 +462,7 @@ export let models = [
     }]
   },
   {
-    category: 'Multilingual Translation Transformer',
+    category: 'Multilingual Translation',
     id: 'm2m100_encoder',
     name: 'M2M100 418M Encoder',
     description: 'A multilingual encoder-decoder (seq-to-seq) model',
@@ -474,6 +474,100 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }],
       'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }],
+    }]
+  },
+  {
+    category: 'Masked Language Modeling (MLM)',
+    id: 'bert_base_cased_int8',
+    name: 'BERT Base Cased',
+    description: 'BERT is a transformers model pretrained on a large corpus of English data in a self-supervised fashion',
+    source: 'https://huggingface.co/Xenova/bert-base-cased/tree/main/onnx',
+    model: 'transformer.js/bert-base-cased/model_quantized.onnx',
+    size: '104MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+    }]
+  },
+
+  {
+    category: 'Token Classification',
+    id: 'bert_base_multilingual_cased_ner_hrl_int8',
+    name: 'BERT Base Multilingual Cased NER HRL',
+    description: 'a Named Entity Recognition model for 10 high resourced languages (Arabic, German, English, Spanish, French, Italian, Latvian, Dutch, Portuguese and Chinese) based on a fine-tuned mBERT base model',
+    source: 'https://huggingface.co/Xenova/bert-base-multilingual-cased-ner-hrl/tree/main/onnx',
+    model: 'transformer.js/bert-base-multilingual-cased-ner-hrl/model_quantized.onnx',
+    size: '170MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+    }]
+  },
+  {
+    category: 'Text Classification',
+    id: 'bert_base_multilingual_uncased_sentiment_int8',
+    name: 'BERT Base Multilingual Uncased Sentiment',
+    description: 'A bert-base-multilingual-uncased model finetuned for sentiment analysis on product reviews in six languages: English, Dutch, German, French, Spanish, and Italian',
+    source: 'https://huggingface.co/Xenova/bert-base-multilingual-uncased-sentiment/tree/main/onnx',
+    model: 'transformer.js/bert-base-multilingual-uncased-sentiment/model_quantized.onnx',
+    size: '160MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+    }]
+  },
+  {
+    category: 'Question Answering',
+    id: 'distilbert_base_cased_distilled_squad_int8',
+    name: 'DistilBERT Base Cased',
+    description: 'DistilBERT is a small, fast, cheap and light Transformer model trained by distilling BERT base',
+    source: 'https://huggingface.co/Xenova/distilbert-base-cased-distilled-squad/tree/main/onnx',
+    model: 'transformer.js/distilbert-base-cased-distilled-squad/model_quantized.onnx',
+    size: '62.7MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }]
+    }]
+  },
+  {
+    category: 'Zero-Shot Classification',
+    id: 'distilbert_base_uncased_mnli_int8',
+    name: 'DistilBERT Base Uncased',
+    description: 'An uncased DistilBERT model fine-tuned on Multi-Genre Natural Language Inference (MNLI) dataset for the zero-shot classification task',
+    source: 'https://huggingface.co/Xenova/distilbert-base-uncased-mnli/tree/main/onnx',
+    model: 'transformer.js/distilbert-base-uncased-mnli/model_quantized.onnx',
+    size: '64.4MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }]
+    }]
+  },
+  {
+    category: 'Text Generation',
+    id: 'distilgpt2_decoder_int8',
+    name: 'DistilGPT2 Decoder',
+    description: 'DistilGPT2 (short for Distilled-GPT2) is an English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2)',
+    source: 'https://huggingface.co/Xenova/distilgpt2/tree/main',
+    model: 'transformer.js/distilgpt2/decoder_model_quantized.onnx',
+    size: '79.6MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1 }],
     }]
   },
 ];

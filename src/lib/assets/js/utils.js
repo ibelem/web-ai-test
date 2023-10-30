@@ -286,6 +286,11 @@ export const getModelTypeById = (id) => {
   return model?.format;
 }
 
+export const getModelCategoryById = (id) => {
+  const model = models.find(item => item.id === id);
+  return model?.category;
+}
+
 export const getModelDataTypeById = (id) => {
   const model = models.find(item => item.id === id);
   return model?.datatype;

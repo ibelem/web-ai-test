@@ -12,6 +12,7 @@
 		getModelTypeById,
 		getModelDescriptionById,
 		getModelSizeById,
+		getModelCategoryById,
 		goTo,
 		stringToArray
 	} from '$lib/assets/js/utils';
@@ -622,9 +623,9 @@
 		{#each filteredModelIds as { id, name, selected }, i}
 			<label
 				class="extra {id} {selected} {getModelDataTypeById(id)}"
-				title="{name} / {getModelSizeById(id)} / {getModelTypeById(id)} / {getModelDataTypeById(
+				title=" {getModelCategoryById(id)} / {name} / {getModelSizeById(id)} / {getModelTypeById(
 					id
-				)}: {getModelDescriptionById(id)}"
+				)} / {getModelDataTypeById(id)}: {getModelDescriptionById(id)}"
 			>
 				<input type="checkbox" on:change={() => toggleModel(id)} />
 				{name}

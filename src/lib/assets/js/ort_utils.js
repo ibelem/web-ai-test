@@ -119,18 +119,19 @@ const isDict = (v) => {
   return typeof v === 'object' && v !== null && !(v instanceof Array) && !(v instanceof Date);
 }
 
-export const type_to_func = {
+export const dataTypeToArrayConstructor = {
   float32: Float32Array,
   uint16: Uint16Array,
   float16: Uint16Array,
   int32: Int32Array,
+  int64: BigInt64Array,
   BigInt64Array: BigInt64Array,
 };
 
 export const clone = (x) => {
   let feed = {};
   for (const [key, value] of Object.entries(x)) {
-    let func = type_to_func[value.type];
+    let func = dataTypeToArrayConstructor[value.type];
     let arrayType = func.from(value.data);
     feed[key] = new ort.Tensor(
       value.type,
