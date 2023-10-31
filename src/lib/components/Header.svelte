@@ -232,6 +232,7 @@
 					fill="white"
 				/>
 			</svg>
+			<span>alpha</span>
 		</a>
 	</div>
 	<div class="nav"><Nav></Nav></div>
@@ -388,5 +389,21 @@
 
 	._100 {
 		border-top: 1px solid var(--green) !important;
+	}
+
+	#logo a span {
+		position: relative;
+		top: -60px;
+		right: -70px;
+		font-size: 0.5rem;
+		background-color: var(--white);
+		color: var(--red);
+		padding: 0px 4px;
+		border-radius: 999px;
+	}
+
+	#logo.ing a span {
+		background-color: transparent;
+		color: var(--white-01);
 	}
 </style>

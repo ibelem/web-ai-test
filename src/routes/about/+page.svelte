@@ -6,8 +6,17 @@
 	hardware such as GPUs, CPUs, or purpose-built AI accelerators.
 </div>
 
+<div>
+	<span class="red">Not ready for formal measurement usage</span>, please contact
+	belem&commat;163.com for more details.
+</div>
+
 <style>
 	div {
 		margin-bottom: 20px;
+	}
+
+	.red {
+		color: var(--red);
 	}
 </style>
