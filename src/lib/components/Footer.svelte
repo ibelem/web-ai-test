@@ -92,4 +92,10 @@
 		border: 1px solid var(--grey-02);
 		border-left: 0px solid transparent;
 	}
+
+	@media (max-width: 512px) {
+		footer {
+			margin: 0 10px 30px 10px;
+		}
+	}
 </style>

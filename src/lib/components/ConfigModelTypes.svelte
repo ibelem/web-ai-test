@@ -143,7 +143,7 @@
 <div class="types">
 	<div>
 		{#if modelTypes.onnx.show}
-			<label class="extra {modelTypes.onnx.selected}" title="ONNX">
+			<label class="onnx extra {modelTypes.onnx.selected}" title="ONNX">
 				<input type="checkbox" on:change={() => toggleModelType('onnx')} />
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 44" id="logo_onnx"
 					><g transform="matrix(1.7 0 0 1.7 -44 -42)"
@@ -187,7 +187,7 @@
 			</label>
 		{/if}
 		{#if modelTypes.tflite.show}
-			<label class="extra {modelTypes.tflite.selected}" title="TensorFlow Lite">
+			<label class="tflite extra {modelTypes.tflite.selected}" title="TensorFlow Lite">
 				<input type="checkbox" on:change={() => toggleModelType('tflite')} />
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -247,7 +247,7 @@
 			</label>
 		{/if}
 		{#if modelTypes.npy.show}
-			<label class="extra {modelTypes.npy.selected}" title="NumPy">
+			<label class="npy extra {modelTypes.npy.selected}" title="NumPy">
 				<input type="checkbox" on:change={() => toggleModelType('npy')} />
 
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 450" id="logo_npy"
@@ -286,7 +286,7 @@
 			</label>
 		{/if}
 		{#if modelTypes.pt.show}
-			<label class="extra {modelTypes.pt.selected}" title="pt">
+			<label class="pt extra {modelTypes.pt.selected}" title="pt">
 				<input type="checkbox" on:change={() => toggleModelType('pt')} />
 
 				<svg xmlns="http://www.w3.org/2000/svg" id="logo_pt"

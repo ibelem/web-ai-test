@@ -13,6 +13,7 @@
 		getModelDescriptionById,
 		getModelSizeById,
 		getModelCategoryById,
+		getModelInputsById,
 		goTo,
 		stringToArray,
 		getModelNameById
@@ -413,11 +414,15 @@
 		let modeldesc = document.querySelector('#modeldesc');
 		let inner = '';
 		if (modeldesc) {
+			modeldesc.setAttribute('class', getModelDataTypeById(/** @type {any} */ id) || '');
 			modeldesc.style = 'display: block; padding: 10px';
 			inner += `<span class="modeldes">${getModelCategoryById(id)}</span>`;
 			inner += `<span class="modeldes">${getModelNameById(id)}</span>`;
 			inner += `<span class="modeldes">${getModelTypeById(id)}</span>`;
 			inner += `<span class="modeldes">${getModelDataTypeById(id)}</span>`;
+			if (getModelInputsById(id)) {
+				inner += `<span class="modeldes">${getModelInputsById(id)}</span>`;
+			}
 			inner += `<span class="modeldes">${getModelSizeById(id)}</span>`;
 			inner += `<div>${getModelDescriptionById(id)}</div>`;
 			modeldesc.innerHTML = inner;
@@ -476,7 +481,7 @@
 </div>
 <div class="types">
 	<div>
-		<label class="extra {modelTypes.onnx.toString()}" title="ONNX">
+		<label class="onnx extra {modelTypes.onnx.toString()}" title="ONNX">
 			<input type="checkbox" on:change={() => toggleModelType('onnx')} />
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 44" id="logo_onnx"
 				><g transform="matrix(1.7 0 0 1.7 -44 -42)"
@@ -518,7 +523,7 @@
 				></svg
 			>
 		</label>
-		<label class="extra {modelTypes.tflite.toString()}" title="TensorFlow Lite">
+		<label class="tflite extra {modelTypes.tflite.toString()}" title="TensorFlow Lite">
 			<input type="checkbox" on:change={() => toggleModelType('tflite')} />
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -576,7 +581,7 @@
 			>
 			<span>Lite</span>
 		</label>
-		<label class="extra {modelTypes.npy.toString()}" title="NumPy">
+		<label class="npy extra {modelTypes.npy.toString()}" title="NumPy">
 			<input type="checkbox" on:change={() => toggleModelType('npy')} />
 
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 450" id="logo_npy"
@@ -613,7 +618,7 @@
 			>
 			<span>NumPy</span>
 		</label>
-		<label class="extra {modelTypes.pt.toString()}" title="pt">
+		<label class="pt extra {modelTypes.pt.toString()}" title="pt">
 			<input type="checkbox" on:change={() => toggleModelType('pt')} />
 
 			<svg xmlns="http://www.w3.org/2000/svg" id="logo_pt"

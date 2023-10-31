@@ -296,6 +296,11 @@ export const getModelDataTypeById = (id) => {
   return model?.datatype;
 }
 
+export const getModelInputsById = (id) => {
+  const model = models.find(item => item.id === id);
+  return model?.inputstip;
+}
+
 export const getModelHFUrlById = (id) => {
   const model = models.find(item => item.id === id);
   return modelHosts.hf + model?.model;
