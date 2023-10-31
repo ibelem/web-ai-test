@@ -140,6 +140,138 @@ header .nav {
   border: 1px solid var(--red) !important;
 }
 
+.config .types label.onnx.false.extra:hover {
+  border: 1px solid var(--onnx) !important;
+  background-image: none;
+  background-color: var(--onnx-005);
+  color: var(--onnx);
+}
+
+.types label.onnx.false.extra:hover svg .logo_onnx_1 {
+  fill: var(--onnx);
+}
+
+.config .types label.onnx:hover  {
+  background-image: none;
+  background-color: var(--onnx-005);
+  color: var(--onnx);
+  border: 1px solid var(--onnx);
+}
+
+.types label:hover svg .logo_onnx_1 {
+  fill: var(--onnx);
+}
+
+.config label.true.onnx {
+  background-color: var(--onnx);
+  background-image: linear-gradient(to right, var(--onnx-09) 0%,  var(--onnx) 100%);
+}
+
+.types label.onnx.true.extra:hover svg .logo_onnx_1 {
+  fill: var(--onnx);
+}
+
+.config .types label.tflite.false.extra:hover {
+  border: 1px solid var(--tflite) !important;
+  background-image: none;
+  background-color: var(--tflite-005);
+  color: var(--tflite);
+}
+
+.types label.tflite.false.extra:hover svg .logo_tflite_1 {
+  fill: var(--tflite);
+}
+
+.config .types label.tflite:hover  {
+  background-image: none;
+  background-color: var(--tflite-005);
+  color: var(--tflite);
+  border: 1px solid var(--tflite);
+}
+
+.types label:hover svg .logo_tflite {
+  fill: var(--tflite);
+}
+
+.config label.true.tflite {
+  background-color: var(--tflite);
+  background-image: linear-gradient(to right, var(--tflite-09) 0%,  var(--tflite) 100%);
+}
+
+.types label.tflite.true.extra:hover svg .logo_tflite, .types label.tflite:hover svg#logo_tflite path {
+  fill: var(--tflite) !important;
+}
+
+.config .types label.npy.false.extra:hover {
+  border: 1px solid var(--npy) !important;
+  background-image: none;
+  background-color: var(--npy-005);
+  color: var(--npy);
+}
+
+.types label.npy.false.extra:hover svg .logo_npy_1 {
+  fill: var(--npy);
+}
+
+.config .types label.npy:hover  {
+  background-image: none;
+  background-color: var(--npy-005);
+  color: var(--npy);
+  border: 1px solid var(--npy);
+}
+
+.types label:hover svg .logo_npy {
+  fill: var(--npy);
+}
+
+.config label.true.npy {
+  background-color: var(--npy);
+  background-image: linear-gradient(to right, var(--npy-09) 0%,  var(--npy) 100%);
+}
+
+.types label.npy.true.extra:hover svg .logo_npy, .types label.npy:hover svg#logo_npy path {
+  fill: var(--npy) !important;
+}
+
+.types label.true:hover svg#logo_npy .npy-1, .types label.false:hover svg#logo_npy .npy-1 {
+  fill: var(--npy-2) !important;
+}
+
+.config .types label.pt.false.extra:hover {
+  border: 1px solid var(--pt) !important;
+  background-image: none;
+  background-color: var(--pt-005);
+  color: var(--pt);
+}
+
+.types label.pt.false.extra:hover svg .logo_pt_1 {
+  fill: var(--pt);
+}
+
+.config .types label.pt:hover  {
+  background-image: none;
+  background-color: var(--pt-005);
+  color: var(--pt);
+  border: 1px solid var(--pt);
+}
+
+.types label:hover svg .logo_pt {
+  fill: var(--pt);
+}
+
+.config label.true.pt {
+  background-color: var(--pt);
+  background-image: linear-gradient(to right, var(--pt-09) 0%,  var(--pt) 100%);
+}
+
+.types label.pt.true.extra:hover svg .logo_pt, .types label.pt:hover svg#logo_pt path {
+  fill: var(--pt) !important;
+}
+
+.types label.pt.true svg#logo_pt g {
+  fill: var(--white) !important;
+}
+
 .config .backends .group label.false:hover {
   padding: 0px 6px 0px 6px;
 }
@@ -207,6 +339,52 @@ header .nav {
   border: 0px solid var(--red);
 }
 
+.group.cpu:hover span, .group.gpu:hover span, .group.npu:hover span {
+  border-width: 0px;
+}
+
+.group.cpu:hover {
+  border: 1px solid var(--b1);
+}
+
+.config .backends .group.cpu label:hover {
+  background-image: none;
+  background-color: var(--b1-005);
+  color: var(--b1);
+}
+
+.config .group.cpu label.true {
+  background-image: linear-gradient(to right, var(--b1-09) 0%, var(--b1) 100%);
+}
+
+.group.gpu:hover {
+  border: 1px solid var(--p2);
+}
+
+.config .backends .group.gpu label:hover {
+  background-image: none;
+  background-color: var(--p2-005);
+  color: var(--p2);
+}
+
+.config .group.gpu label.true {
+  background-image: linear-gradient(to right, var(--p2-09) 0%, var(--p2) 100%);
+}
+
+.group.npu:hover {
+  border: 1px solid var(--purple);
+}
+
+.config .backends .group.npu label:hover {
+  background-image: none;
+  background-color: var(--purple-005);
+  color: var(--purple);
+}
+
+.config .group.npu label.true {
+  background-image: linear-gradient(to right, var(--purple-09) 0%, var(--purple) 100%);
+}
+
 .config input[type=checkbox] {
   display: none;
 }
@@ -219,8 +397,6 @@ header .nav {
   display: inline-block;
   height: 14px;
 }
-
-
 
 .tqtitle, .rqtitle {
   text-align: center;
@@ -288,7 +464,7 @@ header .nav {
 }
 
 .result .backend.gpu:hover {
-  background-color: var(--pink);
+  background-color: var(--p2);
   color: var(--white);
 }
 
@@ -300,7 +476,7 @@ header .nav {
 .result .backend.gpu {
   padding: 2px 0;
   width: 100%;
-  background-color: var(--pink-005);
+  background-color: var(--p2-005);
   margin-left: 1px;
   border-left: 1px solid var(--white);
 }
@@ -756,6 +932,9 @@ padding: 2px 4px 2px 4px;
   grid-template-columns: repeat(12, 1fr);
 }
 
+.config label.true.extra.fp32:hover {
+  border: 1px solid var(--red) !important;
+}
 
 .config label.false.extra.int64:hover
 {  
@@ -851,13 +1030,65 @@ padding: 2px 4px 2px 4px;
   background-image: linear-gradient(to right, var(--p-09) 0%,  var(--p) 100%) !important;
 }
 
+#modeldesc {
+  background-color: rgba(32, 50, 68, 1.0); 
+  color: rgba(255, 255, 255, 0.6);
+}
+
+#modeldesc:hover {
+  background-color: rgba(20, 38, 56, 1.0);
+  color: rgba(255, 255, 255, 1);
+}
+
 .modeldes {
   display: inline-block;
-  padding: 1px 10px 1px 10px;
-  border-radius: 9999px;
-  color: var(--red);
-  border: 1px solid var(--red);
+  padding: 0px 10px 0px 10px;
   margin: 4px 4px;
+  border-radius: 999px;
+}
+
+#modeldesc div {
+  padding: 0 4px;
+}
+
+#modeldesc.fp32 .modeldes {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+#modeldesc.fp32 .modeldes:hover {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+#modeldesc.fp16 .modeldes {
+  background-color: var(--pink);
+  color: var(--white);
+}
+
+#modeldesc.fp16 .modeldes:hover {
+  background-color: var(--pink);
+  color: var(--white);
+}
+
+#modeldesc.int64 .modeldes {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+#modeldesc.int64 .modeldes:hover {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+#modeldesc.int8 .modeldes {
+  background-color: var(--p);
+  color: var(--white);
+}
+
+#modeldesc.int8 .modeldes:hover {
+  background-color: var(--p);
+  color: var(--white);
 }
 
 @media (max-width: 1024px) { 
@@ -973,13 +1204,8 @@ padding: 2px 4px 2px 4px;
 
 @media (max-width: 512px) { 
   #layout {
-    width: auto;
+    width: 98%;
     padding: 0;
-  }
-
-  .config, #result, .q.copy, .inferlog {
-    margin-left: 4px;
-    margin-right: 4px;
   }
 
   .hide {

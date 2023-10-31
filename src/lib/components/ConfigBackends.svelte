@@ -168,7 +168,7 @@
 </div>
 <div class="backends">
 	<div
-		class="group {backends.wasm_1 ||
+		class="cpu group {backends.wasm_1 ||
 			backends.wasm_4 ||
 			backends.webnn_cpu_1 ||
 			backends.webnn_cpu_4}"
@@ -201,7 +201,7 @@
 			</label>
 		</div>
 	</div>
-	<div class="group {backends.webgl || backends.webgpu || backends.webnn_gpu}">
+	<div class="gpu group {backends.webgl || backends.webgpu || backends.webnn_gpu}">
 		<span>GPU</span>
 		<div class="block">
 			<label class={backends.webgl.toString()} title="WebGL">
@@ -219,7 +219,7 @@
 		</div>
 	</div>
 
-	<div class="group {backends.webnn_npu}">
+	<div class="npu group {backends.webnn_npu}">
 		<span>NPU</span>
 		<div class="block">
 			<label id="webnn_npu" class={backends.webnn_npu.toString()} title="WebNN NPU">

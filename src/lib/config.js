@@ -57,49 +57,53 @@ export let models = [
     category: 'Image Classification',
     id: 'efficientnet_lite',
     name: 'EfficientNet Lite 4',
-    description: '[1, 224, 224, 3] / A convolutional neural network architecture and scaling method',
+    description: 'A convolutional neural network architecture and scaling method',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/efficientnet-lite4/model/efficientnet-lite4-11.onnx',
     model: 'efficientnet-lite4-11.onnx',
     size: '49.5 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'images:0': ['float32', 'random', [1, 224, 224, 3], {}] }]
+    inputs: [{ 'images:0': ['float32', 'random', [1, 224, 224, 3], {}] }],
+    inputstip: '[1, 224, 224, 3] '
   },
   {
     category: 'Image Classification',
     id: 'mobilenet_v2',
     name: 'MobileNet v2_10',
-    description: '[1, 3, 224, 224] / A computer vision model designed for training classifiers',
+    description: 'A computer vision model designed for training classifiers',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
     model: 'mobilenetv2-10.onnx',
     size: '13.3 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }]
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+    inputstip: '[1, 3, 224, 224]'
   },
   {
     category: 'Image Classification',
     id: 'mobilenet_v2_12',
     name: 'MobileNet v2_12',
-    description: '[1, 3, 224, 224] / A computer vision model designed for training classifiers',
+    description: 'A computer vision model designed for training classifiers',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-12.onnx',
     model: 'mobilenetv2-12.onnx',
     size: '13.3 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }]
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+    inputstip: '[1, 3, 224, 224]'
   },
   {
     category: 'Image Classification',
     id: 'mobilenet_v2_12_int8',
     name: 'MobileNet v2_12',
-    description: '[1, 3, 224, 224] / A computer vision model designed for training classifiers',
+    description: 'A computer vision model designed for training classifiers',
     source: 'https://github.com/onnx/models/tree/main/vision/classification/mobilenet',
     model: 'mobilenetv2-12-int8.onnx',
     size: '13.3 MB',
     format: 'onnx',
     datatype: 'int8',
-    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }]
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+    inputstip: '[1, 3, 224, 224]'
   },
   // {
   //   category: 'Image Classification',
@@ -131,61 +135,66 @@ export let models = [
     category: 'Image Classification',
     id: 'resnet50_v1',
     name: 'ResNet50 v1',
-    description: '[1, 3, 224, 224] / A convolutional neural network that is 50 layers deep',
+    description: 'A convolutional neural network that is 50 layers deep',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v1-12.onnx',
     model: 'resnet50-v1-12.onnx',
     size: '97.8 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], { "N": 1 }] }]
+    inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], { "N": 1 }] }],
+    inputstip: '[1, 3, 224, 224]'
   },
   {
     category: 'Image Classification',
     id: 'resnet50_v2',
     name: 'ResNet50 v2',
-    description: '[1, 3, 224, 224] / A convolutional neural network that is 50 layers deep',
+    description: 'A convolutional neural network that is 50 layers deep',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v2-7.onnx',
     model: 'resnet50-v2-7.onnx',
     size: '97.7 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], { "N": 1 }] }]
+    inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], { "N": 1 }] }],
+    inputstip: '[1, 3, 224, 224]'
   },
   {
     category: 'Image Classification',
     id: 'squeezenet',
     name: 'SqueezeNet 1.1',
-    description: '[1, 3, 224, 224] / A deep convolutional neural network (CNN) perform image classification',
+    description: 'A deep convolutional neural network (CNN) perform image classification',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/squeezenet/model/squeezenet1.1-7.onnx',
     model: 'squeezenet1.1-7.onnx',
     size: '4.72 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], {}] }]
+    inputs: [{ 'data': ['float32', 'random', [1, 3, 224, 224], {}] }],
+    inputstip: '[1, 3, 224, 224]'
   },
   {
     category: 'Image Classification',
     id: 'densenet',
     name: 'DenseNet 121',
-    description: '[1, 3, 224, 224] / A type of convolutional neural network that utilises dense connections between layers',
+    description: 'A type of convolutional neural network that utilises dense connections between layers',
     source: 'https://github.com/onnx/models/blob/main/vision/classification/densenet-121/model/densenet-9.onnx',
     model: 'densenet-9.onnx',
     size: '31.2 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'data_0': ['float32', 'random', [1, 3, 224, 224], {}] }]
+    inputs: [{ 'data_0': ['float32', 'random', [1, 3, 224, 224], {}] }],
+    inputstip: '[1, 3, 224, 224]'
   },
   {
     category: 'Semantic Segmentation',
     id: 'deeplab_v3',
     name: 'DeepLab v3',
-    description: '[1, 513, 513, 3] / A series of deep learning architectures designed to tackle the problem of semantic segmentation',
+    description: 'A series of deep learning architectures designed to tackle the problem of semantic segmentation',
     source: 'ftlite converted',
     model: 'deeplab-mobilenetv2.onnx',
     size: '8.46 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'sub_7': ['float32', 'random', [1, 513, 513, 3], {}] }]
+    inputs: [{ 'sub_7': ['float32', 'random', [1, 513, 513, 3], {}] }],
+    inputstip: '[1, 513, 513, 3]'
   },
   {
     category: 'Face Analysis',
@@ -197,7 +206,8 @@ export let models = [
     size: '35 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'Input3': ['float32', 'random', [1, 1, 64, 64], {}] }]
+    inputs: [{ 'Input3': ['float32', 'random', [1, 1, 64, 64], {}] }],
+    inputstip: '[1, 1, 64, 64]'
   },
   {
     category: 'Style Transfer',
@@ -209,7 +219,8 @@ export let models = [
     size: '1.63 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'inputImage': ['float32', 'random', [1, 3, 720, 720], { 'None': 1 }] }]
+    inputs: [{ 'inputImage': ['float32', 'random', [1, 3, 720, 720], { 'None': 1 }] }],
+    inputstip: '[1, 3, 720, 720]'
   },
   {
     category: 'Object Detection',
@@ -221,7 +232,8 @@ export let models = [
     size: '60.5 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'image': ['float32', 'random', [1, 3, 416, 416], { "None": 1 }] }]
+    inputs: [{ 'image': ['float32', 'random', [1, 3, 416, 416], { "None": 1 }] }],
+    inputstip: '[1, 3, 416, 416]'
   },
   {
     category: 'Text Generation',
@@ -235,32 +247,35 @@ export let models = [
     datatype: 'int64',
     inputs: [{
       'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }]
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }],
+      inputstip: '[1, 8] [1, 8]'
     }]
   },
   {
     category: 'Semantic Segmentation',
     id: 'selfie_segmentation_general',
-    name: 'Selfie Segmentation G',
-    description: '[1, 256, 256, 3] / Selfie Segmentation General: Easily separate the background from users within a scene and focus on what matters',
+    name: 'Selfie Segmentation General',
+    description: '[1, 256, 256, 3] / Easily separate the background from users within a scene and focus on what matters',
     source: 'https://github.com/PINTO0309/PINTO_model_zoo/tree/main/109_Selfie_Segmentation',
     model: 'selfie-segmentation-general.onnx',
     size: '437 KB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'input_1:0': ['float32', 'random', [1, 256, 256, 3], {}] }]
+    inputs: [{ 'input_1:0': ['float32', 'random', [1, 256, 256, 3], {}] }],
+    inputstip: '[1, 256, 256, 3]'
   },
   {
     category: 'Semantic Segmentation',
     id: 'selfie_segmentation_landscape',
-    name: 'Selfie Segmentation L',
-    description: '[1, 144, 256, 3] / Selfie Segmentation Landscape: Easily separate the background from users within a scene and focus on what matters',
+    name: 'Selfie Segmentation Landscape',
+    description: '[1, 144, 256, 3] / Easily separate the background from users within a scene and focus on what matters',
     source: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite https://github.com/keijiro/SelfieBarracuda',
     model: 'selfie-segmentation-landscape.onnx',
     size: '435 KB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'input_1:0': ['float32', 'random', [1, 144, 256, 3], {}] }]
+    inputs: [{ 'input_1:0': ['float32', 'random', [1, 144, 256, 3], {}] }],
+    inputstip: '[1, 144, 256, 3]'
   },
   // {
   //   category: 'Semantic Segmentation',
@@ -288,7 +303,8 @@ export let models = [
     { 'point_coords': ['float32', 'random', [1, 2, 2], {}] },
     { 'point_labels': ['float32', 'random', [1, 2], {}] },
     { 'mask_input': ['float32', 'random', [1, 1, 256, 256], {}] },
-    { 'has_mask_input': ['float32', 'random', [1], {}] }]
+    { 'has_mask_input': ['float32', 'random', [1], {}] }],
+    inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1]'
   },
   {
     category: 'Semantic Segmentation',
@@ -304,7 +320,8 @@ export let models = [
     { 'point_coords': ['float16', 'random', [1, 2, 2], {}] },
     { 'point_labels': ['float16', 'random', [1, 2], {}] },
     { 'mask_input': ['float16', 'random', [1, 1, 256, 256], {}] },
-    { 'has_mask_input': ['float16', 'random', [1], {}] }]
+    { 'has_mask_input': ['float16', 'random', [1], {}] }],
+    inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1]'
   },
   {
     category: 'Text To Image',
@@ -318,7 +335,8 @@ export let models = [
     datatype: 'fp32',
     inputs: [{
       'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "vaedec_sample_batch": 1 }]
-    }]
+    }],
+    inputstip: '[1, 4, 64, 64]'
   },
   {
     category: 'Text To Image',
@@ -332,7 +350,8 @@ export let models = [
     datatype: 'fp32',
     inputs: [{
       'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "vaedec_sample_batch": 1 }]
-    }]
+    }],
+    inputstip: '[1, 4, 64, 64]'
   },
   {
     category: 'Text-To-Text Translation',
@@ -344,7 +363,8 @@ export let models = [
     size: '134 MB',
     format: 'onnx',
     datatype: 'int64',
-    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] }, { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] }]
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] }, { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] }],
+    inputstip: '[1, 128] [1, 128]'
   },
   {
     category: 'Text-To-Text Translation',
@@ -357,7 +377,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] },
-    { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] }]
+    { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] }],
+    inputstip: '[1, 128] [1, 128]'
   },
   {
     category: 'Text-To-Text Translation',
@@ -371,7 +392,8 @@ export let models = [
     datatype: 'fp32',
     inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] },
     { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] },
-    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1 }] }]
+    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1 }] }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   },
   {
     category: 'Text-To-Text Translation',
@@ -385,7 +407,8 @@ export let models = [
     datatype: 'int8',
     inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] },
     { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] },
-    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1 }] }]
+    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1 }] }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   },
   {
     category: 'Speech Recognition',
@@ -399,7 +422,8 @@ export let models = [
     datatype: 'fp32',
     inputs: [{
       'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1 }]
-    }]
+    }],
+    inputstip: '[1, 80, 3000]'
   },
   {
     category: 'Speech Recognition',
@@ -414,7 +438,8 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
       'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1 }]
-    }]
+    }],
+    inputstip: '[1, 1] [1, 1500, 384]'
   },
   {
     category: 'Speech Recognition',
@@ -428,7 +453,8 @@ export let models = [
     datatype: 'int8',
     inputs: [{
       'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1 }]
-    }]
+    }],
+    inputstip: '[1, 80, 3000]'
   },
   {
     category: 'Speech Recognition',
@@ -443,7 +469,8 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
       'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1 }]
-    }]
+    }],
+    inputstip: '[1, 1] [1, 1500, 384]'
   },
   {
     category: 'Multilingual Translation',
@@ -459,7 +486,8 @@ export let models = [
       'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }],
       'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }],
       'encoder_hidden_states': ['float32', 1, [1, 128, 1024], { "batch_size": 1 }]
-    }]
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 1024]'
   },
   {
     category: 'Multilingual Translation',
@@ -474,7 +502,8 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }],
       'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }],
-    }]
+    }],
+    inputstip: '[1, 128] [1, 128]'
   },
   {
     category: 'Masked Language Modeling (MLM)',
@@ -490,7 +519,8 @@ export let models = [
       'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
       'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }],
       'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
-    }]
+    }],
+    inputstip: '[1, 1] [1, 1] [1, 1]'
   },
 
   {
@@ -507,7 +537,8 @@ export let models = [
       'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
       'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }],
       'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
-    }]
+    }],
+    inputstip: '[1, 1] [1, 1] [1, 1]'
   },
   {
     category: 'Text Classification',
@@ -523,7 +554,8 @@ export let models = [
       'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
       'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }],
       'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
-    }]
+    }],
+    inputstip: '[1, 1] [1, 1] [1, 1]'
   },
   {
     category: 'Question Answering',
@@ -538,7 +570,8 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
       'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }]
-    }]
+    }],
+    inputstip: '[1, 1] [1, 1]'
   },
   {
     category: 'Zero-Shot Classification',
@@ -553,7 +586,8 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
       'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }]
-    }]
+    }],
+    inputstip: '[1, 1] [1, 1]'
   },
   {
     category: 'Text Generation',
@@ -568,7 +602,8 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1 }],
       'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1 }],
-    }]
+    }],
+    inputstip: '[1, 16] [1, 16]'
   },
 ];
 
