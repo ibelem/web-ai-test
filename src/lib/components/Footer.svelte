@@ -27,6 +27,7 @@
 	{:else}
 		{siteTitle}
 	{/if}
+	<span class="alpha">alpha</span>
 	<div class="badge">
 		<span class="title {webnn}">WebNN</span><span class="status {webnn}"
 			><a
@@ -42,6 +43,17 @@
 	footer {
 		margin: 0 10px 20px 10px;
 		text-align: center;
+	}
+
+	footer .alpha {
+		position: relative;
+		top: -1px;
+		right: 0px;
+		font-size: 0.6rem;
+		background-color: var(--red);
+		color: var(--white);
+		padding: 1px 6px;
+		border-radius: 999px;
 	}
 	.copyright {
 		font-family: 'Intel One Mono';
@@ -96,6 +108,11 @@
 	@media (max-width: 512px) {
 		footer {
 			margin: 0 10px 30px 10px;
+		}
+
+		.badge {
+			display: block;
+			margin: 10px 0 0 0;
 		}
 	}
 </style>

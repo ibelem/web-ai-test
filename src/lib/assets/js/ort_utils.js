@@ -365,14 +365,14 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
 }
 
 export const runOnnx = async (_id, _model, _modelType, _dataType, _backend) => {
-  // await main(_id, _model, _modelType, _dataType, _backend);
+  await main(_id, _model, _modelType, _dataType, _backend);
 
-  const [err, data] = await to(main(_id, _model, _modelType, _dataType, _backend));
-  if (err) {
-    addResult(_model, _modelType, _dataType, _backend, 4, 0, [], 0, err.message);
-    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-    updateInfo(err.message);
-  } else {
-    // use data 
-  }
+  // const [err, data] = await to(main(_id, _model, _modelType, _dataType, _backend));
+  // if (err) {
+  //   addResult(_model, _modelType, _dataType, _backend, 4, 0, [], 0, err.message);
+  //   updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+  //   updateInfo(err.message);
+  // } else {
+  //   // use data 
+  // }
 }

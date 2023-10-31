@@ -584,6 +584,39 @@ export let models = [
     inputstip: '[1, 1] [1, 1] [1, 1]'
   },
   {
+    category: 'Text Summarization',
+    id: 'distilbart_cnn_6_6_encoder_int8',
+    name: 'Distilbart CNN 6-6 Encoder',
+    description: 'A text summarization model built upon a Transformer model',
+    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
+    model: 'transformer.js/distilbart-cnn-6-6/encoder_model_quantized.onnx',
+    size: '122MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1 }]
+    }],
+    inputstip: '[1, 168] [1, 168]'
+  },
+  {
+    category: 'Text Summarization',
+    id: 'distilbart_cnn_6_6_decoder_int8',
+    name: 'Distilbart CNN 6-6 Decoder',
+    description: 'A text summarization model built upon a Transformer model',
+    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
+    model: 'transformer.js/distilbart-cnn-6-6/decoder_model_quantized.onnx',
+    size: '147MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1 }],
+      'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1 }]
+    }],
+    inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
+  },
+  {
     category: 'Question Answering',
     id: 'distilbert_base_cased_distilled_squad_int8',
     name: 'DistilBERT Base Cased',
