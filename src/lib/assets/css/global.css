@@ -431,11 +431,11 @@ header .nav {
 }
 
 .webgl span {
-  background-color: var(--pink-01);
+  background-color: var(--p2-01);
 }
 
 .webgpu span {
-  background-color: var(--pink-01);
+  background-color: var(--p2-01);
 }
 
 .webnn_cpu_1 span, .webnn_cpu_4 span {
@@ -443,7 +443,7 @@ header .nav {
 }
 
 .webnn_gpu span {
-  background-color: var(--pink-01);
+  background-color: var(--p2-01);
 }
 
 .webnn_npu span {
