@@ -29,6 +29,7 @@ export const ortDists = {
 
 export const modelHosts = {
   hf: 'https://huggingface.co/webml/models/resolve/main/',
+  hfmirror: 'https://hf-mirror.com/webml/models/resolve/main/',
   cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/',
   local: 'models/'
 }
@@ -380,7 +381,7 @@ export let models = [
     inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], {}] },
     { 'pixel_mask': ['int64', 1n, [1, 64, 64], {}] },
     ],
-    inputstip: '[1, 3, 224, 224]'
+    inputstip: '[1, 3, 224, 224] [1, 64, 64]'
   },
   {
     category: 'Text Summarization',

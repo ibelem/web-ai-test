@@ -303,7 +303,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Downloading model from ${modelPath}`);
 
-  let modelBuffer = await getModelOPFS(_model, modelPath, false);
+  let modelBuffer = await getModelOPFS(_model, modelPath, true);
   if (modelBuffer.byteLength < 1024) {
     modelBuffer = await getModelOPFS(_model, modelPath, true);
   }
