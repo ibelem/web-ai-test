@@ -225,7 +225,6 @@ export const getLocalUrlById = (id) => {
 
 export const setModelDownloadUrl = async () => {
   let hf = getHfUrlById('model_access_check');
-  let hfmirror = getHfMirrorUrlById('model_access_check');
   let cf = getAwsUrlById('model_access_check');
   // let local = getLocalUrlById('model_access_check');
 
@@ -233,21 +232,30 @@ export const setModelDownloadUrl = async () => {
   if (isCors) {
     let [err, response] = await to(fetch(hf));
     if (err) {
-      modelDownloadUrlStore.update(() => 2);
+      modelDownloadUrlStore.update(() => 3);
       updateInfo(`Failed to fetch AI models from huggingface.co`);
-      let [err2, response2] = await to(fetch(hfmirror));
+      let [err2, response2] = await to(fetch(cf));
       if (err2) {
-        modelDownloadUrlStore.update(() => 3);
-        updateInfo(`Failed to fetch AI models from mirror of huggingface.co`);
-        let [err3, response3] = await to(fetch(cf));
-        if (err3) {
-          updateInfo(`Failed to fetch AI models from Amazon Web Services (AWS)`);
-        } else {
-          updateInfo(`AI models will be fetched from Amazon Web Services (AWS)`);
-        }
+        updateInfo(`Failed to fetch AI models from Amazon Web Services (AWS)`);
       } else {
-        updateInfo(`AI models will be fetched from mirror of huggingface.co`);
+        updateInfo(`AI models will be fetched from Amazon Web Services (AWS)`);
       }
+
+      // modelDownloadUrlStore.update(() => 2);
+      // updateInfo(`Failed to fetch AI models from huggingface.co`);
+      // let [err2, response2] = await to(fetch(hfmirror));
+      // if (err2) {
+      //   modelDownloadUrlStore.update(() => 3);
+      //   updateInfo(`Failed to fetch AI models from mirror of huggingface.co`);
+      //   let [err3, response3] = await to(fetch(cf));
+      //   if (err3) {
+      //     updateInfo(`Failed to fetch AI models from Amazon Web Services (AWS)`);
+      //   } else {
+      //     updateInfo(`AI models will be fetched from Amazon Web Services (AWS)`);
+      //   }
+      // } else {
+      //   updateInfo(`AI models will be fetched from mirror of huggingface.co`);
+      // }
     } else {
       modelDownloadUrlStore.update(() => 1);
       updateInfo(`AI models will be fetched from huggingface.co`);
