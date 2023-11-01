@@ -1040,6 +1040,24 @@ padding: 2px 4px 2px 4px;
   color: rgba(255, 255, 255, 1);
 }
 
+.result .btn {
+  border: 0px;
+  background: transparent;
+  margin-left: -10px;
+}
+
+.result .btn:hover {
+  cursor: pointer;
+}
+
+.result .btn svg {
+  margin-bottom: -4px;  
+}
+
+.result .true.btn svg {
+  transform: rotate(180deg);
+}
+
 .modeldes {
   display: inline-block;
   padding: 0px 10px 0px 10px;

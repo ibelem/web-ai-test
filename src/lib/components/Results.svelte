@@ -27,6 +27,7 @@
 	import Npy from './svg/Npy.svelte';
 	import Pt from './svg/Pt.svelte';
 	import Screenshot from './svg/Screenshot.svelte';
+	import Sort from './svg/Sort.svelte';
 
 	/**
 	 * @type {string[]}
@@ -91,6 +92,57 @@
 			return 0;
 		}
 	};
+
+	let ascendingOrder = true;
+
+	$: sortResult = (/** @type {string} */ value) => {
+		ascendingOrder = !ascendingOrder; // Toggle the sorting order
+		results = results.sort((a, b) => {
+			let modelA, modelB;
+			if (value === 'id') {
+				modelA = a.model.toLowerCase();
+				modelB = b.model.toLowerCase();
+			} else if (value === 'datatype') {
+				modelA = a.datatype.toLowerCase();
+				modelB = b.datatype.toLowerCase();
+			} else if (value === 'modeltype') {
+				modelA = a.modeltype.toLowerCase();
+				modelB = b.modeltype.toLowerCase();
+			} else if (value === 'wasm_1') {
+				modelA = a.wasm_1.inferencemedian;
+				modelB = b.wasm_1.inferencemedian;
+			} else if (value === 'wasm_4') {
+				modelA = a.wasm_4.inferencemedian;
+				modelB = b.wasm_4.inferencemedian;
+			} else if (value === 'webnn_cpu_1') {
+				modelA = a.webnn_cpu_1.inferencemedian;
+				modelB = b.webnn_cpu_1.inferencemedian;
+			} else if (value === 'webnn_cpu_4') {
+				modelA = a.webnn_cpu_4.inferencemedian;
+				modelB = b.webnn_cpu_4.inferencemedian;
+			} else if (value === 'webgl') {
+				modelA = a.webgl.inferencemedian;
+				modelB = b.webgl.inferencemedian;
+			} else if (value === 'webgpu') {
+				modelA = a.webgpu.inferencemedian;
+				modelB = b.webgpu.inferencemedian;
+			} else if (value === 'webnn_gpu') {
+				modelA = a.webnn_gpu.inferencemedian;
+				modelB = b.webnn_gpu.inferencemedian;
+			} else if (value === 'webnn_npu') {
+				modelA = a.webnn_npu.inferencemedian;
+				modelB = b.webnn_npu.inferencemedian;
+			}
+
+			if (modelA < modelB) {
+				return ascendingOrder ? -1 : 1; // Toggle the order
+			} else if (modelA > modelB) {
+				return ascendingOrder ? 1 : -1; // Toggle the order
+			} else {
+				return 0;
+			}
+		});
+	};
 </script>
 
 <Info />
@@ -101,35 +153,78 @@
 	</div>
 	<div class="result" id="result">
 		<div class="q title _{selectedBackends.length}">
-			<div class="m" title="Model Name">Model</div>
+			<div class="m" title="Model Name">
+				Model <button on:click={sortResult('id')} class="{ascendingOrder} btn"><Sort /></button>
+			</div>
 			<div class="ms" title="Model Size">Size</div>
-			<div class="mt" title="Model Type">Type</div>
-			<div class="dt" title="Operand Type">Operand</div>
+			<div class="mt" title="Model Type">
+				Type <button on:click={sortResult('modeltype')} class="{ascendingOrder} btn"
+					><Sort /></button
+				>
+			</div>
+			<div class="dt" title="Operand Type">
+				Operand <button on:click={sortResult('datatype')} class="{ascendingOrder} btn"
+					><Sort /></button
+				>
+			</div>
 			{#if results[0].wasm_1 && results[0].wasm_1.status !== 0}<div class="backend cpu">
-					<span title="WebAssembly SIMD with 1 Thread on CPU">Wasm 1T</span>
+					<span title="WebAssembly SIMD with 1 Thread on CPU"
+						>Wasm 1T <button on:click={sortResult('wasm_1')} class="{ascendingOrder} btn"
+							><Sort /></button
+						></span
+					>
 				</div>{/if}
 			{#if results[0].wasm_4 && results[0].wasm_4.status !== 0}<div class="backend cpu">
-					<span title="WebAssembly SIMD with 4 Threads on CPU">Wasm 4T</span>
+					<span title="WebAssembly SIMD with 4 Threads on CPU"
+						>Wasm 4T <button on:click={sortResult('wasm_4')} class="{ascendingOrder} btn"
+							><Sort /></button
+						></span
+					>
 				</div>{/if}
 			{#if results[0].webnn_cpu_1 && results[0].webnn_cpu_1.status !== 0}<div class="backend cpu">
-					<span title="WebNN CPU with 1 Thread on CPU"><span class="hide">Web</span>NN CPU 1T</span>
+					<span title="WebNN CPU with 1 Thread on CPU"
+						><span class="hide">Web</span>NN CPU 1T
+						<button on:click={sortResult('webnn_cpu_1')} class="{ascendingOrder} btn"
+							><Sort /></button
+						></span
+					>
 				</div>{/if}
 			{#if results[0].webnn_cpu_4 && results[0].webnn_cpu_4.status !== 0}<div class="backend cpu">
-					<span title="WebNN CPU with 4 Threads on CPU"><span class="hide">Web</span>NN CPU 4T</span
+					<span title="WebNN CPU with 4 Threads on CPU"
+						><span class="hide">Web</span>NN CPU 4T
+						<button on:click={sortResult('webnn_cpu_4')} class="{ascendingOrder} btn"
+							><Sort /></button
+						></span
 					>
 				</div>{/if}
 
 			{#if results[0].webgl && results[0].webgl.status !== 0}<div class="backend gpu">
-					<span title="WebGL on GPU">WebGL</span>
+					<span title="WebGL on GPU"
+						>WebGL <button on:click={sortResult('webgl')} class="{ascendingOrder} btn"
+							><Sort /></button
+						></span
+					>
 				</div>{/if}
 			{#if results[0].webgpu && results[0].webgpu.status !== 0}<div class="backend gpu">
-					<span title="WebGPU on GPU">WebGPU</span>
+					<span title="WebGPU on GPU"
+						>WebGPU <button on:click={sortResult('webgpu')} class="{ascendingOrder} btn"
+							><Sort /></button
+						></span
+					>
 				</div>{/if}
 			{#if results[0].webnn_gpu && results[0].webnn_gpu.status !== 0}<div class="backend gpu">
-					<span title="WebNN GPU on GPU"><span class="hide">Web</span>NN GPU</span>
+					<span title="WebNN GPU on GPU"
+						><span class="hide">Web</span>NN GPU
+						<button on:click={sortResult('webnn_gpu')} class="{ascendingOrder} btn"><Sort /></button
+						></span
+					>
 				</div>{/if}
 			{#if results[0].webnn_npu && results[0].webnn_npu.status !== 0}<div class="backend npu">
-					<span title="WebNN NPU on NPU"><span class="hide">Web</span>NN NPU</span>
+					<span title="WebNN NPU on NPU"
+						><span class="hide">Web</span>NN NPU
+						<button on:click={sortResult('webnn_npu')} class="{ascendingOrder} btn"><Sort /></button
+						></span
+					>
 				</div>{/if}
 		</div>
 
