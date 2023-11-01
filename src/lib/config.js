@@ -13,7 +13,7 @@ export let environment = {
   onnxruntimeweb: 1.16
 };
 
-export const localhost = '10.239.115.52:5173';
+export const localhost = 'int.sh.intel.com:5173';
 
 export const corsSites = [
   'ibelem.github.io',
