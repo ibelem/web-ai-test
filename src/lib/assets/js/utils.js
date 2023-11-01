@@ -196,6 +196,15 @@ export const getHfUrlById = (id) => {
   return null;
 };
 
+export const getHfMirrorUrlById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      return modelHosts.hfmirror + models[i].model;
+    }
+  }
+  return null;
+};
+
 export const getAwsUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
@@ -216,7 +225,8 @@ export const getLocalUrlById = (id) => {
 
 export const setModelDownloadUrl = async () => {
   let hf = getHfUrlById('model_access_check');
-  let cf = getAwsUrlById('model_access_check');
+  let cf = getHfMirrorUrlById('model_access_check');
+  // let cf = getAwsUrlById('model_access_check');
   // let local = getLocalUrlById('model_access_check');
 
   let isCors = corsSites.some((site) => location.hostname.toLowerCase().indexOf(site) > -1);
