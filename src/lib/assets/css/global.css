@@ -1048,7 +1048,7 @@ padding: 2px 4px 2px 4px;
 }
 
 #modeldesc div {
-  padding: 0 4px;
+  padding: 0 15px;
 }
 
 #modeldesc.fp32 .modeldes {
@@ -1089,6 +1089,29 @@ padding: 2px 4px 2px 4px;
 #modeldesc.int8 .modeldes:hover {
   background-color: var(--p);
   color: var(--white);
+}
+
+#modeldesc .note {
+  display: inline-block;
+  color: var(--white);
+  margin: 6px 4px 4px 4px;
+  padding: 0px 10px;
+  border-radius: 999px;
+}
+#modeldesc.fp32 .note {
+  background-color: var(--red);
+}
+
+#modeldesc.fp16 .note {
+  background-color: var(--pink);
+}
+
+#modeldesc.int64 .note {
+  background-color: var(--blue);
+}
+
+#modeldesc.int8 .note {
+  background-color: var(--p);
 }
 
 @media (max-width: 1024px) { 
@@ -1323,5 +1346,9 @@ padding: 2px 4px 2px 4px;
 
   .result .q._8 {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  #modeldesc .note {
+    border-radius: 0px;
   }
 }
