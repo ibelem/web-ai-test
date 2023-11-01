@@ -1,6 +1,6 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '../../config';
-import { updateTestQueueStatus, addResult, updateInfo, sleep, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById } from '../js/utils';
+import { updateTestQueueStatus, addResult, updateInfo, sleep, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { getModelOPFS } from '../js/nn_utils'
 import to from 'await-to-js';
@@ -161,6 +161,8 @@ const getModelUrl = (_model) => {
   if (modelDownloadUrl === 1) {
     modelPath = getHfUrlById(_model);
   } else if (modelDownloadUrl === 2) {
+    modelPath = getHfMirrorUrlById(_model);
+  } else if (modelDownloadUrl === 3) {
     modelPath = getAwsUrlById(_model);
   } else if (modelDownloadUrl === 0) {
     modelPath = getLocalUrlById(_model);
