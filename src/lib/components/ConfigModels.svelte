@@ -14,6 +14,7 @@
 		getModelSizeById,
 		getModelCategoryById,
 		getModelInputsById,
+		getModelNoteById,
 		goTo,
 		stringToArray,
 		getModelNameById
@@ -425,6 +426,9 @@
 			}
 			inner += `<span class="modeldes">${getModelSizeById(id)}</span>`;
 			inner += `<div>${getModelDescriptionById(id)}</div>`;
+			if (getModelNoteById(id)) {
+				inner += `<div class="note">${getModelNoteById(id)}</div>`;
+			}
 			modeldesc.innerHTML = inner;
 		}
 	};
