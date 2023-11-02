@@ -13,7 +13,8 @@ export const initResult = (newItem) => {
     const exists = items.some(item =>
       item.model === newItem.model &&
       item.modeltype === newItem.modeltype &&
-      item.datatype === newItem.datatype
+      item.datatype === newItem.datatype &&
+      item.modelsize === newItem.modelsize
     );
     if (!exists) {
       return [...items, newItem];
@@ -22,17 +23,18 @@ export const initResult = (newItem) => {
   });
 }
 
-export const addResult = (model, modeltype, datatype, backend, status, warmup, inference, inferencemedian, err) => {
+export const addResult = (model, modeltype, datatype, modelsize, backend, status, warmup, inference, inferencemedian, err) => {
   resultsStore.update(items => {
     return items.map(item => {
       if (
         item.model === model &&
         item.modeltype === modeltype &&
-        item.datatype === datatype
+        item.datatype === datatype &&
+        item.modelsize === modelsize
       ) {
         const updatedItem = { ...item };
         for (const key in updatedItem) {
-          if (key !== "id" && key !== "model" && key !== "modeltype" && key !== "datatype") {
+          if (key !== "id" && key !== "model" && key !== "modeltype" && key !== "datatype" && key !== "modelsize") {
             updatedItem[backend].status = status;
             updatedItem[backend].warmup = warmup;
             updatedItem[backend].inference = inference;
@@ -568,7 +570,8 @@ export const run = async () => {
       id: t0.id,
       model: t0.model,
       modeltype: t0.modeltype,
-      datatype: t0.datatype
+      datatype: t0.datatype,
+      modelsize: getModelSizeById(t0.model)
     };
     for (const prop of selectedBackends) {
       r[prop] = {
@@ -579,7 +582,7 @@ export const run = async () => {
     initResult(r);
 
     if (t0.modeltype === 'onnx') {
-      await runOnnx(t0.id, t0.model, t0.modeltype, t0.datatype, t0.backend);
+      await runOnnx(t0.id, t0.model, t0.modeltype, t0.datatype, getModelSizeById(t0.model), t0.backend);
     }
 
     filterTestQueue(t0.id);
