@@ -765,4 +765,18 @@
 	.cap {
 		text-transform: capitalize;
 	}
+
+	@media (max-width: 1120px) {
+		.ort .wasm,
+		.ort .webgpu,
+		.ort .webnn {
+			margin-bottom: 8px;
+		}
+	}
+
+	@media (max-width: 500px) {
+		.ort .wasm {
+			margin-top: 6px;
+		}
+	}
 </style>

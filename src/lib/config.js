@@ -532,9 +532,43 @@ export let models = [
   },
   {
     category: 'Text To Image',
+    id: 'sd_1_5_unet_fp16',
+    name: 'SD 1.5 UNet',
+    description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input',
+    note: 'Internal model, N/A for public testing',
+    source: 'N/A',
+    model: 'fp16/sd-unet-f16.onnx',
+    size: '1.60 GB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'sample': ['float16', 1, [1, 4, 64, 64], { "batch": 1 }],
+      'timestep': ['int64', 1n, [1], { "batch": 1 }],
+      'encoder_hidden_states': ['float16', 1, [1, 77, 768], { "batch": 1 }]
+    }],
+    inputstip: '[1, 4, 64, 64] [1] [1, 77, 768]'
+  },
+  {
+    category: 'Text To Image',
+    id: 'sd_1_5_vae_decoder_fp16',
+    name: 'SD 1.5 VAE Decoder',
+    description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input',
+    note: 'Internal model, N/A for public testing',
+    source: 'N/A',
+    model: 'fp16/sd-vae-decoder-f16.onnx',
+    size: '94.5 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'latent_sample': ['float16', 'random', [1, 4, 64, 64], { "batch": 1 }]
+    }],
+    inputstip: '[1, 4, 64, 64]'
+  },
+  {
+    category: 'Text To Image',
     id: 'sd_2_1_vae_decoder',
     name: 'SD 2.1 VAE Decoder',
-    description: 'Stable Diffusion 2.1 (text-to-image diffusion model)',
+    description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input',
     note: '',
     source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
     model: 'sd-2.1-vae-decoder.onnx',
@@ -550,7 +584,7 @@ export let models = [
     category: 'Text To Image',
     id: 'sd_2_1_vae_encoder',
     name: 'SD 2.1 VAE Encoder',
-    description: 'Stable Diffusion 2.1 (text-to-image diffusion model)',
+    description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input',
     note: '',
     source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
     model: 'sd-2.1-vae-encoder.onnx',
