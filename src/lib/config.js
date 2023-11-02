@@ -13,7 +13,8 @@ export let environment = {
   onnxruntimeweb: 1.16
 };
 
-export const localhost = 'int.sh.intel.com:5173';
+// export const localhost = 'int.sh.intel.com:5173';
+export const localhost = 'http://10.239.115.52:5173/';
 
 export const corsSites = [
   'ibelem.github.io',
@@ -76,7 +77,7 @@ export let models = [
     note: '',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/efficientnet-lite4/model/efficientnet-lite4-11.onnx',
     model: 'efficientnet-lite4-11.onnx',
-    size: '49.5 MB',
+    size: '49.54 MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'images:0': ['float32', 'random', [1, 224, 224, 3], {}] }],
@@ -90,7 +91,7 @@ export let models = [
     note: '',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
     model: 'mobilenetv2-10.onnx',
-    size: '13.3 MB',
+    size: '13.32 MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
@@ -104,7 +105,7 @@ export let models = [
     note: '',
     source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-12.onnx',
     model: 'mobilenetv2-12.onnx',
-    size: '13.3 MB',
+    size: '13.32 MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
@@ -202,7 +203,7 @@ export let models = [
     note: '',
     source: 'ftlite converted',
     model: 'deeplab-mobilenetv2.onnx',
-    size: '8.46 MB',
+    size: '8.07 MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'sub_7': ['float32', 'random', [1, 513, 513, 3], {}] }],
@@ -244,7 +245,7 @@ export let models = [
     note: '',
     source: 'https://github.com/onnx/models/raw/main/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx',
     model: 'emotion-ferplus-8.onnx',
-    size: '35 MB',
+    size: '33.42 MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'Input3': ['float32', 'random', [1, 1, 64, 64], {}] }],
@@ -286,7 +287,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/bert-base-cased/tree/main/onnx',
     model: 'transformer.js/bert-base-cased/model_quantized.onnx',
-    size: '104MB',
+    size: '104 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -304,7 +305,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/bert-base-multilingual-cased-ner-hrl/tree/main/onnx',
     model: 'transformer.js/bert-base-multilingual-cased-ner-hrl/model_quantized.onnx',
-    size: '170MB',
+    size: '170 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -322,7 +323,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/bert-base-multilingual-uncased-sentiment/tree/main/onnx',
     model: 'transformer.js/bert-base-multilingual-uncased-sentiment/model_quantized.onnx',
-    size: '160MB',
+    size: '160.78 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -340,7 +341,7 @@ export let models = [
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models',
     source: 'https://huggingface.co/Xenova/codegen-350M-mono/tree/main/onnx',
     model: 'transformer.js/codegen-350m-mono/decoder_model_quantized.onnx',
-    size: '350MB',
+    size: '350 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -375,7 +376,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/detr-resnet-50/tree/main/onnx',
     model: 'transformer.js/detr-resnet-50/model_quantized.onnx',
-    size: '41.1 MB',
+    size: '41.11 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], {}] },
@@ -391,7 +392,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
     model: 'transformer.js/distilbart-cnn-6-6/encoder_model_quantized.onnx',
-    size: '122MB',
+    size: '122.85 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -408,7 +409,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
     model: 'transformer.js/distilbart-cnn-6-6/decoder_model_quantized.onnx',
-    size: '147MB',
+    size: '147 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -426,7 +427,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/distilbert-base-cased-distilled-squad/tree/main/onnx',
     model: 'transformer.js/distilbert-base-cased-distilled-squad/model_quantized.onnx',
-    size: '62.7MB',
+    size: '62.7 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -443,7 +444,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/distilbert-base-uncased-mnli/tree/main/onnx',
     model: 'transformer.js/distilbert-base-uncased-mnli/model_quantized.onnx',
-    size: '64.4MB',
+    size: '64.4 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -460,7 +461,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/distilgpt2/tree/main',
     model: 'transformer.js/distilgpt2/decoder_model_quantized.onnx',
-    size: '79.6MB',
+    size: '79.6 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -494,7 +495,7 @@ export let models = [
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models',
     source: 'https://huggingface.co/Xenova/m2m100_418M/tree/main/onnx',
     model: 'm2m100-decoder.onnx',
-    size: '1.24GB',
+    size: '1.24 GB',
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
@@ -512,7 +513,7 @@ export let models = [
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models',
     source: 'https://huggingface.co/Xenova/m2m100_418M/tree/main/onnx',
     model: 'm2m100-encoder.onnx',
-    size: '1.05GB',
+    size: '1.05 GB',
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
@@ -545,7 +546,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
     model: 'sd-2.1-vae-encoder.onnx',
-    size: '130 MB',
+    size: '130.42 MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
@@ -597,7 +598,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/t5-small/tree/main/onnx',
     model: 'transformer.js/t5-small/decoder_model.onnx',
-    size: '158 MB',
+    size: '158.95 MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] },
@@ -613,7 +614,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/t5-small/tree/main/onnx',
     model: 'transformer.js/t5-small/decoder_model_quantized.onnx',
-    size: '40.2 MB',
+    size: '40.20 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] },
@@ -643,7 +644,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/t5-small/tree/main/onnx',
     model: 'transformer.js/t5-small/encoder_model_quantized.onnx',
-    size: '33.9 MB',
+    size: '33.99 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] },
@@ -658,7 +659,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/vit-base-patch16-224/tree/main',
     model: 'transformer.js/vit-base-patch16-224/model_quantized.onnx',
-    size: '84.1 MB',
+    size: '84.17 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -674,7 +675,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning/tree/main/onnx',
     model: 'transformer.js/vit-gpt2-image-captioning/decoder_model_quantized.onnx',
-    size: '149 MB',
+    size: '149.04 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -691,7 +692,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning/tree/main/onnx',
     model: 'transformer.js/vit-gpt2-image-captioning/encoder_model_quantized.onnx',
-    size: '83.4 MB',
+    size: '83.40 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -724,7 +725,7 @@ export let models = [
     note: '',
     source: 'https://huggingface.co/Xenova/whisper-tiny.en/tree/main/onnx',
     model: 'transformer.js/whisper-tiny.en/decoder_model_quantized.onnx',
-    size: '29.0 MB',
+    size: '29.05 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{

@@ -4,11 +4,18 @@
 	import { onMount } from 'svelte';
 
 	const checkWebNN = async () => {
-		const context = await navigator.ml.createContext();
-		const builder = new MLGraphBuilder(context);
-
-		if (context && builder) {
-			webnn = true;
+		const context = await navigator.ml?.createContext();
+		if (context) {
+			try {
+				const builder = new MLGraphBuilder(context);
+				if (builder) {
+					webnn = true;
+				} else {
+					webnn = false;
+				}
+			} catch (ex) {
+				webnn = false;
+			}
 		} else {
 			webnn = false;
 		}

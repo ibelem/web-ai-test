@@ -1051,11 +1051,20 @@ padding: 2px 4px 2px 4px;
 }
 
 .result .btn svg {
-  margin-bottom: -4px;  
+  margin-bottom: -4px; 
+  animation: none !important; 
 }
 
-.result .true.btn svg {
-  transform: rotate(180deg);
+.result .btn svg path {
+  fill: var(--grey);
+}  
+
+.result .btn svg:hover path {
+  fill: var(--green);
+}
+
+.result .backend.cpu:hover path, .result .backend.gpu:hover path, .result .backend.npu:hover path {
+  fill: var(--white);
 }
 
 .modeldes {

@@ -7,7 +7,6 @@
 	} from '$lib/store/store';
 	import {
 		getModelNameById,
-		getModelSizeById,
 		getModelDescriptionById,
 		getModelHFUrlById,
 		copyResults,
@@ -27,7 +26,8 @@
 	import Npy from './svg/Npy.svelte';
 	import Pt from './svg/Pt.svelte';
 	import Screenshot from './svg/Screenshot.svelte';
-	import Sort from './svg/Sort.svelte';
+	import SortAscending from './svg/SortAscending.svelte';
+	import SortDescending from './svg/SortDescending.svelte';
 
 	/**
 	 * @type {string[]}
@@ -93,10 +93,46 @@
 		}
 	};
 
-	let ascendingOrder = true;
+	let sortId = true;
+	let sortDataType = true;
+	let sortModelType = true;
+	let sortModelSize = true;
+	let sortWasm1 = true;
+	let sortWasm4 = true;
+	let sortWebnnCpu1 = true;
+	let sortWebnnCpu4 = true;
+	let sortWebGl = true;
+	let sortWebGpu = true;
+	let sortWebnnGpu = true;
+	let sortWebnnNpu = true;
 
 	$: sortResult = (/** @type {string} */ value) => {
-		ascendingOrder = !ascendingOrder; // Toggle the sorting order
+		if (value === 'id') {
+			sortId = !sortId;
+		} else if (value === 'datatype') {
+			sortDataType = !sortDataType;
+		} else if (value === 'modeltype') {
+			sortModelType = !sortModelType;
+		} else if (value === 'modelsize') {
+			sortModelSize = !sortModelSize;
+		} else if (value === 'wasm_1') {
+			sortWasm1 = !sortWasm1;
+		} else if (value === 'wasm_4') {
+			sortWasm4 = !sortWasm4;
+		} else if (value === 'webnn_cpu_1') {
+			sortWebnnCpu1 = !sortWebnnCpu1;
+		} else if (value === 'webnn_cpu_4') {
+			sortWebnnCpu4 = !sortWebnnCpu4;
+		} else if (value === 'webgl') {
+			sortWebGl = !sortWebGl;
+		} else if (value === 'webgpu') {
+			sortWebGpu = !sortWebGpu;
+		} else if (value === 'webnn_gpu') {
+			sortWebnnGpu = !sortWebnnGpu;
+		} else if (value === 'webnn_npu') {
+			sortWebnnNpu = !sortWebnnNpu;
+		}
+
 		results = results.sort((a, b) => {
 			let modelA, modelB;
 			if (value === 'id') {
@@ -108,6 +144,9 @@
 			} else if (value === 'modeltype') {
 				modelA = a.modeltype.toLowerCase();
 				modelB = b.modeltype.toLowerCase();
+			} else if (value === 'modelsize') {
+				modelA = a.modelsize.toLowerCase();
+				modelB = b.modelsize.toLowerCase();
 			} else if (value === 'wasm_1') {
 				modelA = a.wasm_1.inferencemedian;
 				modelB = b.wasm_1.inferencemedian;
@@ -135,9 +174,57 @@
 			}
 
 			if (modelA < modelB) {
-				return ascendingOrder ? -1 : 1; // Toggle the order
+				if (value === 'id') {
+					return sortId ? -1 : 1;
+				} else if (value === 'datatype') {
+					return sortDataType ? -1 : 1;
+				} else if (value === 'modeltype') {
+					return sortModelType ? -1 : 1;
+				} else if (value === 'modelsize') {
+					return sortModelSize ? -1 : 1;
+				} else if (value === 'wasm_1') {
+					return sortWasm1 ? -1 : 1;
+				} else if (value === 'wasm_4') {
+					return sortWasm4 ? -1 : 1;
+				} else if (value === 'webnn_cpu_1') {
+					return sortWebnnCpu1 ? -1 : 1;
+				} else if (value === 'webnn_cpu_4') {
+					return sortWebnnCpu4 ? -1 : 1;
+				} else if (value === 'webgl') {
+					return sortWebGl ? -1 : 1;
+				} else if (value === 'webgpu') {
+					return sortWebGpu ? -1 : 1;
+				} else if (value === 'webnn_gpu') {
+					return sortWebnnGpu ? -1 : 1;
+				} else if (value === 'webnn_npu') {
+					return sortWebnnNpu ? -1 : 1;
+				}
 			} else if (modelA > modelB) {
-				return ascendingOrder ? 1 : -1; // Toggle the order
+				if (value === 'id') {
+					return sortId ? 1 : -1;
+				} else if (value === 'datatype') {
+					return sortDataType ? 1 : -1;
+				} else if (value === 'modeltype') {
+					return sortModelType ? 1 : -1;
+				} else if (value === 'modelsize') {
+					return sortModelSize ? 1 : -1;
+				} else if (value === 'wasm_1') {
+					return sortWasm1 ? 1 : -1;
+				} else if (value === 'wasm_4') {
+					return sortWasm4 ? 1 : -1;
+				} else if (value === 'webnn_cpu_1') {
+					return sortWebnnCpu1 ? 1 : -1;
+				} else if (value === 'webnn_cpu_4') {
+					return sortWebnnCpu4 ? 1 : -1;
+				} else if (value === 'webgl') {
+					return sortWebGl ? 1 : -1;
+				} else if (value === 'webgpu') {
+					return sortWebGpu ? 1 : -1;
+				} else if (value === 'webnn_gpu') {
+					return sortWebnnGpu ? 1 : -1;
+				} else if (value === 'webnn_npu') {
+					return sortWebnnNpu ? 1 : -1;
+				}
 			} else {
 				return 0;
 			}
@@ -154,75 +241,83 @@
 	<div class="result" id="result">
 		<div class="q title _{selectedBackends.length}">
 			<div class="m" title="Model Name">
-				Model <button on:click={sortResult('id')} class="{ascendingOrder} btn"><Sort /></button>
+				Model <button on:click={sortResult('id')} class="btn"
+					>{#if !sortId}<SortAscending />{:else}<SortDescending />{/if}</button
+				>
 			</div>
-			<div class="ms" title="Model Size">Size</div>
+			<div class="ms" title="Model Size">
+				Size <button on:click={sortResult('modelsize')} class="btn"
+					>{#if !sortModelSize}<SortAscending />{:else}<SortDescending />{/if}</button
+				>
+			</div>
 			<div class="mt" title="Model Type">
-				Type <button on:click={sortResult('modeltype')} class="{ascendingOrder} btn"
-					><Sort /></button
+				Type <button on:click={sortResult('modeltype')} class="btn"
+					>{#if !sortModelType}<SortAscending />{:else}<SortDescending />{/if}</button
 				>
 			</div>
 			<div class="dt" title="Operand Type">
-				Operand <button on:click={sortResult('datatype')} class="{ascendingOrder} btn"
-					><Sort /></button
+				Operand <button on:click={sortResult('datatype')} class="btn"
+					>{#if !sortDataType}<SortAscending />{:else}<SortDescending />{/if}</button
 				>
 			</div>
 			{#if results[0].wasm_1 && results[0].wasm_1.status !== 0}<div class="backend cpu">
 					<span title="WebAssembly SIMD with 1 Thread on CPU"
-						>Wasm 1T <button on:click={sortResult('wasm_1')} class="{ascendingOrder} btn"
-							><Sort /></button
+						>Wasm 1T <button on:click={sortResult('wasm_1')} class="btn"
+							>{#if !sortWasm1}<SortAscending />{:else}<SortDescending />{/if}</button
 						></span
 					>
 				</div>{/if}
 			{#if results[0].wasm_4 && results[0].wasm_4.status !== 0}<div class="backend cpu">
 					<span title="WebAssembly SIMD with 4 Threads on CPU"
-						>Wasm 4T <button on:click={sortResult('wasm_4')} class="{ascendingOrder} btn"
-							><Sort /></button
+						>Wasm 4T <button on:click={sortResult('wasm_4')} class="btn"
+							>{#if !sortWasm4}<SortAscending />{:else}<SortDescending />{/if}</button
 						></span
 					>
 				</div>{/if}
 			{#if results[0].webnn_cpu_1 && results[0].webnn_cpu_1.status !== 0}<div class="backend cpu">
 					<span title="WebNN CPU with 1 Thread on CPU"
 						><span class="hide">Web</span>NN CPU 1T
-						<button on:click={sortResult('webnn_cpu_1')} class="{ascendingOrder} btn"
-							><Sort /></button
+						<button on:click={sortResult('webnn_cpu_1')} class="btn"
+							>{#if !sortWebnnCpu1}<SortAscending />{:else}<SortDescending />{/if}</button
 						></span
 					>
 				</div>{/if}
 			{#if results[0].webnn_cpu_4 && results[0].webnn_cpu_4.status !== 0}<div class="backend cpu">
 					<span title="WebNN CPU with 4 Threads on CPU"
 						><span class="hide">Web</span>NN CPU 4T
-						<button on:click={sortResult('webnn_cpu_4')} class="{ascendingOrder} btn"
-							><Sort /></button
+						<button on:click={sortResult('webnn_cpu_4')} class="btn"
+							>{#if !sortWebnnCpu4}<SortAscending />{:else}<SortDescending />{/if}</button
 						></span
 					>
 				</div>{/if}
 
 			{#if results[0].webgl && results[0].webgl.status !== 0}<div class="backend gpu">
 					<span title="WebGL on GPU"
-						>WebGL <button on:click={sortResult('webgl')} class="{ascendingOrder} btn"
-							><Sort /></button
+						>WebGL <button on:click={sortResult('webgl')} class="btn"
+							>{#if !sortWebGl}<SortAscending />{:else}<SortDescending />{/if}</button
 						></span
 					>
 				</div>{/if}
 			{#if results[0].webgpu && results[0].webgpu.status !== 0}<div class="backend gpu">
 					<span title="WebGPU on GPU"
-						>WebGPU <button on:click={sortResult('webgpu')} class="{ascendingOrder} btn"
-							><Sort /></button
+						>WebGPU <button on:click={sortResult('webgpu')} class="btn"
+							>{#if !sortWebGpu}<SortAscending />{:else}<SortDescending />{/if}</button
 						></span
 					>
 				</div>{/if}
 			{#if results[0].webnn_gpu && results[0].webnn_gpu.status !== 0}<div class="backend gpu">
 					<span title="WebNN GPU on GPU"
 						><span class="hide">Web</span>NN GPU
-						<button on:click={sortResult('webnn_gpu')} class="{ascendingOrder} btn"><Sort /></button
+						<button on:click={sortResult('webnn_gpu')} class="btn"
+							>{#if !sortWebnnGpu}<SortAscending />{:else}<SortDescending />{/if}</button
 						></span
 					>
 				</div>{/if}
 			{#if results[0].webnn_npu && results[0].webnn_npu.status !== 0}<div class="backend npu">
 					<span title="WebNN NPU on NPU"
 						><span class="hide">Web</span>NN NPU
-						<button on:click={sortResult('webnn_npu')} class="{ascendingOrder} btn"><Sort /></button
+						<button on:click={sortResult('webnn_npu')} class="btn"
+							>{#if !sortWebnnNpu}<SortAscending />{:else}<SortDescending />{/if}</button
 						></span
 					>
 				</div>{/if}
@@ -287,7 +382,7 @@
 							>
 						{/if}
 					{:else}
-						{getModelSizeById(key.model)}
+						{key.modelsize}
 					{/if}
 				</div>
 

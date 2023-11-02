@@ -1,6 +1,6 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '../../config';
-import { updateTestQueueStatus, addResult, updateInfo, sleep, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById } from '../js/utils';
+import { updateTestQueueStatus, addResult, updateInfo, sleep, median, loadScript, removeElement, getModelSizeById, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { getModelOPFS } from '../js/nn_utils'
 import to from 'await-to-js';
@@ -171,7 +171,7 @@ const getModelUrl = (_model) => {
   return modelPath;
 }
 
-const main = async (_id, _model, _modelType, _dataType, _backend) => {
+const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
 
   let backend = 'wasm';
   let wasmSimd = false;
@@ -297,9 +297,9 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   l(options.executionProviders[0])
 
   updateTestQueueStatus(_id, 2);
-  addResult(_model, _modelType, _dataType, _backend, 1, [], null);
-  addResult(_model, _modelType, _dataType, _backend, 2, 0, [], 0, null);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, [], null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, 0, [], 0, null);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}/${_modelSize}) with ${_backend} backend`);
 
   let modelPath = getModelUrl(_model);
 
@@ -356,7 +356,7 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
     inferenceTimes.push(inferenceTime);
     inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
     updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
-    addResult(_model, _modelType, _dataType, _backend, 3, firstWarmupTime, inferenceTimes, inferenceTimesMedian, null);
+    addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, firstWarmupTime, inferenceTimes, inferenceTimesMedian, null);
   }
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Times: [${inferenceTimes}] ms`);
@@ -366,12 +366,12 @@ const main = async (_id, _model, _modelType, _dataType, _backend) => {
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
 }
 
-export const runOnnx = async (_id, _model, _modelType, _dataType, _backend) => {
-  // await main(_id, _model, _modelType, _dataType, _backend);
+export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
+  // await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
 
-  const [err, data] = await to(main(_id, _model, _modelType, _dataType, _backend));
+  const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
   if (err) {
-    addResult(_model, _modelType, _dataType, _backend, 4, 0, [], 0, err.message);
+    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, 0, [], 0, err.message);
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
     updateInfo(err.message);
   } else {
