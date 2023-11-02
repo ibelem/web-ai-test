@@ -533,7 +533,7 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_1_5_unet_fp16',
-    name: 'SD 1.5 UNet',
+    name: 'Stable Diffusion 1.5 UNet',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input',
     note: 'Internal model, N/A for public testing',
     source: 'N/A',
@@ -551,7 +551,7 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_1_5_vae_decoder_fp16',
-    name: 'SD 1.5 VAE Decoder',
+    name: 'Stable Diffusion 1.5 VAE Decoder',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input',
     note: 'Internal model, N/A for public testing',
     source: 'N/A',
@@ -567,7 +567,7 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_2_1_vae_decoder',
-    name: 'SD 2.1 VAE Decoder',
+    name: 'Stable Diffusion 2.1 VAE Decoder',
     description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input',
     note: '',
     source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
@@ -583,7 +583,7 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_2_1_vae_encoder',
-    name: 'SD 2.1 VAE Encoder',
+    name: 'Stable Diffusion 2.1 VAE Encoder',
     description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input',
     note: '',
     source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
