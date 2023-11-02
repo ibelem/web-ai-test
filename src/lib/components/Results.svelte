@@ -255,8 +255,8 @@
 					>{#if !sortModelType}<SortAscending />{:else}<SortDescending />{/if}</button
 				>
 			</div>
-			<div class="dt" title="Operand Type">
-				Operand <button on:click={sortResult('datatype')} class="btn"
+			<div class="dt" title="Operand Data Type">
+				Data <button on:click={sortResult('datatype')} class="btn"
 					>{#if !sortDataType}<SortAscending />{:else}<SortDescending />{/if}</button
 				>
 			</div>
