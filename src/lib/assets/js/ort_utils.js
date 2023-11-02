@@ -1,6 +1,6 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '../../config';
-import { updateTestQueueStatus, addResult, updateInfo, sleep, median, loadScript, removeElement, getModelSizeById, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById } from '../js/utils';
+import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { getModelOPFS } from '../js/nn_utils'
 import to from 'await-to-js';
@@ -168,6 +168,8 @@ const getModelUrl = (_model) => {
     modelPath = getLocalUrlById(_model);
   }
 
+  l(modelPath);
+
   return modelPath;
 }
 
@@ -236,15 +238,15 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   if (backend === 'webgpu') {
     removeElement('default');
     removeElement('webnn');
-    await loadScript('webgpu', ortDists.webgpu);
+    await loadScript('webgpu', ortDists.webgpu.url);
   } else if (backend === 'webnn' || backend === 'webgl') {
     removeElement('webgpu');
     removeElement('default');
-    await loadScript('webnn', ortDists.webnn_webglfix);
+    await loadScript('webnn', ortDists.webnn_webglfix.url);
   } else {
     removeElement('webnn');
     removeElement('webgpu');
-    await loadScript('default', ortDists.public);
+    await loadScript('default', ortDists.public.url);
   }
 
   let options = {
