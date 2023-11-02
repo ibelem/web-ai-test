@@ -23,15 +23,15 @@ export const corsSites = [
 
 export const ortDists = {
   public: {
-    version: 'Public v1.16.1',
+    version: 'v1.16.1 Public',
     url: 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js'
   },
   webgpu: {
-    version: 'v1.17 Internal Nov 02,2023',
+    version: 'v1.17 Internal Nov 02',
     url: '../ort/1.17_11022023/web/webgpu/ort.webgpu.min.js'
   },
   webnn_webglfix: {
-    version: 'v1.17 Internal Oct 20, 2023',
+    version: 'v1.17 Internal Oct 20',
     url: 'https://ibelem.github.io/onnxruntime-web-dist/1.16_20/ort.min.js'
   }
 }
