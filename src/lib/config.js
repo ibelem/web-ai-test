@@ -9,12 +9,11 @@ export let environment = {
   os: null,
   osVersion: null,
   webbrowser: null,
-  browserVersion: null,
-  onnxruntimeweb: 1.16
+  browserVersion: null
 };
 
 // export const localhost = 'int.sh.intel.com:5173';
-export const localhost = 'http://10.239.115.52:5173/';
+export const localhost = '10.239.115.52:5173';
 
 export const corsSites = [
   'ibelem.github.io',
@@ -23,9 +22,18 @@ export const corsSites = [
 ]
 
 export const ortDists = {
-  public: 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js',
-  webgpu: '../ort/1.17/web/webgpu/ort.webgpu.min.js',
-  webnn_webglfix: 'https://ibelem.github.io/onnxruntime-web-dist/1.16_20/ort.min.js'
+  public: {
+    version: 'Public v1.16.1',
+    url: 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js'
+  },
+  webgpu: {
+    version: 'v1.17 Internal Nov 02,2023',
+    url: '../ort/1.17_11022023/web/webgpu/ort.webgpu.min.js'
+  },
+  webnn_webglfix: {
+    version: 'v1.17 Internal Oct 20, 2023',
+    url: 'https://ibelem.github.io/onnxruntime-web-dist/1.16_20/ort.min.js'
+  }
 }
 
 export const modelHosts = {
