@@ -453,7 +453,7 @@
 </script>
 
 <div class="title">
-	<label class="" title="Toggle operand types">
+	<label class="" title="Toggle operand data types">
 		<input type="checkbox" on:change={() => toggleDataTypes()} />
 		Data Type
 	</label>
@@ -661,7 +661,7 @@
 			</label>
 		{/each}
 	{:else}
-		Choose model type and operand type at first
+		Choose model type and operand data type at first
 	{/if}
 
 	<div id="modeldesc"></div>
