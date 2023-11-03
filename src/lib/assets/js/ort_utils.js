@@ -167,9 +167,6 @@ const getModelUrl = (_model) => {
   } else if (modelDownloadUrl === 0) {
     modelPath = getLocalUrlById(_model);
   }
-
-  l(modelPath);
-
   return modelPath;
 }
 

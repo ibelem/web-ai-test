@@ -13,3 +13,4 @@ export const infoStore = persisted('infoStore', []);
 export const modelDownloadProgressStore = persisted('modelDownloadProgressStore', []);
 export const modelDownloadUrlStore = persisted('modelDownloadUrlStore', 1);
 export const refererStore = persisted('refererStore', '');
+export const cpuStore = persisted('cpuStore', '');
