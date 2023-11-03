@@ -259,10 +259,16 @@
 				clip-rule="evenodd"
 			/></svg
 		>
-		<button class="updateCPULink" on:click={() => (showModal = true)} title="Update CPU model">
-			<span
-				>{#if environment.cpu === 'amd64'}x86-64{:else}{environment.cpu}{/if}</span
-			>
+		<button
+			class="updateCPULink"
+			on:click={() => (showModal = true)}
+			title="Clink this link to update CPU model"
+		>
+			{#if environment.cpu}
+				<span
+					>{#if environment.cpu === 'amd64'}x86-64{:else}{environment.cpu}{/if}</span
+				>
+			{/if}
 
 			{#if environment.logicCores}
 				{#if !environment.cpu}
