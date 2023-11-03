@@ -3,10 +3,19 @@ import { models, uniqueBackends, localhost, corsSites } from '../../config';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
-import { environment, modelHosts } from '$lib/config.js';
+import { modelHosts, ortDists } from '$lib/config.js';
 import { UAParser } from 'ua-parser-js';
 import html2canvas from 'html2canvas';
 import to from 'await-to-js';
+import { cpuStore } from '$lib/store/store';
+
+/**
+ * @type {string}
+ */
+let cpuInfo;
+cpuStore.subscribe((value) => {
+  cpuInfo = value;
+});
 
 export const initResult = (newItem) => {
   resultsStore.update(items => {
@@ -674,6 +683,16 @@ export const getGpu = () => {
       //   .replace('(Google', 'Google')
       //   .replace('(TM', '').replaceAll('(', '').replaceAll(')', '')
       //   .trim();
+      renderer = renderer
+        .replace('DCH', '')
+        .replace('-401783', '')
+        .replace('gfx-driver-verify-comp_', ' ')
+        .replace(' i ', '')
+        .replace('  ', ' ')
+        .trim();
+      if (renderer.toLowerCase().indexOf('adreno') > -1) {
+        renderer = 'Qualcomm ' + renderer;
+      }
       return renderer
     }
   }
@@ -683,7 +702,9 @@ const getEnvironment = () => {
   let parser = UAParser(navigator.userAgent);
 
   let cpu = '';
-  if (parser.cpu.architecture) {
+  if (cpuInfo) {
+    cpu = 'CPU: ' + cpuInfo + ' ' + navigator.hardwareConcurrency + ' Logical Cores\r\n';
+  } else if (parser.cpu.architecture) {
     cpu = 'CPU: ' + parser.cpu.architecture.replace('amd64', 'x86-64') + ' ' + navigator.hardwareConcurrency + ' Logical Cores\r\n';
   } else {
     cpu = 'CPU: ' + navigator.hardwareConcurrency + ' Logical Cores\r\n';
@@ -691,7 +712,7 @@ const getEnvironment = () => {
   let gpu = 'GPU: ' + getGpu() + '\r\n';
   let os = 'OS: ' + parser.os.name + ' ' + parser.os.version + '\r\n';
   let webbrowser = 'Browser: ' + parser.browser.name + ' ' + parser.browser.version + '\r\n';
-  let onnxruntimeweb = 'ONNX Runtime Web: ' + environment.onnxruntimeweb + '\r\n\r\n';
+  let onnxruntimeweb = `ONNX Runtime Web: [Wasm] ${ortDists.public.version}, [WebGPU] ${ortDists.webgpu.version}, [WebNN] ${ortDists.webnn_webglfix.version}\r\n\r\n`;
   return cpu + gpu + os + webbrowser + onnxruntimeweb;
 }
 

@@ -1141,6 +1141,34 @@ padding: 2px 4px 2px 4px;
   background-color: var(--p);
 }
 
+.environment .input-container .autocomplete-input {
+  border: 1px solid var(--grey-02);
+  outline: none;
+}
+
+.autocomplete:not(.hide-arrow):not(.is-loading)::after {
+  border-color: var(--b1) !important;
+}
+
+.autocomplete-list-item.confirmed {
+  background-color: var(--b1-08) !important;
+  color: #fff;
+}
+
+.autocomplete-list-item.selected {
+  background-color: var(--b1) !important;
+  color: #fff;
+}
+
+.autocomplete-list {
+  border: 1px solid var(--grey-02) !important;
+  max-height: calc(5 * (1rem + 10px) + 15px) !important;
+}
+
+.autocomplete-list, .autocomplete-list-item {
+  text-align: left !important;
+}
+
 @media (max-width: 1024px) { 
   .tq {
     grid-template-columns: repeat(2, 1fr);
