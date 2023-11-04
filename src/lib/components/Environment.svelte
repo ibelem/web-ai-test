@@ -118,7 +118,7 @@
 	};
 
 	const scheduleMeasurement = () => {
-		setTimeout(performMeasurement, 1 * 1 * 1000);
+		setTimeout(performMeasurement, 1000);
 	};
 
 	const ONE_MEG = 1000000;
@@ -151,7 +151,7 @@
 			.then(() => {
 				setTimeout(() => {
 					checkStorage();
-				}, 500);
+				}, 1000);
 			});
 	};
 
