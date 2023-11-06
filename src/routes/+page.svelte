@@ -29,6 +29,8 @@
 		setModelDownloadUrl
 	} from '../lib/assets/js/utils';
 
+	let logShow = true;
+
 	/**
 	 * @type {number}
 	 */
@@ -122,11 +124,19 @@
 <div>
 	<Config />
 	<Results />
-	<InferenceLog />
+	<InferenceLog bind:logShow />
 	<TestQueue />
 	<div class="run">
 		{#if selectedModels.length > 0}
 			<button on:click={run}>Run Tests</button>
+		{/if}
+		{#if !logShow}
+			<button
+				class="log"
+				on:click={() => {
+					logShow = true;
+				}}>Show Logs</button
+			>
 		{/if}
 	</div>
 	<Environment />

@@ -851,12 +851,19 @@ padding: 2px 4px 2px 4px;
     var(--green) 0px 18px 16px -18px;
 }
 
-.run button:hover {
+.run button:hover, .run button.log:hover {
+  color: white;
   background-color: var(--pink);
   border: 1px solid var(--pink);
   box-shadow:
     var(--pink) 0px 6px 12px -8px,
     var(--pink) 0px 12px 10px -12px;
+}
+
+.run button.log {
+  border: 1px solid var(--grey-02);
+  background-color: transparent;
+  color: var(--grey-08);
 }
 
 .result .title {
