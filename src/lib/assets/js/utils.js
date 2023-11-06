@@ -106,7 +106,7 @@ const padNumber = (num, fill) => {
   return Array(fill > len ? fill - len + 1 || 0 : 0).join(0) + num;
 };
 
-const getDateTime = () => {
+export const getDateTime = () => {
   let date = new Date(),
     m = padNumber(date.getMonth() + 1, 2),
     d = padNumber(date.getDate(), 2),
