@@ -114,11 +114,12 @@
 			memory = memory.bytes / (1024 * 1024.0);
 			memory = memory.toFixed(2);
 		}
+		console.log(memory);
 		scheduleMeasurement();
 	};
 
 	const scheduleMeasurement = () => {
-		setTimeout(performMeasurement, 5000);
+		setTimeout(performMeasurement, 1000);
 	};
 
 	const ONE_MEG = 1000000;
@@ -354,7 +355,7 @@
 		{#if memory}
 			{memory} MB
 		{:else}
-			Estimating memory <div class="loader">
+			Estimating Memory <div class="loader">
 				<span class="loader_el"></span>
 				<span class="loader_el"></span>
 				<span class="loader_el"></span>
