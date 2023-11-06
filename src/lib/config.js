@@ -479,6 +479,39 @@ export let models = [
     inputstip: '[1, 16] [1, 16]'
   },
   {
+    category: 'Speech Recognition',
+    id: 'distil_medium_en_decoder_int8',
+    name: 'Distil-Whisper Decoder',
+    description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model',
+    note: '',
+    source: 'https://huggingface.co/distil-whisper/distil-medium.en/tree/main/onnx',
+    model: 'transformer.js/distil-medium.en/decoder_model_quantized.onnx',
+    size: '84.6 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1 }]
+    }],
+    inputstip: '[1, 1] [1, 1500, 1024]'
+  },
+  // {
+  //   category: 'Speech Recognition',
+  //   id: 'distil_medium_en_encoder_int8',
+  //   name: 'Distil-Whisper Encoder',
+  //   description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model',
+  //   note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models',
+  //   source: 'https://huggingface.co/distil-whisper/distil-medium.en/tree/main/onnx',
+  //   model: 'transformer.js/distil-medium.en/encoder_model_quantized.onnx',
+  //   size: '298 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{
+  //     'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1 }],
+  //   }],
+  //   inputstip: '[1, 80, 3000]'
+  // },
+  {
     category: 'Text Generation',
     id: 'gpt2_decoder',
     name: 'GPT-2 Decoder',
@@ -792,7 +825,6 @@ export let models = [
     }],
     inputstip: '[1, 80, 3000]'
   },
-
   {
     category: 'Speech Recognition',
     id: 'whisper_tiny_encoder_int8',
