@@ -33,6 +33,8 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 
+	let logShow = true;
+
 	/**
 	 * @type {number}
 	 */
@@ -133,11 +135,19 @@
 		</div>
 	{/if}
 	<Results />
-	<InferenceLog />
+	<InferenceLog bind:logShow />
 	<TestQueue />
 	<div class="run">
 		{#if selectedBackends.length > 0 && selectedDataTypes.length > 0 && selectedModelTypes.length > 0 && !auto}
 			<button on:click={runManual}>Run Manual Tests</button>
+		{/if}
+		{#if !logShow}
+			<button
+				class="log"
+				on:click={() => {
+					logShow = true;
+				}}>Show Logs</button
+			>
 		{/if}
 	</div>
 

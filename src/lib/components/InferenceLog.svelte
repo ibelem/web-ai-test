@@ -3,6 +3,7 @@
 	import { copyInfo } from '$lib/assets/js/utils';
 	import { beforeUpdate } from 'svelte';
 	import Log from './svg/Log.svelte';
+	import LogToggle from './svg/LogToggle.svelte';
 	import { testQueueStore } from '$lib/store/store';
 
 	/**
@@ -20,6 +21,8 @@
 	infoStore.subscribe((value) => {
 		info = value;
 	});
+
+	export let logShow = true;
 
 	/**
 	 * @type {HTMLDivElement}
@@ -39,20 +42,31 @@
 	});
 </script>
 
-{#if info.length > 0}
-	<div class="inferlog" bind:this={element}>
-		{#each info as i}
-			<div>{i}</div>
-		{/each}
-	</div>
-	{#if testQueue.length === 0}
-		<div class="q copy">
-			<div>
-				<button title="Copy full test logs" on:click={() => copyInfo()}>
-					<Log />
-				</button>
-			</div>
+{#if logShow}
+	{#if info.length > 0}
+		<div class="inferlog" bind:this={element}>
+			{#each info as i}
+				<div>{i}</div>
+			{/each}
 		</div>
+		{#if testQueue.length === 0}
+			<div class="q copy">
+				<div>
+					<button title="Copy full test logs" on:click={() => copyInfo()}>
+						<Log />
+					</button>
+
+					<button
+						title="Hide logs"
+						on:click={() => {
+							logShow = false;
+						}}
+					>
+						<LogToggle />
+					</button>
+				</div>
+			</div>
+		{/if}
 	{/if}
 {/if}
 
