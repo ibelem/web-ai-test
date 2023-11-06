@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { environment, ortDists, cpu } from '$lib/config.js';
-	import { getGpu } from '$lib/assets/js/utils.js';
+	import { getGpu, getDateTime } from '$lib/assets/js/utils.js';
 	// @ts-ignore
 	import { UAParser } from 'ua-parser-js';
 	import to from 'await-to-js';
@@ -114,7 +114,7 @@
 			memory = memory.bytes / (1024 * 1024.0);
 			memory = memory.toFixed(2);
 		}
-		console.log(memory);
+		console.log(getDateTime() + ': ' + memory);
 		scheduleMeasurement();
 	};
 
