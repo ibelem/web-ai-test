@@ -35,9 +35,9 @@
 	let connectionType = '';
 	let connectionEffectiveType = '';
 
-	const getNetworkInfomation = async (e) => {
-		connectionType = navigator.connection.type;
-		connectionEffectiveType = navigator.connection.effectiveType;
+	const getNetworkInfomation = async () => {
+		connectionType = navigator.connection?.type;
+		connectionEffectiveType = navigator.connection?.effectiveType;
 	};
 
 	let batteryCharging = false;
@@ -118,7 +118,7 @@
 	};
 
 	const scheduleMeasurement = () => {
-		setTimeout(performMeasurement, 1000);
+		setTimeout(performMeasurement, 5000);
 	};
 
 	const ONE_MEG = 1000000;
@@ -343,16 +343,24 @@
 		</div>
 	{/if}
 
-	{#if memory}
-		<div title="Memory usage of this page">
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
-				><path
-					d="M240-360h80v-240h-80v240Zm200 0h80v-240h-80v240Zm200 0h80v-240h-80v240Zm-480 80h640v-400H160v400Zm0 0v-400 400Zm40 160v-80h-40q-33 0-56.5-23.5T80-280v-400q0-33 23.5-56.5T160-760h40v-80h80v80h160v-80h80v80h160v-80h80v80h40q33 0 56.5 23.5T880-680v400q0 33-23.5 56.5T800-200h-40v80h-80v-80H520v80h-80v-80H280v80h-80Z"
-				/></svg
-			>
+	<div
+		title="Memory usage of this page. It performs memory measurement during garbage collection. This reduces the noise in the results, but it may take a while until the results are produced."
+	>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+			><path
+				d="M240-360h80v-240h-80v240Zm200 0h80v-240h-80v240Zm200 0h80v-240h-80v240Zm-480 80h640v-400H160v400Zm0 0v-400 400Zm40 160v-80h-40q-33 0-56.5-23.5T80-280v-400q0-33 23.5-56.5T160-760h40v-80h80v80h160v-80h80v80h160v-80h80v80h40q33 0 56.5 23.5T880-680v400q0 33-23.5 56.5T800-200h-40v80h-80v-80H520v80h-80v-80H280v80h-80Z"
+			/></svg
+		>
+		{#if memory}
 			{memory} MB
-		</div>
-	{/if}
+		{:else}
+			Estimating memory <div class="loader">
+				<span class="loader_el"></span>
+				<span class="loader_el"></span>
+				<span class="loader_el"></span>
+			</div>
+		{/if}
+	</div>
 
 	{#if storage}
 		<div title="Storage usage">
@@ -645,6 +653,36 @@
 </div>
 
 <style>
+	.environment .loader {
+		display: inline-flex;
+		align-items: center;
+		justify-content: left;
+		margin-left: -2px;
+	}
+
+	.loader_el {
+		border-radius: 100%;
+		border: 1px solid var(--font);
+		margin: calc(1px * 2);
+	}
+
+	.loader_el:nth-child(1) {
+		animation: preloader 0.6s ease-in-out alternate infinite;
+	}
+	.loader_el:nth-child(2) {
+		animation: preloader 0.6s ease-in-out alternate 0.2s infinite;
+	}
+
+	.loader_el:nth-child(3) {
+		animation: preloader 0.6s ease-in-out alternate 0.4s infinite;
+	}
+
+	@keyframes preloader {
+		100% {
+			transform: scale(2);
+		}
+	}
+
 	.environment .info {
 		margin: 10px 0 20px 0;
 		display: block;
