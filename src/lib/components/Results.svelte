@@ -424,7 +424,7 @@
 					{#if key.wasm_1.status === 3}
 						<div
 							class="status_{key.wasm_1.status} s backend"
-							title="Warmup Time: {key.wasm_1.warmup.toString()} ms; Inference Time (Median): {key
+							title="Compilation Time: {key.wasm_1.compilation.toString()} ms; First Inference Time: {key.wasm_1.warmup.toString()} ms; Inference Time (Median): {key
 								.wasm_1.inferencemedian} ms; Inference Times: [{key.wasm_1.inference
 								.toString()
 								.replace(',', ', ')}] ms"
@@ -435,7 +435,7 @@
 							<button
 								on:click={() =>
 									copyRawInference(
-										`Warmup Time: ${key.wasm_1.warmup.toString()} ms; Inference Time (Median): ${
+										`Compilation Time: ${key.wasm_1.compilation.toString()} ms; First Inference Time: ${key.wasm_1.warmup.toString()} ms; Inference Time (Median): ${
 											key.wasm_1.inferencemedian
 										} ms; Inference Times: [${key.wasm_1.inference
 											.toString()
@@ -470,7 +470,7 @@
 					{#if key.wasm_4.status === 3}
 						<div
 							class="status_{key.wasm_4.status} s backend"
-							title="Warmup Time: {key.wasm_4.warmup.toString()} ms; Inference Time (Median): {key
+							title="Compilation Time: {key.wasm_4.compilation.toString()} ms; First Inference Time: {key.wasm_4.warmup.toString()} ms; Inference Time (Median): {key
 								.wasm_4.inferencemedian} ms; Inference Times: [{key.wasm_4.inference
 								.toString()
 								.replace(',', ', ')}] ms"
@@ -481,7 +481,7 @@
 							<button
 								on:click={() =>
 									copyRawInference(
-										`Warmup Time: ${key.wasm_4.warmup.toString()} ms; Inference Time (Median): ${
+										`Compilation Time: ${key.wasm_4.compilation.toString()} ms; First Inference Time: ${key.wasm_4.warmup.toString()} ms; Inference Time (Median): ${
 											key.wasm_4.inferencemedian
 										} ms; Inference Times: [${key.wasm_4.inference
 											.toString()
@@ -516,7 +516,7 @@
 					{#if key.webnn_cpu_1.status === 3}
 						<div
 							class="status_{key.webnn_cpu_1.status} s backend"
-							title="Warmup Time: {key.webnn_cpu_1.warmup.toString()} ms; Inference Time (Median): {key
+							title="Compilation Time: {key.webnn_cpu_1.compilation.toString()} ms; First Inference Time: {key.webnn_cpu_1.warmup.toString()} ms; Inference Time (Median): {key
 								.webnn_cpu_1.inferencemedian} ms; Inference Times: [{key.webnn_cpu_1.inference
 								.toString()
 								.replace(',', ', ')}] ms"
@@ -527,7 +527,7 @@
 							<button
 								on:click={() =>
 									copyRawInference(
-										`Warmup Time: ${key.webnn_cpu_1.warmup.toString()} ms; Inference Time (Median): ${
+										`Compilation Time: ${key.webnn_cpu_1.compilation.toString()} ms; First Inference Time: ${key.webnn_cpu_1.warmup.toString()} ms; Inference Time (Median): ${
 											key.webnn_cpu_1.inferencemedian
 										} ms; Inference Times: [${key.webnn_cpu_1.inference
 											.toString()
@@ -562,7 +562,7 @@
 					{#if key.webnn_cpu_4.status === 3}
 						<div
 							class="status_{key.webnn_cpu_4.status} s backend"
-							title="Warmup Time: {key.webnn_cpu_4.warmup.toString()} ms; Inference Time (Median): {key
+							title="Compilation Time: {key.webnn_cpu_4.compilation.toString()} ms;  First Inference Time: {key.webnn_cpu_4.warmup.toString()} ms; Inference Time (Median): {key
 								.webnn_cpu_4.inferencemedian} ms; Inference Times: [{key.webnn_cpu_4.inference
 								.toString()
 								.replace(',', ', ')}] ms"
@@ -573,7 +573,7 @@
 							<button
 								on:click={() =>
 									copyRawInference(
-										`Warmup Time: ${key.webnn_cpu_4.warmup.toString()} ms; Inference Time (Median): ${
+										`Compilation Time: ${key.webnn_cpu_4.compilation.toString()} ms;  First Inference Time: ${key.webnn_cpu_4.warmup.toString()} ms; Inference Time (Median): ${
 											key.webnn_cpu_4.inferencemedian
 										} ms; Inference Times: [${key.webnn_cpu_4.inference
 											.toString()
@@ -608,7 +608,7 @@
 					{#if key.webgl.status === 3}
 						<div
 							class="status_{key.webgl.status} s backend"
-							title="Warmup Time: {key.webgl.warmup.toString()} ms; Inference Time (Median): {key
+							title="Compilation Time: {key.webgl.compilation.toString()} ms; First Inference Time: {key.webgl.warmup.toString()} ms; Inference Time (Median): {key
 								.webgl.inferencemedian} ms; Inference Times: [{key.webgl.inference
 								.toString()
 								.replace(',', ', ')}] ms"
@@ -619,7 +619,7 @@
 							<button
 								on:click={() =>
 									copyRawInference(
-										`Warmup Time: ${key.webgl.warmup.toString()} ms; Inference Time (Median): ${
+										`Compilation Time: ${key.webgl.compilation.toString()} ms; First Inference Time: ${key.webgl.warmup.toString()} ms; Inference Time (Median): ${
 											key.webgl.inferencemedian
 										} ms; Inference Times: [${key.webgl.inference
 											.toString()
@@ -654,7 +654,7 @@
 					{#if key.webgpu.status === 3}
 						<div
 							class="status_{key.webgpu.status} s backend"
-							title="Warmup Time: {key.webgpu.warmup.toString()} ms; Inference Time (Median): {key
+							title="Compilation Time: {key.webgpu.compilation.toString()} ms; First Inference Time: {key.webgpu.warmup.toString()} ms; Inference Time (Median): {key
 								.webgpu.inferencemedian} ms; Inference Times: [{key.webgpu.inference
 								.toString()
 								.replace(',', ', ')}] ms"
@@ -665,7 +665,7 @@
 							<button
 								on:click={() =>
 									copyRawInference(
-										`Warmup Time: ${key.webgpu.warmup.toString()} ms; Inference Time (Median): ${
+										`Compilation Time: ${key.webgpu.compilation.toString()} ms; First Inference Time: ${key.webgpu.warmup.toString()} ms; Inference Time (Median): ${
 											key.webgpu.inferencemedian
 										} ms; Inference Times: [${key.webgpu.inference
 											.toString()
@@ -700,7 +700,7 @@
 					{#if key.webnn_gpu.status === 3}
 						<div
 							class="status_{key.webnn_gpu.status} s backend"
-							title="Warmup Time: {key.webnn_gpu.warmup.toString()} ms; Inference Time (Median): {key
+							title="Compilation Time: {key.webnn_gpu.compilation.toString()} ms; First Inference Time: {key.webnn_gpu.warmup.toString()} ms; Inference Time (Median): {key
 								.webnn_gpu.inferencemedian} ms; Inference Times: [{key.webnn_gpu.inference
 								.toString()
 								.replace(',', ', ')}] ms"
@@ -711,7 +711,7 @@
 							<button
 								on:click={() =>
 									copyRawInference(
-										`Warmup Time: ${key.webnn_gpu.warmup.toString()} ms; Inference Time (Median): ${
+										`Compilation Time: ${key.webnn_gpu.compilation.toString()} ms; First Inference Time: ${key.webnn_gpu.warmup.toString()} ms; Inference Time (Median): ${
 											key.webnn_gpu.inferencemedian
 										} ms; Inference Times: [${key.webnn_gpu.inference
 											.toString()
@@ -746,7 +746,7 @@
 					{#if key.webnn_npu.status === 3}
 						<div
 							class="status_{key.webnn_npu.status} s backend"
-							title="Warmup Time: {key.webnn_npu.warmup.toString()} ms; Inference Time (Median): {key
+							title="Compilation Time: {key.webnn_npu.compilation.toString()} ms; First Inference Time: {key.webnn_npu.warmup.toString()} ms; Inference Time (Median): {key
 								.webnn_npu.inferencemedian} ms; Inference Times: [{key.webnn_npu.inference
 								.toString()
 								.replace(',', ', ')}] ms"
@@ -757,7 +757,7 @@
 							<button
 								on:click={() =>
 									copyRawInference(
-										`Warmup Time: ${key.webnn_npu.warmup.toString()} ms; Inference Time (Median): ${
+										`Compilation Time: ${key.webnn_npu.compilation.toString()} ms; First Inference Time: ${key.webnn_npu.warmup.toString()} ms; Inference Time (Median): ${
 											key.webnn_npu.inferencemedian
 										} ms; Inference Times: [${key.webnn_npu.inference
 											.toString()
@@ -795,3 +795,6 @@
 		</div>
 	</div>
 {/if}
+
+<style>
+</style>

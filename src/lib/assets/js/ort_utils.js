@@ -296,8 +296,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   l(options.executionProviders[0])
 
   updateTestQueueStatus(_id, 2);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, [], null);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, 0, [], 0, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, [], null, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, [], null, null);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}/${_modelSize}) with ${_backend} backend`);
 
   let modelPath = getModelUrl(_model);
@@ -310,18 +310,22 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   }
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Creating onnx runtime web inference session`);
 
+  const compilationStart = performance.now();
   const sess = await ort.InferenceSession.create(modelBuffer, options);
+  let compilationTime = performance.now() - compilationStart;
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Compilation Time: ${compilationTime} ms`);
+
   let feeds = getFeeds(sess, _model, _backend);
 
-  let numOfWarmups = 1;
+  let numOfWarmups = 10;
 
   if (backend === 'webgl' || backend === 'webgpu' || (backend === 'webnn' && deviceType === 'gpu')) {
-    numOfWarmups = 5;
+    numOfWarmups = 10;
   }
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Warming up ${numOfWarmups} time(s)`);
 
-  let firstWarmupTime = 0;
+  let firstInferenceTime = 0;
   let warmupTime = 0;
   for (let j = 0; j < numOfWarmups; j++) {
     const warmupstart = performance.now();
@@ -334,9 +338,11 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
     warmupTime = performance.now() - warmupstart;
     if (j === 0) {
-      firstWarmupTime = warmupTime;
+      firstInferenceTime = warmupTime;
+      updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] First Inference Time on Warmup [${j + 1}/${numOfWarmups}]: ${warmupTime} ms`);
+    } else {
+      updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time on Warmup: [${j + 1}/${numOfWarmups}]: ${warmupTime} ms`);
     }
-    updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Warm Up Time [${j + 1}/${numOfWarmups}]: ${warmupTime} ms`);
   }
 
   let inferenceTimes = [];
@@ -355,7 +361,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     inferenceTimes.push(inferenceTime);
     inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
     updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
-    addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, firstWarmupTime, inferenceTimes, inferenceTimesMedian, null);
+    addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, inferenceTimes, inferenceTimesMedian, null);
   }
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Times: [${inferenceTimes}] ms`);
@@ -370,7 +376,7 @@ export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _b
 
   const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
   if (err) {
-    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, 0, [], 0, err.message);
+    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, [], null, err.message);
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
     updateInfo(err.message);
   } else {

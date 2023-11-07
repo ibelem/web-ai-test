@@ -32,7 +32,7 @@ export const initResult = (newItem) => {
   });
 }
 
-export const addResult = (model, modeltype, datatype, modelsize, backend, status, warmup, inference, inferencemedian, err) => {
+export const addResult = (model, modeltype, datatype, modelsize, backend, status, compilation, warmup, inference, inferencemedian, err) => {
   resultsStore.update(items => {
     return items.map(item => {
       if (
@@ -45,6 +45,7 @@ export const addResult = (model, modeltype, datatype, modelsize, backend, status
         for (const key in updatedItem) {
           if (key !== "id" && key !== "model" && key !== "modeltype" && key !== "datatype" && key !== "modelsize") {
             updatedItem[backend].status = status;
+            updatedItem[backend].compilation = compilation;
             updatedItem[backend].warmup = warmup;
             updatedItem[backend].inference = inference;
             updatedItem[backend].inferencemedian = inferencemedian;
@@ -585,7 +586,11 @@ export const run = async () => {
     for (const prop of selectedBackends) {
       r[prop] = {
         status: 1,
-        inference: []
+        inference: [],
+        compilation: null,
+        warmup: null,
+        inferencemedian: null,
+        error: null
       };
     }
     initResult(r);
