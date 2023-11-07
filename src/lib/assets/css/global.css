@@ -398,9 +398,20 @@ header .nav {
   height: 14px;
 }
 
+#result {
+  margin: 14px 0;
+}
+
 .tqtitle, .rqtitle {
   text-align: center;
+}
+
+.tqtitle {
   margin: 10px 0;
+}
+
+.rqtitle {
+  margin: 6px 0;
 }
 
  .tqtitle {
@@ -532,8 +543,6 @@ header .nav {
 .tq .s svg path, .result .s svg path, .result .q svg, .copy svg path {
   fill: var(--grey);
 }
-
-
 
 .copy {
   display: flex;
