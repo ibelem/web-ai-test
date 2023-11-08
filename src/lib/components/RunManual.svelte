@@ -141,7 +141,7 @@
 	{/if}
 	<Results />
 	<InferenceLog bind:logShow />
-	<TestQueue />
+	<!-- <TestQueue /> -->
 	<div class="run">
 		{#if selectedBackends.length > 0 && selectedDataTypes.length > 0 && selectedModelTypes.length > 0 && !auto}
 			<button on:click={runManual}>Run Manual Tests</button>
@@ -155,8 +155,6 @@
 			>
 		{/if}
 	</div>
-
-	<!-- <Environment /> -->
 </div>
 
 <style>

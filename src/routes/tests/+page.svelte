@@ -93,7 +93,7 @@
 		{/each}
 	</div>
 
-	<!-- <Environment /> -->
+	<Environment />
 	<Info />
 </div>
 
