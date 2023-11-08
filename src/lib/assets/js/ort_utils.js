@@ -260,7 +260,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   };
 
   // options.logSeverityLevel = 0;
-  //// options.logVerbosityLevel = 0;
+  // options.logVerbosityLevel = 0;
 
   if (backend === 'wasm' || backend === 'webgpu') {
     ort.env.wasm.numThreads = numThreads;
@@ -352,7 +352,9 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     // l(feeds);
     if (backend === 'webnn' || _backend === 'wasm_4') {
       l('Clone feeds for: ' + backend + ' ' + _backend);
+      console.time('wanming_');
       await sess.run(clone(feeds));
+      console.timeEnd('wanming_');
     } else {
       await sess.run(feeds);
     }

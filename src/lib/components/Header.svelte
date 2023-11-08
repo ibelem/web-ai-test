@@ -62,11 +62,11 @@
 	};
 
 	beforeUpdate(() => {
-		if (0 < parseInt(percentageTestQueueInt) && parseInt(percentageTestQueueInt) < 100) {
-			progress = 'ing';
-		} else {
-			progress = '';
-		}
+		// if (0 < parseInt(percentageTestQueueInt) && parseInt(percentageTestQueueInt) < 100) {
+		// 	progress = 'ing';
+		// } else {
+		// 	progress = '';
+		// }
 	});
 
 	onMount(() => {});
