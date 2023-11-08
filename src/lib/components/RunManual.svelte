@@ -156,7 +156,7 @@
 		{/if}
 	</div>
 
-	<Environment />
+	<!-- <Environment /> -->
 </div>
 
 <style>

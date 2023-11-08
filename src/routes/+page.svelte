@@ -139,7 +139,7 @@
 			>
 		{/if}
 	</div>
-	<Environment />
+	<!-- <Environment /> -->
 	<Info />
 </div>
 
