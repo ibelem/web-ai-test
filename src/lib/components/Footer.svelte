@@ -48,7 +48,7 @@
 
 <style>
 	footer {
-		margin: 0 10px 20px 10px;
+		margin: 20px 10px 20px 10px;
 		text-align: center;
 	}
 
