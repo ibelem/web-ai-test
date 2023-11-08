@@ -904,7 +904,7 @@ padding: 2px 4px 2px 4px;
   grid-column-gap: 0px;
   grid-row-gap: 10px;
   justify-items: center;
-  align-items: center;
+  align-items: stretch;
   padding: 0px 1px;
 }
 
