@@ -120,7 +120,8 @@
 				let modeltype = getModelTypeById(getModelIdfromPath());
 				let datatype = getModelDataTypeById(getModelIdfromPath());
 				let path = `${location.pathname}/?modeltype=${modeltype}&datatype=${datatype}&backend=none&run=100`;
-				goto(path);
+				// goto(path);
+				location.href = location.origin + path;
 			} else {
 				urlToStore($page.url.searchParams, getModelIdfromPath());
 			}

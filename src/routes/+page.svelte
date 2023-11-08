@@ -127,7 +127,7 @@
 	<InferenceLog bind:logShow />
 	<TestQueue />
 	<div class="run">
-		{#if selectedModels.length > 0}
+		{#if selectedModels.length > 0 && selectedBackends.length > 0}
 			<button on:click={run}>Run Tests</button>
 		{/if}
 		{#if !logShow}
