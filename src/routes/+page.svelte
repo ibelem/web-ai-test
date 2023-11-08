@@ -125,7 +125,7 @@
 	<Config />
 	<Results />
 	<InferenceLog bind:logShow />
-	<TestQueue />
+	<!-- <TestQueue /> -->
 	<div class="run">
 		{#if selectedModels.length > 0 && selectedBackends.length > 0}
 			<button on:click={run}>Run Tests</button>
@@ -139,7 +139,7 @@
 			>
 		{/if}
 	</div>
-	<!-- <Environment /> -->
+	<Environment />
 	<Info />
 </div>
 
