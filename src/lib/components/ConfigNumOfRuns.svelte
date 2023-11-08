@@ -1,6 +1,15 @@
 <script>
 	import { goTo } from '$lib/assets/js/utils';
-	import { numberOfRunsStore } from '$lib/store/store';
+	import { numberOfRunsStore, autoStore } from '$lib/store/store';
+	import { onMount } from 'svelte';
+
+	/**
+	 * @type {boolean}
+	 */
+	export let auto;
+	autoStore.subscribe((value) => {
+		auto = value;
+	});
 
 	/**
 	 * @type {number}
@@ -11,26 +20,43 @@
 		numOfRuns = value;
 	});
 
+	let max = 200;
+
 	const setNumberOfRuns = () => {
+		if (numOfRuns > max) {
+			numOfRuns = max;
+		} else if (numOfRuns < 1) {
+			numOfRuns = 1;
+		}
 		goTo('run', numOfRuns);
 	};
+
+	const limitNumberOfRuns = () => {
+		if (!auto && location.pathname?.indexOf('run') > -1) {
+			max = 1000;
+		} else {
+			max = 200;
+		}
+	};
+
+	onMount(() => {
+		limitNumberOfRuns();
+	});
 </script>
 
 <div class="title">
 	<span class="" title="Number of Runs">
 		{#if numOfRuns === 1}
 			{numOfRuns} Run
-		{:else if numOfRuns > 1 && numOfRuns <= 200}
-			{numOfRuns} Runs
 		{:else}
-			# Runs
+			{numOfRuns} Runs
 		{/if}
 	</span>
 </div>
 <div class="numofruns">
 	<label>
-		<input type="number" bind:value={numOfRuns} min="1" max="200" on:change={setNumberOfRuns} />
-		<input type="range" bind:value={numOfRuns} min="1" max="200" on:change={setNumberOfRuns} />
+		<input type="number" bind:value={numOfRuns} min="1" {max} on:change={setNumberOfRuns} />
+		<input type="range" bind:value={numOfRuns} min="1" {max} on:change={setNumberOfRuns} />
 	</label>
 </div>
 

@@ -17,7 +17,9 @@
 		getModelIdfromPath,
 		updateTestQueue,
 		setModelDownloadUrl,
-		getModelNameById
+		getModelNameById,
+		getModelTypeById,
+		getModelDataTypeById
 	} from '../../lib/assets/js/utils';
 	import {
 		autoStore,
@@ -115,7 +117,9 @@
 	afterUpdate(() => {
 		if (!auto) {
 			if ($page.url.searchParams.size === 0) {
-				let path = `${location.pathname}/?modeltype=none&datatype=none&backend=none&run=1`;
+				let modeltype = getModelTypeById(getModelIdfromPath());
+				let datatype = getModelDataTypeById(getModelIdfromPath());
+				let path = `${location.pathname}/?modeltype=${modeltype}&datatype=${datatype}&backend=none&run=100`;
 				goto(path);
 			} else {
 				urlToStore($page.url.searchParams, getModelIdfromPath());
