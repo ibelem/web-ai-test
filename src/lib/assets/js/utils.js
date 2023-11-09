@@ -32,7 +32,7 @@ export const initResult = (newItem) => {
   });
 }
 
-export const addResult = (model, modeltype, datatype, modelsize, backend, status, compilation, warmup, inference, inferencemedian, err) => {
+export const addResult = (model, modeltype, datatype, modelsize, backend, status, compilation, warmup, inference, inferencemedian, inferenceaverage, err) => {
   resultsStore.update(items => {
     return items.map(item => {
       if (
@@ -49,6 +49,7 @@ export const addResult = (model, modeltype, datatype, modelsize, backend, status
             updatedItem[backend].warmup = warmup;
             updatedItem[backend].inference = inference;
             updatedItem[backend].inferencemedian = inferencemedian;
+            updatedItem[backend].inferenceaverage = inferenceaverage;
             updatedItem[backend].error = err;
           }
         }
@@ -578,6 +579,12 @@ export const median = (arr) => {
   }
 };
 
+export const average = (arr) => {
+  const avg = arr.reduce((a, b) => a + b) / arr.length;
+  console.log(avg);
+  return avg;
+}
+
 export const run = async () => {
   if (
     testQueue[0] && getModelIdfromPath() === testQueue[0].model
@@ -597,6 +604,7 @@ export const run = async () => {
         compilation: null,
         warmup: null,
         inferencemedian: null,
+        inferenceaverage: null,
         error: null
       };
     }
