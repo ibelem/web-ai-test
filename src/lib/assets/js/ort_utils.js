@@ -1,6 +1,6 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '../../config';
-import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById } from '../js/utils';
+import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, average } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { getModelOPFS } from '../js/nn_utils'
 import to from 'await-to-js';
@@ -296,8 +296,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   l(options.executionProviders[0])
 
   updateTestQueueStatus(_id, 2);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, [], null, null);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, [], null, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, [], null, null, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, [], null, null, null);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}/${_modelSize}) with ${_backend} backend`);
 
   let modelPath = getModelUrl(_model);
@@ -347,6 +347,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   let inferenceTimes = [];
   let inferenceTimesMedian = null;
+  let inferenceTimesAverage = null;
   for (let i = 0; i < numOfRuns; i++) {
     const start = performance.now();
     // l(feeds);
@@ -362,12 +363,14 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     let inferenceTime = performance.now() - start;
     inferenceTimes.push(inferenceTime);
     inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
+    inferenceTimesAverage = parseFloat(average(inferenceTimes).toFixed(2));
     updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
-    addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, inferenceTimes, inferenceTimesMedian, null);
+    addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, inferenceTimes, inferenceTimesMedian, inferenceTimesAverage, null);
   }
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Times: [${inferenceTimes}] ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Median): ${inferenceTimesMedian} ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Average): ${inferenceTimesAverage} ms`);
 
   await sess.release();
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
@@ -378,7 +381,7 @@ export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _b
 
   const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
   if (err) {
-    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, [], null, err.message);
+    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, [], null, null, err.message);
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
     updateInfo(err.message);
   } else {
