@@ -352,7 +352,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     const start = performance.now();
     // l(feeds);
     if (backend === 'webnn' || _backend === 'wasm_4') {
-      l('Clone feeds for: ' + backend + ' ' + _backend);
       console.time('wanming_');
       await sess.run(clone(feeds));
       console.timeEnd('wanming_');
