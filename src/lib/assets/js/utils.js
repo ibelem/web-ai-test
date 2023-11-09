@@ -404,6 +404,7 @@ export const goTo = (key, value) => {
     newUrl = url.toString();
     refererStore.update(() => location.href);
     goto(newUrl);
+    // location.href = newUrl;
   }
 }
 
@@ -530,10 +531,13 @@ export const urlToStore = (urlSearchParams, modelIdFromUrl) => {
     numOfRuns = parseInt(numOfRuns);
 
     if (numOfRuns <= 1) {
+      console.log('0000000000000000000')
       numOfRuns = 1;
     } else if (auto && numOfRuns > 200) {
+      console.log('1111111111111111111')
       numOfRuns = 200;
     } else if (!auto && numOfRuns > 1000) {
+      console.log('2222222222222222222')
       numOfRuns = 1000;
     }
 
@@ -607,10 +611,12 @@ export const run = async () => {
   } else if (testQueue[0] && auto) {
     let path = `${base}/run/${testQueue[0].model}`;
     updateInfo(`Go to next page to test ${testQueue[0].model}`);
-    goto(path);
+    // goto(path);
+    location.href = path;
   } else if (auto) {
     updateInfo(`[${testQueueLength - testQueue.length}/${testQueueLength}] All tests completed`);
-    goto(referer);
+    // goto(referer);
+    location.href = referer;
   } else {
     updateInfo(`[${testQueueLength - testQueue.length}/${testQueueLength}] All tests completed`);
   }

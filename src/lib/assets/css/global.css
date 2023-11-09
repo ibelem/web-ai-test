@@ -889,6 +889,7 @@ padding: 2px 4px 2px 4px;
 
 .result .q div.m {
   min-width: 190px;
+  width: 97%;
   overflow: hidden;
   text-overflow: ellipsis;
 }

@@ -324,14 +324,13 @@
 					</div>{/if}
 			</div>
 
+			<!-- style="background: linear-gradient(90deg, var(--green-01) 0%, rgba(255,255,255,1) {getProgress(
+							key.model
+						)}%);" -->
+
 			{#each Object.entries(results) as [index, key]}
 				<div class="q _{selectedBackends.length}">
-					<div
-						class="m"
-						style="background: linear-gradient(90deg, var(--green-01) 0%, rgba(255,255,255,1) {getProgress(
-							key.model
-						)}%);"
-					>
+					<div class="m">
 						{#if getProgress(key.model) === '100.0'}
 							<span title="{getModelNameById(key.model)} - {getModelDescriptionById(key.model)}"
 								>{getModelNameById(key.model)}</span

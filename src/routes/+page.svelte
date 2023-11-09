@@ -1,6 +1,8 @@
 <script>
 	import Environment from '$lib/components/Environment.svelte';
 	import Config from '$lib/components/Config.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 	import TestQueue from '$lib/components/TestQueue.svelte';
 	import Results from '$lib/components/Results.svelte';
 	import Info from '$lib/components/Info.svelte';
@@ -97,7 +99,8 @@
 		resetInfo();
 		await setModelDownloadUrl();
 		let path = `${base}/run/${testQueue[0].model}`;
-		goto(path);
+		// goto(path);
+		location.href = path;
 	};
 
 	afterUpdate(() => {
@@ -121,6 +124,7 @@
 	onDestroy(() => {});
 </script>
 
+<Header />
 <div>
 	<Config />
 	<Results />
@@ -142,6 +146,7 @@
 	<Environment />
 	<Info />
 </div>
+<Footer />
 
 <style>
 </style>
