@@ -1,13 +1,11 @@
 <script>
 	import { onMount, afterUpdate } from 'svelte';
-	import Environment from '$lib/components/Environment.svelte';
 	import ConfigNumOfRuns from '$lib/components/ConfigNumOfRuns.svelte';
+	// import TestQueue from './TestQueue.svelte';
 	import ConfigBackends from '$lib/components/ConfigBackends.svelte';
-	import ConfigDataTypes from '$lib/components/ConfigDataTypes.svelte';
-	import ConfigModelTypes from '$lib/components/ConfigModelTypes.svelte';
 	import InferenceLog from '$lib/components/InferenceLog.svelte';
 	import Results from '$lib/components/Results.svelte';
-	import TestQueue from '$lib/components/TestQueue.svelte';
+	import Nav from './Nav.svelte';
 	import {
 		auto,
 		run,
@@ -33,7 +31,6 @@
 		modelDownloadProgressStore
 	} from '$lib/store/store';
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 
 	let logShow = true;
 
@@ -105,10 +102,32 @@
 		run();
 	};
 
-	let modelname = '';
+	/**
+	 * @type {string}
+	 */
+
+	let id = '';
+	/**
+	 * @type {string}
+	 */
+	let modelName = '';
+
+	/**
+	 * @type {string }
+	 */
+	let modelType = '';
+
+	/**
+	 * @type {string}
+	 */
+	let dataType = '';
 
 	onMount(() => {
-		modelname = getModelNameById(getModelIdfromPath());
+		id = getModelIdfromPath() || '';
+		modelName = getModelNameById(id) || '';
+		modelType = getModelTypeById(id) || '';
+		dataType = getModelDataTypeById(id) || '';
+
 		if (testQueue.length > 0 && auto) {
 			run();
 		}
@@ -117,9 +136,7 @@
 	afterUpdate(() => {
 		if (!auto) {
 			if ($page.url.searchParams.size === 0) {
-				let modeltype = getModelTypeById(getModelIdfromPath());
-				let datatype = getModelDataTypeById(getModelIdfromPath());
-				let path = `${location.pathname}/?modeltype=${modeltype}&datatype=${datatype}&backend=none&run=100`;
+				let path = `${location.pathname}/?backend=none&run=100&modeltype=${modelType}&datatype=${dataType}`;
 				// goto(path);
 				location.href = location.origin + path;
 			} else {
@@ -129,21 +146,28 @@
 	});
 </script>
 
+<header>
+	<div></div>
+	<div class="nav">
+		<Nav />
+	</div>
+</header>
+
 <div>
 	{#if !auto}
-		<div class="tqtitle"><div class="title tq s">{modelname}</div></div>
+		<div class="tqtitle"><div class="title tq s">{modelName} / {modelType} / {dataType}</div></div>
 		<div class="config">
 			<ConfigBackends />
-			<ConfigModelTypes />
-			<ConfigDataTypes />
 			<ConfigNumOfRuns />
 		</div>
 	{/if}
 	<Results />
-	<InferenceLog bind:logShow />
+	{#if testQueue.length === 0}
+		<InferenceLog bind:logShow />
+	{/if}
 	<!-- <TestQueue /> -->
 	<div class="run">
-		{#if selectedBackends.length > 0 && selectedDataTypes.length > 0 && selectedModelTypes.length > 0 && !auto}
+		{#if selectedBackends.length > 0 && !auto}
 			<button on:click={runManual}>Run Manual Tests</button>
 		{/if}
 		{#if !logShow}
@@ -158,6 +182,10 @@
 </div>
 
 <style>
+	header {
+		height: 60px;
+	}
+
 	.title {
 		text-align: center;
 		color: var(--red);

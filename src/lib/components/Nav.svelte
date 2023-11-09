@@ -1,7 +1,7 @@
 <script>
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
-	import { getModelIdfromPath } from '$lib/assets/js/utils';
+	import { getModelIdfromPath, getModelTypeById, getModelDataTypeById } from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 
 	$: url = base;
@@ -13,7 +13,8 @@
 
 		if ($page.url.pathname.indexOf('/run/') > -1 && search.indexOf('model=') <= -1) {
 			if (search.indexOf('?') > -1) {
-				fullSearch = search + '&model=' + getModelIdfromPath();
+				let id = getModelIdfromPath();
+				fullSearch = search + `&model=${id}`;
 			} else {
 				fullSearch = search;
 			}

@@ -1,4 +1,6 @@
 <script>
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 	import Environment from '$lib/components/Environment.svelte';
 	import Info from '$lib/components/Info.svelte';
 	import Clock from '$lib/components/svg/Clock.svelte';
@@ -23,6 +25,8 @@
 
 	onDestroy(() => {});
 </script>
+
+<Header />
 
 <div class="tqtitle">
 	<div class="title tq">Run single model tests</div>
@@ -96,6 +100,7 @@
 	<Environment />
 	<Info />
 </div>
+<Footer />
 
 <style>
 	.title {

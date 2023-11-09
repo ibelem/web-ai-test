@@ -1,3 +1,11 @@
+<script>
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+	import Fail from '$lib/components/svg/Fail.svelte';
+</script>
+
+<Header />
+
 <div class="page">
 	<h1>About</h1>
 
@@ -12,6 +20,8 @@
 		belem&commat;163.com for more details.
 	</div>
 </div>
+
+<Footer />
 
 <style>
 	.page {
