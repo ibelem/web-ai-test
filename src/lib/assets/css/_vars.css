@@ -81,17 +81,9 @@
   --best-01: rgba(10, 205, 199, 0.1);
 }
 
-/* td.details { background-color: rgba(32, 50, 68,1.0); color: rgba(255, 255, 255, 0.6);}
-.fill {background-color: #46C8C8; color: rgba(255, 255, 255, 1.0); }
-.emb { background-color:#00B1E1; color: rgba(255, 255, 255, 1.0); text-shadow: 0px 1px 0px rgba(0,0,0,0.2);}
-.sha { background-color:#EB7E7F; color: rgba(255, 255, 255, 1.0); }
-.arm64 { background-color:rgba(1, 134, 179, 1.0); color: rgba(255, 255, 255, 1.0);}
-.armx86 { background-color:#E082A5; color: rgba(255, 255, 255, 1.0);}
-.x86 { background-color:#FFBE65; color: rgba(0, 0, 0, 0.6); }
-.rt { background-color:#0ACDC7; color: rgba(255, 255, 255, 1.0); }
-.cdo { background-color:#A7D773; color: rgba(255, 255, 255, 1.0); }
-.ci { background-color:#FF885E; color: rgba(255, 255, 255, 1.0); }
-.xdk { background-color:#D18EE2; color: rgba(255, 255, 255, 1.0); }
-.cr { background-color:#61BD6D; color: rgba(255, 255, 255, 1.0); }
-.xwalkwebviewpg { background-color:#8E44AD; color: rgba(255, 255, 255, 1.0);  }
-#toggle:hover { color: rgba(16, 154, 127,1.0); } */
+  /* #46C8C8;  
+ #00B1E1;  
+ #EB7E7F;  
+ rgba(1, 134, 179, 1.0) 
+ #E082A5;  
+ #FFBE65;  rgba(16, 154, 127,1.0)  */
