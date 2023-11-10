@@ -316,8 +316,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     numOfWarmups = 10;
   }
 
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Warming up ${numOfWarmups} time(s)`);
-
   let firstInferenceTime = 0;
   let warmupTime = 0;
   let warmupTimes = [];
@@ -357,12 +355,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   inferenceTimesAverage = average(inferenceTimes);
   inferenceTimesBest = minimum(inferenceTimes);
 
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] First Inference Time on Warmup [${numOfWarmups} time(s)]: ${firstInferenceTime} ms`);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time on Warmup: [${warmupTimes}] ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time on Warmup [${numOfWarmups} times]: [${warmupTimes}] ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] First Inference Time on Warmup: ${firstInferenceTime} ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Best): ${inferenceTimesBest} ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Median): ${inferenceTimesMedian} ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Average): ${inferenceTimesAverage} ms`);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Times: [${inferenceTimes}] ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Times: [${numOfRuns} times] [${inferenceTimes}] ms`);
   addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, inferenceTimes, inferenceTimesMedian, inferenceTimesAverage, inferenceTimesBest, null);
 
   await sess.release();

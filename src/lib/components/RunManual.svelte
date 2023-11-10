@@ -1,6 +1,5 @@
 <script>
 	import { onMount, afterUpdate } from 'svelte';
-	import ConfigNumOfRuns from '$lib/components/ConfigNumOfRuns.svelte';
 	// import TestQueue from './TestQueue.svelte';
 	import ConfigBackends from '$lib/components/ConfigBackends.svelte';
 	import InferenceLog from '$lib/components/InferenceLog.svelte';
@@ -24,7 +23,6 @@
 		autoStore,
 		testQueueStore,
 		numberOfRunsStore,
-		testQueueLengthStore,
 		backendsStore,
 		modelDownloadProgressStore
 	} from '$lib/store/store';
@@ -55,15 +53,6 @@
 	let testQueue;
 	testQueueStore.subscribe((value) => {
 		testQueue = value;
-	});
-
-	/**
-	 * @type {number}
-	 */
-	let testQueueLength;
-
-	testQueueLengthStore.subscribe((value) => {
-		testQueueLength = value;
 	});
 
 	const runManual = async () => {
