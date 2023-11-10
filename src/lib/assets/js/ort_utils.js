@@ -357,7 +357,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   inferenceTimesBest = minimum(inferenceTimes);
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time on Warmup [${numOfWarmups} times]: [${warmupTimes}] ms`);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] First Inference Time on Warmup: ${firstInferenceTime} ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] First Inference Time: ${firstInferenceTime} ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Best): ${inferenceTimesBest} ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Median): ${inferenceTimesMedian} ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Average): ${inferenceTimesAverage} ms`);
