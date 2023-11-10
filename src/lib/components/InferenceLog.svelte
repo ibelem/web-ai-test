@@ -75,7 +75,7 @@
 		margin-top: 10px;
 		border: 1px solid var(--grey-02);
 		padding: 10px;
-		height: 140px;
+		height: 260px;
 		overflow-y: scroll;
 		scroll-behavior: smooth;
 	}

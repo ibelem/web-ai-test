@@ -16,7 +16,7 @@
 {/if}
 
 <style>
-	.info {
+	/* .info {
 		height: 18px;
 		position: fixed;
 		bottom: 0px;
@@ -27,5 +27,13 @@
 		padding: 5px 10px 0px 10px;
 		border-top-right-radius: 5px;
 		font-family: Arial, sans-serif;
+	} */
+	.info {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		padding: 10px;
+		color: var(--red);
 	}
 </style>

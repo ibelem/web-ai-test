@@ -60,9 +60,7 @@ const getInputsById = (id) => {
 const getFeeds = (session, modelName, _backend) => {
   let feeds = {};
   let inputs = getInputsById(modelName);
-  console.log(inputs);
   let inputNames = session.inputNames;
-  console.log('session.inputNames: ' + inputNames);
 
   for (let input of inputs) {
     if (isDict(input)) {
@@ -72,9 +70,6 @@ const getFeeds = (session, modelName, _backend) => {
       }
     }
   }
-
-  console.log('------ feeds ------');
-  console.log(feeds);
 
   return feeds;
 }
@@ -277,8 +272,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   }
 
   let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
-  console.log('options.freeDimensionOverrides: ');
-  console.log(freeDimensionOverrides);
   if (freeDimensionOverrides) {
     options.freeDimensionOverrides = freeDimensionOverrides;
   }
@@ -361,15 +354,16 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
     let inferenceTime = performance.now() - start;
     inferenceTimes.push(inferenceTime);
-    inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
-    inferenceTimesAverage = parseFloat(average(inferenceTimes).toFixed(2));
-    updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
-    addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, inferenceTimes, inferenceTimesMedian, inferenceTimesAverage, null);
+    // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
   }
+
+  inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
+  inferenceTimesAverage = parseFloat(average(inferenceTimes).toFixed(2));
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Times: [${inferenceTimes}] ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Median): ${inferenceTimesMedian} ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Average): ${inferenceTimesAverage} ms`);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, inferenceTimes, inferenceTimesMedian, inferenceTimesAverage, null);
 
   await sess.release();
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
