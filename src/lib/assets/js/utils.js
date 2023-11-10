@@ -580,7 +580,6 @@ export const median = (arr) => {
 
 export const average = (arr) => {
   const avg = arr.reduce((a, b) => a + b) / arr.length;
-  console.log(avg);
   return parseFloat(avg).toFixed(2);
 }
 

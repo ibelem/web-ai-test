@@ -462,11 +462,9 @@ header .nav {
 }
 
 .result .backend.cpu {
-  padding: 2px 0;
-  width: 100%;
+  padding: 2px 0px 0px 0px;
   background-color: var(--b1-005);
-  margin-left: 1px;
-  border-left: 1px solid var(--white);
+  margin-left:1px;
 }
 
 .result .backend.cpu:hover {
@@ -485,19 +483,15 @@ header .nav {
 }
 
 .result .backend.gpu {
-  padding: 2px 0;
-  width: 100%;
+  padding: 2px 0px 0px 1px;
   background-color: var(--p2-005);
-  margin-left: 1px;
-  border-left: 1px solid var(--white);
+  margin-left:1px;
 }
 
 .result .backend.npu {
-  padding: 2px 0;
-  width: 100%;
+  padding: 2px 0px 0px 1px;
   background-color: var(--purple-005);
-  margin-left: 1px;
-  border-left: 1px solid var(--white);
+  margin-left:1px;
 }
 
 .tq {
@@ -514,7 +508,6 @@ header .nav {
 
 .result .q .data {
   display: grid;
-  width: 100%;
 }
 
 .result .q .data span, .figure span {
@@ -763,9 +756,12 @@ header .nav {
   border-bottom: 1px solid var(--green);
 }
 
-.tq .s, .tq .m, .tq .dt, .tq .bk,
-.result .s, .result .m, .result .dt, .result .bk {
+.tq .s, .tq .m, .tq .dt, .tq .bk, .result .m, .result .dt, .result .bk {
 padding: 2px 4px 2px 4px;
+}
+
+.result .s {
+  padding: 0px 0px 0px 1px;
 }
  
 .tq .mt {
