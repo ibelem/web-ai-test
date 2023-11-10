@@ -69,20 +69,22 @@
   --pt: rgb(238, 76, 44, 1.0);
   --pt-09: rgba(238, 76, 44, 0.9);
   --pt-005: rgba(238, 76, 44, 0.05);
+  --comp: rgba(255, 136, 94, 1);
+  --first: rgba(209, 142, 226, 1);
+  --avg: rgba(167, 215, 115, 1);
+  --med: rgba(97, 189, 109, 1);
+  --comp-01: rgba(255, 136, 94, 0.1);
+  --first-01: rgba(209, 142, 226, 0.1);
+  --avg-01: rgba(167, 215, 115, 0.1);
+  --med-01: rgba(97, 189, 109, 0.1);
+
 }
 
 /* td.details { background-color: rgba(32, 50, 68,1.0); color: rgba(255, 255, 255, 0.6);}
-td.details:hover { background-color: rgba(20, 38, 56,1.0);  }
-span.cap1, .xwalk span:hover, .chromium span:hover, .cordova span:hover, .smali span:hover { border: 1px solid rgba(255, 255, 255, 1.0); background-color: rgba(142, 68, 173,1.0); color: rgba(255, 255, 255, 1.0);  }
-span.cap2, .asset span:hover { border: 1px solid rgba(255, 255, 255, 1.0); background-color: rgba(211, 84, 0,1.0); color: rgba(255, 255, 255, 1.0); }
 .fill {background-color: #46C8C8; color: rgba(255, 255, 255, 1.0); }
 .emb { background-color:#00B1E1; color: rgba(255, 255, 255, 1.0); text-shadow: 0px 1px 0px rgba(0,0,0,0.2);}
 .sha { background-color:#EB7E7F; color: rgba(255, 255, 255, 1.0); }
-.archall { background-color:#000000; color: rgba(255, 255, 255, 1.0); }
-.arch64 { background-color:#666666; color: rgba(255, 255, 255, 1.0); }
 .arm64 { background-color:rgba(1, 134, 179, 1.0); color: rgba(255, 255, 255, 1.0);}
-.arm { background-color:#EC795E; color: rgba(255, 255, 255, 1.0);}
-.x86_64 { background-color:rgba(226, 69, 124, 1.0); color: rgba(255, 255, 255, 1.0);}
 .armx86 { background-color:#E082A5; color: rgba(255, 255, 255, 1.0);}
 .x86 { background-color:#FFBE65; color: rgba(0, 0, 0, 0.6); }
 .rt { background-color:#0ACDC7; color: rgba(255, 255, 255, 1.0); }

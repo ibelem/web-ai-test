@@ -396,6 +396,7 @@ let newUrl = '';
 
 export const goTo = (key, value) => {
   let url = new URL(location.href);
+  // console.log(value);
   if (key !== undefined) {
     if (value) {
       url.searchParams.set(key, value);

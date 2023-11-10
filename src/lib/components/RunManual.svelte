@@ -5,6 +5,7 @@
 	import ConfigBackends from '$lib/components/ConfigBackends.svelte';
 	import InferenceLog from '$lib/components/InferenceLog.svelte';
 	import Results from '$lib/components/Results.svelte';
+	import Info from './Info.svelte';
 	import Nav from './Nav.svelte';
 	import {
 		auto,
@@ -25,9 +26,6 @@
 		numberOfRunsStore,
 		testQueueLengthStore,
 		backendsStore,
-		modelTypesStore,
-		modelsStore,
-		dataTypesStore,
 		modelDownloadProgressStore
 	} from '$lib/store/store';
 	import { page } from '$app/stores';
@@ -49,30 +47,6 @@
 	let selectedBackends;
 	backendsStore.subscribe((value) => {
 		selectedBackends = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedModelTypes;
-	modelTypesStore.subscribe((value) => {
-		selectedModelTypes = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedDataTypes;
-	dataTypesStore.subscribe((value) => {
-		selectedDataTypes = value;
-	});
-
-	/**
-	 * @type {string[]}
-	 */
-	let selectedModels;
-	modelsStore.subscribe((value) => {
-		selectedModels = value;
 	});
 
 	/**
@@ -154,21 +128,37 @@
 </header>
 
 <div>
+	<div class="tqtitle">
+		<div class="title tq s">
+			{modelName} / {modelType} / {dataType} / {#if numOfRuns === 1}
+				1 Run
+			{:else}{numOfRuns} Runs{/if}
+		</div>
+	</div>
+
 	{#if !auto}
-		<div class="tqtitle"><div class="title tq s">{modelName} / {modelType} / {dataType}</div></div>
 		<div class="config">
 			<ConfigBackends />
-			<ConfigNumOfRuns />
+			<!-- <ConfigNumOfRuns /> -->
 		</div>
 	{/if}
-	<Results />
+
 	{#if testQueue.length === 0}
+		<Results />
 		<InferenceLog bind:logShow />
 	{/if}
+
+	{#if testQueue.length > 0}
+		<Info />
+	{/if}
+
 	<!-- <TestQueue /> -->
+
 	<div class="run">
 		{#if selectedBackends.length > 0 && !auto}
-			<button on:click={runManual}>Run Manual Tests</button>
+			{#if testQueue.length === 0}
+				<button on:click={runManual}>Run Manual Tests</button>
+			{/if}
 		{/if}
 		{#if !logShow}
 			<button
