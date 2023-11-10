@@ -46,7 +46,6 @@
 
 	onMount(() => {
 		id = getModelIdfromPath() || '';
-		console.log('>>>' + $page.url.pathname);
 	});
 </script>
 
