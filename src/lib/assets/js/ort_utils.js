@@ -1,6 +1,6 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '../../config';
-import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, average } from '../js/utils';
+import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, average, minimum } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { getModelOPFS } from '../js/nn_utils'
 import to from 'await-to-js';
@@ -289,8 +289,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   l(options.executionProviders[0])
 
   updateTestQueueStatus(_id, 2);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, [], null, null, null);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, [], null, null, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, [], null, null, null, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, [], null, null, null, null);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}/${_modelSize}) with ${_backend} backend`);
 
   let modelPath = getModelUrl(_model);
@@ -320,50 +320,50 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   let firstInferenceTime = 0;
   let warmupTime = 0;
+  let warmupTimes = [];
   for (let j = 0; j < numOfWarmups; j++) {
     const warmupstart = performance.now();
-
     if (backend === 'webnn' || _backend === 'wasm_4') {
       await sess.run(clone(feeds));
     } else {
       await sess.run(feeds);
     }
-
     warmupTime = performance.now() - warmupstart;
     if (j === 0) {
       firstInferenceTime = warmupTime;
-      updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] First Inference Time on Warmup [${j + 1}/${numOfWarmups}]: ${warmupTime} ms`);
-    } else {
-      updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time on Warmup: [${j + 1}/${numOfWarmups}]: ${warmupTime} ms`);
     }
+    warmupTimes.push(warmupTime);
   }
 
   let inferenceTimes = [];
   let inferenceTimesMedian = null;
   let inferenceTimesAverage = null;
+  let inferenceTimesBest = null;
   for (let i = 0; i < numOfRuns; i++) {
     const start = performance.now();
-    // l(feeds);
     if (backend === 'webnn' || _backend === 'wasm_4') {
-      console.time('wanming_');
+      // console.time('wanming_');
       await sess.run(clone(feeds));
-      console.timeEnd('wanming_');
+      // console.timeEnd('wanming_');
     } else {
       await sess.run(feeds);
     }
-
     let inferenceTime = performance.now() - start;
     inferenceTimes.push(inferenceTime);
     // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
   }
 
   inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
-  inferenceTimesAverage = parseFloat(average(inferenceTimes).toFixed(2));
+  inferenceTimesAverage = average(inferenceTimes);
+  inferenceTimesBest = minimum(inferenceTimes);
 
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Times: [${inferenceTimes}] ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] First Inference Time on Warmup [${numOfWarmups} time(s)]: ${firstInferenceTime} ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time on Warmup: [${warmupTimes}] ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Best): ${inferenceTimesBest} ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Median): ${inferenceTimesMedian} ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Average): ${inferenceTimesAverage} ms`);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, inferenceTimes, inferenceTimesMedian, inferenceTimesAverage, null);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Times: [${inferenceTimes}] ms`);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, inferenceTimes, inferenceTimesMedian, inferenceTimesAverage, inferenceTimesBest, null);
 
   await sess.release();
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
@@ -374,7 +374,7 @@ export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _b
 
   const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
   if (err) {
-    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, [], null, null, err.message);
+    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, [], null, null, null, err.message);
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
     updateInfo(err.message);
   } else {

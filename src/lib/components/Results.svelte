@@ -237,13 +237,14 @@
 <div id="result">
 	{#if results.length > 0}
 		<div class="rqtitle">
-			<div class="title rq">Performance (ms)</div>
+			<div class="title rq">Performance Time (ms)</div>
 		</div>
 		<div class="figure">
-			<span class="compilation">Compilation Time</span>
-			<span class="first">Inference Time (First)</span>
-			<span class="average">Inference Time (Average)</span>
-			<span class="median">Inference Time (Median)</span>
+			<span class="compilation">Compilation</span>
+			<span class="first">First Inference</span>
+			<span class="average">Average Inference</span>
+			<span class="median">Median Inference</span>
+			<span class="best">Best Inference</span>
 		</div>
 		<div class="result">
 			<div class="q title _{selectedBackends.length}">
@@ -433,7 +434,8 @@
 								class="status_{key.wasm_1.status} s backend"
 								title="Compilation Time: {key.wasm_1.compilation.toString()} ms; First Inference Time: {key.wasm_1.warmup.toString()} ms; Inference Time (Median): {key
 									.wasm_1.inferencemedian} ms; Inference Time (Average): {key.wasm_1
-									.inferenceaverage} ms; Inference Times: [{key.wasm_1.inference
+									.inferenceaverage} ms; Inference Time (Best): {key.wasm_1
+									.inferencebest} ms; Inference Times: [{key.wasm_1.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -448,6 +450,8 @@
 												key.wasm_1.inferencemedian
 											} ms; Inference Time (Average): ${
 												key.wasm_1.inferenceaverage
+											} ms; Inference Time (Best): ${
+												key.wasm_1.inferencebest
 											} ms; Inference Times: [${key.wasm_1.inference
 												.toString()
 												.replace(',', ', ')}] ms`
@@ -457,6 +461,7 @@
 									<span class="first">{key.wasm_1.warmup.toFixed(2)}</span>
 									<span class="average">{key.wasm_1.inferenceaverage}</span>
 									<span class="median">{key.wasm_1.inferencemedian}</span>
+									<span class="best">{key.wasm_1.inferencebest}</span>
 								</div>
 							</div>
 						{/if}
@@ -486,7 +491,8 @@
 								class="status_{key.wasm_4.status} s backend"
 								title="Compilation Time: {key.wasm_4.compilation.toString()} ms; First Inference Time: {key.wasm_4.warmup.toString()} ms; Inference Time (Median): {key
 									.wasm_4.inferencemedian} ms; Inference Time (Average): {key.wasm_4
-									.inferenceaverage} ms; Inference Times: [{key.wasm_4.inference
+									.inferenceaverage} ms; Inference Time (Best): {key.wasm_4
+									.inferencebest} ms; Inference Times: [{key.wasm_4.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -499,8 +505,10 @@
 										copyRawInference(
 											`Compilation Time: ${key.wasm_4.compilation.toString()} ms; First Inference Time: ${key.wasm_4.warmup.toString()} ms; Inference Time (Median): ${
 												key.wasm_4.inferencemedian
-											} ms;  Inference Time (Average): ${
+											} ms; Inference Time (Average): ${
 												key.wasm_4.inferenceaverage
+											} ms; Inference Time (Best): ${
+												key.wasm_4.inferencebest
 											} ms; Inference Times: [${key.wasm_4.inference
 												.toString()
 												.replace(',', ', ')}] ms`
@@ -510,6 +518,7 @@
 									<span class="first">{key.wasm_4.warmup.toFixed(2)}</span>
 									<span class="average">{key.wasm_4.inferenceaverage}</span>
 									<span class="median">{key.wasm_4.inferencemedian}</span>
+									<span class="best">{key.wasm_4.inferencebest}</span>
 								</div>
 							</div>
 						{/if}
@@ -539,7 +548,8 @@
 								class="status_{key.webnn_cpu_1.status} s backend"
 								title="Compilation Time: {key.webnn_cpu_1.compilation.toString()} ms; First Inference Time: {key.webnn_cpu_1.warmup.toString()} ms; Inference Time (Median): {key
 									.webnn_cpu_1.inferencemedian} ms; Inference Time (Average): {key.webnn_cpu_1
-									.inferenceaverage} ms; Inference Times: [{key.webnn_cpu_1.inference
+									.inferenceaverage} ms; Inference Time (Best): {key.webnn_cpu_1
+									.inferencebest} ms; Inference Times: [{key.webnn_cpu_1.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -554,7 +564,9 @@
 												key.webnn_cpu_1.inferencemedian
 											} ms; Inference Time (Average): ${
 												key.webnn_cpu_1.inferenceaverage
-											} ms;  Inference Times: [${key.webnn_cpu_1.inference
+											} ms; Inference Time (Best): ${
+												key.webnn_cpu_1.inferencebest
+											} ms; Inference Times: [${key.webnn_cpu_1.inference
 												.toString()
 												.replace(',', ', ')}] ms`
 										)}
@@ -563,6 +575,7 @@
 									<span class="first">{key.webnn_cpu_1.warmup.toFixed(2)}</span>
 									<span class="average">{key.webnn_cpu_1.inferenceaverage}</span>
 									<span class="median">{key.webnn_cpu_1.inferencemedian}</span>
+									<span class="best">{key.webnn_cpu_1.inferencebest}</span>
 								</div>
 							</div>
 						{/if}
@@ -592,7 +605,8 @@
 								class="status_{key.webnn_cpu_4.status} s backend"
 								title="Compilation Time: {key.webnn_cpu_4.compilation.toString()} ms;  First Inference Time: {key.webnn_cpu_4.warmup.toString()} ms; Inference Time (Median): {key
 									.webnn_cpu_4.inferencemedian} ms; Inference Time (Average): {key.webnn_cpu_4
-									.inferenceaverage} ms; Inference Times: [{key.webnn_cpu_4.inference
+									.inferenceaverage} ms; Inference Time (Best): {key.webnn_cpu_4
+									.inferencebest} ms; Inference Times: [{key.webnn_cpu_4.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -607,6 +621,8 @@
 												key.webnn_cpu_4.inferencemedian
 											} ms; Inference Time (Average): ${
 												key.webnn_cpu_4.inferenceaverage
+											} ms; Inference Time (Best): ${
+												key.webnn_cpu_4.inferencebest
 											} ms;  Inference Times: [${key.webnn_cpu_4.inference
 												.toString()
 												.replace(',', ', ')}] ms`
@@ -616,6 +632,7 @@
 									<span class="first">{key.webnn_cpu_4.warmup.toFixed(2)}</span>
 									<span class="average">{key.webnn_cpu_4.inferenceaverage}</span>
 									<span class="median">{key.webnn_cpu_4.inferencemedian}</span>
+									<span class="best">{key.webnn_cpu_4.inferencebest}</span>
 								</div>
 							</div>
 						{/if}
@@ -645,7 +662,8 @@
 								class="status_{key.webgl.status} s backend"
 								title="Compilation Time: {key.webgl.compilation.toString()} ms; First Inference Time: {key.webgl.warmup.toString()} ms; Inference Time (Median): {key
 									.webgl.inferencemedian} ms; Inference Time (Average): {key.webgl
-									.inferenceaverage} ms; Inference Times: [{key.webgl.inference
+									.inferenceaverage} ms; Inference Time (Best): {key.webgl
+									.inferencebest} ms; Inference Times: [{key.webgl.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -660,6 +678,8 @@
 												key.webgl.inferencemedian
 											} ms; Inference Time (Average): ${
 												key.webgl.inferenceaverage
+											} ms; Inference Time (Best): ${
+												key.webgl.inferencebest
 											} ms; Inference Times: [${key.webgl.inference
 												.toString()
 												.replace(',', ', ')}] ms`
@@ -669,6 +689,7 @@
 									<span class="first">{key.webgl.warmup.toFixed(2)}</span>
 									<span class="average">{key.webgl.inferenceaverage}</span>
 									<span class="median">{key.webgl.inferencemedian}</span>
+									<span class="best">{key.webgl.inferencebest}</span>
 								</div>
 							</div>
 						{/if}
@@ -698,7 +719,8 @@
 								class="status_{key.webgpu.status} s backend"
 								title="Compilation Time: {key.webgpu.compilation.toString()} ms; First Inference Time: {key.webgpu.warmup.toString()} ms; Inference Time (Median): {key
 									.webgpu.inferencemedian} ms; Inference Time (Average): {key.webgpu
-									.inferenceaverage} ms; Inference Times: [{key.webgpu.inference
+									.inferenceaverage} ms; Inference Time (Best): {key.webgpu
+									.inferencebest} ms; Inference Times: [{key.webgpu.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -713,6 +735,8 @@
 												key.webgpu.inferencemedian
 											} ms; Inference Time (Average): ${
 												key.webgpu.inferenceaverage
+											} ms; Inference Time (Best): ${
+												key.webgpu.inferencebest
 											} ms; Inference Times: [${key.webgpu.inference
 												.toString()
 												.replace(',', ', ')}] ms`
@@ -722,6 +746,7 @@
 									<span class="first">{key.webgpu.warmup.toFixed(2)}</span>
 									<span class="average">{key.webgpu.inferenceaverage}</span>
 									<span class="median">{key.webgpu.inferencemedian}</span>
+									<span class="median">{key.webgpu.inferencebest}</span>
 								</div>
 							</div>
 						{/if}
@@ -751,7 +776,8 @@
 								class="status_{key.webnn_gpu.status} s backend"
 								title="Compilation Time: {key.webnn_gpu.compilation.toString()} ms; First Inference Time: {key.webnn_gpu.warmup.toString()} ms; Inference Time (Median): {key
 									.webnn_gpu.inferencemedian} ms; Inference Time (Average): {key.webnn_gpu
-									.inferenceaverage} ms; Inference Times: [{key.webnn_gpu.inference
+									.inferenceaverage} ms; Inference Time (Best): {key.webnn_gpu
+									.inferencebest} ms; Inference Times: [{key.webnn_gpu.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -766,6 +792,8 @@
 												key.webnn_gpu.inferencemedian
 											} ms; Inference Time (Average): ${
 												key.webnn_gpu.inferenceaverage
+											} ms; Inference Time (Best): ${
+												key.webnn_gpu.inferencebest
 											} ms; Inference Times: [${key.webnn_gpu.inference
 												.toString()
 												.replace(',', ', ')}] ms`
@@ -775,6 +803,7 @@
 									<span class="first">{key.webnn_gpu.warmup.toFixed(2)}</span>
 									<span class="average">{key.webnn_gpu.inferenceaverage}</span>
 									<span class="median">{key.webnn_gpu.inferencemedian}</span>
+									<span class="best">{key.webnn_gpu.inferencebest}</span>
 								</div>
 							</div>
 						{/if}
@@ -804,7 +833,8 @@
 								class="status_{key.webnn_npu.status} s backend"
 								title="Compilation Time: {key.webnn_npu.compilation.toString()} ms; First Inference Time: {key.webnn_npu.warmup.toString()} ms; Inference Time (Median): {key
 									.webnn_npu.inferencemedian} ms; Inference Time (Average): {key.webnn_npu
-									.inferenceaverage} ms; Inference Times: [{key.webnn_npu.inference
+									.inferenceaverage} ms; Inference Time (Best): {key.webnn_npu
+									.inferencebest} ms; Inference Times: [{key.webnn_npu.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -819,6 +849,8 @@
 												key.webnn_npu.inferencemedian
 											} ms; Inference Time (Average): ${
 												key.webnn_npu.inferenceaverage
+											} ms; Inference Time (Best): ${
+												key.webnn_npu.inferencebest
 											} ms; Inference Times: [${key.webnn_npu.inference
 												.toString()
 												.replace(',', ', ')}] ms`
@@ -828,6 +860,7 @@
 									<span class="first">{key.webnn_npu.warmup.toFixed(2)}</span>
 									<span class="average">{key.webnn_npu.inferenceaverage}</span>
 									<span class="median">{key.webnn_npu.inferencemedian}</span>
+									<span class="best">{key.webnn_npu.inferencebest}</span>
 								</div>
 							</div>
 						{/if}

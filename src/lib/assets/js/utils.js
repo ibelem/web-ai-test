@@ -32,7 +32,7 @@ export const initResult = (newItem) => {
   });
 }
 
-export const addResult = (model, modeltype, datatype, modelsize, backend, status, compilation, warmup, inference, inferencemedian, inferenceaverage, err) => {
+export const addResult = (model, modeltype, datatype, modelsize, backend, status, compilation, warmup, inference, inferencemedian, inferenceaverage, inferencebest, err) => {
   resultsStore.update(items => {
     return items.map(item => {
       if (
@@ -48,6 +48,7 @@ export const addResult = (model, modeltype, datatype, modelsize, backend, status
             updatedItem[backend].compilation = compilation;
             updatedItem[backend].warmup = warmup;
             updatedItem[backend].inference = inference;
+            updatedItem[backend].inferencebest = inferencebest;
             updatedItem[backend].inferencemedian = inferencemedian;
             updatedItem[backend].inferenceaverage = inferenceaverage;
             updatedItem[backend].error = err;
@@ -533,13 +534,10 @@ export const urlToStore = (urlSearchParams, modelIdFromUrl) => {
     numOfRuns = parseInt(numOfRuns);
 
     if (numOfRuns <= 1) {
-      console.log('0000000000000000000')
       numOfRuns = 1;
     } else if (auto && numOfRuns > 200) {
-      console.log('1111111111111111111')
       numOfRuns = 200;
     } else if (!auto && numOfRuns > 1000) {
-      console.log('2222222222222222222')
       numOfRuns = 1000;
     }
 
@@ -583,7 +581,12 @@ export const median = (arr) => {
 export const average = (arr) => {
   const avg = arr.reduce((a, b) => a + b) / arr.length;
   console.log(avg);
-  return avg;
+  return parseFloat(avg).toFixed(2);
+}
+
+export const minimum = (arr) => {
+  const minimum = Math.min(...arr);
+  return parseFloat(minimum).toFixed(2);
 }
 
 export const run = async () => {
@@ -604,6 +607,7 @@ export const run = async () => {
         inference: [],
         compilation: null,
         warmup: null,
+        inferencebest: null,
         inferencemedian: null,
         inferenceaverage: null,
         error: null

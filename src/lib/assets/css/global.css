@@ -548,6 +548,10 @@ header .nav {
   background-color: var(--med-01);
 }
 
+.result .q .data .best, .figure .best {
+  background-color: var(--best-01);
+}
+
 .result .q .data span:hover,  .figure span:hover {
   color: var(--white);
 }
@@ -566,6 +570,10 @@ header .nav {
 
 .result .q .data .median:hover, .figure .median:hover {
   background-color: var(--med);
+}
+
+.result .q .data .best:hover, .figure .best:hover {
+  background-color: var(--best);
 }
 
 .result .q svg {
