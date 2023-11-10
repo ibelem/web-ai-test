@@ -331,7 +331,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       // console.time('wanming_');
       const input = clone(feeds);
       start = performance.now()
-      await sess.run(clone(input));
+      await sess.run(input);
       // console.timeEnd('wanming_');
     } else {
       start = performance.now()
