@@ -317,27 +317,15 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   }
 
   let firstInferenceTime = 0;
-  let warmupTime = 0;
   let warmupTimes = [];
-  for (let j = 0; j < numOfWarmups; j++) {
-    const warmupstart = performance.now();
-    if (backend === 'webnn' || _backend === 'wasm_4') {
-      await sess.run(clone(feeds));
-    } else {
-      await sess.run(feeds);
-    }
-    warmupTime = performance.now() - warmupstart;
-    if (j === 0) {
-      firstInferenceTime = warmupTime;
-    }
-    warmupTimes.push(warmupTime);
-  }
-
   let inferenceTimes = [];
   let inferenceTimesMedian = null;
   let inferenceTimesAverage = null;
   let inferenceTimesBest = null;
-  for (let i = 0; i < numOfRuns; i++) {
+
+  for (let i = 0; i < numOfWarmups + numOfRuns; i++) {
+
+
     const start = performance.now();
     if (backend === 'webnn' || _backend === 'wasm_4') {
       // console.time('wanming_');
@@ -347,7 +335,17 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       await sess.run(feeds);
     }
     let inferenceTime = performance.now() - start;
-    inferenceTimes.push(inferenceTime);
+
+    if (i === 0) {
+      firstInferenceTime = inferenceTime;
+    }
+
+    if (i < numOfWarmups) {
+      warmupTimes.push(inferenceTime);
+    } else {
+      inferenceTimes.push(inferenceTime);
+    }
+
     // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
   }
 
