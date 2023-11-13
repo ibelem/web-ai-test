@@ -78,6 +78,7 @@
 		height: 200px;
 		overflow-y: scroll;
 		scroll-behavior: smooth;
+		text-align: left;
 	}
 
 	.inferlog:hover {
