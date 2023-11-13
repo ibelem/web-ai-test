@@ -24,10 +24,8 @@
 
 	const setNumberOfRuns = () => {
 		if (numOfRuns > max) {
-			console.log('4444444444444');
 			numOfRuns = max;
 		} else if (numOfRuns < 1) {
-			console.log('5555555555555');
 			numOfRuns = 1;
 		}
 		goTo('run', numOfRuns);
@@ -35,10 +33,8 @@
 
 	const limitNumberOfRuns = () => {
 		if (!auto && location.pathname?.indexOf('run') > -1) {
-			console.log('6666666666666666');
 			max = 1000;
 		} else {
-			console.log('77777777777777777');
 			max = 200;
 		}
 	};
