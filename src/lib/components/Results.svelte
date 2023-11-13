@@ -11,7 +11,9 @@
 		getModelHFUrlById,
 		copyResults,
 		copyRawInference,
-		downloadScreenshot
+		downloadScreenshot,
+		average,
+		median
 	} from '$lib/assets/js/utils';
 	import { resultsStore } from '$lib/store/store';
 	import ArrowOutward from './svg/ArrowOutward.svelte';
@@ -93,18 +95,54 @@
 		}
 	};
 
-	let sortId = true;
-	let sortDataType = true;
-	let sortModelType = true;
-	let sortModelSize = true;
-	let sortWasm1 = true;
-	let sortWasm4 = true;
-	let sortWebnnCpu1 = true;
-	let sortWebnnCpu4 = true;
-	let sortWebGl = true;
-	let sortWebGpu = true;
-	let sortWebnnGpu = true;
-	let sortWebnnNpu = true;
+	/**
+	 * @type {boolean}
+	 */
+	let sortId,
+		/**
+		 * @type {boolean}
+		 */
+		sortDataType,
+		/**
+		 * @type {boolean}
+		 */
+		sortModelType,
+		/**
+		 * @type {boolean}
+		 */
+		sortModelSize,
+		/**
+		 * @type {boolean}
+		 */
+		sortWasm1,
+		/**
+		 * @type {boolean}
+		 */
+		sortWasm4,
+		/**
+		 * @type {boolean}
+		 */
+		sortWebnnCpu1,
+		/**
+		 * @type {boolean}
+		 */
+		sortWebnnCpu4,
+		/**
+		 * @type {boolean}
+		 */
+		sortWebGl,
+		/**
+		 * @type {boolean}
+		 */
+		sortWebGpu,
+		/**
+		 * @type {boolean}
+		 */
+		sortWebnnGpu,
+		/**
+		 * @type {boolean}
+		 */
+		sortWebnnNpu = true;
 
 	$: sortResult = (/** @type {string} */ value) => {
 		if (value === 'id') {
@@ -230,6 +268,30 @@
 			}
 		});
 	};
+
+	/**
+	 * @type {any}
+	 */
+	let resultOptions = {
+		compilation: false,
+		first: false,
+		average: true,
+		median: false,
+		best: false
+	};
+
+	const toggleIndex = (/** @type {string} */ id) => {
+		resultOptions[id] = !resultOptions[id];
+		if (
+			resultOptions.compilation === false &&
+			resultOptions.first === false &&
+			resultOptions.average === false &&
+			resultOptions.median === false &&
+			resultOptions.best === false
+		) {
+			resultOptions.average = true;
+		}
+	};
 </script>
 
 <!-- <Info /> -->
@@ -237,14 +299,44 @@
 <div id="result">
 	{#if results.length > 0}
 		<div class="rqtitle">
-			<div class="title rq">Performance Time (ms)</div>
+			<div class="title rq">Performance (ms)</div>
 		</div>
 		<div class="figure">
-			<span class="compilation">Compilation</span>
-			<span class="first">First Inference</span>
-			<span class="average">Average Inference</span>
-			<span class="median">Median Inference</span>
-			<span class="best">Best Inference</span>
+			<span
+				class="compilation {resultOptions.compilation}"
+				role="button"
+				tabindex="0"
+				on:keydown={() => {}}
+				on:click={() => toggleIndex('compilation')}>Compilation</span
+			>
+			<span
+				class="first {resultOptions.first}"
+				role="button"
+				tabindex="0"
+				on:keydown={() => {}}
+				on:click={() => toggleIndex('first')}>First Inference</span
+			>
+			<span
+				class="average {resultOptions.average}"
+				role="button"
+				tabindex="0"
+				on:keydown={() => {}}
+				on:click={() => toggleIndex('average')}>Average Inference</span
+			>
+			<span
+				class="median {resultOptions.median}"
+				role="button"
+				tabindex="0"
+				on:keydown={() => {}}
+				on:click={() => toggleIndex('median')}>Median Inference</span
+			>
+			<span
+				class="best {resultOptions.best}"
+				role="button"
+				tabindex="0"
+				on:keydown={() => {}}
+				on:click={() => toggleIndex('best')}>Best Inference</span
+			>
 		</div>
 		<div class="result">
 			<div class="q title _{selectedBackends.length}">
@@ -457,11 +549,17 @@
 												.replace(',', ', ')}] ms`
 										)}
 								>
-									<span class="compilation">{key.wasm_1.compilation.toFixed(2)}</span>
-									<span class="first">{key.wasm_1.warmup.toFixed(2)}</span>
-									<span class="average">{key.wasm_1.inferenceaverage}</span>
-									<span class="median">{key.wasm_1.inferencemedian}</span>
-									<span class="best">{key.wasm_1.inferencebest}</span>
+									{#if resultOptions.compilation}<span class="compilation"
+											>{key.wasm_1.compilation.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.first}<span class="first">{key.wasm_1.warmup.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.average}<span class="average"
+											>{key.wasm_1.inferenceaverage}</span
+										>{/if}
+									{#if resultOptions.median}<span class="median">{key.wasm_1.inferencemedian}</span
+										>{/if}
+									{#if resultOptions.best}<span class="best">{key.wasm_1.inferencebest}</span>{/if}
 								</div>
 							</div>
 						{/if}
@@ -514,11 +612,17 @@
 												.replace(',', ', ')}] ms`
 										)}
 								>
-									<span class="compilation">{key.wasm_4.compilation.toFixed(2)}</span>
-									<span class="first">{key.wasm_4.warmup.toFixed(2)}</span>
-									<span class="average">{key.wasm_4.inferenceaverage}</span>
-									<span class="median">{key.wasm_4.inferencemedian}</span>
-									<span class="best">{key.wasm_4.inferencebest}</span>
+									{#if resultOptions.compilation}<span class="compilation"
+											>{key.wasm_4.compilation.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.first}<span class="first">{key.wasm_4.warmup.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.average}<span class="average"
+											>{key.wasm_4.inferenceaverage}</span
+										>{/if}
+									{#if resultOptions.median}<span class="median">{key.wasm_4.inferencemedian}</span
+										>{/if}
+									{#if resultOptions.best}<span class="best">{key.wasm_4.inferencebest}</span>{/if}
 								</div>
 							</div>
 						{/if}
@@ -571,11 +675,20 @@
 												.replace(',', ', ')}] ms`
 										)}
 								>
-									<span class="compilation">{key.webnn_cpu_1.compilation.toFixed(2)}</span>
-									<span class="first">{key.webnn_cpu_1.warmup.toFixed(2)}</span>
-									<span class="average">{key.webnn_cpu_1.inferenceaverage}</span>
-									<span class="median">{key.webnn_cpu_1.inferencemedian}</span>
-									<span class="best">{key.webnn_cpu_1.inferencebest}</span>
+									{#if resultOptions.compilation}<span class="compilation"
+											>{key.webnn_cpu_1.compilation.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.first}<span class="first"
+											>{key.webnn_cpu_1.warmup.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.average}<span class="average"
+											>{key.webnn_cpu_1.inferenceaverage}</span
+										>{/if}
+									{#if resultOptions.median}<span class="median"
+											>{key.webnn_cpu_1.inferencemedian}</span
+										>{/if}
+									{#if resultOptions.best}<span class="best">{key.webnn_cpu_1.inferencebest}</span
+										>{/if}
 								</div>
 							</div>
 						{/if}
@@ -628,11 +741,20 @@
 												.replace(',', ', ')}] ms`
 										)}
 								>
-									<span class="compilation">{key.webnn_cpu_4.compilation.toFixed(2)}</span>
-									<span class="first">{key.webnn_cpu_4.warmup.toFixed(2)}</span>
-									<span class="average">{key.webnn_cpu_4.inferenceaverage}</span>
-									<span class="median">{key.webnn_cpu_4.inferencemedian}</span>
-									<span class="best">{key.webnn_cpu_4.inferencebest}</span>
+									{#if resultOptions.compilation}<span class="compilation"
+											>{key.webnn_cpu_4.compilation.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.first}<span class="first"
+											>{key.webnn_cpu_4.warmup.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.average}<span class="average"
+											>{key.webnn_cpu_4.inferenceaverage}</span
+										>{/if}
+									{#if resultOptions.median}<span class="median"
+											>{key.webnn_cpu_4.inferencemedian}</span
+										>{/if}
+									{#if resultOptions.best}<span class="best">{key.webnn_cpu_4.inferencebest}</span
+										>{/if}
 								</div>
 							</div>
 						{/if}
@@ -685,11 +807,17 @@
 												.replace(',', ', ')}] ms`
 										)}
 								>
-									<span class="compilation">{key.webgl.compilation.toFixed(2)}</span>
-									<span class="first">{key.webgl.warmup.toFixed(2)}</span>
-									<span class="average">{key.webgl.inferenceaverage}</span>
-									<span class="median">{key.webgl.inferencemedian}</span>
-									<span class="best">{key.webgl.inferencebest}</span>
+									{#if resultOptions.compilation}<span class="compilation"
+											>{key.webgl.compilation.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.first}<span class="first">{key.webgl.warmup.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.average}<span class="average"
+											>{key.webgl.inferenceaverage}</span
+										>{/if}
+									{#if resultOptions.median}<span class="median">{key.webgl.inferencemedian}</span
+										>{/if}
+									{#if resultOptions.best}<span class="best">{key.webgl.inferencebest}</span>{/if}
 								</div>
 							</div>
 						{/if}
@@ -742,11 +870,17 @@
 												.replace(',', ', ')}] ms`
 										)}
 								>
-									<span class="compilation">{key.webgpu.compilation.toFixed(2)}</span>
-									<span class="first">{key.webgpu.warmup.toFixed(2)}</span>
-									<span class="average">{key.webgpu.inferenceaverage}</span>
-									<span class="median">{key.webgpu.inferencemedian}</span>
-									<span class="median">{key.webgpu.inferencebest}</span>
+									{#if resultOptions.compilation}<span class="compilation"
+											>{key.webgpu.compilation.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.first}<span class="first">{key.webgpu.warmup.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.average}<span class="average"
+											>{key.webgpu.inferenceaverage}</span
+										>{/if}
+									{#if resultOptions.median}<span class="median">{key.webgpu.inferencemedian}</span
+										>{/if}
+									{#if resultOptions.best}<span class="best">{key.webgpu.inferencebest}</span>{/if}
 								</div>
 							</div>
 						{/if}
@@ -799,11 +933,20 @@
 												.replace(',', ', ')}] ms`
 										)}
 								>
-									<span class="compilation">{key.webnn_gpu.compilation.toFixed(2)}</span>
-									<span class="first">{key.webnn_gpu.warmup.toFixed(2)}</span>
-									<span class="average">{key.webnn_gpu.inferenceaverage}</span>
-									<span class="median">{key.webnn_gpu.inferencemedian}</span>
-									<span class="best">{key.webnn_gpu.inferencebest}</span>
+									{#if resultOptions.compilation}<span class="compilation"
+											>{key.webnn_gpu.compilation.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.first}<span class="first"
+											>{key.webnn_gpu.warmup.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.average}<span class="average"
+											>{key.webnn_gpu.inferenceaverage}</span
+										>{/if}
+									{#if resultOptions.median}<span class="median"
+											>{key.webnn_gpu.inferencemedian}</span
+										>{/if}
+									{#if resultOptions.best}<span class="best">{key.webnn_gpu.inferencebest}</span
+										>{/if}
 								</div>
 							</div>
 						{/if}
@@ -856,11 +999,20 @@
 												.replace(',', ', ')}] ms`
 										)}
 								>
-									<span class="compilation">{key.webnn_npu.compilation.toFixed(2)}</span>
-									<span class="first">{key.webnn_npu.warmup.toFixed(2)}</span>
-									<span class="average">{key.webnn_npu.inferenceaverage}</span>
-									<span class="median">{key.webnn_npu.inferencemedian}</span>
-									<span class="best">{key.webnn_npu.inferencebest}</span>
+									{#if resultOptions.compilation}<span class="compilation"
+											>{key.webnn_npu.compilation.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.first}<span class="first"
+											>{key.webnn_npu.warmup.toFixed(2)}</span
+										>{/if}
+									{#if resultOptions.average}<span class="average"
+											>{key.webnn_npu.inferenceaverage}</span
+										>{/if}
+									{#if resultOptions.median}<span class="median"
+											>{key.webnn_npu.inferencemedian}</span
+										>{/if}
+									{#if resultOptions.best}<span class="best">{key.webnn_npu.inferencebest}</span
+										>{/if}
 								</div>
 							</div>
 						{/if}

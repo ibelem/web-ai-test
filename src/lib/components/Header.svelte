@@ -4,34 +4,34 @@
 	import { page } from '$app/stores';
 	import { onMount, beforeUpdate } from 'svelte';
 	import { getModelIdfromPath } from '$lib/assets/js/utils';
-	import { testQueueStore, testQueueLengthStore } from '$lib/store/store';
+	// import { testQueueStore, testQueueLengthStore } from '$lib/store/store';
 
-	/**
-	 * @type {string[]}
-	 */
-	export let testQueue;
-	testQueueStore.subscribe((value) => {
-		testQueue = value;
-	});
+	// /**
+	//  * @type {string[]}
+	//  */
+	// export let testQueue;
+	// testQueueStore.subscribe((value) => {
+	// 	testQueue = value;
+	// });
 
-	/**
-	 * @type {number}
-	 */
-	export let testQueueLength;
+	// /**
+	//  * @type {number}
+	//  */
+	// export let testQueueLength;
 
-	testQueueLengthStore.subscribe((value) => {
-		testQueueLength = value;
-	});
+	// testQueueLengthStore.subscribe((value) => {
+	// 	testQueueLength = value;
+	// });
 
-	$: percentageTestQueue = (
-		((testQueueLength - testQueue.length) * 100) /
-		(testQueueLength * 1.0)
-	).toFixed(2);
+	// $: percentageTestQueue = (
+	// 	((testQueueLength - testQueue.length) * 100) /
+	// 	(testQueueLength * 1.0)
+	// ).toFixed(2);
 
-	$: percentageTestQueueInt = (
-		((testQueueLength - testQueue.length) * 100) /
-		(testQueueLength * 1.0)
-	).toFixed(0);
+	// $: percentageTestQueueInt = (
+	// 	((testQueueLength - testQueue.length) * 100) /
+	// 	(testQueueLength * 1.0)
+	// ).toFixed(0);
 
 	$: progress = '';
 
@@ -238,9 +238,9 @@
 	<div class="nav"><Nav></Nav></div>
 </header>
 
-{#if percentageTestQueue}
+<!-- {#if percentageTestQueue}
 	<div style="width: {percentageTestQueue}%" class="progress _{percentageTestQueueInt}"></div>
-{/if}
+{/if} -->
 
 <style>
 	#logo.ing svg path {

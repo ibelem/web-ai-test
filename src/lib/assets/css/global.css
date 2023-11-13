@@ -547,26 +547,62 @@ header .nav {
 
 .result .q .data span:hover,  .figure span:hover {
   color: var(--white);
+  cursor: pointer;
 }
 
-.result .q .data .compilation:hover, .figure .compilation:hover {
+.figure .compilation:hover {
+  border: 1px solid var(--comp);
+  padding: 0px 10px;
+  color: var(--comp);
+}
+
+.figure .first:hover {
+  border: 1px solid var(--first);
+  padding: 0px 10px;
+  color: var(--first);
+}
+
+.figure .average:hover {
+  border: 1px solid var(--avg);
+  padding: 0px 10px;
+  color: var(--avg);
+}
+ 
+.figure .median:hover {
+  border: 1px solid var(--med);
+  padding: 0px 10px;
+  color: var(--med);
+}
+
+.figure .best:hover {
+  border: 1px solid var(--best);
+  padding: 0px 10px;
+  color: var(--best);
+}
+
+.result .q .data .compilation:hover, .figure .compilation.true {
   background-color: var(--comp);
+  color: var(--white);
 }
 
-.result .q .data .first:hover, .figure .first:hover:hover {
+.result .q .data .first:hover, .figure .first.true {
   background-color: var(--first);
+  color: var(--white);
 }
 
-.result .q .data .average:hover, .figure .average:hover {
+.result .q .data .average:hover, .figure .average.true {
   background-color: var(--avg);
+  color: var(--white);
 }
 
-.result .q .data .median:hover, .figure .median:hover {
+.result .q .data .median:hover, .figure .median.true {
   background-color: var(--med);
+  color: var(--white);
 }
 
-.result .q .data .best:hover, .figure .best:hover {
+.result .q .data .best:hover, .figure .best.true {
   background-color: var(--best);
+  color: var(--white);
 }
 
 .result .q svg {
@@ -898,24 +934,24 @@ padding: 2px 4px 2px 4px;
 }
 .run button {
   padding: 4px 16px;
-  background-color: var(--green);
-  border: 1px solid var(--green);
+  background-color: var(--red);
+  border: 1px solid var(--red);
   color: white;
   display: inline-block;
   margin: 10px;
   cursor: pointer;
   box-shadow:
-    var(--green) 0px 10px 20px -12px,
-    var(--green) 0px 18px 16px -18px;
+    var(--red) 0px 10px 20px -12px,
+    var(--red) 0px 18px 16px -18px;
 }
 
 .run button:hover, .run button.log:hover {
   color: white;
-  background-color: var(--pink);
-  border: 1px solid var(--pink);
+  background-color: var(--green);
+  border: 1px solid var(--green);
   box-shadow:
-    var(--pink) 0px 6px 12px -8px,
-    var(--pink) 0px 12px 10px -12px;
+    var(--green) 0px 6px 12px -8px,
+    var(--green) 0px 12px 10px -12px;
 }
 
 .run button.log {

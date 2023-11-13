@@ -1,7 +1,7 @@
 <script>
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import Fail from '$lib/components/svg/Fail.svelte';
+	import Environment from '$lib/components/Environment.svelte';
 </script>
 
 <Header />
@@ -20,6 +20,8 @@
 		belem&commat;163.com for more details.
 	</div>
 </div>
+
+<Environment />
 
 <Footer />
 
