@@ -78,6 +78,9 @@
 		padding: 1px 6px;
 		border: 1px solid var(--grey-02);
 		margin-left: -6px;
+		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		font-size: 12px;
+		color: var(--font);
 	}
 	input[type='number']:hover,
 	input[type='number']:focus {

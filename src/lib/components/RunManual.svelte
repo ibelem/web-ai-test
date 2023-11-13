@@ -1,11 +1,13 @@
 <script>
 	import { onMount, afterUpdate } from 'svelte';
 	// import TestQueue from './TestQueue.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 	import ConfigBackends from '$lib/components/ConfigBackends.svelte';
+	import ConfigNumOfRuns from '$lib/components/ConfigNumOfRuns.svelte';
 	import InferenceLog from '$lib/components/InferenceLog.svelte';
 	import Results from '$lib/components/Results.svelte';
 	import Info from './Info.svelte';
-	import Nav from './Nav.svelte';
 	import {
 		auto,
 		run,
@@ -109,56 +111,50 @@
 	});
 </script>
 
-<header>
-	<div></div>
-	<div class="nav">
-		<Nav />
-	</div>
-</header>
+{#if testQueue.length === 0}
+	<Header />
+{/if}
 
 <div>
-	<div class="tqtitle">
-		<div class="title tq s">
-			{modelName} / {modelType} / {dataType} / {#if numOfRuns === 1}
-				1 Run
-			{:else}{numOfRuns} Runs{/if}
-		</div>
-	</div>
-
-	{#if !auto}
-		<div class="config">
-			<ConfigBackends />
-			<!-- <ConfigNumOfRuns /> -->
-		</div>
-	{/if}
-
 	{#if testQueue.length === 0}
+		<div class="tqtitle">
+			<div class="title tq s">
+				{modelName}
+			</div>
+		</div>
+		{#if !auto}
+			<div class="config">
+				<ConfigBackends />
+				<ConfigNumOfRuns />
+			</div>
+		{/if}
 		<Results />
 		<InferenceLog bind:logShow />
-	{/if}
-
-	{#if testQueue.length > 0}
+		<div class="run">
+			{#if selectedBackends.length > 0 && !auto}
+				{#if testQueue.length === 0}
+					<button on:click={runManual}>Run Manual Tests</button>
+				{/if}
+			{/if}
+			{#if !logShow}
+				<button
+					class="log"
+					on:click={() => {
+						logShow = true;
+					}}>Show Logs</button
+				>
+			{/if}
+		</div>
+	{:else}
 		<Info />
 	{/if}
 
 	<!-- <TestQueue /> -->
-
-	<div class="run">
-		{#if selectedBackends.length > 0 && !auto}
-			{#if testQueue.length === 0}
-				<button on:click={runManual}>Run Manual Tests</button>
-			{/if}
-		{/if}
-		{#if !logShow}
-			<button
-				class="log"
-				on:click={() => {
-					logShow = true;
-				}}>Show Logs</button
-			>
-		{/if}
-	</div>
 </div>
+
+{#if testQueue.length === 0}
+	<Footer />
+{/if}
 
 <style>
 	header {
@@ -168,13 +164,5 @@
 	.title {
 		text-align: center;
 		color: var(--red);
-	}
-
-	.tqtitle {
-		margin-top: 10px;
-	}
-
-	.tq {
-		margin-bottom: 10px;
 	}
 </style>

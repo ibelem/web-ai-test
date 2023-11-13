@@ -1,8 +1,30 @@
 <script>
-	import { infoStore, modelDownloadProgressStore } from '$lib/store/store';
+	import {
+		infoStore,
+		modelDownloadProgressStore,
+		numberOfRunsStore,
+		testQueueStore
+	} from '$lib/store/store';
 	import { getModelIdfromPath, getModelNameById } from '../../lib/assets/js/utils';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+
+	/**
+	 * @type {number}
+	 */
+	let numOfRuns;
+
+	numberOfRunsStore.subscribe((value) => {
+		numOfRuns = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
+	let testQueue;
+	testQueueStore.subscribe((value) => {
+		testQueue = value;
+	});
 
 	/**
 	 * @type {string[]}
@@ -49,36 +71,34 @@
 	});
 </script>
 
-{#if info.length > 0 && $page.url.pathname.length > 1}
+{#if testQueue.length > 0 && $page.url.pathname.length > 1}
 	<div class="info">
-		<div class="ms">
+		<div class="title tq">
+			{testQueue[0].model}
+		</div>
+		<div class="s">
+			{testQueue[0].modeltype} · {testQueue[0].datatype} · {#if numOfRuns === 1}
+				1 run
+			{:else}{numOfRuns} runs{/if} · {testQueue[0].backend}
 			{#if getLoaded(id)}
+				·
 				{#if getProgress(id) === '100.0'}
 					<span title="{getModelNameById(id)} downloaded">{getLoaded(id)} MB</span>
 				{/if}
-
 				{#if getProgress(id) !== '100.0'}
 					<span class="downloadprogress">{getLoaded(id)} MB / {getProgress(id)}%</span>
 				{/if}
 			{/if}
 		</div>
-		{info.slice(-1)}
+		{#if info.length > 0}
+			<div class="infodetails">
+				{info.slice(-1)}
+			</div>
+		{/if}
 	</div>
 {/if}
 
 <style>
-	/* .info {
-		height: 18px;
-		position: fixed;
-		bottom: 0px;
-		left: 0px;
-		background-color: #dee1e6;
-		color: #3c4043;
-		font-size: 11px;
-		padding: 5px 10px 0px 10px;
-		border-top-right-radius: 5px;
-		font-family: Arial, sans-serif;
-	} */
 	.info {
 		position: absolute;
 		top: 50%;
@@ -86,9 +106,16 @@
 		transform: translate(-50%, -50%);
 		padding: 10px;
 		color: var(--font);
+		text-align: center;
+		max-width: 60%;
 	}
 
-	.info .ms {
+	.info .s {
 		text-align: center;
+		margin-bottom: 10px;
+	}
+
+	.info .title {
+		color: var(--red);
 	}
 </style>
