@@ -623,6 +623,7 @@ export const run = async () => {
   } else if (testQueue[0] && auto) {
     let path = `${base}/run/${testQueue[0].model}`;
     updateInfo(`Go to next page to test ${testQueue[0].model}`);
+    await sleep(500);
     // goto(path);
     location.href = path;
   } else if (auto) {

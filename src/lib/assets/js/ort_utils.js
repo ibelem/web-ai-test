@@ -2,6 +2,7 @@
 import { models, ortDists } from '../../config';
 import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, average, minimum } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
+import { sleep } from '$lib/assets/js/utils';
 import { getModelOPFS } from '../js/nn_utils'
 import to from 'await-to-js';
 
@@ -326,9 +327,9 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   let inferenceTimesAverage = null;
   let inferenceTimesBest = null;
 
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inferencing, please wait... `);
+
   for (let i = 0; i < numOfWarmups + numOfRuns; i++) {
-
-
     let start;
     if (backend === 'webnn' || _backend === 'wasm_4') {
       // console.time('wanming_');
@@ -361,14 +362,19 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time on Warmup (${numOfWarmups} times): [${warmupTimes}] ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] First Inference Time: ${firstInferenceTime} ms`);
+  await sleep(100);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Best): ${inferenceTimesBest} ms`);
+  await sleep(100);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Median): ${inferenceTimesMedian} ms`);
+  await sleep(100);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Average): ${inferenceTimesAverage} ms`);
+  await sleep(100);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (${numOfRuns} times): [${inferenceTimes}] ms`);
   addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, inferenceTimes, inferenceTimesMedian, inferenceTimesAverage, inferenceTimesBest, null);
 
   await sess.release();
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
+  await sleep(500);
 }
 
 export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {

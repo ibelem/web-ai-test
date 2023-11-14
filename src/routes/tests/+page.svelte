@@ -7,7 +7,7 @@
 	import { models } from '$lib/config';
 	import { beforeUpdate, onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
-	import { autoStore } from '../../lib/store/store';
+	import { autoStore } from '$lib/store/store';
 	import { resetStore, getModelNameById, getModelDataTypeById } from '$lib/assets/js/utils';
 
 	/**

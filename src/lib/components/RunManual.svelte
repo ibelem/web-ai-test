@@ -20,7 +20,7 @@
 		getModelNameById,
 		getModelTypeById,
 		getModelDataTypeById
-	} from '../../lib/assets/js/utils';
+	} from '$lib/assets/js/utils';
 	import {
 		autoStore,
 		testQueueStore,
@@ -111,12 +111,11 @@
 	});
 </script>
 
-{#if testQueue.length === 0}
-	<Header />
-{/if}
-
-<div>
-	{#if testQueue.length === 0}
+{#if testQueue}
+	{#if testQueue.length != 0}
+		<Info />
+	{:else}
+		<Header />
 		<div class="tqtitle">
 			<div class="title tq s">
 				{modelName}
@@ -145,16 +144,11 @@
 				>
 			{/if}
 		</div>
-	{:else}
-		<Info />
+		<Footer />
 	{/if}
-
-	<!-- <TestQueue /> -->
-</div>
-
-{#if testQueue.length === 0}
-	<Footer />
 {/if}
+
+<!-- <TestQueue /> -->
 
 <style>
 	header {
