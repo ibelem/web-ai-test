@@ -157,6 +157,7 @@
 		padding: 0;
 		overflow: hidden;
 		color: var(--red);
+		height: 36px;
 	}
 
 	.info .s {
