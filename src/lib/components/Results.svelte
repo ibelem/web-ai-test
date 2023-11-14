@@ -11,14 +11,11 @@
 		getModelHFUrlById,
 		copyResults,
 		copyRawInference,
-		downloadScreenshot,
-		average,
-		median
+		downloadScreenshot
 	} from '$lib/assets/js/utils';
 	import { resultsStore } from '$lib/store/store';
 	import ArrowOutward from './svg/ArrowOutward.svelte';
 	// import Info from './Info.svelte';
-	import Copy from './svg/Copy.svelte';
 	import FileCopy from './svg/FileCopy.svelte';
 	import Fail from './svg/Fail.svelte';
 	import Queue from './svg/Queue.svelte';
