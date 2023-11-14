@@ -3,7 +3,8 @@
 		infoStore,
 		modelDownloadProgressStore,
 		numberOfRunsStore,
-		testQueueStore
+		testQueueStore,
+		testQueueLengthStore
 	} from '$lib/store/store';
 	import { getModelIdfromPath, getModelNameById } from '../../lib/assets/js/utils';
 	import { onMount } from 'svelte';
@@ -25,6 +26,20 @@
 	testQueueStore.subscribe((value) => {
 		testQueue = value;
 	});
+
+	/**
+	 * @type {number}
+	 */
+	let testQueueLength;
+
+	testQueueLengthStore.subscribe((value) => {
+		testQueueLength = value;
+	});
+
+	$: percentageTestQueue = (
+		((testQueueLength - testQueue.length) * 100) /
+		(testQueueLength * 1.0)
+	).toFixed(2);
 
 	/**
 	 * @type {string[]}
@@ -95,6 +110,12 @@
 				{info.slice(-1)}
 			</div>
 		{/if}
+		<div>
+			<span>
+				{testQueueLength - testQueue.length}/{testQueueLength}
+				{percentageTestQueue}%</span
+			>
+		</div>
 	</div>
 {/if}
 

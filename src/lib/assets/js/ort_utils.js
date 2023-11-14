@@ -254,7 +254,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
   };
 
-  // options.logSeverityLevel = 0;
+  options.logSeverityLevel = 0;
   // options.logVerbosityLevel = 0;
 
   if (backend === 'wasm' || backend === 'webgpu') {
