@@ -1392,6 +1392,16 @@ padding: 2px 4px 2px 4px;
   }
 }
 
+@media (max-width: 718px) { 
+  .figure span {
+    margin-bottom: 6px;
+  }
+
+  .figure span:last-child {
+    margin-bottom: 0px;
+  }
+}
+
 @media (max-width: 512px) { 
   #layout {
     width: 98%;
