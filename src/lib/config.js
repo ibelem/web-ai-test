@@ -720,7 +720,7 @@ export let models = [
     id: 'sd_1_5_unet_fp16',
     name: 'Stable Diffusion 1.5 UNet',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
-    note: 'Internal and large model, N/A for public testing',
+    note: 'Internal model and large model, N/A for public testing',
     source: 'N/A',
     model: 'fp16/sd-unet-f16.onnx',
     size: '1.60 GB',
