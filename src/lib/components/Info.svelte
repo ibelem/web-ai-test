@@ -101,7 +101,7 @@
 					<span title="{getModelNameById(id)} downloaded">{getLoaded(id)} MB</span>
 				{/if}
 				{#if getProgress(id) !== '100.0'}
-					<span class="downloadprogress">{getLoaded(id)} MB / {getProgress(id)}%</span>
+					<span class="downloadprogress">&nbsp;{getLoaded(id)} MB / {getProgress(id)}%</span>
 				{/if}
 			{/if}
 		</div>
