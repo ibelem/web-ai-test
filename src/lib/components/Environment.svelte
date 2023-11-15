@@ -114,7 +114,6 @@
 			memory = memory.bytes / (1024 * 1024.0);
 			memory = memory.toFixed(2);
 		}
-		console.log(getDateTime() + ' ' + memory + ' MB');
 		scheduleMeasurement();
 	};
 

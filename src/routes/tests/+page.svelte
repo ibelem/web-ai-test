@@ -8,7 +8,13 @@
 	import { beforeUpdate, onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
 	import { autoStore } from '$lib/store/store';
-	import { resetStore, getModelNameById, getModelDataTypeById } from '$lib/assets/js/utils';
+	import {
+		resetStore,
+		getModelNameById,
+		getModelDataTypeById,
+		getModelDescriptionById,
+		getModelNoteById
+	} from '$lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}
@@ -38,7 +44,7 @@
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
 				{#if getModelDataTypeById(model) === 'fp32'}
-					<div class="q tests">
+					<div class="q tests" title="{getModelDescriptionById(model)} {getModelNoteById(model)}">
 						<div class="status_1 s">
 							<Clock />
 						</div>
@@ -54,7 +60,7 @@
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
 				{#if getModelDataTypeById(model) === 'int64'}
-					<div class="q tests">
+					<div class="q tests" title="{getModelDescriptionById(model)} {getModelNoteById(model)}">
 						<div class="status_1 s">
 							<Clock />
 						</div>
@@ -70,7 +76,7 @@
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
 				{#if getModelDataTypeById(model) === 'fp16'}
-					<div class="q tests">
+					<div class="q tests" title="{getModelDescriptionById(model)} {getModelNoteById(model)}">
 						<div class="status_1 s">
 							<Clock />
 						</div>
@@ -86,7 +92,7 @@
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
 				{#if getModelDataTypeById(model) === 'int8'}
-					<div class="q tests">
+					<div class="q tests" title="{getModelDescriptionById(model)} ">
 						<div class="status_1 s">
 							<Clock />
 						</div>
