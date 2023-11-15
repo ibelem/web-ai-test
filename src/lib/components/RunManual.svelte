@@ -151,10 +151,6 @@
 <!-- <TestQueue /> -->
 
 <style>
-	header {
-		height: 60px;
-	}
-
 	.title {
 		text-align: center;
 		color: var(--red);
