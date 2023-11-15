@@ -72,6 +72,7 @@
 
 	input[type='number'] {
 		padding: 1px 6px;
+		width: 50px;
 		border: 1px solid var(--grey-02);
 		margin-left: -6px;
 		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
