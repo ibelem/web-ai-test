@@ -17,7 +17,7 @@
 		<slot name="header" />
 		<slot />
 		<div class="update">
-			<button autofocus on:click={() => dialog.close()}>Close</button>
+			<button on:click={() => dialog.close()}>Close</button>
 		</div>
 	</div>
 </dialog>

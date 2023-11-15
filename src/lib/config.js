@@ -288,7 +288,95 @@ export let models = [
     inputstip: '[1, 3, 416, 416]'
   },
   {
-    category: 'Masked Language Modeling (MLM)',
+    category: 'Fill-Mask',
+    id: 'albert_base_v2',
+    name: 'ALBERT Base v2',
+    description: 'ALBERT is a transformers model pretrained on a large corpus of English data in a self-supervised fashion, using a masked language modeling (MLM) objective',
+    note: '',
+    source: 'https://huggingface.co/Xenova/albert-base-v2/tree/main/onnx',
+    model: 'transformer.js/albert-base-v2/model.onnx',
+    size: '43.1 MB',
+    format: 'onnx',
+    datatype: 'int64',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 1] [1, 1] [1, 1]'
+  },
+  {
+    category: 'Fill-Mask',
+    id: 'albert_base_v2_int8',
+    name: 'ALBERT Base v2',
+    description: 'ALBERT is a transformers model pretrained on a large corpus of English data in a self-supervised fashion, using a masked language modeling (MLM) objective',
+    note: '',
+    source: 'https://huggingface.co/Xenova/albert-base-v2/tree/main/onnx',
+    model: 'transformer.js/albert-base-v2/model_quantized.onnx',
+    size: '38.3 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 1] [1, 1] [1, 1]'
+  },
+  {
+    category: 'Summarization',
+    id: 'bart_large_cnn',
+    name: 'BART Large CNN Encoder',
+    description: 'BART is a transformer encoder-encoder (seq2seq) model with a bidirectional (BERT-like) encoder and an autoregressive (GPT-like) decoder',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models',
+    source: 'https://huggingface.co/Xenova/bart-large-cnn/tree/main/onnx',
+    model: 'transformer.js/bart-large-cnn/encoder_model.onnx',
+    size: '777 MB',
+    format: 'onnx',
+    datatype: 'int64',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }]
+    }],
+    inputstip: '[1, 1] [1, 1]'
+  },
+  {
+    category: 'Summarization',
+    id: 'bart_large_cnn_int8',
+    name: 'BART Large CNN Encoder',
+    description: 'BART is a transformer encoder-encoder (seq2seq) model with a bidirectional (BERT-like) encoder and an autoregressive (GPT-like) decoder',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models',
+    source: 'https://huggingface.co/Xenova/bart-large-cnn/tree/main/onnx',
+    model: 'transformer.js/bart-large-cnn/encoder_model_quantized.onnx',
+    size: '195 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }]
+    }],
+    inputstip: '[1, 1] [1, 1]'
+  },
+  {
+    category: 'Fill-Mask',
+    id: 'bert_base_cased',
+    name: 'BERT Base Cased',
+    description: 'A transformers model pretrained on a large corpus of English data in a self-supervised fashion',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models',
+    source: 'https://huggingface.co/Xenova/bert-base-cased/tree/main/onnx',
+    model: 'transformer.js/bert-base-cased/model.onnx',
+    size: '413 MB',
+    format: 'onnx',
+    datatype: 'int64',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 9] [1, 9] [1, 9]'
+  },
+  {
+    category: 'Fill-Mask',
     id: 'bert_base_cased_int8',
     name: 'BERT Base Cased',
     description: 'A transformers model pretrained on a large corpus of English data in a self-supervised fashion',
@@ -296,6 +384,42 @@ export let models = [
     source: 'https://huggingface.co/Xenova/bert-base-cased/tree/main/onnx',
     model: 'transformer.js/bert-base-cased/model_quantized.onnx',
     size: '104 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 9] [1, 9] [1, 9]'
+  },
+  {
+    category: 'Fill-Mask',
+    id: 'bert_base_uncased',
+    name: 'BERT Base Uncased',
+    description: 'A transformers model pretrained on a large corpus of English data in a self-supervised fashion',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models',
+    source: 'https://huggingface.co/Xenova/bert-base-uncased/tree/main/onnx',
+    model: 'transformer.js/bert-base-uncased/model.onnx',
+    size: '418 MB',
+    format: 'onnx',
+    datatype: 'int64',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 9] [1, 9] [1, 9]'
+  },
+  {
+    category: 'Fill-Mask',
+    id: 'bert_base_uncased_int8',
+    name: 'BERT Base Uncased',
+    description: 'A transformers model pretrained on a large corpus of English data in a self-supervised fashion',
+    note: '',
+    source: 'https://huggingface.co/Xenova/bert-base-uncased/tree/main/onnx',
+    model: 'transformer.js/bert-base-uncased/model_quantized.onnx',
+    size: '105 MB',
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
@@ -391,6 +515,34 @@ export let models = [
     { 'pixel_mask': ['int64', 1n, [1, 64, 64], {}] },
     ],
     inputstip: '[1, 3, 224, 224] [1, 64, 64]'
+  },
+  {
+    category: 'Feature Extraction',
+    id: 'dino_vitb16',
+    name: 'DINO ViT',
+    description: 'Vision Transformer (ViT) model trained using the DINO method',
+    note: '',
+    source: 'https://huggingface.co/Xenova/dino-vitb16/tree/main/onnx',
+    model: 'transformer.js/dino-vitb16/model.onnx',
+    size: '327 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+    inputstip: '[1, 3, 224, 224]'
+  },
+  {
+    category: 'Feature Extraction',
+    id: 'dino_vitb16_int8',
+    name: 'DINO ViT',
+    description: 'Vision Transformer (ViT) model trained using the DINO method',
+    note: '',
+    source: 'https://huggingface.co/Xenova/dino-vitb16/tree/main/onnx',
+    model: 'transformer.js/dino-vitb16/model_quantized.onnx',
+    size: '83.4 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+    inputstip: '[1, 3, 224, 224]'
   },
   {
     category: 'Text Summarization',
@@ -628,6 +780,39 @@ export let models = [
       'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "vaedec_sample_batch": 1 }]
     }],
     inputstip: '[1, 4, 64, 64]'
+  },
+  {
+    category: 'Mask-Generation',
+    id: 'sam_b_decoder',
+    name: 'SAM B Decoder',
+    description: 'Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
+    note: '',
+    source: '',
+    model: 'sam-b-decoder.onnx',
+    size: '15.7 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'image_embeddings': ['float32', 'random', [1, 256, 64, 64], {}] },
+    { 'point_coords': ['float32', 'random', [1, 2, 2], {}] },
+    { 'point_labels': ['float32', 'random', [1, 2], {}] },
+    { 'mask_input': ['float32', 'random', [1, 1, 256, 256], {}] },
+    { 'has_mask_input': ['float32', 'random', [1], {}] },
+    { 'orig_im_size': ['float32', 'random', [2], {}] }],
+    inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1] [2]'
+  },
+  {
+    category: 'Mask-Generation',
+    id: 'sam_b_encoder',
+    name: 'SAM B Encoder',
+    description: 'Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models',
+    source: '',
+    model: 'sam-b-encoder.onnx',
+    size: '342 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'input_image': ['float32', 1., [224, 224, 3], {}] }],
+    inputstip: '[224, 224, 3]'
   },
   {
     category: 'Semantic Segmentation',
