@@ -749,22 +749,22 @@ export let models = [
     }],
     inputstip: '[1, 4, 64, 64]'
   },
-  {
-    category: 'Text To Image',
-    id: 'sd_2_1_vae_decoder',
-    name: 'Stable Diffusion 2.1 VAE Decoder',
-    description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input',
-    note: '',
-    source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
-    model: 'sd-2.1-vae-decoder.onnx',
-    size: '94.5 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "vaedec_sample_batch": 1 }]
-    }],
-    inputstip: '[1, 4, 64, 64]'
-  },
+  // {
+  //   category: 'Text To Image',
+  //   id: 'sd_2_1_vae_decoder',
+  //   name: 'Stable Diffusion 2.1 VAE Decoder',
+  //   description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input',
+  //   note: '',
+  //   source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
+  //   model: 'sd-2.1-vae-decoder.onnx',
+  //   size: '94.5 MB',
+  //   format: 'onnx',
+  //   datatype: 'fp32',
+  //   inputs: [{
+  //     'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "vaedec_sample_batch": 1 }]
+  //   }],
+  //   inputstip: '[1, 4, 64, 64]'
+  // },
   {
     category: 'Text To Image',
     id: 'sd_2_1_vae_encoder',
