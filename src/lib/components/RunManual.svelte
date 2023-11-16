@@ -24,22 +24,12 @@
 	import {
 		autoStore,
 		testQueueStore,
-		numberOfRunsStore,
 		backendsStore,
 		modelDownloadProgressStore
 	} from '$lib/store/store';
 	import { page } from '$app/stores';
 
 	let logShow = true;
-
-	/**
-	 * @type {number}
-	 */
-	let numOfRuns;
-
-	numberOfRunsStore.subscribe((value) => {
-		numOfRuns = value;
-	});
 
 	/**
 	 * @type {string[]}
