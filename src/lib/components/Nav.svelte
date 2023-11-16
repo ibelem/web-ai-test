@@ -1,7 +1,7 @@
 <script>
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
-	import { getModelIdfromPath, getModelTypeById, getModelDataTypeById } from '$lib/assets/js/utils';
+	import { getModelIdfromPath } from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 
 	$: url = base;
