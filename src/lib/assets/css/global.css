@@ -298,7 +298,7 @@ header .nav {
   margin: 0 -6px -2px 0;
 }
 
-.config label.false.extra svg path, .config label.undefined.extra path {
+.config .models label.false.extra svg path, .config .models label.undefined.extra path {
   fill: var(--grey-08);
 }
 
@@ -542,12 +542,20 @@ header .nav {
   background-color: var(--first-01);
 }
 
+.result .q .data .tofirst, .figure .tofirst {
+  background-color: var(--tofirst-01);
+}
+
 .result .q .data .average, .figure .average {
   background-color: var(--avg-01);
 }
 
 .result .q .data .median, .figure .median {
   background-color: var(--med-01);
+}
+
+.result .q .data .ninety, .figure .ninety {
+  background-color: var(--ninety-01);
 }
 
 .result .q .data .best, .figure .best {
@@ -569,6 +577,18 @@ header .nav {
   border: 1px solid var(--first);
   padding: 0px 10px;
   color: var(--first);
+}
+
+.figure .tofirst:hover {
+  border: 1px solid var(--tofirst);
+  padding: 0px 10px;
+  color: var(--tofirst);
+}
+
+.figure .ninety:hover {
+  border: 1px solid var(--ninety);
+  padding: 0px 10px;
+  color: var(--ninety);
 }
 
 .figure .average:hover {
@@ -596,6 +616,16 @@ header .nav {
 
 .result .q .data .first:hover, .figure .first.true {
   background-color: var(--first);
+  color: var(--white);
+}
+
+.result .q .data .tofirst:hover, .figure .tofirst.true {
+  background-color: var(--tofirst);
+  color: var(--white);
+}
+
+.result .q .data .ninety:hover, .figure .ninety.true {
+  background-color: var(--ninety);
   color: var(--white);
 }
 

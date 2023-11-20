@@ -5,6 +5,7 @@ import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, 
 import { sleep } from '$lib/assets/js/utils';
 import { getModelOPFS } from '../js/nn_utils'
 import to from 'await-to-js';
+import percentile from 'percentile';
 
 /**
  * @type {number}
@@ -293,8 +294,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   l(freeDimensionOverrides);
 
   updateTestQueueStatus(_id, 2);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, [], null, null, null, null);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, [], null, null, null, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, null, [], null, null, null, null, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, null, [], null, null, null, null, null);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}/${_modelSize}) with ${_backend} backend`);
 
   let modelPath = getModelUrl(_model);
@@ -320,12 +321,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     numOfWarmups = 1;
   }
 
-  let firstInferenceTime = 0;
-  let warmupTimes = [];
-  let inferenceTimes = [];
-  let inferenceTimesMedian = null;
-  let inferenceTimesAverage = null;
-  let inferenceTimesBest = null;
+  let firstInferenceTime = 0, warmupTimes = [], inferenceTimes = [], timeToFirstInference = null, inferenceTimesAverage = null, inferenceTimesMedian = null, inferenceTimesNinety = null, inferenceTimesBest = null;
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inferencing, please wait... `);
 
@@ -344,7 +340,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     let inferenceTime = performance.now() - start;
 
     if (i === 0) {
-      firstInferenceTime = inferenceTime;
+      firstInferenceTime = parseFloat(inferenceTime).toFixed(2);
+      timeToFirstInference = (parseFloat(compilationTime) + parseFloat(firstInferenceTime)).toFixed(2);
     }
 
     if (i < numOfWarmups) {
@@ -356,21 +353,28 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
   }
 
-  inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
   inferenceTimesAverage = average(inferenceTimes);
+  inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
+
+  inferenceTimesNinety = percentile(90, inferenceTimes);
+  inferenceTimesNinety = inferenceTimesNinety.toFixed(2);
   inferenceTimesBest = minimum(inferenceTimes);
 
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time on Warmup (${numOfWarmups} times): [${warmupTimes}] ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time on Warmup / ${numOfWarmups} time(s): [${warmupTimes}] ms`);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] First Inference Time: ${firstInferenceTime} ms`);
   await sleep(100);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Best): ${inferenceTimesBest} ms`);
-  await sleep(100);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Median): ${inferenceTimesMedian} ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Time to First Inference: ${timeToFirstInference} ms`);
   await sleep(100);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Average): ${inferenceTimesAverage} ms`);
   await sleep(100);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Median): ${inferenceTimesMedian} ms`);
+  await sleep(100);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (90th Percentile): ${inferenceTimesNinety} ms`);
+  await sleep(100);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Best): ${inferenceTimesBest} ms`);
+  await sleep(100);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (${numOfRuns} times): [${inferenceTimes}] ms`);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, inferenceTimes, inferenceTimesMedian, inferenceTimesAverage, inferenceTimesBest, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, timeToFirstInference, inferenceTimes, inferenceTimesMedian, inferenceTimesNinety, inferenceTimesAverage, inferenceTimesBest, null);
 
   await sess.release();
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
@@ -382,7 +386,7 @@ export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _b
 
   const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
   if (err) {
-    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, [], null, null, null, err.message);
+    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
     updateInfo(err.message);
   } else {

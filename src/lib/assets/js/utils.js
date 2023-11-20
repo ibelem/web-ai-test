@@ -32,7 +32,7 @@ export const initResult = (newItem) => {
   });
 }
 
-export const addResult = (model, modeltype, datatype, modelsize, backend, status, compilation, warmup, inference, inferencemedian, inferenceaverage, inferencebest, err) => {
+export const addResult = (model, modeltype, datatype, modelsize, backend, status, compilation, warmup, timetofirstinference, inference, inferencemedian, inferenceninety, inferenceaverage, inferencebest, err) => {
   resultsStore.update(items => {
     return items.map(item => {
       if (
@@ -47,9 +47,11 @@ export const addResult = (model, modeltype, datatype, modelsize, backend, status
             updatedItem[backend].status = status;
             updatedItem[backend].compilation = compilation;
             updatedItem[backend].warmup = warmup;
+            updatedItem[backend].timetofirstinference = timetofirstinference;
             updatedItem[backend].inference = inference;
             updatedItem[backend].inferencebest = inferencebest;
             updatedItem[backend].inferencemedian = inferencemedian;
+            updatedItem[backend].inferenceninety = inferenceninety;
             updatedItem[backend].inferenceaverage = inferenceaverage;
             updatedItem[backend].error = err;
           }
@@ -605,8 +607,10 @@ export const run = async () => {
         inference: [],
         compilation: null,
         warmup: null,
+        timetofirstinference: null,
         inferencebest: null,
         inferencemedian: null,
+        inferenceninety: null,
         inferenceaverage: null,
         error: null
       };
