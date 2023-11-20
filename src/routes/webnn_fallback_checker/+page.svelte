@@ -18,6 +18,7 @@
 
 		worker.onmessage = (event) => {
 			const outputData = event.data;
+			console.log(outputData);
 			// Handle the output received from the worker
 		};
 	};
