@@ -293,6 +293,15 @@ header .nav {
   padding: 0px 6px 0px 6px;
 }
 
+.config .models label.extra svg {
+  height: 14px;
+  margin: 0 -6px -2px 0;
+}
+
+.config label.false.extra svg path, .config label.undefined.extra path {
+  fill: var(--grey-08);
+}
+
 .config label.false {
   background-color: var(--white);
   color: var(--font);
@@ -1048,11 +1057,24 @@ padding: 2px 4px 2px 4px;
   border: 1px solid var(--red) !important;
 }
 
+.config label.extra.fp32:hover svg path {
+  fill: var(--red) !important;
+}
+
+.config label.true.extra svg path {
+  fill: var(--white);
+}
+
 .config label.false.extra.int64:hover
 {  
   border: 1px solid var(--blue) !important;
   color: var(--blue);
   background-color: var(--blue-01);
+}
+
+.config label.extra.int64:hover svg path
+{  
+  fill: var(--blue) !important;
 }
 
 .config label.true.extra.int64:hover
@@ -1078,6 +1100,11 @@ padding: 2px 4px 2px 4px;
   background-color: var(--pink-01);
 }
 
+.config label.extra.fp16:hover svg path
+{  
+  fill: var(--pink) !important;
+}
+
 .config label.false.extra.int8:hover
 {  
   border: 1px solid var(--p) !important;
@@ -1093,6 +1120,10 @@ padding: 2px 4px 2px 4px;
   background-color: var(--p-01);
 }
 
+.config label.extra.int8:hover svg path
+{  
+  fill: var(--p) !important;
+}
 
 .models label.false.extra.int64:hover {
   border: 1px solid var(--blue) !important;
@@ -1251,6 +1282,14 @@ padding: 2px 4px 2px 4px;
 
 #modeldesc.int8 .note {
   background-color: var(--p);
+}
+
+#modeldesc .note svg {
+  margin: 0 6px -2px 0;
+}
+
+#modeldesc .note svg path {
+  fill: var(--white);
 }
 
 .environment .input-container .autocomplete-input {
