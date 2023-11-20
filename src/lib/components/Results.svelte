@@ -1008,6 +1008,9 @@
 									{#if resultOptions.median}<span class="median"
 											>{key.webnn_gpu.inferencemedian}</span
 										>{/if}
+									{#if resultOptions.ninety}<span class="ninety"
+											>{key.webnn_gpu.inferenceninety}</span
+										>{/if}
 									{#if resultOptions.best}<span class="best">{key.webnn_gpu.inferencebest}</span
 										>{/if}
 								</div>
