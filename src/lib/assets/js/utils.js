@@ -1,5 +1,5 @@
 import { refererStore, modelDownloadUrlStore, autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
-import { models, uniqueBackends, localhost, corsSites } from '../../config';
+import { models, uniqueBackends, corsSites } from '../../config';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
@@ -233,7 +233,7 @@ export const getAwsUrlById = (id) => {
 export const getLocalUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      return `https://${localhost}/` + modelHosts.local + models[i].model;
+      return location.origin + '/' + modelHosts.local + models[i].model;
     }
   }
   return null;

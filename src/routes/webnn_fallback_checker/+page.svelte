@@ -12,35 +12,15 @@
 
 	onDestroy(() => {});
 
-	// self.addEventListener('message', async (event) => {
-	// 	const { modelPath, inputData } = event.data;
+	const fallbackCheck = (/** @type {string} */ id) => {
+		const worker = new Worker(`../js/fallback_worker.js`);
+		worker.postMessage(models);
 
-	// 	// Load the ONNX model using the provided model path
-	// 	const session = await InferenceSession.create({ modelUrl: modelPath });
-
-	// 	// Perform inference with the input data
-	// 	const output = await session.run(inputData);
-
-	// 	// Send the output back to the main thread
-	// 	self.postMessage(output);
-	// });
-
-	// 	// Create a Web Worker
-	// const worker = new Worker('path_to_your_worker_script.js');
-
-	// // Define the input data and model path
-	// const inputData = /* your input data */;
-	// const modelPath = 'path_to_your_onnx_model.onnx';
-
-	// // Send data to the Web Worker
-	// worker.postMessage({ modelPath, inputData });
-
-	// // Receive output from the Web Worker
-	// worker.onmessage = (event) => {
-	// 	const outputData = event.data;
-	// 	// Handle the output received from the worker
-	// };
-	const fallbackCheck = () => {};
+		worker.onmessage = (event) => {
+			const outputData = event.data;
+			// Handle the output received from the worker
+		};
+	};
 </script>
 
 <Header />
@@ -58,7 +38,7 @@
 </div>
 
 <div class="run">
-	<button on:click={fallbackCheck}>Check WebNN Fallbacks</button>
+	<button on:click={() => fallbackCheck('mobilenet_v2')}>Check WebNN Fallbacks</button>
 </div>
 
 <Environment />
