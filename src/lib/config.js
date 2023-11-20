@@ -55,9 +55,10 @@ export const uniqueBackends = [
 ];
 
 const generateEsrganConfigs = () => {
-  let ret = []
   const configs = [
     // tile size, float bits, est. VRAM requirement
+    [64, 32, 1],
+    [64, 16, 1],
     [128, 32, 2],
     [128, 16, 2],
     [256, 32, 4],
@@ -72,7 +73,7 @@ const generateEsrganConfigs = () => {
     id: `realesrgan_x4_${tile}_fp${fp}`,
     name: `RealESRGAN x4 ${tile}`,
     description: `Image Super-Resolution x4, tile size = ${tile}, recommended VRAM >${vram} GB`,
-    note: 'It\'s slow on CPU, benchmarking it on CPU regularly',
+    note: tile == 1024 ? 'Out-of-memory test model, run tests individually rather than together with other models. Slow on CPU' : 'Slow on CPU',
     source: `RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx`,
     model: fp == 16 ? `fp16/RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx` : `RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx`,
     size: fp == 16 ? "36 MB" : '65 MB',
