@@ -70,7 +70,7 @@ const generateEsrganConfigs = () => {
     id: `realesrgan_x4_${tile}_fp${fp}`,
     name: `RealESRGAN x4 ${tile}`,
     description: `Image Super-Resolution x4, tile size = ${tile}, recommended VRAM >${vram} GB`,
-    note: tile == 1024 ? 'Out-of-memory test model, run tests individually rather than together with other models. Slow on CPU' : 'Slow on CPU',
+    note: tile == 1024 ? 'Out-of-memory test model, run this model tests individually rather than together with other models. Slow on CPU' : 'Slow on CPU',
     source: `RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx`,
     model: fp == 16 ? `fp16/RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx` : `RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx`,
     size: fp == 16 ? "36 MB" : '65 MB',
@@ -777,37 +777,40 @@ export let models = [
     }],
     inputstip: '[1, 4, 64, 64]'
   },
-  // {
-  //   category: 'Text To Image',
-  //   id: 'sd_2_1_vae_decoder',
-  //   name: 'Stable Diffusion 2.1 VAE Decoder',
-  //   description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
-  //   note: '',
-  //   source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
-  //   model: 'sd-2.1-vae-decoder.onnx',
-  //   size: '94.5 MB',
-  //   format: 'onnx',
-  //   datatype: 'fp32',
-  //   inputs: [{
-  //     'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "vaedec_sample_batch": 1 }]
-  //   }],
-  //   inputstip: '[1, 4, 64, 64]'
-  // },
+  {
+    category: 'Text To Image',
+    id: 'sd_2_1_vae_decoder',
+    name: 'Stable Diffusion 2.1 VAE Decoder',
+    description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
+    note: 'Slow on CPU. Reduce number of runs and run this model tests individually rather than together with other models.',
+    source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
+    model: 'sd-2.1-vae-decoder.onnx',
+    size: '94.5 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'latent_sample': ['float32', 'random', [1, 4, 64, 64], {
+        "vaedec_sample_batch": 1,
+        "vaedec_sample_channels": 4, "vaedec_sample_height": 64, "vaedec_sample_width": 64
+      }]
+    }],
+    inputstip: '[1, 4, 64, 64]'
+  },
   {
     category: 'Text To Image',
     id: 'sd_2_1_vae_encoder',
     name: 'Stable Diffusion 2.1 VAE Encoder',
     description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
-    note: '',
+    note: 'Slow on CPU. Reduce number of runs and run this model tests individually rather than together with other models.',
     source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
     model: 'sd-2.1-vae-encoder.onnx',
     size: '130.42 MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
-      'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "vaedec_sample_batch": 1 }]
+      'sample': ['float32', 'random', [1, 3, 512, 512], { "vaeenc_sample_batch": 1, "vaeenc_sample_channels": 3, "vaeenc_sample_height": 512, "vaeenc_sample_width": 512 }]
     }],
-    inputstip: '[1, 4, 64, 64]'
+    inputstip: '[1, 3, 512, 512]'
   },
   {
     category: 'Mask-Generation',
