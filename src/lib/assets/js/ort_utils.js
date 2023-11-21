@@ -267,11 +267,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     ort.env.wasm.simd = wasmSimd;
   }
 
-  if (backend === 'webnn' || _backend === 'wasm_4') {
-    ort.env.wasm.proxy = true;
-  } else {
-    ort.env.wasm.proxy = false;
-  }
+  (backend === 'webnn' || _backend === 'wasm_4') ? ort.env.wasm.proxy = true : ort.env.wasm.proxy = false;
 
   let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
   if (freeDimensionOverrides) {
@@ -344,11 +340,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       timeToFirstInference = (parseFloat(compilationTime) + parseFloat(firstInferenceTime)).toFixed(2);
     }
 
-    if (i < numOfWarmups) {
-      warmupTimes.push(inferenceTime);
-    } else {
-      inferenceTimes.push(inferenceTime);
-    }
+    (i < numOfWarmups) ? warmupTimes.push(inferenceTime) : inferenceTimes.push(inferenceTime);
 
     // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
   }
