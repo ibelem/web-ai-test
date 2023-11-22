@@ -1,5 +1,5 @@
 
-importScripts('https://ibelem.github.io/onnxruntime-web-dist/1.17_11082023/ort.min.js');
+importScripts('./ort.min.js');
 
 self.addEventListener('message', async (event) => {
 
@@ -15,21 +15,6 @@ self.addEventListener('message', async (event) => {
   //     // Perform operations with each object here
   //   });
   // }
-
-  const ortDists = {
-    public: {
-      version: 'v1.16.1 Public',
-      url: 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js'
-    },
-    webgpu: {
-      version: 'v1.17 Internal Nov 20',
-      url: '../ort/1.17_11202023/web/webgpu/ort.webgpu.min.js'
-    },
-    webnn_webglfix: {
-      version: 'v1.17 Internal Nov 08',
-      url: 'https://ibelem.github.io/onnxruntime-web-dist/1.17_11082023/ort.min.js'
-    }
-  }
 
   const modelHosts = {
     hf: 'https://huggingface.co/webml/models/resolve/main/',
