@@ -2,19 +2,23 @@
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Environment from '$lib/components/Environment.svelte';
-	import { models } from '$lib/config';
+	import { models, ortDists } from '$lib/config';
 	import { beforeUpdate, onMount, onDestroy } from 'svelte';
-	import { base } from '$app/paths';
+	import { loadScript } from '$lib/assets/js/utils';
 
 	beforeUpdate(() => {});
 
-	onMount(() => {});
+	onMount(async () => {
+		await loadScript('webnn', ortDists.webnn_webglfix.url);
+
+		console.log(ort);
+	});
 
 	onDestroy(() => {});
 
 	const fallbackCheck = (/** @type {string} */ id) => {
 		const worker = new Worker(`../js/fallback_worker.js`);
-		worker.postMessage(models);
+		worker.postMessage('hello');
 
 		worker.onmessage = (event) => {
 			const outputData = event.data;
