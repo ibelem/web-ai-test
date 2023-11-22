@@ -4,17 +4,32 @@ importScripts('./ort.min.js');
 self.addEventListener('message', async (event) => {
 
   const models = event.data;
+  console.log(models)
 
-  console.log(models);
+  if (console.everything === undefined) {
+    console.everything = [];
 
-  // if (Array.isArray(receivedData)) {
-  //   // Iterate through the array of objects
-  //   receivedData.forEach((object) => {
-  //     // Process each object
-  //     console.log('Received object:', object);
-  //     // Perform operations with each object here
-  //   });
-  // }
+    console.defaultLog = console.log.bind(console);
+    console.log = function () {
+      console.everything.push({ "type": "log", "datetime": Date().toLocaleString(), "value": Array.from(arguments) });
+      console.defaultLog.apply(console, arguments);
+    }
+    console.defaultError = console.error.bind(console);
+    console.error = function () {
+      console.everything.push({ "type": "error", "datetime": Date().toLocaleString(), "value": Array.from(arguments) });
+      console.defaultError.apply(console, arguments);
+    }
+    console.defaultWarn = console.warn.bind(console);
+    console.warn = function () {
+      console.everything.push({ "type": "warn", "datetime": Date().toLocaleString(), "value": Array.from(arguments) });
+      console.defaultWarn.apply(console, arguments);
+    }
+    console.defaultDebug = console.debug.bind(console);
+    console.debug = function () {
+      console.everything.push({ "type": "debug", "datetime": Date().toLocaleString(), "value": Array.from(arguments) });
+      console.defaultDebug.apply(console, arguments);
+    }
+  }
 
   const modelHosts = {
     hf: 'https://huggingface.co/webml/models/resolve/main/',
@@ -45,24 +60,6 @@ self.addEventListener('message', async (event) => {
     }
     return null;
   };
-
-  // const getHfMirrorUrlById = (id) => {
-  //   for (let i = 0; i < models.length; i++) {
-  //     if (models[i].id === id) {
-  //       return modelHosts.hfmirror + models[i].model;
-  //     }
-  //   }
-  //   return null;
-  // };
-
-  // const getAwsUrlById = (id) => {
-  //   for (let i = 0; i < models.length; i++) {
-  //     if (models[i].id === id) {
-  //       return modelHosts.cf + models[i].model;
-  //     }
-  //   }
-  //   return null;
-  // };
 
   const getLocalUrlById = (id) => {
     for (let i = 0; i < models.length; i++) {
@@ -137,29 +134,22 @@ self.addEventListener('message', async (event) => {
     }
   }
 
-  console.log(models);
+  let fallbackChecker = async (backend) => {
+    let options = {
+      executionProviders: [
+        {
+          name: 'webnn',
+          deviceType: backend,
+          powerPreference: "default",
+          preferredLayout: 'NHWC',
+          numThreads: 4
+        },
+      ]
+    };
 
-  let options = {
-    executionProviders: [
-      {
-        name: 'webnn',
-        deviceType: 'cpu',
-        powerPreference: "default",
-        preferredLayout: 'NHWC',
-        numThreads: 4
-      },
-    ],
-    //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
-  };
+    options.logSeverityLevel = 0;
 
-  options.logSeverityLevel = 0;
-  // options.logVerbosityLevel = 0;
-
-  for (let m of models) {
-
-    console.log(m.id)
-
-    if (m.id === 'mobilenet_v2') {
+    for (let m of models) {
 
       let freeDimensionOverrides = getFreeDimensionOverridesById(m.id);
       if (freeDimensionOverrides) {
@@ -172,18 +162,88 @@ self.addEventListener('message', async (event) => {
         modelBuffer = await getModelOPFS(m.id, modelPath, true);
       }
 
-      // Load the ONNX model using the provided model path
       const session = await ort.InferenceSession.create(modelBuffer, options);
-
-      console.log(session)
-
-      // // Perform inference with the input data
-      // const output = await session.run(inputData);
-
-      // Send the output back to the main thread
-      self.postMessage(session);
-
       await session.release();
+
+      let everything = console.everything.map(item => item.value[0]);
+      let filteredEverything = everything.filter(item => {
+        return (
+          String(item).includes("Operator type") ||
+          String(item).includes("GetCapability")
+          // || String(item).includes("Node(s) placed on")
+        );
+      });
+      filteredEverything = filteredEverything.filter(item => !item.includes("is supported by browser"));
+      filteredEverything = filteredEverything.filter(item => !item.includes("current supported node group size"));
+
+      // Remove strings before "Operator type: "
+      let cleanedJsonOperatorType = filteredEverything.map(item => {
+        const match = item.match(/Operator type: .*/);
+        return match ? match[0] : item;
+      });
+
+      // Remove strings before "WebNNExecutionProvider::GetCapability,"
+      let cleanedJsonWebNN = cleanedJsonOperatorType.map(item => {
+        const match = item.match(/WebNNExecutionProvider::GetCapability, .*/);
+        return match ? match[0] : item;
+      });
+
+      let removedOperatorType = cleanedJsonWebNN.map(item => item.replace("Operator type: ", ""));
+
+      // Remove "WebNNExecutionProvider::GetCapability, " from each item
+      let removedWebNN = removedOperatorType.map(item => item.replace("WebNNExecutionProvider::GetCapability, ", ""));
+      let removedCenter = removedWebNN.map(item => item.replace(/index: \[.*?\] supported: /, 'index: [] supported: '));
+      let removeTail = removedCenter.map(item => item.replace('\u001b[m', ''));
+
+      // Find the index of the first "number of" item
+      let indexOfNumber = removeTail.findIndex(item => item.startsWith("number of"));
+
+      // Remove the item starting with "number of" and its preceding items
+      if (indexOfNumber !== -1) {
+        removeTail = removeTail.slice(indexOfNumber + 1);
+      }
+
+      let modifiedT = removeTail.flatMap(item => {
+        if (item.startsWith("number of")) {
+          return item.split("number of").filter(Boolean).map(part => `number of ${part.trim()}`);
+        } else {
+          return item;
+        }
+      });
+
+      modifiedT = modifiedT.map(item => item.replace(' index: [] supported: ', ''));
+      modifiedT = [...new Set(modifiedT)];
+
+      let obj = {
+        "supported": [],
+        "not_supported": [],
+        "partitions_supported_by_webnn": 0,
+        "nodes_in_the_graph": 0,
+        "nodes_supported_by_webnn": 0
+      };
+
+      modifiedT.forEach(item => {
+        if (item.startsWith("[") && item.endsWith("][1]")) {
+          obj["supported"].push(item.substring(1, item.indexOf("][")));
+        } else if (item.startsWith("[") && item.endsWith("][0]")) {
+          obj["not_supported"].push(item.substring(1, item.indexOf("][")));
+        } else if (item.startsWith("number of partitions supported by WebNN: ")) {
+          obj["partitions_supported_by_webnn"] = parseInt(item.split(": ")[1]);
+        } else if (item.startsWith("number of nodes in the graph: ")) {
+          obj["nodes_in_the_graph"] = parseInt(item.split(": ")[1]);
+        } else if (item.startsWith("number of nodes supported by WebNN: ")) {
+          obj["nodes_supported_by_webnn"] = parseInt(item.split(": ")[1]);
+        }
+      });
+
+      console.log(obj);
+
+      self.postMessage(`Backend: WebNN_${backend.toUpperCase()}`);
+      self.postMessage(obj);
+
     }
   }
+
+  await fallbackChecker('cpu');
+  await fallbackChecker('gpu');
 });
