@@ -1,8 +1,33 @@
 
-
+importScripts('https://ibelem.github.io/onnxruntime-web-dist/1.17_11082023/ort.min.js');
 
 self.addEventListener('message', async (event) => {
-  const models = event.data;
+
+  const receivedData = event.data;
+
+  if (Array.isArray(receivedData)) {
+    // Iterate through the array of objects
+    receivedData.forEach((object) => {
+      // Process each object
+      console.log('Received object:', object);
+      // Perform operations with each object here
+    });
+  }
+
+  const ortDists = {
+    public: {
+      version: 'v1.16.1 Public',
+      url: 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js'
+    },
+    webgpu: {
+      version: 'v1.17 Internal Nov 20',
+      url: '../ort/1.17_11202023/web/webgpu/ort.webgpu.min.js'
+    },
+    webnn_webglfix: {
+      version: 'v1.17 Internal Nov 08',
+      url: 'https://ibelem.github.io/onnxruntime-web-dist/1.17_11082023/ort.min.js'
+    }
+  }
 
   const modelHosts = {
     hf: 'https://huggingface.co/webml/models/resolve/main/',
@@ -34,23 +59,23 @@ self.addEventListener('message', async (event) => {
     return null;
   };
 
-  const getHfMirrorUrlById = (id) => {
-    for (let i = 0; i < models.length; i++) {
-      if (models[i].id === id) {
-        return modelHosts.hfmirror + models[i].model;
-      }
-    }
-    return null;
-  };
+  // const getHfMirrorUrlById = (id) => {
+  //   for (let i = 0; i < models.length; i++) {
+  //     if (models[i].id === id) {
+  //       return modelHosts.hfmirror + models[i].model;
+  //     }
+  //   }
+  //   return null;
+  // };
 
-  const getAwsUrlById = (id) => {
-    for (let i = 0; i < models.length; i++) {
-      if (models[i].id === id) {
-        return modelHosts.cf + models[i].model;
-      }
-    }
-    return null;
-  };
+  // const getAwsUrlById = (id) => {
+  //   for (let i = 0; i < models.length; i++) {
+  //     if (models[i].id === id) {
+  //       return modelHosts.cf + models[i].model;
+  //     }
+  //   }
+  //   return null;
+  // };
 
   const getLocalUrlById = (id) => {
     for (let i = 0; i < models.length; i++) {
@@ -145,29 +170,33 @@ self.addEventListener('message', async (event) => {
 
   for (let m of models) {
 
-    let freeDimensionOverrides = getFreeDimensionOverridesById(m.id);
-    if (freeDimensionOverrides) {
-      options.freeDimensionOverrides = freeDimensionOverrides;
+    console.log(m.id)
+
+    if (m.id === 'mobilenet_v2') {
+
+      let freeDimensionOverrides = getFreeDimensionOverridesById(m.id);
+      if (freeDimensionOverrides) {
+        options.freeDimensionOverrides = freeDimensionOverrides;
+      }
+
+      let modelPath = getModelUrl(m.id);
+      let modelBuffer = await getModelOPFS(m.id, modelPath, false);
+      if (modelBuffer.byteLength < 1024) {
+        modelBuffer = await getModelOPFS(m.id, modelPath, true);
+      }
+
+      // Load the ONNX model using the provided model path
+      const session = await ort.InferenceSession.create(modelBuffer, options);
+
+      console.log(session)
+
+      // // Perform inference with the input data
+      // const output = await session.run(inputData);
+
+      // Send the output back to the main thread
+      self.postMessage(session);
+
+      await session.release();
     }
-
-    let modelPath = getModelUrl(m.id);
-    let modelBuffer = await getModelOPFS(m.id, modelPath, false);
-    if (modelBuffer.byteLength < 1024) {
-      modelBuffer = await getModelOPFS(m.id, modelPath, true);
-    }
-
-    // Load the ONNX model using the provided model path
-    const session = await ort.InferenceSession.create(modelBuffer, options);
-
-    // // Perform inference with the input data
-    // const output = await session.run(inputData);
-
-    // Send the output back to the main thread
-    self.postMessage(session);
-
-    await sess.release();
   }
-
-
-
 });

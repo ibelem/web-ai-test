@@ -24,8 +24,8 @@ export const ortDists = {
     url: 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js'
   },
   webgpu: {
-    version: 'v1.17 Internal Nov 20',
-    url: '../ort/1.17_11202023/web/webgpu/ort.webgpu.min.js'
+    version: 'v1.17 Internal Nov 22',
+    url: '../ort/1.17_11222023/web/webgpu/ort.webgpu.min.js'
   },
   webnn_webglfix: {
     version: 'v1.17 Internal Nov 08',
