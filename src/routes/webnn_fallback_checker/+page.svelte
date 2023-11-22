@@ -8,17 +8,13 @@
 
 	beforeUpdate(() => {});
 
-	onMount(async () => {
-		await loadScript('webnn', ortDists.webnn_webglfix.url);
-
-		console.log(ort);
-	});
+	onMount(async () => {});
 
 	onDestroy(() => {});
 
 	const fallbackCheck = (/** @type {string} */ id) => {
-		const worker = new Worker(`../js/fallback_worker.js`);
-		worker.postMessage('hello');
+		const worker = new Worker(ortDists.webnn_webglfix.workerjs);
+		worker.postMessage(models);
 
 		worker.onmessage = (event) => {
 			const outputData = event.data;
