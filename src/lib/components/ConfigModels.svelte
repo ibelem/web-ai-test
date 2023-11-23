@@ -1,5 +1,6 @@
 <script>
 	import { models } from '../config';
+	import { fallback, fallbackEnv } from '../fallback';
 	import {
 		trimComma,
 		removeStringFromArray,
@@ -22,6 +23,10 @@
 	import { modelTypesStore, dataTypesStore, modelsStore } from '$lib/store/store';
 	import { onMount, beforeUpdate } from 'svelte';
 	import Info from './svg/Info.svelte';
+	import Fail from './svg/Fail.svelte';
+	import Clock from './svg/Clock.svelte';
+	import MoreTime from './svg/MoreTime.svelte';
+	import Check from './svg/Check.svelte';
 
 	/**
 	 * @type {string[]}
@@ -408,34 +413,34 @@
 		}
 	};
 
+	let show = false;
+	let mDataType = '',
+		mCategory = '',
+		mName = '',
+		mModelType = '',
+		mInputs = '',
+		mSize = '',
+		mDesc = '',
+		mNote = '';
+	let fallbackId = [];
+
 	const hideModelInfo = () => {
-		let modeldesc = document.querySelector('#modeldesc');
-		if (modeldesc) modeldesc.style = 'display: none';
+		show = false;
 	};
 	const showModelInfo = (/** @type {any} */ id) => {
-		let modeldesc = document.querySelector('#modeldesc');
-		let inner = '';
-		if (modeldesc) {
-			modeldesc.setAttribute('class', getModelDataTypeById(/** @type {any} */ id) || '');
-			modeldesc.style = 'display: block; padding: 10px';
-			inner += `<span class="modeldes">${getModelCategoryById(id)}</span>`;
-			inner += `<span class="modeldes">${getModelNameById(id)}</span>`;
-			inner += `<span class="modeldes">${getModelTypeById(id)}</span>`;
-			inner += `<span class="modeldes">${getModelDataTypeById(id)}</span>`;
-			if (getModelInputsById(id)) {
-				inner += `<span class="modeldes">${getModelInputsById(id)}</span>`;
-			}
-			inner += `<span class="modeldes">${getModelSizeById(id)}</span>`;
-			inner += `<div>${getModelDescriptionById(id)}</div>`;
-			if (getModelNoteById(id)) {
-				inner += `<div class="note"><svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 -960 960 960" width="14"
-	><path
-		d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
-	/></svg
->${getModelNoteById(id)}</div>`;
-			}
-			modeldesc.innerHTML = inner;
-		}
+		mCategory = getModelCategoryById(id);
+		mName = getModelNameById(id);
+		mModelType = getModelTypeById(id);
+		mDataType = getModelDataTypeById(id);
+		mInputs = getModelInputsById(id);
+		mSize = getModelSizeById(id);
+		mDesc = getModelDescriptionById(id);
+		mNote = getModelNoteById(id);
+
+		fallbackId = fallback.filter((item) => item.name === id);
+		console.log(fallbackId);
+
+		show = true;
 	};
 
 	onMount(() => {
@@ -670,8 +675,228 @@
 		Choose model type and operand data type at first
 	{/if}
 
-	<div id="modeldesc"></div>
+	<div id="modeldesc" class="{show} {mDataType}">
+		<span class="modeldes">{mCategory}</span>
+		<span class="modeldes">{mName}</span>
+		<span class="modeldes">{mModelType}</span>
+		<span class="modeldes">{mDataType}</span>
+		{#if mInputs}
+			<span class="modeldes">{mInputs}</span>
+		{/if}
+		<span class="modeldes">{mSize}</span>
+		<div>{mDesc}</div>
+		{#if mNote}
+			<div class="note">
+				<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 -960 960 960" width="14"
+					><path
+						d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+					/></svg
+				>{mNote}
+			</div>
+		{/if}
+	</div>
+	<div id="fallback" class="{show} g3">
+		<div class="cpu">
+			{#if fallbackId}
+				{#each fallbackId as i}
+					{#if i.backend === 'cpu'}
+						<div class="tit s">WebNN CPU</div>
+						<div class="dg3 s">
+							<div>
+								<div><Check /></div>
+								<div>{i.supported.toString().replaceAll(',', ', ')}</div>
+							</div>
+							<div>
+								<div><MoreTime /></div>
+								<div>{i.not_supported.toString().replaceAll(',', ', ')}</div>
+							</div>
+							<div>
+								<div><MoreTime /></div>
+								<div>{i.input_type_not_supported.toString().replaceAll(',', ', ')}</div>
+							</div>
+						</div>
+						<div class="dg3">
+							<div title="Number of partitions supported by WebNN">
+								<div class="number">{i.partitions_supported_by_webnn}</div>
+								<div class="s">Partitions</div>
+							</div>
+							<div title="Number of nodes in the graph">
+								<div class="number">{i.nodes_in_the_graph}</div>
+								<div class="s">Graph Nodes</div>
+							</div>
+							<div title="Number of nodes supported by WebNN">
+								<div class="number">{i.nodes_supported_by_webnn}</div>
+								<div class="s">WebNN Nodes</div>
+							</div>
+						</div>
+					{/if}
+				{/each}
+			{/if}
+		</div>
+		<div class="gpu">
+			{#if fallbackId}
+				{#each fallbackId as i}
+					{#if i.backend === 'gpu'}
+						<div class="tit s">WebNN GPU</div>
+						<div class="dg3 s">
+							<div>
+								<div><Check /></div>
+								<div>{i.supported.toString().replaceAll(',', ', ')}</div>
+							</div>
+							<div>
+								<div><MoreTime /></div>
+								<div>{i.not_supported.toString().replaceAll(',', ', ')}</div>
+							</div>
+							<div>
+								<div><MoreTime /></div>
+								<div>{i.input_type_not_supported.toString().replaceAll(',', ', ')}</div>
+							</div>
+						</div>
+						<div class="dg3">
+							<div title="Number of partitions supported by WebNN">
+								<div class="number">{i.partitions_supported_by_webnn}</div>
+								<div class="s">Partitions</div>
+							</div>
+							<div title="Number of nodes in the graph">
+								<div class="number">{i.nodes_in_the_graph}</div>
+								<div class="s">Graph Nodes</div>
+							</div>
+							<div title="Number of nodes supported by WebNN">
+								<div class="number">{i.nodes_supported_by_webnn}</div>
+								<div class="s">WebNN Nodes</div>
+							</div>
+						</div>
+					{/if}
+				{/each}
+			{/if}
+		</div>
+		<div class="npu">
+			{#if fallbackId}
+				{#each fallbackId as i}
+					{#if i.backend === 'npu'}
+						<div class="tit s">WebNN NPU</div>
+						<div class="dg3 s">
+							<div>
+								<div><Check /></div>
+								<div>{i.supported.toString().replaceAll(',', ', ')}</div>
+							</div>
+							<div>
+								<div><MoreTime /></div>
+								<div>{i.not_supported.toString().replaceAll(',', ', ')}</div>
+							</div>
+							<div>
+								<div><MoreTime /></div>
+								<div>{i.input_type_not_supported.toString().replaceAll(',', ', ')}</div>
+							</div>
+						</div>
+						<div class="dg3">
+							<div title="Number of partitions supported by WebNN">
+								<div class="number">{i.partitions_supported_by_webnn}</div>
+								<div class="s">Partitions</div>
+							</div>
+							<div title="Number of nodes in the graph">
+								<div class="number">{i.nodes_in_the_graph}</div>
+								<div class="s">Graph Nodes</div>
+							</div>
+							<div title="Number of nodes supported by WebNN">
+								<div class="number">{i.nodes_supported_by_webnn}</div>
+								<div class="s">WebNN Nodes</div>
+							</div>
+						</div>
+					{/if}
+				{/each}
+			{/if}
+		</div>
+	</div>
 </div>
 
 <style>
+	#modeldesc.false,
+	#fallback.false {
+		display: none;
+	}
+	#modeldesc.true {
+		display: block;
+		padding: 10px;
+	}
+
+	#fallback.true {
+		display: grid !important;
+	}
+
+	#fallback.g3 {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr;
+		grid-column-gap: 0px;
+		grid-row-gap: 0px;
+		align-items: stretch;
+		color: var(--white);
+		justify-content: space-between;
+		align-content: space-between;
+		justify-items: stretch;
+		padding: 0;
+	}
+
+	#fallback .dg3 {
+		align-items: end !important;
+	}
+
+	.tit {
+		text-align: center;
+	}
+
+	.s {
+		font-size: 0.6rem;
+	}
+
+	#fallback .cpu > div,
+	#fallback .gpu > div,
+	#fallback .npu > div {
+		padding: 10px;
+	}
+
+	#fallback .dg3 {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr;
+		grid-column-gap: 0px;
+		grid-row-gap: 0px;
+		color: var(--white);
+		padding: 0;
+		align-items: center;
+		text-align: center;
+		border-top: 1px solid var(--white-02);
+	}
+
+	.dg3 > div {
+		border-right: 1px solid var(--white-02);
+		width: 100%;
+		height: 100%;
+	}
+
+	.dg3 > div:last-child {
+		border-right: none;
+	}
+
+	.number {
+		font-size: 24px;
+	}
+
+	#fallback .cpu {
+		background-image: linear-gradient(to right, var(--b1-09) 0%, var(--b1) 100%);
+	}
+	#fallback .gpu {
+		background-image: linear-gradient(to right, var(--p2-09) 0%, var(--p2) 100%);
+	}
+	#fallback .npu {
+		background-image: linear-gradient(to right, var(--purple-09) 0%, var(--purple) 100%);
+	}
+
+	@media (max-width: 512px) {
+		#fallback.g3 {
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr 1fr 1fr;
+		}
+	}
 </style>

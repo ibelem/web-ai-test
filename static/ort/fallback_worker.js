@@ -4,7 +4,6 @@ importScripts('./ort.min.js');
 self.addEventListener('message', async (event) => {
 
   const models = event.data;
-  console.log(models)
 
   if (console.everything === undefined) {
     console.everything = [];
@@ -134,6 +133,30 @@ self.addEventListener('message', async (event) => {
     }
   }
 
+  const inputType = {
+    0: 'UNDEFINED',
+    1: 'FLOAT',
+    2: 'UINT8',
+    3: 'INT8',
+    4: 'UINT16',
+    5: 'INT16',
+    6: 'INT32',
+    7: 'INT64',
+    8: 'STRING',
+    9: 'BOOL',
+    10: 'FLOAT16',
+    11: 'DOUBLE',
+    12: 'UINT32',
+    13: 'UINT64',
+    14: 'COMPLEX64',
+    15: 'COMPLEX128',
+    16: 'BFLOAT16',
+    17: 'FLOAT8E4M3FN',
+    18: 'FLOAT8E4M3FNUZ',
+    19: 'FLOAT8E5M2',
+    20: 'FLOAT8E5M2FNUZ'
+  };
+
   let fallbackChecker = async (backend) => {
     let options = {
       executionProviders: [
@@ -142,7 +165,7 @@ self.addEventListener('message', async (event) => {
           deviceType: backend,
           powerPreference: "default",
           preferredLayout: 'NHWC',
-          numThreads: 4
+          numThreads: 1
         },
       ]
     };
@@ -156,13 +179,22 @@ self.addEventListener('message', async (event) => {
         options.freeDimensionOverrides = freeDimensionOverrides;
       }
 
+      console.log(options);
+
       let modelPath = getModelUrl(m.id);
+      self.postMessage(`[1] Downloading ${m.id} model`);
       let modelBuffer = await getModelOPFS(m.id, modelPath, false);
       if (modelBuffer.byteLength < 1024) {
         modelBuffer = await getModelOPFS(m.id, modelPath, true);
       }
 
+      if (modelBuffer) {
+        self.postMessage(`[2] Downloaded ${m.id} model`);
+      }
+
+      self.postMessage(`[3] Checking WebNN fallback status of ${m.id}, please wait...`);
       const session = await ort.InferenceSession.create(modelBuffer, options);
+      self.postMessage(`[4] Collecting WebNN fallback log messages`);
       await session.release();
 
       let everything = console.everything.map(item => item.value[0]);
@@ -179,33 +211,33 @@ self.addEventListener('message', async (event) => {
       filteredEverything = filteredEverything.filter(item => !item.includes("current supported node group size"));
 
       // Remove strings before "Operator type: "
-      let cleanedJsonOperatorType = filteredEverything.map(item => {
+      let removeEverything = filteredEverything.map(item => {
         const match = String(item).match(/Operator type: .*/);
         return match ? match[0] : item;
       });
 
       // Remove strings before "WebNNExecutionProvider::GetCapability,"
-      let cleanedJsonWebNN = cleanedJsonOperatorType.map(item => {
+      removeEverything = removeEverything.map(item => {
         const match = String(item).match(/WebNNExecutionProvider::GetCapability, .*/);
         return match ? match[0] : item;
       });
 
-      let removedHasSupportedInputsImpl = cleanedJsonWebNN.map(item => {
+      removeEverything = removeEverything.map(item => {
         const match = String(item).match(/HasSupportedInputsImpl], .*/);
         return match ? match[0] : item;
       });
 
-      let removedHasSupportedInputsImplBefore = removedHasSupportedInputsImpl.map(item => {
+      removeEverything = removeEverything.map(item => {
         let indexOfReshape = item.indexOf("base_op_builder.cc:90");
         return indexOfReshape !== -1 ? item.substring(indexOfReshape) : item;
       });
 
-      let removedBaseOpBuilder = removedHasSupportedInputsImplBefore.map(item => String(item).replace("base_op_builder.cc:90 ", ""));
+      removeEverything = removeEverything.map(item => String(item).replace("base_op_builder.cc:90 ", ""));
 
-      let removedOperatorType = removedBaseOpBuilder.map(item => String(item).replace("Operator type: ", ""));
+      removeEverything = removeEverything.map(item => String(item).replace("Operator type: ", ""));
 
       // Remove "WebNNExecutionProvider::GetCapability, " from each item
-      let removedWebNN = removedOperatorType.map(item => item.replace("WebNNExecutionProvider::GetCapability, ", ""));
+      let removedWebNN = removeEverything.map(item => item.replace("WebNNExecutionProvider::GetCapability, ", ""));
       let removedCenter = removedWebNN.map(item => item.replace(/index: \[.*?\] supported: /, 'index: [] supported: '));
       let removeTail = removedCenter.map(item => item.replace('\u001b[m', ''));
       let removeNewTail = removeTail.map(item => item.replace('HasSupportedInputsImpl]', ''));
@@ -230,6 +262,8 @@ self.addEventListener('message', async (event) => {
       modifiedT = [...new Set(modifiedT)];
 
       let obj = {
+        "name": m.id,
+        "backend": backend,
         "supported": [],
         "not_supported": [],
         "partitions_supported_by_webnn": 0,
@@ -251,15 +285,35 @@ self.addEventListener('message', async (event) => {
           obj["nodes_supported_by_webnn"] = parseInt(item.split(": ")[1]);
         } else if (item.endsWith("is not supported for now")) {
           let op = item.split("Input type: ")[0].trim().replace('[', '').replace(']', '');
-          let datatype = item.split("Input type: ")[1].replace('is not supported for now', '').trim().replace('[', '').replace(']', '')
-          obj["input_type_not_supported"].push(`${op}: ${datatype}`);
+          let datatypeCode = item.split("Input type: ")[1].replace('is not supported for now', '').trim().replace('[', '').replace(']', '')
+          let dataType = inputType[parseInt(datatypeCode)];
+          obj["input_type_not_supported"].push(`${op}: ${dataType}`);
         }
       });
-      self.postMessage(`Backend: WebNN_${backend.toUpperCase()}`);
+
+      self.postMessage(`[5] WebNN fallback status of ${m.id} on ${backend} backend - Completed`);
       self.postMessage(obj);
     }
   }
 
-  await fallbackChecker('cpu');
-  await fallbackChecker('gpu');
+  const main = async () => {
+    try {
+      let quote = await fallbackChecker('cpu');
+      console.log(quote);
+    } catch (error) {
+      self.postMessage(`[Error] WebNN fallback status of CPU backend`);
+      self.postMessage(error.message);
+    }
+
+    try {
+      let quote = await fallbackChecker('gpu');
+      console.log(quote);
+    } catch (error) {
+      self.postMessage(`[Error] WebNN fallback status of GPU backend`);
+      self.postMessage(error.message);
+    }
+  }
+
+  await main()
+
 });

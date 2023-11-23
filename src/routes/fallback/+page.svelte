@@ -8,8 +8,7 @@
 		getModelDataTypeById,
 		getModelDescriptionById,
 		getModelNoteById,
-		getModelNameById,
-		getDateTime
+		getModelNameById
 	} from '$lib/assets/js/utils';
 
 	onMount(async () => {});
@@ -17,16 +16,14 @@
 	/**
 	 * @type {any[]}
 	 */
+	$: fallback = [];
+	$: fallbackString = [];
 	$: fallbackLog = [];
 
 	const fallbackCheck = (/** @type {string} */ id) => {
 		const worker = new Worker(ortDists.webnn_webglfix.workerjs);
 
 		fallbackLog = [];
-
-		fallbackLog.push(
-			`${getDateTime()} Start to check WebNN fallback status of ${getModelNameById(id)}`
-		);
 
 		if (id === 'all') {
 			worker.postMessage(models);
@@ -38,10 +35,13 @@
 		worker.onmessage = (event) => {
 			const outputData = event.data;
 			if (typeof outputData === 'object') {
-				fallbackLog.push(JSON.stringify(outputData));
+				fallback.push(outputData);
 			} else {
 				fallbackLog.push(outputData);
 			}
+
+			fallback = fallback;
+			fallbackString = JSON.stringify(fallback);
 			fallbackLog = fallbackLog;
 			// Handle the output received from the worker
 		};
@@ -54,6 +54,12 @@
 	<div class="title tq">WebNN Fallback Checker</div>
 	<div>Check the WebNN fallback status of models with your current browser.</div>
 </div>
+
+{#if fallbackString && fallbackString.length > 2}
+	<div class="result">
+		<div>{fallbackString}</div>
+	</div>
+{/if}
 
 {#if fallbackLog && fallbackLog.length > 0}
 	<div class="result">
@@ -115,9 +121,9 @@
 	{/each}
 </div>
 
-<div class="run" title="It will take quite a long time...">
+<!-- <div class="run" title="It will take quite a long time...">
 	<button on:click={() => fallbackCheck('all')}>Check WebNN Fallback for All Models</button>
-</div>
+</div> -->
 
 <Environment />
 <Footer />
@@ -140,6 +146,7 @@
 		border: 1px solid var(--grey-02);
 		margin: 10px 0;
 		padding: 10px;
+		form-sizing: auto;
 	}
 
 	.result:hover {
