@@ -276,6 +276,15 @@ header .nav {
   padding: 0px 6px 0px 6px;
 }
 
+.dg3 svg {
+  width: 24px;
+  height: 24px;
+}
+
+.dg3 svg path {
+  fill: var(--white);
+}
+
 .group {
   border: 1px solid var(--grey-02);
 }

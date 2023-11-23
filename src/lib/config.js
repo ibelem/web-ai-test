@@ -77,7 +77,7 @@ const generateEsrganConfigs = () => {
     size: fp == 16 ? "36 MB" : '65 MB',
     format: 'onnx',
     datatype: `fp${fp}`,
-    inputs: [{ [`in_image_float${fp}_rgb01`]: [`float${fp}`, 'random', [1, 3, tile, tile], { "batch_size": 1 }] }],
+    inputs: [{ [`in_image_float${fp}_rgb01`]: [`float${fp}`, 'random', [1, 3, tile, tile], {}] }],
     inputstip: `[1, 3, ${tile}, ${tile}]`
   }))
 }
@@ -158,7 +158,7 @@ export let models = [
     size: '7.42 MB',
     format: 'onnx',
     datatype: 'fp16',
-    inputs: [{ 'input': ['float16', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+    inputs: [{ 'input': ['float16', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
   {
@@ -328,9 +328,9 @@ export let models = [
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }],
-      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
     }],
     inputstip: '[1, 1] [1, 1] [1, 1]'
   },
@@ -346,9 +346,9 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }],
-      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
     }],
     inputstip: '[1, 1] [1, 1] [1, 1]'
   },
@@ -364,8 +364,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }]
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "encoder_sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "encoder_sequence_length": 1 }]
     }],
     inputstip: '[1, 1] [1, 1]'
   },
@@ -381,8 +381,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }]
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "encoder_sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "encoder_sequence_length": 1 }]
     }],
     inputstip: '[1, 1] [1, 1]'
   },
@@ -398,9 +398,9 @@ export let models = [
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1 }],
-      'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1 }],
+      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
+      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
+      'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
     }],
     inputstip: '[1, 9] [1, 9] [1, 9]'
   },
@@ -416,9 +416,9 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1 }],
-      'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1 }],
+      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
+      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
+      'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
     }],
     inputstip: '[1, 9] [1, 9] [1, 9]'
   },
@@ -434,9 +434,9 @@ export let models = [
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1 }],
-      'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1 }],
+      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
+      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
+      'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
     }],
     inputstip: '[1, 9] [1, 9] [1, 9]'
   },
@@ -452,9 +452,9 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1 }],
-      'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1 }],
+      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
+      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
+      'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
     }],
     inputstip: '[1, 9] [1, 9] [1, 9]'
   },
@@ -470,9 +470,9 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1 }],
-      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
     }],
     inputstip: '[1, 1] [1, 1] [1, 1]'
   },
@@ -488,29 +488,29 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 63], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 63], { "batch_size": 1 }],
-      'token_type_ids': ['int64', 1n, [1, 63], { "batch_size": 1 }],
+      'input_ids': ['int64', 99n, [1, 63], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 63], { "batch_size": 1, "sequence_length": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 63], { "batch_size": 1, "sequence_length": 1 }],
     }],
     inputstip: '[1, 63] [1, 63] [1, 63]'
   },
-  {
-    category: 'Text Generation',
-    id: 'codegen_350m_mono_int8',
-    name: 'CodeGen Mono 350M',
-    description: 'A family of autoregressive language models for program synthesis.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/codegen-350M-mono/tree/main/onnx',
-    model: 'transformer.js/codegen-350m-mono/decoder_model_quantized.onnx',
-    size: '350 MB',
-    format: 'onnx',
-    datatype: 'int8',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }]
-    }],
-    inputstip: '[1, 8] [1, 8]'
-  },
+  // {
+  //   category: 'Text Generation',
+  //   id: 'codegen_350m_mono_int8',
+  //   name: 'CodeGen Mono 350M',
+  //   description: 'A family of autoregressive language models for program synthesis.',
+  //   note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+  //   source: 'https://huggingface.co/Xenova/codegen-350M-mono/tree/main/onnx',
+  //   model: 'transformer.js/codegen-350m-mono/decoder_model_quantized.onnx',
+  //   size: '350 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{
+  //     'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1 }],
+  //     'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }]
+  //   }],
+  //   inputstip: '[1, 8] [1, 8]'
+  // },
   {
     category: 'Zero-Shot Image Classification',
     id: 'clip_vit_base_patch16_int8',
@@ -523,9 +523,9 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 49407n, [1, 77], { "batch_size": 1 }],
-      'pixel_values': ['float32', 99, [1, 3, 224, 224], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 77], { "batch_size": 1 }]
+      'input_ids': ['int64', 49407n, [1, 77], { "text_batch_size": 1, "sequence_length": 77 }],
+      'pixel_values': ['float32', 99, [1, 3, 224, 224], { "image_batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
+      'attention_mask': ['int64', 1n, [1, 77], { "text_batch_size": 1, "sequence_length": 77 }]
     }],
     inputstip: '[1, 77] [1, 3, 224, 224] [1, 77]'
   },
@@ -540,8 +540,8 @@ export let models = [
     size: '41.11 MB',
     format: 'onnx',
     datatype: 'int8',
-    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], {}] },
-    { 'pixel_mask': ['int64', 1n, [1, 64, 64], {}] },
+    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }] },
+    { 'pixel_mask': ['int64', 1n, [1, 64, 64], { "batch_size": 1 }] },
     ],
     inputstip: '[1, 3, 224, 224] [1, 64, 64]'
   },
@@ -556,7 +556,7 @@ export let models = [
     size: '327 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }] }],
     inputstip: '[1, 3, 224, 224]'
   },
   {
@@ -570,7 +570,7 @@ export let models = [
     size: '83.4 MB',
     format: 'onnx',
     datatype: 'int8',
-    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }] }],
     inputstip: '[1, 3, 224, 224]'
   },
   {
@@ -585,8 +585,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1 }]
+      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }]
     }],
     inputstip: '[1, 168] [1, 168]'
   },
@@ -602,9 +602,9 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1 }],
-      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1 }],
-      'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1 }]
+      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1, "encoder_sequence_length": 168 }]
     }],
     inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
   },
@@ -620,8 +620,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 262], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 262], { "batch_size": 1 }]
+      'input_ids': ['int64', 99n, [1, 262], { "batch_size": 1, "sequence_length": 262 }],
+      'attention_mask': ['int64', 1n, [1, 262], { "batch_size": 1, "sequence_length": 262 }]
     }],
     inputstip: '[1, 262] [1, 262]'
   },
@@ -637,8 +637,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1 }]
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
     }],
     inputstip: '[1, 50] [1, 50]'
   },
@@ -654,8 +654,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1 }],
+      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
     }],
     inputstip: '[1, 16] [1, 16]'
   },
@@ -671,8 +671,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1 }]
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1, "encoder_sequence_length": 3000 }]
     }],
     inputstip: '[1, 1] [1, 1500, 1024]'
   },
@@ -704,8 +704,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }],
+      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
       inputstip: '[1, 8] [1, 8]'
     }]
   },
@@ -721,9 +721,9 @@ export let models = [
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }],
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }],
-      'encoder_hidden_states': ['float32', 1, [1, 128, 1024], { "batch_size": 1 }]
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 1, [1, 128, 1024], { "batch_size": 1, "encoder_sequence_length": 128 }]
     }],
     inputstip: '[1, 128] [1, 128] [1, 128, 1024]'
   },
@@ -739,8 +739,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }],
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
     }],
     inputstip: '[1, 128] [1, 128]'
   },
@@ -756,9 +756,9 @@ export let models = [
     format: 'onnx',
     datatype: 'fp16',
     inputs: [{
-      'sample': ['float16', 1, [1, 4, 64, 64], { "batch": 1 }],
-      'timestep': ['int64', 1n, [1], { "batch": 1 }],
-      'encoder_hidden_states': ['float16', 1, [1, 77, 768], { "batch": 1 }]
+      'sample': ['float16', 1, [1, 4, 64, 64], {}],
+      'timestep': ['int64', 1n, [1], {}],
+      'encoder_hidden_states': ['float16', 1, [1, 77, 768], {}]
     }],
     inputstip: '[1, 4, 64, 64] [1] [1, 77, 768]'
   },
@@ -774,7 +774,7 @@ export let models = [
     format: 'onnx',
     datatype: 'fp16',
     inputs: [{
-      'latent_sample': ['float16', 'random', [1, 4, 64, 64], { "batch": 1 }]
+      'latent_sample': ['float16', 'random', [1, 4, 64, 64], { "batch": 1, "channels": 4, "height": 64, "width": 64 }]
     }],
     inputstip: '[1, 4, 64, 64]'
   },
@@ -825,8 +825,8 @@ export let models = [
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'image_embeddings': ['float32', 'random', [1, 256, 64, 64], {}] },
-    { 'point_coords': ['float32', 'random', [1, 2, 2], {}] },
-    { 'point_labels': ['float32', 'random', [1, 2], {}] },
+    { 'point_coords': ['float32', 'random', [1, 2, 2], { "num_points": 2 }] },
+    { 'point_labels': ['float32', 'random', [1, 2], { "num_points": 2 }] },
     { 'mask_input': ['float32', 'random', [1, 1, 256, 256], {}] },
     { 'has_mask_input': ['float32', 'random', [1], {}] },
     { 'orig_im_size': ['float32', 'random', [2], {}] }],
@@ -843,7 +843,7 @@ export let models = [
     size: '342 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'input_image': ['float32', 1., [224, 224, 3], {}] }],
+    inputs: [{ 'input_image': ['float32', 1., [224, 224, 3], { "image_height": 224, "image_width": 224 }] }],
     inputstip: '[224, 224, 3]'
   },
   {
@@ -893,9 +893,9 @@ export let models = [
     size: '158.95 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] },
-    { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] },
-    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1 }] }],
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }] },
+    { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
+    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
     inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   },
   {
@@ -909,9 +909,9 @@ export let models = [
     size: '40.20 MB',
     format: 'onnx',
     datatype: 'int8',
-    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] },
-    { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] },
-    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1 }] }],
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }] },
+    { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
+    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
     inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   },
   {
@@ -925,7 +925,8 @@ export let models = [
     size: '134 MB',
     format: 'onnx',
     datatype: 'int64',
-    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] }, { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] }],
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
+    { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
     inputstip: '[1, 128] [1, 128]'
   },
   {
@@ -939,8 +940,8 @@ export let models = [
     size: '33.99 MB',
     format: 'onnx',
     datatype: 'int8',
-    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1 }] },
-    { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1 }] }],
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
+    { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
     inputstip: '[1, 128] [1, 128]'
   },
   {
@@ -955,7 +956,7 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1 }]
+      'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }]
     }],
     inputstip: '[1, 3, 224, 224]'
   },
@@ -971,8 +972,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1 }]
+      'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }]
     }],
     inputstip: '[1, 168] [1, 168, 768]'
   },
@@ -988,7 +989,7 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1 }]
+      'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }]
     }],
     inputstip: '[1, 3, 224, 224]'
   },
@@ -1004,8 +1005,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
-      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1 }]
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length": 3000 }]
     }],
     inputstip: '[1, 1] [1, 1500, 384]'
   },
@@ -1021,8 +1022,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1 }]
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length": 3000 }]
     }],
     inputstip: '[1, 1] [1, 1500, 384]'
   },
@@ -1038,7 +1039,7 @@ export let models = [
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
-      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1 }]
+      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }]
     }],
     inputstip: '[1, 80, 3000]'
   },
@@ -1054,7 +1055,7 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1 }]
+      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }]
     }],
     inputstip: '[1, 80, 3000]'
   },
