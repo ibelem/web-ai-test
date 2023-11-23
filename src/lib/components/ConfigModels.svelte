@@ -813,7 +813,7 @@
 <style>
 	#modeldesc.false,
 	#fallback.false {
-		display: none;
+		display: none !important;
 	}
 	#modeldesc.true {
 		display: block;
@@ -880,7 +880,7 @@
 	}
 
 	.number {
-		font-size: 24px;
+		font-size: 1.2em;
 	}
 
 	#fallback .cpu {
@@ -891,6 +891,13 @@
 	}
 	#fallback .npu {
 		background-image: linear-gradient(to right, var(--purple-09) 0%, var(--purple) 100%);
+	}
+
+	@media (max-width: 1024px) {
+		#fallback.g3 {
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 1fr 1fr;
+		}
 	}
 
 	@media (max-width: 512px) {
