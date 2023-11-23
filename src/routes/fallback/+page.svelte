@@ -52,7 +52,7 @@
 
 <div class="tqtitle">
 	<div class="title tq">WebNN Fallback Checker</div>
-	<div>Check the WebNN fallback status of models with your current browser.</div>
+	<div>Check the WebNN fallback status of models with your current browser</div>
 </div>
 
 {#if fallbackString && fallbackString.length > 2}
@@ -150,7 +150,8 @@
 	}
 
 	.result:hover {
-		border: 1px solid var(--red);
+		background-color: rgba(20, 38, 56, 1);
+		color: rgba(255, 255, 255, 1);
 	}
 
 	.f {

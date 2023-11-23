@@ -302,6 +302,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   if (modelBuffer.byteLength < 1024) {
     modelBuffer = await getModelOPFS(_model, modelPath, true);
   }
+
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Creating onnx runtime web inference session`);
 
   const compilationStart = performance.now();
