@@ -438,8 +438,6 @@
 		mNote = getModelNoteById(id);
 
 		fallbackId = fallback.filter((item) => item.name === id);
-		console.log(fallbackId);
-
 		show = true;
 	};
 
@@ -700,108 +698,173 @@
 			{#if fallbackId}
 				{#each fallbackId as i}
 					{#if i.backend === 'cpu'}
-						<div class="tit s">WebNN CPU</div>
+						<div class="tit s">
+							WebNN CPU / {fallbackEnv.version} / Update: {fallbackEnv.last_update}
+						</div>
 						<div class="dg3 s">
 							<div>
 								<div><Check /></div>
-								<div>{i.supported.toString().replaceAll(',', ', ')}</div>
+								<div>
+									{#if i.supported}
+										{i.supported.toString().replaceAll(',', ', ')}
+									{/if}
+								</div>
 							</div>
 							<div>
 								<div><MoreTime /></div>
-								<div>{i.not_supported.toString().replaceAll(',', ', ')}</div>
+								<div>
+									{#if i.not_supported}{i.not_supported.toString().replaceAll(',', ', ')}{/if}
+								</div>
 							</div>
 							<div>
 								<div><MoreTime /></div>
-								<div>{i.input_type_not_supported.toString().replaceAll(',', ', ')}</div>
+								<div>
+									{#if i.input_type_not_supported?.length > 0}{i.input_type_not_supported
+											.toString()
+											.replaceAll(',', ', ')}{/if}
+								</div>
 							</div>
 						</div>
 						<div class="dg3">
 							<div title="Number of partitions supported by WebNN">
-								<div class="number">{i.partitions_supported_by_webnn}</div>
+								<div class="number">
+									{#if i.partitions_supported_by_webnn}{i.partitions_supported_by_webnn}{/if}
+								</div>
 								<div class="s">Partitions</div>
 							</div>
 							<div title="Number of nodes in the graph">
-								<div class="number">{i.nodes_in_the_graph}</div>
+								<div class="number">
+									{#if i.nodes_in_the_graph}{i.nodes_in_the_graph}{/if}
+								</div>
 								<div class="s">Graph Nodes</div>
 							</div>
 							<div title="Number of nodes supported by WebNN">
-								<div class="number">{i.nodes_supported_by_webnn}</div>
+								<div class="number">
+									{#if i.nodes_supported_by_webnn}{i.nodes_supported_by_webnn}{/if}
+								</div>
 								<div class="s">WebNN Nodes</div>
 							</div>
+						</div>
+						<div class="s err">
+							{#if i.error}{i.error}<br /><br />We are working on it.{/if}
 						</div>
 					{/if}
 				{/each}
 			{/if}
 		</div>
+
 		<div class="gpu">
 			{#if fallbackId}
 				{#each fallbackId as i}
 					{#if i.backend === 'gpu'}
-						<div class="tit s">WebNN GPU</div>
+						<div class="tit s">
+							WebNN GPU / {fallbackEnv.version} / Update: {fallbackEnv.last_update}
+						</div>
 						<div class="dg3 s">
 							<div>
 								<div><Check /></div>
-								<div>{i.supported.toString().replaceAll(',', ', ')}</div>
+								<div>
+									{#if i.supported}
+										{i.supported.toString().replaceAll(',', ', ')}
+									{/if}
+								</div>
 							</div>
 							<div>
 								<div><MoreTime /></div>
-								<div>{i.not_supported.toString().replaceAll(',', ', ')}</div>
+								<div>
+									{#if i.not_supported}{i.not_supported.toString().replaceAll(',', ', ')}{/if}
+								</div>
 							</div>
 							<div>
 								<div><MoreTime /></div>
-								<div>{i.input_type_not_supported.toString().replaceAll(',', ', ')}</div>
+								<div>
+									{#if i.input_type_not_supported?.length > 0}{i.input_type_not_supported
+											.toString()
+											.replaceAll(',', ', ')}{/if}
+								</div>
 							</div>
 						</div>
 						<div class="dg3">
 							<div title="Number of partitions supported by WebNN">
-								<div class="number">{i.partitions_supported_by_webnn}</div>
+								<div class="number">
+									{#if i.partitions_supported_by_webnn}{i.partitions_supported_by_webnn}{/if}
+								</div>
 								<div class="s">Partitions</div>
 							</div>
 							<div title="Number of nodes in the graph">
-								<div class="number">{i.nodes_in_the_graph}</div>
+								<div class="number">
+									{#if i.nodes_in_the_graph}{i.nodes_in_the_graph}{/if}
+								</div>
 								<div class="s">Graph Nodes</div>
 							</div>
 							<div title="Number of nodes supported by WebNN">
-								<div class="number">{i.nodes_supported_by_webnn}</div>
+								<div class="number">
+									{#if i.nodes_supported_by_webnn}{i.nodes_supported_by_webnn}{/if}
+								</div>
 								<div class="s">WebNN Nodes</div>
 							</div>
+						</div>
+						<div class="s err">
+							{#if i.error}{i.error}<br /><br />We are working on it.{/if}
 						</div>
 					{/if}
 				{/each}
 			{/if}
 		</div>
+
 		<div class="npu">
 			{#if fallbackId}
 				{#each fallbackId as i}
 					{#if i.backend === 'npu'}
-						<div class="tit s">WebNN NPU</div>
+						<div class="tit s">
+							WebNN NPU / {fallbackEnv.version} / Update: {fallbackEnv.last_update}
+						</div>
 						<div class="dg3 s">
 							<div>
 								<div><Check /></div>
-								<div>{i.supported.toString().replaceAll(',', ', ')}</div>
+								<div>
+									{#if i.supported}
+										{i.supported.toString().replaceAll(',', ', ')}
+									{/if}
+								</div>
 							</div>
 							<div>
 								<div><MoreTime /></div>
-								<div>{i.not_supported.toString().replaceAll(',', ', ')}</div>
+								<div>
+									{#if i.not_supported}{i.not_supported.toString().replaceAll(',', ', ')}{/if}
+								</div>
 							</div>
 							<div>
 								<div><MoreTime /></div>
-								<div>{i.input_type_not_supported.toString().replaceAll(',', ', ')}</div>
+								<div>
+									{#if i.input_type_not_supported?.length > 0}{i.input_type_not_supported
+											.toString()
+											.replaceAll(',', ', ')}{/if}
+								</div>
 							</div>
 						</div>
 						<div class="dg3">
 							<div title="Number of partitions supported by WebNN">
-								<div class="number">{i.partitions_supported_by_webnn}</div>
+								<div class="number">
+									{#if i.partitions_supported_by_webnn}{i.partitions_supported_by_webnn}{/if}
+								</div>
 								<div class="s">Partitions</div>
 							</div>
 							<div title="Number of nodes in the graph">
-								<div class="number">{i.nodes_in_the_graph}</div>
+								<div class="number">
+									{#if i.nodes_in_the_graph}{i.nodes_in_the_graph}{/if}
+								</div>
 								<div class="s">Graph Nodes</div>
 							</div>
 							<div title="Number of nodes supported by WebNN">
-								<div class="number">{i.nodes_supported_by_webnn}</div>
+								<div class="number">
+									{#if i.nodes_supported_by_webnn}{i.nodes_supported_by_webnn}{/if}
+								</div>
 								<div class="s">WebNN Nodes</div>
 							</div>
+						</div>
+						<div class="s err">
+							{#if i.error}{i.error}<br /><br />We are working on it.{/if}
 						</div>
 					{/if}
 				{/each}
@@ -866,6 +929,10 @@
 		padding: 0;
 		align-items: center;
 		text-align: center;
+		border-top: 1px solid var(--white-02);
+	}
+
+	.err {
 		border-top: 1px solid var(--white-02);
 	}
 
