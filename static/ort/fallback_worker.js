@@ -157,7 +157,7 @@ self.addEventListener('message', async (event) => {
     20: 'FLOAT8E5M2FNUZ'
   };
 
-  let fallbackChecker = async (backend) => {
+  let fallbackChecker = async (model_id, backend) => {
     let options = {
       executionProviders: [
         {
@@ -172,148 +172,172 @@ self.addEventListener('message', async (event) => {
 
     options.logSeverityLevel = 0;
 
-    for (let m of models) {
-
-      let freeDimensionOverrides = getFreeDimensionOverridesById(m.id);
-      if (freeDimensionOverrides) {
-        options.freeDimensionOverrides = freeDimensionOverrides;
-      }
-
-      console.log(options);
-
-      let modelPath = getModelUrl(m.id);
-      self.postMessage(`[1] Downloading ${m.id} model`);
-      let modelBuffer = await getModelOPFS(m.id, modelPath, false);
-      if (modelBuffer.byteLength < 1024) {
-        modelBuffer = await getModelOPFS(m.id, modelPath, true);
-      }
-
-      if (modelBuffer) {
-        self.postMessage(`[2] Downloaded ${m.id} model`);
-      }
-
-      self.postMessage(`[3] Checking WebNN fallback status of ${m.id}, please wait...`);
-      const session = await ort.InferenceSession.create(modelBuffer, options);
-      self.postMessage(`[4] Collecting WebNN fallback log messages`);
-      await session.release();
-
-      let everything = console.everything.map(item => item.value[0]);
-      let filteredEverything = everything.filter(item => {
-        return (
-          String(item).includes("Operator type") ||
-          String(item).includes("GetCapability") ||
-          String(item).includes("is not supported for now")
-          // || String(item).includes("Node(s) placed on")
-        );
-      });
-
-      filteredEverything = filteredEverything.filter(item => !item.includes("is supported by browser"));
-      filteredEverything = filteredEverything.filter(item => !item.includes("current supported node group size"));
-
-      // Remove strings before "Operator type: "
-      let removeEverything = filteredEverything.map(item => {
-        const match = String(item).match(/Operator type: .*/);
-        return match ? match[0] : item;
-      });
-
-      // Remove strings before "WebNNExecutionProvider::GetCapability,"
-      removeEverything = removeEverything.map(item => {
-        const match = String(item).match(/WebNNExecutionProvider::GetCapability, .*/);
-        return match ? match[0] : item;
-      });
-
-      removeEverything = removeEverything.map(item => {
-        const match = String(item).match(/HasSupportedInputsImpl], .*/);
-        return match ? match[0] : item;
-      });
-
-      removeEverything = removeEverything.map(item => {
-        let indexOfReshape = item.indexOf("base_op_builder.cc:90");
-        return indexOfReshape !== -1 ? item.substring(indexOfReshape) : item;
-      });
-
-      removeEverything = removeEverything.map(item => String(item).replace("base_op_builder.cc:90 ", ""));
-
-      removeEverything = removeEverything.map(item => String(item).replace("Operator type: ", ""));
-
-      // Remove "WebNNExecutionProvider::GetCapability, " from each item
-      let removedWebNN = removeEverything.map(item => item.replace("WebNNExecutionProvider::GetCapability, ", ""));
-      let removedCenter = removedWebNN.map(item => item.replace(/index: \[.*?\] supported: /, 'index: [] supported: '));
-      let removeTail = removedCenter.map(item => item.replace('\u001b[m', ''));
-      let removeNewTail = removeTail.map(item => item.replace('HasSupportedInputsImpl]', ''));
-
-      // Find the index of the first "number of" item
-      let indexOfNumber = removeNewTail.findIndex(item => item.startsWith("number of"));
-
-      // Remove the item starting with "number of" and its preceding items
-      if (indexOfNumber !== -1) {
-        removeNewTail = removeNewTail.slice(indexOfNumber + 1);
-      }
-
-      let modifiedT = removeNewTail.flatMap(item => {
-        if (item.startsWith("number of")) {
-          return item.split("number of").filter(Boolean).map(part => `number of ${part.trim()}`);
-        } else {
-          return item;
-        }
-      });
-
-      modifiedT = modifiedT.map(item => item.replace(' index: [] supported: ', ''));
-      modifiedT = [...new Set(modifiedT)];
-
-      let obj = {
-        "name": m.id,
-        "backend": backend,
-        "supported": [],
-        "not_supported": [],
-        "partitions_supported_by_webnn": 0,
-        "nodes_in_the_graph": 0,
-        "nodes_supported_by_webnn": 0,
-        "input_type_not_supported": []
-      };
-
-      modifiedT.forEach(item => {
-        if (item.startsWith("[") && item.endsWith("][1]")) {
-          obj["supported"].push(item.substring(1, item.indexOf("][")));
-        } else if (item.startsWith("[") && item.endsWith("][0]")) {
-          obj["not_supported"].push(item.substring(1, item.indexOf("][")));
-        } else if (item.startsWith("number of partitions supported by WebNN: ")) {
-          obj["partitions_supported_by_webnn"] = parseInt(item.split(": ")[1]);
-        } else if (item.startsWith("number of nodes in the graph: ")) {
-          obj["nodes_in_the_graph"] = parseInt(item.split(": ")[1]);
-        } else if (item.startsWith("number of nodes supported by WebNN: ")) {
-          obj["nodes_supported_by_webnn"] = parseInt(item.split(": ")[1]);
-        } else if (item.endsWith("is not supported for now")) {
-          let op = item.split("Input type: ")[0].trim().replace('[', '').replace(']', '');
-          let datatypeCode = item.split("Input type: ")[1].replace('is not supported for now', '').trim().replace('[', '').replace(']', '')
-          let dataType = inputType[parseInt(datatypeCode)];
-          obj["input_type_not_supported"].push(`${op}: ${dataType}`);
-        }
-      });
-
-      self.postMessage(`[5] WebNN fallback status of ${m.id} on ${backend} backend - Completed`);
-      self.postMessage(obj);
+    let freeDimensionOverrides = getFreeDimensionOverridesById(model_id);
+    if (freeDimensionOverrides) {
+      options.freeDimensionOverrides = freeDimensionOverrides;
     }
-  }
 
-  const main = async () => {
+    console.log(options);
+
+    let modelPath = getModelUrl(model_id);
+    self.postMessage(`[1] Downloading ${model_id} model`);
+    let modelBuffer = await getModelOPFS(model_id, modelPath, false);
+    if (modelBuffer.byteLength < 1024) {
+      modelBuffer = await getModelOPFS(model_id, modelPath, true);
+    }
+
+    if (modelBuffer) {
+      self.postMessage(`[2] Downloaded ${model_id} model`);
+    }
+
+    self.postMessage(`[3] Checking WebNN fallback status of ${model_id} on ${backend} backend, please wait...`);
+
+    let session;
+    let er = '';
     try {
-      let quote = await fallbackChecker('cpu');
-      console.log(quote);
+      session = await ort.InferenceSession.create(modelBuffer, options);
     } catch (error) {
       self.postMessage(`[Error] WebNN fallback status of CPU backend`);
       self.postMessage(error.message);
+      obj.name = model_id;
+      obj.backend = backend;
+      er = error.message;
+      // er.push(error.message);
     }
 
     try {
-      let quote = await fallbackChecker('gpu');
-      console.log(quote);
-    } catch (error) {
-      self.postMessage(`[Error] WebNN fallback status of GPU backend`);
-      self.postMessage(error.message);
+      await session.release();
+    } catch (error2) {
+      // er.push(error2.message);
     }
+
+    obj.error = er;
+
+    self.postMessage(`[4] Waiting 10 seconds for WebNN EP to generate the full console logs`);
+    await timeout(10000);
+    self.postMessage(`[5] Filtering WebNN fallback log messages`);
+    let everything = console.everything.map(item => item.value[0]);
+    let filteredEverything = everything.filter(item => {
+      return (
+        String(item).includes("Operator type") ||
+        String(item).includes("GetCapability") ||
+        String(item).includes("is not supported for now")
+        // || String(item).includes("Node(s) placed on")
+      );
+    });
+
+    filteredEverything = filteredEverything.filter(item => !item.includes("is supported by browser"));
+    filteredEverything = filteredEverything.filter(item => !item.includes("current supported node group size"));
+
+    // Remove strings before "Operator type: "
+    let removeEverything = filteredEverything.map(item => {
+      const match = String(item).match(/Operator type: .*/);
+      return match ? match[0] : item;
+    });
+
+    // Remove strings before "WebNNExecutionProvider::GetCapability,"
+    removeEverything = removeEverything.map(item => {
+      const match = String(item).match(/WebNNExecutionProvider::GetCapability, .*/);
+      return match ? match[0] : item;
+    });
+
+    removeEverything = removeEverything.map(item => {
+      const match = String(item).match(/HasSupportedInputsImpl], .*/);
+      return match ? match[0] : item;
+    });
+
+    removeEverything = removeEverything.map(item => {
+      let indexOfReshape = item.indexOf("base_op_builder.cc:90");
+      return indexOfReshape !== -1 ? item.substring(indexOfReshape) : item;
+    });
+
+    removeEverything = removeEverything.map(item => String(item).replace("base_op_builder.cc:90 ", ""));
+
+    removeEverything = removeEverything.map(item => String(item).replace("Operator type: ", ""));
+
+    // Remove "WebNNExecutionProvider::GetCapability, " from each item
+    let removedWebNN = removeEverything.map(item => item.replace("WebNNExecutionProvider::GetCapability, ", ""));
+    let removedCenter = removedWebNN.map(item => item.replace(/index: \[.*?\] supported: /, 'index: [] supported: '));
+    let removeTail = removedCenter.map(item => item.replace('\u001b[m', ''));
+    let removeNewTail = removeTail.map(item => item.replace('HasSupportedInputsImpl]', ''));
+
+    // Find the index of the first "number of" item
+    let indexOfNumber = removeNewTail.findIndex(item => item.startsWith("number of"));
+
+    // Remove the item starting with "number of" and its preceding items
+    if (indexOfNumber !== -1) {
+      removeNewTail = removeNewTail.slice(indexOfNumber + 1);
+    }
+
+    let modifiedT = removeNewTail.flatMap(item => {
+      if (item.startsWith("number of")) {
+        return item.split("number of").filter(Boolean).map(part => `number of ${part.trim()}`);
+      } else {
+        return item;
+      }
+    });
+
+    modifiedT = modifiedT.map(item => item.replace(' index: [] supported: ', ''));
+    modifiedT = [...new Set(modifiedT)];
+
+    obj.name = model_id;
+    obj.backend = backend;
+
+    let supported = [];
+    let not_supported = []
+    let input_type_not_supported = []
+
+    modifiedT.forEach(item => {
+      if (item.startsWith("[") && item.endsWith("][1]")) {
+        supported.push(item.substring(1, item.indexOf("][")));
+      } else if (item.startsWith("[") && item.endsWith("][0]")) {
+        not_supported.push(item.substring(1, item.indexOf("][")));
+      } else if (item.startsWith("number of partitions supported by WebNN: ")) {
+        obj.partitions_supported_by_webnn = parseInt(item.split(": ")[1]);
+      } else if (item.startsWith("number of nodes in the graph: ")) {
+        obj.nodes_in_the_graph = parseInt(item.split(": ")[1]);
+      } else if (item.startsWith("number of nodes supported by WebNN: ")) {
+        obj.nodes_supported_by_webnn = parseInt(item.split(": ")[1]);
+      } else if (item.endsWith("is not supported for now")) {
+        let op = item.split("Input type: ")[0].trim().replace('[', '').replace(']', '');
+        let datatypeCode = item.split("Input type: ")[1].replace('is not supported for now', '').trim().replace('[', '').replace(']', '')
+        let dataType = inputType[parseInt(datatypeCode)];
+        input_type_not_supported.push(`${op}: ${dataType}`);
+      }
+    });
+
+    if (supported.length > 0) {
+      obj.supported = supported;
+    }
+
+    if (not_supported.length > 0) {
+      obj.not_supported = not_supported;
+    }
+
+    if (input_type_not_supported.length > 0) {
+      obj.input_type_not_supported = input_type_not_supported
+    }
+
+    self.postMessage(`[6] WebNN fallback status of ${model_id} on ${backend} backend - Completed`);
+    self.postMessage(obj);
+    self.postMessage('|-------------------------------------------------------------------------------------|');
   }
 
+  let obj = {
+    "name": '',
+    "backend": '',
+  };
+
+  const timeout = (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  const main = async () => {
+    for (let m of models) {
+      await fallbackChecker(m.id, 'cpu');
+      await fallbackChecker(m.id, 'gpu');
+    }
+  }
   await main()
 
 });
