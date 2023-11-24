@@ -28,7 +28,7 @@ export const ortDists = {
     url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.webgpu.min.js'
   },
   webnn_webglfix: {
-    version: 'v1.17 Internal Nov 08',
+    version: 'v1.17 Internal Nov 24',
     url: '../ort/ort.min.js',
     workerjs: '../ort/fallback_worker.js'
   }
