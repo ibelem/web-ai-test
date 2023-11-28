@@ -1,6 +1,6 @@
 export const fallbackEnv = {
   "version": '121.0.6144.0',
-  'last_update': 'Nov 24, 2023'
+  'last_update': 'Nov 28, 2023'
 }
 export const fallback = [
   {
