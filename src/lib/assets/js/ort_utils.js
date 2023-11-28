@@ -146,8 +146,21 @@ const l = (i) => {
 const getFreeDimensionOverridesById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      const firstKey = Object.keys(models[i].inputs[0])[0];
-      return models[i].inputs[0][firstKey][3];
+      let fdo = {};
+      for (let input of models[i].inputs) {
+        for (let key in input) {
+          let value = input[key];
+          let ob = value[3];
+          if (Object.keys(ob).length !== 0) {
+            Object.keys(ob).forEach(key => {
+              if (ob[key].toString().trim()) {
+                fdo[key] = ob[key];
+              }
+            });
+          }
+        }
+      }
+      return fdo;
     }
   }
   return null;

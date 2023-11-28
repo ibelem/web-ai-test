@@ -3,7 +3,7 @@ importScripts('./ort.min.js');
 
 self.addEventListener('message', async (event) => {
 
-  const models = event.data;
+  const model = event.data;
 
   if (console.everything === undefined) {
     console.everything = [];
@@ -37,44 +37,40 @@ self.addEventListener('message', async (event) => {
     local: 'models/'
   }
 
-  const getFreeDimensionOverridesById = (id) => {
-    for (let i = 0; i < models.length; i++) {
-      if (models[i].id === id) {
-        if (models[i].inputs && models[i].inputs[0]) {
-          const firstKey = Object.keys(models[i].inputs[0])[0];
-          if (firstKey) {
-            return models[i].inputs[0][firstKey][3];
+  const getFreeDimensionOverrides = () => {
+    if (model.inputs) {
+      let fdo = {};
+      for (let input of model.inputs) {
+        for (let key in input) {
+          let value = input[key];
+          let ob = value[3];
+          if (Object.keys(ob).length !== 0) {
+            Object.keys(ob).forEach(key => {
+              if (ob[key].toString().trim()) {
+                fdo[key] = ob[key];
+              }
+            });
           }
         }
       }
+      return fdo;
     }
-    return null;
   }
 
-  const getHfUrlById = (id) => {
-    for (let i = 0; i < models.length; i++) {
-      if (models[i].id === id) {
-        return modelHosts.hf + models[i].model;
-      }
-    }
-    return null;
+  const getHfUrl = () => {
+    return modelHosts.hf + model.model;
   };
 
-  const getLocalUrlById = (id) => {
-    for (let i = 0; i < models.length; i++) {
-      if (models[i].id === id) {
-        return location.origin + '/' + modelHosts.local + models[i].model;
-      }
-    }
-    return null;
+  const getLocalUrl = () => {
+    return location.origin + '/' + modelHosts.local + model.model;
   };
 
-  const getModelUrl = (_model) => {
+  const getModelUrl = () => {
     let modelPath = '';
     if (location.origin.indexOf('webai.run') > -1) {
-      modelPath = getHfUrlById(_model);
+      modelPath = getHfUrl();
     } else {
-      modelPath = getLocalUrlById(_model);
+      modelPath = getLocalUrl();
     }
     return modelPath;
   }
@@ -157,12 +153,12 @@ self.addEventListener('message', async (event) => {
     20: 'FLOAT8E5M2FNUZ'
   };
 
-  let fallbackChecker = async (model_id, backend) => {
+  let fallbackChecker = async () => {
     let options = {
       executionProviders: [
         {
           name: 'webnn',
-          deviceType: backend,
+          deviceType: model.backend,
           powerPreference: "default",
           preferredLayout: 'NHWC',
           numThreads: 1
@@ -172,35 +168,38 @@ self.addEventListener('message', async (event) => {
 
     options.logSeverityLevel = 0;
 
-    let freeDimensionOverrides = getFreeDimensionOverridesById(model_id);
+    let freeDimensionOverrides = getFreeDimensionOverrides();
     if (freeDimensionOverrides) {
       options.freeDimensionOverrides = freeDimensionOverrides;
     }
 
+    console.log(options.freeDimensionOverrides)
     console.log(options);
 
-    let modelPath = getModelUrl(model_id);
-    self.postMessage(`[1] Downloading ${model_id} model`);
-    let modelBuffer = await getModelOPFS(model_id, modelPath, false);
+    let modelPath = getModelUrl();
+    self.postMessage(`[1] Downloading ${model.id} model`);
+    let modelBuffer = await getModelOPFS(model.id, modelPath, false);
     if (modelBuffer.byteLength < 1024) {
-      modelBuffer = await getModelOPFS(model_id, modelPath, true);
+      modelBuffer = await getModelOPFS(model.id, modelPath, true);
     }
 
     if (modelBuffer) {
-      self.postMessage(`[2] Downloaded ${model_id} model`);
+      self.postMessage(`[2] Downloaded ${model.id} model`);
     }
 
-    self.postMessage(`[3] Checking WebNN fallback status of ${model_id} on ${backend} backend, please wait...`);
+    self.postMessage(`[3] options.freeDimensionOverrides: ` + JSON.stringify(freeDimensionOverrides));
+
+    self.postMessage(`[4] Checking WebNN fallback status of ${model.id} on ${model.backend} backend, please wait...`);
 
     let session;
     let er = '';
     try {
       session = await ort.InferenceSession.create(modelBuffer, options);
     } catch (error) {
-      self.postMessage(`[Error] WebNN fallback status of CPU backend`);
+      self.postMessage(`[Error] WebNN fallback status of ${model.backend} backend`);
       self.postMessage(error.message);
-      obj.name = model_id;
-      obj.backend = backend;
+      obj.name = model.id;
+      obj.backend = model.backend;
       er = error.message;
       // er.push(error.message);
     }
@@ -213,9 +212,9 @@ self.addEventListener('message', async (event) => {
 
     obj.error = er;
 
-    self.postMessage(`[4] Waiting 10 seconds for WebNN EP to generate the full console logs`);
+    self.postMessage(`[5] Waiting 10 seconds for WebNN EP to generate the full console logs`);
     await timeout(10000);
-    self.postMessage(`[5] Filtering WebNN fallback log messages`);
+    self.postMessage(`[6] Filtering WebNN fallback log messages`);
     let everything = console.everything.map(item => item.value[0]);
     let filteredEverything = everything.filter(item => {
       return (
@@ -264,12 +263,15 @@ self.addEventListener('message', async (event) => {
     // Find the index of the first "number of" item
     let indexOfNumber = removeNewTail.findIndex(item => item.startsWith("number of"));
 
-    // Remove the item starting with "number of" and its preceding items
-    if (indexOfNumber !== -1) {
-      removeNewTail = removeNewTail.slice(indexOfNumber + 1);
+    if (model.backend === 'cpu') {
+      // Remove the item starting with "number of" and its preceding items
+      if (indexOfNumber !== -1) {
+        console.log(indexOfNumber + ': Remove the item starting with "number of" and its preceding items for CPU backend');
+        removeNewTail = removeNewTail.slice(indexOfNumber + 1);
+      }
     }
 
-    let modifiedT = removeNewTail.flatMap(item => {
+    removeNewTail = removeNewTail.flatMap(item => {
       if (item.startsWith("number of")) {
         return item.split("number of").filter(Boolean).map(part => `number of ${part.trim()}`);
       } else {
@@ -277,11 +279,11 @@ self.addEventListener('message', async (event) => {
       }
     });
 
-    modifiedT = modifiedT.map(item => item.replace(' index: [] supported: ', ''));
+    modifiedT = removeNewTail.map(item => item.replace(' index: [] supported: ', ''));
     modifiedT = [...new Set(modifiedT)];
 
-    obj.name = model_id;
-    obj.backend = backend;
+    obj.name = model.id;
+    obj.backend = model.backend;
 
     let supported = [];
     let not_supported = []
@@ -307,18 +309,18 @@ self.addEventListener('message', async (event) => {
     });
 
     if (supported.length > 0) {
-      obj.supported = supported;
+      obj.supported = supported.sort();
     }
 
     if (not_supported.length > 0) {
-      obj.not_supported = not_supported;
+      obj.not_supported = not_supported.sort();
     }
 
     if (input_type_not_supported.length > 0) {
-      obj.input_type_not_supported = input_type_not_supported
+      obj.input_type_not_supported = input_type_not_supported.sort();
     }
 
-    self.postMessage(`[6] WebNN fallback status of ${model_id} on ${backend} backend - Completed`);
+    self.postMessage(`[7] WebNN fallback status of ${model.id} on ${model.backend} backend - Completed`);
     self.postMessage(obj);
     self.postMessage('|-------------------------------------------------------------------------------------|');
   }
@@ -332,12 +334,6 @@ self.addEventListener('message', async (event) => {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  const main = async () => {
-    for (let m of models) {
-      await fallbackChecker(m.id, 'cpu');
-      await fallbackChecker(m.id, 'gpu');
-    }
-  }
-  await main()
+  fallbackChecker();
 
 });

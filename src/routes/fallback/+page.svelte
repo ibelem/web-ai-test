@@ -10,73 +10,153 @@
 		getModelDataTypeById,
 		getModelDescriptionById,
 		getModelNoteById,
-		getModelNameById
+		getModelNameById,
+		addFallback,
+		resetFallback,
+		resetFallbackLog,
+		updateFallbackLog,
+		resetFallbackQueue,
+		updateFallbackQueue
 	} from '$lib/assets/js/utils';
-
-	onMount(async () => {});
+	import { fallbackLogStore, fallbackStore, fallbackQueueStore } from '$lib/store/store';
 
 	/**
-	 * @type {any[]}
+	 * @type {string[]}
 	 */
-	$: fallback = [];
-	$: fallbackString = [];
-	$: fallbackLog = [];
+	let fallback;
+	fallbackStore.subscribe((value) => {
+		fallback = value;
+	});
 
-	const fallbackCheck = (/** @type {string} */ id) => {
+	/**
+	 * @type {string[]}
+	 */
+	let fallbackQueue;
+	fallbackQueueStore.subscribe((value) => {
+		fallbackQueue = value;
+	});
+
+	/**
+	 * @type {string[]}
+	 */
+	let fallbackLog;
+	fallbackLogStore.subscribe((value) => {
+		fallbackLog = value;
+	});
+
+	$: fallbackString = JSON.stringify(fallback);
+
+	const run = () => {
+		/**
+		 * @type {string}
+		 */
+		let id;
+		/**
+		 * @type {string}
+		 */
+		let backend;
 		const worker = new Worker(ortDists.webnn_webglfix.workerjs);
-
-		fallback = [];
-		fallbackLog = [];
-		fallbackString = [];
-
-		if (id === 'all') {
-			worker.postMessage(models);
-		} else if (id === 'fp32') {
-			let m = models.filter((model) => getModelDataTypeById(model.id) === 'fp32');
-			worker.postMessage(m);
-		} else if (id === 'int64') {
-			let m = models.filter((model) => getModelDataTypeById(model.id) === 'int64');
-			worker.postMessage(m);
-		} else if (id === 'fp16') {
-			let m = models.filter((model) => getModelDataTypeById(model.id) === 'fp16');
-			worker.postMessage(m);
-		} else if (id === 'int8') {
-			let m = models.filter((model) => getModelDataTypeById(model.id) === 'int8');
-			worker.postMessage(m);
-		} else {
-			let m = models.find((model) => model.id === id);
-			worker.postMessage([m]);
+		if (fallbackQueue.length > 0) {
+			id = fallbackQueue[0].split('__')[0];
+			backend = fallbackQueue[0].split('__')[1];
+			let model = models.find((item) => item.id === id);
+			model.backend = backend;
+			worker.postMessage(model);
+			// location.href = location.pathname;
 		}
 
 		worker.onmessage = (event) => {
 			const outputData = event.data;
 			if (typeof outputData === 'object') {
-				fallback.push(outputData);
+				addFallback(outputData);
+				let filteredFallbackQueue = fallbackQueue.filter(
+					(item) => item !== `${outputData.name}__${outputData.backend}`
+				);
+				fallbackQueueStore.update(() => filteredFallbackQueue);
+				if (fallbackQueue.length > 0) {
+					location.href = location.origin + `/fallback?${fallbackQueue[0]}`;
+				}
 			} else {
-				fallbackLog.push(outputData);
+				updateFallbackLog(outputData);
 			}
 
 			fallback = fallback;
-			fallbackString = JSON.stringify(fallback);
 			fallbackLog = fallbackLog;
 			// Handle the output received from the worker
 		};
+	};
+
+	const addSuffixes = (/** @type {any[]} */ array, /** @type {any[]} */ suffixes) => {
+		/**
+		 * @type {any[]}
+		 */
+		let result = [];
+		array.forEach((/** @type {any} */ item) => {
+			suffixes.forEach((/** @type {any} */ suffix) => {
+				result.push(item + suffix);
+			});
+		});
+		return result;
+	};
+
+	const setFallbackQueue = (/** @type {string} */ id) => {
+		// fallback = [];
+		// fallbackLog = [];
+		// fallbackString = [];
+
+		resetFallback();
+		resetFallbackQueue();
+		resetFallbackLog();
+
+		let bk = ['__cpu', '__gpu'];
+
+		if (id === 'all') {
+			let m = models.map((model) => model.id);
+			updateFallbackQueue(m.filter((item) => item !== 'model_access_check'));
+		} else if (id === 'fp32') {
+			let m = models.filter((model) => getModelDataTypeById(model.id) === 'fp32');
+			let model = m.map((model) => model.id);
+			model = addSuffixes(model, bk);
+			updateFallbackQueue(model);
+		} else if (id === 'int64') {
+			let m = models.filter((model) => getModelDataTypeById(model.id) === 'int64');
+			let model = m.map((model) => model.id);
+			model = addSuffixes(model, bk);
+			updateFallbackQueue(model);
+		} else if (id === 'fp16') {
+			let m = models.filter((model) => getModelDataTypeById(model.id) === 'fp16');
+			let model = m.map((model) => model.id);
+			model = addSuffixes(model, bk);
+			updateFallbackQueue(model);
+		} else if (id === 'int8') {
+			let m = models.filter((model) => getModelDataTypeById(model.id) === 'int8');
+			let model = m.map((model) => model.id);
+			model = addSuffixes(model, bk);
+			updateFallbackQueue(model);
+		} else {
+			let m = models.map((model) => model.id);
+			let model = [m.find((item) => item === id)];
+			model = addSuffixes(model, bk);
+			updateFallbackQueue(model);
+		}
+
+		run();
 	};
 
 	let logShow = true;
 	let jsonLogShow = true;
 
 	const copyJsonInfo = async () => {
-		let log = fallbackString.toString();
+		let log = JSON.stringify(fallback).toString();
 		await navigator.clipboard.writeText(log);
-		fallbackLog.push(`Json file string copied`);
+		updateFallbackLog(`Json file string copied`);
 		fallbackLog = fallbackLog;
 	};
 
 	const copyLogInfo = async () => {
 		let log = fallbackLog.toString().replaceAll(',', '\r\n');
 		await navigator.clipboard.writeText(log);
-		fallbackLog.push(`Log history copied`);
+		updateFallbackLog(`Log history copied`);
 		fallbackLog = fallbackLog;
 	};
 
@@ -98,12 +178,19 @@
 		scrollToBottom(element2);
 	}
 
-	const scrollToBottom = async (/** @type {HTMLDivElement} */ node) => {
+	const scrollToBottom = (/** @type {HTMLDivElement} */ node) => {
 		node?.scroll({ top: node.scrollHeight, behavior: 'smooth' });
 	};
+
 	beforeUpdate(() => {
-		if (fallbackString) scrollToBottom(element);
+		if (fallback) scrollToBottom(element);
 		if (fallbackLog) scrollToBottom(element2);
+	});
+
+	onMount(() => {
+		if (fallbackQueue.length > 0) {
+			run();
+		}
 	});
 </script>
 
@@ -114,117 +201,115 @@
 	<div>Check the WebNN fallback status with your current browser</div>
 </div>
 
-<div class="g2">
-	{#if fallbackLog && fallbackLog.length > 0}
-		<div class="log">
-			{#if logShow}
-				<div class="inferlog" bind:this={element2}>
-					{#each fallbackLog as fb}
-						<div>{fb}</div>
-					{/each}
-				</div>
-			{/if}
-			<div class="q copy">
-				<div>
-					<button title="Copy full test logs" on:click={() => copyLogInfo()}>
-						<Log />
-					</button>
+{#if fallbackLog && fallbackLog.length > 0}
+	<div class="log">
+		{#if logShow}
+			<div class="inferlog" bind:this={element2}>
+				{#each fallbackLog as fb}
+					<div>{fb}</div>
+				{/each}
+			</div>
+		{/if}
+		<div class="q copy">
+			<div>
+				<button title="Copy full test logs" on:click={() => copyLogInfo()}>
+					<Log />
+				</button>
 
-					<button
-						title="Hide logs"
-						on:click={() => {
-							logShow = !logShow;
-						}}
-					>
-						<LogToggle />
-					</button>
-				</div>
+				<button
+					title="Hide logs"
+					on:click={() => {
+						logShow = !logShow;
+					}}
+				>
+					<LogToggle />
+				</button>
 			</div>
 		</div>
-	{/if}
+	</div>
+{/if}
 
-	{#if fallbackString && fallbackString.length > 2}
-		<div class="t">
-			{#if jsonLogShow}
-				<div class="inferlog" bind:this={element}>
-					<div>{fallbackString}</div>
-				</div>
-			{/if}
-			<div class="q copy">
-				<div>
-					<button title="Copy full test logs" on:click={() => copyJsonInfo()}>
-						<Log />
-					</button>
+{#if fallbackString && fallbackString.length > 2}
+	<div>
+		{#if jsonLogShow}
+			<div class="inferlog" bind:this={element}>
+				<div>{fallbackString}</div>
+			</div>
+		{/if}
+		<div class="q copy">
+			<div>
+				<button title="Copy full test logs" on:click={() => copyJsonInfo()}>
+					<Log />
+				</button>
 
-					<button
-						title="Hide logs"
-						on:click={() => {
-							jsonLogShow = !jsonLogShow;
-						}}
-					>
-						<LogToggle />
-					</button>
-				</div>
+				<button
+					title="Hide logs"
+					on:click={() => {
+						jsonLogShow = !jsonLogShow;
+					}}
+				>
+					<LogToggle />
+				</button>
 			</div>
 		</div>
-	{/if}
-</div>
+	</div>
+{/if}
 
-<div class="title tq"><button on:click={() => fallbackCheck('fp32')}>Float32</button></div>
+<div class="title tq"><button on:click={() => setFallbackQueue('fp32')}>Float32</button></div>
 <div>
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'fp32'}
 				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => fallbackCheck(m.id)}>{getModelNameById(m.id)}</button>
+					<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
 				</span>
 			{/if}
 		{/if}
 	{/each}
 </div>
 
-<div class="title tq"><button on:click={() => fallbackCheck('int64')}>INT64</button></div>
+<div class="title tq"><button on:click={() => setFallbackQueue('int64')}>INT64</button></div>
 <div>
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'int64'}
 				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => fallbackCheck(m.id)}>{getModelNameById(m.id)}</button>
+					<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
 				</span>
 			{/if}
 		{/if}
 	{/each}
 </div>
 
-<div class="title tq"><button on:click={() => fallbackCheck('fp16')}>Float16</button></div>
+<div class="title tq"><button on:click={() => setFallbackQueue('fp16')}>Float16</button></div>
 <div>
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'fp16'}
 				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => fallbackCheck(m.id)}>{getModelNameById(m.id)}</button>
+					<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
 				</span>
 			{/if}
 		{/if}
 	{/each}
 </div>
 
-<div class="title tq"><button on:click={() => fallbackCheck('int8')}>Int8</button></div>
+<div class="title tq"><button on:click={() => setFallbackQueue('int8')}>Int8</button></div>
 <div>
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'int8'}
 				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => fallbackCheck(m.id)}>{getModelNameById(m.id)}</button>
+					<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
 				</span>
 			{/if}
 		{/if}
 	{/each}
 </div>
 
-<!-- <div class="run" title="It will take quite a long time...">
-	<button on:click={() => fallbackCheck('all')}>Check WebNN Fallback for All Models</button>
-</div> -->
+<div class="run" title="It will take quite a long time...">
+	<button on:click={() => setFallbackQueue('all')}>Check WebNN Fallback for All Models</button>
+</div>
 
 <Environment />
 <Footer />
@@ -256,15 +341,6 @@
 
 	.tq {
 		margin: 10px 0 10px 0;
-	}
-
-	.t {
-		max-width: 48%;
-		margin-left: 8px;
-	}
-
-	.g2 {
-		display: flex;
 	}
 
 	.inferlog {
@@ -333,26 +409,6 @@
 		background-color: var(--red-005);
 		color: var(--red);
 		border: 1px solid var(--red) !important;
-	}
-
-	.f button.true {
-		background-image: none;
-		background-color: var(--red-005);
-		color: var(--red);
-		border: 1px solid var(--red) !important;
-	}
-
-	.tq .q.tests {
-		display: flex;
-		align-items: center;
-	}
-
-	.tq .q.tests a {
-		margin-left: 20px;
-	}
-
-	.tq .q.tests a:hover {
-		color: var(--orange);
 	}
 
 	.run {
