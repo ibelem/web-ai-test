@@ -328,11 +328,11 @@ export let models = [
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
-      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
-      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'token_type_ids': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
     }],
-    inputstip: '[1, 1] [1, 1] [1, 1]'
+    inputstip: '[1, 128] [1, 128] [1, 128]'
   },
   {
     category: 'Fill-Mask',
@@ -346,11 +346,11 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
-      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
-      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'token_type_ids': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
     }],
-    inputstip: '[1, 1] [1, 1] [1, 1]'
+    inputstip: '[1, 128] [1, 128] [1, 128]'
   },
   {
     category: 'Summarization',
@@ -364,10 +364,10 @@ export let models = [
     format: 'onnx',
     datatype: 'int64',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "encoder_sequence_length": 1 }],
-      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "encoder_sequence_length": 1 }]
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
     }],
-    inputstip: '[1, 1] [1, 1]'
+    inputstip: '[1, 128] [1, 128]'
   },
   {
     category: 'Summarization',
@@ -381,10 +381,10 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "encoder_sequence_length": 1 }],
-      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "encoder_sequence_length": 1 }]
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
     }],
-    inputstip: '[1, 1] [1, 1]'
+    inputstip: '[1, 128] [1, 128]'
   },
   {
     category: 'Fill-Mask',
@@ -488,9 +488,9 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 63], { "batch_size": 1, "sequence_length": 1 }],
-      'attention_mask': ['int64', 1n, [1, 63], { "batch_size": 1, "sequence_length": 1 }],
-      'token_type_ids': ['int64', 1n, [1, 63], { "batch_size": 1, "sequence_length": 1 }],
+      'input_ids': ['int64', 99n, [1, 63], { "batch_size": 1, "sequence_length": 63 }],
+      'attention_mask': ['int64', 1n, [1, 63], { "batch_size": 1, "sequence_length": 63 }],
+      'token_type_ids': ['int64', 1n, [1, 63], { "batch_size": 1, "sequence_length": 63 }],
     }],
     inputstip: '[1, 63] [1, 63] [1, 63]'
   },

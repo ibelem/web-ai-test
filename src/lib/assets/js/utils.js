@@ -1,4 +1,4 @@
-import { refererStore, modelDownloadUrlStore, autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
+import { fallbackLogStore, fallbackStore, fallbackQueueStore, refererStore, modelDownloadUrlStore, autoStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
 import { models, uniqueBackends, corsSites } from '../../config';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
@@ -8,6 +8,56 @@ import { UAParser } from 'ua-parser-js';
 import html2canvas from 'html2canvas';
 import to from 'await-to-js';
 import { cpuStore } from '$lib/store/store';
+
+
+/**
+ * @type {string[]}
+ */
+export let fallback;
+fallbackStore.subscribe((value) => {
+  fallback = value;
+});
+
+/**
+ * @type {string[]}
+ */
+export let fallbackQueue;
+fallbackQueueStore.subscribe((value) => {
+  fallbackQueue = value;
+});
+
+export const updateFallbackQueue = (models) => {
+  fallbackQueueStore.update(() => models);
+}
+
+export const resetFallbackQueue = () => {
+  fallbackQueueStore.update(() => []);
+}
+
+export const addFallback = (value) => {
+  fallbackStore.update((arr) => [...arr, value]);
+}
+
+export const resetFallback = () => {
+  fallbackStore.update(() => []);
+}
+
+/**
+ * @type {string[]}
+ */
+export let fallbackLog;
+fallbackLogStore.subscribe((value) => {
+  fallbackLog = value;
+});
+
+export const updateFallbackLog = (value) => {
+  fallbackLogStore.update((arr) => [...arr, value]);
+}
+
+export const resetFallbackLog = () => {
+  fallbackLogStore.update(() => []);
+}
+
 
 /**
  * @type {string}
