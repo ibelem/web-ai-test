@@ -1504,7 +1504,7 @@ export const fallback = [
       "Unsqueeze",
       "Where"
     ]
-  }
+  },
   {
     "name": "m2m100_decoder",
     "backend": "cpu",
