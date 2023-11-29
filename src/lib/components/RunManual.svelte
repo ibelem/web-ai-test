@@ -28,6 +28,7 @@
 		modelDownloadProgressStore
 	} from '$lib/store/store';
 	import { page } from '$app/stores';
+	import Fallback from './Fallback.svelte';
 
 	let logShow = true;
 
@@ -156,6 +157,7 @@
 			</div>
 		{/if}
 		<Results />
+		<Fallback />
 		<InferenceLog bind:logShow />
 		<div class="run">
 			{#if selectedBackends.length > 0 && !auto}

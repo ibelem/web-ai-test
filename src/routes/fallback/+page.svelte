@@ -16,9 +16,10 @@
 		resetFallbackLog,
 		updateFallbackLog,
 		resetFallbackQueue,
-		updateFallbackQueue
+		updateFallbackQueue,
+		resetStore
 	} from '$lib/assets/js/utils';
-	import { fallbackLogStore, fallbackStore, fallbackQueueStore } from '$lib/store/store';
+	import { fallbackLogStore, fallbackStore, fallbackQueueStore, autoStore } from '$lib/store/store';
 	import Fallback from '$lib/components/Fallback.svelte';
 
 	/**
@@ -184,6 +185,8 @@
 	};
 
 	beforeUpdate(() => {
+		resetStore();
+		autoStore.update(() => false);
 		if (fallback) scrollToBottom(element);
 		if (fallbackLog) scrollToBottom(element2);
 	});
