@@ -3,6 +3,7 @@
 	import { fallback, fallbackEnv } from '$lib/fallback';
 	import { models } from '$lib/config';
 	import { getModelNameById, getModelTypeById, getModelDataTypeById } from '$lib/assets/js/utils';
+	import { afterUpdate } from 'svelte';
 	/**
 	 * @type {string[]}
 	 */
@@ -10,15 +11,18 @@
 	resultsStore.subscribe((value) => {
 		results = value;
 	});
+
+	/**
+	 * @type {any}
+	 */
+	let y;
+	let y_pin = false;
+
+	afterUpdate(() => {
+		y > 1024 ? (y_pin = true) : (y_pin = false);
+	});
 </script>
 
-<!-- "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep
-dimensions.", "partitions_supported_by_webnn": 74, "nodes_in_the_graph": 385,
-"nodes_supported_by_webnn": 309, "supported": [ "Add", "Div", "Mul", "Pow", "ReduceMean", "Reshape",
-"Softmax", "Sub", "Transpose" ], "not_supported": [ "Erf", "Gather", "MatMul", "Reshape", "Sqrt" ],
-"input_type_not_supported": [ "Reshape: INT64" ] }, -->
-
-<!-- {#if results && results.length > 0} -->
 <div id="fallback">
 	<div class="rqtitle">
 		<div class="title rq mb mt">Fallback</div>
@@ -27,7 +31,7 @@ dimensions.", "partitions_supported_by_webnn": 74, "nodes_in_the_graph": 385,
 		</div>
 	</div>
 	<div class="result">
-		<div class="q _3 title">
+		<div class="q _3 title {y_pin}">
 			<div class="name" title="Model Name">Model</div>
 			<div class="info" title="Model Info">Model Info</div>
 			<div class="su" title="Supported">Supported</div>
@@ -75,7 +79,7 @@ dimensions.", "partitions_supported_by_webnn": 74, "nodes_in_the_graph": 385,
 	</div>
 </div>
 
-<!-- {/if} -->
+<svelte:window bind:scrollY={y} />
 
 <style>
 	#fallback .result,
@@ -92,7 +96,10 @@ dimensions.", "partitions_supported_by_webnn": 74, "nodes_in_the_graph": 385,
 		color: var(--white);
 	}
 
-	.q._3.title {
+	#fallback .q._3.title.true {
+		position: sticky;
+		top: -1px;
+		background-color: var(--white);
 	}
 
 	.q._3.title div {
