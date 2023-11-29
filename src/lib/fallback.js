@@ -3535,14 +3535,120 @@ export const fallback = [
     ]
   },
   {
+    "name": "whisper_tiny_decoder",
+    "backend": "cpu",
+    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+    "partitions_supported_by_webnn": 74,
+    "nodes_in_the_graph": 385,
+    "nodes_supported_by_webnn": 309,
+    "supported": [
+      "Add",
+      "Div",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sub",
+      "Transpose"
+    ],
+    "not_supported": [
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Reshape",
+      "Sqrt"
+    ],
+    "input_type_not_supported": [
+      "Reshape: INT64"
+    ]
+  },
+  {
+    "name": "whisper_tiny_decoder",
+    "backend": "gpu",
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 74,
+    "nodes_in_the_graph": 385,
+    "nodes_supported_by_webnn": 310,
+    "supported": [
+      "Add",
+      "Div",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sub",
+      "Transpose"
+    ],
+    "not_supported": [
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Sqrt"
+    ]
+  },
+  {
     "name": "whisper_tiny_decoder_int8",
     "backend": "cpu",
-    "error": ""
+    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+    "partitions_supported_by_webnn": 74,
+    "nodes_in_the_graph": 532,
+    "nodes_supported_by_webnn": 389,
+    "supported": [
+      "Add",
+      "Div",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sub",
+      "Transpose"
+    ],
+    "not_supported": [
+      "Cast",
+      "DequantizeLinear",
+      "DynamicQuantizeLinear",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "MatMulInteger",
+      "Reshape",
+      "Sqrt"
+    ],
+    "input_type_not_supported": [
+      "Reshape: INT64"
+    ]
   },
   {
     "name": "whisper_tiny_decoder_int8",
     "backend": "gpu",
-    "error": ""
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 75,
+    "nodes_in_the_graph": 532,
+    "nodes_supported_by_webnn": 390,
+    "supported": [
+      "Add",
+      "Div",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sub",
+      "Transpose"
+    ],
+    "not_supported": [
+      "Cast",
+      "DequantizeLinear",
+      "DynamicQuantizeLinear",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "MatMulInteger",
+      "Sqrt"
+    ]
   },
   {
     "name": "whisper_tiny_encoder_int8",

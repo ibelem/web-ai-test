@@ -1006,7 +1006,7 @@ export let models = [
     datatype: 'int64',
     inputs: [{
       'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length": 3000 }]
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
     }],
     inputstip: '[1, 1] [1, 1500, 384]'
   },
@@ -1023,7 +1023,7 @@ export let models = [
     datatype: 'int8',
     inputs: [{
       'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length": 3000 }]
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
     }],
     inputstip: '[1, 1] [1, 1500, 384]'
   },
