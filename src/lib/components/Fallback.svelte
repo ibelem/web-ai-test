@@ -120,7 +120,7 @@
 	#fallback .q._3.title.true {
 		position: sticky;
 		top: -1px;
-		background-color: var(--white);
+		background-color: var(--white-09);
 	}
 
 	.q._3.title div {
@@ -188,6 +188,11 @@
 	.result .q:hover .err {
 		background-color: var(--red);
 		color: var(--white);
+	}
+
+	.result .q.title:hover .err {
+		background-color: var(--white-09);
+		color: var(--green);
 	}
 
 	.result .q .err {
