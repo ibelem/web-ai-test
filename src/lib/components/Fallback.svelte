@@ -1,6 +1,6 @@
 <script>
 	import { resultsStore } from '$lib/store/store';
-	import { fallback } from '$lib/fallback';
+	import { fallback, fallbackEnv } from '$lib/fallback';
 	import { models } from '$lib/config';
 	import { getModelNameById, getModelTypeById, getModelDataTypeById } from '$lib/assets/js/utils';
 	/**
@@ -22,6 +22,9 @@ dimensions.", "partitions_supported_by_webnn": 74, "nodes_in_the_graph": 385,
 <div id="fallback">
 	<div class="rqtitle">
 		<div class="title rq mb mt">Fallback</div>
+		<div class="subtitle">
+			Tested on Chrome Canary {fallbackEnv.version} / Last update: {fallbackEnv.last_update}
+		</div>
 	</div>
 	<div class="result">
 		<div class="q _3 title">
@@ -75,13 +78,13 @@ dimensions.", "partitions_supported_by_webnn": 74, "nodes_in_the_graph": 385,
 <!-- {/if} -->
 
 <style>
-	#fallback .result {
+	#fallback .result,
+	#fallback .subtitle {
 		font-size: 0.8em;
 	}
 
 	#fallback .result .q {
 		background-color: var(--green-002);
-		border-bottom: 1px solid var(--green);
 	}
 
 	#fallback .result .q:hover {

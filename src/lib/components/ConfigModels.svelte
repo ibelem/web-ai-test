@@ -699,7 +699,7 @@
 				{#each fallbackId as i}
 					{#if i.backend === 'cpu'}
 						<div class="tit s">
-							WebNN CPU / {fallbackEnv.version} / Update: {fallbackEnv.last_update}
+							WebNN CPU / {fallbackEnv.version} / {fallbackEnv.last_update}
 						</div>
 						<div class="dg3 s">
 							<div>
