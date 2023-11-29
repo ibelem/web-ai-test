@@ -19,6 +19,7 @@
 		updateFallbackQueue
 	} from '$lib/assets/js/utils';
 	import { fallbackLogStore, fallbackStore, fallbackQueueStore } from '$lib/store/store';
+	import Fallback from '$lib/components/Fallback.svelte';
 
 	/**
 	 * @type {string[]}
@@ -306,6 +307,8 @@
 		{/if}
 	{/each}
 </div>
+
+<Fallback />
 
 <div class="run" title="It will take quite a long time...">
 	<button on:click={() => setFallbackQueue('all')}>Check WebNN Fallback for All Models</button>
