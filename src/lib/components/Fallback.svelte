@@ -53,8 +53,8 @@
 				<div class="q _3">
 					<div class="name">{getModelNameById(name)}</div>
 					<div class="info">
-						{getModelTypeById(name)} ·
-						{getModelDataTypeById(name)} · {#if backend}{backend}{/if}
+						{getModelTypeById(name)}<br />
+						{getModelDataTypeById(name)}<br />{#if backend}{backend}{/if}
 					</div>
 					<div class="su s">
 						{#if supported}
@@ -80,11 +80,11 @@
 					<div class="node">
 						{#if partitions_supported_by_webnn}<span title="Number of partitions supported by WebNN"
 								>{partitions_supported_by_webnn}</span
-							> ·
+							><br />
 						{/if}
 						{#if nodes_in_the_graph}<span title="Number of nodes in the graph"
 								>{nodes_in_the_graph}</span
-							> ·
+							><br />
 						{/if}
 						{#if nodes_supported_by_webnn}<span title="Number of nodes supported by WebNN"
 								>{nodes_supported_by_webnn}</span
