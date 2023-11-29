@@ -1,9 +1,10 @@
 <script>
 	import { resultsStore } from '$lib/store/store';
 	import { fallback, fallbackEnv } from '$lib/fallback';
-	import { models } from '$lib/config';
 	import { getModelNameById, getModelTypeById, getModelDataTypeById } from '$lib/assets/js/utils';
-	import { afterUpdate } from 'svelte';
+	import { afterUpdate, onMount } from 'svelte';
+	import { page } from '$app/stores';
+
 	/**
 	 * @type {string[]}
 	 */
@@ -21,70 +22,91 @@
 	afterUpdate(() => {
 		y > 1024 ? (y_pin = true) : (y_pin = false);
 	});
+
+	let filteredFallback = fallback;
+
+	onMount(() => {
+		if (results && results.length > 0) {
+			filteredFallback = fallback.filter((/** @type {{ name: any; }} */ fallbackItem) => {
+				return results.some((resultItem) => resultItem.model === fallbackItem.name);
+			});
+		}
+	});
 </script>
 
-<div id="fallback">
-	<div class="rqtitle">
-		<div class="title rq mb mt">Fallback</div>
+{#if (results && results.length > 0 && (results[0].webnn_cpu_1 || results[0].webnn_cpu_4 || results[0].webnn_gpu || results[0].webnn_npu)) || $page.url.pathname.indexOf('fallback') > -1}
+	<div id="fallback">
+		<div class="rqtitle">
+			<div class="title rq mb mt">WebNN Fallback Status</div>
+		</div>
+		<div class="result">
+			<div class="q _3 title {y_pin}">
+				<div class="name" title="Model Name">Model</div>
+				<div class="info" title="Model Info">Info</div>
+				<div class="su" title="Supported">Supported</div>
+				<div class="su ns" title="Not Supported">Not Supported</div>
+				<div class="su nst" title="Not Supported (Input Type)">Input Type</div>
+				<div class="node" title="Nodes">Nodes</div>
+				<div class="err" title="Error">Errors</div>
+			</div>
+			{#each filteredFallback as { name, backend, supported, not_supported, input_type_not_supported, partitions_supported_by_webnn, nodes_in_the_graph, nodes_supported_by_webnn, error }, i}
+				<div class="q _3">
+					<div class="name">{getModelNameById(name)}</div>
+					<div class="info">
+						{getModelTypeById(name)} ·
+						{getModelDataTypeById(name)} · {#if backend}{backend}{/if}
+					</div>
+					<div class="su s">
+						{#if supported}
+							{#each supported as s}
+								<span>{s}</span>
+							{/each}
+						{/if}
+					</div>
+					<div class="su ns">
+						{#if not_supported}
+							{#each not_supported as n}
+								<span>{n}</span>
+							{/each}
+						{/if}
+					</div>
+					<div class="su nst">
+						{#if input_type_not_supported}
+							{#each input_type_not_supported as nst}
+								<span>{nst}</span>
+							{/each}
+						{/if}
+					</div>
+					<div class="node">
+						{#if partitions_supported_by_webnn}<span title="Number of partitions supported by WebNN"
+								>{partitions_supported_by_webnn}</span
+							> ·
+						{/if}
+						{#if nodes_in_the_graph}<span title="Number of nodes in the graph"
+								>{nodes_in_the_graph}</span
+							> ·
+						{/if}
+						{#if nodes_supported_by_webnn}<span title="Number of nodes supported by WebNN"
+								>{nodes_supported_by_webnn}</span
+							>{/if}
+					</div>
+					<div class="err">
+						{#if error}{error} · We are working on it.{/if}
+					</div>
+				</div>
+			{/each}
+		</div>
 		<div class="subtitle">
 			Tested on Chrome Canary {fallbackEnv.version} / Last update: {fallbackEnv.last_update}
 		</div>
 	</div>
-	<div class="result">
-		<div class="q _3 title {y_pin}">
-			<div class="name" title="Model Name">Model</div>
-			<div class="info" title="Model Info">Model Info</div>
-			<div class="su" title="Supported">Supported</div>
-			<div class="su" title="Not Supported">Not Supported</div>
-			<div class="su" title="Not Supported (Input Type)">Input Type</div>
-			<div class="node" title="Nodes">Nodes</div>
-			<div class="err" title="Error">Errors</div>
-		</div>
-		{#each fallback as { name, backend, supported, not_supported, input_type_not_supported, partitions_supported_by_webnn, nodes_in_the_graph, nodes_supported_by_webnn, error }, i}
-			<div class="q _3">
-				<div class="name">{getModelNameById(name)}</div>
-				<div class="info">
-					{getModelTypeById(name)} ·
-					{getModelDataTypeById(name)} · {#if backend}{backend}{/if}
-				</div>
-				<div class="su">
-					{#if supported}{supported.toString().replaceAll(',', ', ')}{/if}
-				</div>
-				<div class="su">
-					{#if not_supported}{not_supported.toString().replaceAll(',', ', ')}{/if}
-				</div>
-				<div class="su">
-					{#if input_type_not_supported?.length > 0}{input_type_not_supported
-							.toString()
-							.replaceAll(',', ', ')}{/if}
-				</div>
-				<div class="node">
-					{#if partitions_supported_by_webnn}<span title="Number of partitions supported by WebNN"
-							>{partitions_supported_by_webnn}</span
-						> ·
-					{/if}
-					{#if nodes_in_the_graph}<span title="Number of nodes in the graph"
-							>{nodes_in_the_graph}</span
-						> ·
-					{/if}
-					{#if nodes_supported_by_webnn}<span title="Number of nodes supported by WebNN"
-							>{nodes_supported_by_webnn}</span
-						>{/if}
-				</div>
-				<div class="err">
-					{#if error}{error} · We are working on it.{/if}
-				</div>
-			</div>
-		{/each}
-	</div>
-</div>
+{/if}
 
 <svelte:window bind:scrollY={y} />
 
 <style>
-	#fallback .result,
-	#fallback .subtitle {
-		font-size: 0.8em;
+	#fallback {
+		margin: 10px 0 20px 0;
 	}
 
 	#fallback .result .q {
@@ -92,8 +114,7 @@
 	}
 
 	#fallback .result .q:hover {
-		background-color: var(--green);
-		color: var(--white);
+		color: var(--green);
 	}
 
 	#fallback .q._3.title.true {
@@ -104,15 +125,14 @@
 
 	.q._3.title div {
 		padding: 8px 2px;
-		font-weight: 600;
 	}
 
 	.q._3 div {
 		padding: 2px 2px;
+		text-align: center;
+		justify-self: center;
 	}
-	.mt {
-		margin-top: 10px;
-	}
+
 	.mb {
 		margin-bottom: 10px;
 	}
@@ -133,5 +153,50 @@
 	}
 	.err {
 		width: 25vw;
+	}
+
+	.s span {
+		background-color: var(--green-01);
+		border-radius: 55px;
+		display: inline-block;
+		padding: 1px 8px;
+		margin: 0 2px 2px 0;
+		font-size: 0.8em;
+	}
+
+	.result .q:hover .s span {
+		background-color: var(--green);
+		color: var(--white);
+	}
+
+	.ns span,
+	.nst span {
+		background-color: var(--red-01);
+		border-radius: 55px;
+		display: inline-block;
+		padding: 1px 8px;
+		margin: 0 2px 2px 0;
+		font-size: 0.8em;
+	}
+
+	.result .q:hover .ns span,
+	.result .q:hover .nst span {
+		background-color: var(--red);
+		color: var(--white);
+	}
+
+	.result .q:hover .err {
+		background-color: var(--red);
+		color: var(--white);
+	}
+
+	.result .q .err {
+		padding: 0;
+	}
+
+	.subtitle {
+		text-align: right;
+		font-size: 0.8em;
+		margin-top: 4px;
 	}
 </style>

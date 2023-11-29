@@ -11,6 +11,7 @@
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import Fallback from '$lib/components/Fallback.svelte';
 	import {
 		autoStore,
 		testQueueStore,
@@ -128,6 +129,7 @@
 <div>
 	<Config />
 	<Results />
+	<Fallback />
 	<InferenceLog bind:logShow />
 	<!-- <TestQueue /> -->
 	<div class="run">
