@@ -24,11 +24,11 @@ export const ortDists = {
     url: 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js'
   },
   webgpu: {
-    version: 'v1.17 Internal Nov 22',
+    version: 'v1.17 Internal Nov 30',
     url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.webgpu.min.js'
   },
   webnn_webglfix: {
-    version: 'v1.17 Internal Nov 24',
+    version: 'v1.17 Internal Nov 30',
     url: '../ort/ort.min.js',
     workerjs: '../ort/fallback_worker.js'
   }
@@ -672,7 +672,7 @@ export let models = [
     datatype: 'int8',
     inputs: [{
       'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1, "encoder_sequence_length": 3000 }]
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
     }],
     inputstip: '[1, 1] [1, 1500, 1024]'
   },

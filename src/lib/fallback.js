@@ -1,8 +1,25 @@
 export const fallbackEnv = {
-  "version": '121.0.6144.0',
-  'last_update': 'Nov 28, 2023'
+  "version": '121.0.6157.0',
+  'last_update': 'Nov 30, 2023'
 }
 export const fallback = [
+  {
+    "name": "efficientnet_lite",
+    "backend": "cpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 179,
+    "nodes_supported_by_webnn": 179,
+    "supported": [
+      "Add",
+      "AveragePool",
+      "Clip",
+      "Conv",
+      "Gemm",
+      "Softmax",
+      "Squeeze"
+    ]
+  },
   {
     "name": "densenet",
     "backend": "cpu",
@@ -48,30 +65,11 @@ export const fallback = [
   },
   {
     "name": "efficientnet_lite",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 2,
-    "nodes_in_the_graph": 179,
-    "nodes_supported_by_webnn": 178,
-    "supported": [
-      "Add",
-      "AveragePool",
-      "Clip",
-      "Conv",
-      "Gemm",
-      "Softmax"
-    ],
-    "not_supported": [
-      "Squeeze"
-    ]
-  },
-  {
-    "name": "efficientnet_lite",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 2,
+    "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 180,
-    "nodes_supported_by_webnn": 179,
+    "nodes_supported_by_webnn": 180,
     "supported": [
       "Add",
       "AveragePool",
@@ -79,10 +77,8 @@ export const fallback = [
       "Conv",
       "Gemm",
       "Softmax",
+      "Squeeze",
       "Transpose"
-    ],
-    "not_supported": [
-      "Squeeze"
     ]
   },
   {
@@ -155,39 +151,35 @@ export const fallback = [
     "name": "resnet50_v1",
     "backend": "cpu",
     "error": "",
-    "partitions_supported_by_webnn": 2,
+    "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 124,
-    "nodes_supported_by_webnn": 123,
+    "nodes_supported_by_webnn": 124,
     "supported": [
       "Add",
       "Conv",
+      "Flatten",
       "Gemm",
       "GlobalAveragePool",
       "MaxPool",
       "Relu",
       "Transpose"
-    ],
-    "not_supported": [
-      "Flatten"
     ]
   },
   {
     "name": "resnet50_v1",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 2,
+    "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 122,
-    "nodes_supported_by_webnn": 121,
+    "nodes_supported_by_webnn": 122,
     "supported": [
       "Add",
       "Conv",
+      "Flatten",
       "Gemm",
       "GlobalAveragePool",
       "MaxPool",
       "Relu"
-    ],
-    "not_supported": [
-      "Flatten"
     ]
   },
   {
@@ -327,7 +319,7 @@ export const fallback = [
   {
     "name": "selfie_segmentation_general",
     "backend": "gpu",
-    "error": "",
+    "error": "Failed to execute 'convTranspose2d' on 'MLGraphBuilder': Failed to read the 'padding' property from 'MLConvTranspose2dOptions': Value is outside the 'unsigned long' value range.",
     "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 172,
     "nodes_supported_by_webnn": 172,
@@ -370,7 +362,7 @@ export const fallback = [
   {
     "name": "selfie_segmentation_landscape",
     "backend": "gpu",
-    "error": "",
+    "error": "Failed to execute 'convTranspose2d' on 'MLGraphBuilder': Failed to read the 'padding' property from 'MLConvTranspose2dOptions': Value is outside the 'unsigned long' value range.",
     "partitions_supported_by_webnn": 4,
     "nodes_in_the_graph": 172,
     "nodes_supported_by_webnn": 169,
@@ -638,7 +630,7 @@ export const fallback = [
   {
     "name": "realesrgan_x4_1024_fp32",
     "backend": "gpu",
-    "error": "Out of memory, tab crash",
+    "error": "Out of memory, tab crashed",
     "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 1024,
     "nodes_supported_by_webnn": 1024,
@@ -718,26 +710,24 @@ export const fallback = [
     "name": "dino_vitb16",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 134,
+    "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 602,
-    "nodes_supported_by_webnn": 469,
+    "nodes_supported_by_webnn": 602,
     "supported": [
       "Add",
       "Concat",
       "Conv",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
       "Transpose"
-    ],
-    "not_supported": [
-      "Erf",
-      "MatMul",
-      "Sqrt"
     ]
   },
   {
@@ -781,25 +771,25 @@ export const fallback = [
     "name": "sd_2_1_vae_decoder",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 38,
+    "partitions_supported_by_webnn": 31,
     "nodes_in_the_graph": 292,
-    "nodes_supported_by_webnn": 252,
+    "nodes_supported_by_webnn": 262,
     "supported": [
       "Add",
+      "Cast",
       "Conv",
       "Div",
+      "MatMul",
       "Mul",
       "Reshape",
       "Resize",
       "Sigmoid",
       "Softmax",
+      "Sqrt",
       "Transpose"
     ],
     "not_supported": [
-      "Cast",
-      "InstanceNormalization",
-      "MatMul",
-      "Sqrt"
+      "InstanceNormalization"
     ]
   },
   {
@@ -808,7 +798,7 @@ export const fallback = [
     "error": "",
     "partitions_supported_by_webnn": 30,
     "nodes_in_the_graph": 272,
-    "nodes_supported_by_webnn": 241,
+    "nodes_supported_by_webnn": 242,
     "supported": [
       "Add",
       "Clip",
@@ -818,32 +808,7 @@ export const fallback = [
       "Sigmoid",
       "Slice",
       "Softmax",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Exp",
-      "InstanceNormalization",
-      "MatMul",
-      "RandomNormalLike",
-      "Squeeze"
-    ]
-  },
-  {
-    "name": "sd_2_1_vae_encoder",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 30,
-    "nodes_in_the_graph": 224,
-    "nodes_supported_by_webnn": 194,
-    "supported": [
-      "Add",
-      "Clip",
-      "Conv",
-      "Mul",
-      "Reshape",
-      "Sigmoid",
-      "Slice",
-      "Softmax",
+      "Squeeze",
       "Transpose"
     ],
     "not_supported": [
@@ -854,18 +819,44 @@ export const fallback = [
     ]
   },
   {
+    "name": "sd_2_1_vae_encoder",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 23,
+    "nodes_in_the_graph": 224,
+    "nodes_supported_by_webnn": 201,
+    "supported": [
+      "Add",
+      "Clip",
+      "Conv",
+      "Exp",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Transpose"
+    ],
+    "not_supported": [
+      "InstanceNormalization",
+      "RandomNormalLike"
+    ]
+  },
+  {
     "name": "sam_b_decoder",
     "backend": "cpu",
-    "error": "Can't create a session. ERROR_CODE: 2, ERROR_MESSAGE: The initializer of graph has unsupported type, name: ortshared_7_1_1_1_token_308 type: 7",
-    "partitions_supported_by_webnn": 82,
+    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+    "partitions_supported_by_webnn": 79,
     "nodes_in_the_graph": 366,
-    "nodes_supported_by_webnn": 247,
+    "nodes_supported_by_webnn": 258,
     "supported": [
       "Add",
       "Concat",
       "Conv",
       "ConvTranspose",
       "Div",
+      "Flatten",
       "Floor",
       "Gemm",
       "Mul",
@@ -878,7 +869,8 @@ export const fallback = [
       "Softmax",
       "Split",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
       "ArgMax",
@@ -888,7 +880,6 @@ export const fallback = [
       "Equal",
       "Erf",
       "Expand",
-      "Flatten",
       "Gather",
       "LayerNormalization",
       "MatMul",
@@ -905,65 +896,66 @@ export const fallback = [
     ],
     "input_type_not_supported": [
       "Concat: INT64",
-      "Slice: INT64"
+      "Slice: INT64",
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "sam_b_decoder",
     "backend": "gpu",
-    "error": "Failed to execute 'constant' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 83,
+    "error": "Failed to execute 'cast' on 'MLGraphBuilder': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 28,
     "nodes_in_the_graph": 349,
-    "nodes_supported_by_webnn": 236,
+    "nodes_supported_by_webnn": 319,
     "supported": [
       "Add",
+      "Cast",
       "Concat",
       "Conv",
       "ConvTranspose",
+      "Cos",
       "Div",
+      "Erf",
+      "Expand",
+      "Flatten",
       "Floor",
       "Gemm",
+      "MatMul",
       "Mul",
+      "Not",
       "Pow",
+      "Reciprocal",
+      "ReduceMax",
       "ReduceMean",
       "Relu",
       "Reshape",
       "Resize",
+      "Sin",
       "Slice",
       "Softmax",
       "Split",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
       "ArgMax",
-      "Cast",
-      "Cos",
       "Equal",
-      "Erf",
-      "Expand",
-      "Flatten",
       "Gather",
       "LayerNormalization",
-      "MatMul",
-      "Not",
-      "Reciprocal",
-      "ReduceMax",
       "Resize",
       "Shape",
-      "Sin",
-      "Slice",
-      "Sqrt",
-      "Unsqueeze"
+      "Slice"
     ]
   },
   {
     "name": "sam_b_encoder",
     "backend": "cpu",
     "error": "Can't create a session. ERROR_CODE: 2, ERROR_MESSAGE: The initializer of graph has unsupported type, name: ortshared_7_1_3_2_token_290 type: 7",
-    "partitions_supported_by_webnn": 132,
+    "partitions_supported_by_webnn": 120,
     "nodes_in_the_graph": 591,
-    "nodes_supported_by_webnn": 363,
+    "nodes_supported_by_webnn": 400,
     "supported": [
       "Add",
       "Conv",
@@ -975,8 +967,10 @@ export const fallback = [
       "Slice",
       "Softmax",
       "Split",
+      "Squeeze",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
       "Add",
@@ -986,7 +980,6 @@ export const fallback = [
       "MatMul",
       "Pad",
       "Sqrt",
-      "Squeeze",
       "Unsqueeze"
     ]
   },
@@ -994,13 +987,15 @@ export const fallback = [
     "name": "sam_b_encoder",
     "backend": "gpu",
     "error": "Failed to execute 'constant' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 132,
+    "partitions_supported_by_webnn": 50,
     "nodes_in_the_graph": 593,
-    "nodes_supported_by_webnn": 365,
+    "nodes_supported_by_webnn": 488,
     "supported": [
       "Add",
       "Conv",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
@@ -1008,34 +1003,34 @@ export const fallback = [
       "Slice",
       "Softmax",
       "Split",
+      "Sqrt",
+      "Squeeze",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
       "Add",
       "Einsum",
-      "Erf",
       "LayerNormalization",
-      "MatMul",
       "Pad",
-      "Sqrt",
-      "Squeeze",
       "Unsqueeze"
     ]
   },
   {
     "name": "segment_anything",
     "backend": "cpu",
-    "error": "Can't create a session. ERROR_CODE: 2, ERROR_MESSAGE: The initializer of graph has unsupported type, name: ortshared_7_1_1_2_token_370 type: 7",
-    "partitions_supported_by_webnn": 77,
+    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+    "partitions_supported_by_webnn": 73,
     "nodes_in_the_graph": 345,
-    "nodes_supported_by_webnn": 247,
+    "nodes_supported_by_webnn": 258,
     "supported": [
       "Add",
       "Concat",
       "Conv",
       "ConvTranspose",
       "Div",
+      "Flatten",
       "Gemm",
       "Mul",
       "Pow",
@@ -1047,7 +1042,8 @@ export const fallback = [
       "Softmax",
       "Split",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
       "ArgMax",
@@ -1056,57 +1052,55 @@ export const fallback = [
       "Equal",
       "Erf",
       "Expand",
-      "Flatten",
       "Gather",
       "LayerNormalization",
       "MatMul",
       "Not",
       "Sin",
-      "Sqrt",
-      "Unsqueeze"
+      "Sqrt"
     ]
   },
   {
     "name": "segment_anything",
     "backend": "gpu",
-    "error": "Failed to execute 'constant' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 77,
+    "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: Exception during initialization: /home/wm/work/webml/webnn/frameworks/onnxruntime/honry/onnxruntime/onnxruntime/core/providers/common.h:32 int64_t onnxruntime::HandleNegativeAxis(int64_t, int64_t) IsAxisInRange(axis, tensor_rank) was false. axis 2 is not in valid range [-2,1]\n",
+    "partitions_supported_by_webnn": 21,
     "nodes_in_the_graph": 329,
-    "nodes_supported_by_webnn": 232,
+    "nodes_supported_by_webnn": 307,
     "supported": [
       "Add",
+      "Cast",
       "Concat",
       "Conv",
       "ConvTranspose",
+      "Cos",
       "Div",
+      "Erf",
+      "Expand",
+      "Flatten",
       "Gemm",
+      "MatMul",
       "Mul",
+      "Not",
       "Pow",
       "ReduceMean",
       "Relu",
       "Reshape",
       "Resize",
+      "Sin",
       "Slice",
       "Softmax",
       "Split",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
       "ArgMax",
-      "Cast",
-      "Cos",
       "Equal",
-      "Erf",
-      "Expand",
-      "Flatten",
       "Gather",
-      "LayerNormalization",
-      "MatMul",
-      "Not",
-      "Sin",
-      "Sqrt",
-      "Unsqueeze"
+      "LayerNormalization"
     ]
   },
   {
@@ -1137,34 +1131,35 @@ export const fallback = [
       "Unsqueeze"
     ],
     "input_type_not_supported": [
-      "Reshape: INT64"
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "t5_small_decoder",
     "backend": "gpu",
     "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 106,
+    "partitions_supported_by_webnn": 2,
     "nodes_in_the_graph": 364,
-    "nodes_supported_by_webnn": 256,
+    "nodes_supported_by_webnn": 363,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Relu",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Sqrt",
-      "Unsqueeze"
+      "Gather"
     ]
   },
   {
@@ -1196,25 +1191,50 @@ export const fallback = [
     "name": "whisper_tiny_encoder",
     "backend": "gpu",
     "error": "Failed to execute 'conv2d' on 'MLGraphBuilder': The length of strides should be 2.",
-    "partitions_supported_by_webnn": 48,
+    "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 243,
-    "nodes_supported_by_webnn": 196,
+    "nodes_supported_by_webnn": 243,
     "supported": [
       "Add",
       "Conv",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
       "Transpose"
+    ]
+  },
+  {
+    "name": "albert_base_v2",
+    "backend": "gpu",
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 677,
+    "nodes_supported_by_webnn": 675,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Tanh",
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Erf",
-      "MatMul",
-      "Sqrt"
+      "Gather"
     ]
   },
   {
@@ -1242,33 +1262,9 @@ export const fallback = [
       "MatMul",
       "Sqrt",
       "Unsqueeze"
-    ]
-  },
-  {
-    "name": "albert_base_v2",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 127,
-    "nodes_in_the_graph": 677,
-    "nodes_supported_by_webnn": 547,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Tanh",
-      "Transpose"
     ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Sqrt",
-      "Unsqueeze"
+    "input_type_not_supported": [
+      "Unsqueeze: INT64"
     ]
   },
   {
@@ -1301,35 +1297,36 @@ export const fallback = [
       "Where"
     ],
     "input_type_not_supported": [
-      "Reshape: INT64"
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "bart_large_cnn",
     "backend": "gpu",
     "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 137,
+    "partitions_supported_by_webnn": 3,
     "nodes_in_the_graph": 703,
-    "nodes_supported_by_webnn": 563,
+    "nodes_supported_by_webnn": 701,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "Expand",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
-      "Erf",
-      "Expand",
       "Gather",
-      "MatMul",
-      "Sqrt",
-      "Unsqueeze",
       "Where"
     ]
   },
@@ -1358,33 +1355,36 @@ export const fallback = [
       "MatMul",
       "Sqrt",
       "Unsqueeze"
+    ],
+    "input_type_not_supported": [
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "bert_base_cased",
     "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 139,
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 636,
-    "nodes_supported_by_webnn": 494,
+    "nodes_supported_by_webnn": 634,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Sqrt",
-      "Unsqueeze"
+      "Gather"
     ]
   },
   {
@@ -1412,33 +1412,36 @@ export const fallback = [
       "MatMul",
       "Sqrt",
       "Unsqueeze"
+    ],
+    "input_type_not_supported": [
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "bert_base_uncased",
     "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 139,
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 636,
-    "nodes_supported_by_webnn": 494,
+    "nodes_supported_by_webnn": 634,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Sqrt",
-      "Unsqueeze"
+      "Gather"
     ]
   },
   {
@@ -1472,36 +1475,37 @@ export const fallback = [
       "Where"
     ],
     "input_type_not_supported": [
-      "Reshape: INT64"
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "gpt2_decoder",
     "backend": "gpu",
     "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 65,
+    "partitions_supported_by_webnn": 14,
     "nodes_in_the_graph": 692,
-    "nodes_supported_by_webnn": 626,
+    "nodes_supported_by_webnn": 679,
     "supported": [
       "Add",
+      "Cast",
       "Div",
       "Gemm",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
       "Split",
+      "Sqrt",
       "Sub",
       "Tanh",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
       "Gather",
-      "MatMul",
-      "Sqrt",
-      "Unsqueeze",
       "Where"
     ]
   },
@@ -1552,38 +1556,39 @@ export const fallback = [
     "input_type_not_supported": [
       "Add: INT64",
       "Mul: INT32",
-      "Reshape: INT64"
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "m2m100_encoder",
     "backend": "gpu",
     "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 128,
+    "partitions_supported_by_webnn": 6,
     "nodes_in_the_graph": 666,
-    "nodes_supported_by_webnn": 532,
+    "nodes_supported_by_webnn": 661,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Expand",
+      "MatMul",
       "Mul",
+      "Not",
       "Pow",
       "ReduceMean",
       "Relu",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
       "CumSum",
       "Equal",
-      "Expand",
       "Gather",
-      "MatMul",
-      "Not",
-      "Sqrt",
-      "Unsqueeze",
       "Where"
     ]
   },
@@ -1615,43 +1620,44 @@ export const fallback = [
       "Unsqueeze"
     ],
     "input_type_not_supported": [
-      "Reshape: INT64"
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "t5_small_encoder",
     "backend": "gpu",
     "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 63,
+    "partitions_supported_by_webnn": 2,
     "nodes_in_the_graph": 212,
-    "nodes_supported_by_webnn": 147,
+    "nodes_supported_by_webnn": 211,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Relu",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Sqrt",
-      "Unsqueeze"
+      "Gather"
     ]
   },
   {
-    "name": "whisper_tiny_encoder",
+    "name": "whisper_tiny_decoder",
     "backend": "cpu",
     "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
-    "partitions_supported_by_webnn": 49,
-    "nodes_in_the_graph": 259,
-    "nodes_supported_by_webnn": 210,
+    "partitions_supported_by_webnn": 74,
+    "nodes_in_the_graph": 385,
+    "nodes_supported_by_webnn": 309,
     "supported": [
       "Add",
       "Div",
@@ -1664,37 +1670,42 @@ export const fallback = [
       "Transpose"
     ],
     "not_supported": [
-      "Conv",
       "Erf",
+      "Gather",
       "MatMul",
+      "Reshape",
       "Sqrt"
+    ],
+    "input_type_not_supported": [
+      "Reshape: INT64"
     ]
   },
   {
-    "name": "whisper_tiny_encoder",
+    "name": "whisper_tiny_decoder",
     "backend": "gpu",
-    "error": "Failed to execute 'conv2d' on 'MLGraphBuilder': The length of strides should be 2.",
-    "partitions_supported_by_webnn": 48,
-    "nodes_in_the_graph": 243,
-    "nodes_supported_by_webnn": 196,
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 2,
+    "nodes_in_the_graph": 385,
+    "nodes_supported_by_webnn": 384,
     "supported": [
       "Add",
-      "Conv",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
       "Transpose"
     ],
     "not_supported": [
-      "Erf",
-      "MatMul",
-      "Sqrt"
+      "Gather"
     ]
   },
+
   {
     "name": "mobilenet_v2_fp16",
     "backend": "cpu",
@@ -2018,43 +2029,45 @@ export const fallback = [
       "Slice: FLOAT16",
       "Softmax: FLOAT16",
       "Sub: FLOAT16",
-      "Transpose: FLOAT16"
+      "Transpose: FLOAT16",
+      "Unsqueeze: FLOAT16",
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "sd_1_5_unet_fp16",
     "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 379,
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 62,
     "nodes_in_the_graph": 2218,
-    "nodes_supported_by_webnn": 1692,
+    "nodes_supported_by_webnn": 2157,
     "supported": [
       "Add",
+      "Cast",
       "Concat",
       "Conv",
+      "Cos",
       "Div",
+      "Erf",
+      "Expand",
       "Gemm",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Resize",
       "Sigmoid",
+      "Sin",
       "Slice",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
-      "Cos",
-      "Erf",
-      "Expand",
-      "InstanceNormalization",
-      "MatMul",
-      "Sin",
-      "Sqrt",
-      "Unsqueeze"
+      "InstanceNormalization"
     ]
   },
   {
@@ -2093,12 +2106,14 @@ export const fallback = [
     "name": "sd_1_5_vae_decoder_fp16",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 38,
+    "partitions_supported_by_webnn": 31,
     "nodes_in_the_graph": 295,
-    "nodes_supported_by_webnn": 257,
+    "nodes_supported_by_webnn": 265,
     "supported": [
       "Add",
+      "Cast",
       "Conv",
+      "MatMul",
       "Mul",
       "Reshape",
       "Resize",
@@ -2107,9 +2122,7 @@ export const fallback = [
       "Transpose"
     ],
     "not_supported": [
-      "Cast",
-      "InstanceNormalization",
-      "MatMul"
+      "InstanceNormalization"
     ]
   },
   {
@@ -2176,6 +2189,7 @@ export const fallback = [
       "Conv: FLOAT16",
       "ConvTranspose: FLOAT16",
       "Div: FLOAT16",
+      "Flatten: FLOAT16",
       "Gemm: FLOAT16",
       "Mul: FLOAT16",
       "Neg: INT64",
@@ -2190,52 +2204,54 @@ export const fallback = [
       "Softmax: FLOAT16",
       "Split: FLOAT16",
       "Sub: FLOAT16",
-      "Transpose: FLOAT16"
+      "Transpose: FLOAT16",
+      "Unsqueeze: FLOAT16"
     ]
   },
   {
     "name": "segment_anything_fp16",
     "backend": "gpu",
-    "error": "Failed to execute 'constant' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 78,
+    "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: Exception during initialization: /home/wm/work/webml/webnn/frameworks/onnxruntime/honry/onnxruntime/onnxruntime/core/providers/common.h:32 int64_t onnxruntime::HandleNegativeAxis(int64_t, int64_t) IsAxisInRange(axis, tensor_rank) was false. axis 2 is not in valid range [-2,1]\n",
+    "partitions_supported_by_webnn": 22,
     "nodes_in_the_graph": 333,
-    "nodes_supported_by_webnn": 232,
+    "nodes_supported_by_webnn": 311,
     "supported": [
       "Add",
+      "Cast",
       "Concat",
       "Conv",
       "ConvTranspose",
+      "Cos",
       "Div",
+      "Erf",
+      "Expand",
+      "Flatten",
       "Gemm",
+      "MatMul",
       "Mul",
+      "Not",
       "Pow",
       "ReduceMean",
       "Relu",
       "Reshape",
       "Resize",
+      "Sin",
       "Slice",
       "Softmax",
       "Split",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
       "ArgMax",
-      "Cast",
-      "Cos",
       "Equal",
-      "Erf",
-      "Expand",
-      "Flatten",
       "Gather",
-      "LayerNormalization",
-      "MatMul",
-      "Not",
-      "Sin",
-      "Sqrt",
-      "Unsqueeze"
+      "LayerNormalization"
     ]
   },
+
   {
     "name": "mobilenet_v2_12_int8",
     "backend": "cpu",
@@ -2298,36 +2314,39 @@ export const fallback = [
       "MatMulInteger",
       "Sqrt",
       "Unsqueeze"
+    ],
+    "input_type_not_supported": [
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "albert_base_v2_int8",
     "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 127,
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 10,
     "nodes_in_the_graph": 711,
-    "nodes_supported_by_webnn": 563,
+    "nodes_supported_by_webnn": 691,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
       "Tanh",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
       "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze"
+      "MatMulInteger"
     ]
   },
   {
@@ -2363,38 +2382,39 @@ export const fallback = [
       "Where"
     ],
     "input_type_not_supported": [
-      "Reshape: INT64"
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "bart_large_cnn_int8",
     "backend": "gpu",
     "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 137,
+    "partitions_supported_by_webnn": 75,
     "nodes_in_the_graph": 969,
-    "nodes_supported_by_webnn": 707,
+    "nodes_supported_by_webnn": 845,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "Expand",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
-      "Erf",
-      "Expand",
       "Gather",
-      "MatMul",
       "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze",
       "Where"
     ]
   },
@@ -2426,36 +2446,39 @@ export const fallback = [
       "MatMulInteger",
       "Sqrt",
       "Unsqueeze"
+    ],
+    "input_type_not_supported": [
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "bert_base_cased_int8",
     "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 139,
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 75,
     "nodes_in_the_graph": 908,
-    "nodes_supported_by_webnn": 640,
+    "nodes_supported_by_webnn": 780,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
-      "Erf",
       "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze"
+      "MatMulInteger"
     ]
   },
   {
@@ -2486,36 +2509,39 @@ export const fallback = [
       "MatMulInteger",
       "Sqrt",
       "Unsqueeze"
+    ],
+    "input_type_not_supported": [
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "bert_base_uncased_int8",
     "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 139,
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 75,
     "nodes_in_the_graph": 908,
-    "nodes_supported_by_webnn": 640,
+    "nodes_supported_by_webnn": 780,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
-      "Erf",
       "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze"
+      "MatMulInteger"
     ]
   },
   {
@@ -2546,36 +2572,39 @@ export const fallback = [
       "MatMulInteger",
       "Sqrt",
       "Unsqueeze"
+    ],
+    "input_type_not_supported": [
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "bert_base_multilingual_cased_ner_hrl_int8",
     "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 136,
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 74,
     "nodes_in_the_graph": 891,
-    "nodes_supported_by_webnn": 627,
+    "nodes_supported_by_webnn": 764,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
-      "Erf",
       "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze"
+      "MatMulInteger"
     ]
   },
   {
@@ -2607,37 +2636,40 @@ export const fallback = [
       "MatMulInteger",
       "Sqrt",
       "Unsqueeze"
+    ],
+    "input_type_not_supported": [
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "bert_base_multilingual_uncased_sentiment_int8",
     "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 137,
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 75,
     "nodes_in_the_graph": 899,
-    "nodes_supported_by_webnn": 631,
+    "nodes_supported_by_webnn": 769,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
       "Tanh",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
-      "Erf",
       "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze"
+      "MatMulInteger"
     ]
   },
   {
@@ -2646,12 +2678,13 @@ export const fallback = [
     "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
     "partitions_supported_by_webnn": 253,
     "nodes_in_the_graph": 1928,
-    "nodes_supported_by_webnn": 1419,
+    "nodes_supported_by_webnn": 1420,
     "supported": [
       "Abs",
       "Add",
       "Concat",
       "Div",
+      "Flatten",
       "Mul",
       "Pow",
       "ReduceMean",
@@ -2669,7 +2702,6 @@ export const fallback = [
       "DequantizeLinear",
       "DynamicQuantizeLinear",
       "Expand",
-      "Flatten",
       "Gather",
       "MatMul",
       "MatMulInteger",
@@ -2679,21 +2711,26 @@ export const fallback = [
       "Where"
     ],
     "input_type_not_supported": [
-      "Reshape: INT64"
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "clip_vit_base_patch16_int8",
     "backend": "gpu",
     "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 254,
+    "partitions_supported_by_webnn": 153,
     "nodes_in_the_graph": 1928,
-    "nodes_supported_by_webnn": 1420,
+    "nodes_supported_by_webnn": 1674,
     "supported": [
       "Abs",
       "Add",
+      "Cast",
       "Concat",
       "Div",
+      "Expand",
+      "Flatten",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
@@ -2701,22 +2738,18 @@ export const fallback = [
       "Reshape",
       "Sigmoid",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
       "ArgMax",
-      "Cast",
       "ConvInteger",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
-      "Expand",
-      "Flatten",
       "Gather",
-      "MatMul",
       "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze",
       "Where"
     ]
   },
@@ -2726,7 +2759,7 @@ export const fallback = [
     "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': Resample2d only supports Linear mode.",
     "partitions_supported_by_webnn": 224,
     "nodes_in_the_graph": 1724,
-    "nodes_supported_by_webnn": 1206,
+    "nodes_supported_by_webnn": 1212,
     "supported": [
       "Add",
       "Concat",
@@ -2742,7 +2775,8 @@ export const fallback = [
       "Slice",
       "Softmax",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
       "Cast",
@@ -2763,20 +2797,28 @@ export const fallback = [
       "Where"
     ],
     "input_type_not_supported": [
-      "Transpose: BOOL"
+      "Flatten: BOOL",
+      "Transpose: BOOL",
+      "Unsqueeze: BOOL",
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "detr_resnet_50_int8",
     "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 224,
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 159,
     "nodes_in_the_graph": 1690,
-    "nodes_supported_by_webnn": 1173,
+    "nodes_supported_by_webnn": 1409,
     "supported": [
       "Add",
+      "Cast",
       "Concat",
+      "Cos",
       "Div",
+      "Expand",
+      "Flatten",
+      "MatMul",
       "MaxPool",
       "Mul",
       "Pow",
@@ -2785,26 +2827,21 @@ export const fallback = [
       "Reshape",
       "Resize",
       "Sigmoid",
-      "Slice",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "ConvInteger",
-      "Cos",
-      "CumSum",
-      "DynamicQuantizeLinear",
-      "Expand",
-      "Flatten",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
       "Sin",
       "Slice",
+      "Softmax",
       "Sqrt",
-      "Unsqueeze",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": [
+      "ConvInteger",
+      "CumSum",
+      "DynamicQuantizeLinear",
+      "Gather",
+      "MatMulInteger",
+      "Slice",
       "Where"
     ]
   },
@@ -2841,29 +2878,29 @@ export const fallback = [
     "name": "dino_vitb16_int8",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 134,
+    "partitions_supported_by_webnn": 73,
     "nodes_in_the_graph": 871,
-    "nodes_supported_by_webnn": 615,
+    "nodes_supported_by_webnn": 749,
     "supported": [
       "Add",
+      "Cast",
       "Concat",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
       "Transpose"
     ],
     "not_supported": [
-      "Cast",
       "ConvInteger",
       "DynamicQuantizeLinear",
-      "Erf",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt"
+      "MatMulInteger"
     ]
   },
   {
@@ -2899,38 +2936,39 @@ export const fallback = [
       "Where"
     ],
     "input_type_not_supported": [
-      "Reshape: INT64"
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "distilbart_cnn_6_6_encoder_int8",
     "backend": "gpu",
     "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 71,
+    "partitions_supported_by_webnn": 39,
     "nodes_in_the_graph": 495,
-    "nodes_supported_by_webnn": 359,
+    "nodes_supported_by_webnn": 431,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "Expand",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
-      "Erf",
-      "Expand",
       "Gather",
-      "MatMul",
       "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze",
       "Where"
     ]
   },
@@ -2964,37 +3002,40 @@ export const fallback = [
       "Sqrt",
       "Unsqueeze",
       "Where"
+    ],
+    "input_type_not_supported": [
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "distilbart_cnn_6_6_decoder_int8",
     "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 113,
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 63,
     "nodes_in_the_graph": 810,
-    "nodes_supported_by_webnn": 593,
+    "nodes_supported_by_webnn": 708,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "Expand",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
-      "Erf",
-      "Expand",
       "Gather",
-      "MatMul",
       "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze",
       "Where"
     ]
   },
@@ -3002,9 +3043,9 @@ export const fallback = [
     "name": "distilbert_base_cased_distilled_squad_int8",
     "backend": "cpu",
     "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
-    "partitions_supported_by_webnn": 69,
+    "partitions_supported_by_webnn": 70,
     "nodes_in_the_graph": 457,
-    "nodes_supported_by_webnn": 312,
+    "nodes_supported_by_webnn": 314,
     "supported": [
       "Add",
       "Div",
@@ -3013,6 +3054,7 @@ export const fallback = [
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Squeeze",
       "Sub",
       "Transpose"
     ],
@@ -3029,7 +3071,6 @@ export const fallback = [
       "Reshape",
       "Split",
       "Sqrt",
-      "Squeeze",
       "Where"
     ],
     "input_type_not_supported": [
@@ -3040,33 +3081,33 @@ export const fallback = [
     "name": "distilbert_base_cased_distilled_squad_int8",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 70,
+    "partitions_supported_by_webnn": 46,
     "nodes_in_the_graph": 457,
-    "nodes_supported_by_webnn": 313,
+    "nodes_supported_by_webnn": 384,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "Expand",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
+      "Squeeze",
       "Sub",
       "Transpose"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
       "Equal",
-      "Erf",
-      "Expand",
       "Gather",
-      "MatMul",
       "MatMulInteger",
       "Split",
-      "Sqrt",
-      "Squeeze",
       "Where"
     ]
   },
@@ -3111,32 +3152,32 @@ export const fallback = [
     "name": "distilbert_base_uncased_mnli_int8",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 71,
+    "partitions_supported_by_webnn": 46,
     "nodes_in_the_graph": 462,
-    "nodes_supported_by_webnn": 317,
+    "nodes_supported_by_webnn": 387,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "Expand",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Relu",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
       "Transpose"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
       "Equal",
-      "Erf",
-      "Expand",
       "Gather",
-      "MatMul",
       "MatMulInteger",
-      "Sqrt",
       "Where"
     ]
   },
@@ -3173,65 +3214,55 @@ export const fallback = [
       "Where"
     ],
     "input_type_not_supported": [
-      "Reshape: INT64"
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
     ]
   },
   {
     "name": "distilgpt2_decoder_int8",
     "backend": "gpu",
     "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 59,
+    "partitions_supported_by_webnn": 33,
     "nodes_in_the_graph": 479,
-    "nodes_supported_by_webnn": 368,
+    "nodes_supported_by_webnn": 421,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
       "Split",
+      "Sqrt",
       "Sub",
       "Tanh",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
       "Gather",
-      "MatMul",
       "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze",
       "Where"
     ]
   },
   {
     "name": "distil_medium_en_decoder_int8",
     "backend": "cpu",
-    "error": ""
-  },
-  {
-    "name": "distil_medium_en_decoder_int8",
-    "backend": "gpu",
-    "error": ""
-  },
-  {
-    "name": "t5_small_decoder_int8",
-    "backend": "cpu",
     "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
-    "partitions_supported_by_webnn": 106,
-    "nodes_in_the_graph": 590,
-    "nodes_supported_by_webnn": 376,
+    "partitions_supported_by_webnn": 38,
+    "nodes_in_the_graph": 266,
+    "nodes_supported_by_webnn": 191,
     "supported": [
       "Add",
       "Div",
       "Mul",
       "Pow",
       "ReduceMean",
-      "Relu",
       "Reshape",
       "Softmax",
       "Sub",
@@ -3241,22 +3272,50 @@ export const fallback = [
       "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
+      "Erf",
       "Gather",
       "MatMul",
       "MatMulInteger",
-      "QuantizeLinear",
       "Reshape",
-      "Sqrt",
-      "Unsqueeze"
+      "Sqrt"
     ],
     "input_type_not_supported": [
       "Reshape: INT64"
     ]
   },
   {
-    "name": "t5_small_decoder_int8",
+    "name": "distil_medium_en_decoder_int8",
     "backend": "gpu",
     "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 23,
+    "nodes_in_the_graph": 266,
+    "nodes_supported_by_webnn": 230,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose"
+    ],
+    "not_supported": [
+      "DequantizeLinear",
+      "DynamicQuantizeLinear",
+      "Gather",
+      "MatMulInteger"
+    ]
+  },
+  {
+    "name": "t5_small_decoder_int8",
+    "backend": "cpu",
+    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
     "partitions_supported_by_webnn": 107,
     "nodes_in_the_graph": 590,
     "nodes_supported_by_webnn": 377,
@@ -3270,38 +3329,8 @@ export const fallback = [
       "Reshape",
       "Softmax",
       "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "QuantizeLinear",
-      "Sqrt",
+      "Transpose",
       "Unsqueeze"
-    ]
-  },
-  {
-    "name": "t5_small_encoder_int8",
-    "backend": "cpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
-    "partitions_supported_by_webnn": 63,
-    "nodes_in_the_graph": 351,
-    "nodes_supported_by_webnn": 218,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
     ],
     "not_supported": [
       "Cast",
@@ -3316,13 +3345,45 @@ export const fallback = [
       "Unsqueeze"
     ],
     "input_type_not_supported": [
-      "Reshape: INT64"
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
+    ]
+  },
+  {
+    "name": "t5_small_decoder_int8",
+    "backend": "gpu",
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 65,
+    "nodes_in_the_graph": 590,
+    "nodes_supported_by_webnn": 485,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Relu",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": [
+      "DequantizeLinear",
+      "DynamicQuantizeLinear",
+      "Gather",
+      "MatMulInteger",
+      "QuantizeLinear"
     ]
   },
   {
     "name": "t5_small_encoder_int8",
-    "backend": "gpu",
-    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "backend": "cpu",
+    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
     "partitions_supported_by_webnn": 64,
     "nodes_in_the_graph": 351,
     "nodes_supported_by_webnn": 219,
@@ -3336,7 +3397,8 @@ export const fallback = [
       "Reshape",
       "Softmax",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
       "Cast",
@@ -3346,8 +3408,44 @@ export const fallback = [
       "MatMul",
       "MatMulInteger",
       "QuantizeLinear",
+      "Reshape",
       "Sqrt",
       "Unsqueeze"
+    ],
+    "input_type_not_supported": [
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
+    ]
+  },
+  {
+    "name": "t5_small_encoder_int8",
+    "backend": "gpu",
+    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "partitions_supported_by_webnn": 40,
+    "nodes_in_the_graph": 351,
+    "nodes_supported_by_webnn": 284,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Relu",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": [
+      "DequantizeLinear",
+      "DynamicQuantizeLinear",
+      "Gather",
+      "MatMulInteger",
+      "QuantizeLinear"
     ]
   },
   {
@@ -3384,30 +3482,30 @@ export const fallback = [
     "name": "vit_base_patch16_224_int8",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 135,
+    "partitions_supported_by_webnn": 74,
     "nodes_in_the_graph": 878,
-    "nodes_supported_by_webnn": 618,
+    "nodes_supported_by_webnn": 753,
     "supported": [
       "Add",
+      "Cast",
       "Concat",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
       "Transpose"
     ],
     "not_supported": [
-      "Cast",
       "ConvInteger",
       "DynamicQuantizeLinear",
-      "Erf",
       "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt"
+      "MatMulInteger"
     ]
   },
   {
@@ -3449,30 +3547,30 @@ export const fallback = [
     "name": "vit_gpt2_image_captioning_decoder_int8",
     "backend": "gpu",
     "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 208,
+    "partitions_supported_by_webnn": 123,
     "nodes_in_the_graph": 1471,
-    "nodes_supported_by_webnn": 1104,
+    "nodes_supported_by_webnn": 1274,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
       "Tanh",
       "Transpose"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
       "Gather",
-      "MatMul",
       "MatMulInteger",
       "Split",
-      "Sqrt",
       "Where"
     ]
   },
@@ -3509,83 +3607,29 @@ export const fallback = [
     "name": "vit_gpt2_image_captioning_encoder_int8",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 134,
+    "partitions_supported_by_webnn": 73,
     "nodes_in_the_graph": 871,
-    "nodes_supported_by_webnn": 615,
+    "nodes_supported_by_webnn": 749,
     "supported": [
       "Add",
+      "Cast",
       "Concat",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
       "Transpose"
     ],
     "not_supported": [
-      "Cast",
       "ConvInteger",
       "DynamicQuantizeLinear",
-      "Erf",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt"
-    ]
-  },
-  {
-    "name": "whisper_tiny_decoder",
-    "backend": "cpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
-    "partitions_supported_by_webnn": 74,
-    "nodes_in_the_graph": 385,
-    "nodes_supported_by_webnn": 309,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Reshape",
-      "Sqrt"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64"
-    ]
-  },
-  {
-    "name": "whisper_tiny_decoder",
-    "backend": "gpu",
-    "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 74,
-    "nodes_in_the_graph": 385,
-    "nodes_supported_by_webnn": 310,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Sqrt"
+      "MatMulInteger"
     ]
   },
   {
@@ -3625,29 +3669,29 @@ export const fallback = [
     "name": "whisper_tiny_decoder_int8",
     "backend": "gpu",
     "error": "Failed to execute 'input' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
-    "partitions_supported_by_webnn": 75,
+    "partitions_supported_by_webnn": 43,
     "nodes_in_the_graph": 532,
-    "nodes_supported_by_webnn": 390,
+    "nodes_supported_by_webnn": 464,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
       "Transpose"
     ],
     "not_supported": [
-      "Cast",
       "DequantizeLinear",
       "DynamicQuantizeLinear",
-      "Erf",
       "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt"
+      "MatMulInteger"
     ]
   },
   {
@@ -3682,29 +3726,28 @@ export const fallback = [
     "name": "whisper_tiny_encoder_int8",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 49,
+    "partitions_supported_by_webnn": 26,
     "nodes_in_the_graph": 341,
-    "nodes_supported_by_webnn": 248,
+    "nodes_supported_by_webnn": 297,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
+      "Sqrt",
       "Sub",
       "Transpose"
     ],
     "not_supported": [
-      "Cast",
       "ConvInteger",
       "DynamicQuantizeLinear",
-      "Erf",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt"
+      "MatMulInteger"
     ]
   }
-
 ]
