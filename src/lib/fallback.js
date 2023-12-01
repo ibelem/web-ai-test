@@ -340,10 +340,10 @@ export const fallback = [
   {
     "name": "selfie_segmentation_landscape",
     "backend": "cpu",
-    "error": "",
+    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
     "partitions_supported_by_webnn": 4,
-    "nodes_in_the_graph": 176,
-    "nodes_supported_by_webnn": 173,
+    "nodes_in_the_graph": 170,
+    "nodes_supported_by_webnn": 167,
     "supported": [
       "Add",
       "Clip",
@@ -352,20 +352,19 @@ export const fallback = [
       "GlobalAveragePool",
       "Mul",
       "Relu",
-      "Sigmoid",
-      "Transpose"
+      "Sigmoid"
     ],
     "not_supported": [
-      "Upsample"
+      "Resize"
     ]
   },
   {
     "name": "selfie_segmentation_landscape",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 4,
+    "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 172,
-    "nodes_supported_by_webnn": 169,
+    "nodes_supported_by_webnn": 172,
     "supported": [
       "Add",
       "Clip",
@@ -375,11 +374,9 @@ export const fallback = [
       "Mul",
       "Relu",
       "Reshape",
+      "Resize",
       "Sigmoid",
       "Transpose"
-    ],
-    "not_supported": [
-      "Upsample"
     ]
   },
   {
