@@ -110,7 +110,7 @@
 		resetFallbackQueue();
 		resetFallbackLog();
 
-		let bk = ['__cpu', '__gpu'];
+		let bk = ['__gpu'];
 
 		if (id === 'all') {
 			let m = models.map((model) => model.id);
