@@ -1,6 +1,6 @@
 export const fallbackEnv = {
-  "version": '121.0.6157.0',
-  'last_update': 'Nov 30, 2023'
+  "version": '121.0.6158.1',
+  'last_update': 'Dec 1, 2023'
 }
 export const fallback = [
   {
@@ -319,7 +319,7 @@ export const fallback = [
   {
     "name": "selfie_segmentation_general",
     "backend": "gpu",
-    "error": "Failed to execute 'convTranspose2d' on 'MLGraphBuilder': Failed to read the 'padding' property from 'MLConvTranspose2dOptions': Value is outside the 'unsigned long' value range.",
+    "error": "",
     "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 172,
     "nodes_supported_by_webnn": 172,
@@ -362,7 +362,7 @@ export const fallback = [
   {
     "name": "selfie_segmentation_landscape",
     "backend": "gpu",
-    "error": "Failed to execute 'convTranspose2d' on 'MLGraphBuilder': Failed to read the 'padding' property from 'MLConvTranspose2dOptions': Value is outside the 'unsigned long' value range.",
+    "error": "",
     "partitions_supported_by_webnn": 4,
     "nodes_in_the_graph": 172,
     "nodes_supported_by_webnn": 169,
