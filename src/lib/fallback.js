@@ -1063,7 +1063,7 @@ export const fallback = [
   {
     "name": "segment_anything",
     "backend": "gpu",
-    "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: Exception during initialization: /home/wm/work/webml/webnn/frameworks/onnxruntime/honry/onnxruntime/onnxruntime/core/providers/common.h:32 int64_t onnxruntime::HandleNegativeAxis(int64_t, int64_t) IsAxisInRange(axis, tensor_rank) was false. axis 2 is not in valid range [-2,1]\n",
+    "error": "",
     "partitions_supported_by_webnn": 21,
     "nodes_in_the_graph": 329,
     "nodes_supported_by_webnn": 307,
@@ -2125,6 +2125,7 @@ export const fallback = [
       "InstanceNormalization"
     ]
   },
+
   {
     "name": "segment_anything_fp16",
     "backend": "cpu",
@@ -2211,10 +2212,10 @@ export const fallback = [
   {
     "name": "segment_anything_fp16",
     "backend": "gpu",
-    "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: Exception during initialization: /home/wm/work/webml/webnn/frameworks/onnxruntime/honry/onnxruntime/onnxruntime/core/providers/common.h:32 int64_t onnxruntime::HandleNegativeAxis(int64_t, int64_t) IsAxisInRange(axis, tensor_rank) was false. axis 2 is not in valid range [-2,1]\n",
-    "partitions_supported_by_webnn": 22,
-    "nodes_in_the_graph": 333,
-    "nodes_supported_by_webnn": 311,
+    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to allocate compute resource.",
+    "partitions_supported_by_webnn": 28,
+    "nodes_in_the_graph": 260,
+    "nodes_supported_by_webnn": 189,
     "supported": [
       "Add",
       "Cast",
@@ -2229,12 +2230,15 @@ export const fallback = [
       "Gemm",
       "MatMul",
       "Mul",
+      "Neg",
       "Not",
       "Pow",
+      "Reciprocal",
       "ReduceMean",
       "Relu",
       "Reshape",
       "Resize",
+      "Shape",
       "Sin",
       "Slice",
       "Softmax",
@@ -2246,12 +2250,37 @@ export const fallback = [
     ],
     "not_supported": [
       "ArgMax",
+      "Concat",
+      "ConstantOfShape",
       "Equal",
       "Gather",
-      "LayerNormalization"
+      "LayerNormalization",
+      "Reshape",
+      "Size",
+      "WEBNN_15652162108549051999_0",
+      "WEBNN_15652162108549051999_1",
+      "WEBNN_15652162108549051999_10",
+      "WEBNN_15652162108549051999_11",
+      "WEBNN_15652162108549051999_12",
+      "WEBNN_15652162108549051999_13",
+      "WEBNN_15652162108549051999_14",
+      "WEBNN_15652162108549051999_15",
+      "WEBNN_15652162108549051999_16",
+      "WEBNN_15652162108549051999_17",
+      "WEBNN_15652162108549051999_18",
+      "WEBNN_15652162108549051999_19",
+      "WEBNN_15652162108549051999_2",
+      "WEBNN_15652162108549051999_20",
+      "WEBNN_15652162108549051999_21",
+      "WEBNN_15652162108549051999_3",
+      "WEBNN_15652162108549051999_4",
+      "WEBNN_15652162108549051999_5",
+      "WEBNN_15652162108549051999_6",
+      "WEBNN_15652162108549051999_7",
+      "WEBNN_15652162108549051999_8",
+      "WEBNN_15652162108549051999_9"
     ]
   },
-
   {
     "name": "mobilenet_v2_12_int8",
     "backend": "cpu",
