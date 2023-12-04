@@ -983,7 +983,7 @@ export const fallback = [
   {
     "name": "sam_b_encoder",
     "backend": "gpu",
-    "error": "Failed to execute 'constant' on 'MLGraphBuilder': Failed to read the 'dataType' property from 'MLOperandDescriptor': The provided value 'int64' is not a valid enum value of type MLOperandDataType.",
+    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to compile the graph.",
     "partitions_supported_by_webnn": 50,
     "nodes_in_the_graph": 593,
     "nodes_supported_by_webnn": 488,
