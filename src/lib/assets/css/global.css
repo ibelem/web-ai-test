@@ -1603,3 +1603,28 @@ padding: 2px 4px 2px 4px;
     border-radius: 0px;
   }
 }
+
+
+#image-container > img {
+  width: 100%;
+}
+
+.bounding-box {
+  position: absolute;
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.bounding-box-label {
+  color: white;
+  position: absolute;
+  font-size: 12px;
+  margin-top: -16px;
+  margin-left: -2px;
+  padding: 1px;
+}
+
+.custom-file-upload svg {
+  width: 20px;
+}

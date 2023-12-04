@@ -8,6 +8,7 @@ import { UAParser } from 'ua-parser-js';
 import html2canvas from 'html2canvas';
 import to from 'await-to-js';
 import { cpuStore } from '$lib/store/store';
+import { page } from '$app/stores';
 
 
 /**
@@ -284,6 +285,15 @@ export const getLocalUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
       return location.origin + '/' + modelHosts.local + models[i].model;
+    }
+  }
+  return null;
+};
+
+export const getLocalUrlByIdandLocaltion = (id, locationOrigin) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      return locationOrigin + '/' + modelHosts.local + models[i].model;
     }
   }
   return null;

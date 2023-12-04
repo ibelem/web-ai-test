@@ -531,6 +531,22 @@ export let models = [
   },
   {
     category: 'Object Detection',
+    id: 'detr_resnet_50',
+    name: 'DETR w/i ResNet-50',
+    description: 'DEtection TRansformer (DETR) model with ResNet-50 backbone trained end-to-end on COCO 2017 object detection (118k annotated images). The DETR model is an encoder-decoder transformer with a convolutional backbone.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/detr-resnet-50/tree/main/onnx',
+    model: 'transformer.js/detr-resnet-50/model.onnx',
+    size: '41.11 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }] },
+    { 'pixel_mask': ['int64', 1n, [1, 64, 64], { "batch_size": 1 }] },
+    ],
+    inputstip: '[1, 3, 224, 224] [1, 64, 64]'
+  },
+  {
+    category: 'Object Detection',
     id: 'detr_resnet_50_int8',
     name: 'DETR w/i ResNet-50',
     description: 'DEtection TRansformer (DETR) model with ResNet-50 backbone trained end-to-end on COCO 2017 object detection (118k annotated images). The DETR model is an encoder-decoder transformer with a convolutional backbone.',
