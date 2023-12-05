@@ -4,6 +4,13 @@ import basicSsl from '@vitejs/plugin-basic-ssl'
 
 export default defineConfig({
 	plugins: [sveltekit(), basicSsl()],
+	build: {
+    rollupOptions: {
+      external: [
+        "@xenova/transformers"
+      ],
+    },
+  },
 	server: {
 		https: true,
 		cors: true,
