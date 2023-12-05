@@ -1720,6 +1720,46 @@ export const fallback = [
     ]
   },
   {
+    "name": "resnet50_v1_fp16",
+    "backend": "cpu",
+    "error": "",
+    "not_supported": [
+      "Add",
+      "Conv",
+      "Flatten",
+      "Gemm",
+      "GlobalAveragePool",
+      "MaxPool",
+      "Relu"
+    ],
+    "input_type_not_supported": [
+      "Add: FLOAT16",
+      "Conv: FLOAT16",
+      "Flatten: FLOAT16",
+      "Gemm: FLOAT16",
+      "GlobalAveragePool: FLOAT16",
+      "MaxPool: FLOAT16",
+      "Relu: FLOAT16"
+    ]
+  },
+  {
+    "name": "resnet50_v1_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 122,
+    "nodes_supported_by_webnn": 122,
+    "supported": [
+      "Add",
+      "Conv",
+      "Flatten",
+      "Gemm",
+      "GlobalAveragePool",
+      "MaxPool",
+      "Relu"
+    ]
+  },
+  {
     "name": "squeezenet_fp16",
     "backend": "cpu",
     "error": "",
