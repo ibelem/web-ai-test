@@ -23,14 +23,14 @@
 		modelsStore,
 		modelDownloadProgressStore,
 		refererStore
-	} from '../lib/store/store';
+	} from '$lib/store/store';
 	import {
 		resetResult,
 		resetInfo,
 		urlToStore,
 		updateTestQueue,
 		setModelDownloadUrl
-	} from '../lib/assets/js/utils';
+	} from '$lib/assets/js/utils';
 
 	let logShow = true;
 
