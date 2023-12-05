@@ -17,7 +17,6 @@
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",
     "@vitejs/plugin-basic-ssl": "^1.0.2",
-    "@xenova/transformers": "^2.9.0",
     "await-to-js": "^3.0.0",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
