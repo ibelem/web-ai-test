@@ -422,7 +422,7 @@
 		mSize = '',
 		mDesc = '',
 		mNote = '';
-	let fallbackId = [];
+	// let fallbackId = [];
 
 	const hideModelInfo = () => {
 		show = false;
@@ -437,7 +437,7 @@
 		mDesc = getModelDescriptionById(id);
 		mNote = getModelNoteById(id);
 
-		fallbackId = fallback.filter((item) => item.name === id);
+		// fallbackId = fallback.filter((item) => item.name === id);
 		show = true;
 	};
 
@@ -693,7 +693,7 @@
 			</div>
 		{/if}
 	</div>
-	<div id="fallback" class="{show} g3">
+	<!-- <div id="fallback" class="{show} g3">
 		<div class="cpu">
 			{#if fallbackId}
 				{#each fallbackId as i}
@@ -870,12 +870,11 @@
 				{/each}
 			{/if}
 		</div>
-	</div>
+	</div> -->
 </div>
 
 <style>
-	#modeldesc.false,
-	#fallback.false {
+	#modeldesc.false {
 		display: none !important;
 	}
 	#modeldesc.true {
@@ -883,8 +882,12 @@
 		padding: 10px;
 	}
 
-	#fallback.true {
+	/* #fallback.true {
 		display: grid !important;
+	}
+		
+	#fallback.false {
+		display: none !important;
 	}
 
 	#fallback.g3 {
@@ -903,7 +906,7 @@
 
 	#fallback .dg3 {
 		align-items: end !important;
-	}
+	} */
 
 	.tit {
 		text-align: center;
@@ -913,7 +916,7 @@
 		font-size: 0.6rem;
 	}
 
-	#fallback .cpu > div,
+	/* #fallback .cpu > div,
 	#fallback .gpu > div,
 	#fallback .npu > div {
 		padding: 10px;
@@ -930,7 +933,7 @@
 		align-items: center;
 		text-align: center;
 		border-top: 1px solid var(--white-02);
-	}
+	} */
 
 	.err {
 		border-top: 1px solid var(--white-02);
@@ -950,7 +953,7 @@
 		font-size: 1.2em;
 	}
 
-	#fallback .cpu {
+	/* #fallback .cpu {
 		background-image: linear-gradient(to right, var(--b1-09) 0%, var(--b1) 100%);
 	}
 	#fallback .gpu {
@@ -972,5 +975,5 @@
 			grid-template-columns: 1fr;
 			grid-template-rows: 1fr 1fr 1fr;
 		}
-	}
+	} */
 </style>
