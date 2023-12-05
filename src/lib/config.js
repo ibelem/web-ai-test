@@ -326,7 +326,7 @@ export let models = [
     model: 'transformer.js/albert-base-v2/model.onnx',
     size: '43.1 MB',
     format: 'onnx',
-    datatype: 'int64',
+    datatype: 'fp32',
     inputs: [{
       'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
       'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
@@ -362,7 +362,7 @@ export let models = [
     model: 'transformer.js/bart-large-cnn/encoder_model.onnx',
     size: '777 MB',
     format: 'onnx',
-    datatype: 'int64',
+    datatype: 'fp32',
     inputs: [{
       'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
       'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
@@ -396,7 +396,7 @@ export let models = [
     model: 'transformer.js/bert-base-cased/model.onnx',
     size: '413 MB',
     format: 'onnx',
-    datatype: 'int64',
+    datatype: 'fp32',
     inputs: [{
       'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
       'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
@@ -432,7 +432,7 @@ export let models = [
     model: 'transformer.js/bert-base-uncased/model.onnx',
     size: '418 MB',
     format: 'onnx',
-    datatype: 'int64',
+    datatype: 'fp32',
     inputs: [{
       'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
       'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
@@ -718,7 +718,7 @@ export let models = [
     model: 'gpt2-decoder.onnx',
     size: '623 MB',
     format: 'onnx',
-    datatype: 'int64',
+    datatype: 'fp32',
     inputs: [{
       'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
       'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
@@ -735,7 +735,7 @@ export let models = [
     model: 'm2m100-decoder.onnx',
     size: '1.24 GB',
     format: 'onnx',
-    datatype: 'int64',
+    datatype: 'fp32',
     inputs: [{
       'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
       'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
@@ -753,7 +753,7 @@ export let models = [
     model: 'm2m100-encoder.onnx',
     size: '1.05 GB',
     format: 'onnx',
-    datatype: 'int64',
+    datatype: 'fp32',
     inputs: [{
       'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
       'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
@@ -940,7 +940,7 @@ export let models = [
     model: 'transformer.js/t5-small/encoder_model.onnx',
     size: '134 MB',
     format: 'onnx',
-    datatype: 'int64',
+    datatype: 'fp32',
     inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
     { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
     inputstip: '[1, 128] [1, 128]'
@@ -1019,7 +1019,7 @@ export let models = [
     model: 'transformer.js/whisper-tiny.en/decoder_model.onnx',
     size: '112 MB',
     format: 'onnx',
-    datatype: 'int64',
+    datatype: 'fp32',
     inputs: [{
       'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
       'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]

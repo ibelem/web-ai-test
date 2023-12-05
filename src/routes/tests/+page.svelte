@@ -55,7 +55,7 @@
 		{/each}
 	</div>
 
-	<div class="title tq">INT64</div>
+	<!-- <div class="title tq">INT64</div>
 	<div class="tq">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
@@ -69,7 +69,7 @@
 				{/if}
 			{/if}
 		{/each}
-	</div>
+	</div> -->
 
 	<div class="title tq">FLOAT16</div>
 	<div class="tq">
