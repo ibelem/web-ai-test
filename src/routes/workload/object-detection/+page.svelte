@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 	import { onMount } from 'svelte';
 	import { getHfUrlById, getLocalUrlByIdandLocaltion } from '$lib/assets/js/utils';
 	import { pipeline, env } from '@xenova/transformers';
@@ -151,4 +151,4 @@
 		margin-top: 20px;
 		position: relative;
 	}
-</style>
+</style> -->

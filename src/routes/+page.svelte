@@ -3,7 +3,6 @@
 	import Config from '$lib/components/Config.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import TestQueue from '$lib/components/TestQueue.svelte';
 	import Results from '$lib/components/Results.svelte';
 	import Info from '$lib/components/Info.svelte';
 	import InferenceLog from '$lib/components/InferenceLog.svelte';
