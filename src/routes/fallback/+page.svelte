@@ -120,12 +120,14 @@
 			let model = m.map((model) => model.id);
 			model = addSuffixes(model, bk);
 			updateFallbackQueue(model);
-		} else if (id === 'int64') {
-			let m = models.filter((model) => getModelDataTypeById(model.id) === 'int64');
-			let model = m.map((model) => model.id);
-			model = addSuffixes(model, bk);
-			updateFallbackQueue(model);
-		} else if (id === 'fp16') {
+		}
+		// else if (id === 'int64') {
+		// 	let m = models.filter((model) => getModelDataTypeById(model.id) === 'int64');
+		// 	let model = m.map((model) => model.id);
+		// 	model = addSuffixes(model, bk);
+		// 	updateFallbackQueue(model);
+		// }
+		else if (id === 'fp16') {
 			let m = models.filter((model) => getModelDataTypeById(model.id) === 'fp16');
 			let model = m.map((model) => model.id);
 			model = addSuffixes(model, bk);
@@ -272,7 +274,7 @@
 	{/each}
 </div>
 
-<div class="title tq"><button on:click={() => setFallbackQueue('int64')}>INT64</button></div>
+<!-- <div class="title tq"><button on:click={() => setFallbackQueue('int64')}>INT64</button></div>
 <div>
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
@@ -283,7 +285,7 @@
 			{/if}
 		{/if}
 	{/each}
-</div>
+</div> -->
 
 <div class="title tq"><button on:click={() => setFallbackQueue('fp16')}>Float16</button></div>
 <div>
