@@ -232,7 +232,7 @@
 				/></g
 			></svg
 		>
-		Runtime Web Versions
+		Runtime Web
 		<div class="wasm">
 			<span class="title">Wasm</span>
 			<span class="version"

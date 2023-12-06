@@ -151,7 +151,7 @@
 	let jsonLogShow = true;
 
 	const copyJsonInfo = async () => {
-		let log = JSON.stringify(fallback).toString();
+		let log = JSON.stringify(fallback);
 		await navigator.clipboard.writeText(log);
 		updateFallbackLog(`Json file string copied`);
 		fallbackLog = fallbackLog;
@@ -207,34 +207,6 @@
 	<div>Check the WebNN fallback status with your current browser</div>
 </div>
 
-{#if fallbackLog && fallbackLog.length > 0}
-	<div class="log">
-		{#if logShow}
-			<div class="inferlog" bind:this={element2}>
-				{#each fallbackLog as fb}
-					<div>{fb}</div>
-				{/each}
-			</div>
-		{/if}
-		<div class="q copy">
-			<div>
-				<button title="Copy full test logs" on:click={() => copyLogInfo()}>
-					<Log />
-				</button>
-
-				<button
-					title="Hide logs"
-					on:click={() => {
-						logShow = !logShow;
-					}}
-				>
-					<LogToggle />
-				</button>
-			</div>
-		</div>
-	</div>
-{/if}
-
 {#if fallbackString && fallbackString.length > 2}
 	<div>
 		{#if jsonLogShow}
@@ -252,6 +224,50 @@
 					title="Hide logs"
 					on:click={() => {
 						jsonLogShow = !jsonLogShow;
+					}}
+				>
+					<LogToggle />
+				</button>
+			</div>
+		</div>
+	</div>
+{/if}
+
+{#if fallbackLog && fallbackLog.length > 0}
+	<div class="log">
+		{#if logShow}
+			<div class="inferlog" bind:this={element2}>
+				{#each fallbackLog as fb}
+					<div>{fb}</div>
+				{/each}
+			</div>
+			<div class="progress">
+				<div>
+					{#if fallbackQueue[0]}In testing: {fallbackQueue[0]
+							.replace('__cpu', ' webnn_cpu')
+							.replace('__gpu', ' webnn_gpu')}{/if}
+				</div>
+				<div class="queue">
+					{#if fallbackQueue.length > 0}Test queue: {fallbackQueue.length} left{:else}Fallback test
+						completed{/if}
+				</div>
+				<div class="next">
+					{#if fallbackQueue[1]}Next: {fallbackQueue[1]
+							.replace('__cpu', ' webnn_cpu')
+							.replace('__gpu', ' webnn_gpu')}{/if}
+				</div>
+			</div>
+		{/if}
+		<div class="q copy">
+			<div>
+				<button title="Copy full test logs" on:click={() => copyLogInfo()}>
+					<Log />
+				</button>
+
+				<button
+					title="Hide logs"
+					on:click={() => {
+						logShow = !logShow;
 					}}
 				>
 					<LogToggle />
@@ -317,6 +333,7 @@
 
 <div class="run" title="It will take quite a long time...">
 	<button on:click={() => setFallbackQueue('all')}>Check WebNN Fallback for All Models</button>
+	<button class="log" on:click={() => resetFallbackQueue()}>Cancel</button>
 </div>
 
 <Environment />
@@ -421,5 +438,28 @@
 
 	.run {
 		margin-top: 40px;
+	}
+
+	.progress {
+		border: 1px solid var(--grey-02);
+		padding: 4px 10px;
+		margin-top: -1px;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr;
+		grid-column-gap: 0px;
+		grid-row-gap: 0px;
+	}
+
+	.progress:hover {
+		border: 1px solid var(--grey-04);
+	}
+
+	.progress .queue {
+		justify-self: center;
+	}
+
+	.progress .next {
+		justify-self: right;
 	}
 </style>

@@ -17,4 +17,6 @@ export const cpuStore = persisted('cpuStore', '');
 export const fallbackQueueStore = persisted('fallbackQueueStore', []);
 export const fallbackLogStore = persisted('fallbackLogStore', []);
 export const fallbackStore = persisted('fallbackStore', []);
-export const conformanceStore = persisted('conformanceStore', false);
+export const conformanceQueueStore = persisted('conformanceQueueStore', []);
+export const conformanceLogStore = persisted('conformanceLogStore', []);
+export const conformanceStore = persisted('conformanceStore', []);

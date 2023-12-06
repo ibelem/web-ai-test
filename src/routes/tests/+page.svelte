@@ -35,7 +35,7 @@
 <Header />
 
 <div class="tqtitle">
-	<div class="title tq">Run single model tests</div>
+	<div class="title tq">Benchmark Tests</div>
 </div>
 
 <div>
