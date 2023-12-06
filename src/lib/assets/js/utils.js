@@ -1,4 +1,4 @@
-import { fallbackLogStore, fallbackStore, fallbackQueueStore, refererStore, modelDownloadUrlStore, autoStore, conformanceStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
+import { fallbackLogStore, fallbackStore, fallbackQueueStore, conformanceLogStore, conformanceQueueStore, refererStore, modelDownloadUrlStore, autoStore, conformanceStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
 import { models, uniqueBackends, corsSites } from '../../config';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
@@ -8,8 +8,54 @@ import { UAParser } from 'ua-parser-js';
 import html2canvas from 'html2canvas';
 import to from 'await-to-js';
 import { cpuStore } from '$lib/store/store';
-import { page } from '$app/stores';
 
+/**
+ * @type {string[]}
+ */
+export let conformance;
+conformanceStore.subscribe((value) => {
+  conformance = value;
+});
+
+/**
+ * @type {string[]}
+ */
+export let conformanceQueue;
+conformanceQueueStore.subscribe((value) => {
+  conformanceQueue = value;
+});
+
+export const updateConformanceQueue = (models) => {
+  conformanceQueueStore.update(() => models);
+}
+
+export const clearConformanceQueue = () => {
+  conformanceQueueStore.update(() => []);
+}
+
+export const addConformance = (value) => {
+  conformanceStore.update((arr) => [...arr, value]);
+}
+
+export const clearConformance = () => {
+  conformanceStore.update(() => []);
+}
+
+/**
+ * @type {string[]}
+ */
+export let conformanceLog;
+conformanceLogStore.subscribe((value) => {
+  conformanceLog = value;
+});
+
+export const updateConformanceLog = (value) => {
+  conformanceLogStore.update((arr) => [...arr, value]);
+}
+
+export const clearConformanceLog = () => {
+  conformanceLogStore.update(() => []);
+}
 
 /**
  * @type {string[]}
@@ -83,6 +129,23 @@ export const initResult = (newItem) => {
   });
 }
 
+export const compareObjects = (obj1, obj2, tolerance) => {
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+
+  for (let key of keys1) {
+    if (Math.abs(obj1[key] - obj2[key]) > tolerance) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export const addResult = (model, modeltype, datatype, modelsize, backend, status, compilation, warmup, timetofirstinference, inference, inferencemedian, inferenceninety, inferenceaverage, inferencebest, err) => {
   resultsStore.update(items => {
     return items.map(item => {
@@ -129,7 +192,6 @@ export const updateStore = (numOfRuns, backends, dataTypes, modelTypes, models) 
 
 export const resetStore = () => {
   autoStore.update(() => false);
-  conformanceStore.update(() => false);
   numberOfRunsStore.update(() => 1);
   backendsStore.update(() => []);
   dataTypesStore.update(() => []);
@@ -187,14 +249,6 @@ export const resetInfo = () => {
 export let auto;
 autoStore.subscribe((value) => {
   auto = value;
-});
-
-/**
- * @type {boolean}
- */
-export let conformance;
-conformanceStore.subscribe((value) => {
-  conformance = value;
 });
 
 /**

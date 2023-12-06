@@ -38,7 +38,8 @@
 
 <nav>
 	<a href={url} on:click={homeUrl}>Home</a>
-	<a href="{base}/tests{fullSearch}" on:click={homeUrl}>Tests</a>
+	<a href="{base}/tests{fullSearch}" on:click={homeUrl}>Benchmark</a>
 	<a href="{base}/fallback" on:click={homeUrl}>Fallback</a>
+	<a href="{base}/conformance" on:click={homeUrl}>Conformance</a>
 	<a href="{base}/about{fullSearch}" on:click={homeUrl}>About</a>
 </nav>

@@ -1,19 +1,28 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '../../config';
-import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, average, minimum } from '../js/utils';
-import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
-import { sleep } from '$lib/assets/js/utils';
-import { getModelOPFS } from '../js/nn_utils'
+import { compareObjects, addConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
+import { modelDownloadUrlStore, conformanceQueueStore, conformanceStore } from '../../store/store';
+
+import { getGpu } from '$lib/assets/js/utils';
+import { getModelOPFS } from './nn_utils'
 import to from 'await-to-js';
-import percentile from 'percentile';
+// import localforage from 'localforage';
+
 
 /**
- * @type {number}
+ * @type {string[]}
  */
-export let numOfRuns;
+export let conformance;
+conformanceStore.subscribe((value) => {
+  conformance = value;
+});
 
-numberOfRunsStore.subscribe((value) => {
-  numOfRuns = value;
+/**
+ * @type {string[]}
+ */
+let conformanceQueue;
+conformanceQueueStore.subscribe((value) => {
+  conformanceQueue = value;
 });
 
 /**
@@ -23,31 +32,6 @@ export let modelDownloadUrl;
 
 modelDownloadUrlStore.subscribe((value) => {
   modelDownloadUrl = value;
-});
-
-/**
- * @type {string[]}
- */
-export let testQueue;
-testQueueStore.subscribe((value) => {
-  testQueue = value;
-});
-
-/**
- * @type {number}
- */
-export let testQueueLength;
-
-testQueueLengthStore.subscribe((value) => {
-  testQueueLength = value;
-});
-
-/**
- * @type {string[]}
- */
-export let results;
-resultsStore.subscribe((value) => {
-  results = value;
 });
 
 const getInputsById = (id) => {
@@ -62,8 +46,6 @@ const getInputsById = (id) => {
 const getFeeds = (session, modelName) => {
   let feeds = {};
   let inputs = getInputsById(modelName);
-  // let inputNames = session.inputNames;
-
   for (let input of inputs) {
     if (isDict(input)) {
       for (let key in input) {
@@ -101,7 +83,8 @@ const getTensor = (type, data, dims) => {
       size *= dim;
     });
     if (data === 'random') {
-      _data = typedArray.from({ length: size }, () => Math.random());
+      // _data = typedArray.from({ length: size }, () => Math.random());
+      _data = typedArray.from({ length: size }, () => 0.5446213812076073);
     } else if (data === 'ramp') {
       _data = typedArray.from({ length: size }, (_, i) => i);
     } else {
@@ -180,7 +163,7 @@ const getModelUrl = (_model) => {
   return modelPath;
 }
 
-const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
+const mainConformance = async (_model, _modelType, _dataType, _backend) => {
 
   let backend = 'wasm';
   let wasmSimd = false;
@@ -269,7 +252,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
   };
 
-  options.logSeverityLevel = 0;
+  // options.logSeverityLevel = 0;
   // options.logVerbosityLevel = 0;
 
   if (backend === 'wasm' || backend === 'webgpu') {
@@ -302,99 +285,139 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   l(`options.freeDimensionOverrides:`);
   l(freeDimensionOverrides);
 
-  updateTestQueueStatus(_id, 2);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, null, [], null, null, null, null, null);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, null, [], null, null, null, null, null);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}/${_modelSize}) with ${_backend} backend`);
+  updateConformanceLog(`[1] Testing ${_model} (${_modelType}/${_dataType}) conformance with ${_backend} backend on ${getGpu()}`);
 
   let modelPath = getModelUrl(_model);
 
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Downloading model from ${modelPath}`);
+  updateConformanceLog(`[2] Downloading model from ${modelPath}`);
 
   let modelBuffer = await getModelOPFS(_model, modelPath, false);
   if (modelBuffer.byteLength < 1024) {
     modelBuffer = await getModelOPFS(_model, modelPath, true);
   }
 
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Creating onnx runtime web inference session`);
-
-  const compilationStart = performance.now();
+  updateConformanceLog(`[3] Creating onnx runtime web inference session`);
   const sess = await ort.InferenceSession.create(modelBuffer, options);
-  let compilationTime = performance.now() - compilationStart;
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Compilation Time: ${compilationTime} ms`);
-
+  updateConformanceLog(`[4] ${_model} compiled`);
   let feeds = getFeeds(sess, _model);
 
-  let numOfWarmups = 1;
+  updateConformanceLog(`[5] Inferencing ... `);
 
-  if (backend === 'webgl' || backend === 'webgpu' || (backend === 'webnn' && deviceType === 'gpu')) {
-    numOfWarmups = 1;
+  let results;
+  if (backend === 'webnn' || _backend === 'wasm_4') {
+    const input = clone(feeds);
+    results = await sess.run(input);
+  } else {
+    results = await sess.run(feeds);
   }
 
-  let firstInferenceTime = 0, warmupTimes = [], inferenceTimes = [], timeToFirstInference = null, inferenceTimesAverage = null, inferenceTimesMedian = null, inferenceTimesNinety = null, inferenceTimesBest = null;
+  let result = results[sess.outputNames[0]]["data"];
+  let obj = {
+    "name": _model,
+    "backend": _backend,
+    "gpu": getGpu()
+  };
 
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inferencing, please wait... `);
+  console.log(`---- ${_backend} ----`);
+  console.log(result);
 
-  for (let i = 0; i < numOfWarmups + numOfRuns; i++) {
-    let start;
-    if (backend === 'webnn' || _backend === 'wasm_4') {
-      // console.time('wanming_');
-      const input = clone(feeds);
-      start = performance.now()
-      await sess.run(input);
-      // console.timeEnd('wanming_');
-    } else {
-      start = performance.now()
-      await sess.run(feeds);
-    }
-    let inferenceTime = performance.now() - start;
-
-    if (i === 0) {
-      firstInferenceTime = parseFloat(inferenceTime).toFixed(2);
-      timeToFirstInference = (parseFloat(compilationTime) + parseFloat(firstInferenceTime)).toFixed(2);
-    }
-
-    (i < numOfWarmups) ? warmupTimes.push(inferenceTime) : inferenceTimes.push(inferenceTime);
-
-    // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
+  result = result.subarray(0, 100);
+  updateConformanceLog(JSON.stringify(result));
+  if (_backend === "wasm_4") {
+    // // await localforage.setItem(_model + "__wasm_4", result);
+    obj.result = result;
   }
-
-  inferenceTimesAverage = average(inferenceTimes);
-  inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
-
-  inferenceTimesNinety = percentile(90, inferenceTimes);
-  inferenceTimesNinety = inferenceTimesNinety.toFixed(2);
-  inferenceTimesBest = minimum(inferenceTimes);
-
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time on Warmup / ${numOfWarmups} time(s): [${warmupTimes}] ms`);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] First Inference Time: ${firstInferenceTime} ms`);
-  await sleep(100);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Time to First Inference: ${timeToFirstInference} ms`);
-  await sleep(100);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Average): ${inferenceTimesAverage} ms`);
-  await sleep(100);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Median): ${inferenceTimesMedian} ms`);
-  await sleep(100);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (90th Percentile): ${inferenceTimesNinety} ms`);
-  await sleep(100);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Best): ${inferenceTimesBest} ms`);
-  await sleep(100);
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (${numOfRuns} times): [${inferenceTimes}] ms`);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, timeToFirstInference, inferenceTimes, inferenceTimesMedian, inferenceTimesNinety, inferenceTimesAverage, inferenceTimesBest, null);
 
   await sess.release();
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
-  await sleep(500);
+
+  if (_backend === "wasm_4") {
+    obj.conformance_e3 = '1e-3';
+    obj.conformance_e4 = '1e-4';
+    obj.conformance_e5 = '1e-5';
+    updateConformanceLog(`[6] Using ${_backend} results as the baseline`);
+  } else {
+    for (let c of conformance) {
+      if (c.name === _model && c.backend === "wasm_4") {
+        let r = '';
+        compareObjects(result, c.result, 1e-3) ? r = 'pass' : r = 'fail';
+        obj.conformance_e3 = r;
+        updateConformanceLog(`[6.1] Conformance [1e-3] on ${_backend}: ${r}`);
+
+        compareObjects(result, c.result, 1e-4) ? r = 'pass' : r = 'fail';
+        obj.conformance_e4 = r;
+        updateConformanceLog(`[6.3] Conformance [1e-4] on ${_backend}: ${r}`);
+
+        compareObjects(result, c.result, 1e-5) ? r = 'pass' : r = 'fail';
+        obj.conformance_e5 = r;
+        updateConformanceLog(`[6.4] Conformance [1e-5] on ${_backend}: ${r}`);
+      }
+    }
+  }
+
+  addConformance(obj);
+
+  updateConformanceLog(`[7] Conformance test of ${_model} (${_modelType} /${_dataType}) with ${_backend} backend on ${getGpu()} completed`);
+  updateConformanceLog('|-------------------------------------------------------------------------------------|');
+
+  // if (_backend === "webnn_gpu") {
+  //   clearConformance();
+  // }
+
+  next(_model, _backend);
+
+  // try {
+  //   // const result_wasm_4 = await localforage.getItem(_model + "__wasm_4");
+  //   if (_backend === "wasm_4") {
+  //     obj.conformance_e3 = 'baseline 1e-3';
+  //     obj.conformance_e4 = 'baseline 1e-4';
+  //     obj.conformance_e5 = 'baseline 1e-5';
+  //   } else {
+  //     compareObjects(result, result_wasm_4, 1e-3) ? obj.conformance_e3 = 'pass' : obj.conformance_e3 = 'fail';
+  //     compareObjects(result, result_wasm_4, 1e-4) ? obj.conformance_e4 = 'pass' : obj.conformance_e4 = 'fail';
+  //     compareObjects(result, result_wasm_4, 1e-5) ? obj.conformance_e5 = 'pass' : obj.conformance_e5 = 'fail';
+  //   }
+  //   addConformance(obj);
+  //   updateConformanceLog(`[6] Conformance test of ${_model} (${_modelType} /${_dataType}) with ${_backend} backend on ${getGpu()} completed`);
+  //   updateConformanceLog('|-------------------------------------------------------------------------------------|');
+  // } catch (err) {
+  //   // This code runs if there were any errors.
+  //   updateConformanceLog(`[Error] ${err.message}`);
+  // }
+
+  // if (_backend === "webnn_gpu") {
+  //   await localforage.removeItem(_model + "__wasm_4");
+  //   await localforage.clear();
+  // }
+
+  // next(_model, _backend);
 }
 
-export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
-  // await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
+const next = (_model, _backend) => {
+  let filteredConformanceQueue = conformanceQueue.filter(
+    (item) => item !== `${_model}__${_backend}`
+  );
+  conformanceQueueStore.update(() => filteredConformanceQueue);
+  if (conformanceQueue.length > 0) {
+    location.href = location.origin + `/conformance?${conformanceQueue[0]}`;
+  }
+}
 
-  const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
+export const runOnnxConformance = async (_model, _modelType, _dataType, _backend) => {
+  const [err, data] = await to(mainConformance(_model, _modelType, _dataType, _backend));
   if (err) {
-    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
-    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-    updateInfo(err.message);
+    updateConformanceLog(`[Error] ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+    updateConformanceLog(`[Error] ${err.message}`);
+    let obj = {
+      "name": _model,
+      "backend": _backend,
+      "gpu": getGpu(),
+      "conformance_e3": "n/a",
+      "conformance_e4": "n/a",
+      "conformance_e5": "n/a"
+    };
+    obj.error = err.message;
+    addConformance(obj);
+    next(_model, _backend);
   } else {
     // use data 
   }
