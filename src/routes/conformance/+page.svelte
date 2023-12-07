@@ -5,7 +5,7 @@
 	import { models } from '$lib/config';
 	import Log from '$lib/components/svg/Log.svelte';
 	import LogToggle from '$lib/components/svg/LogToggle.svelte';
-	import { onMount, beforeUpdate } from 'svelte';
+	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
 	import {
 		getModelDataTypeById,
 		getModelDescriptionById,
@@ -17,13 +17,15 @@
 		clearConformanceQueue,
 		updateConformanceQueue,
 		resetStore,
-		setModelDownloadUrl
+		setModelDownloadUrl,
+		updateSleep
 	} from '$lib/assets/js/utils';
 	import {
 		conformanceLogStore,
 		conformanceStore,
 		conformanceQueueStore,
-		autoStore
+		autoStore,
+		sleepStore
 	} from '$lib/store/store';
 	import Conformance from '$lib/components/Conformance.svelte';
 	import { runOnnxConformance } from '$lib/assets/js/ort_utils_conformance';
@@ -52,7 +54,21 @@
 		conformanceLog = value;
 	});
 
+	/**
+	 * @type {boolean}
+	 */
+	export let sleeping;
+	sleepStore.subscribe((value) => {
+		sleeping = value;
+	});
+
+	let localSleep;
+
 	$: conformanceString = JSON.stringify(conformance);
+
+	const toggleSleep = () => {
+		updateSleep(localSleep);
+	};
 
 	const run = () => {
 		/**
@@ -66,8 +82,8 @@
 		if (conformanceQueue.length > 0) {
 			id = conformanceQueue[0].split('__')[0];
 			backend = conformanceQueue[0].split('__')[1];
-			let model = models.find((item) => item.id === id);
-			model.backend = backend;
+			// let model = models.find((item) => item.id === id);
+			// model.backend = backend;
 
 			runOnnxConformance(id, 'onnx', getModelDataTypeById(id), backend);
 			// location.href = location.pathname;
@@ -183,7 +199,14 @@
 		if (conformanceLog) scrollToBottom(element2);
 	});
 
+	afterUpdate(() => {});
+
 	onMount(async () => {
+		if (sleeping) {
+			localSleep = sleeping;
+		} else {
+			localSleep = false;
+		}
 		await setModelDownloadUrl();
 		if (conformanceQueue.length > 0) {
 			run();
@@ -196,6 +219,13 @@
 <div class="tqtitle subtitle">
 	<div class="title tq">WebNN Conformance Tests</div>
 	<div>Check the WebNN conformance status with your current browser</div>
+</div>
+
+<div>
+	<label>
+		<input type="checkbox" bind:checked={localSleep} on:change={toggleSleep} />
+		Sleep 10s to get raw inference results from Console of Developer Tool during the testing
+	</label>
 </div>
 
 {#if conformanceString && conformanceString.length > 2}
