@@ -2835,8 +2835,8 @@ export const fallback = [
     "backend": "cpu",
     "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
     "partitions_supported_by_webnn": 243,
-    "nodes_in_the_graph": 1748,
-    "nodes_supported_by_webnn": 1354,
+    "nodes_in_the_graph": 1441,
+    "nodes_supported_by_webnn": 1192,
     "supported": [
       "Add",
       "Concat",
@@ -2856,11 +2856,8 @@ export const fallback = [
     ],
     "not_supported": [
       "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
       "Gather",
       "MatMul",
-      "MatMulInteger",
       "Reshape",
       "Slice",
       "Sqrt",
@@ -2876,14 +2873,15 @@ export const fallback = [
     "name": "codegen_350m_mono",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 163,
-    "nodes_in_the_graph": 1748,
-    "nodes_supported_by_webnn": 1522,
+    "partitions_supported_by_webnn": 81,
+    "nodes_in_the_graph": 1441,
+    "nodes_supported_by_webnn": 1361,
     "supported": [
       "Add",
       "Cast",
       "Concat",
       "Div",
+      "Gather",
       "MatMul",
       "Mul",
       "Neg",
@@ -2901,14 +2899,7 @@ export const fallback = [
       "Where"
     ],
     "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger",
       "Slice"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
     ]
   },
   {
