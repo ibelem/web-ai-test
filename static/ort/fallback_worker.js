@@ -154,6 +154,7 @@ self.addEventListener('message', async (event) => {
   };
 
   let fallbackChecker = async () => {
+    let everything;
     let options = {
       executionProviders: [
         {
@@ -211,11 +212,13 @@ self.addEventListener('message', async (event) => {
     }
 
     obj.error = er;
-
     self.postMessage(`[5] Waiting 10 seconds for WebNN EP to generate the full console logs`);
+    everything = console.everything.map(item => item.value[0]);
+    self.postMessage(everything);
     await timeout(10000);
     self.postMessage(`[6] Filtering WebNN fallback log messages`);
-    let everything = console.everything.map(item => item.value[0]);
+    everything = console.everything.map(item => item.value[0]);
+    self.postMessage(everything);
     let filteredEverything = everything.filter(item => {
       return (
         String(item).includes("Operator type") ||

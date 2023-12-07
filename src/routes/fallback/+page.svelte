@@ -48,6 +48,8 @@
 
 	$: fallbackString = JSON.stringify(fallback);
 
+	$: rawConsole = 'Raw console log for WebNN EP developers, esp. Honry';
+
 	const run = () => {
 		/**
 		 * @type {string}
@@ -69,7 +71,7 @@
 
 		worker.onmessage = (event) => {
 			const outputData = event.data;
-			if (typeof outputData === 'object') {
+			if (typeof outputData === 'object' && 'name' in outputData && 'backend' in outputData) {
 				addFallback(outputData);
 				let filteredFallbackQueue = fallbackQueue.filter(
 					(item) => item !== `${outputData.name}__${outputData.backend}`
@@ -77,6 +79,14 @@
 				fallbackQueueStore.update(() => filteredFallbackQueue);
 				if (fallbackQueue.length > 0) {
 					location.href = location.origin + `/fallback?${fallbackQueue[0]}`;
+				}
+			} else if (typeof outputData === 'object') {
+				for (let i = 0; i < outputData.length; i++) {
+					if (typeof outputData[i] === 'object') {
+						rawConsole = rawConsole + `<div>${JSON.stringify(outputData[i])}</div>`;
+					} else {
+						rawConsole = rawConsole + `<div>${outputData[i]}</div>`;
+					}
 				}
 			} else {
 				updateFallbackLog(outputData);
@@ -157,6 +167,13 @@
 		fallbackLog = fallbackLog;
 	};
 
+	const copyRawConsole = async () => {
+		rawConsole = rawConsole.replaceAll('<div>', '').replaceAll('</div>', '\r\n');
+		await navigator.clipboard.writeText(rawConsole);
+		updateFallbackLog(`Raw console log copied`);
+		rawConsole = rawConsole;
+	};
+
 	const copyLogInfo = async () => {
 		let log = fallbackLog.toString().replaceAll(',', '\r\n');
 		await navigator.clipboard.writeText(log);
@@ -182,6 +199,15 @@
 		scrollToBottom(element2);
 	}
 
+	/**
+	 * @type {HTMLDivElement}
+	 */
+	let element3;
+
+	$: if (element3) {
+		scrollToBottom(element3);
+	}
+
 	const scrollToBottom = (/** @type {HTMLDivElement} */ node) => {
 		node?.scroll({ top: node.scrollHeight, behavior: 'smooth' });
 	};
@@ -191,6 +217,7 @@
 		autoStore.update(() => false);
 		if (fallback) scrollToBottom(element);
 		if (fallbackLog) scrollToBottom(element2);
+		if (rawConsole) scrollToBottom(element3);
 	});
 
 	onMount(() => {
@@ -207,8 +234,32 @@
 	<div>Check the WebNN fallback status with your current browser</div>
 </div>
 
-{#if fallbackString && fallbackString.length > 2}
-	<div>
+<div class="g2">
+	<div class="fs">
+		{#if jsonLogShow}
+			<div class="inferlog" bind:this={element3}>
+				<div>{@html rawConsole}</div>
+			</div>
+		{/if}
+		<div class="q copy">
+			<div>
+				<button title="Copy raw console logs" on:click={() => copyRawConsole()}>
+					<Log />
+				</button>
+
+				<button
+					title="Hide logs"
+					on:click={() => {
+						jsonLogShow = !jsonLogShow;
+					}}
+				>
+					<LogToggle />
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="fs">
 		{#if jsonLogShow}
 			<div class="inferlog" bind:this={element}>
 				<div>{fallbackString}</div>
@@ -231,7 +282,7 @@
 			</div>
 		</div>
 	</div>
-{/if}
+</div>
 
 {#if fallbackLog && fallbackLog.length > 0}
 	<div class="log">
@@ -463,9 +514,27 @@
 		justify-self: right;
 	}
 
+	.g2 {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr;
+		grid-column-gap: 10px;
+		grid-row-gap: 0px;
+	}
+
+	.g2 .fs {
+		width: 44.2vw;
+	}
+
 	@media (max-width: 512px) {
 		.f button {
 			width: 46.8vw;
+		}
+		.g2 {
+			display: block;
+		}
+		.g2 .fs {
+			width: 100%;
 		}
 	}
 </style>
