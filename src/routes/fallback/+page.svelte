@@ -341,7 +341,7 @@
 
 <style>
 	.tqtitle {
-		margin: 0;
+		margin: 10px 0 0 0;
 	}
 
 	.subtitle {
@@ -461,5 +461,11 @@
 
 	.progress .next {
 		justify-self: right;
+	}
+
+	@media (max-width: 512px) {
+		.f button {
+			width: 46.8vw;
+		}
 	}
 </style>
