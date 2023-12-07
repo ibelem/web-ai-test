@@ -482,7 +482,7 @@
 
 	@media (max-width: 512px) {
 		.f button {
-			width: 46.8vw;
+			width: 46.6vw;
 		}
 	}
 </style>
