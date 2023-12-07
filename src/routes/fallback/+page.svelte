@@ -5,6 +5,8 @@
 	import { models, ortDists } from '$lib/config';
 	import Log from '$lib/components/svg/Log.svelte';
 	import LogToggle from '$lib/components/svg/LogToggle.svelte';
+	import Enlarge from '$lib/components/svg/Enlarge.svelte';
+	import FitScreen from '$lib/components/svg/FitScreen.svelte';
 	import { onMount, beforeUpdate } from 'svelte';
 	import {
 		getModelDataTypeById,
@@ -159,6 +161,7 @@
 
 	let logShow = true;
 	let jsonLogShow = true;
+	let consoleSize = false;
 
 	const copyJsonInfo = async () => {
 		let log = JSON.stringify(fallback);
@@ -179,6 +182,10 @@
 		await navigator.clipboard.writeText(log);
 		updateFallbackLog(`Log history copied`);
 		fallbackLog = fallbackLog;
+	};
+
+	const toggleConsole = () => {
+		consoleSize = !consoleSize;
 	};
 
 	/**
@@ -234,8 +241,8 @@
 	<div>Check the WebNN fallback status with your current browser</div>
 </div>
 
-<div class="g2">
-	<div class="fs">
+<div class="g2 {consoleSize}">
+	<div class="fs rawconsole">
 		{#if jsonLogShow}
 			<div class="inferlog" bind:this={element3}>
 				<div>{@html rawConsole}</div>
@@ -243,6 +250,13 @@
 		{/if}
 		<div class="q copy">
 			<div>
+				<button title="Switch the element size" on:click={() => toggleConsole()}>
+					{#if consoleSize}
+						<Enlarge />
+					{:else}
+						<FitScreen />
+					{/if}
+				</button>
 				<button title="Copy raw console logs" on:click={() => copyRawConsole()}>
 					<Log />
 				</button>
@@ -524,6 +538,18 @@
 
 	.g2 .fs {
 		width: 44.2vw;
+	}
+
+	.true.g2 {
+		display: block;
+	}
+
+	.true.g2 .fs {
+		width: 100%;
+	}
+
+	.true.g2 .rawconsole .inferlog {
+		height: 60vh;
 	}
 
 	@media (max-width: 512px) {
