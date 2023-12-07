@@ -2831,6 +2831,168 @@ export const fallback = [
     ]
   },
   {
+    "name": "codegen_350m_mono",
+    "backend": "cpu",
+    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+    "partitions_supported_by_webnn": 243,
+    "nodes_in_the_graph": 1748,
+    "nodes_supported_by_webnn": 1354,
+    "supported": [
+      "Add",
+      "Concat",
+      "Div",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sub",
+      "Tanh",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": [
+      "Cast",
+      "DequantizeLinear",
+      "DynamicQuantizeLinear",
+      "Gather",
+      "MatMul",
+      "MatMulInteger",
+      "Reshape",
+      "Slice",
+      "Sqrt",
+      "Unsqueeze",
+      "Where"
+    ],
+    "input_type_not_supported": [
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
+    ]
+  },
+  {
+    "name": "codegen_350m_mono",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 163,
+    "nodes_in_the_graph": 1748,
+    "nodes_supported_by_webnn": 1522,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Div",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sqrt",
+      "Sub",
+      "Tanh",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ],
+    "not_supported": [
+      "DequantizeLinear",
+      "DynamicQuantizeLinear",
+      "Gather",
+      "MatMulInteger",
+      "Slice"
+    ],
+    "input_type_not_supported": [
+      "Gather: UINT8"
+    ]
+  },
+  {
+    "name": "codegen_350m_mono_int8",
+    "backend": "cpu",
+    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+    "partitions_supported_by_webnn": 243,
+    "nodes_in_the_graph": 1748,
+    "nodes_supported_by_webnn": 1354,
+    "supported": [
+      "Add",
+      "Concat",
+      "Div",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sub",
+      "Tanh",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": [
+      "Cast",
+      "DequantizeLinear",
+      "DynamicQuantizeLinear",
+      "Gather",
+      "MatMul",
+      "MatMulInteger",
+      "Reshape",
+      "Slice",
+      "Sqrt",
+      "Unsqueeze",
+      "Where"
+    ],
+    "input_type_not_supported": [
+      "Reshape: INT64",
+      "Unsqueeze: INT64"
+    ]
+  },
+  {
+    "name": "codegen_350m_mono_int8",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 163,
+    "nodes_in_the_graph": 1748,
+    "nodes_supported_by_webnn": 1522,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Div",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sqrt",
+      "Sub",
+      "Tanh",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ],
+    "not_supported": [
+      "DequantizeLinear",
+      "DynamicQuantizeLinear",
+      "Gather",
+      "MatMulInteger",
+      "Slice"
+    ],
+    "input_type_not_supported": [
+      "Gather: UINT8"
+    ]
+  },
+  {
     "name": "detr_resnet_50",
     "backend": "cpu",
     "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': Resample2d only supports Linear mode.",

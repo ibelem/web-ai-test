@@ -533,13 +533,13 @@ export let models = [
     description: 'A family of autoregressive language models for program synthesis.',
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
     source: 'https://huggingface.co/Xenova/codegen-350M-mono/tree/main/onnx',
-    model: 'transformer.js/codegen-350m-mono/decoder_model_quantized.onnx',
+    model: 'transformer.js/codegen-350m-mono/decoder_model.onnx',
     size: '1.33 GB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }]
+      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "sequence_length": 8 }]
     }],
     inputstip: '[1, 8] [1, 8]'
   },
@@ -555,8 +555,8 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1 }],
-      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }]
+      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "sequence_length": 8 }]
     }],
     inputstip: '[1, 8] [1, 8]'
   },
