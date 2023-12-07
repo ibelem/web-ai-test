@@ -61,12 +61,14 @@
 		 * @type {string}
 		 */
 		let backend;
+
 		const worker = new Worker(ortDists.webnn_webglfix.workerjs);
 		if (fallbackQueue.length > 0) {
 			id = fallbackQueue[0].split('__')[0];
 			backend = fallbackQueue[0].split('__')[1];
 			let model = models.find((item) => item.id === id);
 			model.backend = backend;
+			rawConsole = '';
 			worker.postMessage(model);
 			// location.href = location.pathname;
 		}
