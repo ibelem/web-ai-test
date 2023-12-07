@@ -7,7 +7,9 @@
 <Header />
 
 <div class="page">
-	<h1>About</h1>
+	<div class="tqtitle subtitle">
+		<div class="title tq">About</div>
+	</div>
 
 	<div>
 		<a href="https://webmachinelearning.github.io/webnn-intro/">Web Neural Network API (WebNN)</a> is
@@ -40,6 +42,11 @@
 	}
 
 	.red {
+		color: var(--red);
+	}
+
+	.title {
+		text-align: center;
 		color: var(--red);
 	}
 </style>
