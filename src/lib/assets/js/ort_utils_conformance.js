@@ -400,7 +400,10 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
 
   if (_backend === "webnn_gpu") {
     // clearConformance();
-    let obj = conformance.forEach(obj => delete obj.result);
+    let obj = conformance.map(obj => {
+      const { result, ...rest } = obj;
+      return rest;
+    });
     updateConformance(obj);
   }
 
@@ -468,7 +471,6 @@ export const runOnnxConformance = async (_model, _modelType, _dataType, _backend
 
     if (_backend === "webnn_gpu") {
       // clearConformance();
-      console.log(conformance);
       let obj = conformance.map(obj => {
         const { result, ...rest } = obj;
         return rest;
