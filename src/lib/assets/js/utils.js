@@ -1,4 +1,4 @@
-import { fallbackLogStore, fallbackStore, fallbackQueueStore, conformanceLogStore, conformanceQueueStore, refererStore, modelDownloadUrlStore, autoStore, conformanceStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
+import { sleepStore, fallbackLogStore, fallbackStore, fallbackQueueStore, conformanceLogStore, conformanceQueueStore, refererStore, modelDownloadUrlStore, autoStore, conformanceStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
 import { models, uniqueBackends, corsSites } from '../../config';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
@@ -35,6 +35,10 @@ export const clearConformanceQueue = () => {
 
 export const addConformance = (value) => {
   conformanceStore.update((arr) => [...arr, value]);
+}
+
+export const updateConformance = (value) => {
+  conformanceStore.update(() => value);
 }
 
 export const clearConformance = () => {
@@ -250,6 +254,18 @@ export let auto;
 autoStore.subscribe((value) => {
   auto = value;
 });
+
+/**
+ * @type {boolean}
+ */
+export let sleeping;
+sleepStore.subscribe((value) => {
+  sleeping = value;
+});
+
+export const updateSleep = (value) => {
+  sleepStore.update(() => value);
+}
 
 /**
  * @type {number}

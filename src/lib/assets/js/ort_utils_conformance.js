@@ -1,11 +1,12 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '../../config';
-import { compareObjects, addConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
-import { modelDownloadUrlStore, conformanceQueueStore, conformanceStore } from '../../store/store';
+import { compareObjects, addConformance, updateConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
+import { sleepStore, modelDownloadUrlStore, conformanceQueueStore, conformanceStore } from '../../store/store';
 
 import { getGpu } from '$lib/assets/js/utils';
 import { getModelOPFS } from './nn_utils'
 import to from 'await-to-js';
+import { sleep } from '$lib/assets/js/utils';
 // import localforage from 'localforage';
 
 
@@ -33,6 +34,18 @@ export let modelDownloadUrl;
 modelDownloadUrlStore.subscribe((value) => {
   modelDownloadUrl = value;
 });
+
+/**
+ * @type {boolean}
+ */
+export let sleeping;
+sleepStore.subscribe((value) => {
+  sleeping = value;
+});
+
+export const updateSleep = (value) => {
+  sleepStore.update(() => value);
+}
 
 const getInputsById = (id) => {
   for (const model of models) {
@@ -321,8 +334,18 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
   console.log(`---- ${_backend} ----`);
   console.log(result);
 
-  result = result.subarray(0, 100);
+  // result = result.subarray(0, 100);
+
+  if (result instanceof BigInt64Array) {
+    console.log(`The variable array is a BigInt64Array`)
+  }
+
+  BigInt.prototype.toJSON = function () {
+    return this.toString();
+  };
+
   updateConformanceLog(JSON.stringify(result));
+  updateConformanceLog(`[6] You can copy raw inference results in Console of Developer Tool`);
   if (_backend === "wasm_4") {
     // // await localforage.setItem(_model + "__wasm_4", result);
     obj.result = result;
@@ -334,35 +357,59 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
     obj.conformance_e3 = '1e-3';
     obj.conformance_e4 = '1e-4';
     obj.conformance_e5 = '1e-5';
-    updateConformanceLog(`[6] Using ${_backend} results as the baseline`);
+    updateConformanceLog(`[7] Using ${_backend} results as the baseline`);
   } else {
-    for (let c of conformance) {
-      if (c.name === _model && c.backend === "wasm_4") {
-        let r = '';
-        compareObjects(result, c.result, 1e-3) ? r = 'pass' : r = 'fail';
-        obj.conformance_e3 = r;
-        updateConformanceLog(`[6.1] Conformance [1e-3] on ${_backend}: ${r}`);
+    if (result instanceof BigInt64Array) {
+      for (let c of conformance) {
+        if (c.name === _model && c.backend === "wasm_4") {
+          let r = '';
+          compareObjects(JSON.stringify(result), c.result, 1e-3) ? r = 'pass' : r = 'fail';
+          obj.conformance_e3 = r;
+          updateConformanceLog(`[8.1] Conformance [1e-3] on ${_backend}: ${r}`);
 
-        compareObjects(result, c.result, 1e-4) ? r = 'pass' : r = 'fail';
-        obj.conformance_e4 = r;
-        updateConformanceLog(`[6.3] Conformance [1e-4] on ${_backend}: ${r}`);
+          compareObjects(JSON.stringify(result), c.result, 1e-4) ? r = 'pass' : r = 'fail';
+          obj.conformance_e4 = r;
+          updateConformanceLog(`[8.2] Conformance [1e-4] on ${_backend}: ${r}`);
 
-        compareObjects(result, c.result, 1e-5) ? r = 'pass' : r = 'fail';
-        obj.conformance_e5 = r;
-        updateConformanceLog(`[6.4] Conformance [1e-5] on ${_backend}: ${r}`);
+          compareObjects(JSON.stringify(result), c.result, 1e-5) ? r = 'pass' : r = 'fail';
+          obj.conformance_e5 = r;
+          updateConformanceLog(`[8.3] Conformance [1e-5] on ${_backend}: ${r}`);
+        }
+      }
+    } else {
+      for (let c of conformance) {
+        if (c.name === _model && c.backend === "wasm_4") {
+          let r = '';
+          compareObjects(result, c.result, 1e-3) ? r = 'pass' : r = 'fail';
+          obj.conformance_e3 = r;
+          updateConformanceLog(`[8.1] Conformance [1e-3] on ${_backend}: ${r}`);
+
+          compareObjects(result, c.result, 1e-4) ? r = 'pass' : r = 'fail';
+          obj.conformance_e4 = r;
+          updateConformanceLog(`[8.2] Conformance [1e-4] on ${_backend}: ${r}`);
+
+          compareObjects(result, c.result, 1e-5) ? r = 'pass' : r = 'fail';
+          obj.conformance_e5 = r;
+          updateConformanceLog(`[8.3] Conformance [1e-5] on ${_backend}: ${r}`);
+        }
       }
     }
   }
 
   addConformance(obj);
 
-  updateConformanceLog(`[7] Conformance test of ${_model} (${_modelType} /${_dataType}) with ${_backend} backend on ${getGpu()} completed`);
+  if (_backend === "webnn_gpu") {
+    // clearConformance();
+    let obj = conformance.forEach(obj => delete obj.result);
+    updateConformance(obj);
+  }
+
+  if (sleeping) {
+    await sleep(10000);
+  }
+
+  updateConformanceLog(`[9] Conformance test of ${_model} (${_modelType} /${_dataType}) with ${_backend} backend on ${getGpu()} completed`);
   updateConformanceLog('|-------------------------------------------------------------------------------------|');
-
-  // if (_backend === "webnn_gpu") {
-  //   clearConformance();
-  // }
-
   next(_model, _backend);
 
   // try {
@@ -403,6 +450,7 @@ const next = (_model, _backend) => {
 }
 
 export const runOnnxConformance = async (_model, _modelType, _dataType, _backend) => {
+  // mainConformance(_model, _modelType, _dataType, _backend);
   const [err, data] = await to(mainConformance(_model, _modelType, _dataType, _backend));
   if (err) {
     updateConformanceLog(`[Error] ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
@@ -417,6 +465,17 @@ export const runOnnxConformance = async (_model, _modelType, _dataType, _backend
     };
     obj.error = err.message;
     addConformance(obj);
+
+    if (_backend === "webnn_gpu") {
+      // clearConformance();
+      console.log(conformance);
+      let obj = conformance.map(obj => {
+        const { result, ...rest } = obj;
+        return rest;
+      });
+      updateConformance(obj);
+    }
+
     next(_model, _backend);
   } else {
     // use data 

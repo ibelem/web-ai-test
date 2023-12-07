@@ -30,6 +30,15 @@
 		if ($page.url.pathname.indexOf('web-ai-benchmark') > -1) {
 			host = host + '/web-ai-benchmark';
 		}
+
+		if (
+			$page.url.pathname.indexOf('fallback') > -1 ||
+			$page.url.pathname.indexOf('conformance') > -1 ||
+			$page.url.pathname.indexOf('about') > -1
+		) {
+			fullSearch = '';
+		}
+
 		url = `${host}${fullSearch}`;
 	};
 

@@ -508,23 +508,6 @@ export let models = [
     }],
     inputstip: '[1, 63] [1, 63] [1, 63]'
   },
-  // {
-  //   category: 'Text Generation',
-  //   id: 'codegen_350m_mono_int8',
-  //   name: 'CodeGen Mono 350M',
-  //   description: 'A family of autoregressive language models for program synthesis.',
-  //   note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-  //   source: 'https://huggingface.co/Xenova/codegen-350M-mono/tree/main/onnx',
-  //   model: 'transformer.js/codegen-350m-mono/decoder_model_quantized.onnx',
-  //   size: '350 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1 }],
-  //     'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }]
-  //   }],
-  //   inputstip: '[1, 8] [1, 8]'
-  // },
   {
     category: 'Zero-Shot Image Classification',
     id: 'clip_vit_base_patch16_int8',
@@ -543,6 +526,41 @@ export let models = [
     }],
     inputstip: '[1, 77] [1, 3, 224, 224] [1, 77]'
   },
+  {
+    category: 'Text Generation',
+    id: 'codegen_350m_mono',
+    name: 'CodeGen Mono 350M',
+    description: 'A family of autoregressive language models for program synthesis.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/codegen-350M-mono/tree/main/onnx',
+    model: 'transformer.js/codegen-350m-mono/decoder_model_quantized.onnx',
+    size: '1.33 GB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }]
+    }],
+    inputstip: '[1, 8] [1, 8]'
+  },
+  {
+    category: 'Text Generation',
+    id: 'codegen_350m_mono_int8',
+    name: 'CodeGen Mono 350M',
+    description: 'A family of autoregressive language models for program synthesis.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/codegen-350M-mono/tree/main/onnx',
+    model: 'transformer.js/codegen-350m-mono/decoder_model_quantized.onnx',
+    size: '350 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1 }],
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1 }]
+    }],
+    inputstip: '[1, 8] [1, 8]'
+  },
+
   {
     category: 'Object Detection',
     id: 'detr_resnet_50',

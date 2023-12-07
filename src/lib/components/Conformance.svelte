@@ -38,7 +38,7 @@
 			conformance_e3: item.conformance_e3 || '',
 			conformance_e4: item.conformance_e4 || '',
 			conformance_e5: item.conformance_e5 || '',
-			result: item.result || {},
+			// result: item.result || {},
 			error: item.error || ''
 		};
 	});
