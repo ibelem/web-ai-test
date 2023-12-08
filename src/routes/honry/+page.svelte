@@ -262,22 +262,6 @@
 					<div>{fb}</div>
 				{/each}
 			</div>
-			<div class="progress">
-				<div>
-					{#if fallbackQueue[0]}In testing: {fallbackQueue[0]
-							.replace('__cpu', ' webnn_cpu')
-							.replace('__gpu', ' webnn_gpu')}{/if}
-				</div>
-				<div class="queue">
-					{#if fallbackQueue.length > 0}Test queue: {fallbackQueue.length} left{:else}Fallback test
-						completed{/if}
-				</div>
-				<div class="next">
-					{#if fallbackQueue[1]}Next: {fallbackQueue[1]
-							.replace('__cpu', ' webnn_cpu')
-							.replace('__gpu', ' webnn_gpu')}{/if}
-				</div>
-			</div>
 		{/if}
 		<div class="q copy">
 			<div>
