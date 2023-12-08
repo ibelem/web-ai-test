@@ -240,18 +240,6 @@
 					<div>{fb}</div>
 				{/each}
 			</div>
-			<div class="progress">
-				<div>
-					{#if conformanceQueue[0]}In testing: {conformanceQueue[0].replace('__', ' ')}{/if}
-				</div>
-				<div class="queue">
-					{#if conformanceQueue.length > 0}Test queue: {conformanceQueue.length} left{:else}Conformance
-						test completed{/if}
-				</div>
-				<div class="next">
-					{#if conformanceQueue[1]}Next: {conformanceQueue[1].replace('__', ' ')}{/if}
-				</div>
-			</div>
 		{/if}
 		<div class="q copy">
 			<div>
