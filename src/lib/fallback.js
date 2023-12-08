@@ -3650,6 +3650,62 @@ export const fallback = [
     ]
   },
   {
+    "name": "distil_medium_en_encoder_int8",
+    "backend": "cpu",
+    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+    "partitions_supported_by_webnn": 269,
+    "nodes_in_the_graph": 1929,
+    "nodes_supported_by_webnn": 1416,
+    "supported": [
+      "Add",
+      "Div",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sub",
+      "Transpose"
+    ],
+    "not_supported": [
+      "Cast",
+      "ConvInteger",
+      "DynamicQuantizeLinear",
+      "Erf",
+      "MatMul",
+      "MatMulInteger",
+      "Sqrt"
+    ]
+  },
+  {
+    "name": "distil_medium_en_encoder_int8",
+    "backend": "gpu",
+    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to close and execute the command list.",
+    "partitions_supported_by_webnn": 146,
+    "nodes_in_the_graph": 1833,
+    "nodes_supported_by_webnn": 1589,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose"
+    ],
+    "not_supported": [
+      "ConvInteger",
+      "DynamicQuantizeLinear",
+      "MatMulInteger"
+    ]
+  },
+  {
     "name": "t5_small_decoder_int8",
     "backend": "cpu",
     "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
