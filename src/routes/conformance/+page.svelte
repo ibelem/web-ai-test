@@ -270,7 +270,7 @@
 					{#if conformanceQueue[0]}In testing: {conformanceQueue[0].replace('__', ' ')}{/if}
 				</div>
 				<div class="queue">
-					{#if conformanceQueue.length > 0}Test queue: {conformanceQueue.length} left{:else}Fallback
+					{#if conformanceQueue.length > 0}Test queue: {conformanceQueue.length} left{:else}Conformance
 						test completed{/if}
 				</div>
 				<div class="next">
