@@ -3,32 +3,29 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Environment from '$lib/components/Environment.svelte';
 	import { models } from '$lib/config';
+	import Enlarge from '$lib/components/svg/Enlarge.svelte';
+	import FitScreen from '$lib/components/svg/FitScreen.svelte';
 	import Log from '$lib/components/svg/Log.svelte';
 	import LogToggle from '$lib/components/svg/LogToggle.svelte';
 	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
+	import { page } from '$app/stores';
 	import {
 		getModelDataTypeById,
-		getModelDescriptionById,
-		getModelNoteById,
 		getModelNameById,
 		clearConformance,
 		clearConformanceLog,
 		updateConformanceLog,
 		clearConformanceQueue,
-		updateConformanceQueue,
 		resetStore,
-		setModelDownloadUrl,
-		updateSleep
+		setModelDownloadUrl
 	} from '$lib/assets/js/utils';
 	import {
 		conformanceLogStore,
 		conformanceStore,
 		conformanceQueueStore,
-		autoStore,
-		sleepStore
+		autoStore
 	} from '$lib/store/store';
-	import Conformance from '$lib/components/Conformance.svelte';
-	import { runOnnxConformance } from '$lib/assets/js/ort_utils_conformance';
+	import { runOnnxConformance, rawResult } from '$lib/assets/js/ort_utils_conformance';
 
 	/**
 	 * @type {string[]}
@@ -54,110 +51,38 @@
 		conformanceLog = value;
 	});
 
-	/**
-	 * @type {boolean}
-	 */
-	export let sleeping;
-	sleepStore.subscribe((value) => {
-		sleeping = value;
-	});
-
-	/**
-	 * @type {boolean}
-	 */
-	let localSleep;
-
 	$: conformanceString = JSON.stringify(conformance);
 
-	const toggleSleep = () => {
-		updateSleep(localSleep);
-	};
+	/**
+	 * @type {string}
+	 */
+	let id;
+	/**
+	 * @type {string}
+	 */
+	let backend;
 
-	const run = () => {
-		/**
-		 * @type {string}
-		 */
-		let id;
-		/**
-		 * @type {string}
-		 */
-		let backend;
-		if (conformanceQueue.length > 0) {
-			id = conformanceQueue[0].split('__')[0];
-			backend = conformanceQueue[0].split('__')[1];
-			// let model = models.find((item) => item.id === id);
-			// model.backend = backend;
+	const run = async () => {
+		let params = $page.url.searchParams.get('q');
 
-			runOnnxConformance(id, 'onnx', getModelDataTypeById(id), backend);
-			// location.href = location.pathname;
+		if (params) {
+			id = params.split('__')[0];
+			backend = params.split('__')[1];
+			rawConsole = '';
+			let model = models.find((item) => item.id === id);
+			model.backend = backend;
+			await runOnnxConformance(id, 'onnx', getModelDataTypeById(id), backend);
+			rawConsole = JSON.stringify(rawResult, null, ' ');
+			rawConsole = rawConsole;
 			conformance = conformance;
 			conformanceLog = conformanceLog;
 		}
 	};
 
-	const addSuffixes = (/** @type {any[]} */ array, /** @type {any[]} */ suffixes) => {
-		/**
-		 * @type {any[]}
-		 */
-		let result = [];
-		array.forEach((/** @type {any} */ item) => {
-			suffixes.forEach((/** @type {any} */ suffix) => {
-				result.push(item + suffix);
-			});
-		});
-		return result;
-	};
-
-	const setConformanceQueue = (/** @type {string} */ id) => {
-		// conformance = [];
-		// conformanceLog = [];
-		// conformanceString = [];
-
-		clearConformance();
-		clearConformanceQueue();
-		clearConformanceLog();
-
-		let bk = ['__wasm_4', '__webnn_cpu_4', '__webgl', '__webgpu', '__webnn_gpu'];
-
-		if (id === 'all') {
-			let m = models.map((model) => model.id);
-			m = m.filter((item) => item !== 'model_access_check');
-			m = addSuffixes(m, bk);
-			updateConformanceQueue(m);
-		} else if (id === 'fp32') {
-			let m = models.filter((model) => getModelDataTypeById(model.id) === 'fp32');
-			let model = m.map((model) => model.id);
-			model = addSuffixes(model, bk);
-			updateConformanceQueue(model);
-		}
-		// else if (id === 'int64') {
-		// 	let m = models.filter((model) => getModelDataTypeById(model.id) === 'int64');
-		// 	let model = m.map((model) => model.id);
-		// 	model = addSuffixes(model, bk);
-		// 	updateConformanceQueue(model);
-		// }
-		else if (id === 'fp16') {
-			let m = models.filter((model) => getModelDataTypeById(model.id) === 'fp16');
-			let model = m.map((model) => model.id);
-			model = addSuffixes(model, bk);
-			updateConformanceQueue(model);
-		} else if (id === 'int8') {
-			let m = models.filter((model) => getModelDataTypeById(model.id) === 'int8');
-			let model = m.map((model) => model.id);
-			model = addSuffixes(model, bk);
-			updateConformanceQueue(model);
-		} else {
-			let m = models.map((model) => model.id);
-			let model = [m.find((item) => item === id)];
-			model = addSuffixes(model, bk);
-			updateConformanceQueue(model);
-		}
-
-		run();
-	};
-
 	let logShow = true;
 	let jsonLogShow = true;
+	let consoleSize = false;
+	$: rawConsole = '';
 
 	const copyJsonInfo = async () => {
 		let log = JSON.stringify(conformance).toString();
@@ -166,11 +91,21 @@
 		conformanceLog = conformanceLog;
 	};
 
+	const copyRawConsole = async () => {
+		await navigator.clipboard.writeText(rawConsole.replaceAll(' ', '').replaceAll('\n', ''));
+		updateConformanceLog(`Raw inference result copied`);
+		rawConsole = rawConsole;
+	};
+
 	const copyLogInfo = async () => {
 		let log = conformanceLog.toString().replaceAll(',', '\r\n');
 		await navigator.clipboard.writeText(log);
 		updateConformanceLog(`Log history copied`);
 		conformanceLog = conformanceLog;
+	};
+
+	const toggleConsole = () => {
+		consoleSize = !consoleSize;
 	};
 
 	/**
@@ -191,6 +126,15 @@
 		scrollToBottom(element2);
 	}
 
+	/**
+	 * @type {HTMLDivElement}
+	 */
+	let element3;
+
+	$: if (element3) {
+		scrollToBottom(element3);
+	}
+
 	const scrollToBottom = (/** @type {HTMLDivElement} */ node) => {
 		node?.scroll({ top: node.scrollHeight, behavior: 'smooth' });
 	};
@@ -200,20 +144,23 @@
 		autoStore.update(() => false);
 		if (conformance) scrollToBottom(element);
 		if (conformanceLog) scrollToBottom(element2);
+		if (rawConsole) scrollToBottom(element3);
 	});
+
+	const nav = (/** @type {string} */ path) => {
+		rawConsole = '';
+		location.href = location.origin + `/c2?q=${path}`;
+	};
 
 	afterUpdate(() => {});
 
 	onMount(async () => {
-		if (sleeping) {
-			localSleep = sleeping;
-		} else {
-			localSleep = false;
-		}
 		await setModelDownloadUrl();
-		if (conformanceQueue.length > 0) {
-			run();
-		}
+		rawConsole = '';
+		clearConformance();
+		clearConformanceQueue();
+		clearConformanceLog();
+		await run();
 	});
 </script>
 
@@ -221,18 +168,46 @@
 
 <div class="tqtitle subtitle">
 	<div class="title tq">WebNN Conformance Tests</div>
+	{#if id && backend}
+		<div class="title tq">{id}</div>
+		<div class="title tq">{backend}</div>
+	{/if}
 	<div>Check the WebNN conformance status with your current browser</div>
 </div>
 
-<div>
-	<label>
-		<input type="checkbox" bind:checked={localSleep} on:change={toggleSleep} />
-		Sleep 10s to get raw inference results from Console of Developer Tool during the testing
-	</label>
-</div>
+<div class="g2 {consoleSize}">
+	<div class="fs rawconsole">
+		{#if jsonLogShow}
+			<div class="inferlog" bind:this={element3}>
+				<div>{@html rawConsole}</div>
+			</div>
+		{/if}
+		<div class="q copy">
+			<div>
+				<button title="Switch the element size" on:click={() => toggleConsole()}>
+					{#if consoleSize}
+						<Enlarge />
+					{:else}
+						<FitScreen />
+					{/if}
+				</button>
+				<button title="Copy raw inference result" on:click={() => copyRawConsole()}>
+					<Log />
+				</button>
 
-{#if conformanceString && conformanceString.length > 2}
-	<div>
+				<button
+					title="Hide logs"
+					on:click={() => {
+						jsonLogShow = !jsonLogShow;
+					}}
+				>
+					<LogToggle />
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="fs">
 		{#if jsonLogShow}
 			<div class="inferlog" bind:this={element}>
 				<div>{conformanceString}</div>
@@ -255,7 +230,7 @@
 			</div>
 		</div>
 	</div>
-{/if}
+</div>
 
 {#if conformanceLog && conformanceLog.length > 0}
 	<div class="log">
@@ -297,63 +272,67 @@
 	</div>
 {/if}
 
-<div class="title tq"><button on:click={() => setConformanceQueue('fp32')}>Float32</button></div>
-<div>
+<div class="title tq">Float32</div>
+<div class="ho">
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'fp32'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
+				<div class="b">
+					<div class="t">{getModelNameById(m.id)}</div>
+					<div class="i">
+						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
+						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__webnn_cpu_4')}>WebNN CPU </a>
+						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
+						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
+						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
+						<a class="fb2 npu" href="" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
+					</div>
+				</div>
 			{/if}
 		{/if}
 	{/each}
 </div>
 
-<!-- <div class="title tq"><button on:click={() => setConformanceQueue('int64')}>INT64</button></div>
-<div>
-	{#each models as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'int64'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
-			{/if}
-		{/if}
-	{/each}
-</div> -->
-
-<div class="title tq"><button on:click={() => setConformanceQueue('fp16')}>Float16</button></div>
-<div>
+<div class="title tq">Float16</div>
+<div class="ho">
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'fp16'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
+				<div class="b">
+					<div class="t">{getModelNameById(m.id)}</div>
+					<div class="i">
+						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
+						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__webnn_cpu_4')}>WebNN CPU </a>
+						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
+						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
+						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
+						<a class="fb2 npu" href="" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
+					</div>
+				</div>
 			{/if}
 		{/if}
 	{/each}
 </div>
 
-<div class="title tq"><button on:click={() => setConformanceQueue('int8')}>Int8</button></div>
-<div>
+<div class="title tq">Int8</div>
+<div class="ho">
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'int8'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
+				<div class="b">
+					<div class="t">{getModelNameById(m.id)}</div>
+					<div class="i">
+						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
+						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__webnn_cpu_4')}>WebNN CPU </a>
+						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
+						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
+						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
+						<a class="fb2 npu" href="" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
+					</div>
+				</div>
 			{/if}
 		{/if}
 	{/each}
-</div>
-
-<Conformance />
-
-<div class="run" title="It will take quite a long time...">
-	<button on:click={() => setConformanceQueue('all')}>Test Conformance for All Models</button>
-	<button class="log" on:click={() => clearConformanceQueue()}>Cancel</button>
 </div>
 
 <Environment />
@@ -366,6 +345,58 @@
 
 	.subtitle {
 		margin-bottom: 10px;
+	}
+
+	.ho {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr;
+		grid-column-gap: 0px;
+		grid-row-gap: 0px;
+	}
+
+	.ho .b {
+		margin: 4px 0 0 0;
+	}
+	.ho .b .i,
+	.ho .t {
+		display: inline-block;
+	}
+	.ho .t {
+		width: 160px;
+		font-size: 10px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		margin: -4px;
+	}
+
+	.fb2 {
+		border: 1px solid var(--grey-02);
+		padding: 0px 6px 0px 6px;
+		background: transparent;
+		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		background-color: var(--white);
+		color: var(--font);
+		cursor: pointer;
+		width: 60px;
+		text-align: center;
+		font-size: 10px;
+	}
+
+	.fb2.cpu:hover {
+		border: 1px solid var(--b1);
+		color: var(--b1);
+	}
+
+	.fb2.gpu:hover {
+		border: 1px solid var(--p2);
+		color: var(--p2);
+	}
+
+	.fb2.npu:hover {
+		border: 1px solid var(--purple);
+		color: var(--purple);
 	}
 
 	.title {
@@ -428,8 +459,6 @@
 
 	.f {
 		cursor: pointer;
-		display: inline-block;
-		margin: 2px 4px;
 		min-width: 45px;
 		text-align: center;
 	}
@@ -441,7 +470,6 @@
 		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		background-color: var(--white);
 		color: var(--font);
-		font-size: 12px;
 		cursor: pointer;
 		width: 176px;
 		text-overflow: ellipsis;
@@ -483,9 +511,39 @@
 		justify-self: right;
 	}
 
+	.g2 {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr;
+		grid-column-gap: 10px;
+		grid-row-gap: 0px;
+	}
+
+	.g2 .fs {
+		width: 44.2vw;
+	}
+
+	.true.g2 {
+		display: block;
+	}
+
+	.true.g2 .fs {
+		width: 100%;
+	}
+
+	.true.g2 .rawconsole .inferlog {
+		height: 60vh;
+	}
+
 	@media (max-width: 512px) {
 		.f button {
 			width: 46.6vw;
+		}
+		.g2 {
+			display: block;
+		}
+		.g2 .fs {
+			width: 100%;
 		}
 	}
 </style>
