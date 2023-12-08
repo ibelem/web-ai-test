@@ -137,6 +137,10 @@
 		margin-bottom: 10px;
 	}
 
+	.mt {
+		margin-top: 20px;
+	}
+
 	.name {
 		width: 6vw;
 	}

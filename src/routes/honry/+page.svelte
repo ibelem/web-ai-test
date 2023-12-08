@@ -7,11 +7,10 @@
 	import LogToggle from '$lib/components/svg/LogToggle.svelte';
 	import Enlarge from '$lib/components/svg/Enlarge.svelte';
 	import FitScreen from '$lib/components/svg/FitScreen.svelte';
+	import { page } from '$app/stores';
 	import { onMount, beforeUpdate } from 'svelte';
 	import {
 		getModelDataTypeById,
-		getModelDescriptionById,
-		getModelNoteById,
 		getModelNameById,
 		addFallback,
 		resetFallback,
@@ -22,7 +21,6 @@
 		resetStore
 	} from '$lib/assets/js/utils';
 	import { fallbackLogStore, fallbackStore, fallbackQueueStore, autoStore } from '$lib/store/store';
-	import Fallback from '$lib/components/Fallback.svelte';
 
 	/**
 	 * @type {string[]}
@@ -50,7 +48,7 @@
 
 	$: fallbackString = JSON.stringify(fallback);
 
-	$: rawConsole = 'Raw console log for WebNN EP developers';
+	$: rawConsole = '';
 
 	const run = () => {
 		/**
@@ -62,15 +60,18 @@
 		 */
 		let backend;
 
+		rawConsole = '';
+
+		let params = $page.url.searchParams.get('q');
 		const worker = new Worker(ortDists.webnn_webglfix.workerjs);
-		if (fallbackQueue.length > 0) {
-			id = fallbackQueue[0].split('__')[0];
-			backend = fallbackQueue[0].split('__')[1];
+
+		if (params) {
+			id = params.split('__')[0];
+			backend = params.split('__')[1];
+			rawConsole = '';
 			let model = models.find((item) => item.id === id);
 			model.backend = backend;
-			rawConsole = '';
 			worker.postMessage(model);
-			// location.href = location.pathname;
 		}
 
 		worker.onmessage = (event) => {
@@ -100,65 +101,6 @@
 			fallbackLog = fallbackLog;
 			// Handle the output received from the worker
 		};
-	};
-
-	const addSuffixes = (/** @type {any[]} */ array, /** @type {any[]} */ suffixes) => {
-		/**
-		 * @type {any[]}
-		 */
-		let result = [];
-		array.forEach((/** @type {any} */ item) => {
-			suffixes.forEach((/** @type {any} */ suffix) => {
-				result.push(item + suffix);
-			});
-		});
-		return result;
-	};
-
-	const setFallbackQueue = (/** @type {string} */ id) => {
-		// fallback = [];
-		// fallbackLog = [];
-		// fallbackString = [];
-
-		resetFallback();
-		resetFallbackQueue();
-		resetFallbackLog();
-
-		let bk = ['__cpu', '__gpu'];
-
-		if (id === 'all') {
-			let m = models.map((model) => model.id);
-			updateFallbackQueue(m.filter((item) => item !== 'model_access_check'));
-		} else if (id === 'fp32') {
-			let m = models.filter((model) => getModelDataTypeById(model.id) === 'fp32');
-			let model = m.map((model) => model.id);
-			model = addSuffixes(model, bk);
-			updateFallbackQueue(model);
-		}
-		// else if (id === 'int64') {
-		// 	let m = models.filter((model) => getModelDataTypeById(model.id) === 'int64');
-		// 	let model = m.map((model) => model.id);
-		// 	model = addSuffixes(model, bk);
-		// 	updateFallbackQueue(model);
-		// }
-		else if (id === 'fp16') {
-			let m = models.filter((model) => getModelDataTypeById(model.id) === 'fp16');
-			let model = m.map((model) => model.id);
-			model = addSuffixes(model, bk);
-			updateFallbackQueue(model);
-		} else if (id === 'int8') {
-			let m = models.filter((model) => getModelDataTypeById(model.id) === 'int8');
-			let model = m.map((model) => model.id);
-			model = addSuffixes(model, bk);
-			updateFallbackQueue(model);
-		} else {
-			let m = models.map((model) => model.id);
-			let model = [m.find((item) => item === id)];
-			model = addSuffixes(model, bk);
-			updateFallbackQueue(model);
-		}
-
-		run();
 	};
 
 	let logShow = true;
@@ -229,10 +171,17 @@
 		if (rawConsole) scrollToBottom(element3);
 	});
 
+	const nav = (/** @type {string} */ path) => {
+		rawConsole = '';
+		location.href = location.origin + `/honry?q=${path}`;
+	};
+
 	onMount(() => {
-		if (fallbackQueue.length > 0) {
-			run();
-		}
+		rawConsole = '';
+		resetFallback();
+		resetFallbackQueue();
+		resetFallbackLog();
+		run();
 	});
 </script>
 
@@ -344,63 +293,40 @@
 	</div>
 {/if}
 
-<div class="title tq"><button on:click={() => setFallbackQueue('fp32')}>Float32</button></div>
+<div class="title tq">Float32</div>
 <div class="ho">
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'fp32'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
+				<a class="fb2" href="" on:click={() => nav(m.id + '__cpu')}>{getModelNameById(m.id)} C</a>
+				<a class="fb2" href="" on:click={() => nav(m.id + '__gpu')}>{getModelNameById(m.id)} G</a>
 			{/if}
 		{/if}
 	{/each}
 </div>
 
-<!-- <div class="title tq"><button on:click={() => setFallbackQueue('int64')}>INT64</button></div>
-<div>
-	{#each models as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'int64'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
-			{/if}
-		{/if}
-	{/each}
-</div> -->
-
-<div class="title tq"><button on:click={() => setFallbackQueue('fp16')}>Float16</button></div>
+<div class="title tq">Float16</div>
 <div class="ho">
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'fp16'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
+				<a class="fb2" href="" on:click={() => nav(m.id + '__cpu')}>{getModelNameById(m.id)} C</a>
+				<a class="fb2" href="" on:click={() => nav(m.id + '__gpu')}>{getModelNameById(m.id)} G</a>
 			{/if}
 		{/if}
 	{/each}
 </div>
 
-<div class="title tq"><button on:click={() => setFallbackQueue('int8')}>Int8</button></div>
+<div class="title tq">Int8</div>
 <div class="ho">
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'int8'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
+				<a class="fb2" href="" on:click={() => nav(m.id + '__cpu')}>{getModelNameById(m.id)} C</a>
+				<a class="fb2" href="" on:click={() => nav(m.id + '__gpu')}>{getModelNameById(m.id)} G</a>
 			{/if}
 		{/if}
 	{/each}
-</div>
-
-<Fallback />
-
-<div class="run" title="It will take quite a long time...">
-	<button on:click={() => setFallbackQueue('all')}>Check WebNN Fallback for All Models</button>
-	<button class="log" on:click={() => resetFallbackQueue()}>Cancel</button>
 </div>
 
 <Environment />
@@ -413,6 +339,26 @@
 
 	.subtitle {
 		margin-bottom: 10px;
+	}
+
+	.ho {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px;
+	}
+
+	.fb2 {
+		border: 1px solid var(--grey-02);
+		padding: 0px 6px 0px 6px;
+		background: transparent;
+		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		background-color: var(--white);
+		color: var(--font);
+		cursor: pointer;
+		width: 176px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 	}
 
 	.title {
@@ -473,12 +419,6 @@
 		background-color: var(--green);
 	}
 
-	.ho {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 4px;
-	}
-
 	.f {
 		cursor: pointer;
 		min-width: 45px;
@@ -492,7 +432,6 @@
 		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		background-color: var(--white);
 		color: var(--font);
-		font-size: 12px;
 		cursor: pointer;
 		width: 176px;
 		text-overflow: ellipsis;

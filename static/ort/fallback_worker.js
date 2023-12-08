@@ -325,7 +325,6 @@ self.addEventListener('message', async (event) => {
 
     self.postMessage(`[7] WebNN fallback status of ${model.id} on ${model.backend} backend - Completed`);
     self.postMessage(obj);
-    await timeout(5000);
     self.postMessage('|-------------------------------------------------------------------------------------|');
   }
 
