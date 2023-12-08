@@ -17,7 +17,6 @@
 		resetFallbackLog,
 		updateFallbackLog,
 		resetFallbackQueue,
-		updateFallbackQueue,
 		resetStore
 	} from '$lib/assets/js/utils';
 	import { fallbackLogStore, fallbackStore, fallbackQueueStore, autoStore } from '$lib/store/store';
@@ -50,16 +49,16 @@
 
 	$: rawConsole = '';
 
-	const run = () => {
-		/**
-		 * @type {string}
-		 */
-		let id;
-		/**
-		 * @type {string}
-		 */
-		let backend;
+	/**
+	 * @type {string}
+	 */
+	let id;
+	/**
+	 * @type {string}
+	 */
+	let backend;
 
+	const run = async () => {
 		rawConsole = '';
 
 		let params = $page.url.searchParams.get('q');
@@ -176,12 +175,12 @@
 		location.href = location.origin + `/honry?q=${path}`;
 	};
 
-	onMount(() => {
+	onMount(async () => {
 		rawConsole = '';
 		resetFallback();
 		resetFallbackQueue();
 		resetFallbackLog();
-		run();
+		await run();
 	});
 </script>
 
@@ -189,6 +188,12 @@
 
 <div class="tqtitle subtitle">
 	<div class="title tq">WebNN Fallback Checker</div>
+	{#if id && backend}
+		<div class="title tq">{id}</div>
+		<div class="title tq">
+			{#if backend === 'cpu'}WebNN CPU{:else if backend === 'gpu'}WebNN GPU{/if}
+		</div>
+	{/if}
 	<div>Check the WebNN fallback status with your current browser</div>
 </div>
 

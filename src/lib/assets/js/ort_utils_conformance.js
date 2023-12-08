@@ -2,7 +2,6 @@
 import { models, ortDists } from '../../config';
 import { compareObjects, addConformance, updateConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
 import { sleepStore, modelDownloadUrlStore, conformanceQueueStore, conformanceStore } from '../../store/store';
-
 import { getGpu } from '$lib/assets/js/utils';
 import { getModelOPFS } from './nn_utils'
 import to from 'await-to-js';
@@ -176,6 +175,8 @@ const getModelUrl = (_model) => {
   return modelPath;
 }
 
+export let rawResult = '';
+
 const mainConformance = async (_model, _modelType, _dataType, _backend) => {
 
   let backend = 'wasm';
@@ -334,6 +335,8 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
   console.log(`---- ${_backend} ----`);
   console.log(result);
 
+  rawResult = result;
+
   // result = result.subarray(0, 100);
 
   if (result instanceof BigInt64Array) {
@@ -344,7 +347,7 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
     return this.toString();
   };
 
-  updateConformanceLog(JSON.stringify(result));
+  // updateConformanceLog(JSON.stringify(result));
   updateConformanceLog(`[6] You can copy raw inference results in Console of Developer Tool`);
   if (_backend === "wasm_4") {
     // // await localforage.setItem(_model + "__wasm_4", result);
@@ -354,43 +357,43 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
   await sess.release();
 
   if (_backend === "wasm_4") {
-    obj.conformance_e3 = '1e-3';
-    obj.conformance_e4 = '1e-4';
-    obj.conformance_e5 = '1e-5';
+    obj.e3 = '1e-3';
+    obj.e4 = '1e-4';
+    obj.e5 = '1e-5';
     updateConformanceLog(`[7] Using ${_backend} results as the baseline`);
   } else {
     if (result instanceof BigInt64Array) {
       for (let c of conformance) {
         if (c.name === _model && c.backend === "wasm_4") {
           let r = '';
-          compareObjects(JSON.stringify(result), c.result, 1e-3) ? r = 'pass' : r = 'fail';
-          obj.conformance_e3 = r;
-          updateConformanceLog(`[8.1] Conformance [1e-3] on ${_backend}: ${r}`);
+          await compareObjects(JSON.stringify(result), c.result, 1e-3) ? r = 'pass' : r = 'fail';
+          obj.e3 = r;
+          updateConformanceLog(`[7.1] Conformance [1e-3] on ${_backend}: ${r}`);
 
-          compareObjects(JSON.stringify(result), c.result, 1e-4) ? r = 'pass' : r = 'fail';
-          obj.conformance_e4 = r;
-          updateConformanceLog(`[8.2] Conformance [1e-4] on ${_backend}: ${r}`);
+          await compareObjects(JSON.stringify(result), c.result, 1e-4) ? r = 'pass' : r = 'fail';
+          obj.e4 = r;
+          updateConformanceLog(`[7.2] Conformance [1e-4] on ${_backend}: ${r}`);
 
-          compareObjects(JSON.stringify(result), c.result, 1e-5) ? r = 'pass' : r = 'fail';
-          obj.conformance_e5 = r;
-          updateConformanceLog(`[8.3] Conformance [1e-5] on ${_backend}: ${r}`);
+          await compareObjects(JSON.stringify(result), c.result, 1e-5) ? r = 'pass' : r = 'fail';
+          obj.e5 = r;
+          updateConformanceLog(`[7.3] Conformance [1e-5] on ${_backend}: ${r}`);
         }
       }
     } else {
       for (let c of conformance) {
         if (c.name === _model && c.backend === "wasm_4") {
           let r = '';
-          compareObjects(result, c.result, 1e-3) ? r = 'pass' : r = 'fail';
-          obj.conformance_e3 = r;
-          updateConformanceLog(`[8.1] Conformance [1e-3] on ${_backend}: ${r}`);
+          await compareObjects(result, c.result, 1e-3) ? r = 'pass' : r = 'fail';
+          obj.e3 = r;
+          updateConformanceLog(`[7.1] Conformance [1e-3] on ${_backend}: ${r}`);
 
-          compareObjects(result, c.result, 1e-4) ? r = 'pass' : r = 'fail';
-          obj.conformance_e4 = r;
-          updateConformanceLog(`[8.2] Conformance [1e-4] on ${_backend}: ${r}`);
+          await compareObjects(result, c.result, 1e-4) ? r = 'pass' : r = 'fail';
+          obj.e4 = r;
+          updateConformanceLog(`[7.2] Conformance [1e-4] on ${_backend}: ${r}`);
 
-          compareObjects(result, c.result, 1e-5) ? r = 'pass' : r = 'fail';
-          obj.conformance_e5 = r;
-          updateConformanceLog(`[8.3] Conformance [1e-5] on ${_backend}: ${r}`);
+          await compareObjects(result, c.result, 1e-5) ? r = 'pass' : r = 'fail';
+          obj.e5 = r;
+          updateConformanceLog(`[7.3] Conformance [1e-5] on ${_backend}: ${r}`);
         }
       }
     }
@@ -411,20 +414,20 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
     await sleep(10000);
   }
 
-  updateConformanceLog(`[9] Conformance test of ${_model} (${_modelType} /${_dataType}) with ${_backend} backend on ${getGpu()} completed`);
+  updateConformanceLog(`[8] Conformance test of ${_model} (${_modelType} /${_dataType}) with ${_backend} backend on ${getGpu()} completed`);
   updateConformanceLog('|-------------------------------------------------------------------------------------|');
   next(_model, _backend);
 
   // try {
   //   // const result_wasm_4 = await localforage.getItem(_model + "__wasm_4");
   //   if (_backend === "wasm_4") {
-  //     obj.conformance_e3 = 'baseline 1e-3';
-  //     obj.conformance_e4 = 'baseline 1e-4';
-  //     obj.conformance_e5 = 'baseline 1e-5';
+  //     obj.e3 = 'baseline 1e-3';
+  //     obj.e4 = 'baseline 1e-4';
+  //     obj.e5 = 'baseline 1e-5';
   //   } else {
-  //     compareObjects(result, result_wasm_4, 1e-3) ? obj.conformance_e3 = 'pass' : obj.conformance_e3 = 'fail';
-  //     compareObjects(result, result_wasm_4, 1e-4) ? obj.conformance_e4 = 'pass' : obj.conformance_e4 = 'fail';
-  //     compareObjects(result, result_wasm_4, 1e-5) ? obj.conformance_e5 = 'pass' : obj.conformance_e5 = 'fail';
+  //     compareObjects(result, result_wasm_4, 1e-3) ? obj.e3 = 'pass' : obj.e3 = 'fail';
+  //     compareObjects(result, result_wasm_4, 1e-4) ? obj.e4 = 'pass' : obj.e4 = 'fail';
+  //     compareObjects(result, result_wasm_4, 1e-5) ? obj.e5 = 'pass' : obj.e5 = 'fail';
   //   }
   //   addConformance(obj);
   //   updateConformanceLog(`[6] Conformance test of ${_model} (${_modelType} /${_dataType}) with ${_backend} backend on ${getGpu()} completed`);
@@ -462,9 +465,9 @@ export const runOnnxConformance = async (_model, _modelType, _dataType, _backend
       "name": _model,
       "backend": _backend,
       "gpu": getGpu(),
-      "conformance_e3": "n/a",
-      "conformance_e4": "n/a",
-      "conformance_e5": "n/a"
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a"
     };
     obj.error = err.message;
     addConformance(obj);

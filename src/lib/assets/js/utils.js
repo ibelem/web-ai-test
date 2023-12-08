@@ -133,7 +133,7 @@ export const initResult = (newItem) => {
   });
 }
 
-export const compareObjects = (obj1, obj2, tolerance) => {
+export const compareObjects = async (obj1, obj2, tolerance) => {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
 
@@ -142,6 +142,11 @@ export const compareObjects = (obj1, obj2, tolerance) => {
   }
 
   for (let key of keys1) {
+    // console.log(obj1[key]);
+    // console.log(obj2[key]);
+    // console.log('------');
+    // await sleep(10000);
+
     if (Math.abs(obj1[key] - obj2[key]) > tolerance) {
       return false;
     }
