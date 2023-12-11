@@ -1,6 +1,6 @@
 export const conformanceEnv = {
-  "version": '121.0.6166.0',
-  'last_update': 'Dec 6, 2023'
+  "version": '122.0.6169.0',
+  'last_update': 'Dec 11, 2023'
 }
 export const conformance = [
   { "name": "densenet", "backend": "wasm_4", "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11", "e3": "1e-3", "e4": "1e-4", "e5": "1e-5", "e6": "1e-6", "e7": "1e-7", "e8": "1e-8" }, { "name": "densenet", "backend": "webnn_cpu_4", "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11", "e3": "pass", "e4": "pass", "e5": "fail", "e6": "fail", "e7": "fail", "e8": "fail" }, { "name": "densenet", "backend": "webgl", "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11", "e3": "pass", "e4": "pass", "e5": "pass", "e6": "fail", "e7": "fail", "e8": "fail" }, { "name": "densenet", "backend": "webgpu", "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11", "e3": "pass", "e4": "pass", "e5": "fail", "e6": "fail", "e7": "fail", "e8": "fail" }, { "name": "densenet", "backend": "webnn_gpu", "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11", "e3": "pass", "e4": "pass", "e5": "pass", "e6": "fail", "e7": "fail", "e8": "fail" },
