@@ -38,6 +38,9 @@
 			e3: item.e3 || '',
 			e4: item.e4 || '',
 			e5: item.e5 || '',
+			e6: item.e6 || '',
+			e7: item.e7 || '',
+			e8: item.e8 || '',
 			// result: item.result || {},
 			error: item.error || ''
 		};
@@ -82,7 +85,10 @@
 							<span class="base">{wasm_4.e3}</span>
 							<span class="base">{wasm_4.e4}</span>
 							<span class="base">{wasm_4.e5}</span>
-							{#if wasm_4.error}<br /><span class="err">{wasm_4.error}</span>{/if}
+							<span class="base">{wasm_4.e6}</span>
+							<span class="base">{wasm_4.e7}</span>
+							<span class="base">{wasm_4.e8}</span>
+							{#if wasm_4.error}<span class="err">{wasm_4.error}</span>{/if}
 						{/if}
 					</div>
 					<div class="su">
@@ -102,7 +108,22 @@
 								>{:else if webgl.e5 === 'n/a'}
 								<span class="na">{webgl.e5}</span>{:else}<span>{webgl.e5}</span>
 							{/if}
-							{#if webgl.error}<br /><span class="err">{webgl.error}</span>{/if}
+							{#if webgl.e6 === 'pass'}<span class="pass">{webgl.e6}</span
+								>{:else if webgl.e6 === 'fail'}<span class="fail">{webgl.e6}</span
+								>{:else if webgl.e6 === 'n/a'}
+								<span class="na">{webgl.e6}</span>{:else}<span>{webgl.e6}</span>
+							{/if}
+							{#if webgl.e7 === 'pass'}<span class="pass">{webgl.e7}</span
+								>{:else if webgl.e7 === 'fail'}<span class="fail">{webgl.e7}</span
+								>{:else if webgl.e7 === 'n/a'}
+								<span class="na">{webgl.e7}</span>{:else}<span>{webgl.e7}</span>
+							{/if}
+							{#if webgl.e8 === 'pass'}<span class="pass">{webgl.e8}</span
+								>{:else if webgl.e8 === 'fail'}<span class="fail">{webgl.e8}</span
+								>{:else if webgl.e8 === 'n/a'}
+								<span class="na">{webgl.e8}</span>{:else}<span>{webgl.e8}</span>
+							{/if}
+							{#if webgl.error}<span class="err">{webgl.error}</span>{/if}
 						{/if}
 					</div>
 					<div class="su">
@@ -122,7 +143,22 @@
 								>{:else if webgpu.e5 === 'n/a'}
 								<span class="na">{webgpu.e5}</span>{:else}<span>{webgpu.e5}</span>
 							{/if}
-							{#if webgpu.error}<br /><span class="err">{webgpu.error}</span>{/if}
+							{#if webgpu.e6 === 'pass'}<span class="pass">{webgpu.e6}</span
+								>{:else if webgpu.e6 === 'fail'}<span class="fail">{webgpu.e6}</span
+								>{:else if webgpu.e6 === 'n/a'}
+								<span class="na">{webgpu.e6}</span>{:else}<span>{webgpu.e6}</span>
+							{/if}
+							{#if webgpu.e7 === 'pass'}<span class="pass">{webgpu.e7}</span
+								>{:else if webgpu.e7 === 'fail'}<span class="fail">{webgpu.e7}</span
+								>{:else if webgpu.e7 === 'n/a'}
+								<span class="na">{webgpu.e7}</span>{:else}<span>{webgpu.e7}</span>
+							{/if}
+							{#if webgpu.e8 === 'pass'}<span class="pass">{webgpu.e8}</span
+								>{:else if webgpu.e8 === 'fail'}<span class="fail">{webgpu.e8}</span
+								>{:else if webgpu.e8 === 'n/a'}
+								<span class="na">{webgpu.e8}</span>{:else}<span>{webgpu.e8}</span>
+							{/if}
+							{#if webgpu.error}<span class="err">{webgpu.error}</span>{/if}
 						{/if}
 					</div>
 					<div class="su">
@@ -142,7 +178,22 @@
 								>{:else if webnn_cpu_4.e5 === 'n/a'}
 								<span class="na">{webnn_cpu_4.e5}</span>{:else}<span>{webnn_cpu_4.e5}</span>
 							{/if}
-							{#if webnn_cpu_4.error}<br /><span class="err">{webnn_cpu_4.error}</span>{/if}
+							{#if webnn_cpu_4.e6 === 'pass'}<span class="pass">{webnn_cpu_4.e6}</span
+								>{:else if webnn_cpu_4.e6 === 'fail'}<span class="fail">{webnn_cpu_4.e6}</span
+								>{:else if webnn_cpu_4.e6 === 'n/a'}
+								<span class="na">{webnn_cpu_4.e6}</span>{:else}<span>{webnn_cpu_4.e6}</span>
+							{/if}
+							{#if webnn_cpu_4.e7 === 'pass'}<span class="pass">{webnn_cpu_4.e7}</span
+								>{:else if webnn_cpu_4.e7 === 'fail'}<span class="fail">{webnn_cpu_4.e7}</span
+								>{:else if webnn_cpu_4.e7 === 'n/a'}
+								<span class="na">{webnn_cpu_4.e7}</span>{:else}<span>{webnn_cpu_4.e7}</span>
+							{/if}
+							{#if webnn_cpu_4.e8 === 'pass'}<span class="pass">{webnn_cpu_4.e8}</span
+								>{:else if webnn_cpu_4.e8 === 'fail'}<span class="fail">{webnn_cpu_4.e8}</span
+								>{:else if webnn_cpu_4.e8 === 'n/a'}
+								<span class="na">{webnn_cpu_4.e8}</span>{:else}<span>{webnn_cpu_4.e8}</span>
+							{/if}
+							{#if webnn_cpu_4.error}<span class="err">{webnn_cpu_4.error}</span>{/if}
 						{/if}
 					</div>
 					<div class="su">
@@ -162,7 +213,22 @@
 								>{:else if webnn_gpu.e5 === 'n/a'}
 								<span class="na">{webnn_gpu.e5}</span>{:else}<span>{webnn_gpu.e5}</span>
 							{/if}
-							{#if webnn_gpu.error}<br /><span class="err">{webnn_gpu.error}</span>{/if}
+							{#if webnn_gpu.e6 === 'pass'}<span class="pass">{webnn_gpu.e6}</span
+								>{:else if webnn_gpu.e6 === 'fail'}<span class="fail">{webnn_gpu.e6}</span
+								>{:else if webnn_gpu.e6 === 'n/a'}
+								<span class="na">{webnn_gpu.e6}</span>{:else}<span>{webnn_gpu.e6}</span>
+							{/if}
+							{#if webnn_gpu.e7 === 'pass'}<span class="pass">{webnn_gpu.e7}</span
+								>{:else if webnn_gpu.e7 === 'fail'}<span class="fail">{webnn_gpu.e7}</span
+								>{:else if webnn_gpu.e7 === 'n/a'}
+								<span class="na">{webnn_gpu.e7}</span>{:else}<span>{webnn_gpu.e7}</span>
+							{/if}
+							{#if webnn_gpu.e8 === 'pass'}<span class="pass">{webnn_gpu.e8}</span
+								>{:else if webnn_gpu.e8 === 'fail'}<span class="fail">{webnn_gpu.e8}</span
+								>{:else if webnn_gpu.e8 === 'n/a'}
+								<span class="na">{webnn_gpu.e8}</span>{:else}<span>{webnn_gpu.e8}</span>
+							{/if}
+							{#if webnn_gpu.error}<span class="err">{webnn_gpu.error}</span>{/if}
 						{/if}
 					</div>
 					<div class="su">
@@ -182,7 +248,22 @@
 								>{:else if webnn_npu.e5 === 'n/a'}
 								<span class="na">{webnn_npu.e5}</span>{:else}<span>{webnn_npu.e5}</span>
 							{/if}
-							{#if webnn_npu.error}<br /><span class="err">{webnn_npu.error}</span>{/if}
+							{#if webnn_npu.e6 === 'pass'}<span class="pass">{webnn_npu.e6}</span
+								>{:else if webnn_npu.e6 === 'fail'}<span class="fail">{webnn_npu.e6}</span
+								>{:else if webnn_npu.e6 === 'n/a'}
+								<span class="na">{webnn_npu.e6}</span>{:else}<span>{webnn_npu.e6}</span>
+							{/if}
+							{#if webnn_npu.e7 === 'pass'}<span class="pass">{webnn_npu.e7}</span
+								>{:else if webnn_npu.e7 === 'fail'}<span class="fail">{webnn_npu.e7}</span
+								>{:else if webnn_npu.e7 === 'n/a'}
+								<span class="na">{webnn_npu.e7}</span>{:else}<span>{webnn_npu.e7}</span>
+							{/if}
+							{#if webnn_npu.e8 === 'pass'}<span class="pass">{webnn_npu.e8}</span
+								>{:else if webnn_npu.e8 === 'fail'}<span class="fail">{webnn_npu.e8}</span
+								>{:else if webnn_npu.e8 === 'n/a'}
+								<span class="na">{webnn_npu.e8}</span>{:else}<span>{webnn_npu.e8}</span>
+							{/if}
+							{#if webnn_npu.error}<span class="err">{webnn_npu.error}</span>{/if}
 						{/if}
 					</div>
 				</div>
@@ -210,7 +291,7 @@
 		color: var(--green);
 	}
 
-	#conformance .q_4.title.true {
+	#conformance .q._4.title.true {
 		position: sticky;
 		top: -1px;
 		background-color: var(--white-09);

@@ -360,6 +360,9 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
     obj.e3 = '1e-3';
     obj.e4 = '1e-4';
     obj.e5 = '1e-5';
+    obj.e6 = '1e-6';
+    obj.e7 = '1e-7';
+    obj.e8 = '1e-8';
     updateConformanceLog(`[7] Using ${_backend} results as the baseline`);
   } else {
     if (result instanceof BigInt64Array) {
@@ -377,6 +380,18 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
           await compareObjects(JSON.stringify(result), c.result, 1e-5) ? r = 'pass' : r = 'fail';
           obj.e5 = r;
           updateConformanceLog(`[7.3] Conformance [1e-5] on ${_backend}: ${r}`);
+
+          await compareObjects(JSON.stringify(result), c.result, 1e-6) ? r = 'pass' : r = 'fail';
+          obj.e6 = r;
+          updateConformanceLog(`[7.4] Conformance [1e-6] on ${_backend}: ${r}`);
+
+          await compareObjects(JSON.stringify(result), c.result, 1e-7) ? r = 'pass' : r = 'fail';
+          obj.e7 = r;
+          updateConformanceLog(`[7.5] Conformance [1e-7] on ${_backend}: ${r}`);
+
+          await compareObjects(JSON.stringify(result), c.result, 1e-8) ? r = 'pass' : r = 'fail';
+          obj.e8 = r;
+          updateConformanceLog(`[7.6] Conformance [1e-8] on ${_backend}: ${r}`);
         }
       }
     } else {
@@ -394,6 +409,18 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
           await compareObjects(result, c.result, 1e-5) ? r = 'pass' : r = 'fail';
           obj.e5 = r;
           updateConformanceLog(`[7.3] Conformance [1e-5] on ${_backend}: ${r}`);
+
+          await compareObjects(result, c.result, 1e-6) ? r = 'pass' : r = 'fail';
+          obj.e6 = r;
+          updateConformanceLog(`[7.4] Conformance [1e-6] on ${_backend}: ${r}`);
+
+          await compareObjects(result, c.result, 1e-7) ? r = 'pass' : r = 'fail';
+          obj.e7 = r;
+          updateConformanceLog(`[7.5] Conformance [1e-7] on ${_backend}: ${r}`);
+
+          await compareObjects(result, c.result, 1e-8) ? r = 'pass' : r = 'fail';
+          obj.e8 = r;
+          updateConformanceLog(`[7.6] Conformance [1e-8] on ${_backend}: ${r}`);
         }
       }
     }
@@ -467,7 +494,9 @@ export const runOnnxConformance = async (_model, _modelType, _dataType, _backend
       "gpu": getGpu(),
       "e3": "n/a",
       "e4": "n/a",
-      "e5": "n/a"
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a"
     };
     obj.error = err.message;
     addConformance(obj);
