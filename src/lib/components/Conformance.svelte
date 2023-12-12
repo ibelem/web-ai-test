@@ -25,30 +25,7 @@
 
 	let filteredConformance = conformance;
 
-	const transformedData = {};
-
-	filteredConformance.forEach((item) => {
-		if (!transformedData[item.name]) {
-			transformedData[item.name] = {
-				name: item.name,
-				gpu: item.gpu
-			};
-		}
-		transformedData[item.name][item.backend] = {
-			e3: item.e3 || '',
-			e4: item.e4 || '',
-			e5: item.e5 || '',
-			e6: item.e6 || '',
-			e7: item.e7 || '',
-			e8: item.e8 || '',
-			// result: item.result || {},
-			error: item.error || ''
-		};
-	});
-
 	onMount(() => {
-		filteredConformance = Object.values(transformedData);
-
 		if (results && results.length > 0) {
 			filteredConformance = conformance.filter((/** @type {{ name: any; }} */ conformanceItem) => {
 				return results.some((resultItem) => resultItem.model === conformanceItem.name);
@@ -63,9 +40,10 @@
 			<div class="title rq mb mt">WebNN Conformance Status</div>
 		</div>
 		<div class="result">
-			<div class="q _4 title {y_pin}">
+			<div class="q _5 title {y_pin}">
 				<div class="name" title="Model Name">Model</div>
 				<div class="info" title="Model Info">Info</div>
+				<div class="info" title="Hardware">Hardware</div>
 				<div class="su" title="Wasm (Baseline)">Wasm / Baseline</div>
 				<div class="su" title="WebGL">WebGL</div>
 				<div class="su" title="WebGPU">WebGPU</div>
@@ -73,14 +51,15 @@
 				<div class="su" title="WebNN GPU">WebNN GPU</div>
 				<div class="su" title="WebNN NPU">WebNN NPU</div>
 			</div>
-			{#each filteredConformance as { name, wasm_4, webnn_cpu_4, webgl, webgpu, webnn_gpu, webnn_npu }, i}
-				<div class="q _4">
+			{#each filteredConformance as { name, gpu, wasm_4, webnn_cpu_4, webgl, webgpu, webnn_gpu, webnn_npu }, i}
+				<div class="q _5">
 					<div class="name">{getModelNameById(name)}</div>
-					<div class="info">
+					<div class="su info">
 						{getModelTypeById(name)}
 						{getModelDataTypeById(name)}
 					</div>
-					<div class="su">
+					<div class="hardware" title="Hardware">{gpu}</div>
+					<div class="su info">
 						{#if wasm_4}
 							<span class="base">{wasm_4.e3}</span>
 							<span class="base">{wasm_4.e4}</span>
@@ -88,7 +67,12 @@
 							<span class="base">{wasm_4.e6}</span>
 							<span class="base">{wasm_4.e7}</span>
 							<span class="base">{wasm_4.e8}</span>
-							{#if wasm_4.error}<span class="err">{wasm_4.error}</span>{/if}
+							<div class="dif">
+								<span class="diff">max diff 1</span>
+								<span class="diff">max diff 2</span>
+								<span class="diff">max diff 3</span>
+							</div>
+							{#if wasm_4.error}<span class="err" title={wasm_4.error}>error</span>{/if}
 						{/if}
 					</div>
 					<div class="su">
@@ -123,7 +107,14 @@
 								>{:else if webgl.e8 === 'n/a'}
 								<span class="na">{webgl.e8}</span>{:else}<span>{webgl.e8}</span>
 							{/if}
-							{#if webgl.error}<span class="err">{webgl.error}</span>{/if}
+							<div class="dif">
+								{#if webgl.max_diff}
+									{#each webgl.max_diff as j}
+										<span class="diff" title={j}>{j}</span>
+									{/each}
+								{/if}
+							</div>
+							{#if webgl.error}<span class="err" title={webgl.error}>error</span>{/if}
 						{/if}
 					</div>
 					<div class="su">
@@ -158,7 +149,14 @@
 								>{:else if webgpu.e8 === 'n/a'}
 								<span class="na">{webgpu.e8}</span>{:else}<span>{webgpu.e8}</span>
 							{/if}
-							{#if webgpu.error}<span class="err">{webgpu.error}</span>{/if}
+							<div class="dif">
+								{#if webgpu.max_diff}
+									{#each webgpu.max_diff as j}
+										<span class="diff" title={j}>{j}</span>
+									{/each}
+								{/if}
+							</div>
+							{#if webgpu.error}<span class="err" title={webgpu.error}>error</span>{/if}
 						{/if}
 					</div>
 					<div class="su">
@@ -193,7 +191,14 @@
 								>{:else if webnn_cpu_4.e8 === 'n/a'}
 								<span class="na">{webnn_cpu_4.e8}</span>{:else}<span>{webnn_cpu_4.e8}</span>
 							{/if}
-							{#if webnn_cpu_4.error}<span class="err">{webnn_cpu_4.error}</span>{/if}
+							<div class="dif">
+								{#if webnn_cpu_4.max_diff}
+									{#each webnn_cpu_4.max_diff as j}
+										<span class="diff" title={j}>{j}</span>
+									{/each}
+								{/if}
+							</div>
+							{#if webnn_cpu_4.error}<span class="err" title={webnn_cpu_4.error}>error</span>{/if}
 						{/if}
 					</div>
 					<div class="su">
@@ -228,7 +233,14 @@
 								>{:else if webnn_gpu.e8 === 'n/a'}
 								<span class="na">{webnn_gpu.e8}</span>{:else}<span>{webnn_gpu.e8}</span>
 							{/if}
-							{#if webnn_gpu.error}<span class="err">{webnn_gpu.error}</span>{/if}
+							<div class="dif">
+								{#if webnn_gpu.max_diff}
+									{#each webnn_gpu.max_diff as j}
+										<span class="diff" title={j}>{j}</span>
+									{/each}
+								{/if}
+							</div>
+							{#if webnn_gpu.error}<span class="err" title={webnn_gpu.error}>error</span>{/if}
 						{/if}
 					</div>
 					<div class="su">
@@ -263,15 +275,21 @@
 								>{:else if webnn_npu.e8 === 'n/a'}
 								<span class="na">{webnn_npu.e8}</span>{:else}<span>{webnn_npu.e8}</span>
 							{/if}
-							{#if webnn_npu.error}<span class="err">{webnn_npu.error}</span>{/if}
+							<div class="dif">
+								{#if webnn_npu.max_diff}
+									{#each webnn_npu.max_diff as j}
+										<span class="diff" title={j}>{j}</span>
+									{/each}
+								{/if}
+							</div>
+							{#if webnn_npu.error}<span class="err" title={webnn_npu.error}>error</span>{/if}
 						{/if}
 					</div>
 				</div>
 			{/each}
 		</div>
 		<div class="subtitle">
-			Tested on Chrome Canary {conformanceEnv.version} / {#if conformance[0].gpu}{conformance[0]
-					.gpu} /{/if} Last update: {conformanceEnv.last_update}
+			Tested on Chrome Canary {conformanceEnv.version} / Last update: {conformanceEnv.last_update}
 		</div>
 	</div>
 {/if}
@@ -291,20 +309,22 @@
 		color: var(--green);
 	}
 
-	#conformance .q._4.title.true {
+	#conformance .q._5.title.true {
 		position: sticky;
 		top: -1px;
 		background-color: var(--white-09);
 	}
 
-	.q._4.title div {
+	.q._5.title div {
 		padding: 8px 2px;
+		font-size: 1em;
 	}
 
-	.q._4 div {
+	.q._5 div {
 		padding: 2px 2px;
 		text-align: center;
 		justify-self: center;
+		font-size: 0.8em;
 	}
 
 	.mb {
@@ -322,27 +342,38 @@
 	}
 
 	.result .q .err {
-		padding: 0;
-		font-size: 0.8em;
-		border-radius: 0;
+		margin-top: -2px;
+		margin-left: 4px;
+		padding: 0px 6px !important;
+		text-align: center;
 	}
 
 	.subtitle {
 		text-align: right;
-		font-size: 0.8em;
 		margin-top: 4px;
+		font-size: 0.8em;
 	}
 
 	.su span {
 		border-radius: 55px;
-		display: grid;
-		padding: 1px 8px;
-		margin: 0 2px 2px 0;
-		font-size: 0.8em;
+		display: block;
+		justify-content: center;
+		padding: 0px 6px;
+		margin: 2px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		max-width: 80px;
 	}
 
 	.su span.base {
 		background-color: var(--grey-02);
+	}
+
+	.dif span.diff {
+		padding: 0px 6px !important;
+		background-color: var(--grey-02);
+		font-size: 9.6px;
 	}
 
 	.su span.pass {
@@ -357,7 +388,16 @@
 		background-color: var(--orange-01);
 	}
 
-	.result .q:hover span.base {
+	.dif {
+		margin-top: -4px;
+	}
+
+	.diff {
+		justify-content: flex-start !important;
+	}
+
+	.result .q:hover span.base,
+	.result .q:hover .dif span.diff {
 		background-color: var(--onnx);
 		color: var(--white);
 	}

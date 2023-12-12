@@ -133,6 +133,20 @@ export const initResult = (newItem) => {
   });
 }
 
+export const maxDiff = async (obj1, obj2) => {
+  let diff = [];
+
+  for (let key in obj1) {
+    if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key) && obj1[key] !== obj2[key]) {
+      diff.push(Math.abs(obj1[key] - obj2[key]));
+    }
+  }
+
+  // Sort the diff array and get the top 3 diff
+  diff.sort((a, b) => b - a); // Sort in descending order
+  return diff.slice(0, 3);
+}
+
 export const compareObjects = async (obj1, obj2, tolerance) => {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
