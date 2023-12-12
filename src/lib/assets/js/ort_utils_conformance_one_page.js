@@ -1,13 +1,12 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '../../config';
-import { compareObjects, addConformance, updateConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
-import { sleepStore, modelDownloadUrlStore, conformanceQueueStore, conformanceStore } from '../../store/store';
+import { compareObjects, maxDiff, addConformance, updateConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
+import { sleepStore, modelDownloadUrlStore, conformanceStore } from '../../store/store';
 import { getGpu } from '$lib/assets/js/utils';
 import { getModelOPFS } from './nn_utils'
 import to from 'await-to-js';
 import { sleep } from '$lib/assets/js/utils';
 // import localforage from 'localforage';
-
 
 /**
  * @type {string[]}
@@ -15,14 +14,6 @@ import { sleep } from '$lib/assets/js/utils';
 export let conformance;
 conformanceStore.subscribe((value) => {
   conformance = value;
-});
-
-/**
- * @type {string[]}
- */
-let conformanceQueue;
-conformanceQueueStore.subscribe((value) => {
-  conformanceQueue = value;
 });
 
 /**
@@ -175,7 +166,68 @@ const getModelUrl = (_model) => {
   return modelPath;
 }
 
-export let rawResult = '';
+let res = {
+  "name": "",
+  "gpu": "",
+  "wasm_4": {
+    "e3": "",
+    "e4": "",
+    "e5": "",
+    "e6": "",
+    "e7": "",
+    "e8": "",
+    "error": ""
+  },
+  "webnn_cpu_4": {
+    "e3": "",
+    "e4": "",
+    "e5": "",
+    "e6": "",
+    "e7": "",
+    "e8": "",
+    "error": "",
+    "max_diff": []
+  },
+  "webgl": {
+    "e3": "",
+    "e4": "",
+    "e5": "",
+    "e6": "",
+    "e7": "",
+    "e8": "",
+    "error": "",
+    "max_diff": []
+  },
+  "webgpu": {
+    "e3": "",
+    "e4": "",
+    "e5": "",
+    "e6": "",
+    "e7": "",
+    "e8": "",
+    "error": "",
+    "max_diff": []
+  },
+  "webnn_gpu": {
+    "e3": "",
+    "e4": "",
+    "e5": "",
+    "e6": "",
+    "e7": "",
+    "e8": "",
+    "error": "",
+    "max_diff": []
+  }
+};
+
+export let wasmResult = '';
+export let compareResult = '';
+export let webglResult = '';
+export let webgpuResult = '';
+export let webnncpu4Result = '';
+export let webnngpuResult = '';
+export let webnnnpuResult = '';
+export let currentBackend = '';
 
 const mainConformance = async (_model, _modelType, _dataType, _backend) => {
 
@@ -240,7 +292,6 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
   }
 
   if (backend === 'webgpu') {
-
     removeElement('default');
     removeElement('webnn');
     await loadScript('webgpu', ortDists.webgpu.url);
@@ -326,21 +377,39 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
     results = await sess.run(feeds);
   }
 
-  let result = results[sess.outputNames[0]]["data"];
-  let obj = {
-    "name": _model,
-    "backend": _backend,
-    "gpu": getGpu()
-  };
-
   console.log(`---- ${_backend} ----`);
-  console.log(result);
 
-  rawResult = result;
+  let result = results[sess.outputNames[0]]["data"];
+
+  if (_backend === 'wasm_4') {
+    wasmResult = result
+    console.log(wasmResult);
+  } else {
+    compareResult = result;
+    console.log(wasmResult);
+  }
+
+  if (_backend === 'webgl') {
+    webglResult = result
+  } else if (_backend === 'webgpu') {
+    webgpuResult = result
+  } else if (_backend === 'webnn_cpu_4') {
+    webnncpu4Result = result
+  } else if (_backend === 'webnn_gpu') {
+    webnngpuResult = result
+  } else if (_backend === 'webnn_npu') {
+    webnnnpuResult = result
+  }
+
+  currentBackend = _backend;
 
   // result = result.subarray(0, 100);
 
-  if (result instanceof BigInt64Array) {
+  if (wasmResult instanceof BigInt64Array) {
+    console.log(`The variable array is a BigInt64Array`)
+  }
+
+  if (compareResult instanceof BigInt64Array) {
     console.log(`The variable array is a BigInt64Array`)
   }
 
@@ -348,145 +417,104 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
     return this.toString();
   };
 
-  // updateConformanceLog(JSON.stringify(result));
+  // updateConformanceLog(compareResult);
   updateConformanceLog(`[6] You can copy raw inference results in Console of Developer Tool`);
-  if (_backend === "wasm_4") {
-    // // await localforage.setItem(_model + "__wasm_4", result);
-    obj.result = result;
-  }
-
   await sess.release();
 
   if (_backend === "wasm_4") {
-    obj.e3 = '1e-3';
-    obj.e4 = '1e-4';
-    obj.e5 = '1e-5';
-    obj.e6 = '1e-6';
-    obj.e7 = '1e-7';
-    obj.e8 = '1e-8';
+    res['wasm_4'].e3 = '1e-3';
+    res['wasm_4'].e4 = '1e-4';
+    res['wasm_4'].e5 = '1e-5';
+    res['wasm_4'].e6 = '1e-6';
+    res['wasm_4'].e7 = '1e-7';
+    res['wasm_4'].e8 = '1e-8';
     updateConformanceLog(`[7] Using ${_backend} results as the baseline`);
   } else {
-    if (result instanceof BigInt64Array) {
-      for (let c of conformance) {
-        if (c.name === _model && c.backend === "wasm_4") {
-          let r = '';
-          await compareObjects(JSON.stringify(result), c.result, 1e-3) ? r = 'pass' : r = 'fail';
-          obj.e3 = r;
-          updateConformanceLog(`[7.1] Conformance [1e-3] on ${_backend}: ${r}`);
+    let r = '';
+    await compareObjects(compareResult, wasmResult, 1e-3) ? r = 'pass' : r = 'fail';
+    res[_backend].e3 = r;
+    updateConformanceLog(`[7.1] Conformance [1e-3] on ${_backend}: ${r}`);
 
-          await compareObjects(JSON.stringify(result), c.result, 1e-4) ? r = 'pass' : r = 'fail';
-          obj.e4 = r;
-          updateConformanceLog(`[7.2] Conformance [1e-4] on ${_backend}: ${r}`);
+    await compareObjects(compareResult, wasmResult, 1e-4) ? r = 'pass' : r = 'fail';
+    res[_backend].e4 = r;
+    updateConformanceLog(`[7.2] Conformance [1e-4] on ${_backend}: ${r}`);
 
-          await compareObjects(JSON.stringify(result), c.result, 1e-5) ? r = 'pass' : r = 'fail';
-          obj.e5 = r;
-          updateConformanceLog(`[7.3] Conformance [1e-5] on ${_backend}: ${r}`);
+    await compareObjects(compareResult, wasmResult, 1e-5) ? r = 'pass' : r = 'fail';
+    res[_backend].e5 = r;
+    updateConformanceLog(`[7.3] Conformance [1e-5] on ${_backend}: ${r}`);
 
-          await compareObjects(JSON.stringify(result), c.result, 1e-6) ? r = 'pass' : r = 'fail';
-          obj.e6 = r;
-          updateConformanceLog(`[7.4] Conformance [1e-6] on ${_backend}: ${r}`);
+    await compareObjects(compareResult, wasmResult, 1e-6) ? r = 'pass' : r = 'fail';
+    res[_backend].e6 = r;
+    updateConformanceLog(`[7.4] Conformance [1e-6] on ${_backend}: ${r}`);
 
-          await compareObjects(JSON.stringify(result), c.result, 1e-7) ? r = 'pass' : r = 'fail';
-          obj.e7 = r;
-          updateConformanceLog(`[7.5] Conformance [1e-7] on ${_backend}: ${r}`);
+    await compareObjects(compareResult, wasmResult, 1e-7) ? r = 'pass' : r = 'fail';
+    res[_backend].e7 = r;
+    updateConformanceLog(`[7.5] Conformance [1e-7] on ${_backend}: ${r}`);
 
-          await compareObjects(JSON.stringify(result), c.result, 1e-8) ? r = 'pass' : r = 'fail';
-          obj.e8 = r;
-          updateConformanceLog(`[7.6] Conformance [1e-8] on ${_backend}: ${r}`);
-        }
-      }
-    } else {
-      for (let c of conformance) {
-        if (c.name === _model && c.backend === "wasm_4") {
-          let r = '';
-          await compareObjects(result, c.result, 1e-3) ? r = 'pass' : r = 'fail';
-          obj.e3 = r;
-          updateConformanceLog(`[7.1] Conformance [1e-3] on ${_backend}: ${r}`);
+    await compareObjects(compareResult, wasmResult, 1e-8) ? r = 'pass' : r = 'fail';
+    res[_backend].e8 = r;
+    updateConformanceLog(`[7.6] Conformance [1e-8] on ${_backend}: ${r}`);
 
-          await compareObjects(result, c.result, 1e-4) ? r = 'pass' : r = 'fail';
-          obj.e4 = r;
-          updateConformanceLog(`[7.2] Conformance [1e-4] on ${_backend}: ${r}`);
+    res[_backend].max_diff = await maxDiff(compareResult, wasmResult);
+    updateConformanceLog(`[7.7] Conformance maximum difference (3) on ${_backend}: ${res[_backend].max_diff}`);
 
-          await compareObjects(result, c.result, 1e-5) ? r = 'pass' : r = 'fail';
-          obj.e5 = r;
-          updateConformanceLog(`[7.3] Conformance [1e-5] on ${_backend}: ${r}`);
-
-          await compareObjects(result, c.result, 1e-6) ? r = 'pass' : r = 'fail';
-          obj.e6 = r;
-          updateConformanceLog(`[7.4] Conformance [1e-6] on ${_backend}: ${r}`);
-
-          await compareObjects(result, c.result, 1e-7) ? r = 'pass' : r = 'fail';
-          obj.e7 = r;
-          updateConformanceLog(`[7.5] Conformance [1e-7] on ${_backend}: ${r}`);
-
-          await compareObjects(result, c.result, 1e-8) ? r = 'pass' : r = 'fail';
-          obj.e8 = r;
-          updateConformanceLog(`[7.6] Conformance [1e-8] on ${_backend}: ${r}`);
-        }
-      }
-    }
   }
 
-  addConformance(obj);
-
-  if (_backend === "webnn_gpu") {
-    // clearConformance();
-    let obj = conformance.map(obj => {
-      const { result, ...rest } = obj;
-      return rest;
-    });
-    updateConformance(obj);
-  }
-
-  if (sleeping) {
-    await sleep(10000);
-  }
+  // if (sleeping) {
+  //   await sleep(10000);
+  // }
 
   updateConformanceLog(`[8] Conformance test of ${_model} (${_modelType} /${_dataType}) with ${_backend} backend on ${getGpu()} completed`);
   updateConformanceLog('|-------------------------------------------------------------------------------------|');
-  next(_model, _backend);
+
+  // updateConformance(res);
 }
 
-const next = (_model, _backend) => {
-  let filteredConformanceQueue = conformanceQueue.filter(
-    (item) => item !== `${_model}__${_backend}`
-  );
-  conformanceQueueStore.update(() => filteredConformanceQueue);
-  if (conformanceQueue.length > 0) {
-    location.href = location.origin + `/conformance?${conformanceQueue[0]}`;
-  }
-}
+export const runOnnxConformance = async (_model, _modelType, _dataType) => {
+  let backends = ['wasm_4', 'webnn_cpu_4', 'webgl', 'webgpu', 'webnn_gpu'];
 
-export const runOnnxConformance = async (_model, _modelType, _dataType, _backend) => {
-  // mainConformance(_model, _modelType, _dataType, _backend);
-  const [err, data] = await to(mainConformance(_model, _modelType, _dataType, _backend));
-  if (err) {
-    updateConformanceLog(`[Error] ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-    updateConformanceLog(`[Error] ${err.message}`);
-    let obj = {
-      "name": _model,
-      "backend": _backend,
-      "gpu": getGpu(),
-      "e3": "n/a",
-      "e4": "n/a",
-      "e5": "n/a",
-      "e6": "n/a",
-      "e7": "n/a"
-    };
-    obj.error = err.message;
-    addConformance(obj);
+  wasmResult = '';
+  webglResult = '';
+  webgpuResult = '';
+  webnncpu4Result = '';
+  webnngpuResult = '';
+  webnnnpuResult = '';
+  compareResult = '';
+  currentBackend = '';
 
-    if (_backend === "webnn_gpu") {
-      // clearConformance();
-      let obj = conformance.map(obj => {
-        const { result, ...rest } = obj;
-        return rest;
-      });
-      updateConformance(obj);
+  res.name = _model;
+  res.gpu = getGpu();
+  // updateConformance(res);
+
+  for (let _backend of backends) {
+    // mainConformance(_model, _modelType, _dataType, _backend);
+    const [err, data] = await to(mainConformance(_model, _modelType, _dataType, _backend));
+    if (err) {
+      updateConformanceLog(`[Error] ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+      updateConformanceLog(`[Error] ${err.message}`);
+      if (_backend !== "wasm_4") {
+        res[_backend].e3 = 'n/a';
+        res[_backend].e4 = 'n/a';
+        res[_backend].e5 = 'n/a';
+        res[_backend].e6 = 'n/a';
+        res[_backend].e7 = 'n/a';
+        res[_backend].e8 = 'n/a';
+        res[_backend].error = err.message;
+      } else {
+        res['wasm_4'].e3 = '1e-3';
+        res['wasm_4'].e4 = '1e-4';
+        res['wasm_4'].e5 = '1e-5';
+        res['wasm_4'].e6 = '1e-6';
+        res['wasm_4'].e7 = '1e-7';
+        res['wasm_4'].e8 = '1e-8';
+        res['wasm_4'].error = err.message;
+      }
+
+      // updateConformance(res);
+    } else {
+      // use data 
     }
-
-    next(_model, _backend);
-  } else {
-    // use data 
   }
+
+  addConformance(res);
 }

@@ -6,6 +6,7 @@
 	import Results from '$lib/components/Results.svelte';
 	import Info from '$lib/components/Info.svelte';
 	import InferenceLog from '$lib/components/InferenceLog.svelte';
+	import Conformance from '$lib/components/Conformance.svelte';
 	import { afterUpdate, onDestroy, onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
@@ -129,6 +130,7 @@
 	<Config />
 	<Results />
 	<Fallback />
+	<Conformance />
 	<InferenceLog bind:logShow />
 	<!-- <TestQueue /> -->
 	<div class="run">

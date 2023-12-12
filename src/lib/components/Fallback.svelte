@@ -54,7 +54,9 @@
 					<div class="name">{getModelNameById(name)}</div>
 					<div class="info">
 						{getModelTypeById(name)}<br />
-						{getModelDataTypeById(name)}<br />{#if backend}{backend}{/if}
+						{getModelDataTypeById(name)}<br />
+						{#if backend === 'cpu'}
+							<span class="cpu">{backend}</span>{:else}<span class="gpu">{backend}</span>{/if}
 					</div>
 					<div class="su s">
 						{#if supported}
@@ -147,6 +149,30 @@
 
 	.info {
 		width: 4vw;
+	}
+
+	.info span.cpu {
+		background-color: var(--b1-005);
+		border-radius: 55px;
+		padding: 1px 8px;
+		font-size: 0.8em;
+	}
+
+	.result .q:hover .info span.cpu {
+		background-color: var(--b1);
+		color: var(--white);
+	}
+
+	.info span.gpu {
+		background-color: var(--p2-005);
+		border-radius: 55px;
+		padding: 1px 8px;
+		font-size: 0.8em;
+	}
+
+	.result .q:hover .info span.gpu {
+		background-color: var(--p2);
+		color: var(--white);
 	}
 
 	.su {
