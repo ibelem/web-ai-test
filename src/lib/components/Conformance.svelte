@@ -31,6 +31,17 @@
 				return results.some((resultItem) => resultItem.model === conformanceItem.name);
 			});
 		}
+		filteredConformance = filteredConformance.sort((a, b) => {
+			const nameA = a.name.toLowerCase();
+			const nameB = b.name.toLowerCase();
+			if (nameA < nameB) {
+				return -1;
+			}
+			if (nameA > nameB) {
+				return 1;
+			}
+			return 0;
+		});
 	});
 </script>
 
@@ -53,12 +64,12 @@
 			</div>
 			{#each filteredConformance as { name, gpu, wasm_4, webnn_cpu_4, webgl, webgpu, webnn_gpu, webnn_npu }, i}
 				<div class="q _5">
-					<div class="name">{getModelNameById(name)}</div>
-					<div class="su info">
+					<div class="name c">{getModelNameById(name)}</div>
+					<div class="su info c">
 						{getModelTypeById(name)}
 						{getModelDataTypeById(name)}
 					</div>
-					<div class="hardware" title="Hardware">{gpu}</div>
+					<div class="hardware c" title="Hardware">{gpu}</div>
 					<div class="su info">
 						{#if wasm_4}
 							<span class="base">{wasm_4.e3}</span>
@@ -73,7 +84,7 @@
 								<span class="diff">max diff 3</span>
 							</div>
 							{#if wasm_4.error}<span class="err" title={wasm_4.error}>error</span>{/if}
-							<span class="test"><a href="c?q={name}__webgl">raw</a></span>
+							<span class="test"><a href="../c?q={name}__wasm_4">raw</a></span>
 						{/if}
 					</div>
 					<div class="su">
@@ -116,7 +127,7 @@
 								{/if}
 							</div>
 							{#if webgl.error}<span class="err" title={webgl.error}>error</span>{/if}
-							<span class="test"><a href="c?q={name}__webgl">raw</a></span>
+							<span class="test"><a href="../c?q={name}__webgl">raw</a></span>
 						{/if}
 					</div>
 					<div class="su">
@@ -159,7 +170,7 @@
 								{/if}
 							</div>
 							{#if webgpu.error}<span class="err" title={webgpu.error}>error</span>{/if}
-							<span class="test"><a href="c?q={name}__webgpu">raw</a></span>
+							<span class="test"><a href="../c?q={name}__webgpu">raw</a></span>
 						{/if}
 					</div>
 					<div class="su">
@@ -202,7 +213,7 @@
 								{/if}
 							</div>
 							{#if webnn_cpu_4.error}<span class="err" title={webnn_cpu_4.error}>error</span>{/if}
-							<span class="test"><a href="c?q={name}__webnn_cpu_4">raw</a></span>
+							<span class="test"><a href="../c?q={name}__webnn_cpu_4">raw</a></span>
 						{/if}
 					</div>
 					<div class="su">
@@ -245,7 +256,7 @@
 								{/if}
 							</div>
 							{#if webnn_gpu.error}<span class="err" title={webnn_gpu.error}>error</span>{/if}
-							<span class="test"><a href="c?q={name}__wenn_gpu">raw</a></span>
+							<span class="test"><a href="../c?q={name}__wenn_gpu">raw</a></span>
 						{/if}
 					</div>
 					<div class="su">
@@ -288,7 +299,7 @@
 								{/if}
 							</div>
 							{#if webnn_npu.error}<span class="err" title={webnn_npu.error}>error</span>{/if}
-							<span class="test"><a href="c?q={name}__wenn_npu">raw</a></span>
+							<span class="test"><a href="../c?q={name}__wenn_npu">raw</a></span>
 						{/if}
 					</div>
 				</div>
@@ -332,6 +343,10 @@
 		text-align: center;
 		justify-self: center;
 		font-size: 0.8em;
+	}
+
+	.q._5 .c {
+		align-self: center;
 	}
 
 	.mb {
