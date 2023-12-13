@@ -696,7 +696,7 @@ export let models = [
     name: 'DistilGPT2 Decoder',
     description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
     note: '',
-    source: 'https://huggingface.co/Xenova/distilgpt2/tree/main',
+    source: 'https://huggingface.co/Xenova/distilgpt2/tree/main/onnx',
     model: 'transformer.js/distilgpt2/decoder_model_quantized.onnx',
     size: '79.6 MB',
     format: 'onnx',

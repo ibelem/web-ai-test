@@ -5,6 +5,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import ConfigBackends from '$lib/components/ConfigBackends.svelte';
 	import ConfigNumOfRuns from '$lib/components/ConfigNumOfRuns.svelte';
+	import Conformance from './Conformance.svelte';
 	import InferenceLog from '$lib/components/InferenceLog.svelte';
 	import Results from '$lib/components/Results.svelte';
 	import Info from './Info.svelte';
@@ -158,6 +159,7 @@
 		{/if}
 		<Results />
 		<Fallback />
+		<Conformance />
 		<InferenceLog bind:logShow />
 		<div class="run">
 			{#if selectedBackends.length > 0 && !auto}

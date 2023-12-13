@@ -73,6 +73,7 @@
 								<span class="diff">max diff 3</span>
 							</div>
 							{#if wasm_4.error}<span class="err" title={wasm_4.error}>error</span>{/if}
+							<span class="test"><a href="c?q={name}__webgl">raw</a></span>
 						{/if}
 					</div>
 					<div class="su">
@@ -115,6 +116,7 @@
 								{/if}
 							</div>
 							{#if webgl.error}<span class="err" title={webgl.error}>error</span>{/if}
+							<span class="test"><a href="c?q={name}__webgl">raw</a></span>
 						{/if}
 					</div>
 					<div class="su">
@@ -157,6 +159,7 @@
 								{/if}
 							</div>
 							{#if webgpu.error}<span class="err" title={webgpu.error}>error</span>{/if}
+							<span class="test"><a href="c?q={name}__webgpu">raw</a></span>
 						{/if}
 					</div>
 					<div class="su">
@@ -199,6 +202,7 @@
 								{/if}
 							</div>
 							{#if webnn_cpu_4.error}<span class="err" title={webnn_cpu_4.error}>error</span>{/if}
+							<span class="test"><a href="c?q={name}__webnn_cpu_4">raw</a></span>
 						{/if}
 					</div>
 					<div class="su">
@@ -241,6 +245,7 @@
 								{/if}
 							</div>
 							{#if webnn_gpu.error}<span class="err" title={webnn_gpu.error}>error</span>{/if}
+							<span class="test"><a href="c?q={name}__wenn_gpu">raw</a></span>
 						{/if}
 					</div>
 					<div class="su">
@@ -283,6 +288,7 @@
 								{/if}
 							</div>
 							{#if webnn_npu.error}<span class="err" title={webnn_npu.error}>error</span>{/if}
+							<span class="test"><a href="c?q={name}__wenn_npu">raw</a></span>
 						{/if}
 					</div>
 				</div>
@@ -303,6 +309,7 @@
 
 	#conformance .result .q {
 		background-color: var(--green-002);
+		align-items: start;
 	}
 
 	#conformance .result .q:hover {
@@ -342,7 +349,8 @@
 	}
 
 	.result .q .err {
-		margin-top: -2px;
+		background-color: var(--red-005);
+		margin-top: 0px;
 		margin-left: 4px;
 		padding: 0px 6px !important;
 		text-align: center;
@@ -386,6 +394,24 @@
 
 	.su span.na {
 		background-color: var(--orange-01);
+	}
+
+	.su span.test {
+		background-color: var(--blue-01);
+		margin-left: 4px;
+	}
+
+	.dif + .test {
+		margin-top: -2px;
+	}
+
+	.result .q:hover span.test {
+		background-color: var(--blue);
+		color: var(--white) !important;
+	}
+
+	.result .q:hover span.test a {
+		color: var(--white) !important;
 	}
 
 	.dif {

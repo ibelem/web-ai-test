@@ -824,6 +824,311 @@ export const conformance = [
     }
   },
   {
+    "name": "albert_base_v2",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "input tensor[0] check failed: expected type 'int32' but got int64",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000812530517578125,
+        0.0008068084716796875,
+        0.00080108642578125
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Failed to execute 'conv2d' on 'MLGraphBuilder': The length of strides should be 2.",
+      "max_diff": [
+        0.000209808349609375,
+        0.0001983642578125,
+        0.000186920166015625
+      ]
+    }
+  },
+  {
+    "name": "bart_large_cnn",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Range' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0006444454193115234,
+        0.0002510547637939453,
+        0.0002422332763671875
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0006394386291503906,
+        0.0002498626708984375,
+        0.0001935213804244995
+      ]
+    }
+  },
+  {
+    "name": "bert_base_cased",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Erf' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0001583099365234375,
+        0.00015354156494140625,
+        0.00014209747314453125
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0003161430358886719,
+        0.0002741813659667969,
+        0.00026416778564453125
+      ]
+    }
+  },
+  {
+    "name": "bert_base_uncased",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Erf' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000102996826171875,
+        0.00010251998901367188,
+        0.0000972747802734375
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00010585784912109375,
+        0.00010251998901367188,
+        0.00010204315185546875
+      ]
+    }
+  },
+  {
+    "name": "codegen_350m_mono",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "only support ONNX model with IR_VERSION>=3",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "[WebGPU] Kernel \"[ReduceMean] 1463206432\" failed. TypeError: Cannot read properties of undefined (reading 'dims')",
+      "max_diff": [
+        0.000102996826171875,
+        0.00010251998901367188,
+        0.0000972747802734375
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000049591064453125,
+        0.000049591064453125,
+        0.00004673004150390625
+      ]
+    }
+  },
+  {
     "name": "detr_resnet_50",
     "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
     "wasm_4": {
@@ -881,6 +1186,502 @@ export const conformance = [
         0.00008869171142578125,
         0.00008487701416015625,
         0.00008106231689453125
+      ]
+    }
+  },
+  {
+    "name": "dino_vitb16",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'ConstantOfShape' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0001163482666015625,
+        0.000087738037109375,
+        0.00008392333984375
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0000591278076171875,
+        0.00005626678466796875,
+        0.00005340576171875
+      ]
+    }
+  },
+  {
+    "name": "gpt2_decoder",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "dims.forEach is not a function"
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "dims.forEach is not a function",
+      "max_diff": [
+        0.0001163482666015625,
+        0.000087738037109375,
+        0.00008392333984375
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "dims.forEach is not a function",
+      "max_diff": [
+        0.0000591278076171875,
+        0.00005626678466796875,
+        0.00005340576171875
+      ]
+    }
+  },
+  {
+    "name": "m2m100_decoder",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: Exception during initialization: std::bad_alloc",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.0001163482666015625,
+        0.000087738037109375,
+        0.00008392333984375
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: Exception during initialization: std::bad_alloc",
+      "max_diff": [
+        0.0000591278076171875,
+        0.00005626678466796875,
+        0.00005340576171875
+      ]
+    }
+  },
+  {
+    "name": "m2m100_encoder",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'CumSum' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        3.8030099868774414,
+        3.788203001022339,
+        3.7807400226593018
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: Exception during initialization: std::bad_alloc",
+      "max_diff": [
+        0.000003814697265625,
+        0.0000035762786865234375,
+        0.0000035762786865234375
+      ]
+    }
+  },
+  {
+    "name": "sd_2_1_vae_decoder",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+      "max_diff": [
+        0.0028543025255203247,
+        0.0026347339153289795,
+        0.0024251341819763184
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.2238803207874298,
+        0.2064879834651947,
+        0.2004568874835968
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: Exception during initialization: std::bad_alloc",
+      "max_diff": [
+        0.07682406902313232,
+        0.06450235843658447,
+        0.06291526556015015
+      ]
+    }
+  },
+  {
+    "name": "sd_2_1_vae_encoder",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.01663947105407715,
+        0.01031494140625,
+        0.007647991180419922
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.2900047302246094,
+        0.22171926498413086,
+        0.21052336692810059
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.009752273559570312,
+        0.008214950561523438,
+        0.008192062377929688
+      ]
+    }
+  },
+  {
+    "name": "t5_small_decoder",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'ConstantOfShape' with opsets: ai.onnx v13",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00005340576171875,
+        0.00005340576171875,
+        0.00005340576171875
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0000457763671875,
+        0.000041961669921875,
+        0.000041961669921875
+      ]
+    }
+  },
+  {
+    "name": "t5_small_encoder",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Range' with opsets: ai.onnx v13",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0000022649765014648438,
+        0.0000021457672119140625,
+        0.0000021457672119140625
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000001043081283569336,
+        0.000001043081283569336,
+        0.0000010244548320770264
       ]
     }
   },
@@ -943,6 +1744,63 @@ export const conformance = [
         0.000026702880859375,
         0.0000247955322265625
       ]
+    }
+  },
+  {
+    "name": "whisper_tiny_encoder",
+    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK can't support keep dimensions.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Erf' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00013399124145507812,
+        0.00007867813110351562,
+        0.00006693601608276367
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'conv2d' on 'MLGraphBuilder': The length of strides should be 2.",
+      "max_diff": []
     }
   }
 ]
