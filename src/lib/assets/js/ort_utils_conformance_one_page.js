@@ -229,6 +229,14 @@ export let webnngpuResult = '';
 export let webnnnpuResult = '';
 export let currentBackend = '';
 
+const bigInt64ArrayToString = (arr) => {
+  if (arr instanceof BigInt64Array) {
+    console.log(`The variable array is a BigInt64Array`)
+    arr = BigInt64Array.from(arr);
+    return arr.join(',');
+  }
+}
+
 const mainConformance = async (_model, _modelType, _dataType, _backend) => {
 
   let backend = 'wasm';
@@ -405,13 +413,13 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
 
   // result = result.subarray(0, 100);
 
-  if (wasmResult instanceof BigInt64Array) {
-    console.log(`The variable array is a BigInt64Array`)
-  }
-
-  if (compareResult instanceof BigInt64Array) {
-    console.log(`The variable array is a BigInt64Array`)
-  }
+  bigInt64ArrayToString(wasmResult);
+  bigInt64ArrayToString(compareResult);
+  bigInt64ArrayToString(webglResult);
+  bigInt64ArrayToString(webgpuResult);
+  bigInt64ArrayToString(webnncpu4Result);
+  bigInt64ArrayToString(webnngpuResult);
+  bigInt64ArrayToString(webnnnpuResult);
 
   BigInt.prototype.toJSON = function () {
     return this.toString();
