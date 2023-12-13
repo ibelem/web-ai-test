@@ -34,7 +34,7 @@
 	});
 </script>
 
-{#if (results && results.length > 0) || $page.url.pathname.indexOf('conformance') > -1}
+{#if (results && results.length > 0 && (results[0].webnn_cpu_1 || results[0].webnn_cpu_4 || results[0].webnn_gpu || results[0].webnn_npu)) || $page.url.pathname.indexOf('conformance') > -1}
 	<div id="conformance">
 		<div class="rqtitle">
 			<div class="title rq mb mt">WebNN Conformance Status</div>
