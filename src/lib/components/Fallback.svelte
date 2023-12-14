@@ -35,73 +35,76 @@
 </script>
 
 {#if (results && results.length > 0 && (results[0].webnn_cpu_1 || results[0].webnn_cpu_4 || results[0].webnn_gpu || results[0].webnn_npu)) || $page.url.pathname.indexOf('fallback') > -1}
-	<div id="fallback">
-		<div class="rqtitle">
-			<div class="title rq mb mt">WebNN Fallback Status</div>
-		</div>
-		<div class="result">
-			<div class="q _3 title {y_pin}">
-				<div class="name" title="Model Name">Model</div>
-				<div class="info" title="Model Info">Info</div>
-				<div class="su" title="Supported">Supported</div>
-				<div class="su ns" title="Not Supported">Not Supported</div>
-				<div class="su nst" title="Not Supported (Input Type)">Input Type</div>
-				<div class="node" title="Nodes">Nodes</div>
-				<div class="err" title="Error">Errors</div>
+	{#if filteredFallback && filteredFallback.length > 0}
+		<div id="fallback">
+			<div class="rqtitle">
+				<div class="title rq mb mt">WebNN Fallback Status</div>
 			</div>
-			{#each filteredFallback as { name, backend, supported, not_supported, input_type_not_supported, partitions_supported_by_webnn, nodes_in_the_graph, nodes_supported_by_webnn, error }, i}
-				<div class="q _3">
-					<div class="name">{getModelNameById(name)}</div>
-					<div class="info">
-						{getModelTypeById(name)}<br />
-						{getModelDataTypeById(name)}<br />
-						{#if backend === 'cpu'}
-							<span class="cpu">{backend}</span>{:else}<span class="gpu">{backend}</span>{/if}
-					</div>
-					<div class="su s">
-						{#if supported}
-							{#each supported as s}
-								<span>{s}</span>
-							{/each}
-						{/if}
-					</div>
-					<div class="su ns">
-						{#if not_supported}
-							{#each not_supported as n}
-								<span>{n}</span>
-							{/each}
-						{/if}
-					</div>
-					<div class="su nst">
-						{#if input_type_not_supported}
-							{#each input_type_not_supported as nst}
-								<span>{nst}</span>
-							{/each}
-						{/if}
-					</div>
-					<div class="node">
-						{#if partitions_supported_by_webnn}<span title="Number of partitions supported by WebNN"
-								>{partitions_supported_by_webnn}</span
-							><br />
-						{/if}
-						{#if nodes_in_the_graph}<span title="Number of nodes in the graph"
-								>{nodes_in_the_graph}</span
-							><br />
-						{/if}
-						{#if nodes_supported_by_webnn}<span title="Number of nodes supported by WebNN"
-								>{nodes_supported_by_webnn}</span
-							>{/if}
-					</div>
-					<div class="err">
-						{#if error}{error} · We are working on it.{/if}
-					</div>
+			<div class="result">
+				<div class="q _3 title {y_pin}">
+					<div class="name" title="Model Name">Model</div>
+					<div class="info" title="Model Info">Info</div>
+					<div class="su" title="Supported">Supported</div>
+					<div class="su ns" title="Not Supported">Not Supported</div>
+					<div class="su nst" title="Not Supported (Input Type)">Input Type</div>
+					<div class="node" title="Nodes">Nodes</div>
+					<div class="err" title="Error">Errors</div>
 				</div>
-			{/each}
+				{#each filteredFallback as { name, backend, supported, not_supported, input_type_not_supported, partitions_supported_by_webnn, nodes_in_the_graph, nodes_supported_by_webnn, error }, i}
+					<div class="q _3">
+						<div class="name">{getModelNameById(name)}</div>
+						<div class="info">
+							{getModelTypeById(name)}<br />
+							{getModelDataTypeById(name)}<br />
+							{#if backend === 'cpu'}
+								<span class="cpu">{backend}</span>{:else}<span class="gpu">{backend}</span>{/if}
+						</div>
+						<div class="su s">
+							{#if supported}
+								{#each supported as s}
+									<span>{s}</span>
+								{/each}
+							{/if}
+						</div>
+						<div class="su ns">
+							{#if not_supported}
+								{#each not_supported as n}
+									<span>{n}</span>
+								{/each}
+							{/if}
+						</div>
+						<div class="su nst">
+							{#if input_type_not_supported}
+								{#each input_type_not_supported as nst}
+									<span>{nst}</span>
+								{/each}
+							{/if}
+						</div>
+						<div class="node">
+							{#if partitions_supported_by_webnn}<span
+									title="Number of partitions supported by WebNN"
+									>{partitions_supported_by_webnn}</span
+								><br />
+							{/if}
+							{#if nodes_in_the_graph}<span title="Number of nodes in the graph"
+									>{nodes_in_the_graph}</span
+								><br />
+							{/if}
+							{#if nodes_supported_by_webnn}<span title="Number of nodes supported by WebNN"
+									>{nodes_supported_by_webnn}</span
+								>{/if}
+						</div>
+						<div class="err">
+							{#if error}{error} · We are working on it.{/if}
+						</div>
+					</div>
+				{/each}
+			</div>
+			<div class="subtitle">
+				Tested on Chrome Canary {fallbackEnv.version} / Last update: {fallbackEnv.last_update}
+			</div>
 		</div>
-		<div class="subtitle">
-			Tested on Chrome Canary {fallbackEnv.version} / Last update: {fallbackEnv.last_update}
-		</div>
-	</div>
+	{/if}
 {/if}
 
 <svelte:window bind:scrollY={y} />

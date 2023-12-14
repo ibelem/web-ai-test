@@ -454,14 +454,6 @@
 		border: 1px solid var(--grey-04);
 	}
 
-	.progress .queue {
-		justify-self: center;
-	}
-
-	.progress .next {
-		justify-self: right;
-	}
-
 	.g2 {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
