@@ -65,6 +65,8 @@ const getTensor = (type, data, dims) => {
   let typedArray;
   if (type === 'bool') {
     return new ort.Tensor(type, [data], [1]);
+  } else if (type === 'int8') {
+    typedArray = Int8Array;
   } else if (type === 'uint16') {
     typedArray = Uint16Array;
   } else if (type === 'float16') {
@@ -77,8 +79,9 @@ const getTensor = (type, data, dims) => {
     typedArray = BigInt64Array;
   }
 
+
   let _data;
-  if (Array.isArray(data)) {
+  if (Array.isArray(data) || ArrayBuffer.isView(data)) {
     _data = data;
   } else {
     let size = 1;
