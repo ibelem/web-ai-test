@@ -177,6 +177,20 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    id: 'mobilenet_v3',
+    name: 'MobileNet v3',
+    description: 'A computer vision model designed for training classifiers.',
+    note: '',
+    source: 'https://github.com/onnx/models/tree/main/Computer_Vision/mobilenetv3_small_100_Opset17_timm',
+    model: 'mobilenetv3_small_100_Opset17.onnx',
+    size: '9.70 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'x': ['float32', 'random', [1, 3, 224, 224], {}] }],
+    inputstip: '[1, 3, 224, 224]'
+  },
+  {
+    category: 'Image Classification',
     id: 'mobilevit_small',
     name: 'MobileViT Small',
     description: 'MobileViT model pre-trained on ImageNet-1k at resolution 256x256. It was introduced in MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer.',
