@@ -177,6 +177,34 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    id: 'mobilevit_small',
+    name: 'MobileViT Small',
+    description: 'MobileViT model pre-trained on ImageNet-1k at resolution 256x256. It was introduced in MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/mobilevit-small/tree/main/onnx',
+    model: 'transformer.js/mobilevit-small/model.onnx',
+    size: '21.5 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 256, 256], { "batch_size": 1, "num_channels": 3, "height": 256, "width": 256 }] }],
+    inputstip: '[1, 3, 256, 256]'
+  },
+  {
+    category: 'Image Classification',
+    id: 'mobilevit_small_int8',
+    name: 'MobileViT Small',
+    description: 'MobileViT model pre-trained on ImageNet-1k at resolution 256x256. It was introduced in MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/mobilevit-small/tree/main/onnx',
+    model: 'transformer.js/mobilevit-small/model_quantized.onnx',
+    size: '6.01 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 256, 256], { "batch_size": 1, "num_channels": 3, "height": 256, "width": 256 }] }],
+    inputstip: '[1, 3, 256, 256]'
+  },
+  {
+    category: 'Image Classification',
     id: 'resnet50_v1',
     name: 'ResNet50 v1',
     description: 'A convolutional neural network that is 50 layers deep.',
@@ -510,6 +538,24 @@ export let models = [
   },
   {
     category: 'Zero-Shot Image Classification',
+    id: 'clip_vit_base_patch16',
+    name: 'CLIP ViT Base',
+    description: 'A Contrastive Language-Image Pre-Training (CLIP) model developed by researchers at OpenAI to learn about what contributes to robustness in computer vision tasks.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/clip-vit-base-patch16/tree/main/onnx',
+    model: 'transformer.js/clip-vit-base-patch16/model.onnx',
+    size: '571 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 49407n, [1, 77], { "text_batch_size": 1, "sequence_length": 77 }],
+      'pixel_values': ['float32', 99, [1, 3, 224, 224], { "image_batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
+      'attention_mask': ['int64', 1n, [1, 77], { "text_batch_size": 1, "sequence_length": 77 }]
+    }],
+    inputstip: '[1, 77] [1, 3, 224, 224] [1, 77]'
+  },
+  {
+    category: 'Zero-Shot Image Classification',
     id: 'clip_vit_base_patch16_int8',
     name: 'CLIP ViT Base',
     description: 'A Contrastive Language-Image Pre-Training (CLIP) model developed by researchers at OpenAI to learn about what contributes to robustness in computer vision tasks.',
@@ -657,6 +703,41 @@ export let models = [
     inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
   },
   {
+    category: 'Fill-Mask',
+    id: 'distilbert_base_uncased',
+    name: 'DistilBERT Base Uncased',
+    description: 'DistilBERT is a transformers model, smaller and faster than BERT, which was pretrained on the same corpus in a self-supervised fashion, using the BERT base model as a teacher.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilbert-base-uncased/tree/main/onnx',
+    model: 'transformer.js/distilbert-base-uncased/model.onnx',
+    size: '255 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
+  },
+  {
+    category: 'Fill-Mask',
+    id: 'distilbert_base_uncased_int8',
+    name: 'DistilBERT Base Uncased',
+    description: 'DistilBERT is a transformers model, smaller and faster than BERT, which was pretrained on the same corpus in a self-supervised fashion, using the BERT base model as a teacher.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilbert-base-uncased/tree/main/onnx',
+    model: 'transformer.js/distilbert-base-uncased/model_quantized.onnx',
+    size: '64.5 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
+  },
+
+  {
     category: 'Question Answering',
     id: 'distilbert_base_cased_distilled_squad_int8',
     name: 'DistilBERT Base Cased Distilled Squad',
@@ -741,6 +822,68 @@ export let models = [
     inputstip: '[1, 80, 3000]'
   },
   {
+    category: 'Text2Text Generation',
+    id: 'flan_t5_small_decoder',
+    name: 'FLAN-T5 Small Decoder',
+    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/flan-t5-small/tree/main/onnx',
+    model: 'transformer.js/flan-t5-small/decoder_model.onnx',
+    size: '221 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }] },
+    { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
+    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  },
+  {
+    category: 'Text2Text Generation',
+    id: 'flan_t5_small_decoder_int8',
+    name: 'FLAN-T5 Small Decoder',
+    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/flan-t5-small/tree/main/onnx',
+    model: 'transformer.js/flan-t5-small/decoder_model_quantized.onnx',
+    size: '56.2 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }] },
+    { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
+    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  },
+  {
+    category: 'Text2Text Generation',
+    id: 'flan_t5_small_encoder',
+    name: 'FLAN-T5 Small Encoder',
+    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/flan-t5-small/tree/main/onnx',
+    model: 'transformer.js/flan-t5-small/encoder_model.onnx',
+    size: '134 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
+    { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputstip: '[1, 128] [1, 128]'
+  },
+  {
+    category: 'Text2Text Generation',
+    id: 'flan_t5_small_encoder_int8',
+    name: 'FLAN-T5 Small Encoder',
+    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/flan-t5-small/tree/main/onnx',
+    model: 'transformer.js/flan-t5-small/encoder_model.onnx',
+    size: '34.1 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
+    { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputstip: '[1, 128] [1, 128]'
+  },
+  {
     category: 'Text Generation',
     id: 'gpt2_decoder',
     name: 'GPT-2 Decoder',
@@ -790,6 +933,102 @@ export let models = [
       'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
       'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
     }],
+    inputstip: '[1, 128] [1, 128]'
+  },
+  {
+    category: 'Sentence Similarity',
+    id: 'msmarco_distilbert_base_v4',
+    name: 'MS MARCO DistilBert Base v4',
+    description: 'The sentence-transformers model maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/msmarco-distilbert-base-v4/tree/main/onnx',
+    model: 'transformer.js/msmarco-distilbert-base-v4/model.onnx',
+    size: '253 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
+  },
+  {
+    category: 'Sentence Similarity',
+    id: 'msmarco_distilbert_base_v4_int8',
+    name: 'MS MARCO DistilBert Base v4',
+    description: 'The sentence-transformers model maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/msmarco-distilbert-base-v4/tree/main/onnx',
+    model: 'transformer.js/msmarco-distilbert-base-v4/model_quantized.onnx',
+    size: '63.8 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
+  },
+  {
+    category: 'Text2Text Generation',
+    id: 'mt5_small_decoder',
+    name: 'mT5 Small Decoder',
+    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/mt5-small/tree/main/onnx',
+    model: 'transformer.js/mt5-small/decoder_model_quantized.onnx',
+    size: '1.04 GB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }] },
+    { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
+    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  },
+  {
+    category: 'Text2Text Generation',
+    id: 'mt5_small_decoder_int8',
+    name: 'mT5 Small Decoder',
+    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
+    note: '',
+    source: 'https://huggingface.co/Xenova/mt5-small/tree/main/onnx',
+    model: 'transformer.js/mt5-small/decoder_model_quantized.onnx',
+    size: '270 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }] },
+    { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
+    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  },
+  {
+    category: 'Text2Text Generation',
+    id: 'mt5_small_encoder',
+    name: 'mT5 Small Encoder',
+    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
+    note: 'Large model.It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/mt5-small/tree/main/onnx',
+    model: 'transformer.js/mt5-small/encoder_model_quantized.onnx',
+    size: '560 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
+    { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputstip: '[1, 128] [1, 128]'
+  },
+  {
+    category: 'Text2Text Generation',
+    id: 'mt5_small_encoder_int8',
+    name: 'mT5 Small Encoder',
+    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
+    note: '',
+    source: 'https://huggingface.co/Xenova/mt5-small/tree/main/onnx',
+    model: 'transformer.js/mt5-small/encoder_model_quantized.onnx',
+    size: '140 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
+    { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
     inputstip: '[1, 128] [1, 128]'
   },
   {
@@ -896,6 +1135,108 @@ export let models = [
   },
   {
     category: 'Semantic Segmentation',
+    id: 'sam_vit_base',
+    name: 'SAM ViT Base',
+    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
+    note: '',
+    source: 'https://huggingface.co/Xenova/sam-vit-base/tree/main/onnx',
+    model: 'transformer.js/sam-vit-base/model.onnx',
+    size: '358 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }],
+      'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
+    }],
+    inputstip: '[1, 3, 1024, 1024] [1, 1, 1, 2]'
+  },
+  {
+    category: 'Semantic Segmentation',
+    id: 'sam_vit_base_prompt_encoder_mask_decoder',
+    name: 'SAM ViT Base Prompt/Mask Encoder',
+    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
+    note: '',
+    source: 'https://huggingface.co/Xenova/sam-vit-base/tree/main/onnx',
+    model: 'transformer.js/sam-vit-base/prompt_encoder_mask_decoder.onnx',
+    size: '15.7 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
+      'image_embeddings': ['float32', 'random', [1, 256, 64, 64], { "batch_size": 1 }],
+      'image_positional_embeddings': ['float32', 'random', [1, 256, 64, 64], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 1, 1, 2] [1, 256, 64, 64] [1, 256, 64, 64]'
+  },
+  {
+    category: 'Semantic Segmentation',
+    id: 'sam_vit_base_vision_encoder',
+    name: 'SAM ViT Base Vision Encoder',
+    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
+    note: '',
+    source: 'https://huggingface.co/Xenova/sam-vit-base/tree/main/onnx',
+    model: 'transformer.js/sam-vit-base/vision_encoder.onnx',
+    size: '342 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }]
+    }],
+    inputstip: '[1, 3, 1024, 1024]'
+  },
+  {
+    category: 'Semantic Segmentation',
+    id: 'sam_vit_base_int8',
+    name: 'SAM ViT Base',
+    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
+    note: '',
+    source: 'https://huggingface.co/Xenova/sam-vit-base/tree/main/onnx',
+    model: 'transformer.js/sam-vit-base/model_quantized.onnx',
+    size: '100 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }],
+      'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
+    }],
+    inputstip: '[1, 3, 1024, 1024] [1, 1, 1, 2]'
+  },
+  {
+    category: 'Semantic Segmentation',
+    id: 'sam_vit_base_prompt_encoder_mask_decoder_int8',
+    name: 'SAM ViT Base Prompt/Mask Encoder',
+    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
+    note: '',
+    source: 'https://huggingface.co/Xenova/sam-vit-base/tree/main/onnx',
+    model: 'transformer.js/sam-vit-base/prompt_encoder_mask_decoder_quantized.onnx',
+    size: '4.6.7 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
+      'image_embeddings': ['float32', 'random', [1, 256, 64, 64], { "batch_size": 1 }],
+      'image_positional_embeddings': ['float32', 'random', [1, 256, 64, 64], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 1, 1, 2] [1, 256, 64, 64] [1, 256, 64, 64]'
+  },
+  {
+    category: 'Semantic Segmentation',
+    id: 'sam_vit_base_vision_encoder_int8',
+    name: 'SAM ViT Base Vision Encoder',
+    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
+    note: '',
+    source: 'https://huggingface.co/Xenova/sam-vit-base/tree/main/onnx',
+    model: 'transformer.js/sam-vit-base/vision_encoder_quantized.onnx',
+    size: '96.4 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }]
+    }],
+    inputstip: '[1, 3, 1024, 1024]'
+  },
+  {
+    category: 'Semantic Segmentation',
     id: 'segment_anything',
     name: 'Segment Anything',
     description: 'An AI model from Meta AI that can cut out any object in any image.',
@@ -929,6 +1270,42 @@ export let models = [
     { 'mask_input': ['float16', 'random', [1, 1, 256, 256], {}] },
     { 'has_mask_input': ['float16', 'random', [1], {}] }],
     inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1]'
+  },
+  {
+    category: 'Sentence Order Prediction (SOP)',
+    id: 'squeezebert_uncased',
+    name: 'SqueezeBERT Uncased',
+    description: 'A pretrained model for the English language using a masked language modeling (MLM) and Sentence Order Prediction (SOP) objective. This model is case-insensitive. The authors found that SqueezeBERT is 4.3x faster than bert-base-uncased on a Google Pixel 3 smartphone.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/squeezebert-uncased/tree/main/onnx',
+    model: 'transformer.js/squeezebert-uncased/model.onnx',
+    size: '192 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'token_type_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
+  },
+  {
+    category: 'Sentence Order Prediction (SOP)',
+    id: 'squeezebert_uncased_int8',
+    name: 'SqueezeBERT Uncased',
+    description: 'A pretrained model for the English language using a masked language modeling (MLM) and Sentence Order Prediction (SOP) objective. This model is case-insensitive. The authors found that SqueezeBERT is 4.3x faster than bert-base-uncased on a Google Pixel 3 smartphone.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/squeezebert-uncased/tree/main/onnx',
+    model: 'transformer.js/squeezebert-uncased/model_quantized.onnx',
+    size: '48.8 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'token_type_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
   },
   {
     category: 'Text-To-Text Translation',
@@ -1106,6 +1483,40 @@ export let models = [
       'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }]
     }],
     inputstip: '[1, 80, 3000]'
+  },
+  {
+    category: 'Fill-Mask',
+    id: 'xlm_roberta_base',
+    name: 'XLM-RoBERTa Base',
+    description: 'RoBERTa is a transformers model pretrained on a large corpus in a self-supervised fashion. XLM-RoBERTa is a multilingual version of RoBERTa. It is pre-trained on 2.5TB of filtered CommonCrawl data containing 100 languages.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/xlm-roberta-base/tree/main/onnx',
+    model: 'transformer.js/xlm-roberta-base/model.onnx',
+    size: '1.03 GB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
+  },
+  {
+    category: 'Fill-Mask',
+    id: 'xlm_roberta_base_int8',
+    name: 'XLM-RoBERTa Base',
+    description: 'RoBERTa is a transformers model pretrained on a large corpus in a self-supervised fashion. XLM-RoBERTa is a multilingual version of RoBERTa. It is pre-trained on 2.5TB of filtered CommonCrawl data containing 100 languages.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/xlm-roberta-base/tree/main/onnx',
+    model: 'transformer.js/xlm-roberta-base/model_quantized.onnx',
+    size: '267 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
   },
 ];
 
