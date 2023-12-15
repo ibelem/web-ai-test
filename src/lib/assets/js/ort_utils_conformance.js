@@ -5,9 +5,8 @@ import { sleepStore, modelDownloadUrlStore, conformanceQueueStore, conformanceSt
 import { getGpu } from '$lib/assets/js/utils';
 import { sleep } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
-import { dataTypeToArrayConstructor, float16ToNumber, isDict } from '$lib/assets/js/data_type';
+import { dataTypeToArrayConstructor, isDict } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
-import { sleep } from '$lib/assets/js/utils';
 // import localforage from 'localforage';
 
 
