@@ -109,7 +109,6 @@ export const resetFallbackLog = () => {
   fallbackLogStore.update(() => []);
 }
 
-
 /**
  * @type {string}
  */
@@ -463,6 +462,21 @@ export const trimComma = (string) => {
   }
 
   return string;
+}
+
+export const sortModelById = (models) => {
+  models.sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
+  return models;
 }
 
 export const getModelNameById = (id) => {

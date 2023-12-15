@@ -20,7 +20,8 @@
 		updateConformanceQueue,
 		resetStore,
 		setModelDownloadUrl,
-		updateSleep
+		updateSleep,
+		sortModelById
 	} from '$lib/assets/js/utils';
 	import {
 		conformanceLogStore,
@@ -39,6 +40,11 @@
 		webnngpuResult,
 		webnnnpuResult
 	} from '$lib/assets/js/ort_utils_conformance_one_page';
+
+	/**
+	 * @type {string | any[]}
+	 */
+	let sortedModels = [];
 
 	/**
 	 * @type {string[]}
@@ -309,6 +315,7 @@
 	afterUpdate(() => {});
 
 	onMount(async () => {
+		sortedModels = sortModelById(models);
 		if (sleeping) {
 			localSleep = sleeping;
 		} else {
@@ -519,8 +526,8 @@
 			{/if}
 			<div class="q copy">
 				<div>
-					<div class="noborder webgpu">
-						Inference result <span>WebGPU</span>
+					<div class="noborder webnn_cpu_4">
+						Inference result <span>WebNN CPU</span>
 					</div>
 					<button title="Switch the element size" on:click={() => toggleConsole()}>
 						{#if consoleSize}
@@ -555,8 +562,8 @@
 			{/if}
 			<div class="q copy">
 				<div>
-					<div class="noborder webgpu">
-						Inference result <span>WebGPU</span>
+					<div class="noborder webnn_gpu">
+						Inference result <span>WebNN GPU</span>
 					</div>
 					<button title="Switch the element size" on:click={() => toggleConsole()}>
 						{#if consoleSize}
@@ -591,8 +598,8 @@
 			{/if}
 			<div class="q copy">
 				<div>
-					<div class="noborder webgpu">
-						Inference result <span>WebGPU</span>
+					<div class="noborder webnn_npu">
+						Inference result <span>WebNN NPU</span>
 					</div>
 					<button title="Switch the element size" on:click={() => toggleConsole()}>
 						{#if consoleSize}
@@ -619,22 +626,23 @@
 	{/if}
 </div>
 
-<div class="title tq"><button on:click={() => setConformanceQueue('fp32')}>Float32</button></div>
-<div>
-	{#each models as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'fp32'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
+{#if sortedModels && sortedModels.length > 0}
+	<div class="title tq"><button on:click={() => setConformanceQueue('fp32')}>Float32</button></div>
+	<div>
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'fp32'}
+					<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
+						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
+					</span>
+				{/if}
 			{/if}
-		{/if}
-	{/each}
-</div>
+		{/each}
+	</div>
 
-<!-- <div class="title tq"><button on:click={() => setConformanceQueue('int64')}>INT64</button></div>
+	<!-- <div class="title tq"><button on:click={() => setConformanceQueue('int64')}>INT64</button></div>
 <div>
-	{#each models as m}
+	{#each sortedModels as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'int64'}
 				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
@@ -645,31 +653,32 @@
 	{/each}
 </div> -->
 
-<div class="title tq"><button on:click={() => setConformanceQueue('fp16')}>Float16</button></div>
-<div>
-	{#each models as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'fp16'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
+	<div class="title tq"><button on:click={() => setConformanceQueue('fp16')}>Float16</button></div>
+	<div>
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'fp16'}
+					<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
+						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
+					</span>
+				{/if}
 			{/if}
-		{/if}
-	{/each}
-</div>
+		{/each}
+	</div>
 
-<div class="title tq"><button on:click={() => setConformanceQueue('int8')}>Int8</button></div>
-<div>
-	{#each models as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'int8'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
+	<div class="title tq"><button on:click={() => setConformanceQueue('int8')}>Int8</button></div>
+	<div>
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'int8'}
+					<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
+						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
+					</span>
+				{/if}
 			{/if}
-		{/if}
-	{/each}
-</div>
+		{/each}
+	</div>
+{/if}
 
 <Conformance />
 
