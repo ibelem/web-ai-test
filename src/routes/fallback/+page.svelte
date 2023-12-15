@@ -23,6 +23,7 @@
 	} from '$lib/assets/js/utils';
 	import { fallbackLogStore, fallbackStore, fallbackQueueStore, autoStore } from '$lib/store/store';
 	import Fallback from '$lib/components/Fallback.svelte';
+	import { sortModelById } from '$lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}
@@ -51,6 +52,11 @@
 	$: fallbackString = JSON.stringify(fallback);
 
 	$: rawConsole = 'Raw console log for WebNN EP developers';
+
+	/**
+	 * @type {string | any[]}
+	 */
+	let sortedModels = [];
 
 	const run = () => {
 		/**
@@ -230,6 +236,7 @@
 	});
 
 	onMount(() => {
+		sortedModels = sortModelById(models);
 		if (fallbackQueue.length > 0) {
 			run();
 		}
@@ -344,22 +351,23 @@
 	</div>
 {/if}
 
-<div class="title tq"><button on:click={() => setFallbackQueue('fp32')}>Float32</button></div>
-<div class="ho">
-	{#each models as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'fp32'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
+{#if sortedModels && sortedModels.length > 0}
+	<div class="title tq"><button on:click={() => setFallbackQueue('fp32')}>Float32</button></div>
+	<div class="ho">
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'fp32'}
+					<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
+						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
+					</span>
+				{/if}
 			{/if}
-		{/if}
-	{/each}
-</div>
+		{/each}
+	</div>
 
-<!-- <div class="title tq"><button on:click={() => setFallbackQueue('int64')}>INT64</button></div>
+	<!-- <div class="title tq"><button on:click={() => setFallbackQueue('int64')}>INT64</button></div>
 <div>
-	{#each models as m}
+	{#each sortedModels as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'int64'}
 				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
@@ -370,31 +378,32 @@
 	{/each}
 </div> -->
 
-<div class="title tq"><button on:click={() => setFallbackQueue('fp16')}>Float16</button></div>
-<div class="ho">
-	{#each models as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'fp16'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
+	<div class="title tq"><button on:click={() => setFallbackQueue('fp16')}>Float16</button></div>
+	<div class="ho">
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'fp16'}
+					<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
+						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
+					</span>
+				{/if}
 			{/if}
-		{/if}
-	{/each}
-</div>
+		{/each}
+	</div>
 
-<div class="title tq"><button on:click={() => setFallbackQueue('int8')}>Int8</button></div>
-<div class="ho">
-	{#each models as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'int8'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
+	<div class="title tq"><button on:click={() => setFallbackQueue('int8')}>Int8</button></div>
+	<div class="ho">
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'int8'}
+					<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
+						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
+					</span>
+				{/if}
 			{/if}
-		{/if}
-	{/each}
-</div>
+		{/each}
+	</div>
+{/if}
 
 <Fallback />
 

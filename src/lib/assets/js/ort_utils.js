@@ -1,9 +1,10 @@
 // import * as ort from 'onnxruntime-web';
-import { models, ortDists } from '../../config';
+import { models, ortDists } from '$lib/config';
 import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, average, minimum } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { sleep } from '$lib/assets/js/utils';
-import { getModelOPFS } from '../js/nn_utils'
+import { getModelOPFS } from '$lib/assets/js/nn_utils'
+import { dataTypeToArrayConstructor, float16ToNumber, isDict } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
 import percentile from 'percentile';
 
@@ -72,7 +73,6 @@ const getFeeds = (session, modelName) => {
       }
     }
   }
-
   return feeds;
 }
 
@@ -82,6 +82,8 @@ const getTensor = (type, data, dims) => {
     return new ort.Tensor(type, [data], [1]);
   } else if (type === 'int8') {
     typedArray = Int8Array;
+  } else if (type === 'uint8') {
+    typedArray = Uint8Array;
   } else if (type === 'uint16') {
     typedArray = Uint16Array;
   } else if (type === 'float16') {
@@ -109,23 +111,9 @@ const getTensor = (type, data, dims) => {
     } else {
       _data = typedArray.from({ length: size }, () => data);
     }
-
   }
   return new ort.Tensor(type, _data, dims);
 }
-
-const isDict = (v) => {
-  return typeof v === 'object' && v !== null && !(v instanceof Array) && !(v instanceof Date);
-}
-
-export const dataTypeToArrayConstructor = {
-  float32: Float32Array,
-  uint16: Uint16Array,
-  float16: Uint16Array,
-  int32: Int32Array,
-  int64: BigInt64Array,
-  BigInt64Array: BigInt64Array,
-};
 
 export const clone = (x) => {
   let feed = {};

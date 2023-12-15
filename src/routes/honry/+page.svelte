@@ -17,9 +17,15 @@
 		resetFallbackLog,
 		updateFallbackLog,
 		resetFallbackQueue,
-		resetStore
+		resetStore,
+		sortModelById
 	} from '$lib/assets/js/utils';
 	import { fallbackLogStore, fallbackStore, fallbackQueueStore, autoStore } from '$lib/store/store';
+
+	/**
+	 * @type {string | any[]}
+	 */
+	let sortedModels = [];
 
 	/**
 	 * @type {string[]}
@@ -46,7 +52,6 @@
 	});
 
 	$: fallbackString = JSON.stringify(fallback);
-
 	$: rawConsole = '';
 
 	/**
@@ -176,6 +181,7 @@
 	};
 
 	onMount(async () => {
+		sortedModels = sortModelById(models);
 		rawConsole = '';
 		resetFallback();
 		resetFallbackQueue();
@@ -282,41 +288,52 @@
 	</div>
 {/if}
 
-<div class="title tq">Float32</div>
-<div class="ho">
-	{#each models as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'fp32'}
-				<a class="fb2" href="" on:click={() => nav(m.id + '__cpu')}>{getModelNameById(m.id)} C</a>
-				<a class="fb2" href="" on:click={() => nav(m.id + '__gpu')}>{getModelNameById(m.id)} G</a>
+{#if sortedModels && sortedModels.length > 0}
+	<div class="title tq">Float32</div>
+	<div class="ho">
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'fp32'}
+					<div class="fb2">
+						<span>{getModelNameById(m.id)}</span>
+						<a class="cpu" href="" on:click={() => nav(m.id + '__cpu')}>CPU</a>
+						<a class="gpu" href="" on:click={() => nav(m.id + '__gpu')}>GPU</a>
+					</div>
+				{/if}
 			{/if}
-		{/if}
-	{/each}
-</div>
+		{/each}
+	</div>
 
-<div class="title tq">Float16</div>
-<div class="ho">
-	{#each models as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'fp16'}
-				<a class="fb2" href="" on:click={() => nav(m.id + '__cpu')}>{getModelNameById(m.id)} C</a>
-				<a class="fb2" href="" on:click={() => nav(m.id + '__gpu')}>{getModelNameById(m.id)} G</a>
+	<div class="title tq">Float16</div>
+	<div class="ho">
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'fp16'}
+					<div class="fb2">
+						<span>{getModelNameById(m.id)}</span>
+						<a class="cpu" href="" on:click={() => nav(m.id + '__cpu')}>CPU</a>
+						<a class="gpu" href="" on:click={() => nav(m.id + '__gpu')}>GPU</a>
+					</div>
+				{/if}
 			{/if}
-		{/if}
-	{/each}
-</div>
+		{/each}
+	</div>
 
-<div class="title tq">Int8</div>
-<div class="ho">
-	{#each models as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'int8'}
-				<a class="fb2" href="" on:click={() => nav(m.id + '__cpu')}>{getModelNameById(m.id)} C</a>
-				<a class="fb2" href="" on:click={() => nav(m.id + '__gpu')}>{getModelNameById(m.id)} G</a>
+	<div class="title tq">Int8</div>
+	<div class="ho">
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'int8'}
+					<div class="fb2">
+						<span>{getModelNameById(m.id)}</span>
+						<a class="cpu" href="" on:click={() => nav(m.id + '__cpu')}>CPU</a>
+						<a class="gpu" href="" on:click={() => nav(m.id + '__gpu')}>GPU</a>
+					</div>
+				{/if}
 			{/if}
-		{/if}
-	{/each}
-</div>
+		{/each}
+	</div>
+{/if}
 
 <Environment />
 <Footer />
@@ -337,17 +354,49 @@
 	}
 
 	.fb2 {
-		border: 1px solid var(--grey-02);
+		display: flex;
 		padding: 0px 6px 0px 6px;
 		background: transparent;
 		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		background-color: var(--white);
 		color: var(--font);
-		cursor: pointer;
-		width: 176px;
+		width: 250px;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		overflow: hidden;
+	}
+
+	.fb2 span {
+		width: 162px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+
+	.fb2 a {
+		text-align: center;
+		width: 40px;
+		margin: 2px;
+	}
+
+	.fb2 a.cpu {
+		border: 1px solid var(--b1-005);
+	}
+
+	.fb2 a.gpu {
+		border: 1px solid var(--p2-005);
+	}
+
+	.fb2 a.cpu:hover {
+		border: 1px solid var(--b1);
+		color: var(--b1);
+		background-color: var(--b1-005);
+	}
+
+	.fb2 a.gpu:hover {
+		border: 1px solid var(--p2);
+		color: var(--p2);
+		background-color: var(--p2-005);
 	}
 
 	.title {

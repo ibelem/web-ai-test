@@ -13,7 +13,8 @@
 		getModelNameById,
 		getModelDataTypeById,
 		getModelDescriptionById,
-		getModelNoteById
+		getModelNoteById,
+		sortModelById
 	} from '$lib/assets/js/utils';
 
 	/**
@@ -24,7 +25,8 @@
 	beforeUpdate(() => {
 		resetStore();
 		autoStore.update(() => false);
-		uniqueModels = [...new Set(models.map((model) => model.id))];
+		uniqueModels = sortModelById(models);
+		uniqueModels = [...new Set(uniqueModels.map((model) => model.id))];
 	});
 
 	onMount(() => {});

@@ -281,7 +281,7 @@
 	</div>
 
 	<Modal bind:showModal>
-		<h2 slot="header" class="updatecpu">Update CPU Model</h2>
+		<h2 slot="header" class="updatecpu">Your CPU Model</h2>
 
 		<div class="info">
 			This website does not collect any test equipment information or user data. It is intended

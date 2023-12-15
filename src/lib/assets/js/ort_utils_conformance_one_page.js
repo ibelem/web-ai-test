@@ -1,11 +1,11 @@
 // import * as ort from 'onnxruntime-web';
-import { models, ortDists } from '../../config';
-import { compareObjects, maxDiff, addConformance, updateConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
+import { models, ortDists } from '$lib/config';
+import { compareObjects, maxDiff, addConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
 import { sleepStore, modelDownloadUrlStore, conformanceStore } from '../../store/store';
 import { getGpu } from '$lib/assets/js/utils';
-import { getModelOPFS } from './nn_utils'
+import { getModelOPFS } from '$lib/assets/js/nn_utils'
+import { dataTypeToArrayConstructor, uint16ArrayToFloat32Array, isDict, bigInt64ArrayToString, bigInt64ArrayToFloat32Array } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
-import { sleep } from '$lib/assets/js/utils';
 // import localforage from 'localforage';
 
 /**
@@ -57,7 +57,6 @@ const getFeeds = (session, modelName) => {
       }
     }
   }
-
   return feeds;
 }
 
@@ -67,6 +66,8 @@ const getTensor = (type, data, dims) => {
     return new ort.Tensor(type, [data], [1]);
   } else if (type === 'int8') {
     typedArray = Int8Array;
+  } else if (type === 'uint8') {
+    typedArray = Uint8Array;
   } else if (type === 'uint16') {
     typedArray = Uint16Array;
   } else if (type === 'float16') {
@@ -78,7 +79,6 @@ const getTensor = (type, data, dims) => {
   } else if (type === 'int64') {
     typedArray = BigInt64Array;
   }
-
 
   let _data;
   if (Array.isArray(data) || ArrayBuffer.isView(data)) {
@@ -96,23 +96,9 @@ const getTensor = (type, data, dims) => {
     } else {
       _data = typedArray.from({ length: size }, () => data);
     }
-
   }
   return new ort.Tensor(type, _data, dims);
 }
-
-const isDict = (v) => {
-  return typeof v === 'object' && v !== null && !(v instanceof Array) && !(v instanceof Date);
-}
-
-export const dataTypeToArrayConstructor = {
-  float32: Float32Array,
-  uint16: Uint16Array,
-  float16: Uint16Array,
-  int32: Int32Array,
-  int64: BigInt64Array,
-  BigInt64Array: BigInt64Array,
-};
 
 export const clone = (x) => {
   let feed = {};
@@ -232,13 +218,7 @@ export let webnngpuResult = '';
 export let webnnnpuResult = '';
 export let currentBackend = '';
 
-const bigInt64ArrayToString = (arr) => {
-  if (arr instanceof BigInt64Array) {
-    console.log(`The variable array is a BigInt64Array`)
-    arr = BigInt64Array.from(arr);
-    return arr.join(',');
-  }
-}
+
 
 const mainConformance = async (_model, _modelType, _dataType, _backend) => {
 
@@ -393,40 +373,99 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
   let result = results[sess.outputNames[0]]["data"];
 
   if (_backend === 'wasm_4') {
-    wasmResult = result
-    console.log(wasmResult);
+    wasmResult = result;
   } else {
     compareResult = result;
-    console.log(wasmResult);
   }
 
-  if (_backend === 'webgl') {
-    webglResult = result
+  if (_backend === 'wasm_4') {
+    wasmResult = result;
+    console.log(wasmResult);
+  } else if (_backend === 'webgl') {
+    webglResult = result;
+    console.log(webglResult);
   } else if (_backend === 'webgpu') {
-    webgpuResult = result
+    webgpuResult = result;
+    console.log(webgpuResult);
   } else if (_backend === 'webnn_cpu_4') {
-    webnncpu4Result = result
+    webnncpu4Result = result;
+    console.log(webnncpu4Result);
   } else if (_backend === 'webnn_gpu') {
-    webnngpuResult = result
+    webnngpuResult = result;
+    console.log(webnngpuResult);
   } else if (_backend === 'webnn_npu') {
-    webnnnpuResult = result
+    webnnnpuResult = result;
+    console.log(webnnnpuResult);
   }
 
   currentBackend = _backend;
 
   // result = result.subarray(0, 100);
 
-  bigInt64ArrayToString(wasmResult);
-  bigInt64ArrayToString(compareResult);
-  bigInt64ArrayToString(webglResult);
-  bigInt64ArrayToString(webgpuResult);
-  bigInt64ArrayToString(webnncpu4Result);
-  bigInt64ArrayToString(webnngpuResult);
-  bigInt64ArrayToString(webnnnpuResult);
+  // wasmResult = bigInt64ArrayToString(wasmResult);
+  // compareResult = bigInt64ArrayToString(compareResult);
+  // webglResult = bigInt64ArrayToString(webglResult);
+  // webgpuResult = bigInt64ArrayToString(webgpuResult);
+  // webnncpu4Result = bigInt64ArrayToString(webnncpu4Result);
+  // webnngpuResult = bigInt64ArrayToString(webnngpuResult);
+  // webnnnpuResult = bigInt64ArrayToString(webnnnpuResult);
 
-  BigInt.prototype.toJSON = function () {
-    return this.toString();
-  };
+  if (wasmResult && (wasmResult instanceof BigInt64Array)) {
+    wasmResult = bigInt64ArrayToFloat32Array(wasmResult);
+  }
+
+  if (compareResult && (compareResult instanceof BigInt64Array)) {
+    compareResult = bigInt64ArrayToFloat32Array(compareResult);
+  }
+
+  if (webglResult && (webglResult instanceof BigInt64Array)) {
+    webglResult = bigInt64ArrayToFloat32Array(webglResult);
+  }
+
+  if (webgpuResult && (webgpuResult instanceof BigInt64Array)) {
+    webgpuResult = bigInt64ArrayToFloat32Array(webgpuResult);
+  }
+
+  if (webnncpu4Result && (webnncpu4Result instanceof BigInt64Array)) {
+    webnncpu4Result = bigInt64ArrayToFloat32Array(webnncpu4Result);
+  }
+
+  if (webnngpuResult && (webnngpuResult instanceof BigInt64Array)) {
+    webnngpuResult = bigInt64ArrayToFloat32Array(webnngpuResult);
+  }
+
+  if (webnnnpuResult && (webnnnpuResult instanceof BigInt64Array)) {
+    webnnnpuResult = bigInt64ArrayToFloat32Array(webnnnpuResult);
+  }
+
+  if (wasmResult && (wasmResult instanceof Uint16Array)) {
+    wasmResult = uint16ArrayToFloat32Array(wasmResult);
+  }
+
+  if (compareResult && (compareResult instanceof Uint16Array)) {
+    compareResult = uint16ArrayToFloat32Array(compareResult);
+  }
+
+  if (webglResult && (webglResult instanceof Uint16Array)) {
+    webglResult = uint16ArrayToFloat32Array(webglResult);
+  }
+
+  if (webgpuResult && (webgpuResult instanceof Uint16Array)) {
+    webgpuResult = uint16ArrayToFloat32Array(webgpuResult);
+  }
+
+  if (webnncpu4Result && (webnncpu4Result instanceof Uint16Array)) {
+    webnncpu4Result = uint16ArrayToFloat32Array(webnncpu4Result);
+  }
+
+  if (webnngpuResult && (webnngpuResult instanceof Uint16Array)) {
+    webnngpuResult = uint16ArrayToFloat32Array(webnngpuResult);
+  }
+
+  if (webnnnpuResult && (webnnnpuResult instanceof Uint16Array)) {
+    webnnnpuResult = uint16ArrayToFloat32Array(webnnnpuResult);
+  }
+
 
   // updateConformanceLog(compareResult);
   updateConformanceLog(`[6] You can copy raw inference results in Console of Developer Tool`);

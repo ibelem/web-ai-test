@@ -18,15 +18,16 @@
 		getModelNoteById,
 		goTo,
 		stringToArray,
-		getModelNameById
+		getModelNameById,
+		sortModelById
 	} from '$lib/assets/js/utils';
 	import { modelTypesStore, dataTypesStore, modelsStore } from '$lib/store/store';
 	import { onMount, beforeUpdate } from 'svelte';
 	import Info from './svg/Info.svelte';
-	import Fail from './svg/Fail.svelte';
-	import Clock from './svg/Clock.svelte';
-	import MoreTime from './svg/MoreTime.svelte';
-	import Check from './svg/Check.svelte';
+	// import Fail from './svg/Fail.svelte';
+	// import Clock from './svg/Clock.svelte';
+	// import MoreTime from './svg/MoreTime.svelte';
+	// import Check from './svg/Check.svelte';
 
 	/**
 	 * @type {string[]}
@@ -250,18 +251,7 @@
 	// const uniqueModels = getUniqueModels();
 
 	const filterModelsFromSelectedModelTypeandDataTypes = () => {
-		let filteredModels = models.sort((a, b) => {
-			const nameA = a.name.toLowerCase();
-			const nameB = b.name.toLowerCase();
-			if (nameA < nameB) {
-				return -1;
-			}
-			if (nameA > nameB) {
-				return 1;
-			}
-			return 0;
-		});
-
+		let filteredModels = sortModelById(models);
 		filteredModels = filteredModels
 			.filter(
 				(model) =>
