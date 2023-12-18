@@ -6,6 +6,10 @@
 	import Clock from '$lib/components/svg/Clock.svelte';
 	import { models } from '$lib/config';
 	import { beforeUpdate, onMount, onDestroy } from 'svelte';
+	import OnnxFull from '$lib/components/svg/OnnxFull.svelte';
+	import TfliteFull from '$lib/components/svg/TfliteFull.svelte';
+	import Onnx from '$lib/components/svg/Onnx.svelte';
+	import Tflite from '$lib/components/svg/Tflite.svelte';
 	import { base } from '$app/paths';
 	import { autoStore } from '$lib/store/store';
 	import {
@@ -14,22 +18,40 @@
 		getModelDataTypeById,
 		getModelDescriptionById,
 		getModelNoteById,
-		sortModelById
+		getModelTypeById,
+		sortModelById,
+		getModelSizeById
 	} from '$lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}
 	 */
-	let uniqueModels = [];
+	$: uniqueModels = [];
+	let subModels = models;
+	let selected = 'onnx';
 
-	beforeUpdate(() => {
+	const typeChange = (/** @type {{ currentTarget: { value: string; }; }} */ event) => {
+		selected = event.currentTarget.value;
+		console.log(selected);
+		subModels = models.filter((item) => item.format === selected);
+		console.log(subModels);
+		subModels = sortModelById(subModels);
+		console.log(subModels);
+		uniqueModels = [...new Set(subModels.map((model) => model.id))];
+		console.log(uniqueModels);
+		uniqueModels = uniqueModels;
+	};
+
+	beforeUpdate(() => {});
+
+	onMount(() => {
 		resetStore();
 		autoStore.update(() => false);
-		uniqueModels = sortModelById(models);
+		subModels = models.filter((item) => item.format === 'onnx');
+		uniqueModels = sortModelById(subModels);
 		uniqueModels = [...new Set(uniqueModels.map((model) => model.id))];
+		uniqueModels = uniqueModels;
 	});
-
-	onMount(() => {});
 
 	onDestroy(() => {});
 </script>
@@ -40,9 +62,33 @@
 	<div class="title tq">Benchmark Tests</div>
 </div>
 
+<div class="modelselection">
+	<div class="tabs">
+		<input
+			type="radio"
+			on:change={typeChange}
+			checked={selected === 'onnx'}
+			id="r-onnx"
+			value="onnx"
+			name="tabs"
+		/>
+		<label class="tab" for="r-onnx"><OnnxFull /></label>
+		<input
+			type="radio"
+			on:change={typeChange}
+			checked={selected === 'tflite'}
+			id="r-tflite"
+			value="tflite"
+			name="tabs"
+		/>
+		<label class="tab" for="r-tflite"><TfliteFull /></label>
+		<span class="glider"></span>
+	</div>
+</div>
+
 <div>
 	<div class="title tq">FLOAT32</div>
-	<div class="tq">
+	<div class="tq benchmark">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
 				{#if getModelDataTypeById(model) === 'fp32'}
@@ -50,31 +96,29 @@
 						<div class="status_1 s">
 							<Clock />
 						</div>
-						<a href="{base}/run/{model}" class="">{getModelNameById(model)}</a>
+						{#if getModelTypeById(model) === 'onnx'}
+							<div class="onnx mt">
+								<Onnx />
+							</div>
+						{/if}
+
+						{#if getModelTypeById(model) === 'tflite'}
+							<div class="tflite mt">
+								<Tflite />
+							</div>
+						{/if}
+						<a href="{base}/run/{model}" class=""
+							>{getModelNameById(model)} ·
+							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
+						>
 					</div>
 				{/if}
 			{/if}
 		{/each}
 	</div>
 
-	<!-- <div class="title tq">INT64</div>
-	<div class="tq">
-		{#each uniqueModels as model}
-			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'int64'}
-					<div class="q tests" title="{getModelDescriptionById(model)} {getModelNoteById(model)}">
-						<div class="status_1 s">
-							<Clock />
-						</div>
-						<a href="{base}/run/{model}" class="">{getModelNameById(model)}</a>
-					</div>
-				{/if}
-			{/if}
-		{/each}
-	</div> -->
-
 	<div class="title tq">FLOAT16</div>
-	<div class="tq">
+	<div class="tq benchmark">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
 				{#if getModelDataTypeById(model) === 'fp16'}
@@ -82,7 +126,21 @@
 						<div class="status_1 s">
 							<Clock />
 						</div>
-						<a href="{base}/run/{model}" class="">{getModelNameById(model)}</a>
+						{#if getModelTypeById(model) === 'onnx'}
+							<div class="onnx mt">
+								<Onnx />
+							</div>
+						{/if}
+
+						{#if getModelTypeById(model) === 'tflite'}
+							<div class="tflite mt">
+								<Tflite />
+							</div>
+						{/if}
+						<a href="{base}/run/{model}" class=""
+							>{getModelNameById(model)} ·
+							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
+						>
 					</div>
 				{/if}
 			{/if}
@@ -90,15 +148,29 @@
 	</div>
 
 	<div class="title tq">INT8</div>
-	<div class="tq">
+	<div class="tq benchmark">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
 				{#if getModelDataTypeById(model) === 'int8'}
-					<div class="q tests" title="{getModelDescriptionById(model)} ">
+					<div class="q tests" title="{getModelDescriptionById(model)} {getModelNoteById(model)}">
 						<div class="status_1 s">
 							<Clock />
 						</div>
-						<a href="{base}/run/{model}" class="">{getModelNameById(model)}</a>
+						{#if getModelTypeById(model) === 'onnx'}
+							<div class="onnx mt">
+								<Onnx />
+							</div>
+						{/if}
+
+						{#if getModelTypeById(model) === 'tflite'}
+							<div class="tflite mt">
+								<Tflite />
+							</div>
+						{/if}
+						<a href="{base}/run/{model}" class=""
+							>{getModelNameById(model)} ·
+							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
+						>
 					</div>
 				{/if}
 			{/if}
@@ -117,7 +189,7 @@
 	}
 
 	.tq {
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 	}
 
 	.tq .q.tests {
@@ -131,5 +203,93 @@
 
 	.tq .q.tests a:hover {
 		color: var(--orange);
+	}
+
+	.modelselection {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.tabs {
+		display: flex;
+		background-color: #fff;
+		box-shadow:
+			0 0 1px 0 rgba(var(--red), 0.15),
+			0 6px 12px 0 rgba(var(--red), 0.15);
+		padding: 6px 20px;
+		border-radius: 99px;
+		z-index: 2;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	input[type='radio'] {
+		display: none;
+	}
+
+	.tab {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 6px 20px;
+		font-weight: 500;
+		border-radius: 99px;
+		cursor: pointer;
+		transition: color 0.15s ease-in;
+	}
+
+	input[type='radio'] {
+		&:checked {
+			& + label {
+				color: var(--red);
+			}
+		}
+	}
+
+	input[id='r-onnx'] {
+		&:checked {
+			& ~ .glider {
+				transform: translateX(0);
+			}
+		}
+	}
+
+	input[id='r-tflite'] {
+		&:checked {
+			& ~ .glider {
+				transform: translateX(100%);
+			}
+		}
+	}
+	/* 
+	input[id='radio-3'] {
+		&:checked {
+			& ~ .glider {
+				transform: translateX(200%);
+			}
+		}
+	} */
+
+	.glider {
+		position: absolute;
+		display: flex;
+		height: 30px;
+		width: 140px;
+		background-color: var(--red-005);
+		z-index: 1;
+		border-radius: 99px;
+		transition: 0.25s ease-out;
+	}
+
+	.benchmark.tq .onnx,
+	.benchmark.tq .tflite {
+		margin: 0 0 2px 6px;
+	}
+
+	@media (max-width: 700px) {
+		.tabs {
+			transform: scale(0.6);
+		}
 	}
 </style>

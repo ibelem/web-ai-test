@@ -82,6 +82,7 @@ const generateEsrganConfigs = () => {
   }))
 }
 
+
 export let models = [
   {
     category: 'Model Access Check',
@@ -90,6 +91,20 @@ export let models = [
     description: '',
     source: '',
     model: '01.onnx'
+  },
+  {
+    category: 'Model Access Check',
+    id: `placeholder_fp32`,
+    name: `placeholder`,
+    description: ``,
+    note: '',
+    source: ``,
+    model: ``,
+    size: '0 KB',
+    format: 'tflite',
+    datatype: `fp32`,
+    inputs: [{ 'data_0': ['float32', 'random', [1, 3, 224, 224], {}] }],
+    inputstip: '[1, 3, 224, 224]'
   },
   {
     category: 'Image Classification',
