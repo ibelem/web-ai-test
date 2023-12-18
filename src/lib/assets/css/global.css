@@ -1123,22 +1123,22 @@ padding: 2px 4px 2px 4px;
 
 .config label.false.extra.fp16:hover
 {  
-  border: 1px solid var(--pink) !important;
-  color: var(--pink);
-  background-color: var(--pink-01);
+  border: 1px solid var(--fp16) !important;
+  color: var(--fp16);
+  background-color: var(--fp16-01);
 }
 
 .config label.true.extra.fp16:hover
 {  
-  border: 1px solid var(--pink) !important;
-  color: var(--pink);
+  border: 1px solid var(--fp16) !important;
+  color: var(--fp16);
   background-image: none !important;
-  background-color: var(--pink-01);
+  background-color: var(--fp16-01);
 }
 
 .config label.extra.fp16:hover svg path
 {  
-  fill: var(--pink) !important;
+  fill: var(--fp16) !important;
 }
 
 .config label.false.extra.int8:hover
@@ -1178,19 +1178,19 @@ padding: 2px 4px 2px 4px;
 }
 
 .models label.false.extra.fp16:hover {
-  border: 1px solid var(--pink) !important;
-  color: var(--pink);
-  background-color: var(--pink-01);
+  border: 1px solid var(--fp16) !important;
+  color: var(--fp16);
+  background-color: var(--fp16-01);
 }
 
 .models label.true.extra.fp16:hover {
-  color: var(--pink);
+  color: var(--fp16);
   background-image: none !important;
-  background-color: var(--pink-01);
+  background-color: var(--fp16-01);
 }
 
 .config label.true.extra.fp16 {
-  background-image: linear-gradient(to right, var(--pink-09) 0%,  var(--pink) 100%) !important;
+  background-image: linear-gradient(to right, var(--fp16-09) 0%,  var(--fp16) 100%) !important;
 }
 
 .models label.false.extra.int8:hover {
@@ -1268,12 +1268,12 @@ padding: 2px 4px 2px 4px;
 }
 
 #modeldesc.fp16 .modeldes {
-  background-color: var(--pink);
+  background-color: var(--fp16);
   color: var(--white);
 }
 
 #modeldesc.fp16 .modeldes:hover {
-  background-color: var(--pink);
+  background-color: var(--fp16);
   color: var(--white);
 }
 
@@ -1309,7 +1309,7 @@ padding: 2px 4px 2px 4px;
 }
 
 #modeldesc.fp16 .note {
-  background-color: var(--pink);
+  background-color: var(--fp16);
 }
 
 #modeldesc.int64 .note {
@@ -1643,4 +1643,66 @@ padding: 2px 4px 2px 4px;
 
 .benchmark.tq .q.tests a {
   margin-left: 10px !important;
+}
+
+.title.fp16, .title.tq.fp16 button {
+  color: var(--fp16) !important;
+}
+
+.title.tq.fp16 {
+background-color: var(--fp16-005);
+}
+
+.title.int8, .title.tq.int8 button {
+  color: var(--p) !important;
+}
+
+.title.tq.int8 {
+background-color: var(--p-005);
+}
+
+.ho {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.f {
+  cursor: pointer;
+  min-width: 45px;
+  text-align: center;
+}
+
+.f button {
+  border: 1px solid var(--grey-02);
+  padding: 0px 6px 0px 6px;
+  background: transparent;
+  font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--white);
+  color: var(--font);
+  font-size: 12px;
+  cursor: pointer;
+  width: 176px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.f button:hover {
+  background-image: none;
+  background-color: var(--red-005);
+  color: var(--red);
+  border: 1px solid var(--red) !important;
+}
+
+.fp16 .f button:hover {
+  background-color: var(--fp16-005);
+  color: var(--fp16);
+  border: 1px solid var(--fp16) !important;
+}
+
+.int8 .f button:hover {
+  background-color: var(--p-005);
+  color: var(--p);
+  border: 1px solid var(--p) !important;
 }

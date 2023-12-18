@@ -378,8 +378,10 @@
 	{/each}
 </div> -->
 
-	<div class="title tq"><button on:click={() => setFallbackQueue('fp16')}>Float16</button></div>
-	<div class="ho">
+	<div class="title tq fp16">
+		<button on:click={() => setFallbackQueue('fp16')}>Float16</button>
+	</div>
+	<div class="ho fp16">
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
 				{#if getModelDataTypeById(m.id) === 'fp16'}
@@ -391,8 +393,8 @@
 		{/each}
 	</div>
 
-	<div class="title tq"><button on:click={() => setFallbackQueue('int8')}>Int8</button></div>
-	<div class="ho">
+	<div class="title tq int8"><button on:click={() => setFallbackQueue('int8')}>Int8</button></div>
+	<div class="ho int8">
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
 				{#if getModelDataTypeById(m.id) === 'int8'}
@@ -480,40 +482,6 @@
 
 	.inferlog:hover::-webkit-scrollbar-thumb {
 		background-color: var(--green);
-	}
-
-	.ho {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 4px;
-	}
-
-	.f {
-		cursor: pointer;
-		min-width: 45px;
-		text-align: center;
-	}
-
-	.f button {
-		border: 1px solid var(--grey-02);
-		padding: 0px 6px 0px 6px;
-		background: transparent;
-		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		background-color: var(--white);
-		color: var(--font);
-		font-size: 12px;
-		cursor: pointer;
-		width: 176px;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
-	}
-
-	.f button:hover {
-		background-image: none;
-		background-color: var(--red-005);
-		color: var(--red);
-		border: 1px solid var(--red) !important;
 	}
 
 	.run {

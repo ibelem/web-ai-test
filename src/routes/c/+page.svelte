@@ -281,7 +281,7 @@
 	{/each}
 </div>
 
-<div class="title tq">Float16</div>
+<div class="title tq fp16">Float16</div>
 <div class="ho">
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
@@ -302,7 +302,7 @@
 	{/each}
 </div>
 
-<div class="title tq">Int8</div>
+<div class="title tq int8">Int8</div>
 <div class="ho">
 	{#each models as m}
 		{#if m.id !== 'model_access_check'}
@@ -443,33 +443,6 @@
 
 	.inferlog:hover::-webkit-scrollbar-thumb {
 		background-color: var(--green);
-	}
-
-	.f {
-		cursor: pointer;
-		min-width: 45px;
-		text-align: center;
-	}
-
-	.f button {
-		border: 1px solid var(--grey-02);
-		padding: 0px 6px 0px 6px;
-		background: transparent;
-		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		background-color: var(--white);
-		color: var(--font);
-		cursor: pointer;
-		width: 176px;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
-	}
-
-	.f button:hover {
-		background-image: none;
-		background-color: var(--red-005);
-		color: var(--red);
-		border: 1px solid var(--red) !important;
 	}
 
 	.run {
