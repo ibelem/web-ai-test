@@ -4,7 +4,7 @@ import { compareObjects, maxDiff, addConformance, updateConformanceLog, loadScri
 import { sleepStore, modelDownloadUrlStore, conformanceStore } from '../../store/store';
 import { getGpu } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
-import { dataTypeToArrayConstructor, uint16ArrayToFloat32Array, isDict, bigInt64ArrayToString, bigInt64ArrayToFloat32Array } from '$lib/assets/js/data_type';
+import { dataTypeToArrayConstructor, uint16ArrayToFloat32Array, isDict, bigInt64ArrayToFloat32Array } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
 // import localforage from 'localforage';
 

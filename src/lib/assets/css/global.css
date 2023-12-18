@@ -18,6 +18,7 @@ code {
   width: 90%;
 }
 
+
 a {
   text-decoration: dashed;
   border-bottom: 0px dashed var(--font);
@@ -1627,4 +1628,19 @@ padding: 2px 4px 2px 4px;
 
 .custom-file-upload svg {
   width: 20px;
+}
+
+.tab svg {
+  width: 100px;
+  height: 16px;
+}
+
+.benchmark.tq .onnx svg,
+.benchmark.tq .tflite svg {
+  width: 13px;
+  height: 13px;
+}
+
+.benchmark.tq .q.tests a {
+  margin-left: 10px !important;
 }
