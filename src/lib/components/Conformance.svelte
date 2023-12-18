@@ -1,7 +1,12 @@
 <script>
 	import { resultsStore } from '$lib/store/store';
 	import { conformance, conformanceEnv } from '$lib/conformance';
-	import { getModelNameById, getModelTypeById, getModelDataTypeById } from '$lib/assets/js/utils';
+	import {
+		getModelNameById,
+		getModelTypeById,
+		getModelDataTypeById,
+		sortModelById
+	} from '$lib/assets/js/utils';
 	import { afterUpdate, onMount } from 'svelte';
 	import { page } from '$app/stores';
 
@@ -24,24 +29,15 @@
 	});
 
 	let filteredConformance = conformance;
+	filteredConformance = sortModelById(filteredConformance);
 
 	onMount(() => {
 		if (results && results.length > 0) {
 			filteredConformance = conformance.filter((/** @type {{ name: any; }} */ conformanceItem) => {
 				return results.some((resultItem) => resultItem.model === conformanceItem.name);
 			});
+			filteredConformance = sortModelById(filteredConformance);
 		}
-		filteredConformance = filteredConformance.sort((a, b) => {
-			const nameA = a.name.toLowerCase();
-			const nameB = b.name.toLowerCase();
-			if (nameA < nameB) {
-				return -1;
-			}
-			if (nameA > nameB) {
-				return 1;
-			}
-			return 0;
-		});
 	});
 </script>
 

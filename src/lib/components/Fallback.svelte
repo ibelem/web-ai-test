@@ -1,7 +1,12 @@
 <script>
 	import { resultsStore } from '$lib/store/store';
 	import { fallback, fallbackEnv } from '$lib/fallback';
-	import { getModelNameById, getModelTypeById, getModelDataTypeById } from '$lib/assets/js/utils';
+	import {
+		getModelNameById,
+		getModelTypeById,
+		getModelDataTypeById,
+		sortModelById
+	} from '$lib/assets/js/utils';
 	import { afterUpdate, onMount } from 'svelte';
 	import { page } from '$app/stores';
 
@@ -24,12 +29,14 @@
 	});
 
 	let filteredFallback = fallback;
+	filteredFallback = sortModelById(filteredFallback);
 
 	onMount(() => {
 		if (results && results.length > 0) {
 			filteredFallback = fallback.filter((/** @type {{ name: any; }} */ fallbackItem) => {
 				return results.some((resultItem) => resultItem.model === fallbackItem.name);
 			});
+			filteredFallback = sortModelById(filteredFallback);
 		}
 	});
 </script>
