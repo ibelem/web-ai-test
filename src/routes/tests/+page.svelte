@@ -92,7 +92,10 @@
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
 				{#if getModelDataTypeById(model) === 'fp32'}
-					<div class="q tests" title="{getModelDescriptionById(model)} {getModelNoteById(model)}">
+					<div
+						class="q tests {model}"
+						title="{getModelDescriptionById(model)} {getModelNoteById(model)}"
+					>
 						<div class="status_1 s">
 							<Clock />
 						</div>
@@ -117,12 +120,15 @@
 		{/each}
 	</div>
 
-	<div class="title tq">FLOAT16</div>
+	<div class="title tq fp16">FLOAT16</div>
 	<div class="tq benchmark">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
 				{#if getModelDataTypeById(model) === 'fp16'}
-					<div class="q tests" title="{getModelDescriptionById(model)} {getModelNoteById(model)}">
+					<div
+						class="q tests {model}"
+						title="{getModelDescriptionById(model)} {getModelNoteById(model)}"
+					>
 						<div class="status_1 s">
 							<Clock />
 						</div>
@@ -147,12 +153,15 @@
 		{/each}
 	</div>
 
-	<div class="title tq">INT8</div>
+	<div class="title tq int8">INT8</div>
 	<div class="tq benchmark">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
 				{#if getModelDataTypeById(model) === 'int8'}
-					<div class="q tests" title="{getModelDescriptionById(model)} {getModelNoteById(model)}">
+					<div
+						class="q tests {model}"
+						title="{getModelDescriptionById(model)} {getModelNoteById(model)}"
+					>
 						<div class="status_1 s">
 							<Clock />
 						</div>
@@ -291,5 +300,19 @@
 		.tabs {
 			transform: scale(0.6);
 		}
+	}
+
+	.mobilenet_v2,
+	.mobilenet_v3,
+	.efficientnet_lite {
+		background-color: var(--red-005);
+	}
+
+	.mobilenet_v2_fp16 {
+		background-color: var(--fp16-005);
+	}
+
+	.mobilenet_v2_12_int8 {
+		background-color: var(--p-005);
 	}
 </style>
