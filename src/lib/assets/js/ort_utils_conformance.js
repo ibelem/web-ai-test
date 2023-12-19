@@ -449,7 +449,8 @@ const next = (_model, _backend) => {
 export const runOnnxConformance = async (_model, _modelType, _dataType, _backend) => {
   // mainConformance(_model, _modelType, _dataType, _backend);
 
-  let modelInfo = JSON.stringify(getModelInfoById(_model), null, ' ');
+  let modelInfo = JSON.stringify(getModelInfoById(_model), null, '');
+  modelInfo = modelInfo.replaceAll(',', ', ').replaceAll(':', ': ');
   updateConformanceLog(`[0] Model Info: ${modelInfo}`)
 
   const [err, data] = await to(mainConformance(_model, _modelType, _dataType, _backend));
