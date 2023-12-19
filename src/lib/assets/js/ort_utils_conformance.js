@@ -2,8 +2,7 @@
 import { models, ortDists } from '$lib/config';
 import { compareObjects, addConformance, updateConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
 import { sleepStore, modelDownloadUrlStore, conformanceQueueStore, conformanceStore } from '../../store/store';
-import { getGpu } from '$lib/assets/js/utils';
-import { sleep } from '$lib/assets/js/utils';
+import { getGpu, sleep, getModelInfoById } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
 import { dataTypeToArrayConstructor, isDict } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
@@ -449,6 +448,10 @@ const next = (_model, _backend) => {
 
 export const runOnnxConformance = async (_model, _modelType, _dataType, _backend) => {
   // mainConformance(_model, _modelType, _dataType, _backend);
+
+  let modelInfo = JSON.stringify(getModelInfoById(_model), null, ' ');
+  updateConformanceLog(`[0] Model Info: ${modelInfo}`)
+
   const [err, data] = await to(mainConformance(_model, _modelType, _dataType, _backend));
   if (err) {
     updateConformanceLog(`[Error] ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);

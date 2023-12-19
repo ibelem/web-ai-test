@@ -494,6 +494,10 @@ export const sortModelById = (models) => {
   return models;
 }
 
+export const getModelInfoById = (id) => {
+  return models.find(item => item.id === id);
+}
+
 export const getModelNameById = (id) => {
   const model = models.find(item => item.id === id);
   return model?.name;

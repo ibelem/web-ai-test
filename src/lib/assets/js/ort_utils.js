@@ -2,7 +2,7 @@
 import { models, ortDists } from '$lib/config';
 import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, average, minimum } from '../js/utils';
 import { testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
-import { sleep } from '$lib/assets/js/utils';
+import { sleep, getModelInfoById } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
 import { dataTypeToArrayConstructor, float16ToNumber, isDict } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
@@ -379,6 +379,9 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
 export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
   // await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
+
+  let modelInfo = JSON.stringify(getModelInfoById(_model), null, ' ');
+  updateInfo(`Model Info: ${modelInfo}`)
 
   const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
   if (err) {

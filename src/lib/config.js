@@ -24,7 +24,7 @@ export const ortDists = {
     url: 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js'
   },
   webgpu: {
-    version: 'v1.17 Internal Dec 13',
+    version: 'v1.17 Internal Dec 19',
     url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.webgpu.min.js'
   },
   webnn_webglfix: {
@@ -819,6 +819,23 @@ export let models = [
   },
   {
     category: 'Speech Recognition',
+    id: 'distil_medium_en_decoder',
+    name: 'Distil-Whisper Decoder',
+    description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
+    note: '',
+    source: 'https://huggingface.co/distil-whisper/distil-medium.en/tree/main/onnx',
+    model: 'transformer.js/distil-medium.en/decoder_model.onnx',
+    size: '332 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
+    }],
+    inputstip: '[1, 1] [1, 1500, 1024]'
+  },
+  {
+    category: 'Speech Recognition',
     id: 'distil_medium_en_decoder_int8',
     name: 'Distil-Whisper Decoder',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
@@ -833,6 +850,22 @@ export let models = [
       'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
     }],
     inputstip: '[1, 1] [1, 1500, 1024]'
+  },
+  {
+    category: 'Speech Recognition',
+    id: 'distil_medium_en_encoder',
+    name: 'Distil-Whisper Encoder',
+    description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/distil-whisper/distil-medium.en/tree/main/onnx',
+    model: 'transformer.js/distil-medium.en/encoder_model.onnx',
+    size: '1.14 GB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }],
+    }],
+    inputstip: '[1, 80, 3000]'
   },
   {
     category: 'Speech Recognition',
