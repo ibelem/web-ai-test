@@ -2,7 +2,7 @@
 import { models, ortDists } from '$lib/config';
 import { compareObjects, maxDiff, addConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
 import { sleepStore, modelDownloadUrlStore, conformanceStore } from '../../store/store';
-import { getGpu } from '$lib/assets/js/utils';
+import { getGpu, getModelInfoById } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
 import { dataTypeToArrayConstructor, uint16ArrayToFloat32Array, isDict, bigInt64ArrayToFloat32Array } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
@@ -535,6 +535,9 @@ export const runOnnxConformance = async (_model, _modelType, _dataType) => {
   res.name = _model;
   res.gpu = getGpu();
   // updateConformance(res);
+
+  let modelInfo = JSON.stringify(getModelInfoById(_model), null, ' ');
+  updateConformanceLog(`[0] Model Info: ${modelInfo}`)
 
   for (let _backend of backends) {
     // mainConformance(_model, _modelType, _dataType, _backend);
