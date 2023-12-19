@@ -536,7 +536,8 @@ export const runOnnxConformance = async (_model, _modelType, _dataType) => {
   res.gpu = getGpu();
   // updateConformance(res);
 
-  let modelInfo = JSON.stringify(getModelInfoById(_model), null, ' ');
+  let modelInfo = JSON.stringify(getModelInfoById(_model), 'null', '');
+  modelInfo = modelInfo.replaceAll(',', ', ').replaceAll(':', ': ');
   updateConformanceLog(`[0] Model Info: ${modelInfo}`)
 
   for (let _backend of backends) {
