@@ -13,10 +13,14 @@ export const dataTypeToArrayConstructor = {
   uint8: Uint8Array
 };
 
-export const bigInt64ArrayToString = (arr) => {
-  console.log(`The variable array is a BigInt64Array`)
-  arr = BigInt64Array.from(arr);
-  return arr.join(',');
+// export const bigInt64ArrayToString = (arr) => {
+//   console.log(`The variable array is a BigInt64Array`)
+//   arr = BigInt64Array.from(arr);
+//   return arr.join(',');
+// }
+
+export const bigInt64ArrayToString = (obj) => {
+  return JSON.stringify(obj, (_, v) => typeof v === 'bigint' ? v.toString() : v)
 }
 
 export const bigInt64ArrayToFloat32Array = (arr) => {

@@ -303,7 +303,8 @@
 				{/each}
 			</div>
 			<div class="subtitle">
-				Tested on Chrome Canary {conformanceEnv.version} / Last update: {conformanceEnv.last_update}
+				Tested on Windows {conformanceEnv.windows} · Chrome Canary {conformanceEnv.version} · Last update:
+				{conformanceEnv.last_update}
 			</div>
 		</div>
 	{/if}

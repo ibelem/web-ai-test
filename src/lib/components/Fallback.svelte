@@ -108,7 +108,8 @@
 				{/each}
 			</div>
 			<div class="subtitle">
-				Tested on Chrome Canary {fallbackEnv.version} / Last update: {fallbackEnv.last_update}
+				Tested on Windows {fallbackEnv.windows} · Chrome Canary {fallbackEnv.version} · Last update:
+				{fallbackEnv.last_update}
 			</div>
 		</div>
 	{/if}

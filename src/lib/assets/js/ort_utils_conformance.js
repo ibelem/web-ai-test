@@ -2,9 +2,9 @@
 import { models, ortDists } from '$lib/config';
 import { compareObjects, addConformance, updateConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
 import { sleepStore, modelDownloadUrlStore, conformanceQueueStore, conformanceStore } from '../../store/store';
-import { getGpu, sleep, getModelInfoById } from '$lib/assets/js/utils';
+import { getGpu, sleep, getModelHFUrlById, getModelCategoryById, getModelDescriptionById, getModelInputsRawById, getModelNameById, getModelSizeById } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
-import { dataTypeToArrayConstructor, isDict } from '$lib/assets/js/data_type';
+import { dataTypeToArrayConstructor, isDict, bigInt64ArrayToString } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
 // import localforage from 'localforage';
 
@@ -431,7 +431,7 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
     await sleep(10000);
   }
 
-  updateConformanceLog(`[8] Conformance test of ${_model} (${_modelType} /${_dataType}) with ${_backend} backend on ${getGpu()} completed`);
+  updateConformanceLog(`[8] Conformance test of ${_model} (${_modelType}/${_dataType}) with ${_backend} backend on ${getGpu()} completed`);
   updateConformanceLog('|-------------------------------------------------------------------------------------|');
   next(_model, _backend);
 }
@@ -449,9 +449,11 @@ const next = (_model, _backend) => {
 export const runOnnxConformance = async (_model, _modelType, _dataType, _backend) => {
   // mainConformance(_model, _modelType, _dataType, _backend);
 
-  let modelInfo = JSON.stringify(getModelInfoById(_model), null, '');
-  modelInfo = modelInfo.replaceAll(',', ', ').replaceAll(':', ': ');
-  updateConformanceLog(`[0] Model Info: ${modelInfo}`)
+  updateConformanceLog(`[0] Model ID: ${_model} / Name: ${getModelNameById(_model)} / Size: ${getModelSizeById(_model)} / Category: ${getModelCategoryById(_model)}`);
+  updateConformanceLog(`[0] Description: ${getModelDescriptionById(_model)}`);
+  let inputs = JSON.stringify(bigInt64ArrayToString(getModelInputsRawById(_model)), null, '');
+  updateConformanceLog(`[0] Inputs: ${inputs}`);
+  updateConformanceLog(`[0] Netron: https://ibelem.github.io/netron/?url=${getModelHFUrlById(_model)}`);
 
   const [err, data] = await to(mainConformance(_model, _modelType, _dataType, _backend));
   if (err) {
