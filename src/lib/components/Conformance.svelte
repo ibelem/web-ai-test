@@ -30,6 +30,46 @@
 
 	let filteredConformance = conformance;
 	filteredConformance = sortModelById(filteredConformance);
+	let filteredDataConformance = filteredConformance;
+
+	/**
+	 * @type {any}
+	 */
+	let conformanceDataTypeOptions = {
+		fp32: true,
+		fp16: true,
+		int8: true
+	};
+
+	const filter = () => {
+		filteredDataConformance = filteredConformance.filter((item) => {
+			if (item.name.includes('_fp16') && conformanceDataTypeOptions.fp16) {
+				return true;
+			} else if (item.name.includes('_int8') && conformanceDataTypeOptions.int8) {
+				return true;
+			} else if (
+				!item.name.includes('_fp16') &&
+				!item.name.includes('_int8') &&
+				conformanceDataTypeOptions.fp32
+			) {
+				return true;
+			}
+			return false;
+		});
+	};
+
+	const toggleDataIndex = (/** @type {string} */ id) => {
+		conformanceDataTypeOptions[id] = !conformanceDataTypeOptions[id];
+		if (
+			conformanceDataTypeOptions.fp32 === false &&
+			conformanceDataTypeOptions.fp16 === false &&
+			conformanceDataTypeOptions.int8 === false
+		) {
+			conformanceDataTypeOptions.fp32 = true;
+		}
+
+		filter();
+	};
 
 	onMount(() => {
 		if (results && results.length > 0) {
@@ -38,14 +78,38 @@
 			});
 			filteredConformance = sortModelById(filteredConformance);
 		}
+		filter();
 	});
 </script>
 
 {#if (results && results.length > 0 && (results[0].webnn_cpu_1 || results[0].webnn_cpu_4 || results[0].webnn_gpu || results[0].webnn_npu)) || $page.url.pathname.indexOf('conformance') > -1}
-	{#if filteredConformance && filteredConformance.length > 0}
+	{#if filteredDataConformance && filteredDataConformance.length > 0}
 		<div id="conformance">
 			<div class="rqtitle">
 				<div class="title rq mb mt">WebNN Conformance Status</div>
+			</div>
+			<div class="figure options">
+				<span
+					class="fp32 {conformanceDataTypeOptions.fp32}"
+					role="button"
+					tabindex="0"
+					on:keydown={() => {}}
+					on:click={() => toggleDataIndex('fp32')}>FP32</span
+				>
+				<span
+					class="fp16 {conformanceDataTypeOptions.fp16}"
+					role="button"
+					tabindex="0"
+					on:keydown={() => {}}
+					on:click={() => toggleDataIndex('fp16')}>FP16</span
+				>
+				<span
+					class="int8 {conformanceDataTypeOptions.int8}"
+					role="button"
+					tabindex="0"
+					on:keydown={() => {}}
+					on:click={() => toggleDataIndex('int8')}>INT8</span
+				>
 			</div>
 			<div class="result">
 				<div class="q _5 title {y_pin}">
@@ -59,7 +123,7 @@
 					<div class="su" title="WebNN GPU">WebNN GPU</div>
 					<div class="su" title="WebNN NPU">WebNN NPU</div>
 				</div>
-				{#each filteredConformance as { name, gpu, wasm_4, webnn_cpu_4, webgl, webgpu, webnn_gpu, webnn_npu }, i}
+				{#each filteredDataConformance as { name, gpu, wasm_4, webnn_cpu_4, webgl, webgpu, webnn_gpu, webnn_npu }, i}
 					<div class="q _5">
 						<div class="name c">{getModelNameById(name)}</div>
 						<div class="su info c">

@@ -7,7 +7,7 @@ export const conformanceEnv = {
 export const conformance = [
   {
     "name": "densenet",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -76,7 +76,7 @@ export const conformance = [
   },
   {
     "name": "efficientnet_lite",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -145,7 +145,7 @@ export const conformance = [
   },
   {
     "name": "mobilenet_v2",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -214,7 +214,7 @@ export const conformance = [
   },
   {
     "name": "mobilenet_v2_12",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -283,7 +283,7 @@ export const conformance = [
   },
   {
     "name": "resnet50_v1",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -352,7 +352,7 @@ export const conformance = [
   },
   {
     "name": "resnet50_v2",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -421,7 +421,7 @@ export const conformance = [
   },
   {
     "name": "squeezenet",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -490,7 +490,7 @@ export const conformance = [
   },
   {
     "name": "selfie_segmentation_general",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -559,7 +559,7 @@ export const conformance = [
   },
   {
     "name": "selfie_segmentation_landscape",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -628,7 +628,7 @@ export const conformance = [
   },
   {
     "name": "emotion_ferplus",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -697,7 +697,7 @@ export const conformance = [
   },
   {
     "name": "realesrgan_x4_64_fp32",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -758,7 +758,7 @@ export const conformance = [
   },
   {
     "name": "tinyyolo_v2",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -826,7 +826,7 @@ export const conformance = [
   },
   {
     "name": "albert_base_v2",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -887,7 +887,7 @@ export const conformance = [
   },
   {
     "name": "bart_large_cnn",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -948,7 +948,7 @@ export const conformance = [
   },
   {
     "name": "bert_base_cased",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1009,7 +1009,7 @@ export const conformance = [
   },
   {
     "name": "bert_base_uncased",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1070,7 +1070,7 @@ export const conformance = [
   },
   {
     "name": "codegen_350m_mono",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1131,7 +1131,7 @@ export const conformance = [
   },
   {
     "name": "detr_resnet_50",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1192,7 +1192,7 @@ export const conformance = [
   },
   {
     "name": "dino_vitb16",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1253,7 +1253,7 @@ export const conformance = [
   },
   {
     "name": "gpt2_decoder",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1314,7 +1314,7 @@ export const conformance = [
   },
   {
     "name": "m2m100_decoder",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1375,7 +1375,7 @@ export const conformance = [
   },
   {
     "name": "m2m100_encoder",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1436,7 +1436,7 @@ export const conformance = [
   },
   {
     "name": "sd_2_1_vae_decoder",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1501,7 +1501,7 @@ export const conformance = [
   },
   {
     "name": "sd_2_1_vae_encoder",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1566,7 +1566,7 @@ export const conformance = [
   },
   {
     "name": "t5_small_decoder",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1627,7 +1627,7 @@ export const conformance = [
   },
   {
     "name": "t5_small_encoder",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1688,7 +1688,7 @@ export const conformance = [
   },
   {
     "name": "whisper_tiny_decoder",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1749,7 +1749,7 @@ export const conformance = [
   },
   {
     "name": "whisper_tiny_encoder",
-    "gpu": "NVIDIA GeForce RTX 2080 Ti Direct3D11",
+    "gpu": "N2",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1806,7 +1806,7 @@ export const conformance = [
   },
   {
     "name": "densenet",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1875,7 +1875,7 @@ export const conformance = [
   },
   {
     "name": "efficientnet_lite",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1944,7 +1944,7 @@ export const conformance = [
   },
   {
     "name": "mobilenet_v2",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2013,7 +2013,7 @@ export const conformance = [
   },
   {
     "name": "mobilenet_v2_12",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2082,7 +2082,7 @@ export const conformance = [
   },
   {
     "name": "resnet50_v1",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2151,7 +2151,7 @@ export const conformance = [
   },
   {
     "name": "resnet50_v2",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2220,7 +2220,7 @@ export const conformance = [
   },
   {
     "name": "squeezenet",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2289,7 +2289,7 @@ export const conformance = [
   },
   {
     "name": "selfie_segmentation_general",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2358,7 +2358,7 @@ export const conformance = [
   },
   {
     "name": "selfie_segmentation_landscape",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2427,7 +2427,7 @@ export const conformance = [
   },
   {
     "name": "emotion_ferplus",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2496,7 +2496,7 @@ export const conformance = [
   },
   {
     "name": "fns_candy",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2564,7 +2564,7 @@ export const conformance = [
   },
   {
     "name": "tinyyolo_v2",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2633,7 +2633,7 @@ export const conformance = [
   },
   {
     "name": "albert_base_v2",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2702,7 +2702,7 @@ export const conformance = [
   },
   {
     "name": "bart_large_cnn",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2763,7 +2763,7 @@ export const conformance = [
   },
   {
     "name": "bert_base_cased",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2824,7 +2824,7 @@ export const conformance = [
   },
   {
     "name": "bert_base_uncased",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2886,7 +2886,7 @@ export const conformance = [
   ,
   {
     "name": "codegen_350m_mono",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2947,7 +2947,7 @@ export const conformance = [
   },
   {
     "name": "detr_resnet_50",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3008,7 +3008,7 @@ export const conformance = [
   },
   {
     "name": "dino_vitb16",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3069,7 +3069,7 @@ export const conformance = [
   },
   {
     "name": "gpt2_decoder",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3130,7 +3130,7 @@ export const conformance = [
   },
   {
     "name": "m2m100_decoder",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3191,7 +3191,7 @@ export const conformance = [
   },
   {
     "name": "m2m100_encoder",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3252,7 +3252,7 @@ export const conformance = [
   },
   {
     "name": "sd_2_1_vae_decoder",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3317,7 +3317,7 @@ export const conformance = [
   },
   {
     "name": "sd_2_1_vae_encoder",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3382,7 +3382,7 @@ export const conformance = [
   },
   {
     "name": "sam_b_decoder",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3447,7 +3447,7 @@ export const conformance = [
   },
   {
     "name": "sam_b_encoder",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3512,7 +3512,7 @@ export const conformance = [
   },
   {
     "name": "t5_small_decoder",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3573,7 +3573,7 @@ export const conformance = [
   },
   {
     "name": "t5_small_encoder",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3634,7 +3634,7 @@ export const conformance = [
   },
   {
     "name": "whisper_tiny_decoder",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3695,7 +3695,7 @@ export const conformance = [
   },
   {
     "name": "whisper_tiny_encoder",
-    "gpu": "Intel Iris(R) Xe Graphics Direct3D11",
+    "gpu": "IX",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",

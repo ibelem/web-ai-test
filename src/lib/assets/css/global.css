@@ -615,6 +615,112 @@ header .nav {
   color: var(--best);
 }
 
+	.figure.options span:hover {
+		cursor: pointer;
+	}
+
+	.figure.options .cpu {
+		background-color: var(--b1-005);
+	}
+
+	.figure.options .cpu:hover,
+	.figure.options .cpu.true:hover {
+		border: 1px solid var(--b1);
+		background-color: var(--b1-005);
+		padding: 0px 10px;
+		color: var(--b1);
+	}
+
+	.figure.options .cpu.true {
+		color: var(--white);
+		background-color: var(--b1);
+	}
+
+	.figure.options .gpu {
+		background-color: var(--p2-005);
+	}
+
+	.figure.options .gpu:hover,
+	.figure.options .gpu.true:hover {
+		border: 1px solid var(--p2);
+		background-color: var(--p2-005);
+		padding: 0px 10px;
+		color: var(--p2);
+	}
+
+	.figure.options .gpu.true {
+		color: var(--white);
+		background-color: var(--p2);
+	}
+
+	.figure.options .npu {
+		background-color: var(--purple-005);
+	}
+
+	.figure.options .npu:hover,
+	.figure.options .npu.true:hover {
+		background-color: var(--purple-005);
+		border: 1px solid var(--purple);
+		padding: 0px 10px;
+		color: var(--purple);
+	}
+
+	.figure.options .npu.true {
+		color: var(--white);
+		background-color: var(--purple);
+	}
+
+	.figure.options .fp32 {
+		background-color: var(--red-005);
+	}
+
+	.figure.options .fp32:hover,
+	.figure.options .fp32.true:hover {
+		border: 1px solid var(--red);
+		background-color: var(--red-005);
+		padding: 0px 10px;
+		color: var(--red);
+	}
+
+	.figure.options .fp32.true {
+		color: var(--white);
+		background-color: var(--red);
+	}
+
+	.figure.options .fp16 {
+		background-color: var(--fp16-005);
+	}
+
+	.figure.options .fp16:hover,
+	.figure.options .fp16.true:hover {
+		border: 1px solid var(--fp16);
+		background-color: var(--fp16-005);
+		padding: 0px 10px;
+		color: var(--fp16);
+	}
+
+	.figure.options .fp16.true {
+		color: var(--white);
+		background-color: var(--fp16);
+	}
+
+	.figure.options .int8 {
+		background-color: var(--p-005);
+	}
+
+	.figure.options .int8:hover,
+	.figure.options .int8.true:hover {
+		background-color: var(--p-005);
+		border: 1px solid var(--p);
+		padding: 0px 10px;
+		color: var(--p);
+	}
+
+	.figure.options .int8.true {
+		color: var(--white);
+		background-color: var(--p);
+	}
+
 .result .q .data .compilation:hover, .figure .compilation.true {
   background-color: var(--comp);
   color: var(--white);
