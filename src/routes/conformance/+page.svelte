@@ -632,26 +632,18 @@
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
 				{#if getModelDataTypeById(m.id) === 'fp32'}
-					<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
+					<span
+						class="q tests f"
+						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+							m.id
+						)} · {getModelNoteById(m.id)}"
+					>
 						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
 			{/if}
 		{/each}
 	</div>
-
-	<!-- <div class="title tq"><button on:click={() => setConformanceQueue('int64')}>INT64</button></div>
-<div>
-	{#each sortedModels as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'int64'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
-			{/if}
-		{/if}
-	{/each}
-</div> -->
 
 	<div class="title tq fp16">
 		<button on:click={() => setConformanceQueue('fp16')}>Float16</button>
@@ -660,7 +652,12 @@
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
 				{#if getModelDataTypeById(m.id) === 'fp16'}
-					<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
+					<span
+						class="q tests f"
+						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+							m.id
+						)} · {getModelNoteById(m.id)}"
+					>
 						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
@@ -675,7 +672,12 @@
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
 				{#if getModelDataTypeById(m.id) === 'int8'}
-					<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
+					<span
+						class="q tests f"
+						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+							m.id
+						)} · {getModelNoteById(m.id)}"
+					>
 						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
