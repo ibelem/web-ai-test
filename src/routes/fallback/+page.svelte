@@ -357,7 +357,12 @@
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
 				{#if getModelDataTypeById(m.id) === 'fp32'}
-					<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
+					<span
+						class="q tests f"
+						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+							m.id
+						)} · {getModelNoteById(m.id)}"
+					>
 						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
@@ -385,7 +390,12 @@
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
 				{#if getModelDataTypeById(m.id) === 'fp16'}
-					<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
+					<span
+						class="q tests f"
+						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+							m.id
+						)} · {getModelNoteById(m.id)}"
+					>
 						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
@@ -398,7 +408,12 @@
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
 				{#if getModelDataTypeById(m.id) === 'int8'}
-					<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
+					<span
+						class="q tests f"
+						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+							m.id
+						)} · {getModelNoteById(m.id)}"
+					>
 						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}

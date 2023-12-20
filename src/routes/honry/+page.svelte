@@ -18,7 +18,9 @@
 		updateFallbackLog,
 		resetFallbackQueue,
 		resetStore,
-		sortModelById
+		sortModelById,
+		getModelDescriptionById,
+		getModelNoteById
 	} from '$lib/assets/js/utils';
 	import { fallbackLogStore, fallbackStore, fallbackQueueStore, autoStore } from '$lib/store/store';
 
@@ -295,7 +297,11 @@
 			{#if m.id !== 'model_access_check'}
 				{#if getModelDataTypeById(m.id) === 'fp32'}
 					<div class="fb2">
-						<span>{getModelNameById(m.id)}</span>
+						<span
+							title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+								m.id
+							)} · {getModelNoteById(m.id)}">{getModelNameById(m.id)}</span
+						>
 						<a class="cpu" href="" on:click={() => nav(m.id + '__cpu')}>CPU</a>
 						<a class="gpu" href="" on:click={() => nav(m.id + '__gpu')}>GPU</a>
 					</div>
@@ -310,7 +316,11 @@
 			{#if m.id !== 'model_access_check'}
 				{#if getModelDataTypeById(m.id) === 'fp16'}
 					<div class="fb2">
-						<span>{getModelNameById(m.id)}</span>
+						<span
+							title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+								m.id
+							)} · {getModelNoteById(m.id)}">{getModelNameById(m.id)}</span
+						>
 						<a class="cpu" href="" on:click={() => nav(m.id + '__cpu')}>CPU</a>
 						<a class="gpu" href="" on:click={() => nav(m.id + '__gpu')}>GPU</a>
 					</div>
@@ -325,7 +335,11 @@
 			{#if m.id !== 'model_access_check'}
 				{#if getModelDataTypeById(m.id) === 'int8'}
 					<div class="fb2">
-						<span>{getModelNameById(m.id)}</span>
+						<span
+							title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+								m.id
+							)} · {getModelNoteById(m.id)}">{getModelNameById(m.id)}</span
+						>
 						<a class="cpu" href="" on:click={() => nav(m.id + '__cpu')}>CPU</a>
 						<a class="gpu" href="" on:click={() => nav(m.id + '__gpu')}>GPU</a>
 					</div>

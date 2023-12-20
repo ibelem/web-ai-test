@@ -17,7 +17,10 @@
 		updateConformanceLog,
 		clearConformanceQueue,
 		resetStore,
-		setModelDownloadUrl
+		setModelDownloadUrl,
+		sortModelById,
+		getModelDescriptionById,
+		getModelNoteById
 	} from '$lib/assets/js/utils';
 	import {
 		conformanceLogStore,
@@ -26,6 +29,11 @@
 		autoStore
 	} from '$lib/store/store';
 	import { runOnnxConformance, rawResult } from '$lib/assets/js/ort_utils_conformance';
+
+	/**
+	 * @type {string | any[]}
+	 */
+	let sortedModels = [];
 
 	/**
 	 * @type {string[]}
@@ -155,6 +163,7 @@
 	afterUpdate(() => {});
 
 	onMount(async () => {
+		sortedModels = sortModelById(models);
 		await setModelDownloadUrl();
 		rawConsole = '';
 		clearConformance();
@@ -262,11 +271,19 @@
 
 <div class="title tq">Float32</div>
 <div class="ho">
-	{#each models as m}
+	{#each sortedModels as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'fp32'}
 				<div class="b">
-					<div class="t">{getModelNameById(m.id)}</div>
+					<div
+						class="t"
+						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+							m.id
+						)} · {getModelNoteById(m.id)}
+					"
+					>
+						{getModelNameById(m.id)}
+					</div>
 					<div class="i">
 						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
 						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__webnn_cpu_4')}>WebNN CPU </a>
@@ -283,11 +300,19 @@
 
 <div class="title tq fp16">Float16</div>
 <div class="ho">
-	{#each models as m}
+	{#each sortedModels as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'fp16'}
 				<div class="b">
-					<div class="t">{getModelNameById(m.id)}</div>
+					<div
+						class="t"
+						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+							m.id
+						)} · {getModelNoteById(m.id)}
+					"
+					>
+						{getModelNameById(m.id)}
+					</div>
 					<div class="i">
 						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
 						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__webnn_cpu_4')}>WebNN CPU </a>
@@ -304,11 +329,18 @@
 
 <div class="title tq int8">Int8</div>
 <div class="ho">
-	{#each models as m}
+	{#each sortedModels as m}
 		{#if m.id !== 'model_access_check'}
 			{#if getModelDataTypeById(m.id) === 'int8'}
 				<div class="b">
-					<div class="t">{getModelNameById(m.id)}</div>
+					<div
+						class="t"
+						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+							m.id
+						)} · {getModelNoteById(m.id)}"
+					>
+						{getModelNameById(m.id)}
+					</div>
 					<div class="i">
 						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
 						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__webnn_cpu_4')}>WebNN CPU </a>
