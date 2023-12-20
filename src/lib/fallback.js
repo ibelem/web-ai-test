@@ -1598,6 +1598,22 @@ export const fallback = [
     ]
   },
   {
+    "name": "realesrgan_x4_1024_fp32",
+    "backend": "gpu",
+    "error": "Crash",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 1024,
+    "nodes_supported_by_webnn": 1024,
+    "supported": [
+      "Add",
+      "Concat",
+      "Conv",
+      "LeakyRelu",
+      "Mul",
+      "Resize"
+    ]
+  },
+  {
     "name": "realesrgan_x4_64_fp32",
     "backend": "cpu",
     "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
@@ -1630,6 +1646,7 @@ export const fallback = [
       "Resize"
     ]
   },
+
   {
     "name": "resnet50_v1",
     "backend": "cpu",
