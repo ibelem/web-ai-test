@@ -86,7 +86,7 @@
 	{#if filteredDataConformance && filteredDataConformance.length > 0}
 		<div id="conformance">
 			<div class="rqtitle">
-				<div class="title rq mb mt">WebNN Conformance Status</div>
+				<div class="title rq mt">WebNN Conformance Status</div>
 			</div>
 			<div class="figure options">
 				<span
