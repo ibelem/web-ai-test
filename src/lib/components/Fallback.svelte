@@ -30,6 +30,28 @@
 
 	let filteredFallback = fallback;
 	filteredFallback = sortModelById(filteredFallback);
+	let filteredBackendFallback = filteredFallback;
+
+	/**
+	 * @type {any}
+	 */
+	let fallbackOptions = {
+		cpu: true,
+		gpu: true,
+		npu: false
+	};
+
+	const toggleIndex = (/** @type {string} */ id) => {
+		fallbackOptions[id] = !fallbackOptions[id];
+		if (
+			fallbackOptions.cpu === false &&
+			fallbackOptions.gpu === false &&
+			fallbackOptions.npu === false
+		) {
+			fallbackOptions.gpu = true;
+		}
+		filteredBackendFallback = filteredFallback.filter((item) => fallbackOptions[item.backend]);
+	};
 
 	onMount(() => {
 		if (results && results.length > 0) {
@@ -38,14 +60,38 @@
 			});
 			filteredFallback = sortModelById(filteredFallback);
 		}
+		filteredBackendFallback = filteredFallback.filter((item) => fallbackOptions[item.backend]);
 	});
 </script>
 
 {#if (results && results.length > 0 && (results[0].webnn_cpu_1 || results[0].webnn_cpu_4 || results[0].webnn_gpu || results[0].webnn_npu)) || $page.url.pathname.indexOf('fallback') > -1}
-	{#if filteredFallback && filteredFallback.length > 0}
+	{#if filteredBackendFallback && filteredBackendFallback.length > 0}
 		<div id="fallback">
 			<div class="rqtitle">
-				<div class="title rq mb mt">WebNN Fallback Status</div>
+				<div class="title rq mt">WebNN Fallback Status</div>
+			</div>
+			<div class="figure options">
+				<span
+					class="cpu {fallbackOptions.cpu}"
+					role="button"
+					tabindex="0"
+					on:keydown={() => {}}
+					on:click={() => toggleIndex('cpu')}>WebNN CPU</span
+				>
+				<span
+					class="gpu {fallbackOptions.gpu}"
+					role="button"
+					tabindex="0"
+					on:keydown={() => {}}
+					on:click={() => toggleIndex('gpu')}>WebNN GPU</span
+				>
+				<span
+					class="npu {fallbackOptions.npu}"
+					role="button"
+					tabindex="0"
+					on:keydown={() => {}}
+					on:click={() => toggleIndex('npu')}>WebNN NPU</span
+				>
 			</div>
 			<div class="result">
 				<div class="q _3 title {y_pin}">
@@ -57,7 +103,7 @@
 					<div class="node" title="Nodes">Nodes</div>
 					<div class="err" title="Error">Errors</div>
 				</div>
-				{#each filteredFallback as { name, backend, supported, not_supported, input_type_not_supported, partitions_supported_by_webnn, nodes_in_the_graph, nodes_supported_by_webnn, error }, i}
+				{#each filteredBackendFallback as { name, backend, supported, not_supported, input_type_not_supported, partitions_supported_by_webnn, nodes_in_the_graph, nodes_supported_by_webnn, error }, i}
 					<div class="q _3">
 						<div class="name">{getModelNameById(name)}</div>
 						<div class="info">
@@ -244,5 +290,60 @@
 		text-align: right;
 		font-size: 0.8em;
 		margin-top: 4px;
+	}
+
+	.figure.options span:hover {
+		cursor: pointer;
+	}
+
+	.figure.options .cpu {
+		background-color: var(--b1-005);
+	}
+
+	.figure.options .cpu:hover,
+	.figure.options .cpu.true:hover {
+		border: 1px solid var(--b1);
+		background-color: var(--b1-005);
+		padding: 0px 10px;
+		color: var(--b1);
+	}
+
+	.figure.options .cpu.true {
+		color: var(--white);
+		background-color: var(--b1);
+	}
+
+	.figure.options .gpu {
+		background-color: var(--p2-005);
+	}
+
+	.figure.options .gpu:hover,
+	.figure.options .gpu.true:hover {
+		border: 1px solid var(--p2);
+		background-color: var(--p2-005);
+		padding: 0px 10px;
+		color: var(--p2);
+	}
+
+	.figure.options .gpu.true {
+		color: var(--white);
+		background-color: var(--p2);
+	}
+
+	.figure.options .npu {
+		background-color: var(--purple-005);
+	}
+
+	.figure.options .npu:hover,
+	.figure.options .npu.true:hover {
+		background-color: var(--purple-005);
+		border: 1px solid var(--purple);
+		padding: 0px 10px;
+		color: var(--purple);
+	}
+
+	.figure.options .npu.true {
+		color: var(--white);
+		background-color: var(--purple);
 	}
 </style>
