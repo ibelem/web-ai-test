@@ -2,9 +2,9 @@
 import { models, ortDists } from '$lib/config';
 import { compareObjects, maxDiff, addConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
 import { sleepStore, modelDownloadUrlStore, conformanceStore } from '../../store/store';
-import { getGpu, getModelInfoById } from '$lib/assets/js/utils';
+import { getGpu, getModelHFUrlById, getModelCategoryById, getModelDescriptionById, getModelInputsRawById, getModelNameById, getModelSizeById } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
-import { dataTypeToArrayConstructor, uint16ArrayToFloat32Array, isDict, bigInt64ArrayToFloat32Array } from '$lib/assets/js/data_type';
+import { dataTypeToArrayConstructor, uint16ArrayToFloat32Array, isDict, bigInt64ArrayToFloat32Array, bigInt64ArrayToString } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
 // import localforage from 'localforage';
 
@@ -536,9 +536,11 @@ export const runOnnxConformance = async (_model, _modelType, _dataType) => {
   res.gpu = getGpu();
   // updateConformance(res);
 
-  let modelInfo = JSON.stringify(getModelInfoById(_model), 'null', '');
-  modelInfo = modelInfo.replaceAll(',', ', ').replaceAll(':', ': ');
-  updateConformanceLog(`[0] Model Info: ${modelInfo}`)
+  updateConformanceLog(`[0] Model ID: ${_model} / Name: ${getModelNameById(_model)} / Size: ${getModelSizeById(_model)} / Category: ${getModelCategoryById(_model)}`);
+  updateConformanceLog(`[0] Description: ${getModelDescriptionById(_model)}`);
+  let inputs = JSON.stringify(bigInt64ArrayToString(getModelInputsRawById(_model)), null, '');
+  updateConformanceLog(`[0] Inputs: ${inputs}`);
+  updateConformanceLog(`[0] Netron: https://ibelem.github.io/netron/?url=${getModelHFUrlById(_model)}`);
 
   for (let _backend of backends) {
     // mainConformance(_model, _modelType, _dataType, _backend);

@@ -1,4 +1,5 @@
 export const conformanceEnv = {
+  "windows": '21H',
   "version": '122.0.6178.0',
   'last_update': 'Dec 12, 2023'
 }

@@ -93,20 +93,6 @@ export let models = [
     model: '01.onnx'
   },
   {
-    category: 'Model Access Check',
-    id: `placeholder_fp32`,
-    name: `placeholder`,
-    description: ``,
-    note: '',
-    source: ``,
-    model: ``,
-    size: '0 KB',
-    format: 'tflite',
-    datatype: `fp32`,
-    inputs: [{ 'data_0': ['float32', 'random', [1, 3, 224, 224], {}] }],
-    inputstip: '[1, 3, 224, 224]'
-  },
-  {
     category: 'Image Classification',
     id: 'densenet',
     name: 'DenseNet 121',
@@ -308,7 +294,7 @@ export let models = [
     name: 'DeepLab v3',
     description: 'A series of deep learning architectures designed to tackle the problem of semantic segmentation.',
     note: '',
-    source: 'ftlite converted',
+    source: 'tflite converted',
     model: 'deeplab-mobilenetv2.onnx',
     size: '8.07 MB',
     format: 'onnx',
