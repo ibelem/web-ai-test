@@ -285,12 +285,14 @@
 						{getModelNameById(m.id)}
 					</div>
 					<div class="i">
-						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
-						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__webnn_cpu_4')}>WebNN CPU </a>
-						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
-						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
-						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
-						<a class="fb2 npu" href="" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_4')}
+							>WebNN CPU
+						</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
+						<a class="fb2 npu" href="#top" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
 					</div>
 				</div>
 			{/if}
@@ -314,12 +316,14 @@
 						{getModelNameById(m.id)}
 					</div>
 					<div class="i">
-						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
-						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__webnn_cpu_4')}>WebNN CPU </a>
-						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
-						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
-						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
-						<a class="fb2 npu" href="" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_4')}
+							>WebNN CPU
+						</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
+						<a class="fb2 npu" href="#top" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
 					</div>
 				</div>
 			{/if}
@@ -342,12 +346,14 @@
 						{getModelNameById(m.id)}
 					</div>
 					<div class="i">
-						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
-						<a class="fb2 cpu" href="" on:click={() => nav(m.id + '__webnn_cpu_4')}>WebNN CPU </a>
-						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
-						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
-						<a class="fb2 gpu" href="" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
-						<a class="fb2 npu" href="" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_4')}
+							>WebNN CPU
+						</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
+						<a class="fb2 npu" href="#top" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
 					</div>
 				</div>
 			{/if}
@@ -494,14 +500,6 @@
 
 	.progress:hover {
 		border: 1px solid var(--grey-04);
-	}
-
-	.progress .queue {
-		justify-self: center;
-	}
-
-	.progress .next {
-		justify-self: right;
 	}
 
 	.g2 {

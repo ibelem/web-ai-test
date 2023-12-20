@@ -302,8 +302,8 @@
 								m.id
 							)} · {getModelNoteById(m.id)}">{getModelNameById(m.id)}</span
 						>
-						<a class="cpu" href="" on:click={() => nav(m.id + '__cpu')}>CPU</a>
-						<a class="gpu" href="" on:click={() => nav(m.id + '__gpu')}>GPU</a>
+						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
+						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>
 					</div>
 				{/if}
 			{/if}
@@ -321,8 +321,8 @@
 								m.id
 							)} · {getModelNoteById(m.id)}">{getModelNameById(m.id)}</span
 						>
-						<a class="cpu" href="" on:click={() => nav(m.id + '__cpu')}>CPU</a>
-						<a class="gpu" href="" on:click={() => nav(m.id + '__gpu')}>GPU</a>
+						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
+						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>
 					</div>
 				{/if}
 			{/if}
@@ -340,8 +340,8 @@
 								m.id
 							)} · {getModelNoteById(m.id)}">{getModelNameById(m.id)}</span
 						>
-						<a class="cpu" href="" on:click={() => nav(m.id + '__cpu')}>CPU</a>
-						<a class="gpu" href="" on:click={() => nav(m.id + '__gpu')}>GPU</a>
+						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
+						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>
 					</div>
 				{/if}
 			{/if}
