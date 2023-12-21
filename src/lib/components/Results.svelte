@@ -300,7 +300,7 @@
 <div id="result">
 	{#if results.length > 0}
 		<div class="rqtitle">
-			<div class="title rq">Performance (ms)</div>
+			<div class="title rq mt">Performance (ms)</div>
 		</div>
 		<div class="figure">
 			<span

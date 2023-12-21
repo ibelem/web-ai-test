@@ -950,6 +950,10 @@ padding: 2px 4px 2px 4px;
 .result .s {
   padding: 0px 0px 0px 1px;
 }
+
+#result .mt {
+  margin-top: 10px;
+} 
  
 .tq .mt {
   padding: 2px 2px 2px 2px;
@@ -1771,6 +1775,7 @@ background-color: var(--p-005);
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  justify-content: center;
 }
 
 .f {
@@ -1788,7 +1793,7 @@ background-color: var(--p-005);
   color: var(--font);
   font-size: 12px;
   cursor: pointer;
-  width: 176px;
+  width: 188px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

@@ -361,12 +361,6 @@
 		margin-bottom: 10px;
 	}
 
-	.ho {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 4px;
-	}
-
 	.fb2 {
 		display: flex;
 		padding: 0px 6px 0px 6px;
