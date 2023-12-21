@@ -420,6 +420,7 @@
 	let show = false;
 	let mDataType = '',
 		mCategory = '',
+		mId = '',
 		mName = '',
 		mModelType = '',
 		mInputs = '',
@@ -432,6 +433,7 @@
 		show = false;
 	};
 	const showModelInfo = (/** @type {any} */ id) => {
+		mId = id.replaceAll('_', '-');
 		mCategory = getModelCategoryById(id);
 		mName = getModelNameById(id);
 		mModelType = getModelTypeById(id);
@@ -664,7 +666,7 @@
 		{#each filteredModelIds as { id, name, selected }, i}
 			<label
 				class="extra {id} {selected} {getModelDataTypeById(id)}"
-				title={name}
+				title="{id} · {name}"
 				on:focus={() => {}}
 				on:mouseover={() => showModelInfo(id)}
 			>
@@ -679,6 +681,7 @@
 
 	<div id="modeldesc" class="{show} {mDataType}">
 		<span class="modeldes">{mCategory}</span>
+		<span class="modeldes">{mId}</span>
 		<span class="modeldes">{mName}</span>
 		<span class="modeldes">{mModelType}</span>
 		<span class="modeldes">{mDataType}</span>
