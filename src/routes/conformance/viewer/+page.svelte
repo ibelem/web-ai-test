@@ -151,7 +151,7 @@
 			</div>
 			{#each filteredDataConformance as { name, gpu, wasm_4, webnn_cpu_4, webgl, webgpu, webnn_gpu, webnn_npu }, i}
 				<div class="q _5">
-					<div class="name c">{getModelNameById(name)}</div>
+					<div class="name c" title={name?.replaceAll('_', '-')}>{getModelNameById(name)}</div>
 					<div class="su info c">
 						{getModelTypeById(name)}
 						{getModelDataTypeById(name)}
