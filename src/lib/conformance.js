@@ -6,6 +6,3533 @@ export const conformanceEnv = {
 
 export const conformance = [
   {
+    "name": "mobilenet_v2",
+    "gpu": "N2",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00005996227264404297,
+        0.00005817413330078125,
+        0.00005650520324707031
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000016450881958007812,
+        0.00001621246337890625,
+        0.00001621246337890625
+      ]
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000006318092346191406,
+        0.0000059604644775390625,
+        0.0000057220458984375
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000044226646423339844,
+        0.000043272972106933594,
+        0.00004088878631591797
+      ]
+    }
+  },
+  {
+    "name": "mobilenet_v2_12",
+    "gpu": "N2",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00005996227264404297,
+        0.00005817413330078125,
+        0.00005650520324707031
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000016450881958007812,
+        0.00001621246337890625,
+        0.00001621246337890625
+      ]
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000006318092346191406,
+        0.0000059604644775390625,
+        0.0000057220458984375
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000044226646423339844,
+        0.000043272972106933594,
+        0.00004088878631591797
+      ]
+    }
+  },
+  {
+    "name": "mobilenet_v3",
+    "gpu": "N2",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000030159950256347656,
+        0.000030159950256347656,
+        0.0000286102294921875
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'HardSwish' with opsets: ai.onnx v17",
+      "max_diff": [
+        0.000016450881958007812,
+        0.00001621246337890625,
+        0.00001621246337890625
+      ]
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000035881996154785156,
+        0.00003075599670410156,
+        0.000027239322662353516
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': Failed to build graph: hardSwish is not implemented.",
+      "max_diff": [
+        0.000044226646423339844,
+        0.000043272972106933594,
+        0.00004088878631591797
+      ]
+    }
+  },
+  {
+    "name": "mobilevit_small",
+    "gpu": "N2",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00002384185791015625,
+        0.000020802021026611328,
+        0.000019073486328125
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "pass",
+      "e7": "pass",
+      "e8": "pass",
+      "error": "cannot resolve operator 'HardSwish' with opsets: ai.onnx v17",
+      "max_diff": [
+        null,
+        null,
+        null
+      ]
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000012487173080444336,
+        0.000012099742889404297,
+        0.000011980533599853516
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': Failed to build graph: hardSwish is not implemented.",
+      "max_diff": [
+        0.000016868114471435547,
+        0.000015616416931152344,
+        0.000015616416931152344
+      ]
+    }
+  },
+  {
+    "name": "albert_base_v2",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "input tensor[0] check failed: expected type 'int32' but got int64",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        33.38951301574707,
+        33.37293243408203,
+        33.334235191345215
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "crash",
+      "max_diff": [
+        0.00022125244140625,
+        0.0001983642578125,
+        0.000194549560546875
+      ]
+    }
+  },
+  {
+    "name": "bart_large_cnn",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0007402896881103516,
+        0.00028884410858154297,
+        0.00026535987854003906
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Range' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        3.3474311009049416,
+        3.2973439693450928,
+        3.1554124653339386
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0005121231079101562,
+        0.00019991397857666016,
+        0.00015471875667572021
+      ]
+    }
+  },
+  {
+    "name": "bert_base_cased",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00013017654418945312,
+        0.00011157989501953125,
+        0.00010967254638671875
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Erf' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        17.209242582321167,
+        16.718894004821777,
+        16.349547505378723
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000064849853515625,
+        0.00006461143493652344,
+        0.00006313621997833252
+      ]
+    }
+  },
+  {
+    "name": "bert_base_uncased",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00010013580322265625,
+        0.0000972747802734375,
+        0.00009632110595703125
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Erf' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        12.097976684570312,
+        12.090683460235596,
+        12.047224998474121
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0001049041748046875,
+        0.00010395050048828125,
+        0.000102996826171875
+      ]
+    }
+  },
+  {
+    "name": "clip_vit_base_patch16",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The operator (reduceSum) is not supported.",
+      "max_diff": [
+        0.00010013580322265625,
+        0.0000972747802734375,
+        0.00009632110595703125
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'ConstantOfShape' with opsets: ai.onnx v14",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        23.596741676330566
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0000171661376953125
+      ]
+    }
+  },
+  {
+    "name": "codegen_350m_mono",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+      "max_diff": [
+        0.00010013580322265625,
+        0.0000972747802734375,
+        0.00009632110595703125
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "only support ONNX model with IR_VERSION>=3",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "[WebGPU] Kernel \"[Sub] 1445238128\" failed. TypeError: Cannot read properties of undefined (reading 'dataType')",
+      "max_diff": [
+        23.596741676330566
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00012493133544921875,
+        0.00012302398681640625,
+        0.00012111663818359375
+      ]
+    }
+  },
+  {
+    "name": "deeplab_v3",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
+      "max_diff": [
+        0.00010013580322265625,
+        0.0000972747802734375,
+        0.00009632110595703125
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'ArgMax' with opsets: ai.onnx v13",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "[WebGPU] Kernel \"[Sub] 1445238128\" failed. TypeError: Cannot read properties of undefined (reading 'dataType')",
+      "max_diff": [
+        11,
+        11,
+        11
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "pass",
+      "e7": "pass",
+      "e8": "pass",
+      "error": "",
+      "max_diff": []
+    }
+  },
+  {
+    "name": "densenet",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
+      "max_diff": [
+        0.000022619962692260742,
+        0.000018477439880371094,
+        0.00001811981201171875
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "cannot resolve operator 'ArgMax' with opsets: ai.onnx v13",
+      "max_diff": [
+        0.000006794929504394531,
+        0.000006556510925292969,
+        0.000006496906280517578
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "[WebGPU] Kernel \"[Sub] 1445238128\" failed. TypeError: Cannot read properties of undefined (reading 'dataType')",
+      "max_diff": [
+        12.870842814445496,
+        11.79231309890747,
+        10.751255989074707
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000008821487426757812,
+        0.000008821487426757812,
+        0.00000858306884765625
+      ]
+    }
+  },
+  {
+    "name": "detr_resnet_50",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
+      "max_diff": [
+        0.000022619962692260742,
+        0.000018477439880371094,
+        0.00001811981201171875
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": [
+        0.000006794929504394531,
+        0.000006556510925292969,
+        0.000006496906280517578
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "[WebGPU] Kernel \"[Sub] 1445238128\" failed. TypeError: Cannot read properties of undefined (reading 'dataType')",
+      "max_diff": [
+        17.69161355495453,
+        17.60128764808178,
+        17.403537154197693
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.04217338562011719,
+        0.04138612747192383,
+        0.035101890563964844
+      ]
+    }
+  },
+  {
+    "name": "dino_vitb16",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
+      "max_diff": [
+        0.0000591278076171875,
+        0.00005340576171875,
+        0.00005340576171875
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'ConstantOfShape' with opsets: ai.onnx v11",
+      "max_diff": [
+        0.000006794929504394531,
+        0.000006556510925292969,
+        0.000006496906280517578
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "[WebGPU] Kernel \"[Sub] 1445238128\" failed. TypeError: Cannot read properties of undefined (reading 'dataType')",
+      "max_diff": [
+        32.69708061218262,
+        32.629987716674805,
+        32.41153144836426
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0001277923583984375,
+        0.00008392333984375,
+        0.000080108642578125
+      ]
+    }
+  },
+  {
+    "name": "distil_medium_en_decoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00002288818359375,
+        0.00002288818359375,
+        0.00002288818359375
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        10.1580810546875,
+        9.966197967529297,
+        9.705230712890625
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00016021728515625,
+        0.00014495849609375,
+        0.0001373291015625
+      ]
+    }
+  },
+  {
+    "name": "distil_medium_en_encoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "crash",
+      "max_diff": [
+        0.0014657974243164062,
+        0.0008783340454101562,
+        0.0007991790771484375
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Erf' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "[WebGPU] Kernel \"[Transpose] 1259393608\" failed. Error: Transpose requires 1 input.",
+      "max_diff": [
+        10.1580810546875,
+        9.966197967529297,
+        9.705230712890625
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0015621185302734375,
+        0.0014934539794921875,
+        0.0014410018920898438
+      ]
+    }
+  },
+  {
+    "name": "distilbert_base_uncased",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00018787384033203125,
+        0.00018787384033203125,
+        0.00018739700317382812
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Expand' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        13.051748752593994,
+        12.853779315948486,
+        12.734652519226074
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00019919872283935547,
+        0.0001983642578125,
+        0.0001976490020751953
+      ]
+    }
+  },
+  {
+    "name": "efficientnet_lite",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "pass",
+      "e7": "pass",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        1.3969838619232178e-8,
+        1.0710209608078003e-8,
+        1.0710209608078003e-8
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "pass",
+      "e7": "pass",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        1.0943040251731873e-8,
+        1.0710209608078003e-8,
+        1.0710209608078003e-8
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.3030359090771526,
+        0.2582338082138449,
+        0.2425632412196137
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "pass",
+      "e7": "pass",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        1.6298145055770874e-8,
+        1.1641532182693481e-8,
+        1.0244548320770264e-8
+      ]
+    }
+  },
+  {
+    "name": "emotion_ferplus",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0000011920928955078125,
+        9.685754776000977e-7,
+        9.5367431640625e-7
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0000016689300537109375,
+        0.0000016689300537109375,
+        4.76837158203125e-7
+      ]
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0000016689300537109375,
+        0.0000010728836059570312,
+        9.685754776000977e-7
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0008203983306884766,
+        0.0002774372696876526,
+        0.00024366378784179688
+      ]
+    }
+  },
+  {
+    "name": "flan_t5_small_decoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+      "max_diff": [
+        0.0000011920928955078125,
+        9.685754776000977e-7,
+        9.5367431640625e-7
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'ConstantOfShape' with opsets: ai.onnx v13",
+      "max_diff": [
+        0.0000016689300537109375,
+        0.0000016689300537109375,
+        4.76837158203125e-7
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        46.863200545310974,
+        46.86319637298584,
+        46.86319637298584
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000080108642578125,
+        0.000080108642578125,
+        0.000080108642578125
+      ]
+    }
+  },
+  {
+    "name": "flan_t5_small_encoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Range' with opsets: ai.onnx v13",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.6190033555030823,
+        0.6190032660961151,
+        0.6190032362937927
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0000010728836059570312,
+        0.0000010281801223754883,
+        0.0000010132789611816406
+      ]
+    }
+  },
+  {
+    "name": "fns_candy",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK only supports constant padding mode.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Crop' with opsets: ai.onnx v7",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "max_diff": [
+        0.6190033555030823,
+        0.6190032660961151,
+        0.6190032362937927
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        112.58638000488281,
+        106.75559616088867,
+        89.71975708007812
+      ]
+    }
+  },
+  {
+    "name": "gpt2_decoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "dims.forEach is not a function"
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "dims.forEach is not a function",
+      "max_diff": [
+        0.6190033555030823,
+        0.6190032660961151,
+        0.6190032362937927
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "dims.forEach is not a function",
+      "max_diff": [
+        112.58638000488281,
+        106.75559616088867,
+        89.71975708007812
+      ]
+    }
+  },
+  {
+    "name": "m2m100_decoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.6190033555030823,
+        0.6190032660961151,
+        0.6190032362937927
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        112.58638000488281,
+        106.75559616088867,
+        89.71975708007812
+      ]
+    }
+  },
+  {
+    "name": "m2m100_encoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.000003337860107421875,
+        0.0000030994415283203125,
+        0.0000030994415283203125
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'CumSum' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        3.827578544616699,
+        3.7939682006835938,
+        3.776263952255249
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.0000041425228118896484,
+        0.0000040531158447265625,
+        0.0000040531158447265625
+      ]
+    }
+  },
+  {
+    "name": "mobilenet_v2",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.00005996227264404297,
+        0.00005817413330078125,
+        0.00005650520324707031
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "cannot resolve operator 'CumSum' with opsets: ai.onnx v11",
+      "max_diff": [
+        0.000016450881958007812,
+        0.00001621246337890625,
+        0.00001621246337890625
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        5.896218776702881,
+        5.7853100299835205,
+        5.424070954322815
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.00004374980926513672,
+        0.00004172325134277344,
+        0.00003981590270996094
+      ]
+    }
+  },
+  {
+    "name": "mobilenet_v2_12",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.00005996227264404297,
+        0.00005817413330078125,
+        0.00005650520324707031
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "cannot resolve operator 'CumSum' with opsets: ai.onnx v11",
+      "max_diff": [
+        0.000016450881958007812,
+        0.00001621246337890625,
+        0.00001621246337890625
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        5.896218776702881,
+        5.7853100299835205,
+        5.424070954322815
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.00004374980926513672,
+        0.00004172325134277344,
+        0.00003981590270996094
+      ]
+    }
+  },
+  {
+    "name": "mobilenet_v3",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.000030159950256347656,
+        0.000030159950256347656,
+        0.0000286102294921875
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'HardSwish' with opsets: ai.onnx v17",
+      "max_diff": [
+        0.000016450881958007812,
+        0.00001621246337890625,
+        0.00001621246337890625
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        6.857086181640625,
+        6.133522629737854,
+        5.558514356613159
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': Failed to build graph: hardSwish is not implemented.",
+      "max_diff": [
+        0.00004374980926513672,
+        0.00004172325134277344,
+        0.00003981590270996094
+      ]
+    }
+  },
+  {
+    "name": "mobilevit_small",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.00002384185791015625,
+        0.000020802021026611328,
+        0.000019073486328125
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "pass",
+      "e7": "pass",
+      "e8": "pass",
+      "error": "cannot resolve operator 'HardSwish' with opsets: ai.onnx v17",
+      "max_diff": [
+        null,
+        null,
+        null
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        40.96002221107483,
+        34.49267578125,
+        33.995140075683594
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': Failed to build graph: hardSwish is not implemented.",
+      "max_diff": [
+        0.0007492750883102417,
+        0.0006580352783203125,
+        0.0006177425384521484
+      ]
+    }
+  },
+  {
+    "name": "msmarco_distilbert_base_v4",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.0000021457672119140625,
+        0.0000019073486328125,
+        0.0000019073486328125
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Expand' with opsets: ai.onnx v11",
+      "max_diff": [
+        null,
+        null,
+        null
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        2.1477367877960205,
+        2.147050142288208,
+        2.109988033771515
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': Failed to build graph: hardSwish is not implemented.",
+      "max_diff": [
+        0.000006496906280517578,
+        0.000006079673767089844,
+        0.0000059604644775390625
+      ]
+    }
+  },
+  {
+    "name": "mt5_small_decoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+      "max_diff": [
+        0.0000021457672119140625,
+        0.0000019073486328125,
+        0.0000019073486328125
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'DynamicQuantizeLinear' with opsets: ai.onnx v13",
+      "max_diff": [
+        null,
+        null,
+        null
+      ]
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.00002288818359375,
+        0.00002288818359375,
+        0.00002288818359375
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': Failed to build graph: hardSwish is not implemented.",
+      "max_diff": [
+        0.000030517578125,
+        0.000030517578125,
+        0.000030517578125
+      ]
+    }
+  },
+  {
+    "name": "mt5_small_encoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+      "max_diff": [
+        0.0000021457672119140625,
+        0.0000019073486328125,
+        0.0000019073486328125
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'DequantizeLinear' with opsets: ai.onnx v13",
+      "max_diff": [
+        null,
+        null,
+        null
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.06810641288757324,
+        0.048030734062194824,
+        0.04422581195831299
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': Failed to build graph: hardSwish is not implemented.",
+      "max_diff": [
+        0.05367523431777954,
+        0.05249452590942383,
+        0.05195820331573486
+      ]
+    }
+  },
+  {
+    "name": "realesrgan_x4_1024",
+    "webnn_gpu": {
+      "error": "crash"
+    }
+  },
+  {
+    "name": "realesrgan_x4_128_fp32",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to compile shader: \nShader source:\n#version 300 es\n    precision highp float;\n    precision highp int;\n    precision highp sampler2D;\n    in vec2 TexCoords;\n    out vec4 outputColor;\n    const vec2 halfCR = vec2(0.5, 0.5);\n\n    // Custom vector types to handle higher dimenalities.\n    struct ivec5\n    {\n      int x;\n      int y;\n      int z;\n      int w;\n      int u;\n    };\n\n    struct ivec6\n    {\n      int x;\n      int y;\n      int z;\n      int w;\n      int u;\n      int v;\n    };\n\n    int imod(int x, int y) {\n      return x - y * (x / y);\n    }\n\n    \n    uniform sampler2D Im2Col;\nuniform sampler2D K;\nuniform sampler2D B;\n    \n      vec2 offsetToCoords(int offset, int width, int height) {\n        int t = offset / width;\n        int s = offset - t*width;\n        vec2 coords = (vec2(s,t) + vec2(0.5,0.5)) / vec2(width, height);\n        return coords;\n      }\n      \n\n      int coordsToOffset(vec2 coords, int width, int height) {\n        float s = coords.s * float(width);\n        float t = coords.t * float(height);\n        int offset = int(t) * width + int(s);\n        return offset;\n      }\n      \n\n      void toVec(vec2 texCoords, out int c[4]) {\n        int offset = coordsToOffset(texCoords, 8192, 128);\n        \n        c[0] = offset / 1048576;\n        offset -= c[0] * 1048576;\n        c[1] = offset / 16384;\n        offset -= c[1] * 16384;\n        c[2] = offset / 128;\n        offset -= c[2] * 128;\n        c[3] = offset;\n      }\n      void toVec(int offset, out int c[4]) {\n        \n        c[0] = offset / 1048576;\n        offset -= c[0] * 1048576;\n        c[1] = offset / 16384;\n        offset -= c[1] * 16384;\n        c[2] = offset / 128;\n        offset -= c[2] * 128;\n        c[3] = offset;\n      }\n    \n\n      int indicesToOffset_B(int indices[1]) {\n        int offset = 0;\n        \n        offset += indices[0] * 1;\n        \n        return offset;\n      }\n      \nhighp float decode(highp vec4 rgba) {\n        return rgba.r;\n      }\n        \n\n        float getColorAsFloat(vec4 color) {\n            return decode(color);\n        }\n        \n\n        float _B(int m[1]) {\n          int offset = indicesToOffset_B(m);\n          vec2 coords = offsetToCoords(offset, 1, 64);\n          float value = getColorAsFloat(texture(B, coords));\n          return value;\n        }\n        \n\n    \n\nfloat process(int indices[4]) {\n  int b[1];\n  b[0] = indices[1];\n  int im2col[4];\n  im2col[0] = indices[0];\n  im2col[1] = indices[2];\n  im2col[2] = indices[3];\n  int im2colOffset = im2col[0] * 2359296 + im2col[1] * 18432 + im2col[2] * 144;\n  int kernelOffset = indices[1] * 144;\n  float value = _B(b);\n  for (int i = 0; i < 144; ++i) {\n    vec2 im2colCoords = offsetToCoords(im2colOffset, 144, 16384);\n    vec2 kernelCoords = offsetToCoords(kernelOffset, 144, 64);\n    value += dot(texture(Im2Col, im2colCoords), texture(K, kernelCoords));\n    ++im2colOffset;\n    ++kernelOffset;\n  }\n  \n  return value;\n}\n      \n  void main() {\n    int indices[4];\n    toVec(TexCoords, indices);\n    vec4 result = vec4(process(indices));\n    outputColor = result;\n  }\n  ",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "pass",
+      "e7": "pass",
+      "e8": "pass",
+      "error": "",
+      "max_diff": [
+        null,
+        null,
+        null
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0009790658950805664,
+        0.0008960962295532227,
+        0.0008537173271179199
+      ]
+    }
+  },
+  {
+    "name": "realesrgan_x4_256",
+    "webnn_gpu": {
+      "error": "crash"
+    }
+  },
+  {
+    "name": "realesrgan_x4_512_fp32",
+    "webgpu": {
+      "error": "crash"
+    }
+  },
+  {
+    "name": "realesrgan_x4_64_fp32",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "resize (packed) does not support mode: 'nearest'",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "pass",
+      "e7": "pass",
+      "e8": "pass",
+      "error": "",
+      "max_diff": [
+        null,
+        null,
+        null
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.001246333122253418,
+        0.0012222528457641602,
+        0.0012115240097045898
+      ]
+    }
+  },
+  {
+    "name": "resnet50_v1",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
+      "max_diff": [
+        0.00003355741500854492,
+        0.000029981136322021484,
+        0.000028848648071289062
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "resize (packed) does not support mode: 'nearest'",
+      "max_diff": [
+        0.000005125999450683594,
+        0.0000050067901611328125,
+        0.00000476837158203125
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        10.282863855361938,
+        8.448967218399048,
+        7.790903568267822
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0034165680408477783,
+        0.0033472180366516113,
+        0.0032221078872680664
+      ]
+    }
+  },
+  {
+    "name": "resnet50_v2",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
+      "max_diff": [
+        0.000018596649169921875,
+        0.000018417835235595703,
+        0.000015616416931152344
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "resize (packed) does not support mode: 'nearest'",
+      "max_diff": [
+        0.000011444091796875,
+        0.000006616115570068359,
+        0.0000064373016357421875
+      ]
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        6.48945689201355,
+        6.09247550368309,
+        6.020538792014122
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0017012953758239746,
+        0.0016503334045410156,
+        0.0015981197357177734
+      ]
+    }
+  },
+  {
+    "name": "sam_b_decoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "failed to call OrtRun(). ERROR_CODE: 1, ERROR_MESSAGE: Non-zero status code returned while running Resize node. Name:'/Resize_1' Status Message: upsamplebase.h:345 ScalesValidation Scale value should be greater than 0."
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
+      "max_diff": [
+        0.000018596649169921875,
+        0.000018417835235595703,
+        0.000015616416931152344
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Expand' with opsets: ai.onnx v17",
+      "max_diff": [
+        0.000011444091796875,
+        0.000006616115570068359,
+        0.0000064373016357421875
+      ]
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'requestDevice' on 'GPUAdapter': D3D12 create command queue failed with DXGI_ERROR_DEVICE_REMOVED (0x887A0005)\n    at CheckHRESULTImpl (..\\..\\third_party\\dawn\\src\\dawn\\native\\d3d\\D3DError.cpp:109)\n",
+      "max_diff": [
+        6.48945689201355,
+        6.09247550368309,
+        6.020538792014122
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to open the command recorder.",
+      "max_diff": [
+        0.0017012953758239746,
+        0.0016503334045410156,
+        0.0015981197357177734
+      ]
+    }
+  },
+  {
+    "name": "sam_b_encoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.775623694062233,
+        0.7736928164958954,
+        0.770184800028801
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to record commands and bind resources for execution.",
+      "max_diff": []
+    }
+  },
+  {
+    "name": "sam_vit_base",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "max_diff": []
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.07714486122131348,
+        0.0380784273147583,
+        0.012905299663543701
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to record commands and bind resources for execution.",
+      "max_diff": []
+    }
+  },
+  {
+    "name": "sam_vit_base_prompt_encoder_mask_decoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "failed to call OrtRun(). ERROR_CODE: 1, ERROR_MESSAGE: Non-zero status code returned while running Resize node. Name:'/Resize_1' Status Message: upsamplebase.h:345 ScalesValidation Scale value should be greater than 0."
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "pass",
+      "e7": "fail",
+      "e8": "fail",
+      "max_diff": [
+        9.5367431640625e-7,
+        1.1920928955078125e-7,
+        5.960464477539063e-8
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": [
+        0.000011444091796875,
+        0.000006616115570068359,
+        0.0000064373016357421875
+      ]
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'requestDevice' on 'GPUAdapter': D3D12 create command queue failed with DXGI_ERROR_DEVICE_REMOVED (0x887A0005)\n    at CheckHRESULTImpl (..\\..\\third_party\\dawn\\src\\dawn\\native\\d3d\\D3DError.cpp:109)\n",
+      "max_diff": [
+        6.48945689201355,
+        6.09247550368309,
+        6.020538792014122
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to open the command recorder.",
+      "max_diff": [
+        0.0017012953758239746,
+        0.0016503334045410156,
+        0.0015981197357177734
+      ]
+    }
+  },
+  {
+    "name": "sam_vit_base_vision_encoder",
+    "webnn_gpu": {
+      "error": "crash"
+    }
+  },
+  {
+    "name": "segment_anything",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "failed to call OrtRun(). ERROR_CODE: 1, ERROR_MESSAGE: Non-zero status code returned while running Resize node. Name:'/Resize_1' Status Message: upsamplebase.h:345 ScalesValidation Scale value should be greater than 0."
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
+      "max_diff": [
+        9.5367431640625e-7,
+        1.1920928955078125e-7,
+        5.960464477539063e-8
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Split' with opsets: ai.onnx v17, com.microsoft.nchwc v1, ai.onnx.ml v3, com.ms.internal.nhwc v18, ai.onnx.training v1, ai.onnx.preview.training v1, com.microsoft v1, com.microsoft.experimental v1, org.pytorch.aten v1, com.microsoft.dml v1",
+      "max_diff": [
+        0.000011444091796875,
+        0.000006616115570068359,
+        0.0000064373016357421875
+      ]
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'requestDevice' on 'GPUAdapter': D3D12 create command queue failed with DXGI_ERROR_DEVICE_REMOVED (0x887A0005)\n    at CheckHRESULTImpl (..\\..\\third_party\\dawn\\src\\dawn\\native\\d3d\\D3DError.cpp:109)\n",
+      "max_diff": [
+        6.48945689201355,
+        6.09247550368309,
+        6.020538792014122
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to open the command recorder.",
+      "max_diff": [
+        0.0017012953758239746,
+        0.0016503334045410156,
+        0.0015981197357177734
+      ]
+    }
+  },
+  {
+    "name": "selfie_segmentation_general",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "failed to call OrtRun(). ERROR_CODE: 1, ERROR_MESSAGE: Non-zero status code returned while running Resize node. Name:'/Resize_1' Status Message: upsamplebase.h:345 ScalesValidation Scale value should be greater than 0."
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
+      "max_diff": [
+        9.5367431640625e-7,
+        1.1920928955078125e-7,
+        5.960464477539063e-8
+      ]
+    },
+    "webgl": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "cannot resolve operator 'Split' with opsets: ai.onnx v17, com.microsoft.nchwc v1, ai.onnx.ml v3, com.ms.internal.nhwc v18, ai.onnx.training v1, ai.onnx.preview.training v1, com.microsoft v1, com.microsoft.experimental v1, org.pytorch.aten v1, com.microsoft.dml v1",
+      "max_diff": [
+        1.0000000596046448,
+        1.0000000596046448,
+        1.0000000596046448
+      ]
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'requestDevice' on 'GPUAdapter': D3D12 create command queue failed with DXGI_ERROR_DEVICE_REMOVED (0x887A0005)\n    at CheckHRESULTImpl (..\\..\\third_party\\dawn\\src\\dawn\\native\\d3d\\D3DError.cpp:109)\n",
+      "max_diff": [
+        6.48945689201355,
+        6.09247550368309,
+        6.020538792014122
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to open the command recorder.",
+      "max_diff": [
+        0.0017012953758239746,
+        0.0016503334045410156,
+        0.0015981197357177734
+      ]
+    }
+  },
+  {
+    "name": "selfie_segmentation_landscape",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "failed to call OrtRun(). ERROR_CODE: 1, ERROR_MESSAGE: Non-zero status code returned while running Resize node. Name:'/Resize_1' Status Message: upsamplebase.h:345 ScalesValidation Scale value should be greater than 0."
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "pass",
+      "e7": "pass",
+      "e8": "fail",
+      "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
+      "max_diff": [
+        5.960479366348107e-8,
+        5.960476942542322e-8,
+        5.960475225729188e-8
+      ]
+    },
+    "webgl": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "cannot resolve operator 'Split' with opsets: ai.onnx v17, com.microsoft.nchwc v1, ai.onnx.ml v3, com.ms.internal.nhwc v18, ai.onnx.training v1, ai.onnx.preview.training v1, com.microsoft v1, com.microsoft.experimental v1, org.pytorch.aten v1, com.microsoft.dml v1",
+      "max_diff": [
+        1.0000000596046448,
+        1.0000000596046448,
+        1.0000000596046448
+      ]
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'requestDevice' on 'GPUAdapter': D3D12 create command queue failed with DXGI_ERROR_DEVICE_REMOVED (0x887A0005)\n    at CheckHRESULTImpl (..\\..\\third_party\\dawn\\src\\dawn\\native\\d3d\\D3DError.cpp:109)\n",
+      "max_diff": [
+        6.48945689201355,
+        6.09247550368309,
+        6.020538792014122
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to open the command recorder.",
+      "max_diff": [
+        0.0017012953758239746,
+        0.0016503334045410156,
+        0.0015981197357177734
+      ]
+    }
+  },
+  {
+    "name": "squeezebert_uncased",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]"
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]",
+      "max_diff": [
+        5.960479366348107e-8,
+        5.960476942542322e-8,
+        5.960475225729188e-8
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Erf' with opsets: ai.onnx v11",
+      "max_diff": [
+        1.0000000596046448,
+        1.0000000596046448,
+        1.0000000596046448
+      ]
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'requestDevice' on 'GPUAdapter': D3D12 create command queue failed with DXGI_ERROR_DEVICE_REMOVED (0x887A0005)\n    at CheckHRESULTImpl (..\\..\\third_party\\dawn\\src\\dawn\\native\\d3d\\D3DError.cpp:109)\n",
+      "max_diff": [
+        6.48945689201355,
+        6.09247550368309,
+        6.020538792014122
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to open the command recorder.",
+      "max_diff": [
+        0.0017012953758239746,
+        0.0016503334045410156,
+        0.0015981197357177734
+      ]
+    }
+  },
+  {
+    "name": "squeezenet",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]"
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]",
+      "max_diff": [
+        0.00001239776611328125,
+        0.000011682510375976562,
+        0.000011682510375976562
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "cannot resolve operator 'Erf' with opsets: ai.onnx v11",
+      "max_diff": [
+        0.000011563301086425781,
+        0.000011563301086425781,
+        0.000011086463928222656
+      ]
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'requestDevice' on 'GPUAdapter': D3D12 create command queue failed with DXGI_ERROR_DEVICE_REMOVED (0x887A0005)\n    at CheckHRESULTImpl (..\\..\\third_party\\dawn\\src\\dawn\\native\\d3d\\D3DError.cpp:109)\n",
+      "max_diff": [
+        6.48945689201355,
+        6.09247550368309,
+        6.020538792014122
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to open the command recorder.",
+      "max_diff": [
+        0.0017012953758239746,
+        0.0016503334045410156,
+        0.0015981197357177734
+      ]
+    }
+  },
+  {
+    "name": "sd_2_1_vae_decoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]"
+    },
+    "webnn_cpu_4": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]",
+      "max_diff": [
+        0.0028543025255203247,
+        0.0026347339153289795,
+        0.0024251341819763184
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": [
+        0.000011563301086425781,
+        0.000011563301086425781,
+        0.000011086463928222656
+      ]
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'requestDevice' on 'GPUAdapter': D3D12 create command queue failed with DXGI_ERROR_DEVICE_REMOVED (0x887A0005)\n    at CheckHRESULTImpl (..\\..\\third_party\\dawn\\src\\dawn\\native\\d3d\\D3DError.cpp:109)\n",
+      "max_diff": [
+        6.48945689201355,
+        6.09247550368309,
+        6.020538792014122
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to open the command recorder.",
+      "max_diff": [
+        0.0017012953758239746,
+        0.0016503334045410156,
+        0.0015981197357177734
+      ]
+    }
+  },
+  {
+    "name": "sd_2_1_vae_encoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]"
+    },
+    "webnn_cpu_4": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]",
+      "max_diff": [
+        0.016649723052978516,
+        0.01031494140625,
+        0.0077855587005615234
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": [
+        0.000011563301086425781,
+        0.000011563301086425781,
+        0.000011086463928222656
+      ]
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'requestDevice' on 'GPUAdapter': D3D12 create command queue failed with DXGI_ERROR_DEVICE_REMOVED (0x887A0005)\n    at CheckHRESULTImpl (..\\..\\third_party\\dawn\\src\\dawn\\native\\d3d\\D3DError.cpp:109)\n",
+      "max_diff": [
+        6.48945689201355,
+        6.09247550368309,
+        6.020538792014122
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to open the command recorder.",
+      "max_diff": [
+        0.0017012953758239746,
+        0.0016503334045410156,
+        0.0015981197357177734
+      ]
+    }
+  },
+  {
+    "name": "t5_small_decoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00002288818359375,
+        0.00002288818359375,
+        0.00002288818359375
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'ConstantOfShape' with opsets: ai.onnx v13",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        49.747586488723755,
+        49.747586250305176,
+        49.747586250305176
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "crash",
+      "max_diff": [
+        0.00006866455078125,
+        0.000064849853515625,
+        0.000064849853515625
+      ]
+    }
+  },
+  {
+    "name": "t5_small_encoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "pass",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        8.344650268554688e-7,
+        7.972121238708496e-7,
+        7.953494787216187e-7
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Range' with opsets: ai.onnx v13",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.810014296323061,
+        0.8100142888724804,
+        0.8100142776966095
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "pass",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0000019776634871959686,
+        0.0000017881393432617188,
+        0.0000017583370208740234
+      ]
+    }
+  },
+  {
+    "name": "tinyyolo_v2",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0000209808349609375,
+        0.000019073486328125,
+        0.000018358230590820312
+      ]
+    },
+    "webgl": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.000010930001735687256,
+        0.00000959634780883789,
+        0.00000903010368347168
+      ]
+    },
+    "webgpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00002193450927734375,
+        0.00002002716064453125,
+        0.00001895427703857422
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.007991790771484375,
+        0.007845401763916016,
+        0.007765769958496094
+      ]
+    }
+  },
+  {
+    "name": "whisper_tiny_decoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0000133514404296875,
+        0.0000133514404296875,
+        0.000011444091796875
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Cannot read properties of null (reading 'irVersion')",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        23.507308959960938,
+        22.9509859085083,
+        22.619447708129883
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.0000457763671875,
+        0.0000457763671875,
+        0.0000457763671875
+      ]
+    }
+  },
+  {
+    "name": "whisper_tiny_encoder",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": ""
+    },
+    "webnn_cpu_4": {
+      "e3": "pass",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00012874603271484375,
+        0.00009107589721679688,
+        0.0000699758529663086
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'Erf' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "fail",
+      "e4": "fail",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        15.329221725463867,
+        15.30799674987793,
+        15.307649612426758
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "pass",
+      "e4": "pass",
+      "e5": "fail",
+      "e6": "fail",
+      "e7": "fail",
+      "e8": "fail",
+      "error": "",
+      "max_diff": [
+        0.00007486343383789062,
+        0.00005054473876953125,
+        0.000045299530029296875
+      ]
+    }
+  },
+  {
+    "name": "xlm_roberta_base",
+    "gpu": "IX",
+    "wasm_4": {
+      "e3": "1e-3",
+      "e4": "1e-4",
+      "e5": "1e-5",
+      "e6": "1e-6",
+      "e7": "1e-7",
+      "e8": "1e-8",
+      "error": "Aborted(). Build with -sASSERTIONS for more info."
+    },
+    "webnn_cpu_4": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.00012874603271484375,
+        0.00009107589721679688,
+        0.0000699758529663086
+      ]
+    },
+    "webgl": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "cannot resolve operator 'ConstantOfShape' with opsets: ai.onnx v11",
+      "max_diff": []
+    },
+    "webgpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        15.329221725463867,
+        15.30799674987793,
+        15.307649612426758
+      ]
+    },
+    "webnn_gpu": {
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "Aborted(). Build with -sASSERTIONS for more info.",
+      "max_diff": [
+        0.00007486343383789062,
+        0.00005054473876953125,
+        0.000045299530029296875
+      ]
+    }
+  },
+  {
     "name": "albert_base_v2",
     "gpu": "IA",
     "wasm_4": {

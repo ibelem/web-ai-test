@@ -169,7 +169,7 @@
 				</div>
 				{#each filteredBackendDataFallback as { name, backend, supported, not_supported, input_type_not_supported, partitions_supported_by_webnn, nodes_in_the_graph, nodes_supported_by_webnn, error }, i}
 					<div class="q _3">
-						<div class="name" title={name}>{getModelNameById(name)}</div>
+						<div class="name" title={name?.replaceAll('_', '-')}>{getModelNameById(name)}</div>
 						<div class="info">
 							{getModelTypeById(name)}<br />
 							{getModelDataTypeById(name)}<br />

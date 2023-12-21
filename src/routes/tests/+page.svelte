@@ -94,7 +94,7 @@
 				{#if getModelDataTypeById(model) === 'fp32'}
 					<div
 						class="q tests {model}"
-						title="{getModelDescriptionById(model)} {getModelNoteById(model)}"
+						title="{model} · {getModelDescriptionById(model)} · {getModelNoteById(model)}"
 					>
 						<div class="status_1 s">
 							<Clock />
@@ -127,7 +127,7 @@
 				{#if getModelDataTypeById(model) === 'fp16'}
 					<div
 						class="q tests {model}"
-						title="{getModelDescriptionById(model)} {getModelNoteById(model)}"
+						title="{model} · {getModelDescriptionById(model)} · {getModelNoteById(model)}"
 					>
 						<div class="status_1 s">
 							<Clock />
@@ -160,7 +160,7 @@
 				{#if getModelDataTypeById(model) === 'int8'}
 					<div
 						class="q tests {model}"
-						title="{getModelDescriptionById(model)} {getModelNoteById(model)}"
+						title="{model} · {getModelDescriptionById(model)} · {getModelNoteById(model)}"
 					>
 						<div class="status_1 s">
 							<Clock />
