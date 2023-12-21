@@ -298,9 +298,10 @@
 				{#if getModelDataTypeById(m.id) === 'fp32'}
 					<div class="fb2">
 						<span
-							title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+							title="{m.id.replaceAll('_', '-')} · {getModelNameById(
 								m.id
-							)} · {getModelNoteById(m.id)}">{getModelNameById(m.id)}</span
+							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
+							>{getModelNameById(m.id)}</span
 						>
 						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
 						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>
@@ -317,9 +318,10 @@
 				{#if getModelDataTypeById(m.id) === 'fp16'}
 					<div class="fb2">
 						<span
-							title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+							title="{m.id.replaceAll('_', '-')} · {getModelNameById(
 								m.id
-							)} · {getModelNoteById(m.id)}">{getModelNameById(m.id)}</span
+							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
+							>{getModelNameById(m.id)}</span
 						>
 						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
 						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>
@@ -336,9 +338,10 @@
 				{#if getModelDataTypeById(m.id) === 'int8'}
 					<div class="fb2">
 						<span
-							title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+							title="{m.id.replaceAll('_', '-')} · {getModelNameById(
 								m.id
-							)} · {getModelNoteById(m.id)}">{getModelNameById(m.id)}</span
+							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
+							>{getModelNameById(m.id)}</span
 						>
 						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
 						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>

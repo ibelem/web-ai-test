@@ -277,9 +277,9 @@
 				<div class="b">
 					<div
 						class="t"
-						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
 							m.id
-						)} · {getModelNoteById(m.id)}
+						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}
 					"
 					>
 						{getModelNameById(m.id)}
@@ -308,9 +308,9 @@
 				<div class="b">
 					<div
 						class="t"
-						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
 							m.id
-						)} · {getModelNoteById(m.id)}
+						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}
 					"
 					>
 						{getModelNameById(m.id)}
@@ -339,9 +339,9 @@
 				<div class="b">
 					<div
 						class="t"
-						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
 							m.id
-						)} · {getModelNoteById(m.id)}"
+						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 					>
 						{getModelNameById(m.id)}
 					</div>
