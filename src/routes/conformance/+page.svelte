@@ -634,9 +634,9 @@
 				{#if getModelDataTypeById(m.id) === 'fp32'}
 					<span
 						class="q tests f"
-						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
 							m.id
-						)} · {getModelNoteById(m.id)}"
+						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 					>
 						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
@@ -654,9 +654,9 @@
 				{#if getModelDataTypeById(m.id) === 'fp16'}
 					<span
 						class="q tests f"
-						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
 							m.id
-						)} · {getModelNoteById(m.id)}"
+						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 					>
 						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
@@ -674,9 +674,9 @@
 				{#if getModelDataTypeById(m.id) === 'int8'}
 					<span
 						class="q tests f"
-						title="{m.id} · {getModelNameById(m.id)} · {getModelDescriptionById(
+						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
 							m.id
-						)} · {getModelNoteById(m.id)}"
+						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 					>
 						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>

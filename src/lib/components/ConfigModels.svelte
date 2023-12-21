@@ -666,7 +666,7 @@
 		{#each filteredModelIds as { id, name, selected }, i}
 			<label
 				class="extra {id} {selected} {getModelDataTypeById(id)}"
-				title="{id} · {name}"
+				title="{id.replaceAll('_', '-')} · {name}"
 				on:focus={() => {}}
 				on:mouseover={() => showModelInfo(id)}
 			>
