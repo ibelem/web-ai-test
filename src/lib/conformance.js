@@ -2148,7 +2148,11 @@ export const conformance = [
       "e7": "n/a",
       "e8": "n/a",
       "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-      "max_diff": []
+      "max_diff": [
+        0.0000591278076171875,
+        0.00005340576171875,
+        0.00005340576171875
+      ]
     },
     "webgl": {
       "e3": "n/a",
@@ -2161,17 +2165,17 @@ export const conformance = [
       "max_diff": []
     },
     "webgpu": {
-      "e3": "pass",
-      "e4": "pass",
-      "e5": "pass",
-      "e6": "pass",
-      "e7": "pass",
-      "e8": "pass",
-      "error": "",
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
+      "error": "WebGpuBackend: Failed to get GPU adapter.",
       "max_diff": [
-        null,
-        null,
-        null
+        32.69708061218262,
+        32.629987716674805,
+        32.41153144836426
       ]
     },
     "webnn_gpu": {
@@ -5381,18 +5385,14 @@ export const conformance = [
       "max_diff": []
     },
     "webgpu": {
-      "e3": "pass",
-      "e4": "pass",
-      "e5": "pass",
-      "e6": "pass",
-      "e7": "pass",
-      "e8": "pass",
+      "e3": "n/a",
+      "e4": "n/a",
+      "e5": "n/a",
+      "e6": "n/a",
+      "e7": "n/a",
+      "e8": "n/a",
       "error": "",
-      "max_diff": [
-        null,
-        null,
-        null
-      ]
+      "max_diff": []
     },
     "webnn_gpu": {
       "e3": "pass",
