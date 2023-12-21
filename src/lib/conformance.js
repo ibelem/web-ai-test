@@ -7,7 +7,7 @@ export const conformanceEnv = {
 export const conformance = [
   {
     "name": "albert_base_v2",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -68,7 +68,7 @@ export const conformance = [
   },
   {
     "name": "bart_large_cnn",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -129,7 +129,7 @@ export const conformance = [
   },
   {
     "name": "bert_base_cased",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -194,7 +194,7 @@ export const conformance = [
   },
   {
     "name": "bert_base_uncased",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -259,7 +259,7 @@ export const conformance = [
   },
   {
     "name": "clip_vit_base_patch16",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -322,7 +322,7 @@ export const conformance = [
   },
   {
     "name": "codegen_350m_mono",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -385,7 +385,7 @@ export const conformance = [
   },
   {
     "name": "deeplab_v3",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -442,7 +442,7 @@ export const conformance = [
   },
   {
     "name": "densenet",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -511,7 +511,7 @@ export const conformance = [
   },
   {
     "name": "detr_resnet_50",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -580,7 +580,7 @@ export const conformance = [
   },
   {
     "name": "dino_vitb16",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -649,7 +649,7 @@ export const conformance = [
   },
   {
     "name": "distil_medium_en_decoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -714,7 +714,7 @@ export const conformance = [
   },
   {
     "name": "distil_medium_en_encoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -779,7 +779,7 @@ export const conformance = [
   },
   {
     "name": "distilbert_base_uncased",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -840,7 +840,7 @@ export const conformance = [
   },
   {
     "name": "efficientnet_lite",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -909,7 +909,7 @@ export const conformance = [
   },
   {
     "name": "emotion_ferplus",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -978,7 +978,7 @@ export const conformance = [
   },
   {
     "name": "flan_t5_small_decoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1047,7 +1047,7 @@ export const conformance = [
   },
   {
     "name": "flan_t5_small_encoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1108,7 +1108,7 @@ export const conformance = [
   },
   {
     "name": "fns_candy",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1168,7 +1168,7 @@ export const conformance = [
   },
   {
     "name": "gpt2_decoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1229,7 +1229,7 @@ export const conformance = [
   },
   {
     "name": "m2m100_decoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1282,7 +1282,7 @@ export const conformance = [
   },
   {
     "name": "m2m100_encoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1343,7 +1343,7 @@ export const conformance = [
   },
   {
     "name": "mobilenet_v2",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1412,7 +1412,7 @@ export const conformance = [
   },
   {
     "name": "mobilenet_v2_12",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1481,7 +1481,7 @@ export const conformance = [
   },
   {
     "name": "mobilenet_v3",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1542,7 +1542,7 @@ export const conformance = [
   },
   {
     "name": "mobilevit_small",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1611,7 +1611,7 @@ export const conformance = [
   },
   {
     "name": "msmarco_distilbert_base_v4",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1680,7 +1680,7 @@ export const conformance = [
   },
   {
     "name": "mt5_small_decoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1749,7 +1749,7 @@ export const conformance = [
   },
   {
     "name": "mt5_small_encoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1818,12 +1818,12 @@ export const conformance = [
   },
   {
     "name": "realesrgan_x4_1024_fp32",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "webnn_gpu": { "error": "Crash" }
   },
   {
     "name": "realesrgan_x4_128_fp32",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1884,7 +1884,7 @@ export const conformance = [
   },
   {
     "name": "realesrgan_x4_256_fp32",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "webnn_gpu": {
       "error": "Crash"
     }
@@ -1892,7 +1892,7 @@ export const conformance = [
   ,
   {
     "name": "realesrgan_x4_512_fp32",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -1949,7 +1949,7 @@ export const conformance = [
   },
   {
     "name": "realesrgan_x4_64_fp32",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2010,7 +2010,7 @@ export const conformance = [
   },
   {
     "name": "resnet50_v1",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2079,7 +2079,7 @@ export const conformance = [
   },
   {
     "name": "resnet50_v1",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2148,7 +2148,7 @@ export const conformance = [
   },
   {
     "name": "resnet50_v2",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2217,7 +2217,7 @@ export const conformance = [
   },
   {
     "name": "sam_b_decoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2270,7 +2270,7 @@ export const conformance = [
   },
   {
     "name": "sam_b_encoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "webnn_gpu": {
       "error": "Crash"
     }
@@ -2278,7 +2278,7 @@ export const conformance = [
   ,
   {
     "name": "sam_vit_base",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "webnn_gpu": {
       "error": "Crash"
     }
@@ -2286,7 +2286,7 @@ export const conformance = [
   ,
   {
     "name": "sam_vit_base_prompt_encoder_mask_decoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2343,7 +2343,7 @@ export const conformance = [
   },
   {
     "name": "sam_vit_base_vision_encoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "webnn_gpu": {
       "error": "Crash"
     }
@@ -2351,7 +2351,7 @@ export const conformance = [
   ,
   {
     "name": "segment_anything",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2412,7 +2412,7 @@ export const conformance = [
   },
   {
     "name": "segment_anything",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2473,7 +2473,7 @@ export const conformance = [
   },
   {
     "name": "selfie_segmentation_general",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2538,7 +2538,7 @@ export const conformance = [
   },
   {
     "name": "selfie_segmentation_landscape",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2607,7 +2607,7 @@ export const conformance = [
   },
   {
     "name": "squeezebert_uncased",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2668,7 +2668,7 @@ export const conformance = [
   },
   {
     "name": "squeezenet",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2737,7 +2737,7 @@ export const conformance = [
   },
   {
     "name": "sd_2_1_vae_decoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2806,7 +2806,7 @@ export const conformance = [
   },
   {
     "name": "sd_2_1_vae_encoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2871,7 +2871,7 @@ export const conformance = [
   },
   {
     "name": "t5_small_decoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -2936,7 +2936,7 @@ export const conformance = [
   },
   {
     "name": "t5_small_encoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3001,7 +3001,7 @@ export const conformance = [
   },
   {
     "name": "tinyyolo_v2",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3070,7 +3070,7 @@ export const conformance = [
   },
   {
     "name": "whisper_tiny_decoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3139,7 +3139,7 @@ export const conformance = [
   },
   {
     "name": "whisper_tiny_encoder",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
@@ -3208,7 +3208,7 @@ export const conformance = [
   },
   {
     "name": "xlm_roberta_base",
-    "gpu": "Intel Arc A770 Graphics Direct3D11",
+    "gpu": "IA",
     "wasm_4": {
       "e3": "1e-3",
       "e4": "1e-4",
