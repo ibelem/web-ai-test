@@ -236,6 +236,24 @@ export let models = [
   },
   {
     category: 'Token Classification',
+    id: 'bert_base_multilingual_cased_ner_hrl',
+    name: 'BERT Base Multilingual Cased NER HRL',
+    description: 'A Named Entity Recognition model for 10 high resourced languages (Arabic, German, English, Spanish, French, Italian, Latvian, Dutch, Portuguese and Chinese) based on a fine-tuned mBERT base model.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/bert-base-multilingual-cased-ner-hrl/tree/main/onnx',
+    model: 'transformer.js/bert-base-multilingual-cased-ner-hrl/model.onnx',
+    size: '676 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+    }],
+    inputstip: '[1, 1] [1, 1] [1, 1]'
+  },
+  {
+    category: 'Token Classification',
     id: 'bert_base_multilingual_cased_ner_hrl_int8',
     name: 'BERT Base Multilingual Cased NER HRL',
     description: 'A Named Entity Recognition model for 10 high resourced languages (Arabic, German, English, Spanish, French, Italian, Latvian, Dutch, Portuguese and Chinese) based on a fine-tuned mBERT base model.',
@@ -251,6 +269,24 @@ export let models = [
       'token_type_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
     }],
     inputstip: '[1, 1] [1, 1] [1, 1]'
+  },
+  {
+    category: 'Text Classification',
+    id: 'bert_base_multilingual_uncased_sentiment',
+    name: 'BERT Base Multilingual Uncased Sentiment',
+    description: 'A bert-base-multilingual-uncased model finetuned for sentiment analysis on product reviews in six languages: English, Dutch, German, French, Spanish, and Italian.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/bert-base-multilingual-uncased-sentiment/tree/main/onnx',
+    model: 'transformer.js/bert-base-multilingual-uncased-sentiment/model.onnx',
+    size: '638 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 63], { "batch_size": 1, "sequence_length": 63 }],
+      'attention_mask': ['int64', 1n, [1, 63], { "batch_size": 1, "sequence_length": 63 }],
+      'token_type_ids': ['int64', 1n, [1, 63], { "batch_size": 1, "sequence_length": 63 }],
+    }],
+    inputstip: '[1, 63] [1, 63] [1, 63]'
   },
   {
     category: 'Text Classification',
@@ -430,6 +466,23 @@ export let models = [
   },
   {
     category: 'Text Summarization',
+    id: 'distilbart_cnn_6_6_encoder',
+    name: 'Distilbart CNN 6-6 Encoder',
+    description: 'A text summarization model built upon a Transformer model.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
+    model: 'transformer.js/distilbart-cnn-6-6/encoder_model.onnx',
+    size: '488 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }]
+    }],
+    inputstip: '[1, 168] [1, 168]'
+  },
+  {
+    category: 'Text Summarization',
     id: 'distilbart_cnn_6_6_encoder_int8',
     name: 'Distilbart CNN 6-6 Encoder',
     description: 'A text summarization model built upon a Transformer model.',
@@ -444,6 +497,24 @@ export let models = [
       'attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }]
     }],
     inputstip: '[1, 168] [1, 168]'
+  },
+  {
+    category: 'Text Summarization',
+    id: 'distilbart_cnn_6_6_decoder',
+    name: 'Distilbart CNN 6-6 Decoder',
+    description: 'A text summarization model built upon a Transformer model.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
+    model: 'transformer.js/distilbart-cnn-6-6/decoder_model.onnx',
+    size: '585 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1, "encoder_sequence_length": 168 }]
+    }],
+    inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
   },
   {
     category: 'Text Summarization',
@@ -497,7 +568,23 @@ export let models = [
     }],
     inputstip: '[1, 50] [1, 50]'
   },
-
+  {
+    category: 'Question Answering',
+    id: 'distilbert_base_cased_distilled_squad',
+    name: 'DistilBERT Base Cased Distilled Squad',
+    description: 'A small, fast, cheap and light Transformer model trained by distilling BERT base.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilbert-base-cased-distilled-squad/tree/main/onnx',
+    model: 'transformer.js/distilbert-base-cased-distilled-squad/model.onnx',
+    size: '248 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 262], { "batch_size": 1, "sequence_length": 262 }],
+      'attention_mask': ['int64', 1n, [1, 262], { "batch_size": 1, "sequence_length": 262 }]
+    }],
+    inputstip: '[1, 262] [1, 262]'
+  },
   {
     category: 'Question Answering',
     id: 'distilbert_base_cased_distilled_squad_int8',
@@ -517,6 +604,23 @@ export let models = [
   },
   {
     category: 'Zero-Shot Classification',
+    id: 'distilbert_base_uncased_mnli',
+    name: 'DistilBERT Base Uncased Mnli',
+    description: 'An uncased DistilBERT model fine-tuned on Multi-Genre Natural Language Inference (MNLI) dataset for the zero-shot classification task.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilbert-base-uncased-mnli/tree/main/onnx',
+    model: 'transformer.js/distilbert-base-uncased-mnli/model.onnx',
+    size: '255 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
+  },
+  {
+    category: 'Zero-Shot Classification',
     id: 'distilbert_base_uncased_mnli_int8',
     name: 'DistilBERT Base Uncased Mnli',
     description: 'An uncased DistilBERT model fine-tuned on Multi-Genre Natural Language Inference (MNLI) dataset for the zero-shot classification task.',
@@ -531,6 +635,23 @@ export let models = [
       'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
     }],
     inputstip: '[1, 50] [1, 50]'
+  },
+  {
+    category: 'Text Generation',
+    id: 'distilgpt2_decoder',
+    name: 'DistilGPT2 Decoder',
+    description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilgpt2/tree/main/onnx',
+    model: 'transformer.js/distilgpt2/decoder_model.onnx',
+    size: '313 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+    }],
+    inputstip: '[1, 16] [1, 16]'
   },
   {
     category: 'Text Generation',
@@ -1418,6 +1539,22 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    id: 'vit_base_patch16_224',
+    name: 'Vision Transformer (ViT) Base-sized',
+    description: 'Vision Transformer (ViT) model pre-trained on ImageNet-21k (14 million images, 21,843 classes) at resolution 224x224, and fine-tuned on ImageNet 2012.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/vit-base-patch16-224/tree/main',
+    model: 'transformer.js/vit-base-patch16-224/model.onnx',
+    size: '330 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }]
+    }],
+    inputstip: '[1, 3, 224, 224]'
+  },
+  {
+    category: 'Image Classification',
     id: 'vit_base_patch16_224_int8',
     name: 'Vision Transformer (ViT) Base-sized',
     description: 'Vision Transformer (ViT) model pre-trained on ImageNet-21k (14 million images, 21,843 classes) at resolution 224x224, and fine-tuned on ImageNet 2012.',
@@ -1431,6 +1568,23 @@ export let models = [
       'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }]
     }],
     inputstip: '[1, 3, 224, 224]'
+  },
+  {
+    category: 'Image-to-Text',
+    id: 'vit_gpt2_image_captioning_decoder',
+    name: 'ViT GPT2 Image Captioning Decoder',
+    description: 'An image captioning model using transformers.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning/tree/main/onnx',
+    model: 'transformer.js/vit-gpt2-image-captioning/decoder_model.onnx',
+    size: '584 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }]
+    }],
+    inputstip: '[1, 168] [1, 168, 768]'
   },
   {
     category: 'Image-to-Text',
@@ -1448,6 +1602,22 @@ export let models = [
       'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }]
     }],
     inputstip: '[1, 168] [1, 168, 768]'
+  },
+  {
+    category: 'Image-to-Text',
+    id: 'vit_gpt2_image_captioning_encoder',
+    name: 'ViT GPT2 Image Captioning Encoder',
+    description: 'An image captioning model using transformers.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning/tree/main/onnx',
+    model: 'transformer.js/vit-gpt2-image-captioning/encoder_model.onnx',
+    size: '327 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }]
+    }],
+    inputstip: '[1, 3, 224, 224]'
   },
   {
     category: 'Image-to-Text',
