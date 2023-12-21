@@ -396,6 +396,10 @@
 		background-color: var(--white-09);
 	}
 
+	#conformance .mt {
+		margin-top: 10px;
+	}
+
 	.q._5.title div {
 		padding: 8px 2px;
 		font-size: 1em;
