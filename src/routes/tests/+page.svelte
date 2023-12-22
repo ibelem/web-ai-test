@@ -234,7 +234,6 @@
 			0 6px 12px 0 rgba(var(--red), 0.15);
 		padding: 6px 20px;
 		border-radius: 99px;
-		z-index: 2;
 		margin: 0 auto;
 		text-align: center;
 	}
