@@ -1738,7 +1738,15 @@ export let models = [
 ];
 
 export const cpu = [
-  "Intel Core Ultra 5 125H", "Intel Core Ultra 5 125U", "Intel Core Ultra 5 135H", "Intel Core Ultra 5 135U", "Intel Core Ultra 7 155H", "Intel Core Ultra 7 155U", "Intel Core Ultra 7 165H", "Intel Core Ultra 7 165U", "Intel Core Ultra 9 185H", "Intel Core i9 14900K", "Intel Core i9 14900KF", "Intel Core i7 14700K", "Intel Core i7 14700KF", "Intel Core i5 14600K", "Intel Core i5 14600KF",
+  "Intel Core Ultra 7 155H", "Intel Core Ultra 7 155U", "Intel Core Ultra 7 164U", "Intel Core Ultra 7 165H", "Intel Core Ultra 7 165U", "Intel Core Ultra 9 185H",
+  "Intel Core Ultra 5 125H", "Intel Core Ultra 5 125U", "Intel Core Ultra 5 134U", "Intel Core Ultra 5 135H", "Intel Core Ultra 5 135U",
+  "Intel Core 3 100U", "Intel Core 5 120U", "Intel Core 7 150U",
+  "Intel Core i9 14900K", "Intel Core i9 14900KF", "Intel Core i9 14900T", "Intel Core i9 14900HX", "Intel Core i9 14900F", "Intel Core i9 14900",
+  "Intel Core i7 14700K", "Intel Core i7 14700KF", "Intel Core i7 14700T", "Intel Core i7 14700HX", "Intel Core i7 14700F", "Intel Core i7 14700", "Intel Core i7 14650HX",
+  "Intel Core i5 14600K", "Intel Core i5 14600KF", "Intel Core i5 14600T", "Intel Core i5 14600",
+  "Intel Core i5 14500HX", "Intel Core i5 14500T", "Intel Core i5 14500", "Intel Core i5 14490F",
+  "Intel Core i5 14450HX", "Intel Core i5 14400F", "Intel Core i5 14400T", "Intel Core i5 14400",
+  "Intel Core i3 14100F", "Intel Core i3 14100T", "Intel Core i3 14100",
   "Intel Core i7-1355U", "Intel Core i7-1360P", "Intel Core i7-13620H", "Intel Core i7-13650HX", "Intel Core i7-1365U", "Intel Core i7-1365UE", "Intel Core i7-13700", "Intel Core i7-13700E", "Intel Core i7-13700F", "Intel Core i7-13700H", "Intel Core i7-13700HX", "Intel Core i7-13700K", "Intel Core i7-13700KF", "Intel Core i7-13700T", "Intel Core i7-13700TE", "Intel Core i7-13705H", "Intel Core i7-1370P", "Intel Core i7-1370PE", "Intel Core i7-13790F", "Intel Core i7-13800H", "Intel Core i7-13800HE", "Intel Core i7-13850HX",
   "Intel Core i5-1334U", "Intel Core i5-1335U", "Intel Core i5-1335UE", "Intel Core i5-13400", "Intel Core i5-13400E", "Intel Core i5-13400F", "Intel Core i5-13400T", "Intel Core i5-1340P", "Intel Core i5-1340PE", "Intel Core i5-13420H", "Intel Core i5-13450HX", "Intel Core i5-1345U", "Intel Core i5-1345UE", "Intel Core i5-13490F", "Intel Core i5-13500", "Intel Core i5-13500E", "Intel Core i5-13500H", "Intel Core i5-13500HX", "Intel Core i5-13500T", "Intel Core i5-13500TE", "Intel Core i5-13505H", "Intel Core i5-1350P", "Intel Core i5-1350PE", "Intel Core i5-13600", "Intel Core i5-13600H", "Intel Core i5-13600HE", "Intel Core i5-13600HX", "Intel Core i5-13600K", "Intel Core i5-13600KF", "Intel Core i5-13600T",
   "Intel Core i3-1305U", "Intel Core i3-13100", "Intel Core i3-13100E", "Intel Core i3-13100F", "Intel Core i3-13100T", "Intel Core i3-13100TE", "Intel Core i3-1315U", "Intel Core i3-1315UE", "Intel Core i3-1320PE", "Intel Core i3-13300HE",
