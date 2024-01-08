@@ -853,9 +853,9 @@ export let models = [
     datatype: 'fp32',
     inputs: [{
       'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
-      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
-      inputstip: '[1, 8] [1, 8]'
-    }]
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "sequence_length": 8 }]
+    }],
+    inputstip: '[1, 8] [1, 8]'
   },
   {
     category: 'Multilingual Translation',
