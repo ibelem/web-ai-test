@@ -1145,8 +1145,8 @@ export let models = [
     { 'point_labels': ['float32', 'random', [1, 2], { "num_points": 2 }] },
     { 'mask_input': ['float32', 'random', [1, 1, 256, 256], {}] },
     { 'has_mask_input': ['float32', 'random', [1], {}] },
-    { 'orig_im_size': ['float32', 1, [2], {}] }],
-    inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1] [2]'
+    { 'orig_im_size': ['float32', [512, 512], [2], {}] }],
+    inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [512, 512] [2]'
   },
   {
     category: 'Mask-Generation',
