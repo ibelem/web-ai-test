@@ -3621,2417 +3621,2417 @@ export const fallback = [
       "InstanceNormalization"
     ]
   },
-  {
-    "name": "albert_base_v2_int8",
-    "backend": "cpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "partitions_supported_by_webnn": 127,
-    "nodes_in_the_graph": 711,
-    "nodes_supported_by_webnn": 563,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "albert_base_v2_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 10,
-    "nodes_in_the_graph": 711,
-    "nodes_supported_by_webnn": 691,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "bart_large_cnn_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 136,
-    "nodes_in_the_graph": 969,
-    "nodes_supported_by_webnn": 706,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Reshape",
-      "Sqrt",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "bart_large_cnn_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 74,
-    "nodes_in_the_graph": 969,
-    "nodes_supported_by_webnn": 846,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "Expand",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "bert_base_cased_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 139,
-    "nodes_in_the_graph": 908,
-    "nodes_supported_by_webnn": 640,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "bert_base_cased_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 75,
-    "nodes_in_the_graph": 908,
-    "nodes_supported_by_webnn": 780,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "bert_base_multilingual_cased_ner_hrl_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 136,
-    "nodes_in_the_graph": 891,
-    "nodes_supported_by_webnn": 627,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "bert_base_multilingual_cased_ner_hrl_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 74,
-    "nodes_in_the_graph": 891,
-    "nodes_supported_by_webnn": 764,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "bert_base_multilingual_uncased_sentiment_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 137,
-    "nodes_in_the_graph": 899,
-    "nodes_supported_by_webnn": 631,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "bert_base_multilingual_uncased_sentiment_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 75,
-    "nodes_in_the_graph": 899,
-    "nodes_supported_by_webnn": 770,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "bert_base_uncased_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 139,
-    "nodes_in_the_graph": 908,
-    "nodes_supported_by_webnn": 640,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "bert_base_uncased_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 75,
-    "nodes_in_the_graph": 908,
-    "nodes_supported_by_webnn": 780,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "clip_vit_base_patch16_int8",
-    "backend": "cpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The operator (reduceSum) is not supported.",
-    "partitions_supported_by_webnn": 253,
-    "nodes_in_the_graph": 1928,
-    "nodes_supported_by_webnn": 1420,
-    "supported": [
-      "Abs",
-      "Add",
-      "Concat",
-      "Div",
-      "Flatten",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "ReduceSum",
-      "Reshape",
-      "Sigmoid",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "ArgMax",
-      "Cast",
-      "ConvInteger",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Reshape",
-      "Sqrt",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "clip_vit_base_patch16_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 150,
-    "nodes_in_the_graph": 1928,
-    "nodes_supported_by_webnn": 1678,
-    "supported": [
-      "Abs",
-      "Add",
-      "ArgMax",
-      "Cast",
-      "Concat",
-      "Div",
-      "Expand",
-      "Flatten",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "ReduceSum",
-      "Reshape",
-      "Sigmoid",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "not_supported": [
-      "ConvInteger",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "codegen_350m_mono_int8",
-    "backend": "cpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "partitions_supported_by_webnn": 243,
-    "nodes_in_the_graph": 1748,
-    "nodes_supported_by_webnn": 1354,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "Neg",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Slice",
-      "Softmax",
-      "Split",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Reshape",
-      "Slice",
-      "Sqrt",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "codegen_350m_mono_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 163,
-    "nodes_in_the_graph": 1748,
-    "nodes_supported_by_webnn": 1522,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "MatMul",
-      "Mul",
-      "Neg",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Slice",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger",
-      "Slice"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "detr_resnet_50_int8",
-    "backend": "cpu",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "partitions_supported_by_webnn": 224,
-    "nodes_in_the_graph": 1724,
-    "nodes_supported_by_webnn": 1211,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "MaxPool",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Sigmoid",
-      "Slice",
-      "Softmax",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Cast",
-      "ConvInteger",
-      "Cos",
-      "CumSum",
-      "DynamicQuantizeLinear",
-      "Expand",
-      "Flatten",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Resize",
-      "Sin",
-      "Slice",
-      "Sqrt",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Flatten: BOOL",
-      "Transpose: BOOL",
-      "Unsqueeze: BOOL",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "detr_resnet_50_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 156,
-    "nodes_in_the_graph": 1690,
-    "nodes_supported_by_webnn": 1412,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Cos",
-      "Div",
-      "Expand",
-      "Flatten",
-      "Gather",
-      "MatMul",
-      "MaxPool",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Resize",
-      "Sigmoid",
-      "Sin",
-      "Slice",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "not_supported": [
-      "ConvInteger",
-      "CumSum",
-      "DynamicQuantizeLinear",
-      "MatMulInteger",
-      "Slice"
-    ]
-  },
-  {
-    "name": "dino_vitb16_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 134,
-    "nodes_in_the_graph": 871,
-    "nodes_supported_by_webnn": 615,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "ConvInteger",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt"
-    ]
-  },
-  {
-    "name": "dino_vitb16_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 73,
-    "nodes_in_the_graph": 871,
-    "nodes_supported_by_webnn": 749,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "ConvInteger",
-      "DynamicQuantizeLinear",
-      "MatMulInteger"
-    ]
-  },
-  {
-    "name": "distil_medium_en_decoder_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 38,
-    "nodes_in_the_graph": 266,
-    "nodes_supported_by_webnn": 191,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Reshape",
-      "Sqrt"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64"
-    ]
-  },
-  {
-    "name": "distil_medium_en_decoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 23,
-    "nodes_in_the_graph": 266,
-    "nodes_supported_by_webnn": 230,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "distil_medium_en_encoder_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 269,
-    "nodes_in_the_graph": 1929,
-    "nodes_supported_by_webnn": 1416,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "ConvInteger",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt"
-    ]
-  },
-  {
-    "name": "distil_medium_en_encoder_int8",
-    "backend": "gpu",
-    "error": "Crash"
-  },
-  {
-    "name": "distilbart_cnn_6_6_decoder_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 113,
-    "nodes_in_the_graph": 810,
-    "nodes_supported_by_webnn": 593,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "distilbart_cnn_6_6_decoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 62,
-    "nodes_in_the_graph": 810,
-    "nodes_supported_by_webnn": 709,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "Expand",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "distilbart_cnn_6_6_encoder_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 70,
-    "nodes_in_the_graph": 495,
-    "nodes_supported_by_webnn": 358,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Reshape",
-      "Sqrt",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "distilbart_cnn_6_6_encoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 38,
-    "nodes_in_the_graph": 495,
-    "nodes_supported_by_webnn": 432,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "Expand",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "distilbert_base_cased_distilled_squad_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 70,
-    "nodes_in_the_graph": 457,
-    "nodes_supported_by_webnn": 314,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Squeeze",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Reshape",
-      "Split",
-      "Sqrt",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: BOOL"
-    ]
-  },
-  {
-    "name": "distilbert_base_cased_distilled_squad_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 40,
-    "nodes_in_the_graph": 457,
-    "nodes_supported_by_webnn": 391,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Equal",
-      "Erf",
-      "Expand",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Squeeze",
-      "Sub",
-      "Transpose",
-      "Where"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger",
-      "Split"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "distilbert_base_uncased_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 72,
-    "nodes_in_the_graph": 471,
-    "nodes_supported_by_webnn": 325,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Reshape",
-      "Sqrt",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: BOOL"
-    ]
-  },
-  {
-    "name": "distilbert_base_uncased_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 40,
-    "nodes_in_the_graph": 471,
-    "nodes_supported_by_webnn": 405,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Equal",
-      "Erf",
-      "Expand",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Where"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "distilbert_base_uncased_mnli_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 70,
-    "nodes_in_the_graph": 462,
-    "nodes_supported_by_webnn": 316,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Reshape",
-      "Sqrt",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: BOOL"
-    ]
-  },
-  {
-    "name": "distilbert_base_uncased_mnli_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 40,
-    "nodes_in_the_graph": 462,
-    "nodes_supported_by_webnn": 395,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Where"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "distilgpt2_decoder_int8",
-    "backend": "cpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "partitions_supported_by_webnn": 57,
-    "nodes_in_the_graph": 479,
-    "nodes_supported_by_webnn": 366,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Split",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Reshape",
-      "Sqrt",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "distilgpt2_decoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 27,
-    "nodes_in_the_graph": 479,
-    "nodes_supported_by_webnn": 427,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "flan_t5_small_decoder_int8",
-    "backend": "cpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "partitions_supported_by_webnn": 149,
-    "nodes_in_the_graph": 876,
-    "nodes_supported_by_webnn": 580,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "QuantizeLinear",
-      "Reshape",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "flan_t5_small_decoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 93,
-    "nodes_in_the_graph": 876,
-    "nodes_supported_by_webnn": 730,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger",
-      "QuantizeLinear"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "flan_t5_small_encoder_int8",
-    "backend": "cpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "partitions_supported_by_webnn": 83,
-    "nodes_in_the_graph": 350,
-    "nodes_supported_by_webnn": 256,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Reshape",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "flan_t5_small_encoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 350,
-    "nodes_supported_by_webnn": 350,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "msmarco_distilbert_base_v4_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 68,
-    "nodes_in_the_graph": 448,
-    "nodes_supported_by_webnn": 309,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Reshape",
-      "Sqrt",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: BOOL"
-    ]
-  },
-  {
-    "name": "msmarco_distilbert_base_v4_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 38,
-    "nodes_in_the_graph": 448,
-    "nodes_supported_by_webnn": 385,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Equal",
-      "Erf",
-      "Expand",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Where"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "mt5_small_decoder_int8",
-    "backend": "cpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "partitions_supported_by_webnn": 149,
-    "nodes_in_the_graph": 876,
-    "nodes_supported_by_webnn": 580,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "QuantizeLinear",
-      "Reshape",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "mt5_small_decoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 93,
-    "nodes_in_the_graph": 876,
-    "nodes_supported_by_webnn": 730,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger",
-      "QuantizeLinear"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "mt5_small_encoder_int8",
-    "backend": "cpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "partitions_supported_by_webnn": 92,
-    "nodes_in_the_graph": 557,
-    "nodes_supported_by_webnn": 369,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "QuantizeLinear",
-      "Reshape",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "mt5_small_encoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 60,
-    "nodes_in_the_graph": 557,
-    "nodes_supported_by_webnn": 462,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger",
-      "QuantizeLinear"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "sam_vit_base_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 242,
-    "nodes_in_the_graph": 1572,
-    "nodes_supported_by_webnn": 1084,
-    "supported": [
-      "Add",
-      "Concat",
-      "ConvTranspose",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Slice",
-      "Softmax",
-      "Squeeze",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Add",
-      "Cast",
-      "ConvInteger",
-      "Cos",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Einsum",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Pad",
-      "ScatterND",
-      "Sin",
-      "Split",
-      "Sqrt",
-      "Tile",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Transpose: UINT8"
-    ]
-  },
-  {
-    "name": "sam_vit_base_int8",
-    "backend": "gpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to create gather operator.",
-    "partitions_supported_by_webnn": 148,
-    "nodes_in_the_graph": 1525,
-    "nodes_supported_by_webnn": 1238,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "ConvTranspose",
-      "Cos",
-      "Div",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Sin",
-      "Slice",
-      "Softmax",
-      "Sqrt",
-      "Squeeze",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "not_supported": [
-      "Add",
-      "ConvInteger",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Einsum",
-      "MatMulInteger",
-      "Pad",
-      "ScatterND",
-      "Split",
-      "Tile",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Transpose: UINT8"
-    ]
-  },
-  {
-    "name": "sam_vit_base_prompt_encoder_mask_decoder_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 86,
-    "nodes_in_the_graph": 549,
-    "nodes_supported_by_webnn": 367,
-    "supported": [
-      "Add",
-      "Concat",
-      "ConvTranspose",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Slice",
-      "Softmax",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Cast",
-      "Cos",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "ScatterND",
-      "Sin",
-      "Sqrt",
-      "Tile",
-      "Transpose",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Transpose: UINT8"
-    ]
-  },
-  {
-    "name": "sam_vit_base_prompt_encoder_mask_decoder_int8",
-    "backend": "gpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to create gather operator.",
-    "partitions_supported_by_webnn": 54,
-    "nodes_in_the_graph": 547,
-    "nodes_supported_by_webnn": 453,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "ConvTranspose",
-      "Cos",
-      "Div",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Sin",
-      "Slice",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "MatMulInteger",
-      "ScatterND",
-      "Tile",
-      "Transpose"
-    ],
-    "input_type_not_supported": [
-      "Transpose: UINT8"
-    ]
-  },
-  {
-    "name": "sam_vit_base_vision_encoder_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 145,
-    "nodes_in_the_graph": 1031,
-    "nodes_supported_by_webnn": 736,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Slice",
-      "Softmax",
-      "Split",
-      "Squeeze",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Add",
-      "Cast",
-      "ConvInteger",
-      "DynamicQuantizeLinear",
-      "Einsum",
-      "Erf",
-      "MatMul",
-      "MatMulInteger",
-      "Pad",
-      "Sqrt",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "sam_vit_base_vision_encoder_int8",
-    "backend": "gpu",
-    "error": "Crash"
-  },
+  // {
+  //   "name": "albert_base_v2_int8",
+  //   "backend": "cpu",
+  //   "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+  //   "partitions_supported_by_webnn": 127,
+  //   "nodes_in_the_graph": 711,
+  //   "nodes_supported_by_webnn": 563,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "albert_base_v2_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 10,
+  //   "nodes_in_the_graph": 711,
+  //   "nodes_supported_by_webnn": 691,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "bart_large_cnn_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 136,
+  //   "nodes_in_the_graph": 969,
+  //   "nodes_supported_by_webnn": 706,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "Expand",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "bart_large_cnn_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 74,
+  //   "nodes_in_the_graph": 969,
+  //   "nodes_supported_by_webnn": 846,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Erf",
+  //     "Expand",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "bert_base_cased_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 139,
+  //   "nodes_in_the_graph": 908,
+  //   "nodes_supported_by_webnn": 640,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "bert_base_cased_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 75,
+  //   "nodes_in_the_graph": 908,
+  //   "nodes_supported_by_webnn": 780,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Erf",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "bert_base_multilingual_cased_ner_hrl_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 136,
+  //   "nodes_in_the_graph": 891,
+  //   "nodes_supported_by_webnn": 627,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "bert_base_multilingual_cased_ner_hrl_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 74,
+  //   "nodes_in_the_graph": 891,
+  //   "nodes_supported_by_webnn": 764,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Erf",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "bert_base_multilingual_uncased_sentiment_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 137,
+  //   "nodes_in_the_graph": 899,
+  //   "nodes_supported_by_webnn": 631,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "bert_base_multilingual_uncased_sentiment_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 75,
+  //   "nodes_in_the_graph": 899,
+  //   "nodes_supported_by_webnn": 770,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "bert_base_uncased_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 139,
+  //   "nodes_in_the_graph": 908,
+  //   "nodes_supported_by_webnn": 640,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "bert_base_uncased_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 75,
+  //   "nodes_in_the_graph": 908,
+  //   "nodes_supported_by_webnn": 780,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Erf",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "clip_vit_base_patch16_int8",
+  //   "backend": "cpu",
+  //   "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The operator (reduceSum) is not supported.",
+  //   "partitions_supported_by_webnn": 253,
+  //   "nodes_in_the_graph": 1928,
+  //   "nodes_supported_by_webnn": 1420,
+  //   "supported": [
+  //     "Abs",
+  //     "Add",
+  //     "Concat",
+  //     "Div",
+  //     "Flatten",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "ReduceSum",
+  //     "Reshape",
+  //     "Sigmoid",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "ArgMax",
+  //     "Cast",
+  //     "ConvInteger",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Expand",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "clip_vit_base_patch16_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 150,
+  //   "nodes_in_the_graph": 1928,
+  //   "nodes_supported_by_webnn": 1678,
+  //   "supported": [
+  //     "Abs",
+  //     "Add",
+  //     "ArgMax",
+  //     "Cast",
+  //     "Concat",
+  //     "Div",
+  //     "Expand",
+  //     "Flatten",
+  //     "Gather",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "ReduceSum",
+  //     "Reshape",
+  //     "Sigmoid",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "ConvInteger",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "codegen_350m_mono_int8",
+  //   "backend": "cpu",
+  //   "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+  //   "partitions_supported_by_webnn": 243,
+  //   "nodes_in_the_graph": 1748,
+  //   "nodes_supported_by_webnn": 1354,
+  //   "supported": [
+  //     "Add",
+  //     "Concat",
+  //     "Div",
+  //     "Mul",
+  //     "Neg",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Slice",
+  //     "Softmax",
+  //     "Split",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Reshape",
+  //     "Slice",
+  //     "Sqrt",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "codegen_350m_mono_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 163,
+  //   "nodes_in_the_graph": 1748,
+  //   "nodes_supported_by_webnn": 1522,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Concat",
+  //     "Div",
+  //     "MatMul",
+  //     "Mul",
+  //     "Neg",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Slice",
+  //     "Softmax",
+  //     "Split",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger",
+  //     "Slice"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "detr_resnet_50_int8",
+  //   "backend": "cpu",
+  //   "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
+  //   "partitions_supported_by_webnn": 224,
+  //   "nodes_in_the_graph": 1724,
+  //   "nodes_supported_by_webnn": 1211,
+  //   "supported": [
+  //     "Add",
+  //     "Concat",
+  //     "Div",
+  //     "MaxPool",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Relu",
+  //     "Reshape",
+  //     "Sigmoid",
+  //     "Slice",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "ConvInteger",
+  //     "Cos",
+  //     "CumSum",
+  //     "DynamicQuantizeLinear",
+  //     "Expand",
+  //     "Flatten",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Resize",
+  //     "Sin",
+  //     "Slice",
+  //     "Sqrt",
+  //     "Transpose",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Flatten: BOOL",
+  //     "Transpose: BOOL",
+  //     "Unsqueeze: BOOL",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "detr_resnet_50_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 156,
+  //   "nodes_in_the_graph": 1690,
+  //   "nodes_supported_by_webnn": 1412,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Concat",
+  //     "Cos",
+  //     "Div",
+  //     "Expand",
+  //     "Flatten",
+  //     "Gather",
+  //     "MatMul",
+  //     "MaxPool",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Relu",
+  //     "Reshape",
+  //     "Resize",
+  //     "Sigmoid",
+  //     "Sin",
+  //     "Slice",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "ConvInteger",
+  //     "CumSum",
+  //     "DynamicQuantizeLinear",
+  //     "MatMulInteger",
+  //     "Slice"
+  //   ]
+  // },
+  // {
+  //   "name": "dino_vitb16_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 134,
+  //   "nodes_in_the_graph": 871,
+  //   "nodes_supported_by_webnn": 615,
+  //   "supported": [
+  //     "Add",
+  //     "Concat",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "ConvInteger",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Sqrt"
+  //   ]
+  // },
+  // {
+  //   "name": "dino_vitb16_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 73,
+  //   "nodes_in_the_graph": 871,
+  //   "nodes_supported_by_webnn": 749,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Concat",
+  //     "Div",
+  //     "Erf",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "ConvInteger",
+  //     "DynamicQuantizeLinear",
+  //     "MatMulInteger"
+  //   ]
+  // },
+  // {
+  //   "name": "distil_medium_en_decoder_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 38,
+  //   "nodes_in_the_graph": 266,
+  //   "nodes_supported_by_webnn": 191,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Reshape",
+  //     "Sqrt"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "distil_medium_en_decoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 23,
+  //   "nodes_in_the_graph": 266,
+  //   "nodes_supported_by_webnn": 230,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Erf",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "distil_medium_en_encoder_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 269,
+  //   "nodes_in_the_graph": 1929,
+  //   "nodes_supported_by_webnn": 1416,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "ConvInteger",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Sqrt"
+  //   ]
+  // },
+  // {
+  //   "name": "distil_medium_en_encoder_int8",
+  //   "backend": "gpu",
+  //   "error": "Crash"
+  // },
+  // {
+  //   "name": "distilbart_cnn_6_6_decoder_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 113,
+  //   "nodes_in_the_graph": 810,
+  //   "nodes_supported_by_webnn": 593,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "Expand",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Sqrt",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "distilbart_cnn_6_6_decoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 62,
+  //   "nodes_in_the_graph": 810,
+  //   "nodes_supported_by_webnn": 709,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Erf",
+  //     "Expand",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "distilbart_cnn_6_6_encoder_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 70,
+  //   "nodes_in_the_graph": 495,
+  //   "nodes_supported_by_webnn": 358,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "Expand",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "distilbart_cnn_6_6_encoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 38,
+  //   "nodes_in_the_graph": 495,
+  //   "nodes_supported_by_webnn": 432,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Erf",
+  //     "Expand",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "distilbert_base_cased_distilled_squad_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 70,
+  //   "nodes_in_the_graph": 457,
+  //   "nodes_supported_by_webnn": 314,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Squeeze",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Equal",
+  //     "Erf",
+  //     "Expand",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Reshape",
+  //     "Split",
+  //     "Sqrt",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: BOOL"
+  //   ]
+  // },
+  // {
+  //   "name": "distilbert_base_cased_distilled_squad_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 40,
+  //   "nodes_in_the_graph": 457,
+  //   "nodes_supported_by_webnn": 391,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Equal",
+  //     "Erf",
+  //     "Expand",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Squeeze",
+  //     "Sub",
+  //     "Transpose",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger",
+  //     "Split"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "distilbert_base_uncased_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 72,
+  //   "nodes_in_the_graph": 471,
+  //   "nodes_supported_by_webnn": 325,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Equal",
+  //     "Erf",
+  //     "Expand",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: BOOL"
+  //   ]
+  // },
+  // {
+  //   "name": "distilbert_base_uncased_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 40,
+  //   "nodes_in_the_graph": 471,
+  //   "nodes_supported_by_webnn": 405,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Equal",
+  //     "Erf",
+  //     "Expand",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "distilbert_base_uncased_mnli_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 70,
+  //   "nodes_in_the_graph": 462,
+  //   "nodes_supported_by_webnn": 316,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Relu",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Equal",
+  //     "Erf",
+  //     "Expand",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: BOOL"
+  //   ]
+  // },
+  // {
+  //   "name": "distilbert_base_uncased_mnli_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 40,
+  //   "nodes_in_the_graph": 462,
+  //   "nodes_supported_by_webnn": 395,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Equal",
+  //     "Erf",
+  //     "Expand",
+  //     "Gather",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Relu",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "distilgpt2_decoder_int8",
+  //   "backend": "cpu",
+  //   "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+  //   "partitions_supported_by_webnn": 57,
+  //   "nodes_in_the_graph": 479,
+  //   "nodes_supported_by_webnn": 366,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Split",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "distilgpt2_decoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 27,
+  //   "nodes_in_the_graph": 479,
+  //   "nodes_supported_by_webnn": 427,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Split",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "flan_t5_small_decoder_int8",
+  //   "backend": "cpu",
+  //   "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+  //   "partitions_supported_by_webnn": 149,
+  //   "nodes_in_the_graph": 876,
+  //   "nodes_supported_by_webnn": 580,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "QuantizeLinear",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "flan_t5_small_decoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 93,
+  //   "nodes_in_the_graph": 876,
+  //   "nodes_supported_by_webnn": 730,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger",
+  //     "QuantizeLinear"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "flan_t5_small_encoder_int8",
+  //   "backend": "cpu",
+  //   "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+  //   "partitions_supported_by_webnn": 83,
+  //   "nodes_in_the_graph": 350,
+  //   "nodes_supported_by_webnn": 256,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "Gather",
+  //     "MatMul",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "flan_t5_small_encoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 1,
+  //   "nodes_in_the_graph": 350,
+  //   "nodes_supported_by_webnn": 350,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Gather",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ]
+  // },
+  // {
+  //   "name": "msmarco_distilbert_base_v4_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 68,
+  //   "nodes_in_the_graph": 448,
+  //   "nodes_supported_by_webnn": 309,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Equal",
+  //     "Erf",
+  //     "Expand",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: BOOL"
+  //   ]
+  // },
+  // {
+  //   "name": "msmarco_distilbert_base_v4_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 38,
+  //   "nodes_in_the_graph": 448,
+  //   "nodes_supported_by_webnn": 385,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Equal",
+  //     "Erf",
+  //     "Expand",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "mt5_small_decoder_int8",
+  //   "backend": "cpu",
+  //   "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+  //   "partitions_supported_by_webnn": 149,
+  //   "nodes_in_the_graph": 876,
+  //   "nodes_supported_by_webnn": 580,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "QuantizeLinear",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "mt5_small_decoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 93,
+  //   "nodes_in_the_graph": 876,
+  //   "nodes_supported_by_webnn": 730,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger",
+  //     "QuantizeLinear"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "mt5_small_encoder_int8",
+  //   "backend": "cpu",
+  //   "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+  //   "partitions_supported_by_webnn": 92,
+  //   "nodes_in_the_graph": 557,
+  //   "nodes_supported_by_webnn": 369,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "QuantizeLinear",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "mt5_small_encoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 60,
+  //   "nodes_in_the_graph": 557,
+  //   "nodes_supported_by_webnn": 462,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger",
+  //     "QuantizeLinear"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "sam_vit_base_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 242,
+  //   "nodes_in_the_graph": 1572,
+  //   "nodes_supported_by_webnn": 1084,
+  //   "supported": [
+  //     "Add",
+  //     "Concat",
+  //     "ConvTranspose",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Relu",
+  //     "Reshape",
+  //     "Slice",
+  //     "Softmax",
+  //     "Squeeze",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "Add",
+  //     "Cast",
+  //     "ConvInteger",
+  //     "Cos",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Einsum",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Pad",
+  //     "ScatterND",
+  //     "Sin",
+  //     "Split",
+  //     "Sqrt",
+  //     "Tile",
+  //     "Transpose",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Transpose: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "sam_vit_base_int8",
+  //   "backend": "gpu",
+  //   "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to create gather operator.",
+  //   "partitions_supported_by_webnn": 148,
+  //   "nodes_in_the_graph": 1525,
+  //   "nodes_supported_by_webnn": 1238,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Concat",
+  //     "ConvTranspose",
+  //     "Cos",
+  //     "Div",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Relu",
+  //     "Reshape",
+  //     "Sin",
+  //     "Slice",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Squeeze",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "Add",
+  //     "ConvInteger",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Einsum",
+  //     "MatMulInteger",
+  //     "Pad",
+  //     "ScatterND",
+  //     "Split",
+  //     "Tile",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Transpose: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "sam_vit_base_prompt_encoder_mask_decoder_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 86,
+  //   "nodes_in_the_graph": 549,
+  //   "nodes_supported_by_webnn": 367,
+  //   "supported": [
+  //     "Add",
+  //     "Concat",
+  //     "ConvTranspose",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Relu",
+  //     "Reshape",
+  //     "Slice",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "Cos",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "ScatterND",
+  //     "Sin",
+  //     "Sqrt",
+  //     "Tile",
+  //     "Transpose",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Transpose: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "sam_vit_base_prompt_encoder_mask_decoder_int8",
+  //   "backend": "gpu",
+  //   "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to create gather operator.",
+  //   "partitions_supported_by_webnn": 54,
+  //   "nodes_in_the_graph": 547,
+  //   "nodes_supported_by_webnn": 453,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Concat",
+  //     "ConvTranspose",
+  //     "Cos",
+  //     "Div",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Relu",
+  //     "Reshape",
+  //     "Sin",
+  //     "Slice",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "MatMulInteger",
+  //     "ScatterND",
+  //     "Tile",
+  //     "Transpose"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Transpose: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "sam_vit_base_vision_encoder_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 145,
+  //   "nodes_in_the_graph": 1031,
+  //   "nodes_supported_by_webnn": 736,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Slice",
+  //     "Softmax",
+  //     "Split",
+  //     "Squeeze",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Add",
+  //     "Cast",
+  //     "ConvInteger",
+  //     "DynamicQuantizeLinear",
+  //     "Einsum",
+  //     "Erf",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Pad",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ]
+  // },
+  // {
+  //   "name": "sam_vit_base_vision_encoder_int8",
+  //   "backend": "gpu",
+  //   "error": "Crash"
+  // },
 
-  {
-    "name": "squeezebert_uncased_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 136,
-    "nodes_in_the_graph": 921,
-    "nodes_supported_by_webnn": 660,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "ConvInteger",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "squeezebert_uncased_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 74,
-    "nodes_in_the_graph": 875,
-    "nodes_supported_by_webnn": 750,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "ConvInteger",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "t5_small_decoder_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 107,
-    "nodes_in_the_graph": 590,
-    "nodes_supported_by_webnn": 377,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "QuantizeLinear",
-      "Reshape",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "t5_small_decoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 65,
-    "nodes_in_the_graph": 590,
-    "nodes_supported_by_webnn": 485,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger",
-      "QuantizeLinear"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "t5_small_encoder_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 64,
-    "nodes_in_the_graph": 351,
-    "nodes_supported_by_webnn": 219,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "QuantizeLinear",
-      "Reshape",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "t5_small_encoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 40,
-    "nodes_in_the_graph": 351,
-    "nodes_supported_by_webnn": 284,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger",
-      "QuantizeLinear"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "vit_base_patch16_224_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 135,
-    "nodes_in_the_graph": 878,
-    "nodes_supported_by_webnn": 618,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "ConvInteger",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt"
-    ]
-  },
-  {
-    "name": "vit_base_patch16_224_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 74,
-    "nodes_in_the_graph": 878,
-    "nodes_supported_by_webnn": 754,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "ConvInteger",
-      "DynamicQuantizeLinear",
-      "MatMulInteger"
-    ]
-  },
-  {
-    "name": "vit_gpt2_image_captioning_decoder_int8",
-    "backend": "cpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "partitions_supported_by_webnn": 207,
-    "nodes_in_the_graph": 1471,
-    "nodes_supported_by_webnn": 1103,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Reshape",
-      "Split",
-      "Sqrt",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64"
-    ]
-  },
-  {
-    "name": "vit_gpt2_image_captioning_decoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 111,
-    "nodes_in_the_graph": 1471,
-    "nodes_supported_by_webnn": 1286,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Where"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger",
-      "Split"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "vit_gpt2_image_captioning_encoder_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 134,
-    "nodes_in_the_graph": 871,
-    "nodes_supported_by_webnn": 615,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "ConvInteger",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt"
-    ]
-  },
-  {
-    "name": "vit_gpt2_image_captioning_encoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 73,
-    "nodes_in_the_graph": 871,
-    "nodes_supported_by_webnn": 749,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "ConvInteger",
-      "DynamicQuantizeLinear",
-      "MatMulInteger"
-    ]
-  },
-  {
-    "name": "whisper_tiny_decoder_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 74,
-    "nodes_in_the_graph": 532,
-    "nodes_supported_by_webnn": 389,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Reshape",
-      "Sqrt"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64"
-    ]
-  },
-  {
-    "name": "whisper_tiny_decoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 43,
-    "nodes_in_the_graph": 532,
-    "nodes_supported_by_webnn": 464,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  },
-  {
-    "name": "whisper_tiny_encoder_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 49,
-    "nodes_in_the_graph": 357,
-    "nodes_supported_by_webnn": 264,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "ConvInteger",
-      "DynamicQuantizeLinear",
-      "Erf",
-      "MatMul",
-      "MatMulInteger",
-      "Sqrt"
-    ]
-  },
-  {
-    "name": "whisper_tiny_encoder_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 26,
-    "nodes_in_the_graph": 341,
-    "nodes_supported_by_webnn": 297,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "ConvInteger",
-      "DynamicQuantizeLinear",
-      "MatMulInteger"
-    ]
-  },
-  {
-    "name": "xlm_roberta_base_int8",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 140,
-    "nodes_in_the_graph": 915,
-    "nodes_supported_by_webnn": 640,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Add",
-      "Cast",
-      "CumSum",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Equal",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "MatMulInteger",
-      "Mul",
-      "Not",
-      "Sqrt",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Add: INT64",
-      "Mul: INT32",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "xlm_roberta_base_int8",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 77,
-    "nodes_in_the_graph": 915,
-    "nodes_supported_by_webnn": 786,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Equal",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Not",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "CumSum",
-      "DequantizeLinear",
-      "DynamicQuantizeLinear",
-      "Gather",
-      "MatMulInteger"
-    ],
-    "input_type_not_supported": [
-      "Gather: UINT8"
-    ]
-  }
+  // {
+  //   "name": "squeezebert_uncased_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 136,
+  //   "nodes_in_the_graph": 921,
+  //   "nodes_supported_by_webnn": 660,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "ConvInteger",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "squeezebert_uncased_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 74,
+  //   "nodes_in_the_graph": 875,
+  //   "nodes_supported_by_webnn": 750,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Erf",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "ConvInteger",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "t5_small_decoder_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 107,
+  //   "nodes_in_the_graph": 590,
+  //   "nodes_supported_by_webnn": 377,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Relu",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "QuantizeLinear",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "t5_small_decoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 65,
+  //   "nodes_in_the_graph": 590,
+  //   "nodes_supported_by_webnn": 485,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Relu",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger",
+  //     "QuantizeLinear"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "t5_small_encoder_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 64,
+  //   "nodes_in_the_graph": 351,
+  //   "nodes_supported_by_webnn": 219,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Relu",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "QuantizeLinear",
+  //     "Reshape",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "t5_small_encoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 40,
+  //   "nodes_in_the_graph": 351,
+  //   "nodes_supported_by_webnn": 284,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Relu",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger",
+  //     "QuantizeLinear"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "vit_base_patch16_224_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 135,
+  //   "nodes_in_the_graph": 878,
+  //   "nodes_supported_by_webnn": 618,
+  //   "supported": [
+  //     "Add",
+  //     "Concat",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "ConvInteger",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Sqrt"
+  //   ]
+  // },
+  // {
+  //   "name": "vit_base_patch16_224_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 74,
+  //   "nodes_in_the_graph": 878,
+  //   "nodes_supported_by_webnn": 754,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Concat",
+  //     "Div",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "ConvInteger",
+  //     "DynamicQuantizeLinear",
+  //     "MatMulInteger"
+  //   ]
+  // },
+  // {
+  //   "name": "vit_gpt2_image_captioning_decoder_int8",
+  //   "backend": "cpu",
+  //   "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
+  //   "partitions_supported_by_webnn": 207,
+  //   "nodes_in_the_graph": 1471,
+  //   "nodes_supported_by_webnn": 1103,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Reshape",
+  //     "Split",
+  //     "Sqrt",
+  //     "Where"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "vit_gpt2_image_captioning_decoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 111,
+  //   "nodes_in_the_graph": 1471,
+  //   "nodes_supported_by_webnn": 1286,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Tanh",
+  //     "Transpose",
+  //     "Where"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger",
+  //     "Split"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "vit_gpt2_image_captioning_encoder_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 134,
+  //   "nodes_in_the_graph": 871,
+  //   "nodes_supported_by_webnn": 615,
+  //   "supported": [
+  //     "Add",
+  //     "Concat",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "ConvInteger",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Sqrt"
+  //   ]
+  // },
+  // {
+  //   "name": "vit_gpt2_image_captioning_encoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 73,
+  //   "nodes_in_the_graph": 871,
+  //   "nodes_supported_by_webnn": 749,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Concat",
+  //     "Div",
+  //     "Erf",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "ConvInteger",
+  //     "DynamicQuantizeLinear",
+  //     "MatMulInteger"
+  //   ]
+  // },
+  // {
+  //   "name": "whisper_tiny_decoder_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 74,
+  //   "nodes_in_the_graph": 532,
+  //   "nodes_supported_by_webnn": 389,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Reshape",
+  //     "Sqrt"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Reshape: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "whisper_tiny_decoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 43,
+  //   "nodes_in_the_graph": 532,
+  //   "nodes_supported_by_webnn": 464,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Erf",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // },
+  // {
+  //   "name": "whisper_tiny_encoder_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 49,
+  //   "nodes_in_the_graph": 357,
+  //   "nodes_supported_by_webnn": 264,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Cast",
+  //     "ConvInteger",
+  //     "DynamicQuantizeLinear",
+  //     "Erf",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Sqrt"
+  //   ]
+  // },
+  // {
+  //   "name": "whisper_tiny_encoder_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 26,
+  //   "nodes_in_the_graph": 341,
+  //   "nodes_supported_by_webnn": 297,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Erf",
+  //     "MatMul",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "ConvInteger",
+  //     "DynamicQuantizeLinear",
+  //     "MatMulInteger"
+  //   ]
+  // },
+  // {
+  //   "name": "xlm_roberta_base_int8",
+  //   "backend": "cpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 140,
+  //   "nodes_in_the_graph": 915,
+  //   "nodes_supported_by_webnn": 640,
+  //   "supported": [
+  //     "Add",
+  //     "Div",
+  //     "Mul",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sub",
+  //     "Transpose"
+  //   ],
+  //   "not_supported": [
+  //     "Add",
+  //     "Cast",
+  //     "CumSum",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Equal",
+  //     "Erf",
+  //     "Gather",
+  //     "MatMul",
+  //     "MatMulInteger",
+  //     "Mul",
+  //     "Not",
+  //     "Sqrt",
+  //     "Unsqueeze"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Add: INT64",
+  //     "Mul: INT32",
+  //     "Unsqueeze: INT64"
+  //   ]
+  // },
+  // {
+  //   "name": "xlm_roberta_base_int8",
+  //   "backend": "gpu",
+  //   "error": "",
+  //   "partitions_supported_by_webnn": 77,
+  //   "nodes_in_the_graph": 915,
+  //   "nodes_supported_by_webnn": 786,
+  //   "supported": [
+  //     "Add",
+  //     "Cast",
+  //     "Div",
+  //     "Equal",
+  //     "Erf",
+  //     "MatMul",
+  //     "Mul",
+  //     "Not",
+  //     "Pow",
+  //     "ReduceMean",
+  //     "Reshape",
+  //     "Softmax",
+  //     "Sqrt",
+  //     "Sub",
+  //     "Transpose",
+  //     "Unsqueeze"
+  //   ],
+  //   "not_supported": [
+  //     "CumSum",
+  //     "DequantizeLinear",
+  //     "DynamicQuantizeLinear",
+  //     "Gather",
+  //     "MatMulInteger"
+  //   ],
+  //   "input_type_not_supported": [
+  //     "Gather: UINT8"
+  //   ]
+  // }
 ]
