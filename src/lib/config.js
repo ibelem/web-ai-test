@@ -1411,7 +1411,7 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
       'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-      'token_type_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+      'token_type_ids': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
     }],
     inputstip: '[1, 50] [1, 50]'
   },
@@ -1429,7 +1429,7 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
       'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-      'token_type_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+      'token_type_ids': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
     }],
     inputstip: '[1, 50] [1, 50]'
   },
