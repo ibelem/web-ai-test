@@ -20,7 +20,7 @@ export const corsSites = [
 
 export const ortDists = {
   public: {
-    version: 'v1.16.1 Public',
+    version: 'v1.16.1',
     url: 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js'
   },
   webgpu: {

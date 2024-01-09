@@ -20,13 +20,15 @@
 		getModelNoteById,
 		getModelTypeById,
 		sortModelById,
-		getModelSizeById
+		getModelSizeById,
+		getModelInt8Count
 	} from '$lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}
 	 */
 	$: uniqueModels = [];
+	$: int8Count = 0;
 	let subModels = models;
 	let selected = 'onnx';
 
@@ -51,6 +53,7 @@
 		uniqueModels = sortModelById(subModels);
 		uniqueModels = [...new Set(uniqueModels.map((model) => model.id))];
 		uniqueModels = uniqueModels;
+		int8Count = getModelInt8Count(models);
 	});
 
 	onDestroy(() => {});
@@ -157,40 +160,42 @@
 		{/each}
 	</div>
 
-	<div class="title tq int8">INT8</div>
-	<div class="tq benchmark">
-		{#each uniqueModels as model}
-			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'int8'}
-					<div
-						class="q tests {model}"
-						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
-							model
-						)} · {getModelNoteById(model)}"
-					>
-						<div class="status_1 s">
-							<Clock />
-						</div>
-						{#if getModelTypeById(model) === 'onnx'}
-							<div class="onnx mt">
-								<Onnx />
-							</div>
-						{/if}
-
-						{#if getModelTypeById(model) === 'tflite'}
-							<div class="tflite mt">
-								<Tflite />
-							</div>
-						{/if}
-						<a href="{base}/run/{model}" class=""
-							>{getModelNameById(model)} ·
-							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
+	{#if int8Count > 0}
+		<div class="title tq int8">INT8</div>
+		<div class="tq benchmark">
+			{#each uniqueModels as model}
+				{#if model !== 'model_access_check'}
+					{#if getModelDataTypeById(model) === 'int8'}
+						<div
+							class="q tests {model}"
+							title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+								model
+							)} · {getModelNoteById(model)}"
 						>
-					</div>
+							<div class="status_1 s">
+								<Clock />
+							</div>
+							{#if getModelTypeById(model) === 'onnx'}
+								<div class="onnx mt">
+									<Onnx />
+								</div>
+							{/if}
+
+							{#if getModelTypeById(model) === 'tflite'}
+								<div class="tflite mt">
+									<Tflite />
+								</div>
+							{/if}
+							<a href="{base}/run/{model}" class=""
+								>{getModelNameById(model)} ·
+								{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
+							>
+						</div>
+					{/if}
 				{/if}
-			{/if}
-		{/each}
-	</div>
+			{/each}
+		</div>
+	{/if}
 
 	<Environment />
 	<Info />

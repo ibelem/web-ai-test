@@ -544,6 +544,10 @@ export const getModelHFUrlById = (id) => {
   return modelHosts.hf + model?.model;
 }
 
+export const getModelInt8Count = (arr) => {
+  return arr.filter(item => item.datatype === 'int8').length;
+}
+
 export const getUniqueDataTypes = () => {
   let uniqueDataTypes = [];
   for (let model of models) {

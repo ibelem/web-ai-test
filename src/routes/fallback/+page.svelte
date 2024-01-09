@@ -13,6 +13,7 @@
 		getModelDescriptionById,
 		getModelNoteById,
 		getModelNameById,
+		getModelInt8Count,
 		addFallback,
 		resetFallback,
 		resetFallbackLog,
@@ -24,6 +25,8 @@
 	import { fallbackLogStore, fallbackStore, fallbackQueueStore, autoStore } from '$lib/store/store';
 	import Fallback from '$lib/components/Fallback.svelte';
 	import { sortModelById } from '$lib/assets/js/utils';
+
+	$: int8Count = 0;
 
 	/**
 	 * @type {string[]}
@@ -237,6 +240,7 @@
 
 	onMount(() => {
 		sortedModels = sortModelById(models);
+		int8Count = getModelInt8Count(models);
 		if (fallbackQueue.length > 0) {
 			run();
 		}
@@ -370,19 +374,6 @@
 		{/each}
 	</div>
 
-	<!-- <div class="title tq"><button on:click={() => setFallbackQueue('int64')}>INT64</button></div>
-<div>
-	{#each sortedModels as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'int64'}
-				<span class="q tests f" title="{getModelDescriptionById(m.id)} {getModelNoteById(m.id)}">
-					<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
-				</span>
-			{/if}
-		{/if}
-	{/each}
-</div> -->
-
 	<div class="title tq fp16">
 		<button on:click={() => setFallbackQueue('fp16')}>Float16</button>
 	</div>
@@ -403,23 +394,25 @@
 		{/each}
 	</div>
 
-	<div class="title tq int8"><button on:click={() => setFallbackQueue('int8')}>Int8</button></div>
-	<div class="ho int8">
-		{#each sortedModels as m}
-			{#if m.id !== 'model_access_check'}
-				{#if getModelDataTypeById(m.id) === 'int8'}
-					<span
-						class="q tests f"
-						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
-							m.id
-						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
-					>
-						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
-					</span>
+	{#if int8Count > 0}
+		<div class="title tq int8"><button on:click={() => setFallbackQueue('int8')}>Int8</button></div>
+		<div class="ho int8">
+			{#each sortedModels as m}
+				{#if m.id !== 'model_access_check'}
+					{#if getModelDataTypeById(m.id) === 'int8'}
+						<span
+							class="q tests f"
+							title="{m.id.replaceAll('_', '-')} · {getModelNameById(
+								m.id
+							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
+						>
+							<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
+						</span>
+					{/if}
 				{/if}
-			{/if}
-		{/each}
-	</div>
+			{/each}
+		</div>
+	{/if}
 {/if}
 
 <Fallback />

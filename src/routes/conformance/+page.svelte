@@ -21,7 +21,8 @@
 		resetStore,
 		setModelDownloadUrl,
 		updateSleep,
-		sortModelById
+		sortModelById,
+		getModelInt8Count
 	} from '$lib/assets/js/utils';
 	import {
 		conformanceLogStore,
@@ -40,6 +41,8 @@
 		webnngpuResult,
 		webnnnpuResult
 	} from '$lib/assets/js/ort_utils_conformance_one_page';
+
+	$: int8Count = 0;
 
 	/**
 	 * @type {string | any[]}
@@ -316,6 +319,7 @@
 
 	onMount(async () => {
 		sortedModels = sortModelById(models);
+		int8Count = getModelInt8Count(models);
 		if (sleeping) {
 			localSleep = sleeping;
 		} else {
@@ -665,25 +669,27 @@
 		{/each}
 	</div>
 
-	<div class="title tq int8">
-		<button on:click={() => setConformanceQueue('int8')}>Int8</button>
-	</div>
-	<div class="ho int8">
-		{#each sortedModels as m}
-			{#if m.id !== 'model_access_check'}
-				{#if getModelDataTypeById(m.id) === 'int8'}
-					<span
-						class="q tests f"
-						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
-							m.id
-						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
-					>
-						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
-					</span>
+	{#if int8Count > 0}
+		<div class="title tq int8">
+			<button on:click={() => setConformanceQueue('int8')}>Int8</button>
+		</div>
+		<div class="ho int8">
+			{#each sortedModels as m}
+				{#if m.id !== 'model_access_check'}
+					{#if getModelDataTypeById(m.id) === 'int8'}
+						<span
+							class="q tests f"
+							title="{m.id.replaceAll('_', '-')} · {getModelNameById(
+								m.id
+							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
+						>
+							<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
+						</span>
+					{/if}
 				{/if}
-			{/if}
-		{/each}
-	</div>
+			{/each}
+		</div>
+	{/if}
 {/if}
 
 <Conformance />
