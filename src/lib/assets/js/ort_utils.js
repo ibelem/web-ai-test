@@ -78,20 +78,27 @@ const getFeeds = (session, modelName) => {
     for (var k in inputNames) {
       const v = inputNames[k];
       if (v.startsWith('past_key_values.')) {
-
-        console.log(modelName)
         if (modelName === 'distilbart_cnn_6_6_decoder_merged') {
           feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
         } else if (modelName === 'distilgpt2_decoder_merged') {
           feeds[v] = getTensor('float32', 1, [1, 12, 16, 64]);
+        } else if (modelName === 'flan_t5_small_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
+        } else if (modelName === 'gpt2_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 12, 8, 64]);
+        } else if (modelName === 'mt5_small_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
+        } else if (modelName === 't5_small_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 8, 128, 64]);
+        } else if (modelName === 'vit_gpt2_image_captioning_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 12, 168, 64]);
+        } else if (modelName === 'whisper_tiny_decoder_merged') {
+          if (v.includes('decoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
+          } else if (v.includes('encoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 6, 1500, 64]);
+          }
         }
-
-        // if (v.includes('decoder')) {
-        //   feeds[v] = getTensor('float32', 1, decoder_shape);
-        // } else if (v.includes('encoder')) {
-        //   feeds[v] = getTensor('float32', 1, encoder_shape);
-        // }
-
       }
     }
   }
@@ -297,9 +304,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
 
-  console.log('---- freeDimensionOverrides ----');
-  console.log(freeDimensionOverrides);
-
   if (freeDimensionOverrides) {
     options.freeDimensionOverrides = freeDimensionOverrides;
   }
@@ -407,18 +411,18 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 }
 
 export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
-  await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
+  // await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
 
   // let modelInfo = JSON.stringify(getModelInfoById(_model), null, '');
   // modelInfo = modelInfo.replaceAll(':', ': ');
   // updateInfo(`Model Info: ${modelInfo}`)
 
-  // const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
-  // if (err) {
-  //   addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
-  //   updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-  //   updateInfo(err.message);
-  // } else {
-  //   // use data 
-  // }
+  const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
+  if (err) {
+    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
+    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+    updateInfo(err.message);
+  } else {
+    // use data 
+  }
 }

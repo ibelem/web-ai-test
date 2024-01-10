@@ -866,10 +866,13 @@ export let models = [
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
       'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
       'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'use_cache_branch': ['bool', 1, [1], {}]
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_decoder_sequence_length": 128,
+        "encoder_sequence_length_out": 128
+      }]
     }],
     inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   },
@@ -955,8 +958,10 @@ export let models = [
     datatype: 'fp32',
     inputs: [{
       'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
-      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
-      'use_cache_branch': ['bool', 1, [1], {}]
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "attention_mask_sequence_length": 8 }],
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_sequence_length": 8
+      }]
     }],
     inputstip: '[1, 8] [1, 8]'
   },
@@ -1157,10 +1162,13 @@ export let models = [
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
       'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
       'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'use_cache_branch': ['bool', 1, [1], {}]
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_decoder_sequence_length": 128,
+        "encoder_sequence_length_out": 128
+      }]
     }],
     inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   },
@@ -1622,6 +1630,28 @@ export let models = [
     }],
     inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   },
+  {
+    category: 'Text-To-Text Translation',
+    id: 't5_small_decoder_merged',
+    name: 'T5 Small Decoder (KV-Cache)',
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/t5-small/tree/main/onnx',
+    model: 'transformer.js/t5-small/decoder_model_merged.onnx',
+    size: '159 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_decoder_sequence_length": 128,
+        "encoder_sequence_length_out": 128
+      }]
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  },
   // {
   //   category: 'Text-To-Text Translation',
   //   id: 't5_small_decoder_int8',
@@ -1751,7 +1781,9 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
       'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }],
-      'use_cache_branch': ['bool', 1, [1], {}]
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_sequence_length": 168
+      }]
     }],
     inputstip: '[1, 168] [1, 168, 768]'
   },
@@ -1835,7 +1867,10 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
       'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }],
-      'use_cache_branch': ['bool', 1, [1], {}]
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_decoder_sequence_length": 128,
+        "encoder_sequence_length_out": 1500
+      }]
     }],
     inputstip: '[1, 1] [1, 1500, 384]'
   },
