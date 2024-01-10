@@ -671,8 +671,16 @@
 				on:mouseover={() => showModelInfo(id)}
 			>
 				<input type="checkbox" on:change={() => toggleModel(id)} />
+
 				{#if getModelNoteById(id)}
-					<Info /> {name}{:else}{name}{/if}
+					<Info />
+					{#if id.indexOf('_merged') > -1}
+						<span class="kvcache">KV-C</span>
+					{/if}
+					{name}{:else}{#if id.indexOf('_merged') > -1}
+						<span class="kvcache">KV-C</span>
+					{/if}
+					{name}{/if}
 			</label>
 		{/each}
 	{:else}
@@ -958,6 +966,14 @@
 
 	.number {
 		font-size: 1.2em;
+	}
+
+	.kvcache {
+		display: inline-block;
+		margin-bottom: 2.5px;
+		font-size: 0.6rem;
+		padding: 0px 2px;
+		border: 1px solid var(--grey-02);
 	}
 
 	/* #fallback .cpu {

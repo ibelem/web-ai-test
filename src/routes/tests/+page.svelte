@@ -115,6 +115,11 @@
 								<Tflite />
 							</div>
 						{/if}
+
+						{#if model.indexOf('_merged') > -1}
+							<span class="kvcache">KV-C</span>
+						{/if}
+
 						<a href="{base}/run/{model}" class=""
 							>{getModelNameById(model)} ·
 							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
@@ -150,6 +155,11 @@
 								<Tflite />
 							</div>
 						{/if}
+
+						{#if model.indexOf('_merged') > -1}
+							<span class="kvcache">KV-C</span>
+						{/if}
+
 						<a href="{base}/run/{model}" class=""
 							>{getModelNameById(model)} ·
 							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
@@ -186,6 +196,11 @@
 									<Tflite />
 								</div>
 							{/if}
+
+							{#if model.indexOf('_merged') > -1}
+								<span class="kvcache">KV-C</span>
+							{/if}
+
 							<a href="{base}/run/{model}" class=""
 								>{getModelNameById(model)} ·
 								{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
@@ -324,5 +339,13 @@
 
 	.mobilenet_v2_12_int8 {
 		background-color: var(--p-005);
+	}
+
+	.kvcache {
+		display: inline-block;
+		margin-left: 8px;
+		font-size: 0.7rem;
+		padding: 0px 2px;
+		border: 1px solid var(--grey-02);
 	}
 </style>
