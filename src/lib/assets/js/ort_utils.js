@@ -63,7 +63,7 @@ const getInputsById = (id) => {
 const getFeeds = (session, modelName) => {
   let feeds = {};
   let inputs = getInputsById(modelName);
-  // let inputNames = session.inputNames;
+  let inputNames = session.inputNames;
 
   for (let input of inputs) {
     if (isDict(input)) {
@@ -73,6 +73,29 @@ const getFeeds = (session, modelName) => {
       }
     }
   }
+
+  if (modelName.endsWith('merged')) {
+    for (var k in inputNames) {
+      const v = inputNames[k];
+      if (v.startsWith('past_key_values.')) {
+
+        console.log(modelName)
+        if (modelName === 'distilbart_cnn_6_6_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
+        } else if (modelName === 'distilgpt2_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 12, 16, 64]);
+        }
+
+        // if (v.includes('decoder')) {
+        //   feeds[v] = getTensor('float32', 1, decoder_shape);
+        // } else if (v.includes('encoder')) {
+        //   feeds[v] = getTensor('float32', 1, encoder_shape);
+        // }
+
+      }
+    }
+  }
+
   return feeds;
 }
 
@@ -273,6 +296,10 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   (backend === 'webnn' || _backend === 'wasm_4') ? ort.env.wasm.proxy = true : ort.env.wasm.proxy = false;
 
   let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
+
+  console.log('---- freeDimensionOverrides ----');
+  console.log(freeDimensionOverrides);
+
   if (freeDimensionOverrides) {
     options.freeDimensionOverrides = freeDimensionOverrides;
   }
@@ -310,10 +337,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   const compilationStart = performance.now();
   const sess = await ort.InferenceSession.create(modelBuffer, options);
+
   let compilationTime = performance.now() - compilationStart;
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Compilation Time: ${compilationTime} ms`);
 
   let feeds = getFeeds(sess, _model);
+  console.log(feeds);
 
   let numOfWarmups = 1;
 
@@ -378,18 +407,18 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 }
 
 export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
-  // await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
+  await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
 
   // let modelInfo = JSON.stringify(getModelInfoById(_model), null, '');
   // modelInfo = modelInfo.replaceAll(':', ': ');
   // updateInfo(`Model Info: ${modelInfo}`)
 
-  const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
-  if (err) {
-    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
-    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-    updateInfo(err.message);
-  } else {
-    // use data 
-  }
+  // const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
+  // if (err) {
+  //   addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
+  //   updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+  //   updateInfo(err.message);
+  // } else {
+  //   // use data 
+  // }
 }

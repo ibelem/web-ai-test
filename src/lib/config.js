@@ -415,9 +415,10 @@ export let models = [
     size: '41.11 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }] },
-    { 'pixel_mask': ['int64', 1n, [1, 64, 64], { "batch_size": 1 }] },
-    ],
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
+      'pixel_mask': ['int64', 1n, [1, 64, 64], { "batch_size": 1 }]
+    }],
     inputstip: '[1, 3, 224, 224] [1, 64, 64]'
   },
   // {
@@ -431,9 +432,10 @@ export let models = [
   //   size: '41.11 MB',
   //   format: 'onnx',
   //   datatype: 'int8',
-  //   inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }] },
-  //   { 'pixel_mask': ['int64', 1n, [1, 64, 64], { "batch_size": 1 }] },
-  //   ],
+  //   inputs: [{
+  //     'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
+  //     'pixel_mask': ['int64', 1n, [1, 64, 64], { "batch_size": 1 }]
+  //   }],
   //   inputstip: '[1, 3, 224, 224] [1, 64, 64]'
   // },
   {
@@ -463,6 +465,64 @@ export let models = [
   //   datatype: 'int8',
   //   inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }] }],
   //   inputstip: '[1, 3, 224, 224]'
+  // },
+  {
+    category: 'Text Summarization',
+    id: 'distilbart_cnn_6_6_decoder',
+    name: 'Distilbart CNN 6-6 Decoder',
+    description: 'A text summarization model built upon a Transformer model.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
+    model: 'transformer.js/distilbart-cnn-6-6/decoder_model.onnx',
+    size: '585 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1, "encoder_sequence_length": 168 }]
+    }],
+    inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
+  },
+  {
+    category: 'Text Summarization',
+    id: 'distilbart_cnn_6_6_decoder_merged',
+    name: 'Distilbart CNN 6-6 Decoder (KV-Cache)',
+    description: 'A text summarization model built upon a Transformer model.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
+    model: 'transformer.js/distilbart-cnn-6-6/decoder_model_merged.onnx',
+    size: '585 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_decoder_sequence_length": 168,
+        "encoder_sequence_length_out": 168,
+      }],
+    }],
+    inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
+  },
+  // {
+  //   category: 'Text Summarization',
+  //   id: 'distilbart_cnn_6_6_decoder_int8',
+  //   name: 'Distilbart CNN 6-6 Decoder',
+  //   description: 'A text summarization model built upon a Transformer model.',
+  //   note: '',
+  //   source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
+  //   model: 'transformer.js/distilbart-cnn-6-6/decoder_model_quantized.onnx',
+  //   size: '147 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{
+  //     'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+  //     'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
+  //     'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1, "encoder_sequence_length": 168 }]
+  //   }],
+  //   inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
   // },
   {
     category: 'Text Summarization',
@@ -497,42 +557,6 @@ export let models = [
   //     'attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }]
   //   }],
   //   inputstip: '[1, 168] [1, 168]'
-  // },
-  {
-    category: 'Text Summarization',
-    id: 'distilbart_cnn_6_6_decoder',
-    name: 'Distilbart CNN 6-6 Decoder',
-    description: 'A text summarization model built upon a Transformer model.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
-    model: 'transformer.js/distilbart-cnn-6-6/decoder_model.onnx',
-    size: '585 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
-      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
-      'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1, "encoder_sequence_length": 168 }]
-    }],
-    inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
-  },
-  // {
-  //   category: 'Text Summarization',
-  //   id: 'distilbart_cnn_6_6_decoder_int8',
-  //   name: 'Distilbart CNN 6-6 Decoder',
-  //   description: 'A text summarization model built upon a Transformer model.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
-  //   model: 'transformer.js/distilbart-cnn-6-6/decoder_model_quantized.onnx',
-  //   size: '147 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
-  //     'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
-  //     'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1, "encoder_sequence_length": 168 }]
-  //   }],
-  //   inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
   // },
   {
     category: 'Fill-Mask',
@@ -653,6 +677,26 @@ export let models = [
     }],
     inputstip: '[1, 16] [1, 16]'
   },
+  {
+    category: 'Text Generation',
+    id: 'distilgpt2_decoder_merged',
+    name: 'DistilGPT2 Decoder (KV-Cache)',
+    description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilgpt2/tree/main/onnx',
+    model: 'transformer.js/distilgpt2/decoder_model_merged.onnx',
+    size: '314 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "attention_mask_sequence_length": 16 }],
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_sequence_length": 16
+      }]
+    }],
+    inputstip: '[1, 16] [1, 16]'
+  },
   // {
   //   category: 'Text Generation',
   //   id: 'distilgpt2_decoder_int8',
@@ -751,6 +795,20 @@ export let models = [
     inputstip: '[1, 224, 224, 3] '
   },
   {
+    category: 'Image Classification',
+    id: 'efficientnet_lite_fp16',
+    name: 'EfficientNet Lite 4',
+    description: 'A convolutional neural network architecture and scaling method.',
+    note: '',
+    source: 'https://github.com/onnx/models/tree/main/validated/vision/classification/efficientnet-lite4/model onnx-public-models/efficientnet-lite4/opset-11-fp16/',
+    model: 'fp16/efficientnet-lite4-opset-11-fp16.onnx',
+    size: '24.8 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{ 'images:0': ['float16', 'random', [1, 224, 224, 3], {}] }],
+    inputstip: '[1, 224, 224, 3]'
+  },
+  {
     category: 'Face Analysis',
     id: 'emotion_ferplus',
     name: 'Emotion FERPlus',
@@ -789,9 +847,30 @@ export let models = [
     size: '221 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }] },
-    { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
-    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  },
+  {
+    category: 'Text2Text Generation',
+    id: 'flan_t5_small_decoder_merged',
+    name: 'FLAN-T5 Small Decoder (KV-Cache)',
+    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/flan-t5-small/tree/main/onnx',
+    model: 'transformer.js/flan-t5-small/decoder_model_merged.onnx',
+    size: '222 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
     inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   },
   // {
@@ -805,9 +884,11 @@ export let models = [
   //   size: '56.2 MB',
   //   format: 'onnx',
   //   datatype: 'int8',
-  //   inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }] },
-  //   { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
-  //   { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+  //   inputs: [{
+  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+  //     'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+  //     'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+  //   }],
   //   inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   // },
   {
@@ -821,8 +902,10 @@ export let models = [
     size: '134 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
-    { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
     inputstip: '[1, 128] [1, 128]'
   },
   // {
@@ -836,8 +919,10 @@ export let models = [
   //   size: '34.1 MB',
   //   format: 'onnx',
   //   datatype: 'int8',
-  //   inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
-  //   { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+  //   inputs: [{
+  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+  //     'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
+  //   }],
   //   inputstip: '[1, 128] [1, 128]'
   // },
   {
@@ -854,6 +939,24 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
       'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "sequence_length": 8 }]
+    }],
+    inputstip: '[1, 8] [1, 8]'
+  },
+  {
+    category: 'Text Generation',
+    id: 'gpt2_decoder_merged',
+    name: 'GPT-2 Decoder (KV-Cache)',
+    description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/gpt2/tree/main/onnx',
+    model: 'gpt2-decoder_merged.onnx',
+    size: '624 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
     }],
     inputstip: '[1, 8] [1, 8]'
   },
@@ -1031,13 +1134,34 @@ export let models = [
     description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
     source: 'https://huggingface.co/Xenova/mt5-small/tree/main/onnx',
-    model: 'transformer.js/mt5-small/decoder_model_quantized.onnx',
+    model: 'transformer.js/mt5-small/decoder_model.onnx',
     size: '1.04 GB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }] },
-    { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
-    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  },
+  {
+    category: 'Text2Text Generation',
+    id: 'mt5_small_decoder_merged',
+    name: 'mT5 Small Decoder (KV-Cache)',
+    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/mt5-small/tree/main/onnx',
+    model: 'transformer.js/mt5-small/decoder_model_merged.onnx',
+    size: '1.04 GB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
     inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   },
   // {
@@ -1051,9 +1175,11 @@ export let models = [
   //   size: '270 MB',
   //   format: 'onnx',
   //   datatype: 'int8',
-  //   inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }] },
-  //   { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
-  //   { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+  //   inputs: [{
+  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+  //     'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+  //     'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+  //   }],
   //   inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   // },
   {
@@ -1067,8 +1193,10 @@ export let models = [
     size: '560 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
-    { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
     inputstip: '[1, 128] [1, 128]'
   },
   // {
@@ -1082,8 +1210,10 @@ export let models = [
   //   size: '140 MB',
   //   format: 'onnx',
   //   datatype: 'int8',
-  //   inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
-  //   { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+  //   inputs: [{
+  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+  //     'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
+  //   }],
   //   inputstip: '[1, 128] [1, 128]'
   // },
   ...generateEsrganConfigs(),
@@ -1140,12 +1270,14 @@ export let models = [
     size: '15.7 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'image_embeddings': ['float32', 'random', [1, 256, 64, 64], {}] },
-    { 'point_coords': ['float32', 'random', [1, 2, 2], { "num_points": 2 }] },
-    { 'point_labels': ['float32', 'random', [1, 2], { "num_points": 2 }] },
-    { 'mask_input': ['float32', 'random', [1, 1, 256, 256], {}] },
-    { 'has_mask_input': ['float32', 'random', [1], {}] },
-    { 'orig_im_size': ['float32', [512, 512], [2], {}] }],
+    inputs: [{
+      'image_embeddings': ['float32', 'random', [1, 256, 64, 64], {}],
+      'point_coords': ['float32', 'random', [1, 2, 2], { "num_points": 2 }],
+      'point_labels': ['float32', 'random', [1, 2], { "num_points": 2 }],
+      'mask_input': ['float32', 'random', [1, 1, 256, 256], {}],
+      'has_mask_input': ['float32', 'random', [1], {}],
+      'orig_im_size': ['float32', [512, 512], [2], {}]
+    }],
     inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [512, 512] [2]'
   },
   {
@@ -1312,7 +1444,9 @@ export let models = [
     inputs: [{
       'latent_sample': ['float32', 'random', [1, 4, 64, 64], {
         "vaedec_sample_batch": 1,
-        "vaedec_sample_channels": 4, "vaedec_sample_height": 64, "vaedec_sample_width": 64
+        "vaedec_sample_channels": 4,
+        "vaedec_sample_height": 64,
+        "vaedec_sample_width": 64
       }]
     }],
     inputstip: '[1, 4, 64, 64]'
@@ -1329,7 +1463,12 @@ export let models = [
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
-      'sample': ['float32', 'random', [1, 3, 512, 512], { "vaeenc_sample_batch": 1, "vaeenc_sample_channels": 3, "vaeenc_sample_height": 512, "vaeenc_sample_width": 512 }]
+      'sample': ['float32', 'random', [1, 3, 512, 512], {
+        "vaeenc_sample_batch": 1,
+        "vaeenc_sample_channels": 3,
+        "vaeenc_sample_height": 512,
+        "vaeenc_sample_width": 512
+      }]
     }],
     inputstip: '[1, 3, 512, 512]'
   },
@@ -1344,11 +1483,13 @@ export let models = [
     size: '19.6 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'image_embeddings': ['float32', 'random', [1, 256, 64, 64], {}] },
-    { 'point_coords': ['float32', 'random', [1, 2, 2], {}] },
-    { 'point_labels': ['float32', 'random', [1, 2], {}] },
-    { 'mask_input': ['float32', 'random', [1, 1, 256, 256], {}] },
-    { 'has_mask_input': ['float32', 'random', [1], {}] }],
+    inputs: [{
+      'image_embeddings': ['float32', 'random', [1, 256, 64, 64], {}],
+      'point_coords': ['float32', 'random', [1, 2, 2], {}],
+      'point_labels': ['float32', 'random', [1, 2], {}],
+      'mask_input': ['float32', 'random', [1, 1, 256, 256], {}],
+      'has_mask_input': ['float32', 'random', [1], {}]
+    }],
     inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1]'
   },
   {
@@ -1362,11 +1503,13 @@ export let models = [
     size: '9.8 MB',
     format: 'onnx',
     datatype: 'fp16',
-    inputs: [{ 'image_embeddings': ['float16', 'random', [1, 256, 64, 64], {}] },
-    { 'point_coords': ['float16', 'random', [1, 2, 2], {}] },
-    { 'point_labels': ['float16', 'random', [1, 2], {}] },
-    { 'mask_input': ['float16', 'random', [1, 1, 256, 256], {}] },
-    { 'has_mask_input': ['float16', 'random', [1], {}] }],
+    inputs: [{
+      'image_embeddings': ['float16', 'random', [1, 256, 64, 64], {}],
+      'point_coords': ['float16', 'random', [1, 2, 2], {}],
+      'point_labels': ['float16', 'random', [1, 2], {}],
+      'mask_input': ['float16', 'random', [1, 1, 256, 256], {}],
+      'has_mask_input': ['float16', 'random', [1], {}]
+    }],
     inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1]'
   },
   {
@@ -1472,9 +1615,11 @@ export let models = [
     size: '158.95 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }] },
-    { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
-    { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
     inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   },
   // {
@@ -1488,9 +1633,11 @@ export let models = [
   //   size: '40.20 MB',
   //   format: 'onnx',
   //   datatype: 'int8',
-  //   inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }] },
-  //   { 'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
-  //   { 'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+  //   inputs: [{
+  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+  //     'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+  //     'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+  //   }],
   //   inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   // },
   {
@@ -1504,8 +1651,10 @@ export let models = [
     size: '134 MB',
     format: 'onnx',
     datatype: 'fp32',
-    inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
-    { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
     inputstip: '[1, 128] [1, 128]'
   },
   // {
@@ -1519,8 +1668,10 @@ export let models = [
   //   size: '33.99 MB',
   //   format: 'onnx',
   //   datatype: 'int8',
-  //   inputs: [{ 'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] },
-  //   { 'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }] }],
+  //   inputs: [{
+  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+  //     'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
+  //   }],
   //   inputstip: '[1, 128] [1, 128]'
   // },
   {
@@ -1583,6 +1734,24 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
       'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }]
+    }],
+    inputstip: '[1, 168] [1, 168, 768]'
+  },
+  {
+    category: 'Image-to-Text',
+    id: 'vit_gpt2_image_captioning_decoder_merged',
+    name: 'ViT GPT2 Image Captioning Decoder (KV-Cache)',
+    description: 'An image captioning model using transformers.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning/tree/main/onnx',
+    model: 'transformer.js/vit-gpt2-image-captioning/decoder_model_merged.onnx',
+    size: '586 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
     }],
     inputstip: '[1, 168] [1, 168, 768]'
   },
@@ -1649,6 +1818,24 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
       'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
+    }],
+    inputstip: '[1, 1] [1, 1500, 384]'
+  },
+  {
+    category: 'Speech Recognition',
+    id: 'whisper_tiny_decoder_merged',
+    name: 'Whisper Tiny Decoder (KV-Cache)',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/whisper-tiny.en/tree/main/onnx',
+    model: 'transformer.js/whisper-tiny.en/decoder_model_merged.onnx',
+    size: '113 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
     }],
     inputstip: '[1, 1] [1, 1500, 384]'
   },
@@ -1747,6 +1934,7 @@ export const cpu = [
   "Intel Core i5 14500HX", "Intel Core i5 14500T", "Intel Core i5 14500", "Intel Core i5 14490F",
   "Intel Core i5 14450HX", "Intel Core i5 14400F", "Intel Core i5 14400T", "Intel Core i5 14400",
   "Intel Core i3 14100F", "Intel Core i3 14100T", "Intel Core i3 14100",
+  "Intel Processor 300", "Intel Processor 300T",
   "Intel Core i7-1355U", "Intel Core i7-1360P", "Intel Core i7-13620H", "Intel Core i7-13650HX", "Intel Core i7-1365U", "Intel Core i7-1365UE", "Intel Core i7-13700", "Intel Core i7-13700E", "Intel Core i7-13700F", "Intel Core i7-13700H", "Intel Core i7-13700HX", "Intel Core i7-13700K", "Intel Core i7-13700KF", "Intel Core i7-13700T", "Intel Core i7-13700TE", "Intel Core i7-13705H", "Intel Core i7-1370P", "Intel Core i7-1370PE", "Intel Core i7-13790F", "Intel Core i7-13800H", "Intel Core i7-13800HE", "Intel Core i7-13850HX",
   "Intel Core i5-1334U", "Intel Core i5-1335U", "Intel Core i5-1335UE", "Intel Core i5-13400", "Intel Core i5-13400E", "Intel Core i5-13400F", "Intel Core i5-13400T", "Intel Core i5-1340P", "Intel Core i5-1340PE", "Intel Core i5-13420H", "Intel Core i5-13450HX", "Intel Core i5-1345U", "Intel Core i5-1345UE", "Intel Core i5-13490F", "Intel Core i5-13500", "Intel Core i5-13500E", "Intel Core i5-13500H", "Intel Core i5-13500HX", "Intel Core i5-13500T", "Intel Core i5-13500TE", "Intel Core i5-13505H", "Intel Core i5-1350P", "Intel Core i5-1350PE", "Intel Core i5-13600", "Intel Core i5-13600H", "Intel Core i5-13600HE", "Intel Core i5-13600HX", "Intel Core i5-13600K", "Intel Core i5-13600KF", "Intel Core i5-13600T",
   "Intel Core i3-1305U", "Intel Core i3-13100", "Intel Core i3-13100E", "Intel Core i3-13100F", "Intel Core i3-13100T", "Intel Core i3-13100TE", "Intel Core i3-1315U", "Intel Core i3-1315UE", "Intel Core i3-1320PE", "Intel Core i3-13300HE",
