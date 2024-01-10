@@ -10,7 +10,8 @@ export const dataTypeToArrayConstructor = {
   int64: BigInt64Array,
   BigInt64Array: BigInt64Array,
   int8: Int8Array,
-  uint8: Uint8Array
+  uint8: Uint8Array,
+  bool: Uint8Array,
 };
 
 // export const bigInt64ArrayToString = (arr) => {
