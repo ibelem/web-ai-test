@@ -677,8 +677,14 @@
 					{#if id.indexOf('_merged') > -1}
 						<span class="kvcache">KV-C</span>
 					{/if}
+					{#if id.indexOf('_with_past') > -1}
+						<span class="kvcache">PAST</span>
+					{/if}
 					{name}{:else}{#if id.indexOf('_merged') > -1}
 						<span class="kvcache">KV-C</span>
+					{/if}
+					{#if id.indexOf('_with_past') > -1}
+						<span class="kvcache">PAST</span>
 					{/if}
 					{name}{/if}
 			</label>

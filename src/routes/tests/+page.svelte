@@ -120,6 +120,10 @@
 							<span class="kvcache">KV-C</span>
 						{/if}
 
+						{#if model.indexOf('_with_past') > -1}
+							<span class="kvcache">PAST</span>
+						{/if}
+
 						<a href="{base}/run/{model}" class=""
 							>{getModelNameById(model)} ·
 							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
