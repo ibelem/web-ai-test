@@ -1905,8 +1905,9 @@ export let models = [
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
-      'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168, "past_sequence_length": 168 }],
+      'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
       'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
     }],
     inputstip: '[1, 168] [1, 168, 768]'
   },
