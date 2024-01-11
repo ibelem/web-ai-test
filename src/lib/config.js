@@ -1907,7 +1907,7 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
       'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }],
-      'use_cache_branch': ['bool', 1, [1], {}]
+      'use_cache_branch': ['bool', 1, [1], { "past_sequence_length": 168 }]
     }],
     inputstip: '[1, 168] [1, 168, 768]'
   },
