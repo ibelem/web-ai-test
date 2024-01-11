@@ -58,6 +58,8 @@ const getInputsById = (id) => {
 const getFeeds = (session, modelName) => {
   let feeds = {};
   let inputs = getInputsById(modelName);
+  let inputNames = session.inputNames;
+  
   for (let input of inputs) {
     if (isDict(input)) {
       for (let key in input) {
@@ -66,6 +68,36 @@ const getFeeds = (session, modelName) => {
       }
     }
   }
+
+  if (modelName.endsWith('merged')) {
+    for (var k in inputNames) {
+      const v = inputNames[k];
+      if (v.startsWith('past_key_values.')) {
+        if (modelName === 'distilbart_cnn_6_6_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
+        } else if (modelName === 'distilgpt2_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 12, 16, 64]);
+        } else if (modelName === 'flan_t5_small_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
+        } else if (modelName === 'gpt2_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 12, 8, 64]);
+        } else if (modelName === 'mt5_small_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
+        } else if (modelName === 't5_small_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 8, 128, 64]);
+        } else if (modelName === 'vit_gpt2_image_captioning_decoder_merged') {
+          feeds[v] = getTensor('float32', 1, [1, 12, 168, 64]);
+        } else if (modelName === 'whisper_tiny_decoder_merged') {
+          if (v.includes('decoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
+          } else if (v.includes('encoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 6, 1500, 64]);
+          }
+        }
+      }
+    }
+  }
+
   return feeds;
 }
 
