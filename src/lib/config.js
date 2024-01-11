@@ -1990,7 +1990,6 @@ export let models = [
     inputs: [{
       'input_ids': ['int64', 1n, [1, 1], {
         "batch_size": 1,
-        "decoder_sequence_length": 1,
         "past_decoder_sequence_length": 128,
         "encoder_sequence_length_out": 1500
       }],
