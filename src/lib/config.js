@@ -486,8 +486,29 @@ export let models = [
   },
   {
     category: 'Text Summarization',
+    id: 'distilbart_cnn_6_6_decoder_with_past',
+    name: 'Distilbart CNN 6-6 Decoder w/i Past',
+    description: 'A text summarization model built upon a Transformer model.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
+    model: 'transformer.js/distilbart-cnn-6-6/decoder_with_past_model.onnx',
+    size: '537 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'input_ids': ['int64', 99n, [1, 1], {
+        "batch_size": 1,
+        "past_decoder_sequence_length": 168,
+        "encoder_sequence_length_out": 168,
+      }]
+    }],
+    inputstip: '[1, 168] [1, 1]'
+  },
+  {
+    category: 'Text Summarization',
     id: 'distilbart_cnn_6_6_decoder_merged',
-    name: 'Distilbart CNN 6-6 Decoder / KV-Cache',
+    name: 'Distilbart CNN 6-6 Decoder KV-Cache',
     description: 'A text summarization model built upon a Transformer model.',
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
     source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6/tree/main/onnx',
@@ -679,8 +700,25 @@ export let models = [
   },
   {
     category: 'Text Generation',
+    id: 'distilgpt2_decoder_with_past',
+    name: 'DistilGPT2 Decoder w/i Past',
+    description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilgpt2/tree/main/onnx',
+    model: 'transformer.js/distilgpt2/decoder_with_past_model.onnx',
+    size: '313 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "past_sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "past_sequence_length + 1": 16 }]
+    }],
+    inputstip: '[1, 16] [1, 16]'
+  },
+  {
+    category: 'Text Generation',
     id: 'distilgpt2_decoder_merged',
-    name: 'DistilGPT2 Decoder / KV-Cache',
+    name: 'DistilGPT2 Decoder KV-Cache',
     description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
     note: '',
     source: 'https://huggingface.co/Xenova/distilgpt2/tree/main/onnx',
@@ -856,8 +894,26 @@ export let models = [
   },
   {
     category: 'Text2Text Generation',
+    id: 'flan_t5_small_decoder_with_past',
+    name: 'FLAN-T5 Small Decoder w/i Past',
+    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/flan-t5-small/tree/main/onnx',
+    model: 'transformer.js/flan-t5-small/decoder_with_past_model.onnx',
+    size: '209 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "past_decoder_sequence_length": 128, "encoder_sequence_length_out": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 1] [1, 128, 512]'
+  },
+  {
+    category: 'Text2Text Generation',
     id: 'flan_t5_small_decoder_merged',
-    name: 'FLAN-T5 Small Decoder / KV-Cache',
+    name: 'FLAN-T5 Small Decoder KV-Cache',
     description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
     note: '',
     source: 'https://huggingface.co/Xenova/flan-t5-small/tree/main/onnx',
@@ -947,8 +1003,25 @@ export let models = [
   },
   {
     category: 'Text Generation',
+    id: 'gpt2_decoder_with_past',
+    name: 'GPT-2 Decoder w/i Past',
+    description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/gpt2/tree/main/onnx',
+    model: 'gpt2-decoder_with_past.onnx',
+    size: '623 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 8, "past_sequence_length": 8 }],
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "past_sequence_length + 1": 8 }],
+    }],
+    inputstip: '[1, 1] [1, 8]'
+  },
+  {
+    category: 'Text Generation',
     id: 'gpt2_decoder_merged',
-    name: 'GPT-2 Decoder / KV-Cache',
+    name: 'GPT-2 Decoder KV-Cache',
     description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion.',
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
     source: 'https://huggingface.co/gpt2/tree/main/onnx',
@@ -1152,8 +1225,26 @@ export let models = [
   },
   {
     category: 'Text2Text Generation',
+    id: 'mt5_small_decoder_with_past',
+    name: 'mT5 Small Decoder w/i Past',
+    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/mt5-small/tree/main/onnx',
+    model: 'transformer.js/mt5-small/decoder_with_past_model.onnx',
+    size: '1.03 GB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 128, "past_decoder_sequence_length": 128, "encoder_sequence_length_out": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 1] [1, 128, 512]'
+  },
+  {
+    category: 'Text2Text Generation',
     id: 'mt5_small_decoder_merged',
-    name: 'mT5 Small Decoder / KV-Cache',
+    name: 'mT5 Small Decoder KV-Cache',
     description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
     source: 'https://huggingface.co/Xenova/mt5-small/tree/main/onnx',
@@ -1632,8 +1723,26 @@ export let models = [
   },
   {
     category: 'Text-To-Text Translation',
+    id: 't5_small_decoder_with_past',
+    name: 'T5 Small Decoder w/i Past',
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/t5-small/tree/main/onnx',
+    model: 'transformer.js/t5-small/decoder_with_past_model.onnx',
+    size: '146 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 128, "past_decoder_sequence_length": 128, "encoder_sequence_length_out": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 1] [1, 128, 512]'
+  },
+  {
+    category: 'Text-To-Text Translation',
     id: 't5_small_decoder_merged',
-    name: 'T5 Small Decoder / KV-Cache',
+    name: 'T5 Small Decoder KV-Cache',
     description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
     note: '',
     source: 'https://huggingface.co/Xenova/t5-small/tree/main/onnx',
@@ -1769,8 +1878,25 @@ export let models = [
   },
   {
     category: 'Image-to-Text',
+    id: 'vit_gpt2_image_captioning_decoder_with_past',
+    name: 'ViT GPT2 Image Captioning Decoder w/i Past',
+    description: 'An image captioning model using transformers.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning/tree/main/onnx',
+    model: 'transformer.js/vit-gpt2-image-captioning/decoder_with_past_model.onnx',
+    size: '584 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }],
+    }],
+    inputstip: '[1, 1] [1, 168, 768]'
+  },
+  {
+    category: 'Image-to-Text',
     id: 'vit_gpt2_image_captioning_decoder_merged',
-    name: 'ViT GPT2 Image Captioning Decoder / KV-Cache',
+    name: 'ViT GPT2 Image Captioning Decoder KV-Cache',
     description: 'An image captioning model using transformers.',
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
     source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning/tree/main/onnx',
@@ -1779,11 +1905,8 @@ export let models = [
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
-      'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168, "past_sequence_length": 168 }],
       'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }],
-      'use_cache_branch': ['bool', 1, [1], {
-        "past_sequence_length": 168
-      }]
     }],
     inputstip: '[1, 168] [1, 168, 768]'
   },
@@ -1855,8 +1978,29 @@ export let models = [
   },
   {
     category: 'Speech Recognition',
+    id: 'whisper_tiny_decoder_with_past',
+    name: 'Whisper Tiny Decoder w/i Past',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/whisper-tiny.en/tree/main/onnx',
+    model: 'transformer.js/whisper-tiny.en/decoder_with_past_model.onnx',
+    size: '108 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], {
+        "batch_size": 1,
+        "decoder_sequence_length": 1,
+        "past_decoder_sequence_length": 128,
+        "encoder_sequence_length_out": 1500
+      }],
+    }],
+    inputstip: '[1, 1]'
+  },
+  {
+    category: 'Speech Recognition',
     id: 'whisper_tiny_decoder_merged',
-    name: 'Whisper Tiny Decoder / KV-Cache',
+    name: 'Whisper Tiny Decoder KV-Cache',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
     note: '',
     source: 'https://huggingface.co/Xenova/whisper-tiny.en/tree/main/onnx',

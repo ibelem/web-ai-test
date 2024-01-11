@@ -60,25 +60,25 @@ const getFeeds = (session, modelName) => {
     }
   }
 
-  if (modelName.endsWith('merged')) {
+  if (modelName.endsWith('_merged') || modelName.endsWith('_with_past')) {
     for (var k in inputNames) {
       const v = inputNames[k];
       if (v.startsWith('past_key_values.')) {
-        if (modelName === 'distilbart_cnn_6_6_decoder_merged') {
+        if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
-        } else if (modelName === 'distilgpt2_decoder_merged') {
+        } else if (modelName.indexOf('distilgpt2_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 12, 16, 64]);
-        } else if (modelName === 'flan_t5_small_decoder_merged') {
+        } else if (modelName.indexOf('flan_t5_small_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
-        } else if (modelName === 'gpt2_decoder_merged') {
+        } else if (modelName.indexOf('gpt2_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 12, 8, 64]);
-        } else if (modelName === 'mt5_small_decoder_merged') {
+        } else if (modelName.indexOf('mt5_small_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
-        } else if (modelName === 't5_small_decoder_merged') {
+        } else if (modelName.indexOf('t5_small_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 8, 128, 64]);
-        } else if (modelName === 'vit_gpt2_image_captioning_decoder_merged') {
+        } else if (modelName.indexOf('vit_gpt2_image_captioning_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 12, 168, 64]);
-        } else if (modelName === 'whisper_tiny_decoder_merged') {
+        } else if (modelName.indexOf('whisper_tiny_decoder_') > -1) {
           if (v.includes('decoder')) {
             feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
           } else if (v.includes('encoder')) {
