@@ -861,20 +861,6 @@ export let models = [
     inputstip: '[1, 1, 64, 64]'
   },
   {
-    category: 'Style Transfer',
-    id: 'fns_candy',
-    name: 'FNS Candy',
-    description: 'A style transfer model to re-style images or video streams.',
-    note: '',
-    source: 'https://github.com/microsoft/Windows-Machine-Learning/raw/master/Samples/CustomTensorization/CustomTensorization/fns-candy.onnx',
-    model: 'fns-candy.onnx',
-    size: '1.63 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{ 'inputImage': ['float32', 'random', [1, 3, 720, 720], { 'None': 1 }] }],
-    inputstip: '[1, 3, 720, 720]'
-  },
-  {
     category: 'Text2Text Generation',
     id: 'flan_t5_small_decoder',
     name: 'FLAN-T5 Small Decoder',
