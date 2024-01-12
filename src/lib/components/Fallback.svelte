@@ -168,53 +168,107 @@
 					<div class="err" title="Error">Errors</div>
 				</div>
 				{#each filteredBackendDataFallback as { name, backend, supported, not_supported, input_type_not_supported, partitions_supported_by_webnn, nodes_in_the_graph, nodes_supported_by_webnn, error }, i}
-					<div class="q _3">
-						<div class="name" title={name?.replaceAll('_', '-')}>{getModelNameById(name)}</div>
-						<div class="info">
-							{getModelTypeById(name)}<br />
-							{getModelDataTypeById(name)}<br />
-							{#if backend === 'cpu'}
-								<span class="cpu">{backend}</span>{:else}<span class="gpu">{backend}</span>{/if}
+					{#if backend === 'gpu'}
+						<div class="q _3">
+							<div class="name" title={name?.replaceAll('_', '-')}>{getModelNameById(name)}</div>
+							<div class="info">
+								{getModelTypeById(name)}<br />
+								{getModelDataTypeById(name)}<br />
+								{#if backend === 'cpu'}
+									<span class="cpu">{backend}</span>{:else}<span class="gpu">{backend}</span>{/if}
+							</div>
+							<div class="su s">
+								{#if supported}
+									{#each supported as s}
+										<span>{s}</span>
+									{/each}
+								{/if}
+							</div>
+							<div class="su ns">
+								{#if not_supported}
+									{#each not_supported as n}
+										<span>{n}</span>
+									{/each}
+								{/if}
+							</div>
+							<div class="su nst">
+								{#if input_type_not_supported}
+									{#each input_type_not_supported as nst}
+										<span>{nst}</span>
+									{/each}
+								{/if}
+							</div>
+							<div class="node">
+								{#if partitions_supported_by_webnn}<span
+										title="Number of partitions supported by WebNN"
+										>{partitions_supported_by_webnn}</span
+									><br />
+								{/if}
+								{#if nodes_in_the_graph}<span title="Number of nodes in the graph"
+										>{nodes_in_the_graph}</span
+									><br />
+								{/if}
+								{#if nodes_supported_by_webnn}<span title="Number of nodes supported by WebNN"
+										>{nodes_supported_by_webnn}</span
+									>{/if}
+							</div>
+							<div class="err">
+								{#if error}{error} · We are working on it.{/if}
+							</div>
 						</div>
-						<div class="su s">
-							{#if supported}
-								{#each supported as s}
-									<span>{s}</span>
-								{/each}
-							{/if}
+					{/if}
+				{/each}
+
+				{#each filteredBackendDataFallback as { name, backend, supported, not_supported, input_type_not_supported, partitions_supported_by_webnn, nodes_in_the_graph, nodes_supported_by_webnn, error }, i}
+					{#if backend === 'cpu'}
+						<div class="q _3">
+							<div class="name" title={name?.replaceAll('_', '-')}>{getModelNameById(name)}</div>
+							<div class="info">
+								{getModelTypeById(name)}<br />
+								{getModelDataTypeById(name)}<br />
+								{#if backend === 'cpu'}
+									<span class="cpu">{backend}</span>{:else}<span class="gpu">{backend}</span>{/if}
+							</div>
+							<div class="su s">
+								{#if supported}
+									{#each supported as s}
+										<span>{s}</span>
+									{/each}
+								{/if}
+							</div>
+							<div class="su ns">
+								{#if not_supported}
+									{#each not_supported as n}
+										<span>{n}</span>
+									{/each}
+								{/if}
+							</div>
+							<div class="su nst">
+								{#if input_type_not_supported}
+									{#each input_type_not_supported as nst}
+										<span>{nst}</span>
+									{/each}
+								{/if}
+							</div>
+							<div class="node">
+								{#if partitions_supported_by_webnn}<span
+										title="Number of partitions supported by WebNN"
+										>{partitions_supported_by_webnn}</span
+									><br />
+								{/if}
+								{#if nodes_in_the_graph}<span title="Number of nodes in the graph"
+										>{nodes_in_the_graph}</span
+									><br />
+								{/if}
+								{#if nodes_supported_by_webnn}<span title="Number of nodes supported by WebNN"
+										>{nodes_supported_by_webnn}</span
+									>{/if}
+							</div>
+							<div class="err">
+								{#if error}{error} · We are working on it.{/if}
+							</div>
 						</div>
-						<div class="su ns">
-							{#if not_supported}
-								{#each not_supported as n}
-									<span>{n}</span>
-								{/each}
-							{/if}
-						</div>
-						<div class="su nst">
-							{#if input_type_not_supported}
-								{#each input_type_not_supported as nst}
-									<span>{nst}</span>
-								{/each}
-							{/if}
-						</div>
-						<div class="node">
-							{#if partitions_supported_by_webnn}<span
-									title="Number of partitions supported by WebNN"
-									>{partitions_supported_by_webnn}</span
-								><br />
-							{/if}
-							{#if nodes_in_the_graph}<span title="Number of nodes in the graph"
-									>{nodes_in_the_graph}</span
-								><br />
-							{/if}
-							{#if nodes_supported_by_webnn}<span title="Number of nodes supported by WebNN"
-									>{nodes_supported_by_webnn}</span
-								>{/if}
-						</div>
-						<div class="err">
-							{#if error}{error} · We are working on it.{/if}
-						</div>
-					</div>
+					{/if}
 				{/each}
 			</div>
 			<div class="subtitle">
