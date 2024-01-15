@@ -337,7 +337,10 @@
 		background-color: var(--red-005);
 	}
 
-	.mobilenet_v2_fp16 {
+	.mobilenet_v2_fp16,
+	.efficientnet_lite_fp16,
+	.resnet50_v1_fp16,
+	.squeezenet_fp16 {
 		background-color: var(--fp16-005);
 	}
 
