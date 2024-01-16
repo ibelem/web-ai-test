@@ -362,9 +362,10 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     let start;
     if (backend === 'webnn' || _backend === 'wasm_4') {
       // console.time('wanming_');
-      const input = clone(feeds);
+      // const input = clone(feeds);
       start = performance.now()
-      await sess.run(input);
+      // await sess.run(input);
+      await sess.run(clone(feeds));
       // console.timeEnd('wanming_');
     } else {
       start = performance.now()
