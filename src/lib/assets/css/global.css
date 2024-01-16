@@ -1817,3 +1817,11 @@ background-color: var(--p-005);
   color: var(--p);
   border: 1px solid var(--p) !important;
 }
+
+.network button svg path {
+  fill: var(--grey);
+}
+
+.network button:hover svg path {
+  fill: var(--green);
+}
