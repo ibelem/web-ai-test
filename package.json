@@ -28,6 +28,7 @@
     "simple-svelte-autocomplete": "^2.5.2",
     "svelte": "^4.2.8",
     "svelte-check": "^3.6.2",
+    "svelte-fullscreen": "^2.0.0",
     "svelte-local-storage-store": "^0.6.4",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
