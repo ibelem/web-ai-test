@@ -2,42 +2,56 @@
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Environment from '$lib/components/Environment.svelte';
-	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 	import { loadScript } from '$lib/assets/js/utils.js';
 	import FullscreenSVG from '$lib/components/svg/FullscreenSVG.svelte';
-	import FullscreenExitSVG from '$lib/components/svg/FullscreenExitSVG.svelte';
 	import Fullscreen from 'svelte-fullscreen';
 
 	let bar, loadingBar, border, text, mynetwork;
-	let full = false;
+	let search = '',
+		show = false,
+		msg = '';
+	let full = false,
+		showloadingbar = false;
+
+	const exitHandler = () => {
+		if (!document.fullscreenElement) {
+			full = false;
+		}
+	};
 
 	onMount(async () => {
+		showloadingbar = false;
 		await loadScript(
 			'vis',
 			'https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js'
 		);
+
+		document.addEventListener('fullscreenchange', exitHandler);
 	});
 
-	async function handleFileInput(event) {
+	let network;
+	let UniqueNodes = [];
+
+	const handleFileInput = async (event) => {
 		const file = event.target.files[0];
 		if (file) {
 			try {
 				const fileContent = await readFile(file);
+				showloadingbar = true;
+				let edges;
+				let nodes;
+				let allNodes;
+				let allEdges;
+				let nodeColors;
+				let data;
 
-				var edges;
-				var nodes;
-				var allNodes;
-				var allEdges;
-				var nodeColors;
-				var network;
-				var data;
-
-				function drawGraph() {
+				const drawGraph = () => {
 					let nodesFromJson = JSON.parse(fileContent).nodes.map((node) => ({
 						color: '#97c2fc',
 						id: node.name,
 						label: node.name,
-						shape: 'dot'
+						shape: 'box'
 					}));
 
 					if (nodesFromJson.length > 0) {
@@ -52,6 +66,8 @@
 								node.color = 'rgba(106, 198, 0, 1)';
 							}
 						});
+
+						UniqueNodes = [...new Set([...JSON.parse(fileContent).nodes.map((node) => node.name)])];
 					}
 
 					nodes = new vis.DataSet(nodesFromJson);
@@ -71,7 +87,7 @@
 					allEdges = edges.get({ returnType: 'Object' });
 					data = { nodes: nodes, edges: edges };
 
-					var options = {
+					let options = {
 						layout: { hierarchical: false },
 						edges: { arrows: { to: { enabled: true } } }
 					};
@@ -80,13 +96,14 @@
 
 					network.on('stabilizationProgress', function (params) {
 						loadingBar.removeAttribute('style');
-						var maxWidth = 496;
-						var minWidth = 20;
-						var widthFactor = params.iterations / params.total;
-						var width = Math.max(minWidth, maxWidth * widthFactor);
+						let maxWidth = 496;
+						let minWidth = 20;
+						let widthFactor = params.iterations / params.total;
+						let width = Math.max(minWidth, maxWidth * widthFactor);
 						bar.style.width = width + 'px';
 						text.innerHTML = Math.round(widthFactor * 100) + '%';
 					});
+
 					network.once('stabilizationIterationsDone', function () {
 						text.innerHTML = '100%';
 						bar.style.width = '496px';
@@ -94,17 +111,80 @@
 						// really clean the dom element
 						setTimeout(function () {
 							loadingBar.style.display = 'none';
-						}, 500);
+						}, 100);
 					});
 
+					network.on('selectNode', function (params) {
+						if (params.nodes.length == 1) {
+							let obj = {};
+							obj.clicked_id = params.nodes[0];
+							console.log(params);
+							console.log(params.nodes[0]);
+							network.clustering.updateClusteredNode(params.nodes[0], {
+								color: {
+									background: 'rgba(198, 26, 62, 0.95)',
+									border: 'rgba(198, 26, 62, 1)'
+								},
+								font: { color: 'rgba(255, 255, 255, 1)' }
+							});
+						}
+					});
+
+					network.on('selectEdge', function (params) {
+						if (params.edges.length == 1) {
+							// Single edge selected
+							let obj = {};
+							obj.clicked_id = params.edges[0];
+							network.clustering.updateEdge(params.edges[0], {
+								color: 'rgba(198, 26, 62, 1)',
+								borderWidthSelected: 3
+							});
+							// obj.base_edge = network.clustering.getBaseEdge(params.edges[0]);
+							// obj.all_clustered_edges = network.clustering.getClusteredEdges(params.edges[0]);
+						}
+					});
+					show = true;
 					return network;
-				}
+				};
 				drawGraph();
 			} catch (error) {
+				show = false;
 				console.error('Error reading or parsing the file:', error);
 			}
 		}
-	}
+	};
+
+	const capitalizeFirstLetter = (str) => {
+		return str.charAt(0).toUpperCase() + str.slice(1);
+	};
+
+	const findNode = async (event) => {
+		msg = '';
+		if (event.key === 'Enter') {
+			if (!network) {
+				return;
+			}
+			let options = {
+				color: {
+					background: 'rgba(0, 19, 130, 0.95)',
+					border: 'rgba(0, 19, 130, 1)'
+				},
+				font: { color: 'rgba(255, 255, 255, 1)' }
+			};
+
+			if (search.toLowerCase().startsWith('inp')) {
+				search = capitalizeFirstLetter(search);
+			} else {
+				search = search.toUpperCase();
+			}
+
+			try {
+				network.clustering.updateClusteredNode(search, options);
+			} catch (err) {
+				msg = err.message;
+			}
+		}
+	};
 
 	function readFile(file) {
 		return new Promise((resolve, reject) => {
@@ -139,33 +219,47 @@
 			<div id="mynetwork" bind:this={mynetwork}></div>
 			<div class="q copy">
 				<div>
-					{#if full}
-						<button
-							id="btnfullexit"
-							title="Exit fullscreen"
-							on:click={() => {
-								onToggle();
-							}}
-						>
-							<FullscreenExitSVG />
-						</button>
-					{:else}
-						<button
-							id="btnfull"
-							title="Enter fullscreen"
-							on:click={() => {
-								onToggle();
-							}}
-						>
-							<FullscreenSVG />
-						</button>
-					{/if}
+					<button
+						id="btnfull"
+						title="Enter fullscreen"
+						on:click={() => {
+							full = true;
+							onToggle();
+						}}
+					>
+						<FullscreenSVG />
+					</button>
 				</div>
 			</div>
 		</Fullscreen>
 	</div>
 
-	<div id="loadingBar" bind:this={loadingBar}>
+	<div id="searchzone" class="s {show}">
+		{#if UniqueNodes.length > 0}
+			<div class="tags">
+				{#each UniqueNodes as node}
+					<button
+						on:click={() => {
+							search = node;
+							findNode({ key: 'Enter' });
+						}}
+					>
+						{node}
+					</button>
+				{/each}
+			</div>
+		{/if}
+
+		<input
+			id="search"
+			bind:value={search}
+			placeholder="Search nodes or edges"
+			on:keydown={findNode}
+		/>
+		<div id="message">{msg}</div>
+	</div>
+
+	<div id="loadingBar" bind:this={loadingBar} class="i {showloadingbar}">
 		<div class="outerBorder">
 			<div id="text" bind:this={text}>0%</div>
 			<div id="border" bind:this={border}>
@@ -180,29 +274,92 @@
 <Footer />
 
 <style>
-	.true #btnfullexit {
+	.page .false {
+		display: none !important;
+	}
+
+	.page .true {
+		display: block;
+	}
+
+	.page .true#searchzone {
+		display: block;
+		margin: 10px auto;
+		width: 100%;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.page.true .true#searchzone {
 		position: absolute;
 		top: 20px;
 		right: 20px;
-		z-index: 1000;
-		background-color: red;
+		z-index: 10000;
+	}
+
+	.tags button {
+		font-size: 10px;
+		padding: 3px 4px;
+		border-radius: 3px;
+		border: 1px solid var(--grey-08) !important;
+		color: var(--grey-08);
+		margin: 2px;
+		cursor: pointer;
+		background-color: var(--grey-01);
+	}
+
+	.tags button:hover {
+		border: 1px solid var(--b2) !important;
+		color: var(--b2);
+	}
+
+	.tqtitle {
+		margin-top: 0px;
+	}
+
+	#search {
+		border: 1px solid var(--grey-04);
+		outline: none;
+		margin: 10px auto 0 auto;
+		max-width: 50vw;
+		height: 32px;
+		font-size: 1.2em;
+		border-radius: 4px;
+		padding: 4px 8px;
+		color: var(--b2);
+		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	}
+
+	#search:hover {
+		border: 1px solid var(--b2);
+	}
+
+	#message {
+		margin-top: 10px;
+		color: var(--red);
 	}
 
 	.jsonfile {
 		margin: 0px auto 10px 0;
 		text-align: center;
+		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	}
+
+	.jsonfile input {
+		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	#mynetwork {
 		width: 100%;
 		height: auto;
+		min-height: 40vh;
+		resize: both;
 		background-color: white;
 		border: 1px solid var(--grey-02);
 		outline: none;
-	}
-
-	#mynetwork canvas {
-		height: 100% !important;
 	}
 
 	.q div {
@@ -228,10 +385,12 @@
 	}
 
 	#loadingBar {
-		/* position: absolute;
-		top: 0px;
-		left: 0px; */
+		position: absolute;
+		top: 16px;
+		left: 50%;
+		transform: translateX(-50%);
 		transition: all 0.5s ease;
+		z-index: 1;
 	}
 
 	#bar {

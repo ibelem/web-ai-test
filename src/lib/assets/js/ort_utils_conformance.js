@@ -342,8 +342,12 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
   let results;
   if (backend === 'webnn' || _backend === 'wasm_4') {
     const input = clone(feeds);
+    console.log('---- input ----');
+    console.log(input);
     results = await sess.run(input);
   } else {
+    console.log('---- input ----');
+    console.log(feeds);
     results = await sess.run(feeds);
   }
 
