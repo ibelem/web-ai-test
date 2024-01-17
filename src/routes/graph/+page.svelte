@@ -6,6 +6,7 @@
 	import { loadScript } from '$lib/assets/js/utils.js';
 	import FullscreenSVG from '$lib/components/svg/FullscreenSVG.svelte';
 	import Fullscreen from 'svelte-fullscreen';
+	import Upload from '$lib/components/svg/Upload.svelte';
 
 	let bar, loadingBar, border, text, mynetwork;
 	let search = '',
@@ -211,7 +212,10 @@
 	</div>
 
 	<div class="jsonfile">
-		<input type="file" accept=".json" on:change={handleFileInput} />
+		<label>
+			<input type="file" accept=".json" on:change={handleFileInput} hidden />
+			<span><Upload />Select .json file</span>
+		</label>
 	</div>
 
 	<div class="mb-2 network" style="width: 100%">
@@ -325,6 +329,7 @@
 		outline: none;
 		margin: 10px auto 0 auto;
 		max-width: 50vw;
+		width: 40vw;
 		height: 32px;
 		font-size: 1.2em;
 		border-radius: 4px;
@@ -350,6 +355,7 @@
 
 	.jsonfile input {
 		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		background-color: transparent;
 	}
 
 	#mynetwork {

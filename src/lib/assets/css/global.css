@@ -1836,3 +1836,34 @@ background-color: var(--p-005);
   height: auto;
   min-height: 40vh !important;
 }
+
+.jsonfile svg {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  margin-right: 10px;
+  margin-bottom: -3px;
+}
+
+.jsonfile svg path {
+  fill: var(--font);
+}
+
+.jsonfile span {
+  display: inline-block;
+  color: var(--font);
+  border: 1px solid var(--grey-04);
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.jsonfile span:hover {
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+
+.jsonfile span:hover svg path {
+  fill: var(--red);
+}
