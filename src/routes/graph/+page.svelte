@@ -211,13 +211,6 @@
 		<div class="title tq">WebNN DirectML Graph Before Compilation</div>
 	</div>
 
-	<div class="jsonfile">
-		<label>
-			<input type="file" accept=".json" on:change={handleFileInput} hidden />
-			<span><Upload />Select .json file</span>
-		</label>
-	</div>
-
 	<div class="mb-2 network" style="width: 100%">
 		<Fullscreen let:onToggle>
 			<div id="mynetwork" bind:this={mynetwork}></div>
@@ -270,6 +263,13 @@
 				<div id="bar" bind:this={bar}></div>
 			</div>
 		</div>
+	</div>
+
+	<div class="jsonfile">
+		<label>
+			<input type="file" accept=".json" on:change={handleFileInput} hidden />
+			<span><Upload />Select .json file</span>
+		</label>
 	</div>
 </div>
 
@@ -451,5 +451,11 @@
 	.title {
 		text-align: center;
 		color: var(--red);
+	}
+
+	@media (max-width: 768px) {
+		.tqtitle {
+			margin-top: 20px;
+		}
 	}
 </style>

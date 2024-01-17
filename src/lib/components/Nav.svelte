@@ -66,11 +66,11 @@
 <style>
 	#togg input {
 		display: block;
-		width: 40px;
-		height: 40px;
+		width: 33px;
+		height: 33px;
 		position: absolute;
 		top: 10px;
-		left: -10px;
+		right: 20px;
 		cursor: pointer;
 		opacity: 0;
 		z-index: 10;
