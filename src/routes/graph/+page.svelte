@@ -56,15 +56,20 @@
 					}));
 
 					if (nodesFromJson.length > 0) {
+						nodesFromJson = nodesFromJson.map((item) => ({
+							...item,
+							color: item.id.startsWith('Input_') ? '#97fcc2' : item.color
+						}));
+
 						nodesFromJson.forEach((node) => {
 							if (node.id === 'Input_0') {
-								node.color = 'rgba(226, 69, 124, 1)';
+								node.color = 'rgba(106, 198, 0, 0.95)';
 							}
 						});
 
 						nodesFromJson.forEach((node) => {
 							if (node.id === 'Output_0') {
-								node.color = 'rgba(106, 198, 0, 1)';
+								node.color = 'rgba(226, 69, 124, 0.95)';
 							}
 						});
 
@@ -119,15 +124,45 @@
 						if (params.nodes.length == 1) {
 							let obj = {};
 							obj.clicked_id = params.nodes[0];
-							console.log(params);
-							console.log(params.nodes[0]);
-							network.clustering.updateClusteredNode(params.nodes[0], {
+							let options = {
 								color: {
-									background: 'rgba(198, 26, 62, 0.95)',
-									border: 'rgba(198, 26, 62, 1)'
+									background: 'rgba(0, 79, 255, 0.95)',
+									border: 'rgba(0, 79, 255, 1)'
 								},
 								font: { color: 'rgba(255, 255, 255, 1)' }
-							});
+							};
+
+							if (params.nodes[0].toLowerCase().startsWith('input_')) {
+								options = {
+									color: {
+										background: 'rgba(3, 192, 74, 0.95)',
+										border: 'rgba(3, 192, 74, 1)'
+									},
+									font: { color: 'rgba(255, 255, 255, 1)' }
+								};
+
+								network.clustering.updateEdge(params.edges[0], {
+									color: 'rgba(3, 192, 74, 1)',
+									borderWidthSelected: 3
+								});
+							}
+
+							if (params.nodes[0].toLowerCase().startsWith('output_')) {
+								options = {
+									color: {
+										background: 'rgba(226, 69, 124, 0.95)',
+										border: 'rgba(226, 69, 124, 1)'
+									},
+									font: { color: 'rgba(255, 255, 255, 1)' }
+								};
+
+								network.clustering.updateEdge(params.edges[0], {
+									color: 'rgba(226, 69, 124, 1)',
+									borderWidthSelected: 3
+								});
+							}
+
+							network.clustering.updateClusteredNode(params.nodes[0], options);
 						}
 					});
 
@@ -137,7 +172,6 @@
 							let obj = {};
 							obj.clicked_id = params.edges[0];
 							network.clustering.updateEdge(params.edges[0], {
-								color: 'rgba(198, 26, 62, 1)',
 								borderWidthSelected: 3
 							});
 							// obj.base_edge = network.clustering.getBaseEdge(params.edges[0]);
