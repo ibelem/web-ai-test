@@ -1274,7 +1274,7 @@ export let models = [
     description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
     note: 'Large model.It is recommended to run tests on this large model individually rather than together with other models.',
     source: 'https://huggingface.co/Xenova/mt5-small/tree/main/onnx',
-    model: 'transformer.js/mt5-small/encoder_model_quantized.onnx',
+    model: 'transformer.js/mt5-small/encoder_model.onnx',
     size: '560 MB',
     format: 'onnx',
     datatype: 'fp32',
