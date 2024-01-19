@@ -8,6 +8,7 @@
 	import Conformance from './Conformance.svelte';
 	import InferenceLog from '$lib/components/InferenceLog.svelte';
 	import Results from '$lib/components/Results.svelte';
+	import Environment from './Environment.svelte';
 	import Info from './Info.svelte';
 	import {
 		auto,
@@ -176,6 +177,7 @@
 				>
 			{/if}
 		</div>
+		<Environment />
 		<Footer />
 	{/if}
 {/if}

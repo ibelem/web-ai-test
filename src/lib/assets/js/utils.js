@@ -1,4 +1,4 @@
-import { sleepStore, fallbackLogStore, fallbackStore, fallbackQueueStore, conformanceLogStore, conformanceQueueStore, refererStore, modelDownloadUrlStore, autoStore, conformanceStore, infoStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
+import { sleepStore, fallbackLogStore, fallbackStore, fallbackQueueStore, conformanceLogStore, conformanceQueueStore, refererStore, modelDownloadUrlStore, autoStore, conformanceStore, infoStore, ortWebVersionStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
 import { models, uniqueBackends, corsSites } from '../../config';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
@@ -292,6 +292,15 @@ export let numOfRuns;
 
 numberOfRunsStore.subscribe((value) => {
   numOfRuns = value;
+});
+
+/**
+ * @type {number}
+ */
+export let ortWebVersion;
+
+ortWebVersionStore.subscribe((value) => {
+  ortWebVersion = value;
 });
 
 /**
