@@ -1,13 +1,21 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '$lib/config';
 import { compareObjects, addConformance, updateConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
-import { sleepStore, modelDownloadUrlStore, conformanceQueueStore, conformanceStore } from '../../store/store';
+import { ortWebVersionStore, sleepStore, modelDownloadUrlStore, conformanceQueueStore, conformanceStore } from '../../store/store';
 import { getGpu, sleep, getModelHFUrlById, getModelCategoryById, getModelDescriptionById, getModelInputsRawById, getModelNameById, getModelSizeById } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
 import { dataTypeToArrayConstructor, isDict, bigInt64ArrayToString } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
 // import localforage from 'localforage';
 
+/**
+ * @type {{ selected?: any; stable?: any; dev?: any; }}
+ */
+export let ortWebVersion;
+
+ortWebVersionStore.subscribe((value) => {
+  ortWebVersion = value;
+});
 
 /**
  * @type {string[]}
@@ -260,19 +268,66 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
       break;
   }
 
-  if (backend === 'webgpu') {
 
-    removeElement('default');
-    removeElement('webnn');
-    await loadScript('webgpu', ortDists.webgpu.url);
-  } else if (backend === 'webnn' || backend === 'webgl') {
-    removeElement('webgpu');
-    removeElement('default');
-    await loadScript('webnn', ortDists.webnn_webglfix.url);
-  } else {
-    removeElement('webnn');
-    removeElement('webgpu');
-    await loadScript('default', ortDists.public.url);
+  if (ortWebVersion) {
+    if (ortWebVersion.selected === 2) {
+      if (backend === 'webgpu') {
+        removeElement('default');
+        removeElement('webnn');
+        await loadScript('webgpu', ortDists.webgpu.url);
+      } else if (backend === 'webnn' || backend === 'webgl') {
+        removeElement('webgpu');
+        removeElement('default');
+        await loadScript('webnn', ortDists.webnn_webglfix.url);
+      } else {
+        removeElement('webnn');
+        removeElement('webgpu');
+        await loadScript('default', "https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js");
+      }
+    } else if (ortWebVersion.selected === 1) {
+      if (backend === 'webgpu') {
+        removeElement('default');
+        removeElement('webnn');
+        await loadScript('webgpu', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.webgpu.min.js`);
+      } else if (backend === 'webnn') {
+        removeElement('webgpu');
+        removeElement('default');
+        await loadScript('webnn', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.min.js`);
+      } else {
+        removeElement('webnn');
+        removeElement('webgpu');
+        await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.min.js`);
+      }
+    } else {
+      if (backend === 'webgpu') {
+        removeElement('default');
+        removeElement('webnn');
+        await loadScript('webgpu', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.webgpu.min.js`);
+      } else if (backend === 'webnn') {
+        removeElement('webgpu');
+        removeElement('default');
+        await loadScript('webnn', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.min.js`);
+      } else {
+        removeElement('webnn');
+        removeElement('webgpu');
+        await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.min.js`);
+      }
+    }
+  }
+  else {
+    if (backend === 'webgpu') {
+      removeElement('default');
+      removeElement('webnn');
+      await loadScript('webgpu', ortDists.webgpu.url);
+    } else if (backend === 'webnn' || backend === 'webgl') {
+      removeElement('webgpu');
+      removeElement('default');
+      await loadScript('webnn', ortDists.webnn_webglfix.url);
+    } else {
+      removeElement('webnn');
+      removeElement('webgpu');
+      await loadScript('default', "https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js");
+    }
   }
 
   let options = {

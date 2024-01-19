@@ -1867,3 +1867,61 @@ background-color: var(--p-005);
 .jsonfile span:hover svg path {
   fill: var(--red);
 }
+
+.environment svg {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-bottom: -3px;
+}
+
+.environment #logo_onnx {
+  width: 56px;
+  margin-bottom: -2px;
+}
+
+.environment svg path {
+  fill: var(--font);
+}
+
+.environment svg#logo_onnx path.logo_onnx_1 {
+  fill: var(--font);
+}
+
+.environment svg#logo_onnx .logo_onnx_2 {
+  fill: #fefefe;
+}
+
+.environment svg#logo_onnx .logo_onnx_3 {
+  fill: #f4f5f6;
+}
+
+.environment svg#logo_onnx .logo_onnx_4 {
+  fill: #dedfdf;
+}
+
+.environment svg#logo_onnx .logo_onnx_5 {
+  fill: #d1d1d1;
+}
+
+.environment svg#logo_onnx .logo_onnx_6 {
+  fill: #d8d8d8;
+}
+
+.environment svg#logo_onnx .logo_onnx_7 {
+  fill: var(--font);
+}
+
+@media (max-width: 1120px) {
+  .ort .wasm,
+  .ort .webgpu,
+  .ort .webnn {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 500px) {
+  .ort .wasm {
+    margin-top: 6px;
+  }
+}

@@ -21,3 +21,4 @@ export const conformanceQueueStore = persisted('conformanceQueueStore', []);
 export const conformanceLogStore = persisted('conformanceLogStore', []);
 export const conformanceStore = persisted('conformanceStore', []);
 export const sleepStore = persisted('sleepStore', false);
+export const ortWebVersionStore = persisted('ortWebVersionStore', { selected: 2, dev: '', stable: '' });
