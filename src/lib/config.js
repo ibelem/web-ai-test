@@ -1,4 +1,4 @@
-export const siteTitle = "Web AI Benchmark";
+export const siteTitle = "Web AI Run";
 export const siteDescription = "";
 export const siteURL = "";
 
@@ -20,7 +20,7 @@ export const corsSites = [
 
 export const ortDists = {
   webgpu: {
-    version: 'v1.17 Internal 01-19-2024',
+    version: 'v1.17 Internal 01-22-2024',
     url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.webgpu.min.js'
   },
   webnn_webglfix: {
