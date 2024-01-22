@@ -3,10 +3,10 @@ node_modules
 /build
 /.svelte-kit
 /package
-/static/models
+/static/models/*.onnx
+/static/models/**/*.onnx
 .env
 .env.*
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-*.onnx
