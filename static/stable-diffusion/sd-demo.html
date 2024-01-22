@@ -245,7 +245,7 @@
     }
 
     async function getTextTokens() {
-        const tokenizers = await AutoTokenizer.from_pretrained('./tokenizer/');
+        const tokenizers = await AutoTokenizer.from_pretrained('./stable-diffusion/tokenizer/');
         const positiveText = document.getElementById('positive_prompt').value;
         const negativeText = document.getElementById('negative_prompt').value;
 
