@@ -504,23 +504,23 @@
 					</div>
 
 					{#if key.modeltype === 'onnx'}
-						<div class="{key.modeltype} mt">
+						<div class={key.modeltype}>
 							<Onnx />
 						</div>
 					{/if}
 
 					{#if key.modeltype === 'tflite'}
-						<div class="{key.modeltype} mt">
+						<div class={key.modeltype}>
 							<Tflite />
 						</div>
 					{/if}
 
 					{#if key.modeltype === 'npy'}
-						<div class="{key.modeltype} mt"><Npy /></div>
+						<div class={key.modeltype}><Npy /></div>
 					{/if}
 
 					{#if key.modeltype === 'pt'}
-						<div class="{key.modeltype} mt"><Pt /></div>
+						<div class={key.modeltype}><Pt /></div>
 					{/if}
 
 					<div class="{key.datatype} dt">{key.datatype}</div>
