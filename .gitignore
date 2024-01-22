@@ -5,6 +5,8 @@ node_modules
 /package
 /static/models/*.onnx
 /static/models/**/*.onnx
+/static/models/*.tflite
+/static/models/**/*.tflite
 .env
 .env.*
 !.env.example

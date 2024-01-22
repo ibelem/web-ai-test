@@ -1,0 +1,1 @@
+https://huggingface.co/aluhrs13/stable-diffusion-v1-5-olive-optimized/tree/main/text_encoder
