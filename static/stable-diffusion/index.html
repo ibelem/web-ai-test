@@ -249,6 +249,7 @@
         if (location.href.toLowerCase().indexOf('webai.run') > -1) {
             path = `https://huggingface.co/webml/models/tree/main/stable-diffusion/tokenizer`;
         }
+        const tokenizers = await AutoTokenizer.from_pretrained(path);
         const positiveText = document.getElementById('positive_prompt').value;
         const negativeText = document.getElementById('negative_prompt').value;
 
