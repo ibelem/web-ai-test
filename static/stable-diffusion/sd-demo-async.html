@@ -245,7 +245,7 @@
     }
 
     async function getTextTokens() {
-        const tokenizers = await AutoTokenizer.from_pretrained('./stable-diffusion/tokenizer/');
+        const tokenizers = await AutoTokenizer.from_pretrained(Utils.modelPath() + 'stable-diffusion/tokenizer/');
         const positiveText = document.getElementById('positive_prompt').value;
         const negativeText = document.getElementById('negative_prompt').value;
 
@@ -355,7 +355,7 @@
             //    Addlast_hidden_state_dim_0: 2
             //    Addlast_hidden_state_dim_1: 77
             // modelPath = 'models/Stable-Diffusion-v1.5-text-encoder-float16.onnx';
-            modelPath = 'models/text-encoder.onnx'
+            modelPath = Utils.modelPath() + 'stable-diffusion/text-encoder.onnx'
             freeDimensionOverrides = {
                 'batch': unetBatch,
                 'sequence': textEmbeddingSequenceLength,
@@ -370,7 +370,7 @@
             //    float16 encoder_hidden_states[2, 77, 768]
             //  Outputs:
             //    float16 out_sample[2, 4, 64, 64]
-            modelPath = 'models/sd-unet-v1.5-model-b2c4h64w64s77-float16-compute-and-inputs.onnx';
+            modelPath = Utils.modelPath() + 'stable-diffusion/sd-unet-v1.5-model-b2c4h64w64s77-float16-compute-and-inputs.onnx';
 
             let latentSpace = new Uint16Array(latentWidth * latentHeight * unetChannelCount);
             generateNoise(/*inout*/ latentSpace, seed);
@@ -405,7 +405,7 @@
             //    float16 latent_sample[1, 4, 64, 64]
             //  Outputs:
             //    float16 sample[1, 3, 512, 512]
-            modelPath = 'models/Stable-Diffusion-v1.5-vae-decoder-float16-fp32-instancenorm.onnx';
+            modelPath = Utils.modelPath() + 'stable-diffusion/Stable-Diffusion-v1.5-vae-decoder-float16-fp32-instancenorm.onnx';
             // modelPath = 'models/vae-decoder.onnx';
             inputs['latent_sample'] = Utils.generateTensorFillValue('float16', [1, latentChannelCount, latentHeight, latentWidth], 1);
             freeDimensionOverrides = { 'batch': 1, 'channels': latentChannelCount, 'height': latentHeight, 'width': latentWidth, };

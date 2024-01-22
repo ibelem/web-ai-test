@@ -1,57 +1,57 @@
 
 // Get model via Origin Private File System
 export async function getModelOPFS(name, url, updateModel) {
-  const root = await navigator.storage.getDirectory();
-  let fileHandle;
+    const root = await navigator.storage.getDirectory();
+    let fileHandle;
 
-  async function updateFile() {
-    const response = await fetch(url);
-    const buffer = await readResponse(response);
-    fileHandle = await root.getFileHandle(name, {create: true});
-    const writable = await fileHandle.createWritable();
-    await writable.write(buffer);
-    await writable.close();
-    return buffer;
-  }
+    async function updateFile() {
+        const response = await fetch(url);
+        const buffer = await readResponse(response);
+        fileHandle = await root.getFileHandle(name, { create: true });
+        const writable = await fileHandle.createWritable();
+        await writable.write(buffer);
+        await writable.close();
+        return buffer;
+    }
 
-  if (updateModel) {
-    return await updateFile();
-  }
+    if (updateModel) {
+        return await updateFile();
+    }
 
-  try {
-    fileHandle = await root.getFileHandle(name);
-    const blob = await fileHandle.getFile();
-    return await blob.arrayBuffer();
-  } catch (e) {
-    return await updateFile();
-  }
+    try {
+        fileHandle = await root.getFileHandle(name);
+        const blob = await fileHandle.getFile();
+        return await blob.arrayBuffer();
+    } catch (e) {
+        return await updateFile();
+    }
 }
 
 async function readResponse(response) {
-  const contentLength = response.headers.get('Content-Length');
-  let total = parseInt(contentLength ?? '0');
-  let buffer = new Uint8Array(total);
-  let loaded = 0;
+    const contentLength = response.headers.get('Content-Length');
+    let total = parseInt(contentLength ?? '0');
+    let buffer = new Uint8Array(total);
+    let loaded = 0;
 
-  const reader = response.body.getReader();
-  async function read() {
-    const {done, value} = await reader.read();
-    if (done) return;
+    const reader = response.body.getReader();
+    async function read() {
+        const { done, value } = await reader.read();
+        if (done) return;
 
-    let newLoaded = loaded + value.length;
-    if (newLoaded > total) {
-      total = newLoaded;
-      let newBuffer = new Uint8Array(total);
-      newBuffer.set(buffer);
-      buffer = newBuffer;
+        let newLoaded = loaded + value.length;
+        if (newLoaded > total) {
+            total = newLoaded;
+            let newBuffer = new Uint8Array(total);
+            newBuffer.set(buffer);
+            buffer = newBuffer;
+        }
+        buffer.set(value, loaded);
+        loaded = newLoaded;
+        return read();
     }
-    buffer.set(value, loaded);
-    loaded = newLoaded;
-    return read();
-  }
 
-  await read();
-  return buffer;
+    await read();
+    return buffer;
 }
 
 const dataTypeToArrayConstructor =
@@ -171,45 +171,45 @@ export function decodeFloat16(binaryValue)/*: float Number*/ {
         )
 }
 
-    // https://stackoverflow.com/questions/32633585/how-do-you-convert-to-half-floats-in-javascript
-    export function encodeFloat16(floatValue)/*: uint16 Number*/ {
-        let floatView = new Float32Array(1);
-        let int32View = new Int32Array(floatView.buffer);
+// https://stackoverflow.com/questions/32633585/how-do-you-convert-to-half-floats-in-javascript
+export function encodeFloat16(floatValue)/*: uint16 Number*/ {
+    let floatView = new Float32Array(1);
+    let int32View = new Int32Array(floatView.buffer);
 
-        floatView[0] = floatValue;
-        let x = int32View[0];
+    floatView[0] = floatValue;
+    let x = int32View[0];
 
-        let bits = (x >> 16) & 0x8000; // Get the sign
-        let m = (x >> 12) & 0x07FF; // Keep one extra bit for rounding
-        let e = (x >> 23) & 0xFF; // Using int is faster here
+    let bits = (x >> 16) & 0x8000; // Get the sign
+    let m = (x >> 12) & 0x07FF; // Keep one extra bit for rounding
+    let e = (x >> 23) & 0xFF; // Using int is faster here
 
-        // If zero, denormal, or underflowing exponent, then return signed zero.
-        if (e < 103) {
-            return bits;
-        }
-
-        // If NaN, return NaN. If Inf or exponent overflow, return Inf.
-        if (e > 142) {
-            bits |= 0x7C00;
-            // If exponent was 0xff and one mantissa bit was set, it means NaN,
-            // not Inf, so make sure we set one mantissa bit too.
-            bits |= ((e == 255) ? 0 : 1) && (x & 0x007FFFFF);
-            return bits;
-        }
-
-        // If exponent underflows but not too much, return a denormal
-        if (e < 113) {
-            m |= 0x0800;
-            // Extra rounding may overflow and set mantissa to 0 and exponent to 1, which is okay.
-            bits |= (m >> (114 - e)) + ((m >> (113 - e)) & 1);
-            return bits;
-        }
-
-        bits |= ((e - 112) << 10) | (m >> 1);
-        // Extra rounding. An overflow will set mantissa to 0 and increment the exponent, which is okay.
-        bits += m & 1;
+    // If zero, denormal, or underflowing exponent, then return signed zero.
+    if (e < 103) {
         return bits;
     }
+
+    // If NaN, return NaN. If Inf or exponent overflow, return Inf.
+    if (e > 142) {
+        bits |= 0x7C00;
+        // If exponent was 0xff and one mantissa bit was set, it means NaN,
+        // not Inf, so make sure we set one mantissa bit too.
+        bits |= ((e == 255) ? 0 : 1) && (x & 0x007FFFFF);
+        return bits;
+    }
+
+    // If exponent underflows but not too much, return a denormal
+    if (e < 113) {
+        m |= 0x0800;
+        // Extra rounding may overflow and set mantissa to 0 and exponent to 1, which is okay.
+        bits |= (m >> (114 - e)) + ((m >> (113 - e)) & 1);
+        return bits;
+    }
+
+    bits |= ((e - 112) << 10) | (m >> 1);
+    // Extra rounding. An overflow will set mantissa to 0 and increment the exponent, which is okay.
+    bits += m & 1;
+    return bits;
+}
 
 const loadScript = async (id, url) => {
     return new Promise((resolve, reject) => {
@@ -224,9 +224,19 @@ const loadScript = async (id, url) => {
         document.body.append(script);
     })
 }
+
 const removeElement = async (id) => {
     let el = document.querySelector(`#${id}`);
     if (el) {
         el.parentNode.removeChild(el);
+    }
+}
+
+export const modelPath = () => {
+    console.log(location.hostname);
+    if (location.hostname.toLowerCase().indexOf('webai.run') > -1) {
+        return 'https://huggingface.co/webml/models/resolve/main/';
+    } else {
+        return '../models/'
     }
 }
