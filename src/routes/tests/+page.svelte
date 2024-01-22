@@ -105,13 +105,13 @@
 							<Clock />
 						</div>
 						{#if getModelTypeById(model) === 'onnx'}
-							<div class="onnx mt">
+							<div class="onnx">
 								<Onnx />
 							</div>
 						{/if}
 
 						{#if getModelTypeById(model) === 'tflite'}
-							<div class="tflite mt">
+							<div class="tflite">
 								<Tflite />
 							</div>
 						{/if}
@@ -149,13 +149,13 @@
 							<Clock />
 						</div>
 						{#if getModelTypeById(model) === 'onnx'}
-							<div class="onnx mt">
+							<div class="onnx">
 								<Onnx />
 							</div>
 						{/if}
 
 						{#if getModelTypeById(model) === 'tflite'}
-							<div class="tflite mt">
+							<div class="tflite">
 								<Tflite />
 							</div>
 						{/if}
@@ -190,13 +190,13 @@
 								<Clock />
 							</div>
 							{#if getModelTypeById(model) === 'onnx'}
-								<div class="onnx mt">
+								<div class="onnx">
 									<Onnx />
 								</div>
 							{/if}
 
 							{#if getModelTypeById(model) === 'tflite'}
-								<div class="tflite mt">
+								<div class="tflite">
 									<Tflite />
 								</div>
 							{/if}

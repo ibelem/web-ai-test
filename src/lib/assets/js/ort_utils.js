@@ -294,11 +294,11 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       } else if (backend === 'webnn') {
         removeElement('webgpu');
         removeElement('default');
-        await loadScript('webnn', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.min.js`);
+        await loadScript('webnn', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.all.min.js`);
       } else {
         removeElement('webnn');
         removeElement('webgpu');
-        await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.min.js`);
+        await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.all.min.js`);
       }
     } else {
       if (backend === 'webgpu') {
@@ -308,11 +308,11 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       } else if (backend === 'webnn') {
         removeElement('webgpu');
         removeElement('default');
-        await loadScript('webnn', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.min.js`);
+        await loadScript('webnn', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.all.min.js`);
       } else {
         removeElement('webnn');
         removeElement('webgpu');
-        await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.min.js`);
+        await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.all.min.js`);
       }
     }
   }
