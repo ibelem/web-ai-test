@@ -12,10 +12,10 @@
 	</div>
 
 	<div>
-		<a href="../stable-diffusion/sd-demo.html">Stable Diffusion · UNet 1.5 · Sync</a>
+		<a href="../stable-diffusion/sync.html">Stable Diffusion · UNet 1.5 · Sync</a>
 	</div>
 	<div>
-		<a href="../stable-diffusion/sd-demo-async.html">Stable Diffusion · UNet 1.5 · Async</a>
+		<a href="../stable-diffusion/index.html">Stable Diffusion · UNet 1.5 · Async</a>
 	</div>
 </div>
 
