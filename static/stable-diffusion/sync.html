@@ -247,7 +247,7 @@
     async function getTextTokens() {
         let path = Utils.modelPath() + 'stable-diffusion/tokenizer/';
         if (location.href.toLowerCase().indexOf('webai.run') > -1) {
-            path = `https://huggingface.co/webml/models/tree/main/stable-diffusion/tokenizer`;
+            path = `webml/models/tree/main/stable-diffusion/tokenizer`;
         }
         const tokenizers = await AutoTokenizer.from_pretrained(path);
         const positiveText = document.getElementById('positive_prompt').value;
