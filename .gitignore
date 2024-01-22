@@ -3,9 +3,9 @@ node_modules
 /build
 /.svelte-kit
 /package
-/static/models/*.onnx
+/static/models/**.onnx
 /static/models/**/*.onnx
-/static/models/*.tflite
+/static/models/**.tflite
 /static/models/**/*.tflite
 .env
 .env.*
