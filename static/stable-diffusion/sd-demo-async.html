@@ -245,7 +245,10 @@
     }
 
     async function getTextTokens() {
-        const tokenizers = await AutoTokenizer.from_pretrained(Utils.modelPath() + 'stable-diffusion/tokenizer/');
+        let path = Utils.modelPath() + 'stable-diffusion/tokenizer/';
+        if (location.url.toLowerCase().indexOf('webai.run') > -1) {
+            path = `https://huggingface.co/webml/models/tree/main/stable-diffusion/tokenizer`;
+        }
         const positiveText = document.getElementById('positive_prompt').value;
         const negativeText = document.getElementById('negative_prompt').value;
 
