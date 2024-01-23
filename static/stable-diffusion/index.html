@@ -125,7 +125,8 @@
         let input_ids_array = Array.from(input_ids.data, number => Number(number)).flat();
         positive_token_ids = positive_token_ids.concat(input_ids_array);
         if (input_ids_array.length > (textEmbeddingSequenceLength - 2)) { // Max inputs ids should be 75
-            input_ids_array = input_ids_array.slice(0, (textEmbeddingSequenceLength - 1));
+            positive_token_ids = positive_token_ids.slice(0, (textEmbeddingSequenceLength - 1));
+            positive_token_ids.push(49407);
         } else {
             const fillerArray = new Array(textEmbeddingSequenceLength - positive_token_ids.length).fill(49407);
             positive_token_ids = positive_token_ids.concat(fillerArray);
@@ -135,7 +136,8 @@
         let negative_ids_array = Array.from(negative_ids.input_ids.data, number => Number(number)).flat();
         negative_token_ids = negative_token_ids.concat(negative_ids_array);
         if (negative_ids_array.length > (textEmbeddingSequenceLength - 2)) {
-            negative_ids_array = negative_ids_array.slice(0, (textEmbeddingSequenceLength - 1));
+            negative_token_ids = negative_token_ids.slice(0, (textEmbeddingSequenceLength - 1));
+            negative_token_ids.push(49407);
         } else {
             const fillerArray = new Array(textEmbeddingSequenceLength - negative_token_ids.length).fill(49407);
             negative_token_ids = negative_token_ids.concat(fillerArray);
