@@ -8,11 +8,11 @@
 	import Enlarge from '$lib/components/svg/Enlarge.svelte';
 	import FitScreen from '$lib/components/svg/FitScreen.svelte';
 	import { page } from '$app/stores';
+	import { runOnnx, getRawConsole } from '$lib/assets/js/ort_fallback';
 	import { onMount, beforeUpdate } from 'svelte';
 	import {
 		getModelDataTypeById,
 		getModelNameById,
-		addFallback,
 		resetFallback,
 		resetFallbackLog,
 		updateFallbackLog,
@@ -76,37 +76,9 @@
 			backend = params.split('__')[1];
 			rawConsole = '';
 			let model = models.find((item) => item.id === id);
-			model.backend = backend;
-			worker.postMessage(model);
+			await runOnnx(id, model?.id, model?.format, model?.datatype, model?.size, backend);
+			rawConsole = getRawConsole();
 		}
-
-		worker.onmessage = (event) => {
-			const outputData = event.data;
-			if (typeof outputData === 'object' && 'name' in outputData && 'backend' in outputData) {
-				addFallback(outputData);
-				let filteredFallbackQueue = fallbackQueue.filter(
-					(item) => item !== `${outputData.name}__${outputData.backend}`
-				);
-				fallbackQueueStore.update(() => filteredFallbackQueue);
-				if (fallbackQueue.length > 0) {
-					location.href = location.origin + `/fallback?${fallbackQueue[0]}`;
-				}
-			} else if (typeof outputData === 'object') {
-				for (let i = 0; i < outputData.length; i++) {
-					if (typeof outputData[i] === 'object') {
-						rawConsole = rawConsole + `<div>${JSON.stringify(outputData[i])}</div>`;
-					} else {
-						rawConsole = rawConsole + `<div>${outputData[i]}</div>`;
-					}
-				}
-			} else {
-				updateFallbackLog(outputData);
-			}
-
-			fallback = fallback;
-			fallbackLog = fallbackLog;
-			// Handle the output received from the worker
-		};
 	};
 
 	let logShow = true;
