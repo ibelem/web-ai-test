@@ -205,7 +205,7 @@
 				</div>
 				<div class="webnn">
 					<span class="title">WebNN</span>
-					<span class="version">{ortDists.webnn_webglfix.version}</span>
+					<span class="version">{ortDists.webnn_webglfix_wasm.version}</span>
 				</div>
 			{:else if ortWebVersion.selected === 1}
 				<div class="webnn">

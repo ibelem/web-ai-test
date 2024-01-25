@@ -947,7 +947,7 @@ const getEnvironment = () => {
   let gpu = 'GPU: ' + getGpu() + '\r\n';
   let os = 'OS: ' + parser.os.name + ' ' + parser.os.version + '\r\n';
   let webbrowser = 'Browser: ' + parser.browser.name + ' ' + parser.browser.version + '\r\n';
-  let onnxruntimeweb = `ONNX Runtime Web: [Wasm] ${ortDists.public.version}, [WebGPU] ${ortDists.webgpu.version}, [WebNN] ${ortDists.webnn_webglfix.version}\r\n\r\n`;
+  let onnxruntimeweb = `ONNX Runtime Web: [Wasm] ${ortDists.public.version}, [WebGPU] ${ortDists.webgpu.version}, [WebNN] ${ortDists.webnn_webglfix_wasm.version}\r\n\r\n`;
   return cpu + gpu + os + webbrowser + onnxruntimeweb;
 }
 

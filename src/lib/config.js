@@ -20,13 +20,12 @@ export const corsSites = [
 
 export const ortDists = {
   webgpu: {
-    version: 'v1.17 Internal 01-22-2024',
+    version: 'v1.17 Internal 01-25-2024',
     url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.webgpu.min.js'
   },
-  webnn_webglfix: {
-    version: 'v1.17 Internal 01-14-2024',
-    url: '../ort/ort.min.js',
-    workerjs: '../ort/fallback_worker.js'
+  webnn_webglfix_wasm: {
+    version: 'v1.17 Internal 01-25-2024',
+    url: '../ort/ort.all.min.js'
   }
 }
 
@@ -206,11 +205,11 @@ export let models = [
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
-      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
-      'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'token_type_ids': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
     }],
-    inputstip: '[1, 9] [1, 9] [1, 9]'
+    inputstip: '[1, 128] [1, 128] [1, 128]'
   },
   // {
   //   category: 'Fill-Mask',
@@ -224,11 +223,11 @@ export let models = [
   //   format: 'onnx',
   //   datatype: 'int8',
   //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
-  //     'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
-  //     'token_type_ids': ['int64', 1n, [1, 9], { "batch_size": 1, "sequence_length": 9 }],
+  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+  //     'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+  //     'token_type_ids': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
   //   }],
-  //   inputstip: '[1, 9] [1, 9] [1, 9]'
+  //   inputstip: '[1, 128] [1, 128] [1, 128]'
   // },
   {
     category: 'Token Classification',

@@ -69,7 +69,7 @@
 		rawConsole = '';
 
 		let params = $page.url.searchParams.get('q');
-		const worker = new Worker(ortDists.webnn_webglfix.workerjs);
+		const worker = new Worker(ortDists.webnn_webglfix_wasm.workerjs);
 
 		if (params) {
 			id = params.split('__')[0];
