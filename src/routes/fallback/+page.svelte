@@ -2,7 +2,7 @@
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Environment from '$lib/components/Environment.svelte';
-	import { models, ortDists } from '$lib/config';
+	import { models } from '$lib/config';
 	import Log from '$lib/components/svg/Log.svelte';
 	import LogToggle from '$lib/components/svg/LogToggle.svelte';
 	import Enlarge from '$lib/components/svg/Enlarge.svelte';
@@ -14,18 +14,20 @@
 		getModelNoteById,
 		getModelNameById,
 		getModelInt8Count,
-		addFallback,
+		sortModelById,
 		resetFallback,
 		resetFallbackLog,
 		updateFallbackLog,
 		resetFallbackQueue,
 		updateFallbackQueue,
-		resetStore
+		resetStore,
+		setModelDownloadUrl
 	} from '$lib/assets/js/utils';
+	import { runOnnx, getRawConsole } from '$lib/assets/js/ort_fallback';
 	import { fallbackLogStore, fallbackStore, fallbackQueueStore, autoStore } from '$lib/store/store';
 	import Fallback from '$lib/components/Fallback.svelte';
-	import { sortModelById } from '$lib/assets/js/utils';
 
+	$: rawConsole = 'Raw console log for WebNN EP developers';
 	$: int8Count = 0;
 
 	/**
@@ -54,8 +56,6 @@
 
 	$: fallbackString = JSON.stringify(fallback);
 
-	$: rawConsole = 'Raw console log for WebNN EP developers';
-
 	/**
 	 * @type {string | any[]}
 	 */
@@ -71,44 +71,54 @@
 		 */
 		let backend;
 
-		const worker = new Worker(ortDists.webnn_webglfix.workerjs);
 		if (fallbackQueue.length > 0) {
 			id = fallbackQueue[0].split('__')[0];
 			backend = fallbackQueue[0].split('__')[1];
 			let model = models.find((item) => item.id === id);
-			model.backend = backend;
 			rawConsole = '';
-			worker.postMessage(model);
+			console.log(model);
+			runOnnx(id, model?.id, model?.format, model?.datatype, model?.size, backend);
+			rawConsole = getRawConsole();
 			// location.href = location.pathname;
 		}
 
-		worker.onmessage = (event) => {
-			const outputData = event.data;
-			if (typeof outputData === 'object' && 'name' in outputData && 'backend' in outputData) {
-				addFallback(outputData);
-				let filteredFallbackQueue = fallbackQueue.filter(
-					(item) => item !== `${outputData.name}__${outputData.backend}`
-				);
-				fallbackQueueStore.update(() => filteredFallbackQueue);
-				if (fallbackQueue.length > 0) {
-					location.href = location.origin + `/fallback?${fallbackQueue[0]}`;
-				}
-			} else if (typeof outputData === 'object') {
-				for (let i = 0; i < outputData.length; i++) {
-					if (typeof outputData[i] === 'object') {
-						rawConsole = rawConsole + `<div>${JSON.stringify(outputData[i])}</div>`;
-					} else {
-						rawConsole = rawConsole + `<div>${outputData[i]}</div>`;
-					}
-				}
-			} else {
-				updateFallbackLog(outputData);
-			}
+		// const worker = new Worker(ortDists.webnn_webglfix_wasm.workerjs);
+		// if (fallbackQueue.length > 0) {
+		// 	id = fallbackQueue[0].split('__')[0];
+		// 	backend = fallbackQueue[0].split('__')[1];
+		// 	let model = models.find((item) => item.id === id);
+		// 	model.backend = backend;
+		// 	rawConsole = '';
+		// 	worker.postMessage(model);
+		// 	// location.href = location.pathname;
+		// }
 
-			fallback = fallback;
-			fallbackLog = fallbackLog;
-			// Handle the output received from the worker
-		};
+		// worker.onmessage = (event) => {
+		// 	const outputData = event.data;
+		// 	if (typeof outputData === 'object' && 'name' in outputData && 'backend' in outputData) {
+		// 		addFallback(outputData);
+		// 		let filteredFallbackQueue = fallbackQueue.filter(
+		// 			(item) => item !== `${outputData.name}__${outputData.backend}`
+		// 		);
+		// 		fallbackQueueStore.update(() => filteredFallbackQueue);
+		// 		if (fallbackQueue.length > 0) {
+		// 			location.href = location.origin + `/fallback?${fallbackQueue[0]}`;
+		// 		}
+		// 	} else if (typeof outputData === 'object') {
+		// 		for (let i = 0; i < outputData.length; i++) {
+		// 			if (typeof outputData[i] === 'object') {
+		// 				rawConsole = rawConsole + `<div>${JSON.stringify(outputData[i])}</div>`;
+		// 			} else {
+		// 				rawConsole = rawConsole + `<div>${outputData[i]}</div>`;
+		// 			}
+		// 		}
+		// 	} else {
+		// 		updateFallbackLog(outputData);
+		// 	}
+
+		// 	fallback = fallback;
+		// 	fallbackLog = fallbackLog;
+		// };
 	};
 
 	const addSuffixes = (/** @type {any[]} */ array, /** @type {any[]} */ suffixes) => {
@@ -238,9 +248,10 @@
 		if (rawConsole) scrollToBottom(element3);
 	});
 
-	onMount(() => {
+	onMount(async () => {
 		sortedModels = sortModelById(models);
 		int8Count = getModelInt8Count(models);
+		await setModelDownloadUrl();
 		if (fallbackQueue.length > 0) {
 			run();
 		}

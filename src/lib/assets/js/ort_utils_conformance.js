@@ -209,20 +209,17 @@ export let rawResult = '';
 const mainConformance = async (_model, _modelType, _dataType, _backend) => {
 
   let backend = 'wasm';
-  let wasmSimd = false;
   let numThreads = 1;
   let deviceType = 'cpu';
 
   switch (_backend) {
     case 'wasm_1':
       backend = 'wasm';
-      wasmSimd = true;
       numThreads = 1;
       deviceType = 'cpu';
       break;
     case 'wasm_4':
       backend = 'wasm';
-      wasmSimd = true;
       numThreads = 4;
       deviceType = 'cpu';
       break;
@@ -232,101 +229,64 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
       break;
     case 'webgpu':
       backend = 'webgpu';
-      wasmSimd = true;
       numThreads = 4;
       deviceType = 'gpu';
       break;
     case 'webnn_cpu_1':
       backend = 'webnn';
-      wasmSimd = true;
       numThreads = 1;
       deviceType = 'cpu';
       break;
     case 'webnn_cpu_4':
       backend = 'webnn';
-      wasmSimd = true;
       numThreads = 4;
       deviceType = 'cpu';
       break;
     case 'webnn_gpu':
       backend = 'webnn';
-      wasmSimd = true;
       numThreads = 4;
       deviceType = 'gpu';
       break;
     case 'webnn_npu':
       backend = 'webnn';
-      wasmSimd = true;
-      numThreads = 1;
+      numThreads = 4;
       deviceType = 'npu';
       break;
     default:
       backend = 'wasm';
-      wasmSimd = true;
       numThreads = 1;
       deviceType = 'cpu';
       break;
   }
 
+  const removeTag = () => {
+    removeElement('default');
+    removeElement('webgpu');
+    removeElement('webnn');
+  }
 
   if (ortWebVersion) {
     if (ortWebVersion.selected === 2) {
       if (backend === 'webgpu') {
-        removeElement('default');
-        removeElement('webnn');
+        removeTag();
         await loadScript('webgpu', ortDists.webgpu.url);
-      } else if (backend === 'webnn' || backend === 'webgl') {
-        removeElement('webgpu');
-        removeElement('default');
-        await loadScript('webnn', ortDists.webnn_webglfix.url);
       } else {
-        removeElement('webnn');
-        removeElement('webgpu');
-        await loadScript('default', "https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js");
+        removeTag();
+        await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
       }
     } else if (ortWebVersion.selected === 1) {
-      if (backend === 'webgpu') {
-        removeElement('default');
-        removeElement('webnn');
-        await loadScript('webgpu', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.webgpu.min.js`);
-      } else if (backend === 'webnn') {
-        removeElement('webgpu');
-        removeElement('default');
-        await loadScript('webnn', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.min.js`);
-      } else {
-        removeElement('webnn');
-        removeElement('webgpu');
-        await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.min.js`);
-      }
+      await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.all.min.js`);
     } else {
-      if (backend === 'webgpu') {
-        removeElement('default');
-        removeElement('webnn');
-        await loadScript('webgpu', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.webgpu.min.js`);
-      } else if (backend === 'webnn') {
-        removeElement('webgpu');
-        removeElement('default');
-        await loadScript('webnn', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.min.js`);
-      } else {
-        removeElement('webnn');
-        removeElement('webgpu');
-        await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.min.js`);
-      }
+      await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.all.min.js`);
     }
   }
   else {
     if (backend === 'webgpu') {
-      removeElement('default');
-      removeElement('webnn');
+      removeTag();
       await loadScript('webgpu', ortDists.webgpu.url);
-    } else if (backend === 'webnn' || backend === 'webgl') {
-      removeElement('webgpu');
-      removeElement('default');
-      await loadScript('webnn', ortDists.webnn_webglfix.url);
     } else {
-      removeElement('webnn');
-      removeElement('webgpu');
-      await loadScript('default', "https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js");
+      removeTag();
+      await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
     }
   }
 
@@ -346,15 +306,9 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
   // options.logSeverityLevel = 0;
   // options.logVerbosityLevel = 0;
 
-  if (backend === 'wasm' || backend === 'webgpu') {
-    ort.env.wasm.numThreads = numThreads;
-    ort.env.wasm.simd = wasmSimd;
-  } else {
-    ort.env.wasm.numThreads = 1;
-    ort.env.wasm.simd = wasmSimd;
-  }
-
-  (backend === 'webnn' || _backend === 'wasm_4') ? ort.env.wasm.proxy = true : ort.env.wasm.proxy = false;
+  ort.env.wasm.numThreads = numThreads;
+  ort.env.wasm.simd = true;
+  ort.env.wasm.proxy = false;
 
   let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
   if (freeDimensionOverrides) {
