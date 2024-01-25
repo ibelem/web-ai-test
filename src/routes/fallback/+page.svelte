@@ -21,7 +21,8 @@
 		resetFallbackQueue,
 		updateFallbackQueue,
 		resetStore,
-		setModelDownloadUrl
+		setModelDownloadUrl,
+		sleep
 	} from '$lib/assets/js/utils';
 	import { runOnnx, getRawConsole } from '$lib/assets/js/ort_fallback';
 	import { fallbackLogStore, fallbackStore, fallbackQueueStore, autoStore } from '$lib/store/store';
@@ -61,7 +62,7 @@
 	 */
 	let sortedModels = [];
 
-	const run = () => {
+	const run = async () => {
 		/**
 		 * @type {string}
 		 */
@@ -75,9 +76,7 @@
 			id = fallbackQueue[0].split('__')[0];
 			backend = fallbackQueue[0].split('__')[1];
 			let model = models.find((item) => item.id === id);
-			rawConsole = '';
-			console.log(model);
-			runOnnx(id, model?.id, model?.format, model?.datatype, model?.size, backend);
+			await runOnnx(id, model?.id, model?.format, model?.datatype, model?.size, backend);
 			rawConsole = getRawConsole();
 			// location.href = location.pathname;
 		}
@@ -192,6 +191,7 @@
 	};
 
 	const copyRawConsole = async () => {
+		rawConsole = getRawConsole();
 		rawConsole = rawConsole.replaceAll('<div>', '').replaceAll('</div>', '\r\n');
 		await navigator.clipboard.writeText(rawConsole);
 		updateFallbackLog(`Raw console log copied`);
@@ -265,8 +265,8 @@
 	<div>Check the WebNN fallback status with your current browser</div>
 </div>
 
-<div class="g2 {consoleSize}">
-	<div class="fs rawconsole">
+<div class={consoleSize}>
+	<!-- <div class="fs rawconsole">
 		{#if jsonLogShow}
 			<div class="inferlog" bind:this={element3}>
 				<div>{@html rawConsole}</div>
@@ -295,7 +295,7 @@
 				</button>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="fs">
 		{#if jsonLogShow}

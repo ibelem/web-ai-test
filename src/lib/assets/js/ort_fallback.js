@@ -183,10 +183,6 @@ let obj = {
   "backend": '',
 };
 
-const timeout = (ms) => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
 
   let backend = 'wasm';
@@ -348,8 +344,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     // er.push(error.message);
   }
 
-  await sleep(5000);
-
   try {
     await session.release();
   } catch (error2) {
@@ -358,12 +352,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   obj.error = er;
   updateFallbackLog(`[5] Waiting 10 seconds for WebNN EP to generate the full console logs`);
-  everything = console.everything.map(item => item.value[0]);
+
+  await sleep(10000);
+  everything = console.everything.map(item => item.value[0] + '\r\n');
   rawConsole = everything;
-  await timeout(10000);
+
   updateFallbackLog(`[6] Filtering WebNN fallback log messages`);
-  everything = console.everything.map(item => item.value[0]);
-  updateFallbackLog(everything);
   let filteredEverything = everything.filter(item => {
     return (
       String(item).includes("Operator type") ||
@@ -488,7 +482,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     }
   }
   else {
-    updateFallbackLog(obj);
+    rawConsole = rawConsole + obj;
   }
 
   updateFallbackLog(`[7] WebNN fallback status of ${_model} on ${_backend} backend - Completed`);
