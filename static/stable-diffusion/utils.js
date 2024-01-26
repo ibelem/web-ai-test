@@ -57,7 +57,6 @@ async function readResponse(response) {
 
 let tokenizers;
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('Document loaded');
     let path = modelPath() + 'stable-diffusion/tokenizer/';
     if (location.href.toLowerCase().indexOf('webai.run') > -1) {
         path = `stable-diffusion/tokenizer`;
