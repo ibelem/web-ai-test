@@ -309,7 +309,11 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   options.logSeverityLevel = 0;
   // options.logVerbosityLevel = 0;
 
-  ort.env.wasm.numThreads = numThreads;
+  if (_backend === 'wasm_4') {
+    ort.env.wasm.numThreads = numThreads;
+  } else {
+    ort.env.wasm.numThreads = 1
+  }
   ort.env.wasm.simd = true;
   ort.env.wasm.proxy = false;
 
@@ -324,8 +328,9 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   l(`ort.env.wasm.numThreads: ${ort.env.wasm.numThreads}`)
   l(`ort.env.wasm.simd: ${ort.env.wasm.simd}`)
-  l(`EP options numThreads: ${numThreads}`)
   l(`ort.env.wasm.proxy: ${ort.env.wasm.proxy}`)
+
+  l(`EP options numThreads: ${numThreads}`)
 
   l(`EP options:`)
   l(options.executionProviders[0])
