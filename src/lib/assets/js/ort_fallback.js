@@ -297,7 +297,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   options.logSeverityLevel = 0;
   // options.logVerbosityLevel = 0;
 
-  ort.env.wasm.numThreads = numThreads;
+  ort.env.wasm.numThreads = 1;
   ort.env.wasm.simd = true;
   ort.env.wasm.proxy = false;
   let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
