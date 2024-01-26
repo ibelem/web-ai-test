@@ -1,3 +1,4 @@
+import { AutoTokenizer } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.13.4';
 
 // Get model via Origin Private File System
 export async function getModelOPFS(name, url, updateModel) {
@@ -54,34 +55,14 @@ async function readResponse(response) {
     return buffer;
 }
 
-const dataTypeToArrayConstructor =
-{
-    'uint8': Uint8Array,
-    'int8': Int8Array,
-    'uint16': Uint16Array,
-    'int16': Int16Array,
-    'uint32': Uint32Array,
-    'int32': Int32Array,
-    'float16': Uint16Array, // Use Uint16Array workaround until float16 is officially supported https://github.com/webmachinelearning/webnn/issues/373.
-    'float32': Float32Array,
-    'int64': BigInt64Array,
-    'uint64': BigUint64Array,
-    'BigUint64Array': BigUint64Array, // redundant aliases.
-    'BigInt64Array': BigInt64Array,
-};
-
-export function clone(x) {
-    // For some reason, structuredClone doesn't work correctly - shrug.
-    // Error: invalid data location: undefined for input 'sample'
-    // return structuredClone(x);
-
-    let feed = {};
-    for (const [key, value] of Object.entries(x)) {
-        let func = dataTypeToArrayConstructor[value.type];
-        let arrayType = func.from(value.data);
-        feed[key] = new ort.Tensor(value.type, arrayType.slice(0), value.dims);
+export async function getTokenizers(text) {
+    let path = modelPath() + 'stable-diffusion/tokenizer/';
+    if (location.href.toLowerCase().indexOf('webai.run') > -1) {
+        path = `stable-diffusion/tokenizer`;
     }
-    return feed;
+    const tokenizers = await AutoTokenizer.from_pretrained(path);
+    const { input_ids } = await tokenizers(text);
+    return Array.from(input_ids.data, number => Number(number)).flat();
 }
 
 export function log(message) {
@@ -96,7 +77,6 @@ export function appendStatus(message) {
 export function generateTensorFillValue(dataType, shape, value) {
     let size = 1;
     shape.forEach(element => { size *= element; });
-    //Utils.log(`size ${size}`);
     switch (dataType) {
         case 'uint8': return new ort.Tensor(dataType, Uint8Array.from({ length: size }, () => value), shape);
         case 'int8': return new ort.Tensor(dataType, Int8Array.from({ length: size }, () => value), shape);

@@ -28,8 +28,8 @@
             <div class="input-group">
                 <div class="g2">
                     <label for="prompt">Prompt</label>
-                    <div class="tokeninfo">
-                        10/75 tokens left
+                    <div class="tokeninfo" id="positive_token_info">
+                        63/75 tokens left
                     </div>
                 </div>
                 <input type="text" id="positive_prompt" value="giant castle, mountains, sunrise, volumetric lighting">
@@ -37,8 +37,8 @@
             <div class="input-group">
                 <div class="g2">
                     <label for="negative-prompt">Negative Prompt</label>
-                    <div class="tokeninfo">
-                        10/75 tokens left
+                    <div class="tokeninfo" id="negative_token_info">
+                        75/75 tokens left
                     </div>
                 </div>
                 <input type="text" id="negative_prompt">
@@ -179,7 +179,6 @@
 
 <script src='../ort/ort.all.min.js'></script>
 <script type='module'>
-    import { AutoTokenizer } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.13.4';
     import * as Utils from './utils.js';
 
     // Configuration...
@@ -215,10 +214,14 @@
     const startButton = document.getElementById('generate_next_image');
     const loadButton = document.getElementById('load_models');
     const logOutput = document.getElementById("status");
+    const positiveInput = document.getElementById('positive_prompt');
+    const negativeInput = document.getElementById('negative_prompt');
+    const positiveTokenInfo = document.getElementById('positive_token_info');
+    const negativeTokenInfo = document.getElementById('negative_token_info');
     const error = document.querySelector('#error');
     let progress = 0;
 
-    logOutput.addEventListener("DOMSubtreeModified", function () {
+    logOutput.addEventListener("DOMSubtreeModified", () => {
         logOutput.scrollTop = logOutput.scrollHeight;
     });
 
@@ -230,31 +233,42 @@
         }
         loadButton.disabled = false;
     }
+
     startButton.onclick = async () => {
         startButton.disabled = true;
         await generateNextImage();
     }
 
+    positiveInput.addEventListener('input', async (e) => {
+        const inputValue = e.target.value;
+        const ids = await Utils.getTokenizers(inputValue);
+        // Max token length is 75.
+        const left_tokens_length = 75 - ids.length;
+        positiveTokenInfo.innerHTML = `${(left_tokens_length <= 0) ? 0 : left_tokens_length}/75 tokens left`;
+    });
+
+    negativeInput.addEventListener('input', async (e) => {
+        const inputValue = e.target.value;
+        const ids = await Utils.getTokenizers(inputValue);
+        // Max token length is 75.
+        const left_tokens_length = 75 - ids.length;
+        negativeTokenInfo.innerHTML = `${(left_tokens_length <= 0) ? 0 : left_tokens_length}/75 tokens left`;
+    });
+
     async function getTextTokens() {
-        let path = Utils.modelPath() + 'stable-diffusion/tokenizer/';
-        if (location.href.toLowerCase().indexOf('webai.run') > -1) {
-            path = `stable-diffusion/tokenizer`;
-        }
-        const tokenizers = await AutoTokenizer.from_pretrained(path);
-        const positiveText = document.getElementById('positive_prompt').value;
-        const negativeText = document.getElementById('negative_prompt').value;
+        const positiveText = positiveInput.value;
+        const negativeText = negativeInput.value;
 
         // A string like 'a cute magical flying ghost dog, fantasy art, golden color, high quality, highly detailed, elegant, sharp focus, concept art, character concepts, digital painting, mystery, adventure'
         // becomes a 1D tensor of {49406, 320, 2242, 7823, 4610, 7108, 1929, 267, 5267, 794, 267, 3878, 3140, 267, 1400, 3027, ...}
         // padded with blanks (id 49407) up to the maximum sequence length of the text encoder (typically 77).
         // So the text encoder can't really handle more than 75 words (+1 start, +1 stop token),
         // not without some extra tricks anyway like calling it multiple times and combining the embeddings.
-        const { input_ids } = await tokenizers(positiveText);
         let positive_token_ids = [49406]; // Inits with start token
         let negative_token_ids = [49406];
-        let input_ids_array = Array.from(input_ids.data, number => Number(number)).flat();
-        positive_token_ids = positive_token_ids.concat(input_ids_array);
-        if (input_ids_array.length > (textEmbeddingSequenceLength - 2)) { // Max inputs ids should be 75
+        const positive_text_ids = await Utils.getTokenizers(positiveText);
+        positive_token_ids = positive_token_ids.concat(positive_text_ids);
+        if (positive_text_ids.length > (textEmbeddingSequenceLength - 2)) { // Max inputs ids should be 75
             positive_token_ids = positive_token_ids.slice(0, (textEmbeddingSequenceLength - 1));
             positive_token_ids.push(49407);
         } else {
@@ -262,10 +276,9 @@
             positive_token_ids = positive_token_ids.concat(fillerArray);
         }
 
-        const negative_ids = await tokenizers(negativeText);
-        let negative_ids_array = Array.from(negative_ids.input_ids.data, number => Number(number)).flat();
-        negative_token_ids = negative_token_ids.concat(negative_ids_array);
-        if (negative_ids_array.length > (textEmbeddingSequenceLength - 2)) {
+        let negative_text_ids = await Utils.getTokenizers(negativeText);
+        negative_token_ids = negative_token_ids.concat(negative_text_ids);
+        if (negative_text_ids.length > (textEmbeddingSequenceLength - 2)) {
             negative_token_ids = negative_token_ids.slice(0, (textEmbeddingSequenceLength - 1));
             negative_token_ids.push(49407);
         } else {
@@ -403,7 +416,6 @@
             //  Outputs:
             //    float16 sample[1, 3, 512, 512]
             modelPath = Utils.modelPath() + 'stable-diffusion/Stable-Diffusion-v1.5-vae-decoder-float16-fp32-instancenorm.onnx';
-            // modelPath = 'models/vae-decoder.onnx';
             inputs['latent_sample'] = Utils.generateTensorFillValue('float16', [1, latentChannelCount, latentHeight, latentWidth], 1);
             freeDimensionOverrides = { 'batch': 1, 'channels': latentChannelCount, 'height': latentHeight, 'width': latentWidth, };
         }
@@ -717,11 +729,15 @@
     // - unetInputs
     // - vaeDecodeInputs
     {
+        const startTextEncoder = performance.now();
         Utils.log('Beginning Text encode...');
         let token_ids = await getTextTokens();
         textEncoderInputs = { 'input_ids': Utils.generateTensorFromValues('int32', [unetBatch, textEmbeddingSequenceLength], token_ids) };
         const textEncoderOutputs = await textEncoderSession.run(textEncoderInputs);
+        Utils.log(`Text encode execution time: ${(performance.now() - startTextEncoder).toFixed(2)}ms`);
 
+        const startUnet = performance.now();
+        Utils.log('Beginning Unet loop execution for 25 iterations...');
         const encoder_hidden_states = Utils.generateTensorFromBytes('float16', [unetBatch, textEmbeddingSequenceLength, textEmbeddingSequenceWidth], textEncoderOutputs['last_hidden_state'].data);
         unetInputs['encoder_hidden_states'] = encoder_hidden_states;
         let initialSigma = defaultSigmas[0];
@@ -730,13 +746,15 @@
         const latentElementCount = latentsTensor.size;
         const halfLatentElementCount = latentElementCount / 2; // Given [2, 4, 64, 64], we want only the first batch.
         let latents = await latentsTensor.getData();
-        // let latents = new Uint16Array(latentsTensor.cpuData.buffer);
         let halfLatents = latents.subarray(0, halfLatentElementCount); // First batch only.
         prescaleLatentSpace(/*inout*/ halfLatents, initialSigma);
 
-        Utils.log('Beginning Unet loop execution...');
-        console.log(unetInputs);
         let timeSteps = new BigInt64Array(unetInputs['timestep'].cpuData.buffer);
+
+        const nextInputs = {
+            'timestep': unetInputs['timestep'],
+            'encoder_hidden_states': unetInputs['encoder_hidden_states'],
+        }
         // Repeat unet detection and denosing until convergence (typically 25 iterations).
         for (var i = 0; i < unetIterationCount; ++i) {
             // Update time step.
@@ -745,26 +763,26 @@
             timeSteps[0] = timeStepValue;
             timeSteps[1] = timeStepValue;
 
-            const nextInputs = Utils.clone(unetInputs);
             // Prescale the latent values.
             // Copy first batch to second batch, duplicating latents for positive and negative prompts.
-            let clonedLatents = await nextInputs['sample'].getData(); // basically Uint16Array(nextInputs['sample'].cpuData.buffer)
-            let halfClonedLatents = clonedLatents.subarray(0, halfLatentElementCount);
-            scaleLatentSpaceForPrediction(/*inout*/ halfClonedLatents, i);
-            clonedLatents.copyWithin(halfLatentElementCount, 0, halfLatentElementCount); // Copy lower half to upper half.
+            let nextLatents = latents.slice(0);
+            let halfNextLatents = nextLatents.subarray(0, halfLatentElementCount);
+            scaleLatentSpaceForPrediction(/*inout*/ halfNextLatents, i);
+            nextLatents.copyWithin(halfLatentElementCount, 0, halfLatentElementCount); // Copy lower half to upper half.
 
             if (enableNanContaminationDebugging) {
                 // Fill upper half of latent space with NaN's to detect any cross-batch pollution.
                 for (let i = halfLatentElementCount; i < latentElementCount; ++i) {
-                    clonedLatents[i] = 0x7FFF;
+                    nextLatents[i] = 0x7FFF;
                 }
             }
 
             if (enablePrintDebugging && i == 0) {
-                console.log('clonedLatents:');
-                console.log(clonedLatents);
+                console.log('nextLatents:');
+                console.log(nextLatents);
             }
 
+            nextInputs['sample'] = Utils.generateTensorFromBytes('float16', [unetBatch, unetChannelCount, latentHeight, latentWidth], nextLatents);
             const unetOutputs = await unetModelSession.run(nextInputs);
             let predictedNoise = new Uint16Array(unetOutputs['out_sample'].cpuData.buffer);
             if (enablePrintDebugging && i == 0) {
@@ -780,15 +798,17 @@
                 console.log(latents);
             }
         }
+        Utils.log(`Unet loop execution time: ${(performance.now() - startUnet).toFixed(2)}ms`);
 
+        const startVaeDecoder = performance.now();
         Utils.log('Beginning VAE decode...');
-
         // Decode from latent space.
         applyVaeScalingFactor(/*inout*/ halfLatents);
         let dimensions = latentsTensor.dims.slice(0);
         dimensions[0] = 1; // Set batch size to 1, ignore the 2nd batch for the negative prediction.
         vaeDecodeInputs['latent_sample'] = Utils.generateTensorFromBytes('float16', dimensions, halfLatents.slice(0));
         const decodedOutputs = await vaeDecodeModelSession.run(vaeDecodeInputs);
+        Utils.log(`VAE decode execution time: ${(performance.now() - startVaeDecoder).toFixed(2)}ms`);
         return decodedOutputs['sample'];
     }
 
