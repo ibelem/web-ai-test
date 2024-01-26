@@ -55,12 +55,17 @@ async function readResponse(response) {
     return buffer;
 }
 
-export async function getTokenizers(text) {
+let tokenizers;
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log('Document loaded');
     let path = modelPath() + 'stable-diffusion/tokenizer/';
     if (location.href.toLowerCase().indexOf('webai.run') > -1) {
         path = `stable-diffusion/tokenizer`;
     }
-    const tokenizers = await AutoTokenizer.from_pretrained(path);
+    tokenizers = await AutoTokenizer.from_pretrained(path);
+});
+
+export async function getTokenizers(text) {
     const { input_ids } = await tokenizers(text);
     return Array.from(input_ids.data, number => Number(number)).flat();
 }
