@@ -177,7 +177,7 @@
     </div>
 </body>
 
-<script src='dist-async/ort.webgpu.min.js'></script>
+<script src='../ort/ort.all.min.js'></script>
 <script type='module'>
     import { AutoTokenizer } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.13.4';
     import * as Utils from './utils.js';
@@ -493,6 +493,13 @@
 
     async function loadStableDiffusion(executionProvider, progress) {
         try {
+            // Release sessions if load models again.
+            if (textEncoderSession) {
+                await unetModelSession.release();
+                await textEncoderSession.release();
+                await vaeDecodeModelSession.release();
+            }
+
             error.removeAttribute("class");
             error.innerHTML = '';
             progress += 10;
