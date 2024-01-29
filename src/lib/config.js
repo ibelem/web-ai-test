@@ -1478,30 +1478,46 @@ export let models = [
   // },
   {
     category: 'Text To Image',
+    id: 'sd_1_5_text_encoder_fp16',
+    name: 'Stable Diffusion 1.5 text encoder',
+    description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
+    note: '',
+    source: 'https://huggingface.co/aluhrs13/stable-diffusion-v1-5-olive-optimized/tree/main/text_encoder',
+    model: 'stable-diffusion/text-encoder.onnx',
+    size: '235 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'input_ids': ['int32', 1, [2, 77], { "batch": 2, "sequence": 77 }]
+    }],
+    inputstip: '[2, 77]'
+  },
+  {
+    category: 'Text To Image',
     id: 'sd_1_5_unet_fp16',
     name: 'Stable Diffusion 1.5 UNet',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: 'Large model',
     source: 'https://huggingface.co/runwayml/stable-diffusion-v1-5',
-    model: 'fp16/sd-unet-f16.onnx',
+    model: 'stable-diffusion/sd-unet-v1.5-model-b2c4h64w64s77-float16-compute-and-inputs.onnx',
     size: '1.60 GB',
     format: 'onnx',
     datatype: 'fp16',
     inputs: [{
-      'sample': ['float16', 1, [1, 4, 64, 64], {}],
-      'timestep': ['int64', 1n, [1], {}],
-      'encoder_hidden_states': ['float16', 1, [1, 77, 768], {}]
+      'sample': ['float16', 1, [2, 4, 64, 64], {}],
+      'timestep': ['int64', 1n, [2], {}],
+      'encoder_hidden_states': ['float16', 1, [2, 77, 768], {}]
     }],
-    inputstip: '[1, 4, 64, 64] [1] [1, 77, 768]'
+    inputstip: '[2, 4, 64, 64] [2] [2, 77, 768]'
   },
   {
     category: 'Text To Image',
     id: 'sd_1_5_vae_decoder_fp16',
     name: 'Stable Diffusion 1.5 VAE Decoder',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
-    note: 'Internal model, N/A for public testing',
+    note: '',
     source: 'N/A',
-    model: 'fp16/sd-vae-decoder-f16.onnx',
+    model: 'stable-diffusion/Stable-Diffusion-v1.5-vae-decoder-float16-fp32-instancenorm.onnx',
     size: '94.5 MB',
     format: 'onnx',
     datatype: 'fp16',
