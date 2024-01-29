@@ -25,24 +25,37 @@
     <div class="container v9">
         <div class="left">
             <div class="input-group">
-                <div class="g2">
-                    <label for="prompt">Prompt</label>
-                    <div class="tokeninfo" id="positive_token_info">
-                        63/75 tokens left
-                    </div>
+                <textarea placeholder="Enter your prompt here" rows="2" type="text"
+                    id="positive_prompt">giant castle, mountains, sunrise, volumetric lighting</textarea>
+                <div class="tokeninfo" id="positive_token_info">
+                    63/75 tokens left
                 </div>
-                <input type="text" id="positive_prompt" value="giant castle, mountains, sunrise, volumetric lighting">
             </div>
             <div class="input-group">
-                <div class="g2">
-                    <label for="negative-prompt">Negative Prompt</label>
-                    <div class="tokeninfo" id="negative_token_info">
-                        75/75 tokens left
+                <input type="text" id="negative_prompt" placeholder="negative prompt" />
+                <div class="tokeninfo negative" id="negative_token_info">
+                    75/75 tokens left
+                </div>
+            </div>
+            <div class="input-group grid-4 options">
+                <div>
+                    <div>
+                        <label for="prompt">Seed</label>
+                    </div>
+                    <div class="grid-4-41 seed">
+                        <input type="text" id="userSeed" value="123465" maxlength="6" minlength="6"></input>
+                        <button id="changeSeed" value="">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                <path
+                                    d="M204-318q-22-38-33-78t-11-82q0-134 93-228t227-94h7l-64-64 56-56 160 160-160 160-56-56 64-64h-7q-100 0-170 70.5T240-478q0 26 6 51t18 49l-60 60ZM481-40 321-200l160-160 56 56-64 64h7q100 0 170-70.5T720-482q0-26-6-51t-18-49l60-60q22 38 33 78t11 82q0 134-93 228t-227 94h-7l64 64-56 56Z" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
-                <input type="text" id="negative_prompt">
+                <div></div>
+                <div></div>
             </div>
-            <div class="button-group">
+            <div class="button-group key">
                 <button id="load_models" class="button">
                     Load Models
                 </button>
@@ -51,7 +64,7 @@
                         <path fill="#ffffff"
                             d="m197.58 129.06l-51.61-19l-19-51.65a15.92 15.92 0 0 0-29.88 0L78.07 110l-51.65 19a15.92 15.92 0 0 0 0 29.88L78 178l19 51.62a15.92 15.92 0 0 0 29.88 0l19-51.61l51.65-19a15.92 15.92 0 0 0 0-29.88ZM140.39 163a15.87 15.87 0 0 0-9.43 9.43l-19 51.46L93 172.39a15.87 15.87 0 0 0-9.39-9.39l-51.46-19l51.46-19a15.87 15.87 0 0 0 9.39-9.39l19-51.46l19 51.46a15.87 15.87 0 0 0 9.43 9.43l51.46 19ZM144 40a8 8 0 0 1 8-8h16V16a8 8 0 0 1 16 0v16h16a8 8 0 0 1 0 16h-16v16a8 8 0 0 1-16 0V48h-16a8 8 0 0 1-8-8m104 48a8 8 0 0 1-8 8h-8v8a8 8 0 0 1-16 0v-8h-8a8 8 0 0 1 0-16h8v-8a8 8 0 0 1 16 0v8h8a8 8 0 0 1 8 8" />
                     </svg>
-                    Generate Next Image
+                    Generate Image
                 </button>
             </div>
             <div class="progress-bar">
@@ -86,7 +99,7 @@
     const textEmbeddingSequenceLength = 77;
     const textEmbeddingSequenceWidth = 768;
     const unetIterationCount = 25; // Hard-coded number of samples, since the denoising weight ramp is constant.
-    let seed = BigInt(123465n);
+    let seed = BigInt(123465);
     const enablePrintDebugging = false;
     const enableNanContaminationDebugging = false;
 
@@ -113,6 +126,8 @@
     const positiveTokenInfo = document.getElementById('positive_token_info');
     const negativeTokenInfo = document.getElementById('negative_token_info');
     const error = document.querySelector('#error');
+    const userSeed = document.querySelector('#userSeed');
+    const changeSeed = document.querySelector('#changeSeed');
     let progress = 0;
 
     logOutput.addEventListener("DOMSubtreeModified", () => {
@@ -728,7 +743,8 @@
         await executeStableDiffusionAndDisplayOutput();
         let latentSpace = new Uint16Array(unetInputs['sample'].cpuData.buffer);
         generateNoise(/*inout*/ latentSpace, seed);
-        seed++;
+        // seed++;
+        console.log(seed);
         startButton.disabled = false;
     }
 
@@ -738,40 +754,36 @@
     Utils.log('Execution Provider: ' + executionProvider);
 
     displayEmptyCanvasPlaceholder();
+
     initializeOnnxRuntime();
 
     const checkWebNN = async () => {
-
-        let webnn = false;
         let status = document.querySelector('#webnnstatus');
         let info = document.querySelector('#info');
-        let cicle = document.querySelector('#circle');
-        try {
-            const context = await navigator.ml.createContext();
-            if (context) {
-                try {
-                    const builder = new MLGraphBuilder(context);
-                    if (builder) {
-                        status.setAttribute('class', 'green');
-                        info.innerHTML = 'WebNN Supported';
-                    } else {
-                        status.setAttribute('class', 'red');
-                        info.innerHTML = 'WebNN Not Supported';
-                    }
-                } catch (e) {
-                    status.setAttribute('class', 'red');
-                    info.innerHTML = 'WebNN not supported: ' + e.message;
-                }
+        let webnnStatus = await Utils.webNnStatus();
+
+        if (webnnStatus.webnn) {
+            status.setAttribute('class', 'green');
+            info.innerHTML = 'WebNN Supported';
+        } else {
+            if (webnnStatus.error) {
+                status.setAttribute('class', 'red');
+                info.innerHTML = 'WebNN not supported: ' + webnnStatus.error;
             } else {
                 status.setAttribute('class', 'red');
-                info.innerHTML = 'WebNN Not Supported';
+                info.innerHTML = 'WebNN not supported';
             }
-        } catch (ex) {
-            status.setAttribute('class', 'red');
-            info.innerHTML = 'WebNN not supported: ' + ex.message;
         }
     };
+
     document.addEventListener('DOMContentLoaded', checkWebNN, false);
+
+    const updateSeed = () => {
+        userSeed.value = Utils.randomNumber();
+        seed = BigInt(userSeed.value);
+    }
+
+    changeSeed.addEventListener('click', updateSeed, false);
 </script>
 
 </html>

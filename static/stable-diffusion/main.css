@@ -1,15 +1,15 @@
  :root {
   --bg: #000000;
-	--font: rgba(255,255,255, 1);
-	--font-weak: rgba(255, 255, 255, 0.5);
-	--disabled: rgba(75, 75, 75, 1);
-	--bg-2: rgba(10, 10, 10, 1.0);
-	--bg-btn: rgba(15, 15, 15, 1);
+  --font: rgba(255,255,255, 1);
+  --font-weak: rgba(255, 255, 255, 0.5);
+  --disabled: rgba(75, 75, 75, 1);
+  --bg-2: rgba(10, 10, 10, 1.0);
+  --bg-btn: rgba(15, 15, 15, 1);
   --main-01: rgba(123, 59, 252, 0.1);
   --main-001: rgba(123, 59, 252, 0.01);
-	--main-06: rgba(123, 59, 252, 0.6);
+  --main-06: rgba(123, 59, 252, 0.6);
   --main: rgba(123, 59, 252, 1);
-	--border: rgba(32, 33, 37);
+  --border: rgba(32, 33, 37);
 }
 
 * {
@@ -48,6 +48,25 @@ body {
     background-color: var(--main-06);
 }
 
+textarea::-webkit-scrollbar {
+    width: 5px !important;
+    height: 5px !important;
+}
+
+textarea::-webkit-scrollbar-track {
+    background: var(--main-001);
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 10px;
+    border: 5px solid transparent;
+}
+
+textarea:hover::-webkit-scrollbar-thumb {
+    background-color: var(--main-06);
+}
+
 h1 {
     padding: 0 0 0 0;
 }
@@ -78,30 +97,31 @@ h1 {
     justify-self: center;
 }
 
-.input-group {
-    margin-bottom: 10px;
-}
-
 .input-group label {
     display: block;
     margin-bottom: 5px;
     font-size: 14px;
 }
 
-.input-group input {
+.input-group input, .input-group textarea {
     width: 100%;
     padding: 8px 8px;
     border: 1px solid var(--border);
     color: var(--font-weak);
     background-color: var(--bg-2);
     border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.input-group input:focus {
+.input-group input:focus,  .input-group textarea:focus {
     color: var(--font);
     border: 1px solid var(--main);
     outline: none;
     background-color: rgba(0, 0, 0, 0.2);
+}
+
+#negative_prompt {
+    height: 32px;
 }
 
 .button-group {
@@ -117,7 +137,61 @@ h1 {
 	margin-bottom: -4px;
 }
 
-button {
+#negative_prompt {
+    margin-top: -6px;
+}
+
+.options {
+    margin-bottom: 10px;
+    margin-top: -8px;
+}
+
+.options button {
+	font-size: 14px;
+	background: transparent;
+	border: 1px solid var(--border);
+	padding: 6px 8px;
+    border-radius: 5px;
+	cursor: pointer;
+	color: var(--font);
+}
+
+#userSeed {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#changeSeed {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0px solid transparent;
+    margin-left: -1px;
+}
+
+.options button svg {
+    height: 18px;
+    width: 18px;
+    margin: 1px 0px 1px 0px;
+}
+
+.options button svg path {
+    fill: var(--font);
+}
+
+.seed:hover #userSeed, .seed:hover #changeSeed {
+    border: 1px solid var(--main) !important;
+}
+
+.seed:hover #changeSeed {
+    border-left: 0px solid transparent;
+}
+
+#changeSeed:hover {
+    background: var(--main);
+	border: 1px solid var(--border);
+}
+
+.key button {
 	border-radius: 50px;
 	font-size: 14px;
 	background: rgba(30, 22, 68, 0.4);
@@ -127,12 +201,12 @@ button {
 	color: var(--font);
 }
 
-button:hover {
+.key button:hover {
 	background: var(--main);
 	border: 1px solid var(--border);
 }
 
-button:disabled {
+.key button:disabled {
 	--active: 0;
 	cursor: not-allowed;
 	color: var(--disabled);
@@ -140,16 +214,16 @@ button:disabled {
 	border: 1px solid var(--border);
 }
 
-button:disabled svg path {
+.key button:disabled svg path {
 	fill: var(--disabled);
 }
 
-button:disabled:hover {
+.key button:disabled:hover {
 	background: rgba(1, 1, 1, 1.0);
 	border: 1px solid var(--border);
 }
 
-button:disabled:hover svg path {
+.key button:disabled:hover svg path {
 	fill: var(--disabled);
 }
 
@@ -175,7 +249,7 @@ button:disabled:hover svg path {
 }
 
 .log-output {
-    height: 51.5vh;
+    height: 42vh;
     padding: 10px 10px;
     background-color: var(--bg-2);
     border: 1px solid var(--border);
@@ -219,6 +293,28 @@ button:disabled:hover svg path {
     align-items: center;
 }
 
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    align-items: center;
+}
+
+.grid-4-41 {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    align-items: center;
+}
+
+#changeSeed {
+    cursor: pointer;
+}
+
 .p1 {
     padding: 0 1.5em;
 }
@@ -229,6 +325,15 @@ button:disabled:hover svg path {
 
 .tokeninfo {
     font-size: 12px;
+    position: relative;
+    top: -16px;
+    right: 10px;
+    text-align: right;
+    color: var(--font-weak);
+}
+
+.negative {
+    top: -23px;
 }
 
 #error {

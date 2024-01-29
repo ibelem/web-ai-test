@@ -224,3 +224,38 @@ export const modelPath = () => {
         return '../models/'
     }
 }
+
+export const randomNumber = () => {
+    // generate 6 digital random number between 100, 000 and 999,999
+    return Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+}
+
+export const webNnStatus = async () => {
+    let result = {};
+    try {
+        const context = await navigator.ml.createContext();
+        if (context) {
+            try {
+                const builder = new MLGraphBuilder(context);
+                if (builder) {
+                    result.webnn = true;
+                    return result;
+                } else {
+                    result.webnn = false;
+                    return result;
+                }
+            } catch (e) {
+                result.webnn = false;
+                result.error = e.message;
+                return result;
+            }
+        } else {
+            result.webnn = false;
+            return result;
+        }
+    } catch (ex) {
+        result.webnn = false;
+        result.error = ex.message;
+        return result;
+    }
+};
