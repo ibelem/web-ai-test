@@ -1,0 +1,38 @@
+{
+  "_class_name": "StableDiffusionPipeline",
+  "_diffusers_version": "0.25.0",
+  "_name_or_path": "stabilityai/sd-turbo",
+  "feature_extractor": [
+    null,
+    null
+  ],
+  "image_encoder": [
+    null,
+    null
+  ],
+  "requires_safety_checker": true,
+  "safety_checker": [
+    null,
+    null
+  ],
+  "scheduler": [
+    "diffusers",
+    "EulerDiscreteScheduler"
+  ],
+  "text_encoder": [
+    "transformers",
+    "CLIPTextModel"
+  ],
+  "tokenizer": [
+    "transformers",
+    "CLIPTokenizer"
+  ],
+  "unet": [
+    "diffusers",
+    "UNet2DConditionModel"
+  ],
+  "vae": [
+    "diffusers",
+    "AutoencoderKL"
+  ]
+}

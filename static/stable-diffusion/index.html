@@ -126,13 +126,11 @@
         if (progress >= 100) {
             progress = 0;
         }
-        loadButton.disabled = false;
         startButton.disabled = false;
     }
 
     startButton.onclick = async () => {
         startButton.disabled = true;
-        loadButton.disabled = true;
         await generateNextImage();
     }
 
@@ -731,7 +729,6 @@
         let latentSpace = new Uint16Array(unetInputs['sample'].cpuData.buffer);
         generateNoise(/*inout*/ latentSpace, seed);
         seed++;
-        loadButton.disabled = false;
         startButton.disabled = false;
     }
 

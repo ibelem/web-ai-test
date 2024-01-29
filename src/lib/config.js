@@ -1476,17 +1476,85 @@ export let models = [
   //   }],
   //   inputstip: '[1, 3, 1024, 1024]'
   // },
+
   {
     category: 'Text To Image',
-    id: 'sd_1_5_text_encoder_fp16',
-    name: 'Stable Diffusion 1.5 text encoder',
+    id: 'sd_turbo_text_encoder_fp32',
+    name: 'Stable Diffusion Turbo text encoder',
+    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    note: 'Large model',
+    source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
+    model: 'sd-turbo/text_encoder/model.onnx',
+    size: '649 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int32', 1, [1, 77], { "batch_size": 1, "sequence_length": 77 }]
+    }],
+    inputstip: '[1, 77]'
+  },
+  {
+    category: 'Text To Image',
+    id: 'sd_turbo_unet_fp32',
+    name: 'SD Turbo UNet',
+    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    note: 'Large model',
+    source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
+    model: 'sd-turbo/unet/model.onnx',
+    size: '1.61 GB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'sample': ['float32', 1, [1, 4, 64, 64], { "batch_size": 1, "num_channels": 4, "height": 64, "width": 64 }],
+      'timestep': ['int64', 1n, [1], { "steps": 1 }],
+      'encoder_hidden_states': ['float32', 1, [1, 77, 1024], { "batch_size": 1, "sequence_length": 77 }]
+    }],
+    inputstip: '[1, 4, 64, 64] [1] [1, 77, 1024]'
+  },
+  {
+    category: 'Text To Image',
+    id: 'sd_turbo_vae_decoder_fp32',
+    name: 'SD Turbo VAE Decoder',
+    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    note: '',
+    source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
+    model: 'sd-turbo/vae_decoder/model.onnx',
+    size: '94.5 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "batch_size": 1, "num_channels_latent": 4, "height_latent": 64, "width_latent": 64 }]
+    }],
+    inputstip: '[1, 4, 64, 64]'
+  },
+  {
+    category: 'Text To Image',
+    id: 'sd_turbo_vae_encoder_fp16',
+    name: 'SD Turbo VAE Encoder',
+    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    note: '',
+    source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
+    model: 'sd-turbo/vae_encoder/model.onnx',
+    size: '65.2 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'sample': ['float16', 'random', [1, 4, 64, 64], { "batch_size": 1, "channels": 4, "height": 64, "width": 64 }]
+    }],
+    inputstip: '[1, 4, 64, 64]'
+  },
+
+  {
+    category: 'Text To Image',
+    id: 'sd_1_5_text_encoder_fp32',
+    name: 'SD 1.5 text encoder',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: '',
     source: 'https://huggingface.co/aluhrs13/stable-diffusion-v1-5-olive-optimized/tree/main/text_encoder',
     model: 'stable-diffusion/text-encoder.onnx',
     size: '235 MB',
     format: 'onnx',
-    datatype: 'fp16',
+    datatype: 'fp32',
     inputs: [{
       'input_ids': ['int32', 1, [2, 77], { "batch": 2, "sequence": 77 }]
     }],
@@ -1495,7 +1563,7 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_1_5_unet_fp16',
-    name: 'Stable Diffusion 1.5 UNet',
+    name: 'SD 1.5 UNet',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: 'Large model',
     source: 'https://huggingface.co/runwayml/stable-diffusion-v1-5',
@@ -1513,7 +1581,7 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_1_5_vae_decoder_fp16',
-    name: 'Stable Diffusion 1.5 VAE Decoder',
+    name: 'SD 1.5 VAE Decoder',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: '',
     source: 'N/A',
@@ -1529,7 +1597,7 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_2_1_vae_decoder',
-    name: 'Stable Diffusion 2.1 VAE Decoder',
+    name: 'SD 2.1 VAE Decoder',
     description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: 'Slow on CPU. Reduce number of runs and run this model tests individually rather than together with other models.',
     source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
@@ -1550,7 +1618,7 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_2_1_vae_encoder',
-    name: 'Stable Diffusion 2.1 VAE Encoder',
+    name: 'SD 2.1 VAE Encoder',
     description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: 'Slow on CPU. Reduce number of runs and run this model tests individually rather than together with other models.',
     source: 'https://huggingface.co/aislamov/stable-diffusion-2-1-base-onnx/tree/main',
