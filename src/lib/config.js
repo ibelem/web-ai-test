@@ -20,11 +20,11 @@ export const corsSites = [
 
 export const ortDists = {
   webgpu: {
-    version: 'v1.17 Internal 01-25-2024',
+    version: 'v1.17 Internal 01-30-2024',
     url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.webgpu.min.js'
   },
   webnn_webglfix_wasm: {
-    version: 'v1.17 Internal 01-25-2024',
+    version: 'v1.17 Internal 01-30-2024',
     url: '../ort/ort.all.min.js'
   }
 }

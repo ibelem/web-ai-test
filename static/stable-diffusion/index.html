@@ -84,12 +84,45 @@
 
             <div class="log-output" id='status'>
             </div>
+            <table id="data" class="hide">
+                <tr>
+                    <th></th>
+                    <th class="load">Load Time</th>
+                    <th class="create">Create Time</th>
+                    <th class="run">Run Time (Inference)</th>
+                </tr>
+                <tr id="textencoder">
+                    <td>Text Encoder</td>
+                    <td id="textencoderload"></td>
+                    <td id="textencodercreate"></td>
+                    <td id="textencoderrun"></td>
+                </tr>
+                <tr id="unet">
+                    <td>UNet</td>
+                    <td id="unetload"></td>
+                    <td id="unetcreate"></td>
+                    <td id="unetrun"></td>
+                </tr>
+                <tr id="vaedecode">
+                    <td>VAE Decode</td>
+                    <td id="vaedecodeload"></td>
+                    <td id="vaedecodecreate"></td>
+                    <td id="vaedecoderun"></td>
+                </tr>
+                <tr id="total">
+                    <td>Total</td>
+                    <td id="totalload"></td>
+                    <td id="totalcreate">N/A</td>
+                    <td id="totalrun"></td>
+                </tr>
+            </table>
             <div id="webnnstatus"><span id="circle"></span> <span id="info">WebNN</span></div>
         </div>
         <div class="right">
             <canvas class='canvas' id='canvas' width='512' height='512'>
                 Canvas is not supported. You'll need to try a newer browser version or another browser.
             </canvas>
+
         </div>
     </div>
 </body>
@@ -110,7 +143,27 @@
     const textEmbeddingSequenceWidth = 768;
     const unetIterationCount = 25; // Hard-coded number of samples, since the denoising weight ramp is constant.
     let seed = BigInt(123465);
-    let performanceData = {};
+    let performanceData = {
+        loadtime: {
+            textencoder: 0,
+            unet: 0,
+            vaedecode: 0,
+            total: 0
+        },
+        sessioncreate: {
+            textencoder: 0,
+            unet: 0,
+            vaedecode: 0,
+            total: 0
+        },
+        sessionrun: {
+            textencoder: 0,
+            unet: [],
+            unettotal: 0,
+            vaedecode: 0,
+            total: 0
+        }
+    };
 
     Utils.log('Loading ONNX Runtime...');
     const progressBarInner = document.getElementById("progress-bar-inner");
@@ -128,6 +181,19 @@
     const userSeed = document.querySelector('#userSeed');
     const changeSeed = document.querySelector('#changeSeed');
     const title = document.querySelector('#title');
+    const data = document.querySelector('#data');
+    const textencoderload = document.querySelector('#textencoderload');
+    const textencodercreate = document.querySelector('#textencodercreate');
+    const textencoderrun = document.querySelector('#textencoderrun');
+    const unetload = document.querySelector('#unetload');
+    const unetcreate = document.querySelector('#unetcreate');
+    const unetrun = document.querySelector('#unetrun');
+    const vaedecodeload = document.querySelector('#vaedecodeload');
+    const vaedecodecreate = document.querySelector('#vaedecodecreate');
+    const vaedecoderun = document.querySelector('#vaedecoderun');
+    const totalload = document.querySelector('#totalload');
+    const totalcreate = document.querySelector('#totalcreate');
+    const totalrun = document.querySelector('#totalrun');
     let progress = 0;
     let inferenceProgress = 0;
 
@@ -139,18 +205,14 @@
         loadButton.disabled = true;
         startButton.disabled = true;
         await loadStableDiffusion(executionProvider, progress);
-        if (progress > 100) {
-            progress = 0;
-        }
+        progress = 0;
         startButton.disabled = false;
     }
 
     startButton.onclick = async () => {
         startButton.disabled = true;
         await generateNextImage();
-        if (inferenceProgress > 100) {
-            inferenceProgress = 0;
-        }
+        inferenceProgress = 0;
     }
 
     positiveInput.addEventListener('input', async (e) => {
@@ -338,9 +400,16 @@
         Utils.log('Creating session...');
         let modelBuffer;
         modelBuffer = await Utils.getModelOPFS(modelName, modelPath, false);
+        let createStartTime = performance.now();
         modelSession = await ort.InferenceSession.create(modelBuffer, options);
+        if (modelName == 'text-encoder') {
+            performanceData.sessioncreate.textencoder = (performance.now() - createStartTime).toFixed(2);
+        } else if (modelName == 'stable-diffusion-unet') {
+            performanceData.sessioncreate.unet = (performance.now() - createStartTime).toFixed(2);
+        } else if (modelName == 'stable-diffusion-vae-decoder') {
+            performanceData.sessioncreate.vaedecode = (performance.now() - createStartTime).toFixed(2);
+        }
         Utils.log('...session created');
-
         return modelSession;
     }
 
@@ -413,20 +482,25 @@
             progressBarLabel.textContent = "Loading text-encoder model... " + progress.toFixed(2) + "%";
             const loadStartTime = performance.now();
             textEncoderSession = await loadModel('text-encoder', executionProvider);
+            performanceData.loadtime.textencoder = (performance.now() - loadStartTime).toFixed(2);
             progress += 80;
             progressBarInner.style.width = progress + "%";
             progressBarLabel.textContent = "Loading unet model... " + progress.toFixed(2) + "%";
+            const unetLoadStartTime = performance.now();
             unetModelSession = await loadModel('stable-diffusion-unet', executionProvider);
+            performanceData.loadtime.unet = (performance.now() - unetLoadStartTime).toFixed(2);
             progress += 5;
             progressBarInner.style.width = progress + "%";
             progressBarLabel.textContent = "Loading vae-decoder model... " + progress.toFixed(2) + "%";
+            const vaeDecodeLoadStartTime = performance.now();
             vaeDecodeModelSession = await loadModel('stable-diffusion-vae-decoder', executionProvider);
+            performanceData.loadtime.vaedecode = (performance.now() - vaeDecodeLoadStartTime).toFixed(2);
             progress += 5;
             progressBarInner.style.width = progress + "%";
             progressBarLabel.textContent = "Models loaded... " + progress.toFixed(2) + "%";
             const loadTime = performance.now() - loadStartTime;
             Utils.log(`Total load time: ${(loadTime / 1000).toFixed(2)}s`);
-            performanceData.totalloadtime = loadTime;
+            performanceData.loadtime.total = loadTime.toFixed(2);
             startButton.removeAttribute('disabled');
         }
         catch (e) {
@@ -604,6 +678,7 @@
             'input_ids': Utils.generateTensorFromValues('int32', [unetBatch, textEmbeddingSequenceLength], token_ids),
         };
         const textEncoderOutputs = await textEncoderSession.run(textEncoderInputs);
+        performanceData.sessionrun.textencoder = (performance.now() - startTextEncoder).toFixed(2);
         Utils.log(`Text encode execution time: ${(performance.now() - startTextEncoder).toFixed(2)}ms`);
 
         inferenceProgress += 1;
@@ -637,6 +712,7 @@
         // Repeat unet detection and denosing until convergence (typically 25 iterations).
         for (var i = 0; i < unetIterationCount; ++i) {
             // Update time step.
+            let startUnetIteration = performance.now();
             const timeStepValue = BigInt(Math.round(defaultTimeSteps[i])); // Round, because this ridiculous language throws an exception otherwise.
             unetInputs['timestep'] = Utils.generateTensorFillValue('int64', [unetBatch], timeStepValue);
 
@@ -649,6 +725,8 @@
 
             unetInputs['sample'] = Utils.generateTensorFromBytes('float16', [unetBatch, unetChannelCount, latentHeight, latentWidth], nextLatents);
             const unetOutputs = await unetModelSession.run(unetInputs);
+            let time = (performance.now() - startUnetIteration).toFixed(2);
+            performanceData.sessionrun.unet.push(time);
             let predictedNoise = new Uint16Array(unetOutputs['out_sample'].cpuData.buffer);
 
             denoiseLatentSpace(/*inout*/ latents, i, predictedNoise);
@@ -658,6 +736,7 @@
             progressBarLabelInference.textContent = `UNet iteration ${i + 1} completed...... ${inferenceProgress.toFixed(2)}%`;
         }
 
+        performanceData.sessionrun.unettotal = (performance.now() - startUnet).toFixed(2);
         Utils.log(`Unet loop execution time: ${(performance.now() - startUnet).toFixed(2)}ms`);
 
         Utils.log('Beginning VAE decode...');
@@ -672,6 +751,7 @@
         };
         const decodedOutputs = await vaeDecodeModelSession.run(vaeDecodeInputs);
         Utils.log(`VAE decode execution time: ${(performance.now() - startVaeDecoder).toFixed(2)}ms`);
+        performanceData.sessionrun.vaedecode = (performance.now() - startVaeDecoder).toFixed(2);
 
         inferenceProgress += 4;
         progressBarInnerInference.style.width = inferenceProgress + "%";
@@ -687,8 +767,9 @@
             const executionStartTime = performance.now();
             let rgbPlanarPixels = await executeStableDiffusion();
             const executionTime = performance.now() - executionStartTime;
+            performanceData.sessionrun.total = executionTime.toFixed(2);
             Utils.log(`Total execution time: ${(executionTime / 1000).toFixed(2)}s`);
-
+            console.log(performanceData);
             displayPlanarRGB(await rgbPlanarPixels.getData());
         }
         catch (e) {
@@ -698,10 +779,32 @@
     }
 
     async function generateNextImage() {
+        data.removeAttribute('class');
+        data.setAttribute('class', 'hide');
         await executeStableDiffusionAndDisplayOutput();
         // seed++;
         console.log(seed);
         startButton.disabled = false;
+
+        if (performanceData.sessionrun.total) {
+            textencoderload.innerHTML = performanceData.loadtime.textencoder
+            textencodercreate.innerHTML = performanceData.sessioncreate.textencoder;
+            textencoderrun.innerHTML = performanceData.sessionrun.textencoder;
+
+            unetload.innerHTML = performanceData.loadtime.unet;
+            unetcreate.innerHTML = performanceData.sessioncreate.unet;
+            unetrun.innerHTML = performanceData.sessionrun.unet.toString().replaceAll(',', ' ') + ' / ' + performanceData.sessionrun.unettotal;
+
+            vaedecodeload.innerHTML = performanceData.loadtime.vaedecode;
+            vaedecodecreate.innerHTML = performanceData.sessioncreate.vaedecode;
+            vaedecoderun.innerHTML = performanceData.sessionrun.vaedecode;
+
+            totalload.innerHTML = performanceData.loadtime.total;
+            // totalcreate.innerHTML = performanceData.sessioncreate.total;
+            totalrun.innerHTML = performanceData.sessionrun.total;
+        }
+
+        data.setAttribute('class', 'show');
     }
 
     const executionProvider = Utils.getQueryVariable('provider', 'webnn');

@@ -249,7 +249,7 @@ h1 {
 }
 
 .log-output {
-    height: 42vh;
+    height: 26vh;
     padding: 10px 10px;
     background-color: var(--bg-2);
     border: 1px solid var(--border);
@@ -387,4 +387,26 @@ h1 {
 
 #webnnstatus.red #circle {
     background-color: #000;
+}
+
+#data {
+    font-size: 12px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+#data tr th, #data tr td {
+    text-align: center;
+}
+
+#data .load, #data .create {
+    width: 80px;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
 }
