@@ -216,6 +216,23 @@ const removeElement = async (id) => {
     }
 }
 
+export const getQueryValue = (name) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+export const getQueryVariable = (name, defaults) => {
+    const query = window.location.search.substring(1);
+    let vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        let pair = vars[i].split('=');
+        if (pair[0] == name) {
+            return pair[1];
+        }
+    }
+    return defaults;
+}
+
 export const modelPath = () => {
     console.log(location.hostname);
     if (location.hostname.toLowerCase().indexOf('webai.run') > -1) {

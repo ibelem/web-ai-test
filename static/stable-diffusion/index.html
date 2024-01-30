@@ -17,8 +17,8 @@
 </head>
 
 <body>
-    <div class="g2 p1 v1">
-        <h1 class="title">WebNN Stable Diffusion
+    <div class="grid-2 p1 v1">
+        <h1 class="title"><span id="title">WebNN</span> Stable Diffusion
         </h1>
         <p id="error"></p>
     </div>
@@ -28,13 +28,13 @@
                 <textarea placeholder="Enter your prompt here" rows="2" type="text"
                     id="positive_prompt">giant castle, mountains, sunrise, volumetric lighting</textarea>
                 <div class="tokeninfo" id="positive_token_info">
-                    63/75 tokens left
+                    63/75
                 </div>
             </div>
             <div class="input-group">
                 <input type="text" id="negative_prompt" placeholder="negative prompt" />
                 <div class="tokeninfo negative" id="negative_token_info">
-                    75/75 tokens left
+                    75/75
                 </div>
             </div>
             <div class="input-group grid-4 options">
@@ -67,10 +67,20 @@
                     Generate Image
                 </button>
             </div>
-            <div class="progress-bar">
-                <div id="progress-bar-inner" class="progress-bar-inner"></div>
+            <div class="grid-2">
+                <div>
+                    <div class="progress-bar">
+                        <div id="progress-bar-inner" class="progress-bar-inner"></div>
+                    </div>
+                    <div class="progress-bar-label" id="progress-bar-label">0%</div>
+                </div>
+                <div>
+                    <div class="progress-bar">
+                        <div id="progress-bar-inner-inference" class="progress-bar-inner"></div>
+                    </div>
+                    <div class="progress-bar-label" id="progress-bar-label-inference">0%</div>
+                </div>
             </div>
-            <div class="progress-bar-label" id="progress-bar-label">0%</div>
 
             <div class="log-output" id='status'>
             </div>
@@ -100,22 +110,13 @@
     const textEmbeddingSequenceWidth = 768;
     const unetIterationCount = 25; // Hard-coded number of samples, since the denoising weight ramp is constant.
     let seed = BigInt(123465);
-
-    function getQueryVariable(name, defaults) {
-        const query = window.location.search.substring(1);
-        let vars = query.split('&');
-        for (var i = 0; i < vars.length; i++) {
-            let pair = vars[i].split('=');
-            if (pair[0] == name) {
-                return pair[1];
-            }
-        }
-        return defaults;
-    }
+    let performanceData = {};
 
     Utils.log('Loading ONNX Runtime...');
     const progressBarInner = document.getElementById("progress-bar-inner");
     const progressBarLabel = document.getElementById("progress-bar-label");
+    const progressBarInnerInference = document.querySelector("#progress-bar-inner-inference");
+    const progressBarLabelInference = document.querySelector("#progress-bar-label-inference");
     const startButton = document.getElementById('generate_next_image');
     const loadButton = document.getElementById('load_models');
     const logOutput = document.getElementById("status");
@@ -126,7 +127,9 @@
     const error = document.querySelector('#error');
     const userSeed = document.querySelector('#userSeed');
     const changeSeed = document.querySelector('#changeSeed');
+    const title = document.querySelector('#title');
     let progress = 0;
+    let inferenceProgress = 0;
 
     logOutput.addEventListener("DOMSubtreeModified", () => {
         logOutput.scrollTop = logOutput.scrollHeight;
@@ -136,7 +139,7 @@
         loadButton.disabled = true;
         startButton.disabled = true;
         await loadStableDiffusion(executionProvider, progress);
-        if (progress >= 100) {
+        if (progress > 100) {
             progress = 0;
         }
         startButton.disabled = false;
@@ -145,6 +148,9 @@
     startButton.onclick = async () => {
         startButton.disabled = true;
         await generateNextImage();
+        if (inferenceProgress > 100) {
+            inferenceProgress = 0;
+        }
     }
 
     positiveInput.addEventListener('input', async (e) => {
@@ -319,12 +325,14 @@
 
         const options =
         {
-            executionProviders: [{ name: executionProvider, deviceType: getQueryVariable('device', 'gpu'), powerPreference: 'default' }],
+            executionProviders: [{ name: executionProvider, deviceType: Utils.getQueryVariable('device', 'gpu'), powerPreference: 'default' }],
         };
 
         if (freeDimensionOverrides != undefined) {
             options.freeDimensionOverrides = freeDimensionOverrides;
         }
+
+        options.logSeverityLevel = 3;
 
         Utils.log('Model path = ' + modelPath);
         Utils.log('Creating session...');
@@ -402,22 +410,23 @@
             error.innerHTML = '';
             progress += 10;
             progressBarInner.style.width = progress + "%";
-            progressBarLabel.textContent = "Loading text-encoder model..." + progress + "%";
+            progressBarLabel.textContent = "Loading text-encoder model... " + progress.toFixed(2) + "%";
             const loadStartTime = performance.now();
             textEncoderSession = await loadModel('text-encoder', executionProvider);
-            progress += 30;
+            progress += 80;
             progressBarInner.style.width = progress + "%";
-            progressBarLabel.textContent = "Loading unet model..." + progress + "%";
+            progressBarLabel.textContent = "Loading unet model... " + progress.toFixed(2) + "%";
             unetModelSession = await loadModel('stable-diffusion-unet', executionProvider);
-            progress += 30;
+            progress += 5;
             progressBarInner.style.width = progress + "%";
-            progressBarLabel.textContent = "Loading vae-decoder model..." + progress + "%";
+            progressBarLabel.textContent = "Loading vae-decoder model... " + progress.toFixed(2) + "%";
             vaeDecodeModelSession = await loadModel('stable-diffusion-vae-decoder', executionProvider);
-            progress += 30;
+            progress += 5;
             progressBarInner.style.width = progress + "%";
-            progressBarLabel.textContent = "Models loaded..." + progress + "%";
+            progressBarLabel.textContent = "Models loaded... " + progress.toFixed(2) + "%";
             const loadTime = performance.now() - loadStartTime;
             Utils.log(`Total load time: ${(loadTime / 1000).toFixed(2)}s`);
+            performanceData.totalloadtime = loadTime;
             startButton.removeAttribute('disabled');
         }
         catch (e) {
@@ -597,6 +606,10 @@
         const textEncoderOutputs = await textEncoderSession.run(textEncoderInputs);
         Utils.log(`Text encode execution time: ${(performance.now() - startTextEncoder).toFixed(2)}ms`);
 
+        inferenceProgress += 1;
+        progressBarInnerInference.style.width = inferenceProgress + "%";
+        progressBarLabelInference.textContent = "Text encoded...... " + inferenceProgress.toFixed(2) + "%";
+
         Utils.log('Beginning Unet loop execution for 25 iterations...');
 
         let latentSpace = new Uint16Array(latentWidth * latentHeight * unetChannelCount);
@@ -639,7 +652,12 @@
             let predictedNoise = new Uint16Array(unetOutputs['out_sample'].cpuData.buffer);
 
             denoiseLatentSpace(/*inout*/ latents, i, predictedNoise);
+
+            inferenceProgress += 3.8;
+            progressBarInnerInference.style.width = inferenceProgress + "%";
+            progressBarLabelInference.textContent = `UNet iteration ${i + 1} completed...... ${inferenceProgress.toFixed(2)}%`;
         }
+
         Utils.log(`Unet loop execution time: ${(performance.now() - startUnet).toFixed(2)}ms`);
 
         Utils.log('Beginning VAE decode...');
@@ -654,6 +672,11 @@
         };
         const decodedOutputs = await vaeDecodeModelSession.run(vaeDecodeInputs);
         Utils.log(`VAE decode execution time: ${(performance.now() - startVaeDecoder).toFixed(2)}ms`);
+
+        inferenceProgress += 4;
+        progressBarInnerInference.style.width = inferenceProgress + "%";
+        progressBarLabelInference.textContent = "VAE decoded ......" + inferenceProgress.toFixed(2) + "%";
+
         return decodedOutputs['sample'];
     }
 
@@ -681,7 +704,7 @@
         startButton.disabled = false;
     }
 
-    const executionProvider = getQueryVariable('provider', 'webnn');
+    const executionProvider = Utils.getQueryVariable('provider', 'webnn');
     Utils.log('Execution Provider: ' + executionProvider);
 
     displayEmptyCanvasPlaceholder();
@@ -705,9 +728,20 @@
                 info.innerHTML = 'WebNN not supported';
             }
         }
+
+        if (Utils.getQueryValue('provider') && Utils.getQueryValue('provider').toLowerCase().indexOf('webgpu') > -1) {
+            status.innerHTML = '';
+        }
     };
 
-    document.addEventListener('DOMContentLoaded', checkWebNN, false);
+    const ui = async () => {
+        if (Utils.getQueryValue('provider') && Utils.getQueryValue('provider').toLowerCase().indexOf('webgpu') > -1) {
+            title.innerHTML = 'WebGPU';
+        }
+        await checkWebNN();
+    };
+
+    document.addEventListener('DOMContentLoaded', ui, false);
 
     const updateSeed = () => {
         userSeed.value = Utils.randomNumber();
