@@ -100,8 +100,6 @@
     const textEmbeddingSequenceWidth = 768;
     const unetIterationCount = 25; // Hard-coded number of samples, since the denoising weight ramp is constant.
     let seed = BigInt(123465);
-    const enablePrintDebugging = false;
-    const enableNanContaminationDebugging = false;
 
     function getQueryVariable(name, defaults) {
         const query = window.location.search.substring(1);
@@ -530,20 +528,9 @@
         const sigmaNext = defaultSigmas[iterationIndex + 1];
         const dt = sigmaNext - sigma;
 
-        if (enablePrintDebugging) {
-            console.log(`latentSpace.length == ${latentSpace.length}`);
-            console.log(`latentSpace[0] == ${latentSpace[0]} before`);
-        }
-
         for (let i = 0; i < singleBatchElementCount; ++i) {
             // Fold 2 batches into one, weighted by positive and negative weights.
             const weightedPredictedNoise = Utils.decodeFloat16(predictedNoise[i]) * positiveWeight + Utils.decodeFloat16(predictedNoise[i + singleBatchElementCount]) * negativeWeight;
-            if (enablePrintDebugging && i == 0) {
-                console.log(`predictedNoise[i==${i}] == ${predictedNoise[i]} // positive prediction`);
-                console.log(`predictedNoise[i + singleBatchElementCount == ${i + singleBatchElementCount}] == ${predictedNoise[i + singleBatchElementCount]} // negative prediction`);
-                console.log(`weightedPredictedNoise[i==${i}] == ${weightedPredictedNoise}`);
-                console.log();
-            }
 
             // The full formula:
             //
@@ -564,9 +551,6 @@
             //  updatedSample = sample + (predictedNoiseData[i] * dt);
 
             latentSpace[i] = Utils.encodeFloat16(Utils.decodeFloat16(latentSpace[i]) + weightedPredictedNoise * dt);
-            if (enablePrintDebugging && i == 0) {
-                console.log(`latentSpace[i==${i}] == ${latentSpace[i]} after`);
-            }
         }
     }
 
@@ -588,19 +572,9 @@
         const sigmaNext = defaultSigmas[iterationIndex + 1];
         const dt = sigmaNext - sigma;
 
-        if (enablePrintDebugging) {
-            console.log(`latentSpace.length == ${latentSpace.length}`);
-            console.log(`latentSpace[0] == ${latentSpace[0]} before`);
-        }
-
         for (let i = 0; i < elementCount; ++i) {
             // Fold 2 batches into one, weighted by positive and negative weights.
             const weightedPredictedNoise = Utils.decodeFloat16(positivePredictedNoise[i]) * positiveWeight + Utils.decodeFloat16(negativePredictedNoise[i]) * negativeWeight;
-            if (enablePrintDebugging && i == 0) {
-                console.log(`positivePredictedNoise[i==${i}] == ${positivePredictedNoise[i]}`);
-                console.log(`negativePredictedNoise[i==${i}] == ${negativePredictedNoise[i]}`);
-                console.log(`weightedPredictedNoise[i==${i}] == ${weightedPredictedNoise}`);
-            }
 
             // The full formula:
             //
@@ -621,9 +595,6 @@
             //  updatedSample = sample + (predictedNoiseData[i] * dt);
 
             latentSpace[i] = Utils.encodeFloat16(Utils.decodeFloat16(latentSpace[i]) + weightedPredictedNoise * dt);
-            if (enablePrintDebugging && i == 0) {
-                console.log(`latentSpace[i==${i}] == ${latentSpace[i]} after`);
-            }
         }
     }
 
@@ -680,33 +651,11 @@
             scaleLatentSpaceForPrediction(/*inout*/ halfNextLatents, i);
             nextLatents.copyWithin(halfLatentElementCount, 0, halfLatentElementCount); // Copy lower half to upper half.
 
-            if (enableNanContaminationDebugging) {
-                // Fill upper half of latent space with NaN's to detect any cross-batch pollution.
-                for (let i = halfLatentElementCount; i < latentElementCount; ++i) {
-                    nextLatents[i] = 0x7FFF;
-                }
-            }
-
-            if (enablePrintDebugging && i == 0) {
-                console.log('nextLatents:');
-                console.log(nextLatents);
-            }
-
             nextInputs['sample'] = Utils.generateTensorFromBytes('float16', [unetBatch, unetChannelCount, latentHeight, latentWidth], nextLatents);
             const unetOutputs = await unetModelSession.run(nextInputs);
             let predictedNoise = new Uint16Array(unetOutputs['out_sample'].cpuData.buffer);
-            if (enablePrintDebugging && i == 0) {
-                console.log('predictedNoise:');
-                console.log(predictedNoise);
-                console.log(`latents.length == ${latents.length}`);
-                console.log(`latents[0] == ${latents[0]} before`);
-            }
 
             denoiseLatentSpace(/*inout*/ latents, i, predictedNoise);
-            if (enablePrintDebugging && i == 0) {
-                console.log('adjusted latents:');
-                console.log(latents);
-            }
         }
         Utils.log(`Unet loop execution time: ${(performance.now() - startUnet).toFixed(2)}ms`);
 
