@@ -259,7 +259,6 @@
         let modelPath;
         let modelSession;
         let freeDimensionOverrides;
-        let inputs = {};
 
         Utils.log(`Loading model ${modelName}...`);
         if (modelName == 'text-encoder') {
@@ -290,18 +289,6 @@
             //    float16 out_sample[2, 4, 64, 64]
             modelPath = Utils.modelPath() + 'stable-diffusion/sd-unet-v1.5-model-b2c4h64w64s77-float16-compute-and-inputs.onnx';
 
-            let latentSpace = new Uint16Array(latentWidth * latentHeight * unetChannelCount);
-            generateNoise(/*inout*/ latentSpace, seed);
-
-            // Duplicate the input data, once for each batch (only supports unetBatch == 2).
-            let oldLatentSpace = latentSpace;
-            latentSpace = new Uint16Array(oldLatentSpace.length * 2);
-            latentSpace.set(oldLatentSpace); // Write lower half.
-            latentSpace.set(oldLatentSpace, oldLatentSpace.length); // Repeat in upper half.
-
-            inputs['sample'] = Utils.generateTensorFromBytes('float16', [unetBatch, unetChannelCount, latentHeight, latentWidth], latentSpace);
-            inputs['timestep'] = Utils.generateTensorFillValue('int64', [unetBatch], 0n);
-
             freeDimensionOverrides =
             {
                 'batch': unetBatch,
@@ -324,7 +311,6 @@
             //  Outputs:
             //    float16 sample[1, 3, 512, 512]
             modelPath = Utils.modelPath() + 'stable-diffusion/Stable-Diffusion-v1.5-vae-decoder-float16-fp32-instancenorm.onnx';
-            inputs['latent_sample'] = Utils.generateTensorFillValue('float16', [1, latentChannelCount, latentHeight, latentWidth], 1);
             freeDimensionOverrides = { 'batch': 1, 'channels': latentChannelCount, 'height': latentHeight, 'width': latentWidth, };
         }
         else {
@@ -340,8 +326,6 @@
             options.freeDimensionOverrides = freeDimensionOverrides;
         }
 
-        options.logSeverityLevel = 3;
-
         Utils.log('Model path = ' + modelPath);
         Utils.log('Creating session...');
         let modelBuffer;
@@ -349,7 +333,7 @@
         modelSession = await ort.InferenceSession.create(modelBuffer, options);
         Utils.log('...session created');
 
-        return [modelSession, inputs]
+        return modelSession;
     }
 
     function displayEmptyCanvasPlaceholder() {
@@ -393,10 +377,6 @@
     let textEncoderSession;
     let vaeDecodeModelSession;
     let unetModelSession;
-    let textEncoderInputs;
-    let unetInputs;
-    let vaeDecodeInputs;
-    let textEncoderOutputs;
 
     // Hard-coded values for 25 iterations (the standard).
     const defaultSigmas/*[25 + 1]*/ = [14.614647, 11.435942, 9.076809, 7.3019943, 5.9489183, 4.903778, 4.0860896, 3.4381795, 2.9183085, 2.495972, 2.1485956, 1.8593576, 1.6155834, 1.407623, 1.2280698, 1.0711612, 0.9323583, 0.80802417, 0.695151, 0.5911423, 0.49355352, 0.3997028, 0.30577788, 0.20348993, 0.02916753, 0.0];
@@ -407,8 +387,6 @@
         ort.env.wasm.numThreads = 1; // 4
         ort.env.wasm.simd = true;
         ort.env.wasm.proxy = false;
-        // ort.env.logLevel = 'verbose'; //'error';
-        // ort.env.debug = true;
     }
 
     async function loadStableDiffusion(executionProvider, progress) {
@@ -426,15 +404,15 @@
             progressBarInner.style.width = progress + "%";
             progressBarLabel.textContent = "Loading text-encoder model..." + progress + "%";
             const loadStartTime = performance.now();
-            [textEncoderSession, textEncoderInputs] = await loadModel('text-encoder', executionProvider);
+            textEncoderSession = await loadModel('text-encoder', executionProvider);
             progress += 30;
             progressBarInner.style.width = progress + "%";
             progressBarLabel.textContent = "Loading unet model..." + progress + "%";
-            [unetModelSession, unetInputs] = await loadModel('stable-diffusion-unet', executionProvider);
+            unetModelSession = await loadModel('stable-diffusion-unet', executionProvider);
             progress += 30;
             progressBarInner.style.width = progress + "%";
             progressBarLabel.textContent = "Loading vae-decoder model..." + progress + "%";
-            [vaeDecodeModelSession, vaeDecodeInputs] = await loadModel('stable-diffusion-vae-decoder', executionProvider);
+            vaeDecodeModelSession = await loadModel('stable-diffusion-vae-decoder', executionProvider);
             progress += 30;
             progressBarInner.style.width = progress + "%";
             progressBarLabel.textContent = "Models loaded..." + progress + "%";
@@ -610,39 +588,44 @@
     // - unetInputs
     // - vaeDecodeInputs
     {
-        const startTextEncoder = performance.now();
         Utils.log('Beginning Text encode...');
         let token_ids = await getTextTokens();
-        textEncoderInputs = { 'input_ids': Utils.generateTensorFromValues('int32', [unetBatch, textEmbeddingSequenceLength], token_ids) };
+        const startTextEncoder = performance.now();
+        const textEncoderInputs = {
+            'input_ids': Utils.generateTensorFromValues('int32', [unetBatch, textEmbeddingSequenceLength], token_ids),
+        };
         const textEncoderOutputs = await textEncoderSession.run(textEncoderInputs);
         Utils.log(`Text encode execution time: ${(performance.now() - startTextEncoder).toFixed(2)}ms`);
 
-        const startUnet = performance.now();
         Utils.log('Beginning Unet loop execution for 25 iterations...');
-        const encoder_hidden_states = Utils.generateTensorFromBytes('float16', [unetBatch, textEmbeddingSequenceLength, textEmbeddingSequenceWidth], textEncoderOutputs['last_hidden_state'].data);
-        unetInputs['encoder_hidden_states'] = encoder_hidden_states;
-        let initialSigma = defaultSigmas[0];
 
-        const latentsTensor = unetInputs['sample'];
-        const latentElementCount = latentsTensor.size;
-        const halfLatentElementCount = latentElementCount / 2; // Given [2, 4, 64, 64], we want only the first batch.
+        let latentSpace = new Uint16Array(latentWidth * latentHeight * unetChannelCount);
+        generateNoise(/*inout*/ latentSpace, seed);
+        // Duplicate the input data, once for each batch (only supports unetBatch == 2).
+        latentSpace = new Uint16Array([...latentSpace, ...latentSpace]);
+
+        const latentsTensor = Utils.generateTensorFromBytes(
+            'float16',
+            [unetBatch, unetChannelCount, latentHeight, latentWidth],
+            latentSpace);
+
+        const halfLatentElementCount = latentsTensor.size / 2; // Given [2, 4, 64, 64], we want only the first batch.
         let latents = await latentsTensor.getData();
         let halfLatents = latents.subarray(0, halfLatentElementCount); // First batch only.
-        prescaleLatentSpace(/*inout*/ halfLatents, initialSigma);
+        prescaleLatentSpace(/*inout*/ halfLatents, defaultSigmas[0]);
 
-        let timeSteps = new BigInt64Array(unetInputs['timestep'].cpuData.buffer);
+        const unetInputs = {
+            'encoder_hidden_states': Utils.generateTensorFromBytes('float16',
+                [unetBatch, textEmbeddingSequenceLength, textEmbeddingSequenceWidth],
+                textEncoderOutputs['last_hidden_state'].data),
+        };
 
-        const nextInputs = {
-            'timestep': unetInputs['timestep'],
-            'encoder_hidden_states': unetInputs['encoder_hidden_states'],
-        }
+        const startUnet = performance.now();
         // Repeat unet detection and denosing until convergence (typically 25 iterations).
         for (var i = 0; i < unetIterationCount; ++i) {
             // Update time step.
-            let timeStepValue = defaultTimeSteps[i];
-            timeStepValue = BigInt(Math.round(timeStepValue)); // Round, because this ridiculous language throws an exception otherwise.
-            timeSteps[0] = timeStepValue;
-            timeSteps[1] = timeStepValue;
+            const timeStepValue = BigInt(Math.round(defaultTimeSteps[i])); // Round, because this ridiculous language throws an exception otherwise.
+            unetInputs['timestep'] = Utils.generateTensorFillValue('int64', [unetBatch], timeStepValue);
 
             // Prescale the latent values.
             // Copy first batch to second batch, duplicating latents for positive and negative prompts.
@@ -651,21 +634,24 @@
             scaleLatentSpaceForPrediction(/*inout*/ halfNextLatents, i);
             nextLatents.copyWithin(halfLatentElementCount, 0, halfLatentElementCount); // Copy lower half to upper half.
 
-            nextInputs['sample'] = Utils.generateTensorFromBytes('float16', [unetBatch, unetChannelCount, latentHeight, latentWidth], nextLatents);
-            const unetOutputs = await unetModelSession.run(nextInputs);
+            unetInputs['sample'] = Utils.generateTensorFromBytes('float16', [unetBatch, unetChannelCount, latentHeight, latentWidth], nextLatents);
+            const unetOutputs = await unetModelSession.run(unetInputs);
             let predictedNoise = new Uint16Array(unetOutputs['out_sample'].cpuData.buffer);
 
             denoiseLatentSpace(/*inout*/ latents, i, predictedNoise);
         }
         Utils.log(`Unet loop execution time: ${(performance.now() - startUnet).toFixed(2)}ms`);
 
-        const startVaeDecoder = performance.now();
         Utils.log('Beginning VAE decode...');
         // Decode from latent space.
         applyVaeScalingFactor(/*inout*/ halfLatents);
         let dimensions = latentsTensor.dims.slice(0);
         dimensions[0] = 1; // Set batch size to 1, ignore the 2nd batch for the negative prediction.
-        vaeDecodeInputs['latent_sample'] = Utils.generateTensorFromBytes('float16', dimensions, halfLatents.slice(0));
+
+        const startVaeDecoder = performance.now();
+        const vaeDecodeInputs = {
+            'latent_sample': Utils.generateTensorFromBytes('float16', dimensions, halfLatents.slice(0)),
+        };
         const decodedOutputs = await vaeDecodeModelSession.run(vaeDecodeInputs);
         Utils.log(`VAE decode execution time: ${(performance.now() - startVaeDecoder).toFixed(2)}ms`);
         return decodedOutputs['sample'];
@@ -690,14 +676,10 @@
 
     async function generateNextImage() {
         await executeStableDiffusionAndDisplayOutput();
-        let latentSpace = new Uint16Array(unetInputs['sample'].cpuData.buffer);
-        generateNoise(/*inout*/ latentSpace, seed);
         // seed++;
         console.log(seed);
         startButton.disabled = false;
     }
-
-    displayEmptyCanvasPlaceholder();
 
     const executionProvider = getQueryVariable('provider', 'webnn');
     Utils.log('Execution Provider: ' + executionProvider);
