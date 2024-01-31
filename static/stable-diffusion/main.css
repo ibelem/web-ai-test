@@ -54,8 +54,9 @@
     --font: rgba(0, 0, 0, 0.99);
     --font-weak: rgba(0, 0, 0, 0.6);
     --disabled: rgba(245, 245, 245, 0.2);
-    --bg-2: rgb(245, 245, 245, 0.2);
-    --bg-3: rgba(230, 230, 230, 0.2);
+    --bg-2: rgb(230, 230, 230, 0.2);
+    --bg-2h: rgb(230, 230, 230, 0.4);
+    --bg-3: rgba(200, 200, 200, 0.2);
     --bg-btn: rgba(255, 255, 255, 1);
     --main-01: rgba(39, 94, 254, 0.1);
     --main-001: rgba(39, 94, 254, 0.01);
@@ -172,8 +173,20 @@ h1 {
 }
 
 .right {
-    align-self: center;
-    justify-self: center;
+    align-self: stretch;
+    justify-self: stretch;
+    background: var(--bg-2);
+}
+
+.right:hover {
+    background: var(--bg-2h);
+}
+
+.right div {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    height: 100%;
 }
 
 .input-group label {
@@ -382,6 +395,7 @@ h1 {
 .canvas {
     max-width: 100%;
     max-height: 100%;
+    align-self: center;
 }
 
 .loading-image {
@@ -561,7 +575,7 @@ h1 {
 }
 
 #data tr:nth-child(even) {
-  background-color: var(--bg-3);
+  background-color: var(--bg);
 }
 
 #data tr:hover th, #data tr:hover td {
