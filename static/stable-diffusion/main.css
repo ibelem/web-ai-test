@@ -30,8 +30,9 @@
   src: url('../fonts/archivo/archivo-v19-latin-700.woff2') format('woff2');
 }
 
- :root {
+ /* :root {
   --bg: #000000;
+  --black-02: rgba(0, 0, 0, 0.2);
   --font: rgba(255,255,255, 1);
   --font-weak: rgba(255, 255, 255, 0.5);
   --disabled: rgba(75, 75, 75, 1);
@@ -45,7 +46,27 @@
   --border: rgba(32, 33, 37);
   --green: rgba(127, 255, 0, 1);
   --yellow: rgba(231, 255, 80, 1);
-}
+} */
+
+:root {
+    --bg: rgba(255,255,255, 1);
+    --black-02: rgba(240, 240, 240, 0.2);
+    --font: rgba(0, 0, 0, 0.99);
+    --font-weak: rgba(0, 0, 0, 0.6);
+    --disabled: rgba(245, 245, 245, 0.2);
+    --bg-2: rgb(245, 245, 245, 0.2);
+    --bg-3: rgba(230, 230, 230, 0.2);
+    --bg-btn: rgba(255, 255, 255, 1);
+    --main-01: rgba(39, 94, 254, 0.1);
+    --main-001: rgba(39, 94, 254, 0.01);
+    --main-05: rgba(39, 94, 254, 0.5);
+    --main: rgb(39, 94, 254, 1);
+    --main-dark: rgb(24, 79, 238, 1);
+    --main-darker: rgb(20, 74, 204, 1);
+    --border: rgb(230, 230, 230, 1);
+    --green: rgba(1, 212, 73, 1);
+    --yellow: rgb(255, 0, 129);
+  }
 
 * {
   box-sizing: border-box;
@@ -53,12 +74,12 @@
 
 body {
     font-family: "Archivo", system-ui, sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     margin: 0;
     padding: 0;
     background-color: var(--bg);
     color: var(--font);
-    font-size: 12px;
+    font-size: 16px;
 }
 
 body {
@@ -67,8 +88,8 @@ body {
 }
 
 .log-output::-webkit-scrollbar {
-    width: 3px !important;
-    height: 3px !important;
+    width: 1px !important;
+    height: 1px !important;
 }
 
 .log-output::-webkit-scrollbar-track {
@@ -78,7 +99,7 @@ body {
 .log-output::-webkit-scrollbar-thumb {
     background-color: var(--border);
     border-radius: 5px;
-    border: 3px solid transparent;
+    border: 1px solid transparent;
 }
 
 .log-output:hover::-webkit-scrollbar-thumb {
@@ -86,8 +107,8 @@ body {
 }
 
 textarea::-webkit-scrollbar {
-    width: 3px !important;
-    height: 3px !important;
+    width: 1px !important;
+    height: 1px !important;
 }
 
 textarea::-webkit-scrollbar-track {
@@ -97,17 +118,36 @@ textarea::-webkit-scrollbar-track {
 textarea::-webkit-scrollbar-thumb {
     background-color: var(--border);
     border-radius: 5px;
-    border: 3px solid transparent;
+    border: 1px solid transparent;
 }
 
 textarea:hover::-webkit-scrollbar-thumb {
     background-color: var(--main-06);
 }
 
+.left::-webkit-scrollbar {
+    width: 1px !important;
+    height: 1px !important;
+}
+
+.left::-webkit-scrollbar-track {
+    background: var(--main-001);
+}
+
+.left::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 5px;
+    border: 1px solid transparent;
+}
+
+.left:hover::-webkit-scrollbar-thumb {
+    background-color: var(--main-06);
+}
+
 h1 {
     padding: 0 0 0 0;
     font-weight: 700;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
 }
 
 .container {
@@ -121,10 +161,10 @@ h1 {
 
 .left {
     flex-direction: column;
-    padding: 20px;
+    padding: 10px 20px;
     background-color: var(--bg);
-    overflow: hidden;
     border-right: 1px solid var(--border);
+    overflow-y: scroll;
 }
 
 .left:hover {
@@ -139,24 +179,25 @@ h1 {
 .input-group label {
     display: block;
     margin-bottom: 5px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 .input-group input, .input-group textarea {
+    font-size: 1rem;
     width: 100%;
     padding: 8px 8px;
     border: 1px solid var(--border);
-    color: var(--font-weak);
+    color: var(--font);
     background-color: var(--bg-2);
     border-radius: 5px;
     font-family: "Archivo", system-ui, sans-serif;
 }
 
 .input-group input:focus,  .input-group textarea:focus {
-    color: var(--font);
-    border: 1px solid var(--main);
+    color: var(--main-dark);
+    border: 2px solid var(--main);
     outline: none;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: var(--black-02);
 }
 
 #negative_prompt {
@@ -182,11 +223,11 @@ h1 {
 
 .options {
     margin-bottom: 10px;
-    margin-top: -8px;
+    margin-top: -6px;
 }
 
 .options button {
-	font-size: 1.05rem;
+	font-size: 1.1rem;
 	background: transparent;
 	border: 1px solid var(--border);
 	padding: 6px 8px;
@@ -204,75 +245,99 @@ h1 {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: 0px solid transparent;
-    margin-left: -1px;
+    margin-left: -2px;
 }
 
 .options button svg {
     height: 18px;
     width: 18px;
-    margin: 0px 1px;
+    margin: 2px 1px;
 }
 
 .options button svg path {
     fill: var(--font);
 }
 
-.seed:hover #userSeed, .seed:hover #changeSeed {
-    border: 1px solid var(--main) !important;
+.options button:hover svg path {
+    fill: var(--bg);
 }
 
-.seed:hover #changeSeed {
+.seed:hover #user_seed, .seed:hover #change_seed {
+    border: 2px solid var(--main) !important;
+}
+
+.seed:hover #change_seed {
     border-left: 0px solid transparent;
 }
 
-#changeSeed:hover {
+#change_seed:hover {
     background: var(--main);
-	border: 1px solid var(--border);
+	border: 2px solid var(--border);
+    background: linear-gradient(135deg, var(--main) 0%, var(--main-dark) 40%,  var(--main-darker) 100%);
 }
 
 .key button {
 	border-radius: 50px;
-	font-size: 0.9rem;
-	background: rgba(30, 22, 68, 0.4);
-	border: 1px solid var(--main);
+	font-size: 1rem;
+	/* background: var(--bg);
+    color: var(--main-dark);
+	border: 3px solid var(--main); */
 	padding: 8px 24px;
 	cursor: pointer;
-	color: var(--font);
+    background: var(--main);
+	border: 1px solid var(--main);
+    background: linear-gradient(135deg, var(--main) 0%, var(--main-dark) 40%,  var(--main-darker) 100%);
+    color: var(--bg);
     font-family: "Archivo", system-ui, sans-serif;
+    text-shadow: var(--main-darker) 1px 2px 1px;
 }
 
 .key button:hover {
-	background: var(--main);
-	border: 1px solid var(--border);
+	background: var(--main-dark);
+	border: 1px solid var(--main-dark);
+    color: var(--bg);
+    background: linear-gradient(135deg, var(--main-dark) 0%, var(--main-darker) 40%,  var(--main-darker) 100%);
+    box-shadow: 0 3px 15px -1px var(--main-05);
 }
 
 .key button:disabled {
 	--active: 0;
 	cursor: not-allowed;
-	color: var(--disabled);
-	background-color: var(--bg-btn);
+	color: var(--border);
+	background-color: var(--disabled);
+    background: var(--disabled);
 	border: 1px solid var(--border);
+    text-shadow: none;
+}
+
+.key button svg path {
+	fill: var(--bg);
+}
+
+.key button:hover svg path {
+	fill: var(--bg);
 }
 
 .key button:disabled svg path {
-	fill: var(--disabled);
+	fill: var(--border);
 }
 
 .key button:disabled:hover {
-	background: rgba(1, 1, 1, 1.0);
+	background: var(--disabled);
 	border: 1px solid var(--border);
+    box-shadow: none;
 }
 
 .key button:disabled:hover svg path {
-	fill: var(--disabled);
+	fill: var(--border);
 }
 
 .progress-bar {
     width: 100%;
-    height: 1px;
+    height: 2px;
     background-color: var(--border);
     overflow: hidden;
-    border-radius: 2px;
+    border-radius: 10px;
 }
 
 .progress-bar-inner {
@@ -283,26 +348,26 @@ h1 {
 }
 
 .progress:hover {
-    color: var(--green);
+    color: var(--main);
 }
 
 .progress:hover .progress-bar-inner {
     height: 2px;
-    background-color: var(--green);
+    background-color: var(--main);
 }
 
 .progress-bar-label {
     margin: 10px;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     text-align: center;
 }
 
 .log-output {
-    height: 26vh;
+    height: 22vh;
     padding: 10px 10px;
     background-color: var(--bg-2);
     border: 1px solid var(--border);
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     border-radius: 5px;
     display: flex; 
     flex-direction: column-reverse;
@@ -310,7 +375,7 @@ h1 {
 }
 
 .log-output:hover {
-    border: 1px solid var(--main);
+    border: 2px solid var(--main);
     background-color: var(--bg-btn);
 }
 
@@ -330,7 +395,7 @@ h1 {
 }
 
 .loading-text {
-    font-size: 1rem;
+    font-size: 1.1rem;
     text-align: center;
 }
 
@@ -361,7 +426,7 @@ h1 {
     align-items: center;
 }
 
-#changeSeed {
+#change_seed {
     cursor: pointer;
 }
 
@@ -374,16 +439,21 @@ h1 {
 }
 
 .tokeninfo {
-    font-size: 0.75rem;
-    position: relative;
-    top: -16px;
-    right: 10px;
+    font-size: 0.9rem;
     text-align: right;
     color: var(--font-weak);
 }
 
+.tokeninfo span {
+    display: inline-block;
+    width: 120px;
+    position: relative;
+    bottom: 24px;
+    margin-right: 8px;
+}
+
 .negative {
-    top: -21px;
+    top: -23px;
 }
 
 #error {
@@ -392,8 +462,8 @@ h1 {
 
 .error {
     background-color: var(--yellow);
-    color: #000;
-    font-size: 0.75rem;
+    color: var(--bg);
+    font-size: 0.9rem;
     border-radius: 50px;
     padding: 6px 12px;
 }
@@ -409,7 +479,7 @@ h1 {
 
 #webnnstatus {
     text-align: right;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     margin-top: 10px;
 }
 
@@ -427,7 +497,7 @@ h1 {
 
 #webnnstatus.red {
     background-color: var(--yellow);
-    color: #000;
+    color: var(--bg);
     border-radius: 50px;
     padding: 4px 12px;
 }
@@ -437,11 +507,11 @@ h1 {
 }
 
 #webnnstatus.red #circle {
-    background-color: #000;
+    background-color: var(--bg);
 }
 
 #ortversion {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     text-align: right;
 }
 
@@ -462,11 +532,12 @@ h1 {
 }
 
 #data:hover {
-    border: 1px solid var(--main);
+    border: 2px solid var(--main);
+    color: var(--bg);
 }
 
 #data table {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     text-align: center;
     margin: 0;
     border-collapse: collapse;
@@ -494,11 +565,12 @@ h1 {
 }
 
 #data tr:hover th, #data tr:hover td {
-    background-color: var(--main);
+    background-color: var(--main-dark);
+    color: var(--bg);
 }
 
 #data .category, #data .load, #data .create {
-    width: 96px;
+    width: 108px;
 }
 
 #totalrun {
@@ -517,7 +589,7 @@ h1 {
     .container, .grid-2 {
         display: flex;
         flex-direction: column;
-        color: #fff;
+        color: var(--font);
     }
 
     .left, .right {

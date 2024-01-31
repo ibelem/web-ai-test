@@ -27,22 +27,22 @@
             <div class="input-group">
                 <textarea placeholder="Enter your prompt here" rows="2" type="text"
                     id="positive_prompt">giant castle, mountains, sunrise, volumetric lighting</textarea>
-                <div class="tokeninfo" id="positive_token_info">
-                    63/75 tokens left
+                <div class="tokeninfo">
+                    <span id="positive_token_info">63/75 tokens left</span>
                 </div>
             </div>
             <div class="input-group">
                 <input type="text" id="negative_prompt" placeholder="negative prompt" />
-                <div class="tokeninfo negative" id="negative_token_info">
-                    75/75 tokens left
+                <div class="tokeninfo negative">
+                    <span  id="negative_token_info">75/75 tokens left</span>
                 </div>
             </div>
             <div class="input-group grid-4 options">
                 <div>
-                    <div>
+                    <div class="hide">
                         <label for="prompt">Seed</label>
                     </div>
-                    <div class="grid-4-41 seed">
+                    <div class="grid-4-41 seed" title="Seed">
                         <input type="text" id="user_seed" value="123465" maxlength="6" minlength="6"></input>
                         <button id="change_seed" value="">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
@@ -822,7 +822,7 @@
 
             unetload.innerHTML = performanceData.loadtime.unet;
             // unetcreate.innerHTML = performanceData.sessioncreate.unet;
-            unetrun.innerHTML = performanceData.sessionrun.unet.toString().replaceAll(',', ' ') + '<br/>25 Iterations: ' + performanceData.sessionrun.unettotal;
+            unetrun.innerHTML = performanceData.sessionrun.unet.toString().replaceAll(',', ' ') + ' ··· 25 Iterations: ' + performanceData.sessionrun.unettotal;
 
             vaedecodeload.innerHTML = performanceData.loadtime.vaedecode;
             // vaedecodecreate.innerHTML = performanceData.sessioncreate.vaedecode;
