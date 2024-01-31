@@ -16,11 +16,7 @@
 	<div class="tq benchmark">
 		<div class="q tests" title="">
 			<div class="onnx"><Onnx /></div>
-			<a href="../stable-diffusion/index.html">Stable Diffusion · UNet 1.5 · Async</a>
-		</div>
-		<div class="q tests" title="">
-			<div class="onnx"><Onnx /></div>
-			<a href="../stable-diffusion/sync.html">Stable Diffusion · UNet 1.5 · Sync</a>
+			<a href="../stable-diffusion/index.html">Stable Diffusion · UNet 1.5</a>
 		</div>
 	</div>
 </div>

@@ -195,12 +195,12 @@ h1 {
 	color: var(--font);
 }
 
-#userSeed {
+#user_seed {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-#changeSeed {
+#change_seed {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: 0px solid transparent;
