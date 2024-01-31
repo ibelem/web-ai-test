@@ -43,6 +43,8 @@
   --main-06: rgba(123, 59, 252, 0.6);
   --main: rgba(123, 59, 252, 1);
   --border: rgba(32, 33, 37);
+  --green: rgba(127, 255, 0, 1);
+  --yellow: rgba(231, 255, 80, 1);
 }
 
 * {
@@ -51,12 +53,12 @@
 
 body {
     font-family: "Archivo", system-ui, sans-serif;
-    font-size: clamp(100%, 90% + 0.5vw, 150%);
     font-weight: 300;
     margin: 0;
     padding: 0;
     background-color: var(--bg);
     color: var(--font);
+    font-size: 12px;
 }
 
 body {
@@ -137,7 +139,7 @@ h1 {
 .input-group label {
     display: block;
     margin-bottom: 5px;
-    font-size: 14px;
+    font-size: 0.8rem;
 }
 
 .input-group input, .input-group textarea {
@@ -184,7 +186,7 @@ h1 {
 }
 
 .options button {
-	font-size: 14px;
+	font-size: 1.05rem;
 	background: transparent;
 	border: 1px solid var(--border);
 	padding: 6px 8px;
@@ -230,7 +232,7 @@ h1 {
 
 .key button {
 	border-radius: 50px;
-	font-size: 14px;
+	font-size: 0.9rem;
 	background: rgba(30, 22, 68, 0.4);
 	border: 1px solid var(--main);
 	padding: 8px 24px;
@@ -267,7 +269,7 @@ h1 {
 
 .progress-bar {
     width: 100%;
-    height: 2px;
+    height: 1px;
     background-color: var(--border);
     overflow: hidden;
     border-radius: 2px;
@@ -280,9 +282,18 @@ h1 {
     transition: width 0.3s ease-in-out;
 }
 
+.progress:hover {
+    color: var(--green);
+}
+
+.progress:hover .progress-bar-inner {
+    height: 2px;
+    background-color: var(--green);
+}
+
 .progress-bar-label {
     margin: 10px;
-    font-size: 12px;
+    font-size: 0.75rem;
     text-align: center;
 }
 
@@ -291,7 +302,7 @@ h1 {
     padding: 10px 10px;
     background-color: var(--bg-2);
     border: 1px solid var(--border);
-    font-size: 12px;
+    font-size: 0.75rem;
     border-radius: 5px;
     display: flex; 
     flex-direction: column-reverse;
@@ -319,7 +330,7 @@ h1 {
 }
 
 .loading-text {
-    font-size: 14px;
+    font-size: 1rem;
     text-align: center;
 }
 
@@ -363,7 +374,7 @@ h1 {
 }
 
 .tokeninfo {
-    font-size: 12px;
+    font-size: 0.75rem;
     position: relative;
     top: -16px;
     right: 10px;
@@ -380,9 +391,9 @@ h1 {
 }
 
 .error {
-    background-color: #e7ff50;
+    background-color: var(--yellow);
     color: #000;
-    font-size: 13.3px;
+    font-size: 0.75rem;
     border-radius: 50px;
     padding: 6px 12px;
 }
@@ -398,7 +409,7 @@ h1 {
 
 #webnnstatus {
     text-align: right;
-    font-size: 12px;
+    font-size: 0.75rem;
     margin-top: 10px;
 }
 
@@ -415,14 +426,14 @@ h1 {
 }
 
 #webnnstatus.red {
-    background-color: #e7ff50;
+    background-color: var(--yellow);
     color: #000;
     border-radius: 50px;
     padding: 4px 12px;
 }
 
 #webnnstatus.green #circle {
-    background-color:chartreuse;
+    background-color:var(--green);
 }
 
 #webnnstatus.red #circle {
@@ -430,7 +441,7 @@ h1 {
 }
 
 #ortversion {
-    font-size: 12px;
+    font-size: 0.75rem;
     text-align: right;
 }
 
@@ -440,7 +451,7 @@ h1 {
 }
 
 #ortversion a:hover {
-    color: chartreuse;
+    color: var(--green);
     text-decoration: underline;
 }
 
@@ -455,7 +466,7 @@ h1 {
 }
 
 #data table {
-    font-size: 12px;
+    font-size: 0.75rem;
     text-align: center;
     margin: 0;
     border-collapse: collapse;
@@ -491,7 +502,7 @@ h1 {
 }
 
 #totalrun {
-    color: chartreuse;
+    color: var(--green);
 }
 
 .hide {
@@ -500,4 +511,24 @@ h1 {
 
 .show {
     display: block;
+}
+
+@media (max-width: 718px) { 
+    .container, .grid-2 {
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+    }
+
+    .left, .right {
+        padding: 10px;
+    }
+
+    .v1, .v9 {
+        height: auto;
+    }
+
+    .progress {
+        width: 100%;
+    }
 }

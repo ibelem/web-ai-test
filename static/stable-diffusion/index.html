@@ -68,13 +68,13 @@
                 </button>
             </div>
             <div class="grid-2">
-                <div>
+                <div class="progress">
                     <div class="progress-bar">
                         <div id="progress-bar-inner" class="progress-bar-inner"></div>
                     </div>
                     <div class="progress-bar-label" id="progress-bar-label">0%</div>
                 </div>
-                <div>
+                <div class="progress">
                     <div class="progress-bar">
                         <div id="progress-bar-inner-inference" class="progress-bar-inner"></div>
                     </div>
@@ -822,7 +822,7 @@
 
             unetload.innerHTML = performanceData.loadtime.unet;
             // unetcreate.innerHTML = performanceData.sessioncreate.unet;
-            unetrun.innerHTML = performanceData.sessionrun.unet.toString().replaceAll(',', ' ') + '<br/>Total of 25 Iterations: ' + performanceData.sessionrun.unettotal;
+            unetrun.innerHTML = performanceData.sessionrun.unet.toString().replaceAll(',', ' ') + '<br/>25 Iterations: ' + performanceData.sessionrun.unettotal;
 
             vaedecodeload.innerHTML = performanceData.loadtime.vaedecode;
             // vaedecodecreate.innerHTML = performanceData.sessioncreate.vaedecode;
