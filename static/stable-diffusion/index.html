@@ -792,6 +792,9 @@
 
     async function executeStableDiffusionAndDisplayOutput() {
         try {
+
+            error.removeAttribute("class");
+            error.innerHTML = '';
             displayEmptyCanvasPlaceholder();
 
             const executionStartTime = performance.now();
@@ -803,6 +806,8 @@
             displayPlanarRGB(await rgbPlanarPixels.getData());
         }
         catch (e) {
+            error.setAttribute("class", "error");
+            error.innerHTML = e.message;
             console.log('Exception: ', e);
             Utils.appendStatus('Exception: ' + e);
         }
