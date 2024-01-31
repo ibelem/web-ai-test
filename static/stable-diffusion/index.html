@@ -28,13 +28,13 @@
                 <textarea placeholder="Enter your prompt here" rows="2" type="text"
                     id="positive_prompt">giant castle, mountains, sunrise, volumetric lighting</textarea>
                 <div class="tokeninfo" id="positive_token_info">
-                    63/75
+                    63/75 tokens left
                 </div>
             </div>
             <div class="input-group">
                 <input type="text" id="negative_prompt" placeholder="negative prompt" />
                 <div class="tokeninfo negative" id="negative_token_info">
-                    75/75
+                    75/75 tokens left
                 </div>
             </div>
             <div class="input-group grid-4 options">
@@ -43,8 +43,8 @@
                         <label for="prompt">Seed</label>
                     </div>
                     <div class="grid-4-41 seed">
-                        <input type="text" id="userSeed" value="123465" maxlength="6" minlength="6"></input>
-                        <button id="changeSeed" value="">
+                        <input type="text" id="user_seed" value="123465" maxlength="6" minlength="6"></input>
+                        <button id="change_seed" value="">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                                 <path
                                     d="M204-318q-22-38-33-78t-11-82q0-134 93-228t227-94h7l-64-64 56-56 160 160-160 160-56-56 64-64h-7q-100 0-170 70.5T240-478q0 26 6 51t18 49l-60 60ZM481-40 321-200l160-160 56 56-64 64h7q100 0 170-70.5T720-482q0-26-6-51t-18-49l60-60q22 38 33 78t11 82q0 134-93 228t-227 94h-7l64 64-56 56Z" />
@@ -84,39 +84,42 @@
 
             <div class="log-output" id='status'>
             </div>
-            <table id="data" class="hide">
-                <tr>
-                    <th></th>
-                    <th class="load">Load Time</th>
-                    <th class="create">Create Time</th>
-                    <th class="run">Run Time (Inference)</th>
-                </tr>
-                <tr id="textencoder">
-                    <td>Text Encoder</td>
-                    <td id="textencoderload"></td>
-                    <td id="textencodercreate"></td>
-                    <td id="textencoderrun"></td>
-                </tr>
-                <tr id="unet">
-                    <td>UNet</td>
-                    <td id="unetload"></td>
-                    <td id="unetcreate"></td>
-                    <td id="unetrun"></td>
-                </tr>
-                <tr id="vaedecode">
-                    <td>VAE Decode</td>
-                    <td id="vaedecodeload"></td>
-                    <td id="vaedecodecreate"></td>
-                    <td id="vaedecoderun"></td>
-                </tr>
-                <tr id="total">
-                    <td>Total</td>
-                    <td id="totalload"></td>
-                    <td id="totalcreate">N/A</td>
-                    <td id="totalrun"></td>
-                </tr>
-            </table>
+            <div id="data" class="hide">
+                <table>
+                    <tr>
+                        <th class="category"></th>
+                        <th class="load">Load Time</th>
+                        <!-- <th class="create">Create Time</th> -->
+                        <th class="run">Execution Time</th>
+                    </tr>
+                    <tr id="textencoder">
+                        <td>Text Encoder</td>
+                        <td id="textencoderload"></td>
+                        <!-- <td id="textencodercreate"></td> -->
+                        <td id="textencoderrun"></td>
+                    </tr>
+                    <tr id="unet">
+                        <td>UNet</td>
+                        <td id="unetload"></td>
+                        <!-- <td id="unetcreate"></td> -->
+                        <td id="unetrun"></td>
+                    </tr>
+                    <tr id="vaedecode">
+                        <td>VAE Decode</td>
+                        <td id="vaedecodeload"></td>
+                        <!-- <td id="vaedecodecreate"></td> -->
+                        <td id="vaedecoderun"></td>
+                    </tr>
+                    <tr id="total">
+                        <td>Total</td>
+                        <td id="totalload"></td>
+                        <!-- <td id="totalcreate"></td> -->
+                        <td id="totalrun"></td>
+                    </tr>
+                </table>
+            </div>
             <div id="webnnstatus"><span id="circle"></span> <span id="info">WebNN</span></div>
+            <div id="ortversion"></div>
         </div>
         <div class="right">
             <canvas class='canvas' id='canvas' width='512' height='512'>
@@ -127,7 +130,6 @@
     </div>
 </body>
 
-<script src='../ort/ort.all.min.js'></script>
 <script type='module'>
     import * as Utils from './utils.js';
 
@@ -150,12 +152,12 @@
             vaedecode: 0,
             total: 0
         },
-        sessioncreate: {
-            textencoder: 0,
-            unet: 0,
-            vaedecode: 0,
-            total: 0
-        },
+        // sessioncreate: {
+        //     textencoder: 0,
+        //     unet: 0,
+        //     vaedecode: 0,
+        //     total: 0
+        // },
         sessionrun: {
             textencoder: 0,
             unet: [],
@@ -164,6 +166,21 @@
             total: 0
         }
     };
+
+    const setupORT = async () => {
+        const ortversion = document.querySelector('#ortversion');
+        Utils.removeElement('onnxruntime-web');
+        let ortVersion = await Utils.getOrtDevVersion();
+        let ortLink = '';
+        if (ortVersion && ortVersion.length > 4) {
+            await Utils.loadScript('onnxruntime-web', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortVersion}/dist/ort.all.min.js`);
+            ortLink = `https://www.npmjs.com/package/onnxruntime-web/v/${ortVersion}`
+            ortversion.innerHTML = `ONNX Runtime Web: <a href="${ortLink}">${ortVersion}</a>`;
+        } else {
+            await Utils.loadScript('onnxruntime-web', '../ort/ort.all.min.js');
+            ortversion.innerHTML = `ONNX Runtime Web: Internal version`;
+        }
+    }
 
     Utils.log('Loading ONNX Runtime...');
     const progressBarInner = document.getElementById("progress-bar-inner");
@@ -178,8 +195,8 @@
     const positiveTokenInfo = document.getElementById('positive_token_info');
     const negativeTokenInfo = document.getElementById('negative_token_info');
     const error = document.querySelector('#error');
-    const userSeed = document.querySelector('#userSeed');
-    const changeSeed = document.querySelector('#changeSeed');
+    const userSeed = document.querySelector('#user_seed');
+    const changeSeed = document.querySelector('#change_seed');
     const title = document.querySelector('#title');
     const data = document.querySelector('#data');
     const textencoderload = document.querySelector('#textencoderload');
@@ -192,16 +209,16 @@
     const vaedecodecreate = document.querySelector('#vaedecodecreate');
     const vaedecoderun = document.querySelector('#vaedecoderun');
     const totalload = document.querySelector('#totalload');
-    const totalcreate = document.querySelector('#totalcreate');
     const totalrun = document.querySelector('#totalrun');
     let progress = 0;
     let inferenceProgress = 0;
 
-    logOutput.addEventListener("DOMSubtreeModified", () => {
-        logOutput.scrollTop = logOutput.scrollHeight;
-    });
-
     loadButton.onclick = async () => {
+        performanceData.loadtime.textencoder = 0;
+        performanceData.loadtime.unet = [];
+        performanceData.loadtime.vaedecode = 0;
+        performanceData.loadtime.total = 0
+
         loadButton.disabled = true;
         startButton.disabled = true;
         await loadStableDiffusion(executionProvider, progress);
@@ -210,6 +227,12 @@
     }
 
     startButton.onclick = async () => {
+        performanceData.sessionrun.textencoder = 0;
+        performanceData.sessionrun.unet = [];
+        performanceData.sessionrun.unettotal = 0;
+        performanceData.sessionrun.vaedecode = 0;
+        performanceData.sessionrun.total = 0
+
         startButton.disabled = true;
         await generateNextImage();
         inferenceProgress = 0;
@@ -220,7 +243,7 @@
         const ids = await Utils.getTokenizers(inputValue);
         // Max token length is 75.
         const left_tokens_length = 75 - ids.length;
-        positiveTokenInfo.innerHTML = `${(left_tokens_length <= 0) ? 0 : left_tokens_length}/75 tokens left`;
+        positiveTokenInfo.innerHTML = `${(left_tokens_length <= 0) ? 0 : left_tokens_length}/75`;
     });
 
     negativeInput.addEventListener('input', async (e) => {
@@ -228,7 +251,7 @@
         const ids = await Utils.getTokenizers(inputValue);
         // Max token length is 75.
         const left_tokens_length = 75 - ids.length;
-        negativeTokenInfo.innerHTML = `${(left_tokens_length <= 0) ? 0 : left_tokens_length}/75 tokens left`;
+        negativeTokenInfo.innerHTML = `${(left_tokens_length <= 0) ? 0 : left_tokens_length}/75`;
     });
 
     async function getTextTokens() {
@@ -400,15 +423,15 @@
         Utils.log('Creating session...');
         let modelBuffer;
         modelBuffer = await Utils.getModelOPFS(modelName, modelPath, false);
-        let createStartTime = performance.now();
+        // let createStartTime = performance.now();
         modelSession = await ort.InferenceSession.create(modelBuffer, options);
-        if (modelName == 'text-encoder') {
-            performanceData.sessioncreate.textencoder = (performance.now() - createStartTime).toFixed(2);
-        } else if (modelName == 'stable-diffusion-unet') {
-            performanceData.sessioncreate.unet = (performance.now() - createStartTime).toFixed(2);
-        } else if (modelName == 'stable-diffusion-vae-decoder') {
-            performanceData.sessioncreate.vaedecode = (performance.now() - createStartTime).toFixed(2);
-        }
+        // if (modelName == 'text-encoder') {
+        //     performanceData.sessioncreate.textencoder = (performance.now() - createStartTime).toFixed(2);
+        // } else if (modelName == 'stable-diffusion-unet') {
+        //     performanceData.sessioncreate.unet = (performance.now() - createStartTime).toFixed(2);
+        // } else if (modelName == 'stable-diffusion-vae-decoder') {
+        //     performanceData.sessioncreate.vaedecode = (performance.now() - createStartTime).toFixed(2);
+        // }
         Utils.log('...session created');
         return modelSession;
     }
@@ -678,12 +701,14 @@
             'input_ids': Utils.generateTensorFromValues('int32', [unetBatch, textEmbeddingSequenceLength], token_ids),
         };
         const textEncoderOutputs = await textEncoderSession.run(textEncoderInputs);
-        performanceData.sessionrun.textencoder = (performance.now() - startTextEncoder).toFixed(2);
-        Utils.log(`Text encode execution time: ${(performance.now() - startTextEncoder).toFixed(2)}ms`);
+
+        let textEncoderExecutionTime = (performance.now() - startTextEncoder).toFixed(2);
+        performanceData.sessionrun.textencoder = textEncoderExecutionTime;
+        Utils.log(`Text encode execution time: ${textEncoderExecutionTime}ms`);
 
         inferenceProgress += 1;
         progressBarInnerInference.style.width = inferenceProgress + "%";
-        progressBarLabelInference.textContent = "Text encoded...... " + inferenceProgress.toFixed(2) + "%";
+        progressBarLabelInference.textContent = "Text encoded... " + inferenceProgress.toFixed(2) + "%";
 
         Utils.log('Beginning Unet loop execution for 25 iterations...');
 
@@ -725,19 +750,22 @@
 
             unetInputs['sample'] = Utils.generateTensorFromBytes('float16', [unetBatch, unetChannelCount, latentHeight, latentWidth], nextLatents);
             const unetOutputs = await unetModelSession.run(unetInputs);
+
+            let predictedNoise = new Uint16Array(unetOutputs['out_sample'].cpuData.buffer);
+            denoiseLatentSpace(/*inout*/ latents, i, predictedNoise);
+
             let time = (performance.now() - startUnetIteration).toFixed(2);
             performanceData.sessionrun.unet.push(time);
-            let predictedNoise = new Uint16Array(unetOutputs['out_sample'].cpuData.buffer);
-
-            denoiseLatentSpace(/*inout*/ latents, i, predictedNoise);
+            // Utils.log(`Unet loop ${i + 1} execution time: ${time}ms`);
 
             inferenceProgress += 3.8;
             progressBarInnerInference.style.width = inferenceProgress + "%";
-            progressBarLabelInference.textContent = `UNet iteration ${i + 1} completed...... ${inferenceProgress.toFixed(2)}%`;
+            progressBarLabelInference.textContent = `UNet iteration ${i + 1} completed... ${inferenceProgress.toFixed(2)}%`;
         }
 
-        performanceData.sessionrun.unettotal = (performance.now() - startUnet).toFixed(2);
-        Utils.log(`Unet loop execution time: ${(performance.now() - startUnet).toFixed(2)}ms`);
+        let unetExecutionTime = (performance.now() - startUnet).toFixed(2);
+        performanceData.sessionrun.unettotal = unetExecutionTime;
+        Utils.log(`Unet loop execution time: ${unetExecutionTime}ms`);
 
         Utils.log('Beginning VAE decode...');
         // Decode from latent space.
@@ -750,12 +778,13 @@
             'latent_sample': Utils.generateTensorFromBytes('float16', dimensions, halfLatents.slice(0)),
         };
         const decodedOutputs = await vaeDecodeModelSession.run(vaeDecodeInputs);
-        Utils.log(`VAE decode execution time: ${(performance.now() - startVaeDecoder).toFixed(2)}ms`);
-        performanceData.sessionrun.vaedecode = (performance.now() - startVaeDecoder).toFixed(2);
+        let vaeDecodeExecutionTime = (performance.now() - startVaeDecoder).toFixed(2);
+        Utils.log(`VAE decode execution time: ${vaeDecodeExecutionTime}ms`);
+        performanceData.sessionrun.vaedecode = vaeDecodeExecutionTime;
 
         inferenceProgress += 4;
         progressBarInnerInference.style.width = inferenceProgress + "%";
-        progressBarLabelInference.textContent = "VAE decoded ......" + inferenceProgress.toFixed(2) + "%";
+        progressBarLabelInference.textContent = "VAE decoded ..." + inferenceProgress.toFixed(2) + "%";
 
         return decodedOutputs['sample'];
     }
@@ -788,19 +817,18 @@
 
         if (performanceData.sessionrun.total) {
             textencoderload.innerHTML = performanceData.loadtime.textencoder
-            textencodercreate.innerHTML = performanceData.sessioncreate.textencoder;
+            // textencodercreate.innerHTML = performanceData.sessioncreate.textencoder;
             textencoderrun.innerHTML = performanceData.sessionrun.textencoder;
 
             unetload.innerHTML = performanceData.loadtime.unet;
-            unetcreate.innerHTML = performanceData.sessioncreate.unet;
-            unetrun.innerHTML = performanceData.sessionrun.unet.toString().replaceAll(',', ' ') + ' / ' + performanceData.sessionrun.unettotal;
+            // unetcreate.innerHTML = performanceData.sessioncreate.unet;
+            unetrun.innerHTML = performanceData.sessionrun.unet.toString().replaceAll(',', ' ') + '<br/>Total of 25 Iterations: ' + performanceData.sessionrun.unettotal;
 
             vaedecodeload.innerHTML = performanceData.loadtime.vaedecode;
-            vaedecodecreate.innerHTML = performanceData.sessioncreate.vaedecode;
+            // vaedecodecreate.innerHTML = performanceData.sessioncreate.vaedecode;
             vaedecoderun.innerHTML = performanceData.sessionrun.vaedecode;
 
             totalload.innerHTML = performanceData.loadtime.total;
-            // totalcreate.innerHTML = performanceData.sessioncreate.total;
             totalrun.innerHTML = performanceData.sessionrun.total;
         }
 
@@ -809,10 +837,6 @@
 
     const executionProvider = Utils.getQueryVariable('provider', 'webnn');
     Utils.log('Execution Provider: ' + executionProvider);
-
-    displayEmptyCanvasPlaceholder();
-
-    initializeOnnxRuntime();
 
     const checkWebNN = async () => {
         let status = document.querySelector('#webnnstatus');
@@ -838,10 +862,13 @@
     };
 
     const ui = async () => {
+        await setupORT();
         if (Utils.getQueryValue('provider') && Utils.getQueryValue('provider').toLowerCase().indexOf('webgpu') > -1) {
             title.innerHTML = 'WebGPU';
         }
         await checkWebNN();
+        initializeOnnxRuntime();
+        displayEmptyCanvasPlaceholder();
     };
 
     document.addEventListener('DOMContentLoaded', ui, false);

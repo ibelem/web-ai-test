@@ -75,7 +75,7 @@ export function log(message) {
 }
 
 export function appendStatus(message) {
-    document.getElementById('status').innerText += `\n[${performance.now().toFixed(3)}] ` + message;
+    document.getElementById('status').innerText += `\n[${getDateTime()}] ` + message;
 }
 
 export function generateTensorFillValue(dataType, shape, value) {
@@ -195,7 +195,7 @@ export function encodeFloat16(floatValue)/*: uint16 Number*/ {
     return bits;
 }
 
-const loadScript = async (id, url) => {
+export const loadScript = async (id, url) => {
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');
         script.onload = resolve;
@@ -209,8 +209,8 @@ const loadScript = async (id, url) => {
     })
 }
 
-const removeElement = async (id) => {
-    let el = document.querySelector(`#${id}`);
+export const removeElement = async (id) => {
+    let el = document.querySelector(id);
     if (el) {
         el.parentNode.removeChild(el);
     }
@@ -246,6 +246,34 @@ export const randomNumber = () => {
     // generate 6 digital random number between 100, 000 and 999,999
     return Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
 }
+
+const padNumber = (num, fill) => {
+    let len = ('' + num).length;
+    return Array(fill > len ? fill - len + 1 || 0 : 0).join(0) + num;
+};
+
+const getDateTime = () => {
+    let date = new Date(),
+        m = padNumber(date.getMonth() + 1, 2),
+        d = padNumber(date.getDate(), 2),
+        hour = padNumber(date.getHours(), 2),
+        min = padNumber(date.getMinutes(), 2),
+        sec = padNumber(date.getSeconds(), 2);
+    return `${m}/${d} ${hour}:${min}:${sec}`;
+};
+
+export const getOrtDevVersion = async () => {
+    const response = await fetch('https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/');
+    const htmlString = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, 'text/html');
+    let selectElement = doc.querySelector('.path li');
+    selectElement = doc.querySelector('select.versions.select-css');
+    const options = Array.from(selectElement.querySelectorAll('option')).map(
+        (option) => option.value
+    );
+    return options[0].replace('onnxruntime-web@', '');
+};
 
 export const webNnStatus = async () => {
     let result = {};
