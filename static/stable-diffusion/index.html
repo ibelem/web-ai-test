@@ -88,32 +88,37 @@
                 <table>
                     <tr>
                         <th class="category"></th>
-                        <th class="load">Load Time</th>
-                        <!-- <th class="create">Create Time</th> -->
-                        <th class="run">Execution Time</th>
+                        <th class="load">Load</th>
+                        <th class="load">Model Fetch</th>
+                        <th class="load">Session Create</th>
+                        <th class="run">Execution (incl. Session Run)</th>
                     </tr>
                     <tr id="textencoder">
                         <td>Text Encoder</td>
                         <td id="textencoderload"></td>
-                        <!-- <td id="textencodercreate"></td> -->
+                        <td id="textencoderfetch"></td>
+                        <td id="textencodercreate"></td>
                         <td id="textencoderrun"></td>
                     </tr>
                     <tr id="unet">
                         <td>UNet</td>
                         <td id="unetload"></td>
-                        <!-- <td id="unetcreate"></td> -->
+                        <td id="unetfetch"></td>
+                        <td id="unetcreate"></td>
                         <td id="unetrun"></td>
                     </tr>
                     <tr id="vaedecode">
                         <td>VAE Decode</td>
                         <td id="vaedecodeload"></td>
-                        <!-- <td id="vaedecodecreate"></td> -->
+                        <td id="vaedecodefetch"></td>
+                        <td id="vaedecodecreate"></td>
                         <td id="vaedecoderun"></td>
                     </tr>
                     <tr id="total">
                         <td>Total</td>
                         <td id="totalload"></td>
-                        <!-- <td id="totalcreate"></td> -->
+                        <td id="totalfetch">-</td>
+                        <td id="totalcreate">-</td>
                         <td id="totalrun"></td>
                     </tr>
                 </table>
@@ -153,12 +158,16 @@
             vaedecode: 0,
             total: 0
         },
-        // sessioncreate: {
-        //     textencoder: 0,
-        //     unet: 0,
-        //     vaedecode: 0,
-        //     total: 0
-        // },
+        modelfetch: {
+            textencoder: 0,
+            unet: 0,
+            vaedecode: 0,
+        },
+        sessioncreate: {
+            textencoder: 0,
+            unet: 0,
+            vaedecode: 0,
+        },
         sessionrun: {
             textencoder: 0,
             unet: [],
@@ -167,6 +176,17 @@
             total: 0
         }
     };
+
+    function to(promise, errorExt) {
+        return promise
+            .then(function (data) { return [null, data]; })
+            .catch(function (err) {
+            if (errorExt) {
+                Object.assign(err, errorExt);
+            }
+            return [err, undefined];
+        });
+    }
 
     const setupORT = async () => {
         const ortversion = document.querySelector('#ortversion');
@@ -200,31 +220,67 @@
     const changeSeed = document.querySelector('#change_seed');
     const title = document.querySelector('#title');
     const data = document.querySelector('#data');
-    const textencoderload = document.querySelector('#textencoderload');
-    const textencodercreate = document.querySelector('#textencodercreate');
-    const textencoderrun = document.querySelector('#textencoderrun');
-    const unetload = document.querySelector('#unetload');
-    const unetcreate = document.querySelector('#unetcreate');
-    const unetrun = document.querySelector('#unetrun');
-    const vaedecodeload = document.querySelector('#vaedecodeload');
-    const vaedecodecreate = document.querySelector('#vaedecodecreate');
-    const vaedecoderun = document.querySelector('#vaedecoderun');
-    const totalload = document.querySelector('#totalload');
-    const totalrun = document.querySelector('#totalrun');
+    const textEncoderLoad = document.querySelector('#textencoderload');
+    const textEncoderFetch = document.querySelector('#textencoderfetch');
+    const textEncoderCreate = document.querySelector('#textencodercreate');
+    const textEncoderRun = document.querySelector('#textencoderrun');
+    const unetLoad = document.querySelector('#unetload');
+    const unetFetch = document.querySelector('#unetfetch');
+    const unetCreate = document.querySelector('#unetcreate');
+    const unetRun = document.querySelector('#unetrun');
+    const vaeDecodeLoad = document.querySelector('#vaedecodeload');
+    const vaeDecodeFetch = document.querySelector('#vaedecodefetch');
+    const vaeDecodeCreate = document.querySelector('#vaedecodecreate');
+    const vaeDecodeRun = document.querySelector('#vaedecoderun');
+    const totalLoad = document.querySelector('#totalload');
+    const totalRun = document.querySelector('#totalrun');
     let progress = 0;
     let inferenceProgress = 0;
 
     loadButton.onclick = async () => {
+        data.removeAttribute('class');
+        data.setAttribute('class', 'hide');
+
         performanceData.loadtime.textencoder = 0;
         performanceData.loadtime.unet = [];
         performanceData.loadtime.vaedecode = 0;
         performanceData.loadtime.total = 0
+
+        performanceData.modelfetch.textencoder = 0;
+        performanceData.modelfetch.unet = 0;
+        performanceData.modelfetch.vaedecode = 0;
+
+        performanceData.sessioncreate.textencoder = 0;
+        performanceData.sessioncreate.unet = 0;
+        performanceData.sessioncreate.vaedecode = 0;
 
         loadButton.disabled = true;
         startButton.disabled = true;
         await loadStableDiffusion(executionProvider, progress);
         progress = 0;
         startButton.disabled = false;
+
+        if (performanceData.loadtime.total) {
+            textEncoderLoad.innerHTML = performanceData.loadtime.textencoder
+            textEncoderFetch.innerHTML = performanceData.modelfetch.textencoder;
+            textEncoderCreate.innerHTML = performanceData.sessioncreate.textencoder;
+            textEncoderRun.innerHTML = '-';
+
+            unetLoad.innerHTML = performanceData.loadtime.unet;
+            unetFetch.innerHTML = performanceData.modelfetch.unet;
+            unetCreate.innerHTML = performanceData.sessioncreate.unet;
+            unetRun.innerHTML =  '-';
+
+            vaeDecodeLoad.innerHTML = performanceData.loadtime.vaedecode;
+            vaeDecodeFetch.innerHTML = performanceData.modelfetch.vaedecode;
+            vaeDecodeCreate.innerHTML = performanceData.sessioncreate.vaedecode;
+            vaeDecodeRun.innerHTML = '-';
+
+            totalLoad.innerHTML = performanceData.loadtime.total;
+            totalRun.innerHTML = '-';
+        }
+
+        data.setAttribute('class', 'show');
     }
 
     startButton.onclick = async () => {
@@ -423,16 +479,27 @@
         Utils.log('Model path = ' + modelPath);
         Utils.log('Creating session...');
         let modelBuffer;
+
+        let fetchStartTime = performance.now();
         modelBuffer = await Utils.getModelOPFS(modelName, modelPath, false);
-        // let createStartTime = performance.now();
+        if (modelName == 'text-encoder') {
+            performanceData.modelfetch.textencoder = (performance.now() - fetchStartTime).toFixed(2);
+        } else if (modelName == 'stable-diffusion-unet') {
+            performanceData.modelfetch.unet = (performance.now() - fetchStartTime).toFixed(2);
+        } else if (modelName == 'stable-diffusion-vae-decoder') {
+            performanceData.modelfetch.vaedecode = (performance.now() - fetchStartTime).toFixed(2);
+        }
+
+        let createStartTime = performance.now();
         modelSession = await ort.InferenceSession.create(modelBuffer, options);
-        // if (modelName == 'text-encoder') {
-        //     performanceData.sessioncreate.textencoder = (performance.now() - createStartTime).toFixed(2);
-        // } else if (modelName == 'stable-diffusion-unet') {
-        //     performanceData.sessioncreate.unet = (performance.now() - createStartTime).toFixed(2);
-        // } else if (modelName == 'stable-diffusion-vae-decoder') {
-        //     performanceData.sessioncreate.vaedecode = (performance.now() - createStartTime).toFixed(2);
-        // }
+        
+        if (modelName == 'text-encoder') {
+            performanceData.sessioncreate.textencoder = (performance.now() - createStartTime).toFixed(2);
+        } else if (modelName == 'stable-diffusion-unet') {
+            performanceData.sessioncreate.unet = (performance.now() - createStartTime).toFixed(2);
+        } else if (modelName == 'stable-diffusion-vae-decoder') {
+            performanceData.sessioncreate.vaedecode = (performance.now() - createStartTime).toFixed(2);
+        }
         Utils.log('...session created');
         return modelSession;
     }
@@ -814,28 +881,29 @@
     }
 
     async function generateNextImage() {
-        data.removeAttribute('class');
-        data.setAttribute('class', 'hide');
         await executeStableDiffusionAndDisplayOutput();
         // seed++;
         console.log(seed);
         startButton.disabled = false;
 
         if (performanceData.sessionrun.total) {
-            textencoderload.innerHTML = performanceData.loadtime.textencoder
-            // textencodercreate.innerHTML = performanceData.sessioncreate.textencoder;
-            textencoderrun.innerHTML = performanceData.sessionrun.textencoder;
+            textEncoderLoad.innerHTML = performanceData.loadtime.textencoder
+            textEncoderFetch.innerHTML = performanceData.modelfetch.textencoder;
+            textEncoderCreate.innerHTML = performanceData.sessioncreate.textencoder;
+            textEncoderRun.innerHTML = performanceData.sessionrun.textencoder;
 
-            unetload.innerHTML = performanceData.loadtime.unet;
-            // unetcreate.innerHTML = performanceData.sessioncreate.unet;
-            unetrun.innerHTML = performanceData.sessionrun.unet.toString().replaceAll(',', ' ') + ' ··· 25 Iterations: ' + performanceData.sessionrun.unettotal;
+            unetLoad.innerHTML = performanceData.loadtime.unet;
+            unetFetch.innerHTML = performanceData.modelfetch.unet;
+            unetCreate.innerHTML = performanceData.sessioncreate.unet;
+            unetRun.innerHTML = performanceData.sessionrun.unet.toString().replaceAll(',', ' ') + '<br/>25 Iterations: ' + performanceData.sessionrun.unettotal;
 
-            vaedecodeload.innerHTML = performanceData.loadtime.vaedecode;
-            // vaedecodecreate.innerHTML = performanceData.sessioncreate.vaedecode;
-            vaedecoderun.innerHTML = performanceData.sessionrun.vaedecode;
+            vaeDecodeLoad.innerHTML = performanceData.loadtime.vaedecode;
+            vaeDecodeFetch.innerHTML = performanceData.modelfetch.vaedecode;
+            vaeDecodeCreate.innerHTML = performanceData.sessioncreate.vaedecode;
+            vaeDecodeRun.innerHTML = performanceData.sessionrun.vaedecode;
 
-            totalload.innerHTML = performanceData.loadtime.total;
-            totalrun.innerHTML = performanceData.sessionrun.total;
+            totalLoad.innerHTML = performanceData.loadtime.total;
+            totalRun.innerHTML = performanceData.sessionrun.total;
         }
 
         data.setAttribute('class', 'show');

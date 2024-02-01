@@ -61,6 +61,9 @@
     --main-01: rgba(39, 94, 254, 0.1);
     --main-001: rgba(39, 94, 254, 0.01);
     --main-05: rgba(39, 94, 254, 0.5);
+    --main-06: rgba(39, 94, 254, 0.6);
+    --scroll: rgb(0, 0, 0, 0.1);
+    --scroll-2: rgb(0, 0, 0, 0.2);
     --main: rgb(39, 94, 254, 1);
     --main-dark: rgb(24, 79, 238, 1);
     --main-darker: rgb(20, 74, 204, 1);
@@ -89,8 +92,8 @@ body {
 }
 
 .log-output::-webkit-scrollbar {
-    width: 1px !important;
-    height: 1px !important;
+    width: 3px !important;
+    height: 3px !important;
 }
 
 .log-output::-webkit-scrollbar-track {
@@ -98,18 +101,18 @@ body {
 }
 
 .log-output::-webkit-scrollbar-thumb {
-    background-color: var(--border);
+    background-color: var(--scroll);
     border-radius: 5px;
-    border: 1px solid transparent;
+    border: 3px solid transparent;
 }
 
 .log-output:hover::-webkit-scrollbar-thumb {
-    background-color: var(--main-06);
+    background-color: var(--scroll-2);
 }
 
 textarea::-webkit-scrollbar {
-    width: 1px !important;
-    height: 1px !important;
+    width: 3px !important;
+    height: 3px !important;
 }
 
 textarea::-webkit-scrollbar-track {
@@ -117,18 +120,18 @@ textarea::-webkit-scrollbar-track {
 }
 
 textarea::-webkit-scrollbar-thumb {
-    background-color: var(--border);
+    background-color: var(--scroll);
     border-radius: 5px;
-    border: 1px solid transparent;
+    border: 3px solid transparent;
 }
 
 textarea:hover::-webkit-scrollbar-thumb {
-    background-color: var(--main-06);
+    background-color: var(--scroll-2);
 }
 
 .left::-webkit-scrollbar {
-    width: 1px !important;
-    height: 1px !important;
+    width: 3px !important;
+    height: 3px !important;
 }
 
 .left::-webkit-scrollbar-track {
@@ -136,19 +139,20 @@ textarea:hover::-webkit-scrollbar-thumb {
 }
 
 .left::-webkit-scrollbar-thumb {
-    background-color: var(--border);
+    background-color: var(--scroll);
     border-radius: 5px;
-    border: 1px solid transparent;
+    border: 3px solid transparent;
 }
 
 .left:hover::-webkit-scrollbar-thumb {
-    background-color: var(--main-06);
+    background-color: var(--scroll-2);
 }
 
 h1 {
     padding: 0 0 0 0;
     font-weight: 700;
     font-size: 1.8rem;
+    margin: 0;
 }
 
 .container {
@@ -206,7 +210,8 @@ h1 {
     font-family: "Archivo", system-ui, sans-serif;
 }
 
-.input-group input:focus,  .input-group textarea:focus {
+.input-group input:focus,  .input-group textarea:focus,
+.input-group input:hover,  .input-group textarea:hover {
     color: var(--main-dark);
     border: 2px solid var(--main);
     outline: none;
@@ -483,12 +488,12 @@ h1 {
 }
 
 .v1 {
-    height: 10vh;
+    height: 7vh;
     border-bottom: 1px solid var(--border);
 }
 
 .v9 {
-    height: 90vh;
+    height: 93vh;
 }
 
 #webnnstatus {
@@ -563,7 +568,7 @@ h1 {
 
 #data tr th {
     font-weight: 600;
-    padding: 10px 8px;
+    padding: 6px 8px;
 }
 
 #data tr td {
@@ -583,8 +588,12 @@ h1 {
     color: var(--bg);
 }
 
-#data .category, #data .load, #data .create {
-    width: 108px;
+#data .category, #data .load {
+    width: 118px;
+}
+
+#data .run {
+    width: calc(50vw - 512px);
 }
 
 #totalrun {
