@@ -94,25 +94,25 @@
                         <th class="run">Execution (incl. Session Run)</th>
                     </tr>
                     <tr id="textencoder">
-                        <td>Text Encoder</td>
+                        <td title="235MB">Text Encoder</td>
                         <td id="textencoderload"></td>
-                        <td id="textencoderfetch"></td>
+                        <td id="textencoderfetch" title="235MB"></td>
                         <td id="textencodercreate"></td>
                         <td id="textencoderrun"></td>
                     </tr>
                     <tr id="unet">
-                        <td>UNet</td>
+                        <td title="1.60GB">UNet</td>
                         <td id="unetload"></td>
-                        <td id="unetfetch"></td>
+                        <td id="unetfetch" title="1.60GB"></td>
                         <td id="unetcreate"></td>
                         <td id="unetrun"></td>
                     </tr>
-                    <tr id="vaedecode">
-                        <td>VAE Decode</td>
-                        <td id="vaedecodeload"></td>
-                        <td id="vaedecodefetch"></td>
-                        <td id="vaedecodecreate"></td>
-                        <td id="vaedecoderun"></td>
+                    <tr id="vaedecoder">
+                        <td title="94.5MB">VAE Decoder</td>
+                        <td id="vaedecoderload"></td>
+                        <td id="vaedecoderfetch" title="94.5MB"></td>
+                        <td id="vaedecodercreate"></td>
+                        <td id="vaedecoderrun"></td>
                     </tr>
                     <tr id="total">
                         <td>Total</td>
@@ -155,24 +155,24 @@
         loadtime: {
             textencoder: 0,
             unet: 0,
-            vaedecode: 0,
+            vaedecoder: 0,
             total: 0
         },
         modelfetch: {
             textencoder: 0,
             unet: 0,
-            vaedecode: 0,
+            vaedecoder: 0,
         },
         sessioncreate: {
             textencoder: 0,
             unet: 0,
-            vaedecode: 0,
+            vaedecoder: 0,
         },
         sessionrun: {
             textencoder: 0,
             unet: [],
             unettotal: 0,
-            vaedecode: 0,
+            vaedecoder: 0,
             total: 0
         }
     };
@@ -203,7 +203,93 @@
         }
     }
 
-    Utils.log('Loading ONNX Runtime...');
+    let progress = 0;
+    let fetchProgress = 0;
+    let textEncoderFetchProgress = 0;
+    let unetFetchProgress = 0;
+    let vaeDecoderFetchProgress = 0;
+
+    // Get model via Origin Private File System
+    async function getModelOPFS(name, url, updateModel) {
+        const root = await navigator.storage.getDirectory();
+        let fileHandle;
+
+        async function updateFile() {
+            const response = await fetch(url);
+            const buffer = await readResponse(name, response);
+            fileHandle = await root.getFileHandle(name, { create: true });
+            const writable = await fileHandle.createWritable();
+            await writable.write(buffer);
+            await writable.close();
+            return buffer;
+        }
+
+        if (updateModel) {
+            return await updateFile();
+        }
+
+        try {
+            fileHandle = await root.getFileHandle(name);
+            const blob = await fileHandle.getFile();
+            return await blob.arrayBuffer();
+        } catch (e) {
+            return await updateFile();
+        }
+    }
+
+    async function readResponse(name, response) {
+        const contentLength = response.headers.get('Content-Length');
+        let total = parseInt(contentLength ?? '0');
+        let buffer = new Uint8Array(total);
+        let loaded = 0;
+
+        const reader = response.body.getReader();
+        async function read() {
+            const { done, value } = await reader.read();
+            if (done) return;
+
+            let newLoaded = loaded + value.length;
+            fetchProgress = (newLoaded / contentLength) * 100;
+            
+            if (name == 'text-encoder') {
+                textEncoderFetchProgress = 0.1 * fetchProgress;
+            } else if (name == 'stable-diffusion-unet') {
+                unetFetchProgress = 0.8 * fetchProgress;
+            } else if (name == 'stable-diffusion-vae-decoder') {
+                vaeDecoderFetchProgress = 0.05 * fetchProgress;
+            }
+
+            progress = textEncoderFetchProgress + unetFetchProgress + vaeDecoderFetchProgress;
+
+            console.log(fetchProgress);
+            console.log(progress);
+            progressBarInner.style.width = progress + "%";
+
+            if (name == 'text-encoder') {
+                progressBarLabel.textContent = "Loading Text Encoder model · 235MB · " + progress.toFixed(2) + "%";
+            } else if (name == 'stable-diffusion-unet') {
+                progressBarLabel.textContent = "Loading UNet model · 235MB · " + progress.toFixed(2) + "%";
+            } else if (name == 'stable-diffusion-vae-decoder') {
+                progressBarLabel.textContent = "Loading VAE Decoder model · 235MB · " + progress.toFixed(2) + "%";
+            }
+
+
+            if (newLoaded > total) {
+                total = newLoaded;
+                let newBuffer = new Uint8Array(total);
+                newBuffer.set(buffer);
+                buffer = newBuffer;
+            }
+            buffer.set(value, loaded);
+            loaded = newLoaded;
+            return read();
+        }
+
+        await read();
+        return buffer;
+    }
+
+    Utils.log('[Load] Loading ONNX Runtime');
     const progressBarInner = document.getElementById("progress-bar-inner");
     const progressBarLabel = document.getElementById("progress-bar-label");
     const progressBarInnerInference = document.querySelector("#progress-bar-inner-inference");
@@ -228,36 +314,40 @@
     const unetFetch = document.querySelector('#unetfetch');
     const unetCreate = document.querySelector('#unetcreate');
     const unetRun = document.querySelector('#unetrun');
-    const vaeDecodeLoad = document.querySelector('#vaedecodeload');
-    const vaeDecodeFetch = document.querySelector('#vaedecodefetch');
-    const vaeDecodeCreate = document.querySelector('#vaedecodecreate');
-    const vaeDecodeRun = document.querySelector('#vaedecoderun');
+    const vaeDecoderLoad = document.querySelector('#vaedecoderload');
+    const vaeDecoderFetch = document.querySelector('#vaedecoderfetch');
+    const vaeDecoderCreate = document.querySelector('#vaedecodercreate');
+    const vaeDecoderRun = document.querySelector('#vaedecoderrun');
     const totalLoad = document.querySelector('#totalload');
     const totalRun = document.querySelector('#totalrun');
-    let progress = 0;
     let inferenceProgress = 0;
 
     loadButton.onclick = async () => {
+        progress = 0;
+        fetchProgress = 0;
+        textEncoderFetchProgress = 0;
+        unetFetchProgress = 0;
+        vaeDecoderFetchProgress = 0;
+
         data.removeAttribute('class');
         data.setAttribute('class', 'hide');
 
         performanceData.loadtime.textencoder = 0;
         performanceData.loadtime.unet = [];
-        performanceData.loadtime.vaedecode = 0;
+        performanceData.loadtime.vaedecoder = 0;
         performanceData.loadtime.total = 0
 
         performanceData.modelfetch.textencoder = 0;
         performanceData.modelfetch.unet = 0;
-        performanceData.modelfetch.vaedecode = 0;
+        performanceData.modelfetch.vaedecoder = 0;
 
         performanceData.sessioncreate.textencoder = 0;
         performanceData.sessioncreate.unet = 0;
-        performanceData.sessioncreate.vaedecode = 0;
+        performanceData.sessioncreate.vaedecoder = 0;
 
         loadButton.disabled = true;
         startButton.disabled = true;
-        await loadStableDiffusion(executionProvider, progress);
-        progress = 0;
+        await loadStableDiffusion(executionProvider);
         startButton.disabled = false;
 
         if (performanceData.loadtime.total) {
@@ -271,10 +361,10 @@
             unetCreate.innerHTML = performanceData.sessioncreate.unet;
             unetRun.innerHTML =  '-';
 
-            vaeDecodeLoad.innerHTML = performanceData.loadtime.vaedecode;
-            vaeDecodeFetch.innerHTML = performanceData.modelfetch.vaedecode;
-            vaeDecodeCreate.innerHTML = performanceData.sessioncreate.vaedecode;
-            vaeDecodeRun.innerHTML = '-';
+            vaeDecoderLoad.innerHTML = performanceData.loadtime.vaedecoder;
+            vaeDecoderFetch.innerHTML = performanceData.modelfetch.vaedecoder;
+            vaeDecoderCreate.innerHTML = performanceData.sessioncreate.vaedecoder;
+            vaeDecoderRun.innerHTML = '-';
 
             totalLoad.innerHTML = performanceData.loadtime.total;
             totalRun.innerHTML = '-';
@@ -287,7 +377,7 @@
         performanceData.sessionrun.textencoder = 0;
         performanceData.sessionrun.unet = [];
         performanceData.sessionrun.unettotal = 0;
-        performanceData.sessionrun.vaedecode = 0;
+        performanceData.sessionrun.vaedecoder = 0;
         performanceData.sessionrun.total = 0
 
         startButton.disabled = true;
@@ -346,7 +436,7 @@
         return token_ids;
     };
 
-    Utils.log('...loaded');
+    Utils.log('[Load] ONNX Runtime loaded');
 
     function convertPlanarFloat16RgbToUint8Rgba(input /*Uint16Array*/, width, height) {
         let totalPixelCount = width * height;
@@ -407,8 +497,17 @@
         let modelPath;
         let modelSession;
         let freeDimensionOverrides;
+        let modelSize;
 
-        Utils.log(`Loading model ${modelName}...`);
+        if (modelName == 'text-encoder') {
+            modelSize = '235MB'; 
+        } else if (modelName == 'stable-diffusion-unet') {
+            modelSize = '1.60GB'; 
+        } else if (modelName == 'stable-diffusion-vae-decoder') {
+            modelSize = '94.5MB'; 
+        }
+
+        Utils.log(`[Load] Loading model ${modelName} · ${modelSize}`);
         if (modelName == 'text-encoder') {
             //  Inputs:
             //    int32 input_ids[batch,sequence]
@@ -476,31 +575,55 @@
 
         options.logSeverityLevel = 3;
 
-        Utils.log('Model path = ' + modelPath);
-        Utils.log('Creating session...');
+        Utils.log('[Load] Model path = ' + modelPath);
         let modelBuffer;
 
         let fetchStartTime = performance.now();
-        modelBuffer = await Utils.getModelOPFS(modelName, modelPath, false);
+        modelBuffer = await getModelOPFS(modelName, modelPath, false);
+        let fetchTime = (performance.now() - fetchStartTime).toFixed(2);
+
         if (modelName == 'text-encoder') {
-            performanceData.modelfetch.textencoder = (performance.now() - fetchStartTime).toFixed(2);
+            performanceData.modelfetch.textencoder = fetchTime;
+            progressBarLabel.textContent = `Loaded Text Encoder · ${(fetchTime / 1000).toFixed(2)}s`;
+            Utils.log(`[Load] Text Encoder loaded · ${(fetchTime / 1000).toFixed(2)}s`);
+
+            progressBarLabel.textContent = 'Creating session for Text Encoder';
+            Utils.log('[Session Create] Beginning Text encode');
         } else if (modelName == 'stable-diffusion-unet') {
-            performanceData.modelfetch.unet = (performance.now() - fetchStartTime).toFixed(2);
+            performanceData.modelfetch.unet = fetchTime;
+            progressBarLabel.textContent = `Loaded UNet · ${(fetchTime / 1000).toFixed(2)}s`;
+            Utils.log(`[Load] UNet loaded · ${(fetchTime / 1000).toFixed(2)}s`);
+
+            progressBarLabel.textContent = 'Creating session for UNet'
+            Utils.log('[Session Create] Beginning UNet');
         } else if (modelName == 'stable-diffusion-vae-decoder') {
-            performanceData.modelfetch.vaedecode = (performance.now() - fetchStartTime).toFixed(2);
+            performanceData.modelfetch.vaedecoder = fetchTime;
+            progressBarLabel.textContent = `Loaded VAE Decoder · ${(fetchTime / 1000).toFixed(2)}s`;
+            Utils.log(`[Load] VAE Decoder loaded · ${(fetchTime / 1000).toFixed(2)}s`);
+
+            progressBarLabel.textContent = 'Creating session for VAE Decoder'
+            Utils.log('[Session Create] Beginning VAE decode');
         }
 
         let createStartTime = performance.now();
         modelSession = await ort.InferenceSession.create(modelBuffer, options);
         
         if (modelName == 'text-encoder') {
-            performanceData.sessioncreate.textencoder = (performance.now() - createStartTime).toFixed(2);
+            let textencoderCreateTime = (performance.now() - createStartTime).toFixed(2);
+            performanceData.sessioncreate.textencoder = textencoderCreateTime;
+            progressBarLabel.textContent = `Text Encoder session created · ${textencoderCreateTime}ms`
+            Utils.log(`[Session Create] Text Encoder Completed · ${textencoderCreateTime}ms`);
         } else if (modelName == 'stable-diffusion-unet') {
-            performanceData.sessioncreate.unet = (performance.now() - createStartTime).toFixed(2);
+            let unetCreateTime = (performance.now() - createStartTime).toFixed(2);
+            performanceData.sessioncreate.unet = unetCreateTime;
+            progressBarLabel.textContent = `UNet session created · ${unetCreateTime}ms`
+            Utils.log(`[Session Create] UNet Completed · ${unetCreateTime}ms`);
         } else if (modelName == 'stable-diffusion-vae-decoder') {
-            performanceData.sessioncreate.vaedecode = (performance.now() - createStartTime).toFixed(2);
+            let vaedecoderCreateTime = (performance.now() - createStartTime).toFixed(2);
+            performanceData.sessioncreate.vaedecoder = vaedecoderCreateTime;
+            progressBarLabel.textContent = `VAE Decoder session created · ${vaedecoderCreateTime}ms`
+            Utils.log(`[Session Create] VAE Decoder Completed · ${vaedecoderCreateTime}ms`);
         }
-        Utils.log('...session created');
         return modelSession;
     }
 
@@ -543,7 +666,7 @@
     }
 
     let textEncoderSession;
-    let vaeDecodeModelSession;
+    let vaeDecoderModelSession;
     let unetModelSession;
 
     // Hard-coded values for 25 iterations (the standard).
@@ -557,40 +680,35 @@
         ort.env.wasm.proxy = false;
     }
 
-    async function loadStableDiffusion(executionProvider, progress) {
+    async function loadStableDiffusion(executionProvider) {
         try {
             // Release sessions if load models again.
             if (textEncoderSession) {
                 await unetModelSession.release();
                 await textEncoderSession.release();
-                await vaeDecodeModelSession.release();
+                await vaeDecoderModelSession.release();
             }
 
             error.removeAttribute("class");
             error.innerHTML = '';
-            progress += 10;
-            progressBarInner.style.width = progress + "%";
-            progressBarLabel.textContent = "Loading text-encoder model... " + progress.toFixed(2) + "%";
+            
             const loadStartTime = performance.now();
             textEncoderSession = await loadModel('text-encoder', executionProvider);
             performanceData.loadtime.textencoder = (performance.now() - loadStartTime).toFixed(2);
-            progress += 80;
-            progressBarInner.style.width = progress + "%";
-            progressBarLabel.textContent = "Loading unet model... " + progress.toFixed(2) + "%";
+            
             const unetLoadStartTime = performance.now();
             unetModelSession = await loadModel('stable-diffusion-unet', executionProvider);
             performanceData.loadtime.unet = (performance.now() - unetLoadStartTime).toFixed(2);
+
+            const vaeDecoderLoadStartTime = performance.now();
+            vaeDecoderModelSession = await loadModel('stable-diffusion-vae-decoder', executionProvider);
+            performanceData.loadtime.vaedecoder = (performance.now() - vaeDecoderLoadStartTime).toFixed(2);
+
             progress += 5;
             progressBarInner.style.width = progress + "%";
-            progressBarLabel.textContent = "Loading vae-decoder model... " + progress.toFixed(2) + "%";
-            const vaeDecodeLoadStartTime = performance.now();
-            vaeDecodeModelSession = await loadModel('stable-diffusion-vae-decoder', executionProvider);
-            performanceData.loadtime.vaedecode = (performance.now() - vaeDecodeLoadStartTime).toFixed(2);
-            progress += 5;
-            progressBarInner.style.width = progress + "%";
-            progressBarLabel.textContent = "Models loaded... " + progress.toFixed(2) + "%";
+            progressBarLabel.textContent = "Models loaded and sessions created · " + progress.toFixed(2) + "%";
             const loadTime = performance.now() - loadStartTime;
-            Utils.log(`Total load time: ${(loadTime / 1000).toFixed(2)}s`);
+            Utils.log(`[Total] Total load time (models load and sessions creation): ${(loadTime / 1000).toFixed(2)}s`);
             performanceData.loadtime.total = loadTime.toFixed(2);
             startButton.removeAttribute('disabled');
         }
@@ -760,9 +878,9 @@
     // Implicit inputs:
     // - unetModelSession
     // - unetInputs
-    // - vaeDecodeInputs
+    // - vaeDecoderInputs
     {
-        Utils.log('Beginning Text encode...');
+        Utils.log('[Session Run] Beginning Text encode');
         let token_ids = await getTextTokens();
         const startTextEncoder = performance.now();
         const textEncoderInputs = {
@@ -772,13 +890,13 @@
 
         let textEncoderExecutionTime = (performance.now() - startTextEncoder).toFixed(2);
         performanceData.sessionrun.textencoder = textEncoderExecutionTime;
-        Utils.log(`Text encode execution time: ${textEncoderExecutionTime}ms`);
+        Utils.log(`[Session Run] Text Encode execution time: ${textEncoderExecutionTime}ms`);
 
         inferenceProgress += 1;
         progressBarInnerInference.style.width = inferenceProgress + "%";
-        progressBarLabelInference.textContent = "Text encoded... " + inferenceProgress.toFixed(2) + "%";
+        progressBarLabelInference.textContent = "Text encoded " + inferenceProgress.toFixed(2) + "%";
 
-        Utils.log('Beginning Unet loop execution for 25 iterations...');
+        Utils.log('[Session Run] Beginning UNet loop execution for 25 iterations');
 
         let latentSpace = new Uint16Array(latentWidth * latentHeight * unetChannelCount);
         generateNoise(/*inout*/ latentSpace, seed);
@@ -824,35 +942,35 @@
 
             let time = (performance.now() - startUnetIteration).toFixed(2);
             performanceData.sessionrun.unet.push(time);
-            // Utils.log(`Unet loop ${i + 1} execution time: ${time}ms`);
+            // Utils.log(`UNet loop ${i + 1} execution time: ${time}ms`);
 
             inferenceProgress += 3.8;
             progressBarInnerInference.style.width = inferenceProgress + "%";
-            progressBarLabelInference.textContent = `UNet iteration ${i + 1} completed... ${inferenceProgress.toFixed(2)}%`;
+            progressBarLabelInference.textContent = `UNet iteration ${i + 1} completed ${inferenceProgress.toFixed(2)}%`;
         }
 
         let unetExecutionTime = (performance.now() - startUnet).toFixed(2);
         performanceData.sessionrun.unettotal = unetExecutionTime;
-        Utils.log(`Unet loop execution time: ${unetExecutionTime}ms`);
+        Utils.log(`[Session Run] UNet loop execution time: ${unetExecutionTime}ms`);
 
-        Utils.log('Beginning VAE decode...');
+        Utils.log('[Session Run] Beginning VAE decode');
         // Decode from latent space.
         applyVaeScalingFactor(/*inout*/ halfLatents);
         let dimensions = latentsTensor.dims.slice(0);
         dimensions[0] = 1; // Set batch size to 1, ignore the 2nd batch for the negative prediction.
 
         const startVaeDecoder = performance.now();
-        const vaeDecodeInputs = {
+        const vaeDecoderInputs = {
             'latent_sample': Utils.generateTensorFromBytes('float16', dimensions, halfLatents.slice(0)),
         };
-        const decodedOutputs = await vaeDecodeModelSession.run(vaeDecodeInputs);
-        let vaeDecodeExecutionTime = (performance.now() - startVaeDecoder).toFixed(2);
-        Utils.log(`VAE decode execution time: ${vaeDecodeExecutionTime}ms`);
-        performanceData.sessionrun.vaedecode = vaeDecodeExecutionTime;
+        const decodedOutputs = await vaeDecoderModelSession.run(vaeDecoderInputs);
+        let vaeDecoderExecutionTime = (performance.now() - startVaeDecoder).toFixed(2);
+        Utils.log(`[Session Run] VAE decode execution time: ${vaeDecoderExecutionTime}ms`);
+        performanceData.sessionrun.vaedecoder = vaeDecoderExecutionTime;
 
         inferenceProgress += 4;
         progressBarInnerInference.style.width = inferenceProgress + "%";
-        progressBarLabelInference.textContent = "VAE decoded ..." + inferenceProgress.toFixed(2) + "%";
+        progressBarLabelInference.textContent = "VAE decoded " + inferenceProgress.toFixed(2) + "%";
 
         return decodedOutputs['sample'];
     }
@@ -868,7 +986,7 @@
             let rgbPlanarPixels = await executeStableDiffusion();
             const executionTime = performance.now() - executionStartTime;
             performanceData.sessionrun.total = executionTime.toFixed(2);
-            Utils.log(`Total execution time: ${(executionTime / 1000).toFixed(2)}s`);
+            Utils.log(`[Total] Total execution time: ${(executionTime / 1000).toFixed(2)}s`);
             console.log(performanceData);
             displayPlanarRGB(await rgbPlanarPixels.getData());
         }
@@ -897,10 +1015,10 @@
             unetCreate.innerHTML = performanceData.sessioncreate.unet;
             unetRun.innerHTML = performanceData.sessionrun.unet.toString().replaceAll(',', ' ') + '<br/>25 Iterations: ' + performanceData.sessionrun.unettotal;
 
-            vaeDecodeLoad.innerHTML = performanceData.loadtime.vaedecode;
-            vaeDecodeFetch.innerHTML = performanceData.modelfetch.vaedecode;
-            vaeDecodeCreate.innerHTML = performanceData.sessioncreate.vaedecode;
-            vaeDecodeRun.innerHTML = performanceData.sessionrun.vaedecode;
+            vaeDecoderLoad.innerHTML = performanceData.loadtime.vaedecoder;
+            vaeDecoderFetch.innerHTML = performanceData.modelfetch.vaedecoder;
+            vaeDecoderCreate.innerHTML = performanceData.sessioncreate.vaedecoder;
+            vaeDecoderRun.innerHTML = performanceData.sessionrun.vaedecoder;
 
             totalLoad.innerHTML = performanceData.loadtime.total;
             totalRun.innerHTML = performanceData.sessionrun.total;
@@ -910,7 +1028,7 @@
     }
 
     const executionProvider = Utils.getQueryVariable('provider', 'webnn');
-    Utils.log('Execution Provider: ' + executionProvider);
+    Utils.log('[Load] Execution Provider: ' + executionProvider);
 
     const checkWebNN = async () => {
         let status = document.querySelector('#webnnstatus');
@@ -919,7 +1037,7 @@
 
         if (webnnStatus.webnn) {
             status.setAttribute('class', 'green');
-            info.innerHTML = 'WebNN Supported';
+            info.innerHTML = 'WebNN supported · 6GB available memory required';
         } else {
             if (webnnStatus.error) {
                 status.setAttribute('class', 'red');
