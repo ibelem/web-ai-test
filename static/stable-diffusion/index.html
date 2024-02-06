@@ -231,7 +231,30 @@
         try {
             fileHandle = await root.getFileHandle(name);
             const blob = await fileHandle.getFile();
-            return await blob.arrayBuffer();
+            let buffer = await blob.arrayBuffer();
+            if(buffer) {
+                if (name == 'text-encoder') {
+                    textEncoderFetchProgress = 10;
+                } else if (name == 'stable-diffusion-unet') {
+                    unetFetchProgress = 80;
+                } else if (name == 'stable-diffusion-vae-decoder') {
+                    vaeDecoderFetchProgress = 5;
+                }
+
+                progress = textEncoderFetchProgress + unetFetchProgress + vaeDecoderFetchProgress;
+                progressBarInner.style.width = progress + "%";
+
+                if (name == 'text-encoder') {
+                    progressBarLabel.textContent = "Loading Text Encoder model · 235MB · " + progress.toFixed(2) + "%";
+                } else if (name == 'stable-diffusion-unet') {
+                    progressBarLabel.textContent = "Loading UNet model · 235MB · " + progress.toFixed(2) + "%";
+                } else if (name == 'stable-diffusion-vae-decoder') {
+                    progressBarLabel.textContent = "Loading VAE Decoder model · 235MB · " + progress.toFixed(2) + "%";
+                }
+
+                return buffer;
+            }
+
         } catch (e) {
             return await updateFile();
         }
@@ -260,9 +283,6 @@
             }
 
             progress = textEncoderFetchProgress + unetFetchProgress + vaeDecoderFetchProgress;
-
-            console.log(fetchProgress);
-            console.log(progress);
             progressBarInner.style.width = progress + "%";
 
             if (name == 'text-encoder') {
@@ -272,7 +292,6 @@
             } else if (name == 'stable-diffusion-vae-decoder') {
                 progressBarLabel.textContent = "Loading VAE Decoder model · 235MB · " + progress.toFixed(2) + "%";
             }
-
 
             if (newLoaded > total) {
                 total = newLoaded;
@@ -584,24 +603,24 @@
 
         if (modelName == 'text-encoder') {
             performanceData.modelfetch.textencoder = fetchTime;
-            progressBarLabel.textContent = `Loaded Text Encoder · ${(fetchTime / 1000).toFixed(2)}s`;
+            progressBarLabel.textContent = `Loaded Text Encoder · ${(fetchTime / 1000).toFixed(2)}s · 10%`;
             Utils.log(`[Load] Text Encoder loaded · ${(fetchTime / 1000).toFixed(2)}s`);
 
-            progressBarLabel.textContent = 'Creating session for Text Encoder';
+            progressBarLabel.textContent = 'Creating session for Text Encoder · 10%';
             Utils.log('[Session Create] Beginning Text encode');
         } else if (modelName == 'stable-diffusion-unet') {
             performanceData.modelfetch.unet = fetchTime;
-            progressBarLabel.textContent = `Loaded UNet · ${(fetchTime / 1000).toFixed(2)}s`;
+            progressBarLabel.textContent = `Loaded UNet · ${(fetchTime / 1000).toFixed(2)}s · 90%`;
             Utils.log(`[Load] UNet loaded · ${(fetchTime / 1000).toFixed(2)}s`);
 
-            progressBarLabel.textContent = 'Creating session for UNet'
+            progressBarLabel.textContent = 'Creating session for UNet · 90%'
             Utils.log('[Session Create] Beginning UNet');
         } else if (modelName == 'stable-diffusion-vae-decoder') {
             performanceData.modelfetch.vaedecoder = fetchTime;
-            progressBarLabel.textContent = `Loaded VAE Decoder · ${(fetchTime / 1000).toFixed(2)}s`;
+            progressBarLabel.textContent = `Loaded VAE Decoder · ${(fetchTime / 1000).toFixed(2)}s · 95%`;
             Utils.log(`[Load] VAE Decoder loaded · ${(fetchTime / 1000).toFixed(2)}s`);
 
-            progressBarLabel.textContent = 'Creating session for VAE Decoder'
+            progressBarLabel.textContent = 'Creating session for VAE Decoder · 95%'
             Utils.log('[Session Create] Beginning VAE decode');
         }
 
@@ -611,17 +630,17 @@
         if (modelName == 'text-encoder') {
             let textencoderCreateTime = (performance.now() - createStartTime).toFixed(2);
             performanceData.sessioncreate.textencoder = textencoderCreateTime;
-            progressBarLabel.textContent = `Text Encoder session created · ${textencoderCreateTime}ms`
+            progressBarLabel.textContent = `Text Encoder session created · ${textencoderCreateTime}ms · 10%`
             Utils.log(`[Session Create] Text Encoder Completed · ${textencoderCreateTime}ms`);
         } else if (modelName == 'stable-diffusion-unet') {
             let unetCreateTime = (performance.now() - createStartTime).toFixed(2);
             performanceData.sessioncreate.unet = unetCreateTime;
-            progressBarLabel.textContent = `UNet session created · ${unetCreateTime}ms`
+            progressBarLabel.textContent = `UNet session created · ${unetCreateTime}ms · 90%`
             Utils.log(`[Session Create] UNet Completed · ${unetCreateTime}ms`);
         } else if (modelName == 'stable-diffusion-vae-decoder') {
             let vaedecoderCreateTime = (performance.now() - createStartTime).toFixed(2);
             performanceData.sessioncreate.vaedecoder = vaedecoderCreateTime;
-            progressBarLabel.textContent = `VAE Decoder session created · ${vaedecoderCreateTime}ms`
+            progressBarLabel.textContent = `VAE Decoder session created · ${vaedecoderCreateTime}ms · 95%`
             Utils.log(`[Session Create] VAE Decoder Completed · ${vaedecoderCreateTime}ms`);
         }
         return modelSession;
