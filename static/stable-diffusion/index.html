@@ -247,9 +247,9 @@
                 if (name == 'text-encoder') {
                     progressBarLabel.textContent = "Loading Text Encoder model · 235MB · " + progress.toFixed(2) + "%";
                 } else if (name == 'stable-diffusion-unet') {
-                    progressBarLabel.textContent = "Loading UNet model · 235MB · " + progress.toFixed(2) + "%";
+                    progressBarLabel.textContent = "Loading UNet model · 1.60GB · " + progress.toFixed(2) + "%";
                 } else if (name == 'stable-diffusion-vae-decoder') {
-                    progressBarLabel.textContent = "Loading VAE Decoder model · 235MB · " + progress.toFixed(2) + "%";
+                    progressBarLabel.textContent = "Loading VAE Decoder model · 94.5MB · " + progress.toFixed(2) + "%";
                 }
 
                 return buffer;
@@ -288,9 +288,9 @@
             if (name == 'text-encoder') {
                 progressBarLabel.textContent = "Loading Text Encoder model · 235MB · " + progress.toFixed(2) + "%";
             } else if (name == 'stable-diffusion-unet') {
-                progressBarLabel.textContent = "Loading UNet model · 235MB · " + progress.toFixed(2) + "%";
+                progressBarLabel.textContent = "Loading UNet model · 1.60GB · " + progress.toFixed(2) + "%";
             } else if (name == 'stable-diffusion-vae-decoder') {
-                progressBarLabel.textContent = "Loading VAE Decoder model · 235MB · " + progress.toFixed(2) + "%";
+                progressBarLabel.textContent = "Loading VAE Decoder model · 94.5MB · " + progress.toFixed(2) + "%";
             }
 
             if (newLoaded > total) {
