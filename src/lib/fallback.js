@@ -1,7 +1,7 @@
 export const fallbackEnv = {
   "windows": 'Windows 11 23H2 22631.3007',
-  "version": '122.0.6252.4',
-  'last_update': 'Jan 17, 2024'
+  "version": '123.0.6283.0',
+  'last_update': 'Feb 06, 2024'
 }
 export const fallback = [
   {
@@ -1861,6 +1861,7 @@ export const fallback = [
       "Flatten",
       "Gemm",
       "GlobalAveragePool",
+      "HardSigmoid",
       "HardSwish",
       "Mul",
       "ReduceMean",
@@ -1874,7 +1875,7 @@ export const fallback = [
   {
     "name": "mobilenet_v3",
     "backend": "gpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': Failed to build graph: hardSwish is not implemented.",
+    "error": "",
     "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 122,
     "nodes_supported_by_webnn": 122,
