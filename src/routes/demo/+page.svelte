@@ -40,10 +40,6 @@
 		padding: 4px 10px;
 	}
 
-	.red {
-		color: var(--red);
-	}
-
 	.title {
 		text-align: center;
 		color: var(--red);

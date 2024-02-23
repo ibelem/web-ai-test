@@ -1096,20 +1096,20 @@ export let models = [
     inputs: [{ 'input': ['float16', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
-  // {
-  //   category: 'Image Classification',
-  //   id: 'mobilenet_v2_12_int8',
-  //   name: 'MobileNet v2_12',
-  //   description: 'A computer vision model designed for training classifiers.',
-  //   note: '',
-  //   source: 'https://github.com/onnx/models/tree/main/vision/classification/mobilenet',
-  //   model: 'int8/mobilenetv2-12-int8.onnx',
-  //   size: '13.3 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
-  //   inputstip: '[1, 3, 224, 224]'
-  // },
+  {
+    category: 'Image Classification',
+    id: 'mobilenet_v2_12_int8',
+    name: 'MobileNet v2_12',
+    description: 'A computer vision model designed for training classifiers.',
+    note: '',
+    source: 'https://github.com/onnx/models/tree/main/vision/classification/mobilenet',
+    model: 'int8/mobilenetv2-12-int8.onnx',
+    size: '13.3 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+    inputstip: '[1, 3, 224, 224]'
+  },
   {
     category: 'Image Classification',
     id: 'mobilenet_v3',
@@ -1480,7 +1480,7 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_turbo_text_encoder_fp32',
-    name: 'Stable Diffusion Turbo text encoder',
+    name: 'SD Turbo text encoder',
     description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
     note: 'Large model',
     source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
@@ -2082,6 +2082,26 @@ export let models = [
       }]
     }],
     inputstip: '[1, 1] [1, 1500, 384]'
+  },
+  {
+    category: 'Speech Recognition',
+    id: 'whisper_tiny_decoder_static_shape_merged',
+    name: 'Whisper Tiny Decoder Static Shape KV-Cache',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'fxmarty/whisper-static-shapes-onnx/blob/main/decoder_model.onnx',
+    model: 'whisper-static-shapes-decoder_model.onnx',
+    size: '113 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'decoder_input_ids': ['int64', 1n, [1, 1], {}],
+      'decoder_attention_mask': ['int64', 1n, [1, 448], {}],
+      'encoder_outputs': ['float32', 'random', [1, 1500, 384], {}],
+      'position_ids': ['int64', 1n, [1, 1], {}],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
+    inputstip: '[1, 1] [1, 448] [1, 1500, 384] [1, 1]'
   },
   // {
   //   category: 'Speech Recognition',

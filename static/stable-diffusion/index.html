@@ -913,7 +913,7 @@
 
         inferenceProgress += 1;
         progressBarInnerInference.style.width = inferenceProgress + "%";
-        progressBarLabelInference.textContent = "Text encoded " + inferenceProgress.toFixed(2) + "%";
+        progressBarLabelInference.textContent = "Text encoded · " + inferenceProgress.toFixed(2) + "%";
 
         Utils.log('[Session Run] Beginning UNet loop execution for 25 iterations');
 
@@ -965,7 +965,7 @@
 
             inferenceProgress += 3.8;
             progressBarInnerInference.style.width = inferenceProgress + "%";
-            progressBarLabelInference.textContent = `UNet iteration ${i + 1} completed ${inferenceProgress.toFixed(2)}%`;
+            progressBarLabelInference.textContent = `UNet iteration ${i + 1} completed · ${inferenceProgress.toFixed(2)}%`;
         }
 
         let unetExecutionTime = (performance.now() - startUnet).toFixed(2);
@@ -989,7 +989,7 @@
 
         inferenceProgress += 4;
         progressBarInnerInference.style.width = inferenceProgress + "%";
-        progressBarLabelInference.textContent = "VAE decoded " + inferenceProgress.toFixed(2) + "%";
+        progressBarLabelInference.textContent = "VAE decoded · " + inferenceProgress.toFixed(2) + "%";
 
         return decodedOutputs['sample'];
     }

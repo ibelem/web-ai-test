@@ -347,8 +347,4 @@
 		color: var(--white);
 		background-color: var(--purple);
 	}
-
-	.mt {
-		margin-top: 5px;
-	}
 </style>
