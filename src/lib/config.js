@@ -841,6 +841,20 @@ export let models = [
     inputs: [{ 'images:0': ['float16', 'random', [1, 224, 224, 3], {}] }],
     inputstip: '[1, 224, 224, 3]'
   },
+  // {
+  //   category: 'Image Classification',
+  //   id: 'efficientnet_lite_int8',
+  //   name: 'EfficientNet Lite 4',
+  //   description: 'A convolutional neural network architecture and scaling method.',
+  //   note: '',
+  //   source: 'https://github.com/onnx/models/tree/main/validated/vision/classification/efficientnet-lite4/model onnx-public-models/efficientnet-lite4/opset-11-int8/',
+  //   model: 'int8/efficientnet-lite4-opset-11-int8.onnx',
+  //   size: '12.9 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{ 'images:0': ['float32', 'random', [1, 224, 224, 3], {}] }],
+  //   inputstip: '[1, 224, 224, 3]'
+  // },
   {
     category: 'Face Analysis',
     id: 'emotion_ferplus',
@@ -855,6 +869,62 @@ export let models = [
     inputs: [{ 'Input3': ['float32', 'random', [1, 1, 64, 64], {}] }],
     inputstip: '[1, 1, 64, 64]'
   },
+  {
+    category: 'Object Detection',
+    id: 'faster_r_cnn_fp16',
+    name: 'Faster R-CNN',
+    description: 'Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks',
+    note: '',
+    source: '',
+    model: 'fp16/faster-r-cnn-opset-12-fp16.onnx',
+    size: '84.4 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{ 'image': ['float16', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
+    inputstip: '[3, 224, 224]'
+  },
+  // {
+  //   category: 'Object Detection',
+  //   id: 'faster_r_cnn_int8',
+  //   name: 'Faster R-CNN',
+  //   description: 'Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks',
+  //   note: '',
+  //   source: '',
+  //   model: 'int8/faster-r-cnn-opset-12-int8.onnx',
+  //   size: '42.5 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{ 'image': ['float32', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
+  //   inputstip: '[3, 224, 224]'
+  // },
+  {
+    category: 'Semantic Segmentation',
+    id: 'fcn_resnet50_fp16',
+    name: 'FCN ResNet-50',
+    description: 'Fully-Convolutional Network model with a ResNet-50 backbone',
+    note: '',
+    source: '',
+    model: 'fp16/fcn-resnet50-opset-12-fp16.onnx',
+    size: '67.3 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{ 'input': ['float16', 'random', [1, 3, 224, 224], {"batch": 1, "height": 224, "width": 224}] }],
+    inputstip: '[1, 3, 224, 224]'
+  },
+  // {
+  //   category: 'Semantic Segmentation',
+  //   id: 'fcn_resnet50_int8',
+  //   name: 'FCN ResNet-50',
+  //   description: 'Fully-Convolutional Network model with a ResNet-50 backbone',
+  //   note: '',
+  //   source: '',
+  //   model: 'int8/fcn-resnet50-opset-12-int8.onnx',
+  //   size: '33.8 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {"batch": 1, "height": 224, "width": 224}] }],
+  //   inputstip: '[1, 3, 224, 224]'
+  // },
   {
     category: 'Text2Text Generation',
     id: 'flan_t5_small_decoder',
@@ -1020,6 +1090,34 @@ export let models = [
     inputstip: '[1, 8] [1, 8]'
   },
   {
+    category: 'Image Classification',
+    id: 'inception_v1_fp16',
+    name: 'Inception v1',
+    description: 'Also known as GoogLeNet, this network set the state of the art in ImageNet classification in 2014.',
+    note: '',
+    source: '',
+    model: 'fp16/inception-v1-opset-12-fp16.onnx',
+    size: '13.3 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{ 'data_0': ['float16', 'random', [1, 3, 224, 224], {}] }],
+    inputstip: '[1, 224, 224]'
+  },
+  // {
+  //   category: 'Image Classification',
+  //   id: 'inception_v1_int8',
+  //   name: 'Inception v1',
+  //   description: 'Also known as GoogLeNet, this network set the state of the art in ImageNet classification in 2014.',
+  //   note: '',
+  //   source: '',
+  //   model: 'int8/inception-v1-opset-12-int8.onnx',
+  //   size: '9.71 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{ 'data_0': ['float32', 'random', [1, 3, 224, 224], {}] }],
+  //   inputstip: '[1, 3, 224, 224]'
+  // },
+  {
     category: 'Multilingual Translation',
     id: 'm2m100_decoder',
     name: 'M2M100 418M Decoder',
@@ -1054,6 +1152,34 @@ export let models = [
     }],
     inputstip: '[1, 128] [1, 128]'
   },
+  {
+    category: 'Object Segmentation',
+    id: 'mask_r_cnn_fp16',
+    name: 'Mask R-CNN',
+    description: 'Extends Faster R-CNN by adding a branch for predicting an object mask in parallel with the existing branch for bounding box recognition',
+    note: '',
+    source: '',
+    model: 'fp16/mask-r-cnn-opset-12-fp16.onnx',
+    size: '85 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{ 'image': ['float16', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
+    inputstip: '[3, 224, 224]'
+  },
+  // {
+  //   category: 'Object Segmentation',
+  //   id: 'mask_r_cnn_int8',
+  //   name: 'Mask R-CNN',
+  //   description: 'Extends Faster R-CNN by adding a branch for predicting an object mask in parallel with the existing branch for bounding box recognition',
+  //   note: '',
+  //   source: '',
+  //   model: 'int8/mask-r-cnn-opset-12-int8.onnx',
+  //   size: '45.9 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{ 'image': ['float32', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
+  //   inputstip: '[3, 224, 224]'
+  // },
   {
     category: 'Image Classification',
     id: 'mobilenet_v2',
@@ -1096,20 +1222,20 @@ export let models = [
     inputs: [{ 'input': ['float16', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
-  {
-    category: 'Image Classification',
-    id: 'mobilenet_v2_12_int8',
-    name: 'MobileNet v2_12',
-    description: 'A computer vision model designed for training classifiers.',
-    note: '',
-    source: 'https://github.com/onnx/models/tree/main/vision/classification/mobilenet',
-    model: 'int8/mobilenetv2-12-int8.onnx',
-    size: '13.3 MB',
-    format: 'onnx',
-    datatype: 'int8',
-    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
-    inputstip: '[1, 3, 224, 224]'
-  },
+  // {
+  //   category: 'Image Classification',
+  //   id: 'mobilenet_v2_12_int8',
+  //   name: 'MobileNet v2_12',
+  //   description: 'A computer vision model designed for training classifiers.',
+  //   note: '',
+  //   source: 'https://github.com/onnx/models/tree/main/vision/classification/mobilenet',
+  //   model: 'int8/mobilenetv2-12-int8.onnx',
+  //   size: '13.3 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+  //   inputstip: '[1, 3, 224, 224]'
+  // },
   {
     category: 'Image Classification',
     id: 'mobilenet_v3',
@@ -1705,6 +1831,34 @@ export let models = [
     inputstip: '[1, 144, 256, 3]'
   },
   {
+    category: 'Image Classification',
+    id: 'shufflenet_fp16',
+    name: 'ShuffleNet',
+    description: 'An Extremely Efficient Convolutional Neural Network for Mobile Devices',
+    note: '',
+    source: '',
+    model: 'fp16/shufflenet-v2-opset-12-fp16.onnx',
+    size: '4.42 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{ 'input': ['float16', 'random', [1, 3, 224, 224], {}] }],
+    inputstip: '[1, 224, 224]'
+  },
+  // {
+  //   category: 'Image Classification',
+  //   id: 'shufflenet_int8',
+  //   name: 'ShuffleNet',
+  //   description: 'An Extremely Efficient Convolutional Neural Network for Mobile Devices',
+  //   note: '',
+  //   source: '',
+  //   model: 'int8/shufflenet-v2-opset-12-int8.onnx',
+  //   size: '2.27 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {}] }],
+  //   inputstip: '[1, 3, 224, 224]'
+  // },
+  {
     category: 'Sentence Order Prediction (SOP)',
     id: 'squeezebert_uncased',
     name: 'SqueezeBERT Uncased',
@@ -1768,6 +1922,62 @@ export let models = [
     inputs: [{ 'data_0': ['float16', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
+  {
+    category: 'Object Detection',
+    id: 'ssd_fp16',
+    name: 'SSD',
+    description: 'Single-Shot multibox Detection (SSD) network for detecting objects in images using a single deep neural network',
+    note: '',
+    source: '',
+    model: 'fp16/ssd-opset-12-fp16.onnx',
+    size: '38.3 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{ 'image': ['float16', 'random', [1, 3, 1200, 1200], {}] }],
+    inputstip: '[1, 3, 1200, 1200]'
+  },
+  // {
+  //   category: 'Object Detection',
+  //   id: 'ssd_int8',
+  //   name: 'SSD',
+  //   description: 'Single-Shot multibox Detection (SSD) network for detecting objects in images using a single deep neural network',
+  //   note: '',
+  //   source: '',
+  //   model: 'int8/ssd-opset-12-int8.onnx',
+  //   size: '19.5 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{ 'image': ['float32', 'random', [1, 3, 1200, 1200], {}] }],
+  //   inputstip: '[1, 3, 1200, 1200]'
+  // },
+  {
+    category: 'Object Detection',
+    id: 'ssd_mobilenet_v1_fp16',
+    name: 'SSD MobileNet v1',
+    description: 'Single-Shot multibox Detection (SSD) network intended to perform object detection',
+    note: '',
+    source: '',
+    model: 'fp16/ssd-mobilenet-v1-opset-12-fp16.onnx',
+    size: '16.9 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{ 'inputs': ['uint8', 'random', [1, 224, 224, 3], {"unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
+    inputstip: '[1, 224, 224, 3]'
+  },
+  // {
+  //   category: 'Object Detection',
+  //   id: 'ssd_mobilenet_v1_int8',
+  //   name: 'SSD MobileNet v1',
+  //   description: 'Single-Shot multibox Detection (SSD) network intended to perform object detection',
+  //   note: '',
+  //   source: '',
+  //   model: 'int8/ssd-mobilenet-v1-opset-12-int8.onnx',
+  //   size: '8.54 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{ 'inputs': ['float32', 'random', [1, 224, 224, 3], {"unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
+  //   inputstip: '[1, 224, 224, 3]'
+  // },
   {
     category: 'Text-To-Text Translation',
     id: 't5_small_decoder',
@@ -2186,6 +2396,40 @@ export let models = [
   //   }],
   //   inputstip: '[1, 50] [1, 50]'
   // },
+  {
+    category: 'Object Detection',
+    id: 'yolo_v3_fp16',
+    name: 'YOLO v3',
+    description: 'YOLOv3 (You Only Look Once, Version 3) is a real-time object detection algorithm that identifies specific objects in videos, live feeds or images',
+    note: '',
+    source: '',
+    model: 'fp16/yolo-v3-opset-12-fp16.onnx',
+    size: '118 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'input_1': ['float16', 'random', [1, 3, 416, 416], { "unk__576": 1, "unk__577": 416, "unk__578": 416 }], 
+      'image_shape': ['float16', 'random', [1, 2], { "unk__579": 1 }]
+    }],
+    inputstip: '[1, 3, 416, 416]'
+  },
+  // {
+  //   category: 'Object Detection',
+  //   id: 'yolo_v3_int8',
+  //   name: 'YOLO v3',
+  //   description: 'YOLOv3 (You Only Look Once, Version 3) is a real-time object detection algorithm that identifies specific objects in videos, live feeds or images',
+  //   note: '',
+  //   source: '',
+  //   model: 'int8/yolo-v3-opset-12-int8.onnx',
+  //   size: '60.2 MB',
+  //   format: 'onnx',
+  //   datatype: 'int8',
+  //   inputs: [{
+  //     'input_1': ['float32', 'random', [1, 3, 416, 416], { "unk__576": 1, "unk__577": 416, "unk__578": 416 }], 
+  //     'image_shape': ['float32', 'random', [1, 2], { "unk__579": 1 }]
+  //   }],
+  //   inputstip: '[1, 3, 416, 416]'
+  // }
 ];
 
 export const cpu = [
