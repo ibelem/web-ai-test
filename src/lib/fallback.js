@@ -3799,6 +3799,29 @@ export const fallback = [
     ]
   },
   {
+    "name": "whisper_base_encoder",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 341,
+    "nodes_supported_by_webnn": 341,
+    "supported": [
+      "Add",
+      "Conv",
+      "Div",
+      "Erf",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose"
+    ]
+  },
+  {
     "name": "whisper_tiny_decoder",
     "backend": "cpu",
     "error": "",

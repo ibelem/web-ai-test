@@ -2325,9 +2325,25 @@ export let models = [
     inputs: [{
       'input_ids': ['int32', 1, [1, 4], {}],
       'attention_mask': ['int32', 1, [1, 4], {}],
-      'encoder_hidden_states': ['float32', 'random', [1,1500,512], {}]
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 512], {}]
     }],
-    inputstip: '[1, 4] [1, 4] [1,1500,512]'
+    inputstip: '[1, 4] [1, 4] [1, 1500, 512]'
+  },
+  {
+    category: 'Speech Recognition',
+    id: 'whisper_base_encoder',
+    name: 'Whisper base Encoder',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'customized',
+    model: 'whisper-customized/whisper_base_encoder.onnx',
+    size: '78.6 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_features': ['float32', 'random', [1, 80, 3000], {}]
+    }],
+    inputstip: '[1, 80, 3000]'
   },
   // {
   //   category: 'Speech Recognition',
