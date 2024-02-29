@@ -87,11 +87,11 @@ const getFeeds = (session, modelName) => {
           feeds[v] = getTensor('float32', 1, [1, 8, 128, 64]);
         } else if (modelName.indexOf('vit_gpt2_image_captioning_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 12, 168, 64]);
-        } else if (modelName.toLowerCase() === 'whisper_tiny_decoder_static_shape') {
+        } else if (modelName.toLowerCase() === 'whisper_base_decoder_static_merged') {
           if (v.includes('decoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 6, 448, 64]);
+            feeds[v] = getTensor('float32', 1, [1, 8, 127, 64]);
           } else if (v.includes('encoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 6, 1500, 64]);
+            feeds[v] = getTensor('float32', 1, [1, 8, 1500, 64]);
           }
         } else if (modelName.indexOf('whisper_tiny_decoder_') > -1) {
           if (v.includes('decoder')) {

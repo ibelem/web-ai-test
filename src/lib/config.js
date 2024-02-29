@@ -2295,23 +2295,39 @@ export let models = [
   },
   {
     category: 'Speech Recognition',
-    id: 'whisper_tiny_decoder_static_shape_merged',
-    name: 'Whisper Tiny Decoder Static Shape KV-Cache',
+    id: 'whisper_base_decoder_static_merged',
+    name: 'Whisper base Decoder Static Shape KV-Cache',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
     note: '',
-    source: 'fxmarty/whisper-static-shapes-onnx/blob/main/decoder_model.onnx',
-    model: 'whisper-static-shapes-decoder_model.onnx',
-    size: '113 MB',
+    source: 'customized',
+    model: 'whisper-customized/whisper_base_decoder_static_kvcache.onnx',
+    size: '186 MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
-      'decoder_input_ids': ['int64', 1n, [1, 1], {}],
-      'decoder_attention_mask': ['int64', 1n, [1, 448], {}],
-      'encoder_outputs': ['float32', 'random', [1, 1500, 384], {}],
-      'position_ids': ['int64', 1n, [1, 1], {}],
-      'use_cache_branch': ['bool', 1, [1], {}]
+      'input_ids': ['int32', 1, [1, 1], {}],
+      'attention_mask': ['int64', 1n, [1, 128], {}],
+      'past_key_values_length': ['int32', 1, [1], {}]
     }],
-    inputstip: '[1, 1] [1, 448] [1, 1500, 384] [1, 1]'
+    inputstip: '[1, 4] [1, 128] [1]'
+  },
+  {
+    category: 'Speech Recognition',
+    id: 'whisper_base_decoder_static',
+    name: 'Whisper base Decoder Static Shape Non-KV-Cache',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'customized',
+    model: 'whisper-customized/whisper_base_decoder_static_non_kvcache.onnx',
+    size: '197 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'input_ids': ['int32', 1, [1, 4], {}],
+      'attention_mask': ['int32', 1, [1, 4], {}],
+      'encoder_hidden_states': ['float32', 'random', [1,1500,512], {}]
+    }],
+    inputstip: '[1, 4] [1, 4] [1,1500,512]'
   },
   // {
   //   category: 'Speech Recognition',
