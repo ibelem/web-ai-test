@@ -180,7 +180,11 @@ export const getQueryVariable = (name, defaults) => {
 
 export const modelPath = () => {
     console.log(location.hostname);
-    if (location.hostname.toLowerCase().indexOf('webai.run') > -1 || location.href.toLowerCase().indexOf('web-ai-run') > -1) {
+    if (location.href.toLowerCase().indexOf('github.io') > -1 
+    || location.href.toLowerCase().indexOf('huggingface.co') > -1
+    || location.href.toLowerCase().indexOf('vercel.app') > -1
+    || location.href.toLowerCase().indexOf('netlify.app') > -1
+    || location.href.toLowerCase().indexOf('webai.run') > -1) {
         return 'https://huggingface.co/webml/models/resolve/main/';
     } else {
         return '../models/'

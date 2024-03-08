@@ -13,10 +13,11 @@ export let environment = {
 };
 
 export const corsSites = [
-  'ibelem.github.io',
-  'webai.run',
-  'ai-benchmark.vercel.app',
-  'web-ai-run.vercel.app'
+  'github.io',
+  'huggingface.co',
+  'vercel.app',
+  'netlify.app',
+  'webai.run'
 ]
 
 export const ortDists = {
