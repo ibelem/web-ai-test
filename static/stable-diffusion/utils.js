@@ -3,7 +3,7 @@ import { AutoTokenizer } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers
 let tokenizers;
 document.addEventListener('DOMContentLoaded', async () => {
     let path = modelPath() + 'stable-diffusion/tokenizer/';
-    if (location.href.toLowerCase().indexOf('webai.run') > -1) {
+    if (location.href.toLowerCase().indexOf('webai.run') > -1 || location.href.toLowerCase().indexOf('web-ai-run') > -1) {
         path = `stable-diffusion/tokenizer`;
     }
     tokenizers = await AutoTokenizer.from_pretrained(path);
@@ -180,7 +180,7 @@ export const getQueryVariable = (name, defaults) => {
 
 export const modelPath = () => {
     console.log(location.hostname);
-    if (location.hostname.toLowerCase().indexOf('webai.run') > -1) {
+    if (location.hostname.toLowerCase().indexOf('webai.run') > -1 || location.href.toLowerCase().indexOf('web-ai-run') > -1) {
         return 'https://huggingface.co/webml/models/resolve/main/';
     } else {
         return '../models/'

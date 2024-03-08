@@ -107,7 +107,7 @@
 
     async function getTextTokens() {
         let path = Utils.modelPath() + 'stable-diffusion/tokenizer/';
-        if (location.href.toLowerCase().indexOf('webai.run') > -1) {
+        if (location.href.toLowerCase().indexOf('webai.run') > -1 || location.href.toLowerCase().indexOf('web-ai-run') > -1) {
             path = `stable-diffusion/tokenizer`;
         }
         const tokenizers = await AutoTokenizer.from_pretrained(path);

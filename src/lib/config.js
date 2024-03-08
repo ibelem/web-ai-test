@@ -15,7 +15,8 @@ export let environment = {
 export const corsSites = [
   'ibelem.github.io',
   'webai.run',
-  'ai-benchmark.vercel.app'
+  'ai-benchmark.vercel.app',
+  'web-ai-run.vercel.app'
 ]
 
 export const ortDists = {
