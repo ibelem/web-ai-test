@@ -56,6 +56,7 @@ const albertBaseV2 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Fill-Mask',
+    tag: '',
     id: `albert_base_v2_${dt}`,
     name: 'ALBERT Base v2',
     description: 'ALBERT is a transformers model pretrained on a large corpus of English data in a self-supervised fashion, using a masked language modeling (MLM) objective.',
@@ -86,6 +87,7 @@ const bartLargeCnn = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Summarization',
+    tag: '',
     id: `bart_large_cnn_${dt}`,
     name: 'BART Large CNN Encoder',
     description: 'BART is a transformer encoder-encoder (seq2seq) model with a bidirectional (BERT-like) encoder and an autoregressive (GPT-like) decoder.',
@@ -115,6 +117,7 @@ const bertBaseCased = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Fill-Mask',
+    tag: '',
     id: `bert_base_cased_${dt}`,
     name: 'BERT Base Cased',
     description: 'A transformers model pretrained on a large corpus of English data in a self-supervised fashion.',
@@ -145,6 +148,7 @@ const bertBaseUncased = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Fill-Mask',
+    tag: '',
     id: `bert_base_uncased_${dt}`,
     name: 'BERT Base Uncased',
     description: 'A transformers model pretrained on a large corpus of English data in a self-supervised fashion.',
@@ -175,6 +179,7 @@ const bertBaseMultilingualCasedNerHrl = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Token Classification',
+    tag: '',
     id: `bert_base_multilingual_cased_ner_hrl_${dt}`,
     name: 'BERT Base Multilingual Cased NER HRL',
     description: 'A Named Entity Recognition model for 10 high resourced languages (Arabic, German, English, Spanish, French, Italian, Latvian, Dutch, Portuguese and Chinese) based on a fine-tuned mBERT base model.',
@@ -205,6 +210,7 @@ const bertBaseMultilingualUncasedSentiment = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Classification',
+    tag: '',
     id: `bert_base_multilingual_uncased_sentiment_${dt}`,
     name: 'BERT Base Multilingual Uncased Sentiment',
     description: 'A bert-base-multilingual-uncased model finetuned for sentiment analysis on product reviews in six languages: English, Dutch, German, French, Spanish, and Italian.',
@@ -235,6 +241,7 @@ const clipVitBasePatch16 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Zero-Shot Image Classification',
+    tag: '',
     id: `clip_vit_base_patch16_${dt}`,
     name: 'CLIP ViT Base',
     description: 'A Contrastive Language-Image Pre-Training (CLIP) model developed by researchers at OpenAI to learn about what contributes to robustness in computer vision tasks.',
@@ -265,6 +272,7 @@ const codeGenMono350M = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
+    tag: '',
     id: `codegen_350m_mono_${dt}`,
     name: 'CodeGen Mono 350M',
     description: 'A family of autoregressive language models for program synthesis.',
@@ -294,6 +302,7 @@ const detrResnet50 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
+    tag: '2h',
     id: `detr_resnet_50_${dt}`,
     name: 'DETR w/i ResNet-50',
     description: 'DEtection TRansformer (DETR) model with ResNet-50 backbone trained end-to-end on COCO 2017 object detection (118k annotated images). The DETR model is an encoder-decoder transformer with a convolutional backbone.',
@@ -323,6 +332,7 @@ const dinoVitb16 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Feature Extraction',
+    tag: '',
     id: `dino_vitb16_${dt}`,
     name: 'DINO ViT',
     description: 'Vision Transformer (ViT) model trained using the DINO method.',
@@ -349,6 +359,7 @@ const distilbartCnn66Decoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Summarization',
+    tag: '',
     id: `distilbart_cnn_6_6_decoder_${dt}`,
     name: 'Distilbart CNN 6-6 Decoder',
     description: 'A text summarization model built upon a Transformer model.',
@@ -379,6 +390,7 @@ const distilbartCnn66DecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Summarization',
+    tag: '',
     id: `distilbart_cnn_6_6_decoder_with_past_${dt}`,
     name: 'Distilbart CNN 6-6 Decoder w/i Past',
     description: 'A text summarization model built upon a Transformer model.',
@@ -412,6 +424,7 @@ const distilbartCnn66DecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Summarization',
+    tag: '',
     id: `distilbart_cnn_6_6_decoder_merged_${dt}`,
     name: 'Distilbart CNN 6-6 Decoder KV-Cache',
     description: 'A text summarization model built upon a Transformer model.',
@@ -446,6 +459,7 @@ const distilbartCnn66Encoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Summarization',
+    tag: '',
     id: `distilbart_cnn_6_6_encoder_${dt}`,
     name: 'Distilbart CNN 6-6 Encoder',
     description: 'A text summarization model built upon a Transformer model.',
@@ -475,6 +489,7 @@ const distilbertBaseUncased = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Fill-Mask',
+    tag: '',
     id: `distilbert_base_uncased_${dt}`,
     name: 'DistilBERT Base Uncased',
     description: 'DistilBERT is a transformers model, smaller and faster than BERT, which was pretrained on the same corpus in a self-supervised fashion, using the BERT base model as a teacher.',
@@ -504,6 +519,7 @@ const distilbertBaseCasedDistilledSquad = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Question Answering',
+    tag: '',
     id: `distilbert_base_cased_distilled_squad_${dt}`,
     name: 'DistilBERT Base Cased Distilled Squad',
     description: 'A small, fast, cheap and light Transformer model trained by distilling BERT base.',
@@ -533,6 +549,7 @@ const distilbertBaseUncasedMnli = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Zero-Shot Classification',
+    tag: '',
     id: `distilbert_base_uncased_mnli_${dt}`,
     name: 'DistilBERT Base Uncased Mnli',
     description: 'An uncased DistilBERT model fine-tuned on Multi-Genre Natural Language Inference (MNLI) dataset for the zero-shot classification task.',
@@ -562,6 +579,7 @@ const distilgpt2Decoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
+    tag: '',
     id: `distilgpt2_decoder_${dt}`,
     name: 'DistilGPT2 Decoder',
     description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
@@ -591,6 +609,7 @@ const distilgpt2DecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
+    tag: '',
     id: `distilgpt2_decoder_with_past_${dt}`,
     name: 'DistilGPT2 Decoder w/i Past',
     description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
@@ -620,6 +639,7 @@ const distilgpt2DecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
+    tag: '',
     id: `distilgpt2_decoder_merged_${dt}`,
     name: 'DistilGPT2 Decoder KV-Cache',
     description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
@@ -652,6 +672,7 @@ const distiluseBaseMultilingualCasedV2 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
+    tag: '2h',
     id: `distiluse_base_multilingual_cased_v2_${dt}`,
     name: 'Distiluse Base Multilingual Cased V2',
     description: 'Maps sentences & paragraphs to a 512 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
@@ -680,6 +701,7 @@ const distilMediumEnDecoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: `distil_medium_en_decoder_${dt}`,
     name: 'Distil-Whisper Decoder',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
@@ -708,6 +730,7 @@ const distilMediumEnDecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: `distil_medium_en_decoder_with_past_${dt}`,
     name: 'Distil-Whisper Decoder w/i Past',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
@@ -735,6 +758,7 @@ const distilMediumEnDecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: `distil_medium_en_decoder_merged_${dt}`,
     name: 'Distil-Whisper Decoder KV-Cache',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
@@ -764,6 +788,7 @@ const distilMediumEnEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: `distil_medium_en_encoder_${dt}`,
     name: 'Distil-Whisper Encoder',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model',
@@ -800,6 +825,7 @@ const esrgan = () => {
   ]
   return configs.map(([tile, fp, vram]) => ({
     category: 'Image Super-Resolution',
+    tag: '',
     id: `realesrgan_x4_${tile}_fp${fp}`,
     name: `RealESRGAN x4 ${tile}`,
     description: `Image Super-Resolution x4, tile size = ${tile}, recommended VRAM >${vram} GB`,
@@ -822,6 +848,7 @@ const flanT5SmallDecoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
+    tag: '',
     id: `flan_t5_small_decoder_${dt}`,
     name: 'FLAN-T5 Small Decoder',
     description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
@@ -852,6 +879,7 @@ const flanT5SmallDecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
+    tag: '',
     id: `flan_t5_small_decoder_with_past_${dt}`,
     name: 'FLAN-T5 Small Decoder w/i Past',
     description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
@@ -882,6 +910,7 @@ const flanT5SmallDecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
+    tag: '',
     id: `flan_t5_small_decoder_merged_${dt}`,
     name: 'FLAN-T5 Small Decoder KV-Cache',
     description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
@@ -916,6 +945,7 @@ const flanT5SmallEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
+    tag: '',
     id: `flan_t5_small_encoder_${dt}`,
     name: 'FLAN-T5 Small Encoder',
     description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
@@ -945,6 +975,7 @@ const gteBaseEnV1_5 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
+    tag: '2h',
     id: `gte_base_en_v1_5_${dt}`,
     name: 'General Text Embeddings (GTE) Base EN v1.5',
     description: 'GTE-v1.5 series upgraded gte embeddings that support the context length of up to 8192, while further enhancing model performance. The models are built upon the transformer++ encoder backbone (BERT + RoPE + GLU).',
@@ -974,6 +1005,7 @@ const gteSmall = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
+    tag: '2h',
     id: `gte_small_${dt}`,
     name: 'General Text Embeddings (GTE) Small',
     description: 'To be applied to various downstream tasks of text embeddings, including information retrieval, semantic textual similarity, text reranking, etc.',
@@ -1004,6 +1036,7 @@ const mobileVitSmall = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image Classification',
+    tag: '',
     id: `mobilevit_small_${dt}`,
     name: 'MobileViT Small',
     description: 'MobileViT model pre-trained on ImageNet-1k at resolution 256x256. It was introduced in MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer.',
@@ -1030,6 +1063,7 @@ const msmarcoDistilbertBaseV4 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
+    tag: '',
     id: `msmarco_distilbert_base_v4_${dt}`,
     name: 'MS MARCO DistilBert Base v4',
     description: 'Maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
@@ -1059,6 +1093,7 @@ const mt5SmallDecoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
+    tag: '',
     id: `mt5_small_decoder_${dt}`,
     name: 'mT5 Small Decoder',
     description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
@@ -1080,7 +1115,7 @@ const mt5SmallDecoder = () => {
     inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   }))
 }
- 
+
 const mt5SmallDecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '1.03 GB'],
@@ -1089,6 +1124,7 @@ const mt5SmallDecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
+    tag: '',
     id: `mt5_small_decoder_with_past_${dt}`,
     name: 'mT5 Small Decoder w/i Past',
     description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
@@ -1110,7 +1146,7 @@ const mt5SmallDecoderWithPast = () => {
     inputstip: '[1, 128] [1, 1] [1, 128, 512]'
   }))
 }
- 
+
 const mt5SmallDecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '1.04 GB'],
@@ -1119,6 +1155,7 @@ const mt5SmallDecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
+    tag: '',
     id: `mt5_small_decoder_merged_${dt}`,
     name: 'mT5 Small Decoder KV-Cache',
     description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
@@ -1153,6 +1190,7 @@ const mt5SmallEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
+    tag: '',
     id: `mt5_small_encoder_${dt}`,
     name: 'mT5 Small Encoder',
     description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
@@ -1182,6 +1220,7 @@ const paraphraseMultilingualMpnetBaseV2 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
+    tag: '2h',
     id: `paraphrase_multilingual_mpnet_base_v2_${dt}`,
     name: 'Paraphrase Multilingual Mpnet Base V2',
     description: 'Maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
@@ -1211,6 +1250,7 @@ const samVitBase = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Semantic Segmentation',
+    tag: '',
     id: `sam_vit_base_${dt}`,
     name: 'SAM ViT Base',
     description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
@@ -1239,6 +1279,7 @@ const samVitBasePromptEncoderMaskDecoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Semantic Segmentation',
+    tag: '',
     id: `sam_vit_base_prompt_encoder_mask_decoder_${dt}`,
     name: 'SAM ViT Base Prompt/Mask Encoder',
     description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
@@ -1267,6 +1308,7 @@ const samVitBasePromptEncoderMaskDecoderFP16 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Semantic Segmentation',
+    tag: '',
     id: `sam_vit_base_prompt_encoder_mask_decoder_${dt}`,
     name: 'SAM ViT Base Prompt/Mask Encoder',
     description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
@@ -1298,6 +1340,7 @@ const samVitBaseVisionEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Semantic Segmentation',
+    tag: '',
     id: `sam_vit_base_vision_encoder_${dt}`,
     name: 'SAM ViT Base Vision Encoder',
     description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
@@ -1326,6 +1369,7 @@ const squeezebertUncased = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Order Prediction (SOP)',
+    tag: '',
     id: `squeezebert_uncased_${dt}`,
     name: 'SqueezeBERT Uncased',
     description: 'A pretrained model for the English language using a masked language modeling (MLM) and Sentence Order Prediction (SOP) objective. This model is case-insensitive. The authors found that SqueezeBERT is 4.3x faster than bert-base-uncased on a Google Pixel 3 smartphone.',
@@ -1356,6 +1400,7 @@ const t5SmallDecoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text-To-Text Translation',
+    tag: '',
     id: `t5_small_decoder_${dt}`,
     name: 'T5 Small Decoder',
     description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
@@ -1377,7 +1422,7 @@ const t5SmallDecoder = () => {
     inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   }))
 }
- 
+
 const t5SmallDecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '146 MB'],
@@ -1386,6 +1431,7 @@ const t5SmallDecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text-To-Text Translation',
+    tag: '',
     id: `t5_small_decoder_with_past_${dt}`,
     name: 'T5 Small Decoder w/i Past',
     description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
@@ -1416,6 +1462,7 @@ const t5SmallDecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text-To-Text Translation',
+    tag: '',
     id: `t5_small_decoder_merged_${dt}`,
     name: 'T5 Small Decoder KV-Cache',
     description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
@@ -1450,6 +1497,7 @@ const t5SmallEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text-To-Text Translation',
+    tag: '',
     id: `t5_small_encoder_${dt}`,
     name: 'T5 Small Encoder',
     description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
@@ -1479,6 +1527,7 @@ const vitBasePatch16224 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image Classification',
+    tag: '',
     id: `vit_base_patch16_224_${dt}`,
     name: 'Vision Transformer (ViT) Base-sized',
     description: 'Vision Transformer (ViT) model pre-trained on ImageNet-21k (14 million images, 21,843 classes) at resolution 224x224, and fine-tuned on ImageNet 2012.',
@@ -1507,6 +1556,7 @@ const vitGpt2ImageCaptioningDecoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-to-Text',
+    tag: '',
     id: `vit_gpt2_image_captioning_decoder_${dt}`,
     name: 'ViT GPT2 Image Captioning Decoder',
     description: 'An image captioning model using transformers.',
@@ -1536,6 +1586,7 @@ const vitGpt2ImageCaptioningDecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-to-Text',
+    tag: '',
     id: `vit_gpt2_image_captioning_decoder_with_past_${dt}`,
     name: 'ViT GPT2 Image Captioning Decoder w/i Past',
     description: 'An image captioning model using transformers.',
@@ -1556,7 +1607,7 @@ const vitGpt2ImageCaptioningDecoderWithPast = () => {
     inputstip: '[1, 1] [1, 168, 768]'
   }))
 }
- 
+
 const vitGpt2ImageCaptioningDecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '586 MB'],
@@ -1565,6 +1616,7 @@ const vitGpt2ImageCaptioningDecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-to-Text',
+    tag: '',
     id: `vit_gpt2_image_captioning_decoder_merged_${dt}`,
     name: 'ViT GPT2 Image Captioning Decoder KV-Cache',
     description: 'An image captioning model using transformers.',
@@ -1586,7 +1638,7 @@ const vitGpt2ImageCaptioningDecoderMerged = () => {
     inputstip: '[1, 168] [1, 168, 768]'
   }))
 }
- 
+
 const vitGpt2ImageCaptioningEncoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '327 MB'],
@@ -1595,6 +1647,7 @@ const vitGpt2ImageCaptioningEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-to-Text',
+    tag: '',
     id: `vit_gpt2_image_captioning_encoder_${dt}`,
     name: 'ViT GPT2 Image Captioning Encoder',
     description: 'An image captioning model using transformers.',
@@ -1623,6 +1676,7 @@ const whisperTinyDecoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
+    tag: '',
     id: `whisper_tiny_decoder_${dt}`,
     name: 'Whisper Tiny Decoder',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -1643,7 +1697,7 @@ const whisperTinyDecoder = () => {
     inputstip: '[1, 1] [1, 1500, 384]'
   }))
 }
- 
+
 const whisperTinyWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '108 MB'],
@@ -1652,6 +1706,7 @@ const whisperTinyWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
+    tag: '',
     id: `whisper_tiny_decoder_with_past_${dt}`,
     name: 'Whisper Tiny Decoder w/i Past',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -1675,7 +1730,7 @@ const whisperTinyWithPast = () => {
     inputstip: '[1, 1]'
   }))
 }
- 
+
 const whisperTinyMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '113 MB'],
@@ -1684,6 +1739,7 @@ const whisperTinyMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
+    tag: '',
     id: `whisper_tiny_decoder_merged_${dt}`,
     name: 'Whisper Tiny Decoder KV-Cache',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -1708,7 +1764,7 @@ const whisperTinyMerged = () => {
     inputstip: '[1, 1] [1, 1500, 384]'
   }))
 }
- 
+
 const whisperTinyEncoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '31.3 MB'],
@@ -1717,6 +1773,7 @@ const whisperTinyEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
+    tag: '',
     id: `whisper_tiny_encoder_${dt}`,
     name: 'Whisper Tiny Encoder',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -1745,6 +1802,7 @@ const xlmRobertaBase = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Fill-Mask',
+    tag: '',
     id: `xlm_roberta_base_${dt}`,
     name: 'XLM-RoBERTa Base',
     description: 'RoBERTa is a transformers model pretrained on a large corpus in a self-supervised fashion. XLM-RoBERTa is a multilingual version of RoBERTa. It is pre-trained on 2.5TB of filtered CommonCrawl data containing 100 languages.',
@@ -1774,6 +1832,7 @@ const yoloV8NPose = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
+    tag: '2h',
     id: `yolov8n_pose_${dt}`,
     name: 'YOLO v8n Pose',
     description: 'Real-Time End-to-End Object Detection',
@@ -1788,7 +1847,7 @@ const yoloV8NPose = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'images': ['float32', 'random', [1, 3, 640, 640], { }],
+      'images': ['float32', 'random', [1, 3, 640, 640], {}],
     }],
     inputstip: '[1, 3, 640, 640]'
   }))
@@ -1802,6 +1861,7 @@ const yoloV8XPose = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
+    tag: '2h',
     id: `yolov8x_pose_${dt}`,
     name: 'YOLO v8x Pose',
     description: 'Real-Time End-to-End Object Detection',
@@ -1816,7 +1876,7 @@ const yoloV8XPose = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'images': ['float32', 'random', [1, 3, 640, 640], { }],
+      'images': ['float32', 'random', [1, 3, 640, 640], {}],
     }],
     inputstip: '[1, 3, 640, 640]'
   }))
@@ -1830,6 +1890,7 @@ const yoloV10N = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
+    tag: '',
     id: `yolov10n_${dt}`,
     name: 'YOLO v10n',
     description: 'Real-Time End-to-End Object Detection',
@@ -1844,7 +1905,7 @@ const yoloV10N = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'images': ['float32', 'random', [1, 3, 640, 640], { }],
+      'images': ['float32', 'random', [1, 3, 640, 640], {}],
     }],
     inputstip: '[1, 3, 640, 640]'
   }))
@@ -1853,6 +1914,7 @@ const yoloV10N = () => {
 export let models = [
   {
     category: 'Model Access Check',
+    tag: '',
     id: 'model_access_check',
     name: 'Model Access Check',
     description: '',
@@ -1869,6 +1931,7 @@ export let models = [
   ...codeGenMono350M(),
   {
     category: 'Semantic Segmentation',
+    tag: '',
     id: 'deeplab_v3',
     name: 'DeepLab v3',
     description: 'A series of deep learning architectures designed to tackle the problem of semantic segmentation.',
@@ -1883,6 +1946,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    tag: '',
     id: 'densenet',
     name: 'DenseNet 121',
     description: 'A type of convolutional neural network that utilises dense connections between layers.',
@@ -1914,6 +1978,7 @@ export let models = [
   ...distiluseBaseMultilingualCasedV2(),
   {
     category: 'Image Classification',
+    tag: '2h',
     id: 'efficientnet_lite',
     name: 'EfficientNet Lite 4',
     description: 'A convolutional neural network architecture and scaling method.',
@@ -1928,6 +1993,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    tag: '2h',
     id: 'efficientnet_lite_fp16',
     name: 'EfficientNet Lite 4',
     description: 'A convolutional neural network architecture and scaling method.',
@@ -1943,6 +2009,7 @@ export let models = [
   // {
   //   category: 'Image Classification',
   //   id: 'efficientnet_lite_int8',
+  //   tag: '2h',
   //   name: 'EfficientNet Lite 4',
   //   description: 'A convolutional neural network architecture and scaling method.',
   //   note: '',
@@ -1956,6 +2023,7 @@ export let models = [
   // },
   {
     category: 'Face Analysis',
+    tag: '',
     id: 'emotion_ferplus',
     name: 'Emotion FERPlus',
     description: 'A deep convolutional neural network for emotion recognition in faces.',
@@ -1971,6 +2039,7 @@ export let models = [
   ...esrgan(),
   {
     category: 'Object Detection',
+    tag: '',
     id: 'faster_r_cnn_fp16',
     name: 'Faster R-CNN',
     description: 'Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks',
@@ -1980,7 +2049,7 @@ export let models = [
     size: '84.4 MB',
     format: 'onnx',
     datatype: 'fp16',
-    inputs: [{ 'image': ['float16', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
+    inputs: [{ 'image': ['float16', 'random', [3, 224, 224], { "height": 224, "width": 224 }] }],
     inputstip: '[3, 224, 224]'
   },
   // {
@@ -1999,6 +2068,7 @@ export let models = [
   // },
   {
     category: 'Semantic Segmentation',
+    tag: '',
     id: 'fcn_resnet50_fp16',
     name: 'FCN ResNet-50',
     description: 'Fully-Convolutional Network model with a ResNet-50 backbone',
@@ -2008,7 +2078,7 @@ export let models = [
     size: '67.3 MB',
     format: 'onnx',
     datatype: 'fp16',
-    inputs: [{ 'input': ['float16', 'random', [1, 3, 224, 224], {"batch": 1, "height": 224, "width": 224}] }],
+    inputs: [{ 'input': ['float16', 'random', [1, 3, 224, 224], { "batch": 1, "height": 224, "width": 224 }] }],
     inputstip: '[1, 3, 224, 224]'
   },
   // {
@@ -2028,9 +2098,10 @@ export let models = [
   ...flanT5SmallDecoder(),
   ...flanT5SmallDecoderWithPast(),
   ...flanT5SmallDecoderMerged(),
-  ...flanT5SmallEncoder(), 
+  ...flanT5SmallEncoder(),
   {
     category: 'Text Generation',
+    tag: '',
     id: 'gpt2_decoder_fp32',
     name: 'GPT-2 Decoder',
     description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion.',
@@ -2052,6 +2123,7 @@ export let models = [
   },
   {
     category: 'Text Generation',
+    tag: '',
     id: 'gpt2_decoder_with_past_fp32',
     name: 'GPT-2 Decoder w/i Past',
     description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion.',
@@ -2073,6 +2145,7 @@ export let models = [
   },
   {
     category: 'Text Generation',
+    tag: '',
     id: 'gpt2_decoder_merged_fp32',
     name: 'GPT-2 Decoder KV-Cache',
     description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion.',
@@ -2097,6 +2170,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    tag: '',
     id: 'inception_v1_fp16',
     name: 'Inception v1',
     description: 'Also known as GoogLeNet, this network set the state of the art in ImageNet classification in 2014.',
@@ -2125,6 +2199,7 @@ export let models = [
   // },
   {
     category: 'Multilingual Translation',
+    tag: '',
     id: 'm2m100_decoder',
     name: 'M2M100 418M Decoder',
     description: 'A multilingual encoder-decoder (seq-to-seq) model.',
@@ -2143,6 +2218,7 @@ export let models = [
   },
   {
     category: 'Multilingual Translation',
+    tag: '',
     id: 'm2m100_encoder',
     name: 'M2M100 418M Encoder',
     description: 'A multilingual encoder-decoder (seq-to-seq) model.',
@@ -2174,6 +2250,7 @@ export let models = [
   // },
   {
     category: 'Image Classification',
+    tag: '',
     id: 'mobilenet_v2_7',
     name: 'MobileNet v2_7',
     description: 'A computer vision model designed for training classifiers.',
@@ -2188,6 +2265,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    tag: '2h',
     id: 'mobilenet_v2_10',
     name: 'MobileNet v2_10',
     description: 'A computer vision model designed for training classifiers.',
@@ -2202,6 +2280,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    tag: '2h',
     id: 'mobilenet_v2_12',
     name: 'MobileNet v2_12',
     description: 'A computer vision model designed for training classifiers.',
@@ -2216,6 +2295,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    tag: '2h',
     id: 'mobilenet_v2_fp16',
     name: 'MobileNet v2',
     description: 'A computer vision model designed for training classifiers.',
@@ -2230,6 +2310,7 @@ export let models = [
   },
   // {
   //   category: 'Image Classification',
+  //   tag: '2h',
   //   id: 'mobilenet_v2_12_int8',
   //   name: 'MobileNet v2_12',
   //   description: 'A computer vision model designed for training classifiers.',
@@ -2244,6 +2325,7 @@ export let models = [
   // },
   {
     category: 'Image Classification',
+    tag: '',
     id: 'mobilenet_v3',
     name: 'MobileNet v3',
     description: 'A computer vision model designed for training classifiers.',
@@ -2259,7 +2341,7 @@ export let models = [
   ...gteBaseEnV1_5(),
   ...gteSmall(),
   ...mobileVitSmall(),
-  ...msmarcoDistilbertBaseV4(), 
+  ...msmarcoDistilbertBaseV4(),
   ...mt5SmallDecoder(),
   ...mt5SmallDecoderWithPast(),
   ...mt5SmallDecoderMerged(),
@@ -2267,6 +2349,7 @@ export let models = [
   ...paraphraseMultilingualMpnetBaseV2(),
   {
     category: 'Image Classification',
+    tag: '2h',
     id: 'resnet50_v1',
     name: 'ResNet50 v1',
     description: 'A convolutional neural network that is 50 layers deep.',
@@ -2281,6 +2364,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    tag: '',
     id: 'resnet50_v1_fp16',
     name: 'ResNet50 v1',
     description: 'A convolutional neural network that is 50 layers deep.',
@@ -2295,6 +2379,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    tag: '',
     id: 'resnet50_v2',
     name: 'ResNet50 v2',
     description: 'A convolutional neural network that is 50 layers deep.',
@@ -2309,6 +2394,7 @@ export let models = [
   },
   {
     category: 'Mask-Generation',
+    tag: '',
     id: 'sam_b_decoder',
     name: 'SAM B Decoder',
     description: 'Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image.',
@@ -2330,6 +2416,7 @@ export let models = [
   },
   {
     category: 'Mask-Generation',
+    tag: '',
     id: 'sam_b_encoder',
     name: 'SAM B Encoder',
     description: 'Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image.',
@@ -2348,6 +2435,7 @@ export let models = [
   ...samVitBaseVisionEncoder(),
   {
     category: 'Text-to-Image',
+    tag: '2h',
     id: 'sd_turbo_text_encoder_fp32',
     name: 'SD-Turbo text encoder',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2364,6 +2452,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
+    tag: '2h',
     id: 'sd_turbo_unet_fp32',
     name: 'SD-Turbo UNet',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2382,6 +2471,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
+    tag: '',
     id: 'sd_turbo_vae_decoder_fp32',
     name: 'SD-Turbo VAE Decoder',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2398,6 +2488,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
+    tag: '2h',
     id: 'sd_turbo_text_encoder_fp16',
     name: 'SD-Turbo Text Encoder (no_layernorm)',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2409,7 +2500,7 @@ export let models = [
     datatype: 'fp16',
     inputs: [{
       'input_ids': ['int32', 1, [1, 77], {
-        'batch_size': 1, 
+        'batch_size': 1,
         'sequence_length': 77
       }]
     }],
@@ -2417,6 +2508,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
+    tag: '2h',
     id: 'sd_turbo_text_encoder_layernorm_fp16',
     name: 'SD-Turbo Text Encoder (layernorm)',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2433,6 +2525,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
+    tag: '2h',
     id: 'sd_turbo_unet_fp16',
     name: 'SD-Turbo UNet (no_layernorm)',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2451,6 +2544,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
+    tag: '2h',
     id: 'sd_turbo_unet_layernorm_fp16',
     name: 'SD-Turbo UNet (layernorm)',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2469,6 +2563,7 @@ export let models = [
   },
   {
     category: 'Image Identification',
+    tag: '2h',
     id: 'sd_safety_checker_fp16',
     name: 'SD Safety Checker',
     description: 'Can be used for identifying not safe for work (NSFW) image. Should not be used to intentionally create hostile or alienating environments for people.',
@@ -2479,13 +2574,14 @@ export let models = [
     format: 'onnx',
     datatype: 'fp16',
     inputs: [{
-      'clip_input': ['float16', 1, [1, 3, 224, 224], {"batch": 1, "channels": 3, "height": 224, "width": 224}],
-      'images': ['float16', 1, [1, 224, 224, 3], {"batch": 1, "height": 224, "width": 224, "channels": 3}]
+      'clip_input': ['float16', 1, [1, 3, 224, 224], { "batch": 1, "channels": 3, "height": 224, "width": 224 }],
+      'images': ['float16', 1, [1, 224, 224, 3], { "batch": 1, "height": 224, "width": 224, "channels": 3 }]
     }],
     inputstip: '[1, 3, 224, 224] [1, 224, 224, 3]'
   },
   {
     category: 'Text-to-Image',
+    tag: '2h',
     id: 'sd_1_5_text_encoder_fp16',
     name: 'SD 1.5 text encoder',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -2502,6 +2598,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
+    tag: '2h',
     id: 'sd_1_5_unet_fp16',
     name: 'SD 1.5 UNet (layernorm)',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -2520,6 +2617,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
+    tag: '2h',
     id: 'sd_vae_decoder_fp16',
     name: 'SD (1.5 + Turbo) VAE Decoder',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -2536,6 +2634,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
+    tag: '',
     id: 'sd_2_1_vae_decoder',
     name: 'SD 2.1 VAE Decoder',
     description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -2557,6 +2656,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
+    tag: '',
     id: 'sd_2_1_vae_encoder',
     name: 'SD 2.1 VAE Encoder',
     description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -2578,6 +2678,7 @@ export let models = [
   },
   {
     category: 'Semantic Segmentation',
+    tag: '2h',
     id: 'segment_anything_decoder',
     name: 'Segment Anything Decoder',
     description: 'An AI model from Meta AI that can cut out any object in any image.',
@@ -2599,6 +2700,7 @@ export let models = [
   },
   {
     category: 'Semantic Segmentation',
+    tag: '2h',
     id: 'segment_anything_decoder_fp16',
     name: 'Segment Anything Decoder',
     description: 'An AI model from Meta AI that can cut out any object in any image.',
@@ -2620,6 +2722,7 @@ export let models = [
   },
   {
     category: 'Semantic Segmentation',
+    tag: '2h',
     id: 'segment_anything_encoder_fp16',
     name: 'Segment Anything Encoder',
     description: 'An AI model from Meta AI that can cut out any object in any image.',
@@ -2637,6 +2740,7 @@ export let models = [
 
   {
     category: 'Semantic Segmentation',
+    tag: '',
     id: 'selfie_segmentation_general',
     name: 'Selfie Segmentation General',
     description: 'Easily separate the background from users within a scene and focus on what matters.',
@@ -2651,6 +2755,7 @@ export let models = [
   },
   {
     category: 'Semantic Segmentation',
+    tag: '',
     id: 'selfie_segmentation_landscape',
     name: 'Selfie Segmentation Landscape',
     description: 'Easily separate the background from users within a scene and focus on what matters.',
@@ -2665,6 +2770,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    tag: '',
     id: 'shufflenet_fp16',
     name: 'ShuffleNet',
     description: 'An Extremely Efficient Convolutional Neural Network for Mobile Devices',
@@ -2694,6 +2800,7 @@ export let models = [
   ...squeezebertUncased(),
   {
     category: 'Image Classification',
+    tag: '2h',
     id: 'squeezenet',
     name: 'SqueezeNet 1.1',
     description: 'A deep convolutional neural network (CNN) perform image classification.',
@@ -2708,6 +2815,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
+    tag: '2h',
     id: 'squeezenet_fp16',
     name: 'SqueezeNet 1.0',
     description: 'A deep convolutional neural network (CNN) perform image classification.',
@@ -2722,6 +2830,7 @@ export let models = [
   },
   {
     category: 'Object Detection',
+    tag: '',
     id: 'ssd_fp16',
     name: 'SSD',
     description: 'Single-Shot multibox Detection (SSD) network for detecting objects in images using a single deep neural network',
@@ -2736,6 +2845,7 @@ export let models = [
   },
   {
     category: 'Object Detection',
+    tag: '',
     id: 'ssd_mobilenet_v1_fp16',
     name: 'SSD MobileNet v1',
     description: 'Single-Shot multibox Detection (SSD) network intended to perform object detection',
@@ -2745,7 +2855,7 @@ export let models = [
     size: '16.9 MB',
     format: 'onnx',
     datatype: 'fp16',
-    inputs: [{ 'inputs': ['uint8', 1, [1, 224, 224, 3], {"unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
+    inputs: [{ 'inputs': ['uint8', 1, [1, 224, 224, 3], { "unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
     inputstip: '[1, 224, 224, 3]'
   },
   // {
@@ -2783,6 +2893,7 @@ export let models = [
 
   {
     category: 'Object Detection',
+    tag: '',
     id: 'tinyyolo_v2',
     name: 'Tiny YOLO v2',
     description: '[1, 3, 416, 416] / A real-time neural network for object detection.',
@@ -2806,6 +2917,7 @@ export let models = [
   ...whisperTinyEncoder(),
   {
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: 'whisper_base_decoder_static_merged',
     name: 'Whisper Base Decoder Static Shape KV-Cache',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2824,6 +2936,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: 'whisper_base_decoder_static',
     name: 'Whisper Base Decoder Static Shape Non-KV-Cache',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2842,6 +2955,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: 'whisper_base_encoder',
     name: 'Whisper Base Encoder',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2855,9 +2969,10 @@ export let models = [
       'input_features': ['float32', 'random', [1, 80, 3000], {}]
     }],
     inputstip: '[1, 80, 3000]'
-  }, 
+  },
   {
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: 'whisper_base_decoder_static_fp16_merged',
     name: 'Whisper Base Decoder Static Shape KV-Cache (LayerNorm)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2876,6 +2991,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: 'whisper_base_decoder_static_gelu_fp16_merged',
     name: 'Whisper Base Decoder Static Shape KV-Cache (LayerNorm + Gelu)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2894,6 +3010,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: 'whisper_base_decoder_static_gelu_4dmask_fp16_merged',
     name: 'Whisper Base Decoder Static Shape KV-Cache (LayerNorm + Gelu + 4dmask)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2912,6 +3029,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: 'whisper_base_decoder_static_fp16',
     name: 'Whisper Base Decoder Static Shape Non-KV-Cache (LayerNorm)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2930,6 +3048,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: 'whisper_base_decoder_static_gelu_fp16',
     name: 'Whisper Base Decoder Static Shape Non-KV-Cache (LayerNorm + Gelu)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2948,6 +3067,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: 'whisper_base_decoder_static_gelu_4dmask_fp16',
     name: 'Whisper Base Decoder Static Shape Non-KV-Cache (LayerNorm + Gelu + 4dmask)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2966,6 +3086,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: 'whisper_base_encoder_fp16',
     name: 'Whisper Base Encoder (LayerNorm)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2982,6 +3103,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
+    tag: '2h',
     id: 'whisper_base_encoder_gelu_fp16',
     name: 'Whisper Base Encoder (LayerNorm + Gelu)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2999,6 +3121,7 @@ export let models = [
   ...xlmRobertaBase(),
   {
     category: 'Object Detection',
+    tag: '',
     id: 'yolo_v3_fp16',
     name: 'YOLO v3',
     description: 'YOLOv3 (You Only Look Once, Version 3) is a real-time object detection algorithm that identifies specific objects in videos, live feeds or images',
@@ -3009,7 +3132,7 @@ export let models = [
     format: 'onnx',
     datatype: 'fp16',
     inputs: [{
-      'input_1': ['float16', 'random', [1, 3, 416, 416], { "unk__576": 1, "unk__577": 416, "unk__578": 416 }], 
+      'input_1': ['float16', 'random', [1, 3, 416, 416], { "unk__576": 1, "unk__577": 416, "unk__578": 416 }],
       'image_shape': ['float16', 'random', [1, 2], { "unk__579": 1 }]
     }],
     inputstip: '[1, 3, 416, 416]'

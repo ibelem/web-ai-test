@@ -847,6 +847,36 @@ header .nav {
   fill: var(--orange) !important;
 }
 
+.tagH {
+  overflow:hidden;
+  position:relative;
+}
+
+.tag {
+  position: absolute;
+  right: -18px;
+  font-size: 10px;
+  padding: 15px 10px;
+  transform: translate(0%, 0) rotate(45deg);
+  transform-origin: center;
+}
+
+.fp32 .tag, .fp16 .tag, .int8 .tag {
+  background: var(--grey);
+}
+
+.fp32.tq .q:hover .tag {
+  background: var(--red);
+}
+
+.fp16.tq .q:hover .tag {
+  background: var(--fp16);
+}
+
+.int8.tq .q:hover .tag {
+  background: var(--p);
+}
+
 @keyframes blink {
   0% {
     opacity: 1;

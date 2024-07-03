@@ -519,6 +519,11 @@ export const getModelTypeById = (id) => {
   return model?.format;
 }
 
+export const getModelTagById = (id) => {
+  const model = models.find(item => item.id === id);
+  return model?.tag;
+}
+
 export const getModelCategoryById = (id) => {
   const model = models.find(item => item.id === id);
   return model?.category;
