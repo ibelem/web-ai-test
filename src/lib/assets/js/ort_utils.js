@@ -88,7 +88,11 @@ const getFeeds = (session, modelName) => {
       const v = inputNames[k];
       if (v.startsWith('past_key_values.')) {
         if (modelName.indexOf('phi_3_mini_4k_instruct_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 32, 128, 96]);
+          feeds[v] = getTensor('float32', 1, [1, 32, 0, 96]);
+        } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp32') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int8') > -1) {
+          feeds[v] = getTensor('float32', 1, [1, 4, 0, 64]);
+        } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp16') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int4') > -1) {
+          feeds[v] = getTensor('float16', 1, [1, 4, 0, 64]);
         } else if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
         } else if (modelName.indexOf('distilgpt2_decoder_') > -1) {
@@ -129,6 +133,8 @@ const getTensor = (type, data, dims) => {
   let typedArray;
   if (type === 'bool') {
     return new ort.Tensor(type, [data], [1]);
+  } else if (type === 'int4') {
+    typedArray = Int8Array;
   } else if (type === 'int8') {
     typedArray = Int8Array;
   } else if (type === 'uint8') {
@@ -322,7 +328,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     let externalDataPath = modelPath.replace(modelHFFile, externalDataName);
     options.externalData = [
       {
-        path: `./${externalDataName}`,
+        path: externalDataName,
         data: externalDataPath
       }
     ];

@@ -1264,11 +1264,11 @@ const phi3Mini4kInstruct = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
-      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
-      'position_ids': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
+      'attention_mask': ['int64', 1n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
+      'position_ids': ['int64', 1n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
     }],
-    inputstip: '[1, 128] [1, 128] [1, 128]'
+    inputstip: '[1, 17] [1, 17] [1, 17]'
   }))
 }
 
@@ -1546,6 +1546,68 @@ const t5SmallEncoder = () => {
       'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
     }],
     inputstip: '[1, 128] [1, 128]'
+  }))
+}
+
+const tinyLlama1_1BChatv1_0Merged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '2.00 MB', 'decoder_model_merged.onnx_data', '4.09 GB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '1.02 GB', '', ''],
+  ]
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `tinyllama_1_1b_chat_v1_0_merged_${dt}`,
+    name: 'TinyLlama 1.1B Chat v1.0 KV-Cache',
+    description: 'This is the chat model finetuned on top of TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T. ',
+    note: 'Large model with external data. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/TinyLlama-1.1B-Chat-v1.0',
+    hf: {
+      model: 'xenova/tinyllama-1.1b-chat-v1.0',
+      file: `${file}`,
+      externalData: `${externalData}`
+    },
+    model: '',
+    size: `${size} ${edSize}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+      'attention_mask': ['int64', 1n, [1, 41], { "batch_size": 1, "past_sequence_length + 1": 41 }],
+      'position_ids': ['int64', 1n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+    }],
+    inputstip: '[1, 41] [1, 41] [1, 41]'
+  }))
+}
+
+const tinyLlama1_1BChatv1_0Merged_2 = () => {
+  const configs = [
+    ['fp16', 'decoder_model_merged_fp16.onnx', '1.80 GB', 'decoder_model_merged.onnx.data', '250 MB'],
+    ['int4', 'decoder_model_merged_int4.onnx', '681 MB', '', ''],
+  ]
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `tinyllama_1_1b_chat_v1_0_merged_${dt}`,
+    name: 'TinyLlama 1.1B Chat v1.0 KV-Cache',
+    description: 'This is the chat model finetuned on top of TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T. ',
+    note: 'Large model with external data. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/webml/TinyLlama-1.1B-Chat-v1.0',
+    hf: {
+      model: 'webml/tinyllama-1.1b-chat-v1.0',
+      file: `${file}`,
+      externalData: `${externalData}`
+    },
+    model: '',
+    size: `${size} ${edSize}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+      'attention_mask': ['int64', 1n, [1, 41], { "batch_size": 1, "past_sequence_length + 1": 41 }],
+      'position_ids': ['int64', 1n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+    }],
+    inputstip: '[1, 41] [1, 41] [1, 41]'
   }))
 }
 
@@ -2921,7 +2983,8 @@ export let models = [
   ...t5SmallDecoderWithPast(),
   ...t5SmallDecoderMerged(),
   ...t5SmallEncoder(),
-
+  ...tinyLlama1_1BChatv1_0Merged(),
+  ...tinyLlama1_1BChatv1_0Merged_2(),
   {
     category: 'Object Detection',
     tag: '',

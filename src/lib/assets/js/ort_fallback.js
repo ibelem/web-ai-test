@@ -1,6 +1,6 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '$lib/config';
-import { updateTestQueueStatus, addResult, updateInfo, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById } from '../js/utils';
+import { updateTestQueueStatus, addResult, updateInfo, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getModelHFFileById, getModelExternalDataNameById } from '../js/utils';
 import { ortWebVersionStore, fallbackQueueStore, testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { sleep, updateFallbackLog, addFallback } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
@@ -277,6 +277,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     }
   }
 
+  let modelPath = getModelUrl(_model);
+  
   let options = {
     executionProviders: [
       {
@@ -289,6 +291,18 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     ],
     //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
   };
+
+  const externalDataName = getModelExternalDataNameById(_model);
+  if(externalDataName) {
+    const modelHFFile = getModelHFFileById(_model);
+    let externalDataPath = modelPath.replace(modelHFFile, externalDataName);
+    options.externalData = [
+      {
+        path: `${externalDataName}`,
+        data: externalDataPath
+      }
+    ];
+  }
 
   let everything;
 
@@ -317,9 +331,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   updateTestQueueStatus(_id, 2);
 
-  let modelPath = getModelUrl(_model);
   updateFallbackLog(`[1] Downloading model from ${modelPath}`);
-
   updateFallbackLog(`[2] Downloaded ${_model} model`);
 
   let modelBuffer = await getModelOPFS(_model, modelPath, false);

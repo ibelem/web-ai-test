@@ -1,6 +1,6 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '$lib/config';
-import { compareObjects, maxDiff, addConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, clearConformance } from './utils';
+import { compareObjects, maxDiff, addConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getModelHFFileById, getModelExternalDataNameById,  } from './utils';
 import { ortWebVersionStore, sleepStore, modelDownloadUrlStore, conformanceStore } from '../../store/store';
 import { getGpu, getModelHFUrlById, getModelCategoryById, getModelDescriptionById, getModelInputsRawById, getModelNameById, getModelSizeById } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
@@ -75,6 +75,10 @@ const getFeeds = (session, modelName) => {
       if (v.startsWith('past_key_values.')) {
         if (modelName.indexOf('phi_3_mini_4k_instruct_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 32, 128, 96]);
+        } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp32') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int8') > -1) {
+          feeds[v] = getTensor('float32', 1, [1, 4, 0, 64]);
+        } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp16') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int4') > -1) {
+          feeds[v] = getTensor('float16', 1, [1, 4, 0, 64]);
         } else if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
         } else if (modelName.indexOf('distilgpt2_decoder_') > -1) {
@@ -115,6 +119,8 @@ const getTensor = (type, data, dims) => {
   let typedArray;
   if (type === 'bool') {
     return new ort.Tensor(type, [data], [1]);
+  } else if (type === 'int4') {
+    typedArray = Int8Array;
   } else if (type === 'int8') {
     typedArray = Int8Array;
   } else if (type === 'uint8') {
@@ -353,6 +359,8 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
     }
   }
 
+  let modelPath = getModelUrl(_model);
+
   let options = {
     executionProviders: [
       {
@@ -365,6 +373,18 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
     ],
     //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
   };
+
+  const externalDataName = getModelExternalDataNameById(_model);
+  if(externalDataName) {
+    const modelHFFile = getModelHFFileById(_model);
+    let externalDataPath = modelPath.replace(modelHFFile, externalDataName);
+    options.externalData = [
+      {
+        path: `${externalDataName}`,
+        data: externalDataPath
+      }
+    ];
+  }
 
   // options.logSeverityLevel = 0;
   // options.logVerbosityLevel = 0;
@@ -394,9 +414,6 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
   l(freeDimensionOverrides);
 
   updateConformanceLog(`[1] Testing ${_model} (${_modelType}/${_dataType}) conformance with ${_backend} backend on ${getGpu()}`);
-
-  let modelPath = getModelUrl(_model);
-
   updateConformanceLog(`[2] Downloading model from ${modelPath}`);
 
   let modelBuffer = await getModelOPFS(_model, modelPath, false);

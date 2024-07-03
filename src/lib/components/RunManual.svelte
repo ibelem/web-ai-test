@@ -190,7 +190,6 @@
 		<div id="modeldesc" class="true {dataType} reverse">
 			<span class="modeldes">{category}</span>
 			<span class="modeldes">{id}</span>
-			<span class="modeldes">{modelName}</span>
 			<span class="modeldes">{modelType}</span>
 			<span class="modeldes">{dataType}</span>
 			{#if inputs}
