@@ -27,7 +27,8 @@
 	let dataTypes = {
 		fp32: { selected: false, show: false },
 		fp16: { selected: false, show: false },
-		int8: { selected: false, show: false }
+		int8: { selected: false, show: false },
+		int4: { selected: false, show: false }
 		// int64: { selected: false, show: false }
 	};
 
@@ -112,7 +113,7 @@
 		dataTypesFromUrl = trimComma(dataTypesFromUrl);
 
 		if (dataTypesFromUrl === 'all') {
-			dataTypesFromUrl = ['fp32', 'fp16', 'int8'];
+			dataTypesFromUrl = ['fp32', 'fp16', 'int8', 'int4'];
 			// dataTypesFromUrl = ['fp32', 'fp16', 'int8', 'int64'];
 		} else {
 			dataTypesFromUrl = stringToArray(dataTypesFromUrl);
@@ -171,6 +172,12 @@
 			<label class="extra {dataTypes.int8.selected} int8" title="INT8">
 				<input type="checkbox" on:change={() => toggleDataType('int8')} />
 				INT8
+			</label>
+		{/if}
+		{#if dataTypes.int4.show}
+			<label class="extra {dataTypes.int4.selected} int8" title="INT4">
+				<input type="checkbox" on:change={() => toggleDataType('int4')} />
+				INT4
 			</label>
 		{/if}
 	</div>

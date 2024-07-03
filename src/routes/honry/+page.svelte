@@ -263,26 +263,6 @@
 {/if}
 
 {#if sortedModels && sortedModels.length > 0}
-	<div class="title tq">Float32</div>
-	<div class="ho">
-		{#each sortedModels as m}
-			{#if m.id !== 'model_access_check'}
-				{#if getModelDataTypeById(m.id) === 'fp32'}
-					<div class="fb2">
-						<span
-							title="{m.id.replaceAll('_', '-')} · {getModelNameById(
-								m.id
-							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
-							>{getModelNameById(m.id)}</span
-						>
-						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
-						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>
-					</div>
-				{/if}
-			{/if}
-		{/each}
-	</div>
-
 	<div class="title tq fp16">Float16</div>
 	<div class="ho fp16">
 		{#each sortedModels as m}
@@ -308,6 +288,46 @@
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
 				{#if getModelDataTypeById(m.id) === 'int8'}
+					<div class="fb2">
+						<span
+							title="{m.id.replaceAll('_', '-')} · {getModelNameById(
+								m.id
+							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
+							>{getModelNameById(m.id)}</span
+						>
+						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
+						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq int4">Int4</div>
+	<div class="ho int4">
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'int4'}
+					<div class="fb2">
+						<span
+							title="{m.id.replaceAll('_', '-')} · {getModelNameById(
+								m.id
+							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
+							>{getModelNameById(m.id)}</span
+						>
+						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
+						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq">Float32</div>
+	<div class="ho">
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'fp32'}
 					<div class="fb2">
 						<span
 							title="{m.id.replaceAll('_', '-')} · {getModelNameById(

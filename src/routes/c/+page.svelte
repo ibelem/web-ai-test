@@ -269,37 +269,6 @@
 	</div>
 {/if}
 
-<div class="title tq">Float32</div>
-<div class="ho">
-	{#each sortedModels as m}
-		{#if m.id !== 'model_access_check'}
-			{#if getModelDataTypeById(m.id) === 'fp32'}
-				<div class="b">
-					<div
-						class="t"
-						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
-							m.id
-						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}
-					"
-					>
-						{getModelNameById(m.id)}
-					</div>
-					<div class="i">
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_4')}
-							>WebNN CPU
-						</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
-						<a class="fb2 npu" href="#top" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
-					</div>
-				</div>
-			{/if}
-		{/if}
-	{/each}
-</div>
-
 <div class="title tq fp16">Float16</div>
 <div class="ho">
 	{#each sortedModels as m}
@@ -361,6 +330,66 @@
 	{/each}
 </div>
 
+<div class="title tq int4">Int4</div>
+<div class="ho">
+	{#each sortedModels as m}
+		{#if m.id !== 'model_access_check'}
+			{#if getModelDataTypeById(m.id) === 'int4'}
+				<div class="b">
+					<div
+						class="t"
+						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
+							m.id
+						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
+					>
+						{getModelNameById(m.id)}
+					</div>
+					<div class="i">
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_4')}
+							>WebNN CPU
+						</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
+						<a class="fb2 npu" href="#top" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
+					</div>
+				</div>
+			{/if}
+		{/if}
+	{/each}
+</div>
+
+<div class="title tq">Float32</div>
+<div class="ho">
+	{#each sortedModels as m}
+		{#if m.id !== 'model_access_check'}
+			{#if getModelDataTypeById(m.id) === 'fp32'}
+				<div class="b">
+					<div
+						class="t"
+						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
+							m.id
+						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}
+					"
+					>
+						{getModelNameById(m.id)}
+					</div>
+					<div class="i">
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_4')}
+							>WebNN CPU
+						</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
+						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
+						<a class="fb2 npu" href="#top" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
+					</div>
+				</div>
+			{/if}
+		{/if}
+	{/each}
+</div>
 <Environment />
 <Footer />
 

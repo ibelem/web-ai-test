@@ -64,7 +64,8 @@
 	let dataTypes = {
 		fp32: false,
 		fp16: false,
-		int8: false
+		int8: false,
+		int4: false
 		// int64: false
 	};
 
@@ -137,7 +138,7 @@
 				}
 			} else if (urlDataTypes === 'all') {
 				// let removedDataTypes = removeStringFromArray(['fp32', 'fp16', 'int8', 'int64'], datatype);
-				let removedDataTypes = removeStringFromArray(['fp32', 'fp16', 'int8'], datatype);
+				let removedDataTypes = removeStringFromArray(['fp32', 'fp16', 'int8', 'int4'], datatype);
 				urlDataTypes = arrayToStringWithComma(removedDataTypes);
 			}
 		}
@@ -365,7 +366,7 @@
 		dataTypesFromUrl = trimComma(dataTypesFromUrl);
 
 		if (dataTypesFromUrl === 'all') {
-			dataTypesFromUrl = ['fp32', 'fp16', 'int8'];
+			dataTypesFromUrl = ['fp32', 'fp16', 'int8', 'int4'];
 			// dataTypesFromUrl = ['fp32', 'fp16', 'int8', 'int64'];
 		} else {
 			dataTypesFromUrl = stringToArray(dataTypesFromUrl);
@@ -488,6 +489,10 @@
 	<label class="extra {dataTypes.int8.toString()} int8" title="INT8">
 		<input type="checkbox" on:change={() => toggleDataType('int8')} />
 		INT8
+	</label>
+	<label class="extra {dataTypes.int4.toString()} int4" title="INT4">
+		<input type="checkbox" on:change={() => toggleDataType('int4')} />
+		INT4
 	</label>
 </div>
 

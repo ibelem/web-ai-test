@@ -38,7 +38,8 @@
 	let conformanceDataTypeOptions = {
 		fp32: true,
 		fp16: true,
-		int8: true
+		int8: true,
+		int4: true
 	};
 
 	const filter = () => {
@@ -47,9 +48,12 @@
 				return true;
 			} else if (item.name.includes('_int8') && conformanceDataTypeOptions.int8) {
 				return true;
+			} else if (item.name.includes('_int4') && conformanceDataTypeOptions.int4) {
+				return true;
 			} else if (
 				!item.name.includes('_fp16') &&
 				!item.name.includes('_int8') &&
+				!item.name.includes('_int4') &&
 				conformanceDataTypeOptions.fp32
 			) {
 				return true;
@@ -63,7 +67,8 @@
 		if (
 			conformanceDataTypeOptions.fp32 === false &&
 			conformanceDataTypeOptions.fp16 === false &&
-			conformanceDataTypeOptions.int8 === false
+			conformanceDataTypeOptions.int8 === false &&
+			conformanceDataTypeOptions.int4 === false
 		) {
 			conformanceDataTypeOptions.fp32 = true;
 		}
@@ -109,6 +114,13 @@
 					tabindex="0"
 					on:keydown={() => {}}
 					on:click={() => toggleDataIndex('int8')}>INT8</span
+				>
+				<span
+					class="int4 {conformanceDataTypeOptions.int4}"
+					role="button"
+					tabindex="0"
+					on:keydown={() => {}}
+					on:click={() => toggleDataIndex('int4')}>INT4</span
 				>
 			</div>
 			<div class="result">

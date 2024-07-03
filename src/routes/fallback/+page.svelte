@@ -169,6 +169,11 @@
 			let model = m.map((model) => model.id);
 			model = addSuffixes(model, bk);
 			updateFallbackQueue(model);
+		} else if (id === 'int4') {
+			let m = models.filter((model) => getModelDataTypeById(model.id) === 'int4');
+			let model = m.map((model) => model.id);
+			model = addSuffixes(model, bk);
+			updateFallbackQueue(model);
 		} else {
 			let m = models.map((model) => model.id);
 			let model = [m.find((item) => item === id)];
@@ -367,24 +372,6 @@
 {/if}
 
 {#if sortedModels && sortedModels.length > 0}
-	<div class="title tq"><button on:click={() => setFallbackQueue('fp32')}>Float32</button></div>
-	<div class="ho">
-		{#each sortedModels as m}
-			{#if m.id !== 'model_access_check'}
-				{#if getModelDataTypeById(m.id) === 'fp32'}
-					<span
-						class="q tests f"
-						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
-							m.id
-						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
-					>
-						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
-					</span>
-				{/if}
-			{/if}
-		{/each}
-	</div>
-
 	<div class="title tq fp16">
 		<button on:click={() => setFallbackQueue('fp16')}>Float16</button>
 	</div>
@@ -424,6 +411,42 @@
 			{/each}
 		</div>
 	{/if}
+
+	<div class="title tq int4"><button on:click={() => setFallbackQueue('int4')}>Int4</button></div>
+	<div class="ho int4">
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'int4'}
+					<span
+						class="q tests f"
+						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
+							m.id
+						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
+					>
+						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
+					</span>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq"><button on:click={() => setFallbackQueue('fp32')}>Float32</button></div>
+	<div class="ho">
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'fp32'}
+					<span
+						class="q tests f"
+						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
+							m.id
+						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
+					>
+						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
+					</span>
+				{/if}
+			{/if}
+		{/each}
+	</div>
 {/if}
 
 <Fallback />

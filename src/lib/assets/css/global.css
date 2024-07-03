@@ -726,6 +726,23 @@ header .nav {
 		background-color: var(--p);
 	}
 
+  .figure.options .int4 {
+		background-color: var(--int4-005);
+	}
+
+	.figure.options .int4:hover,
+	.figure.options .int4.true:hover {
+		background-color: var(--int4-005);
+		border: 1px solid var(--int4);
+		padding: 0px 10px;
+		color: var(--int4);
+	}
+
+	.figure.options .int4.true {
+		color: var(--white);
+		background-color: var(--int4);
+	}
+
 .result .q .data .compilation:hover, .figure .compilation.true {
   background-color: var(--comp);
   color: var(--white);
@@ -861,7 +878,7 @@ header .nav {
   transform-origin: center;
 }
 
-.fp32 .tag, .fp16 .tag, .int8 .tag {
+.fp32 .tag, .fp16 .tag, .int8 .tag, .int4 .tag {
   background: var(--grey);
 }
 
@@ -875,6 +892,10 @@ header .nav {
 
 .int8.tq .q:hover .tag {
   background: var(--p);
+}
+
+.int4.tq .q:hover .tag {
+  background: var(--int4);
 }
 
 @keyframes blink {
@@ -1307,6 +1328,26 @@ padding: 2px 4px 2px 4px;
   fill: var(--p) !important;
 }
 
+.config label.false.extra.int4:hover
+{  
+  border: 1px solid var(--int4) !important;
+  color: var(--int4);
+  background-color: var(--int4-01);
+}
+
+.config label.true.extra.int4:hover
+{  
+  border: 1px solid var(--int4) !important;
+  color: var(--int4);
+  background-image: none !important;
+  background-color: var(--int4-01);
+}
+
+.config label.extra.int4:hover svg path
+{  
+  fill: var(--int4) !important;
+}
+
 .models label.false.extra.int64:hover {
   border: 1px solid var(--blue) !important;
   color: var(--blue);
@@ -1353,6 +1394,22 @@ padding: 2px 4px 2px 4px;
 
 .config label.true.extra.int8 {
   background-image: linear-gradient(to right, var(--p-09) 0%,  var(--p) 100%) !important;
+}
+
+.models label.false.extra.int4:hover {
+  border: 1px solid var(--int4) !important;
+  color: var(--int4);
+  background-color: var(--int4-01);
+}
+
+.models label.true.extra.int4:hover {
+  color: var(--int4);
+  background-image: none !important;
+  background-color: var(--int4-01);
+}
+
+.config label.true.extra.int4 {
+  background-image: linear-gradient(to right, var(--int4-09) 0%,  var(--int4) 100%) !important;
 }
 
 #modeldesc {
@@ -1443,6 +1500,16 @@ padding: 2px 4px 2px 4px;
   color: var(--white);
 }
 
+#modeldesc.int4 .modeldes {
+  background-color: var(--int4);
+  color: var(--white);
+}
+
+#modeldesc.int4 .modeldes:hover {
+  background-color: var(--int4);
+  color: var(--white);
+}
+
 #modeldesc .note {
   display: inline-block;
   color: var(--white);
@@ -1464,6 +1531,10 @@ padding: 2px 4px 2px 4px;
 
 #modeldesc.int8 .note {
   background-color: var(--p);
+}
+
+#modeldesc.int4 .note {
+  background-color: var(--int4);
 }
 
 #modeldesc .note svg {
@@ -1807,6 +1878,14 @@ background-color: var(--fp16-005);
 background-color: var(--p-005);
 }
 
+.title.int4, .title.tq.int4 button {
+  color: var(--int4) !important;
+}
+
+.title.tq.int4 {
+background-color: var(--int4-005);
+}
+
 .ho {
   display: flex;
   flex-wrap: wrap;
@@ -1852,6 +1931,12 @@ background-color: var(--p-005);
   background-color: var(--p-005);
   color: var(--p);
   border: 1px solid var(--p) !important;
+}
+
+.int4 .f button:hover {
+  background-color: var(--int4-005);
+  color: var(--int4);
+  border: 1px solid var(--int4) !important;
 }
 
 #mynetwork canvas {

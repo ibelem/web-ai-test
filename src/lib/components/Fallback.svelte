@@ -48,7 +48,8 @@
 	let fallbackDataTypeOptions = {
 		fp32: true,
 		fp16: true,
-		int8: true
+		int8: true,
+		int4: true
 	};
 
 	const filter = () => {
@@ -59,9 +60,12 @@
 				return true;
 			} else if (item.name.includes('_int8') && fallbackDataTypeOptions.int8) {
 				return true;
+			} else if (item.name.includes('_int4') && fallbackDataTypeOptions.int4) {
+				return true;
 			} else if (
 				!item.name.includes('_fp16') &&
 				!item.name.includes('_int8') &&
+				!item.name.includes('_int4') &&
 				fallbackDataTypeOptions.fp32
 			) {
 				return true;
@@ -87,7 +91,8 @@
 		if (
 			fallbackDataTypeOptions.fp32 === false &&
 			fallbackDataTypeOptions.fp16 === false &&
-			fallbackDataTypeOptions.int8 === false
+			fallbackDataTypeOptions.int8 === false &&
+			fallbackDataTypeOptions.int4 === false
 		) {
 			fallbackDataTypeOptions.fp32 = true;
 		}
@@ -155,6 +160,13 @@
 					tabindex="0"
 					on:keydown={() => {}}
 					on:click={() => toggleDataIndex('int8')}>INT8</span
+				>
+				<span
+					class="int4 {fallbackDataTypeOptions.int4}"
+					role="button"
+					tabindex="0"
+					on:keydown={() => {}}
+					on:click={() => toggleDataIndex('int4')}>INT4</span
 				>
 			</div>
 			<div class="result">

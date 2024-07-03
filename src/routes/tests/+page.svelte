@@ -91,54 +91,6 @@
 </div>
 
 <div>
-	<div class="title tq">FLOAT32</div>
-	<div class="tq benchmark fp32">
-		{#each uniqueModels as model}
-			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'fp32'}
-					<div
-						class="q tests {model} tagH"
-						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
-							model
-						)} · {getModelNoteById(model)}"
-					>
-						<div class="status_1 s">
-							<Clock />
-						</div>
-						{#if getModelTypeById(model) === 'onnx'}
-							<div class="onnx">
-								<Onnx />
-							</div>
-						{/if}
-
-						{#if getModelTypeById(model) === 'tflite'}
-							<div class="tflite">
-								<Tflite />
-							</div>
-						{/if}
-
-						{#if model.indexOf('_merged') > -1}
-							<span class="kvcache">KV-C</span>
-						{/if}
-
-						{#if model.indexOf('_with_past') > -1}
-							<span class="kvcache">PAST</span>
-						{/if}
-
-						<a href="{base}/run/{model}" class=""
-							>{getModelNameById(model)} ·
-							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
-						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
-					</div>
-				{/if}
-			{/if}
-		{/each}
-	</div>
-
 	<div class="title tq fp16">FLOAT16</div>
 	<div class="tq benchmark fp16">
 		{#each uniqueModels as model}
@@ -228,6 +180,99 @@
 			{/each}
 		</div>
 	{/if}
+
+	<div class="title tq int4">INT4</div>
+	<div class="tq benchmark int4">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if getModelDataTypeById(model) === 'int4'}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s">
+							<Clock />
+						</div>
+						{#if getModelTypeById(model) === 'onnx'}
+							<div class="onnx">
+								<Onnx />
+							</div>
+						{/if}
+
+						{#if getModelTypeById(model) === 'tflite'}
+							<div class="tflite">
+								<Tflite />
+							</div>
+						{/if}
+
+						{#if model.indexOf('_merged') > -1}
+							<span class="kvcache">KV-C</span>
+						{/if}
+
+						<a href="{base}/run/{model}" class=""
+							>{getModelNameById(model)} ·
+							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq">FLOAT32</div>
+	<div class="tq benchmark fp32">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if getModelDataTypeById(model) === 'fp32'}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s">
+							<Clock />
+						</div>
+						{#if getModelTypeById(model) === 'onnx'}
+							<div class="onnx">
+								<Onnx />
+							</div>
+						{/if}
+
+						{#if getModelTypeById(model) === 'tflite'}
+							<div class="tflite">
+								<Tflite />
+							</div>
+						{/if}
+
+						{#if model.indexOf('_merged') > -1}
+							<span class="kvcache">KV-C</span>
+						{/if}
+
+						{#if model.indexOf('_with_past') > -1}
+							<span class="kvcache">PAST</span>
+						{/if}
+
+						<a href="{base}/run/{model}" class=""
+							>{getModelNameById(model)} ·
+							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
 
 	<Environment />
 	<Info />

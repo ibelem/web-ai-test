@@ -1242,6 +1242,35 @@ const paraphraseMultilingualMpnetBaseV2 = () => {
   }))
 }
 
+const phi3Mini4kInstruct = () => {
+  const configs = [
+    ['int4', 'model_q4.onnx', '0.98 GB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `phi_3_mini_4k_instruct_${dt}`,
+    name: 'Phi 3 Mini 4k Instruct',
+    description: 'Phi-3 Mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-2 - synthetic data and filtered websites - with a focus on very high-quality, reasoning dense data.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/Phi-3-mini-4k-instruct',
+    hf: {
+      model: 'xenova/phi-3-mini-4k-instruct',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'position_ids': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128]'
+  }))
+}
+
 const samVitBase = () => {
   const configs = [
     ['fp32', 'model.onnx', '358 MB'],
@@ -2347,6 +2376,7 @@ export let models = [
   ...mt5SmallDecoderMerged(),
   ...mt5SmallEncoder(),
   ...paraphraseMultilingualMpnetBaseV2(),
+  ...phi3Mini4kInstruct(),
   {
     category: 'Image Classification',
     tag: '2h',

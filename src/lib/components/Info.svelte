@@ -88,7 +88,7 @@
 
 {#if testQueue.length > 0 && $page.url.pathname.length > 1}
 	<div class="info">
-		<div class="title tq">
+		<div class="title tq {testQueue[0].datatype}">
 			{testQueue[0].model}
 		</div>
 		<div class="s">
@@ -106,7 +106,7 @@
 			{/if}
 		</div>
 		{#if info.length > 0}
-			<div class="infodetails">
+			<div class="infodetails {testQueue[0].datatype}">
 				{info.slice(-1)}
 			</div>
 		{/if}
@@ -158,6 +158,18 @@
 		overflow: hidden;
 		color: var(--red);
 		height: 36px;
+	}
+
+	.infodetails.fp16 {
+		color: var(--fp16);
+	}
+
+	.infodetails.int8 {
+		color: var(--p);
+	}
+
+	.infodetails.int4 {
+		color: var(--int4);
 	}
 
 	.info .s {
