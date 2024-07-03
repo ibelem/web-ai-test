@@ -9,6 +9,10 @@ body {
   font-size: 13px;
 }
 
+code {
+  font-family: 'JetBrains Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 #layout {
   margin: 0 auto;
   width: 90%;

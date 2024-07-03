@@ -13,7 +13,6 @@
 		getModelDescriptionById,
 		getModelNoteById,
 		getModelNameById,
-		getModelInt8Count,
 		sortModelById,
 		resetFallback,
 		resetFallbackLog,
@@ -29,7 +28,6 @@
 	import Fallback from '$lib/components/Fallback.svelte';
 
 	$: rawConsole = 'Raw console log for WebNN EP developers';
-	$: int8Count = 0;
 
 	/**
 	 * @type {string[]}
@@ -255,7 +253,6 @@
 
 	onMount(async () => {
 		sortedModels = sortModelById(models);
-		int8Count = getModelInt8Count(models);
 		await setModelDownloadUrl();
 		if (fallbackQueue.length > 0) {
 			run();
@@ -392,25 +389,23 @@
 		{/each}
 	</div>
 
-	{#if int8Count > 0}
-		<div class="title tq int8"><button on:click={() => setFallbackQueue('int8')}>Int8</button></div>
-		<div class="ho int8">
-			{#each sortedModels as m}
-				{#if m.id !== 'model_access_check'}
-					{#if getModelDataTypeById(m.id) === 'int8'}
-						<span
-							class="q tests f"
-							title="{m.id.replaceAll('_', '-')} · {getModelNameById(
-								m.id
-							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
-						>
-							<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
-						</span>
-					{/if}
+	<div class="title tq int8"><button on:click={() => setFallbackQueue('int8')}>Int8</button></div>
+	<div class="ho int8">
+		{#each sortedModels as m}
+			{#if m.id !== 'model_access_check'}
+				{#if getModelDataTypeById(m.id) === 'int8'}
+					<span
+						class="q tests f"
+						title="{m.id.replaceAll('_', '-')} · {getModelNameById(
+							m.id
+						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
+					>
+						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
+					</span>
 				{/if}
-			{/each}
-		</div>
-	{/if}
+			{/if}
+		{/each}
+	</div>
 
 	<div class="title tq int4"><button on:click={() => setFallbackQueue('int4')}>Int4</button></div>
 	<div class="ho int4">

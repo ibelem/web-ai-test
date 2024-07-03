@@ -21,15 +21,13 @@
 		getModelTypeById,
 		getModelTagById,
 		sortModelById,
-		getModelSizeById,
-		getModelInt8Count
+		getModelSizeById
 	} from '$lib/assets/js/utils';
 
 	/**
 	 * @type {string[]}
 	 */
 	$: uniqueModels = [];
-	$: int8Count = 0;
 	let subModels = models;
 	let selected = 'onnx';
 
@@ -54,7 +52,6 @@
 		uniqueModels = sortModelById(subModels);
 		uniqueModels = [...new Set(uniqueModels.map((model) => model.id))];
 		uniqueModels = uniqueModels;
-		int8Count = getModelInt8Count(models);
 	});
 
 	onDestroy(() => {});
@@ -64,6 +61,7 @@
 
 <div class="tqtitle">
 	<div class="title tq">Benchmark Tests</div>
+	<div class="title">INT8 and INT4 models are not ready for testing</div>
 </div>
 
 <div class="modelselection">
@@ -135,51 +133,49 @@
 		{/each}
 	</div>
 
-	{#if int8Count > 0}
-		<div class="title tq int8">INT8</div>
-		<div class="tq benchmark int8">
-			{#each uniqueModels as model}
-				{#if model !== 'model_access_check'}
-					{#if getModelDataTypeById(model) === 'int8'}
-						<div
-							class="q tests {model} tagH"
-							title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
-								model
-							)} · {getModelNoteById(model)}"
-						>
-							<div class="status_1 s">
-								<Clock />
-							</div>
-							{#if getModelTypeById(model) === 'onnx'}
-								<div class="onnx">
-									<Onnx />
-								</div>
-							{/if}
-
-							{#if getModelTypeById(model) === 'tflite'}
-								<div class="tflite">
-									<Tflite />
-								</div>
-							{/if}
-
-							{#if model.indexOf('_merged') > -1}
-								<span class="kvcache">KV-C</span>
-							{/if}
-
-							<a href="{base}/run/{model}" class=""
-								>{getModelNameById(model)} ·
-								{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
-							>
-
-							{#if getModelTagById(model) === '2h'}
-								<div class="tag"></div>
-							{/if}
+	<div class="title tq int8">INT8</div>
+	<div class="tq benchmark int8">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if getModelDataTypeById(model) === 'int8'}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s">
+							<Clock />
 						</div>
-					{/if}
+						{#if getModelTypeById(model) === 'onnx'}
+							<div class="onnx">
+								<Onnx />
+							</div>
+						{/if}
+
+						{#if getModelTypeById(model) === 'tflite'}
+							<div class="tflite">
+								<Tflite />
+							</div>
+						{/if}
+
+						{#if model.indexOf('_merged') > -1}
+							<span class="kvcache">KV-C</span>
+						{/if}
+
+						<a href="{base}/run/{model}" class=""
+							>{getModelNameById(model)} ·
+							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
 				{/if}
-			{/each}
-		</div>
-	{/if}
+			{/if}
+		{/each}
+	</div>
 
 	<div class="title tq int4">INT4</div>
 	<div class="tq benchmark int4">
