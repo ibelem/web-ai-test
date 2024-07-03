@@ -1242,15 +1242,15 @@ const paraphraseMultilingualMpnetBaseV2 = () => {
   }))
 }
 
-const phi3Mini4kInstruct = () => {
+const phi3Mini4kInstructMerged = () => {
   const configs = [
     ['int4', 'model_q4.onnx', '0.98 GB', 'model_q4.onnx_data', '1.54 GB'],
   ]
   return configs.map(([dt, file, size, externalData, edSize]) => ({
     category: 'Text Generation',
     tag: '2h',
-    id: `phi_3_mini_4k_instruct_${dt}`,
-    name: 'Phi 3 Mini 4k Instruct',
+    id: `phi_3_mini_4k_instruct_merged_${dt}`,
+    name: 'Phi 3 Mini 4k Instruct KV-Cache',
     description: 'Phi-3 Mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-2 - synthetic data and filtered websites - with a focus on very high-quality, reasoning dense data.',
     note: 'Large model with external data. It is recommended to run tests on this large model individually rather than together with other models.',
     source: 'https://huggingface.co/Xenova/Phi-3-mini-4k-instruct',
@@ -2439,7 +2439,7 @@ export let models = [
   ...mt5SmallDecoderMerged(),
   ...mt5SmallEncoder(),
   ...paraphraseMultilingualMpnetBaseV2(),
-  ...phi3Mini4kInstruct(),
+  ...phi3Mini4kInstructMerged(),
   {
     category: 'Image Classification',
     tag: '2h',
