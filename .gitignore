@@ -6,6 +6,7 @@ node_modules
 /static/models/**.onnx
 /static/models/**/*.onnx
 /static/models/**/*.onnx_data
+/static/models/**/*.data
 /static/models/**.tflite
 /static/models/**/*.tflite
 .env

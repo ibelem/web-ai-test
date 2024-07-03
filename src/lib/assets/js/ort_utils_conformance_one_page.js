@@ -380,7 +380,7 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
     let externalDataPath = modelPath.replace(modelHFFile, externalDataName);
     options.externalData = [
       {
-        path: `${externalDataName}`,
+        path: externalDataName,
         data: externalDataPath
       }
     ];
