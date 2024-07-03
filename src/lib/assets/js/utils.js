@@ -534,6 +534,24 @@ export const getModelDataTypeById = (id) => {
   return model?.datatype;
 }
 
+export const getModelHFFileById = (id) => {
+  const model = models.find(item => item.id === id);
+  if(model?.hf && model?.hf.model && model?.hf.file) {
+    return model.hf.file;
+  } else {
+    return false;
+  }
+}
+
+export const getModelExternalDataNameById = (id) => {
+  const model = models.find(item => item.id === id);
+  if(model?.hf && model?.hf.model && model?.hf.externalData) {
+    return model.hf.externalData;
+  } else {
+    return false;
+  }
+}
+
 export const getModelInputsById = (id) => {
   const model = models.find(item => item.id === id);
   return model?.inputstip;

@@ -69,11 +69,13 @@ const getFeeds = (session, modelName) => {
     }
   }
 
-  if (modelName.indexOf('_merged') > -1 || modelName.indexOf('_with_past')> -1) {
+  if (modelName.indexOf('_merged') > -1 || modelName.indexOf('_with_past') > -1 || modelName.indexOf('phi_3_mini_4k_instruct') > -1) {
     for (var k in inputNames) {
       const v = inputNames[k];
       if (v.startsWith('past_key_values.')) {
-        if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
+        if (modelName.indexOf('phi_3_mini_4k_instruct_') > -1) {
+          feeds[v] = getTensor('float32', 1, [1, 32, 128, 96]);
+        } else if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
         } else if (modelName.indexOf('distilgpt2_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 12, 16, 64]);

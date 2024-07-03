@@ -1244,22 +1244,23 @@ const paraphraseMultilingualMpnetBaseV2 = () => {
 
 const phi3Mini4kInstruct = () => {
   const configs = [
-    ['int4', 'model_q4.onnx', '0.98 GB'],
+    ['int4', 'model_q4.onnx', '0.98 GB', 'model_q4.onnx_data', '1.54 GB'],
   ]
-  return configs.map(([dt, file, size]) => ({
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
     category: 'Text Generation',
     tag: '2h',
     id: `phi_3_mini_4k_instruct_${dt}`,
     name: 'Phi 3 Mini 4k Instruct',
     description: 'Phi-3 Mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-2 - synthetic data and filtered websites - with a focus on very high-quality, reasoning dense data.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model with external data. It is recommended to run tests on this large model individually rather than together with other models.',
     source: 'https://huggingface.co/Xenova/Phi-3-mini-4k-instruct',
     hf: {
       model: 'xenova/phi-3-mini-4k-instruct',
       file: `${file}`,
+      externalData: `${externalData}`
     },
     model: '',
-    size: `${size}`,
+    size: `${size} + ${edSize}`,
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
@@ -2926,7 +2927,7 @@ export let models = [
     tag: '',
     id: 'tinyyolo_v2',
     name: 'Tiny YOLO v2',
-    description: '[1, 3, 416, 416] / A real-time neural network for object detection.',
+    description: 'A real-time neural network for object detection.',
     note: '',
     source: 'https://github.com/onnx/models/raw/main/vision/object_detection_segmentation/tiny-yolov2/model/tinyyolov2-8.onnx',
     model: 'tinyyolov2-8.onnx',

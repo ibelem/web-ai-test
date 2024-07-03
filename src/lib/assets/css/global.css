@@ -1422,6 +1422,23 @@ padding: 2px 4px 2px 4px;
   color: rgba(255, 255, 255, 1);
 }
 
+#modeldesc.reverse {
+  background-color: transparent;
+  color: var(--font);
+  padding: 10px;
+  border: 1px solid var(--grey-02);
+  border-bottom: 0px;
+}
+
+#modeldesc.reverse:hover {
+  border: 1px solid var(--grey-04);
+  border-bottom: 0px;
+}
+
+#modeldesc.reverse .note, #modeldesc.reverse .modeldes {
+  border-radius: 0px;
+}
+
 .result .btn {
   border: 0px;
   background: transparent;
@@ -1517,24 +1534,70 @@ padding: 2px 4px 2px 4px;
   padding: 0px 10px;
   border-radius: 999px;
 }
-#modeldesc.fp32 .note {
-  background-color: var(--red);
+
+#modeldesc.reverse .modeldes {
+  background-color: transparent;
+  color: var(--font);
+  border: 1px solid var(--grey-02);
 }
 
-#modeldesc.fp16 .note {
-  background-color: var(--fp16);
+#modeldesc.reverse.fp32:hover .modeldes {
+  background-color: transparent;
+  color: var(--red);
+  border: 1px solid var(--red);
 }
 
-#modeldesc.int64 .note {
-  background-color: var(--blue);
+#modeldesc.reverse.fp16:hover .modeldes {
+  background-color: transparent;
+  color: var(--fp16);
+  border: 1px solid var(--fp16);
 }
 
-#modeldesc.int8 .note {
-  background-color: var(--p);
+#modeldesc.reverse.int64:hover .modeldes {
+  background-color: transparent;
+  color: var(--blue);
+  border: 1px solid var(--blue);
 }
 
-#modeldesc.int4 .note {
-  background-color: var(--int4);
+#modeldesc.reverse.int8:hover .modeldes {
+  background-color: transparent;
+  color: var(--p);
+  border: 1px solid var(--p);
+}
+
+#modeldesc.reverse.int4:hover .modeldes {
+  background-color: transparent;
+  color: var(--int4);
+  border: 1px solid var(--int4);
+}
+
+#modeldesc.reverse.fp32 .note {
+  background-color: transparent;
+  color: var(--font);
+}
+
+#modeldesc.reverse.fp16 .note {
+  background-color: transparent;
+  color: var(--font);
+}
+
+#modeldesc.reverse.int64 .note {
+  background-color: transparent;
+  color: var(--font);
+}
+
+#modeldesc.reverse.int8 .note {
+  background-color: transparent;
+  color: var(--font);
+}
+
+#modeldesc.reverse.int4 .note {
+  background-color: transparent;
+  color: var(--font);
+}
+
+#modeldesc.reverse .note svg path {
+  fill: var(--font);
 }
 
 #modeldesc .note svg {

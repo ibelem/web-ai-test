@@ -1,6 +1,6 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '$lib/config';
-import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, average, minimum } from '../js/utils';
+import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getModelHFFileById, getModelExternalDataNameById, getHfUrlById, getAwsUrlById, getLocalUrlById, average, minimum } from '../js/utils';
 import { ortWebVersionStore, testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { sleep, } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
@@ -83,11 +83,13 @@ const getFeeds = (session, modelName) => {
     }
   }
 
-  if (modelName.indexOf('_merged') > -1 || modelName.indexOf('_with_past')> -1) {
+  if (modelName.indexOf('_merged') > -1 || modelName.indexOf('_with_past') > -1 || modelName.indexOf('phi_3_mini_4k_instruct') > -1) {
     for (var k in inputNames) {
       const v = inputNames[k];
       if (v.startsWith('past_key_values.')) {
-        if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
+        if (modelName.indexOf('phi_3_mini_4k_instruct_') > -1) {
+          feeds[v] = getTensor('float32', 1, [1, 32, 128, 96]);
+        } else if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
         } else if (modelName.indexOf('distilgpt2_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 12, 16, 64]);
@@ -299,6 +301,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     }
   }
 
+  let modelPath = getModelUrl(_model);
+
   let options = {
     executionProviders: [
       {
@@ -311,6 +315,18 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     ],
     //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
   };
+
+  const externalDataName = getModelExternalDataNameById(_model);
+  if(externalDataName) {
+    const modelHFFile = getModelHFFileById(_model);
+    let externalDataPath = modelPath.replace(modelHFFile, externalDataName);
+    options.externalData = [
+      {
+        path: `./${externalDataName}`,
+        data: externalDataPath
+      }
+    ];
+  }
 
   options.logSeverityLevel = 0;
   // options.logVerbosityLevel = 0;
@@ -338,8 +354,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   l(`EP options numThreads: ${numThreads}`)
 
-  l(`EP options:`)
-  l(options.executionProviders[0])
+  l(`options:`)
+  l(options)
 
   l(`options.freeDimensionOverrides:`);
   l(freeDimensionOverrides);
@@ -348,8 +364,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, null, [], null, null, null, null, null);
   addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, null, [], null, null, null, null, null);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}/${_modelSize}) with ${_backend} backend`);
-
-  let modelPath = getModelUrl(_model);
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Downloading model from ${modelPath}`);
 
@@ -361,6 +375,13 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Creating onnx runtime web inference session`);
 
   const compilationStart = performance.now();
+
+  // const sess = null;
+  // if(externalDataName) {
+  //   sess = await ort.InferenceSession.create(modelPath, options);
+  // } else {
+  //   sess = await ort.InferenceSession.create(modelBuffer, options);
+  // }
   const sess = await ort.InferenceSession.create(modelBuffer, options);
 
   let compilationTime = performance.now() - compilationStart;
