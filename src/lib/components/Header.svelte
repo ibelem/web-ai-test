@@ -55,8 +55,8 @@
 		if (port) {
 			host = host + ':' + port;
 		}
-		if ($page.url.pathname.indexOf('web-ai-benchmark') > -1) {
-			host = host + '/web-ai-benchmark';
+		if ($page.url.pathname.indexOf('web-ai-run') > -1) {
+			host = host + '/web-ai-run';
 		}
 		url = `${host}${fullSearch}`;
 	};

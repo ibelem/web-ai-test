@@ -109,7 +109,7 @@
 <Header />
 
 <div class="tqtitle">
-	<div class="title tq">Benchmark Tests</div>
+	<div class="title tq">Performance Tests</div>
 	<div class="title">INT8 and INT4 models are not ready for testing</div>
 </div>
 <div class="search">
@@ -552,15 +552,18 @@
 		cursor: pointer;
 		margin-bottom: 10px;
 		width: 380px;
+		background-color: var(--grey-02);
 	}
 
 	#search:hover {
 		border: 1px solid var(--grey-06);
-		outline: none;
 	}
 
 	#search:focus {
-		outline: none;
+		outline: var(--red);
+		background-color: var(--white);
+		color: var(--red);
+		border: 1px solid var(--red);
 	}
 
 	@media (max-width: 700px) {

@@ -27,8 +27,8 @@
 	// 	if (port) {
 	// 		host = host + ':' + port;
 	// 	}
-	// 	if ($page.url.pathname.indexOf('web-ai-benchmark') > -1) {
-	// 		host = host + '/web-ai-benchmark';
+	// 	if ($page.url.pathname.indexOf('web-ai-test') > -1) {
+	// 		host = host + '/web-ai-test';
 	// 	}
 
 	// 	if (
@@ -54,7 +54,7 @@
 
 		<ul id="menu">
 			<a href="{base}/"><li>Home</li></a>
-			<a href="{base}/tests"><li>Benchmark</li></a>
+			<a href="{base}/tests"><li>Performance</li></a>
 			<a href="{base}/fallback"><li>Fallback</li></a>
 			<a href="{base}/graph"><li>Graph</li></a>
 			<a href="{base}/conformance"><li>Conformance</li></a>

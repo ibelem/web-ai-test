@@ -93,6 +93,8 @@ const getFeeds = (session, modelName) => {
           feeds[v] = getTensor('float32', 1, [1, 4, 0, 64]);
         } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp16') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int4') > -1) {
           feeds[v] = getTensor('float16', 1, [1, 4, 0, 64]);
+        } else if (modelName.indexOf('meta_llama_3_8b_instruct_merged_') > -1) {
+          feeds[v] = getTensor('float16', 1, [1, 4, 0, 64]);
         } else if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
         } else if (modelName.indexOf('distilgpt2_decoder_') > -1) {

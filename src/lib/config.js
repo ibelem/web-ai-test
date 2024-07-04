@@ -1212,6 +1212,36 @@ const mt5SmallEncoder = () => {
   }))
 }
 
+const nomicEmbedTextV1_5 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '522 MB'],
+    ['int8', 'model_quantized.onnx', '132 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Similarity',
+    tag: '2h',
+    id: `nomic_embed_text_v1_5_${dt}`,
+    name: '[To Do] Nomic Embed Text v1.5',
+    description: 'An improvement upon Nomic Embed that utilizes Matryoshka Representation Learning which gives developers the flexibility to trade off the embedding size for a negligible reduction in performance.',
+    note: '',
+    source: 'https://huggingface.co/nomic-ai/nomic-embed-text-v1.5',
+    hf: {
+      model: 'nomic-ai/nomic-embed-text-v1.5',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'token_type_ids': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+    }],
+    inputstip: '[1, 16] [1, 16] [1, 16]'
+  }))
+}
+
 const paraphraseMultilingualMpnetBaseV2 = () => {
   const configs = [
     ['fp32', 'model.onnx', '1.03 GB'],
@@ -1595,6 +1625,36 @@ const tinyLlama1_1BChatv1_0Merged_2 = () => {
     source: 'https://huggingface.co/webml/TinyLlama-1.1B-Chat-v1.0',
     hf: {
       model: 'webml/tinyllama-1.1b-chat-v1.0',
+      file: `${file}`,
+      externalData: `${externalData}`
+    },
+    model: '',
+    size: `${size} ${edSize}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+      'attention_mask': ['int64', 1n, [1, 41], { "batch_size": 1, "past_sequence_length + 1": 41 }],
+      'position_ids': ['int64', 1n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+    }],
+    inputstip: '[1, 41] [1, 41] [1, 41]'
+  }))
+}
+
+const metaLlama_3_8bInstructMerged = () => {
+  const configs = [
+    ['fp16', 'rank_0_Meta-Llama-3-8B-Instruct_decoder_merged_model_fp16.onnx', '1.79 MB', 'rank_0_Meta-Llama-3-8B-Instruct_decoder_merged_model_fp16.onnx.data', '14.9 GB']
+  ]
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `meta_llama_3_8b_instruct_merged_${dt}`,
+    name: '[DO NOT RUN] Meta Llama 3 8b Instruct KV-Cache',
+    description: 'Llama 3 is an auto-regressive language model that uses an optimized transformer architecture. The tuned versions use supervised fine-tuning (SFT) and reinforcement learning with human feedback (RLHF).',
+    note: 'Unable to run now, 14.9GB. Large model with external data. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/webml/Meta-Llama-3-8B-Instruct-onnx-fp16',
+    hf: {
+      model: 'webml/meta-llama-3-8b-instruct-onnx-fp16',
       file: `${file}`,
       externalData: `${externalData}`
     },
@@ -2423,6 +2483,7 @@ export let models = [
   ...mt5SmallDecoderWithPast(),
   ...mt5SmallDecoderMerged(),
   ...mt5SmallEncoder(),
+  ...nomicEmbedTextV1_5(),
   ...paraphraseMultilingualMpnetBaseV2(),
   ...phi3Mini4kInstructMerged(),
   {
@@ -2970,6 +3031,7 @@ export let models = [
   ...t5SmallEncoder(),
   ...tinyLlama1_1BChatv1_0Merged(),
   ...tinyLlama1_1BChatv1_0Merged_2(),
+  ...metaLlama_3_8bInstructMerged(),
   {
     category: 'Object Detection',
     tag: '',
