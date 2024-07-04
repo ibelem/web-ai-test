@@ -865,7 +865,23 @@ header .nav {
 }
 
 .result .q:hover .status_1 svg path, .tq .q:hover .status_1 svg path {
-  fill: var(--orange) !important;
+  fill: var(--orange);
+}
+
+.tq.fp16 .q:hover .status_1 svg path {
+  fill: var(--fp16);
+}
+
+.tq.int8 .q:hover .status_1 svg path {
+  fill: var(--p);
+}
+
+.tq.int4 .q:hover .status_1 svg path {
+  fill: var(--int4);
+}
+
+.tq.fp32 .q:hover .status_1 svg path {
+  fill: var(--red);
 }
 
 .tagH {

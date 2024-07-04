@@ -52,7 +52,7 @@ const albertBaseV2 = () => {
   const configs = [
     ['fp32', 'model.onnx', '43.1 MB'],
     ['fp16', 'model_fp16.onnx', '21.8 MB'],
-    // ['int8', 'model_quantized.onnx', '38.3 MB'],
+    ['int8', 'model_quantized.onnx', '38.3 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Fill-Mask',
@@ -83,7 +83,7 @@ const bartLargeCnn = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '777 MB'],
     ['fp16', 'encoder_model_fp16.onnx', '388 MB'],
-    // ['int8', 'encoder_model_quantized.onnx', '195 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '195 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Summarization',
@@ -113,7 +113,7 @@ const bertBaseCased = () => {
   const configs = [
     ['fp32', 'model.onnx', '413 MB'],
     ['fp16', 'model_fp16.onnx', '206 MB'],
-    // ['int8', 'model_quantized.onnx', '104 MB'],
+    ['int8', 'model_quantized.onnx', '104 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Fill-Mask',
@@ -144,7 +144,7 @@ const bertBaseUncased = () => {
   const configs = [
     ['fp32', 'model.onnx', '418 MB'],
     ['fp16', 'model_fp16.onnx', '209 MB'],
-    // ['int8', 'model_quantized.onnx', '105 MB'],
+    ['int8', 'model_quantized.onnx', '105 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Fill-Mask',
@@ -175,7 +175,7 @@ const bertBaseMultilingualCasedNerHrl = () => {
   const configs = [
     ['fp32', 'model.onnx', '676 MB'],
     ['fp16', 'model_fp16.onnx', '338 MB'],
-    // ['int8', 'model_quantized.onnx', '170 MB'],
+    ['int8', 'model_quantized.onnx', '170 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Token Classification',
@@ -206,7 +206,7 @@ const bertBaseMultilingualUncasedSentiment = () => {
   const configs = [
     ['fp32', 'model.onnx', '638 MB'],
     ['fp16', 'model_fp16.onnx', '319 MB'],
-    // ['int8', 'model_quantized.onnx', '160.78 MB'],
+    ['int8', 'model_quantized.onnx', '160.78 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Classification',
@@ -237,7 +237,7 @@ const clipVitBasePatch16 = () => {
   const configs = [
     ['fp32', 'model.onnx', '571 MB'],
     ['fp16', 'model_fp16.onnx', '286 MB'],
-    // ['int8', 'model_quantized.onnx', '144 MB'],
+    ['int8', 'model_quantized.onnx', '144 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Zero-Shot Image Classification',
@@ -268,7 +268,7 @@ const codeGenMono350M = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '1.33 GB'],
     ['fp16', 'decoder_model_fp16.onnx', '690 MB'],
-    // ['int8', 'decoder_model_quantized.onnx', '350 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '350 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
@@ -298,7 +298,7 @@ const detrResnet50 = () => {
   const configs = [
     ['fp32', 'model.onnx', '159 MB'],
     ['fp16', 'model_fp16.onnx', '79.9 MB'],
-    // ['int8', 'model_quantized.onnx', '41.1 MB'],
+    ['int8', 'model_quantized.onnx', '41.1 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
@@ -328,7 +328,7 @@ const dinoVitb16 = () => {
   const configs = [
     ['fp32', 'model.onnx', '327 MB'],
     ['fp16', 'model_fp16.onnx', '163 MB'],
-    // ['int8', 'model_quantized.onnx', '83.4 MB'],
+    ['int8', 'model_quantized.onnx', '83.4 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Feature Extraction',
@@ -355,10 +355,10 @@ const distilbartCnn66Decoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '585 MB'],
     // // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
-    // ['int8', 'decoder_model_quantized.onnx', '147 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '147 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Text Summarization',
+    category: 'Summarization',
     tag: '',
     id: `distilbart_cnn_6_6_decoder_${dt}`,
     name: 'Distilbart CNN 6-6 Decoder',
@@ -386,10 +386,10 @@ const distilbartCnn66DecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '537 MB'],
     // // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
-    // ['int8', 'decoder_with_past_model_quantized.onnx', '135 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '135 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Text Summarization',
+    category: 'Summarization',
     tag: '',
     id: `distilbart_cnn_6_6_decoder_with_past_${dt}`,
     name: 'Distilbart CNN 6-6 Decoder w/i Past',
@@ -420,10 +420,10 @@ const distilbartCnn66DecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '585 MB'],
     ['fp16', 'decoder_model_merged_fp16.onnx', '293 MB'],
-    // ['int8', 'decoder_model_merged_quantized.onnx', '193 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '193 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Text Summarization',
+    category: 'Summarization',
     tag: '',
     id: `distilbart_cnn_6_6_decoder_merged_${dt}`,
     name: 'Distilbart CNN 6-6 Decoder KV-Cache',
@@ -455,10 +455,10 @@ const distilbartCnn66Encoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '488 MB'],
     ['fp16', 'encoder_model_fp16.onnx', '244 MB'],
-    // ['int8', 'encoder_model_quantized.onnx', '122.85 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '122.85 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Text Summarization',
+    category: 'Summarization',
     tag: '',
     id: `distilbart_cnn_6_6_encoder_${dt}`,
     name: 'Distilbart CNN 6-6 Encoder',
@@ -485,7 +485,7 @@ const distilbertBaseUncased = () => {
   const configs = [
     ['fp32', 'model.onnx', '255 MB'],
     ['fp16', 'model_fp16.onnx', '127 MB'],
-    // ['int8', 'model_quantized.onnx', '64.5 MB'],
+    ['int8', 'model_quantized.onnx', '64.5 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Fill-Mask',
@@ -515,7 +515,7 @@ const distilbertBaseCasedDistilledSquad = () => {
   const configs = [
     ['fp32', 'model.onnx', '248 MB'],
     ['fp16', 'model_fp16.onnx', '124 MB'],
-    // ['int8', 'model_quantized.onnx', '62.7 MB'],
+    ['int8', 'model_quantized.onnx', '62.7 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Question Answering',
@@ -545,7 +545,7 @@ const distilbertBaseUncasedMnli = () => {
   const configs = [
     ['fp32', 'model.onnx', '255 MB'],
     ['fp16', 'model_fp16.onnx', '127 MB'],
-    // ['int8', 'model_quantized.onnx', '64.4 MB'],
+    ['int8', 'model_quantized.onnx', '64.4 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Zero-Shot Classification',
@@ -575,7 +575,7 @@ const distilgpt2Decoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '313 MB'],
     ['fp16', 'decoder_model_fp16.onnx', '157 MB'],
-    // ['int8', 'decoder_model_quantized.onnx', '79.6 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '79.6 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
@@ -605,7 +605,7 @@ const distilgpt2DecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '313 MB'],
     // // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
-    // ['int8', 'decoder_with_past_model_quantized.onnx', '79.6 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '79.6 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
@@ -635,7 +635,7 @@ const distilgpt2DecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '314 MB'],
     // // ['fp16', 'decoder_merged_model_fp16.onnx', ' MB'],
-    // ['int8', 'decoder_model_merged_quantized.onnx', '80.9 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '80.9 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
@@ -697,7 +697,7 @@ const distiluseBaseMultilingualCasedV2 = () => {
 const distilMediumEnDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '332 MB'],
-    // ['int8', 'decoder_model_quantized.onnx', '84.6 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '84.6 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
@@ -726,7 +726,7 @@ const distilMediumEnDecoder = () => {
 const distilMediumEnDecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '316 MB'],
-    // ['int8', 'decoder_with_past_model_quantized.onnx', '80.6 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '80.6 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
@@ -754,7 +754,7 @@ const distilMediumEnDecoderWithPast = () => {
 const distilMediumEnDecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '332 MB'],
-    // ['int8', 'decoder_model_merged_quantized.onnx', '84.7 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '84.7 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
@@ -784,7 +784,7 @@ const distilMediumEnDecoderMerged = () => {
 const distilMediumEnEncoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '1.14 GB'],
-    // ['int8', 'encoder_model_quantized.onnx', '298 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '298 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
@@ -824,7 +824,7 @@ const esrgan = () => {
     // [1024, 16, 16],
   ]
   return configs.map(([tile, fp, vram]) => ({
-    category: 'Image Super-Resolution',
+    category: 'Image-to-Image',
     tag: '',
     id: `realesrgan_x4_${tile}_fp${fp}`,
     name: `RealESRGAN x4 ${tile}`,
@@ -844,7 +844,7 @@ const flanT5SmallDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '221 MB'],
     // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
-    // ['int8', 'decoder_model_quantized.onnx', '56.2 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '56.2 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
@@ -875,7 +875,7 @@ const flanT5SmallDecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '209 MB'],
     // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
-    // ['int8', 'decoder_with_past_model_quantized.onnx', '147 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '147 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
@@ -906,7 +906,7 @@ const flanT5SmallDecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '222 MB'],
     ['fp16', 'decoder_model_merged_fp16.onnx', ' 111 MB'],
-    // ['int8', 'decoder_model_merged_quantized.onnx', '56.5 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '56.5 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
@@ -941,7 +941,7 @@ const flanT5SmallEncoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '134 MB'],
     ['fp16', 'encoder_model_fp16.onnx', ' 67.5 MB'],
-    // ['int8', 'encoder_model_quantized.onnx', '34.1 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '34.1 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
@@ -1032,7 +1032,7 @@ const mobileVitSmall = () => {
   const configs = [
     ['fp32', 'model.onnx', '21.5 MB'],
     ['fp16', 'model_fp16.onnx', '11.0 MB'],
-    // ['int8', 'model_quantized.onnx', '6.01 MB'],
+    ['int8', 'model_quantized.onnx', '6.01 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image Classification',
@@ -1059,7 +1059,7 @@ const msmarcoDistilbertBaseV4 = () => {
   const configs = [
     ['fp32', 'model.onnx', '253 MB'],
     ['fp16', 'model_fp16.onnx', ' 126 MB'],
-    // ['int8', 'model_quantized.onnx', '63.8 MB'],
+    ['int8', 'model_quantized.onnx', '63.8 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
@@ -1089,7 +1089,7 @@ const mt5SmallDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '1.04 GB'],
     // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
-    // ['int8', 'decoder_model_quantized.onnx', '270 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '270 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
@@ -1120,7 +1120,7 @@ const mt5SmallDecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '1.03 GB'],
     // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
-    // ['int8', 'decoder_with_past_model_quantized.onnx', '147 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '147 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
@@ -1151,7 +1151,7 @@ const mt5SmallDecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '1.04 GB'],
     ['fp16', 'decoder_model_merged_fp16.onnx', '537 MB'],
-    // ['int8', 'decoder_model_merged_quantized.onnx', '147 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '147 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
@@ -1186,7 +1186,7 @@ const mt5SmallEncoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '560 MB'],
     ['fp16', 'encoder_model_fp16.onnx', '280 MB'],
-    // ['int8', 'encoder_model_quantized.onnx', '140 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '140 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
@@ -1276,10 +1276,10 @@ const samVitBase = () => {
   const configs = [
     ['fp32', 'model.onnx', '358 MB'],
     ['fp16', 'model_fp16.onnx', '179 MB'],
-    // ['int8', 'model_quantized.onnx', '100 MB'],
+    ['int8', 'model_quantized.onnx', '100 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Semantic Segmentation',
+    category: 'Mask Generation',
     tag: '',
     id: `sam_vit_base_${dt}`,
     name: 'SAM ViT Base',
@@ -1305,10 +1305,10 @@ const samVitBase = () => {
 const samVitBasePromptEncoderMaskDecoder = () => {
   const configs = [
     ['fp32', 'prompt_encoder_mask_decoder.onnx', '15.7 MB'],
-    // ['int8', 'prompt_encoder_mask_decoder_quantized.onnx', '4.67 MB'],
+    ['int8', 'prompt_encoder_mask_decoder_quantized.onnx', '4.67 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Semantic Segmentation',
+    category: 'Mask Generation',
     tag: '',
     id: `sam_vit_base_prompt_encoder_mask_decoder_${dt}`,
     name: 'SAM ViT Base Prompt/Mask Encoder',
@@ -1337,7 +1337,7 @@ const samVitBasePromptEncoderMaskDecoderFP16 = () => {
     ['fp16', 'prompt_encoder_mask_decoder_fp16.onnx', '8.15 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Semantic Segmentation',
+    category: 'Mask Generation',
     tag: '',
     id: `sam_vit_base_prompt_encoder_mask_decoder_${dt}`,
     name: 'SAM ViT Base Prompt/Mask Encoder',
@@ -1366,10 +1366,10 @@ const samVitBaseVisionEncoder = () => {
   const configs = [
     ['fp32', 'vision_encoder.onnx', '342 MB'],
     ['fp16', 'vision_encoder_fp16.onnx', '171 MB'],
-    // ['int8', 'vision_encoder_quantized.onnx', '96.4 MB'],
+    ['int8', 'vision_encoder_quantized.onnx', '96.4 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Semantic Segmentation',
+    category: 'Mask Generation',
     tag: '',
     id: `sam_vit_base_vision_encoder_${dt}`,
     name: 'SAM ViT Base Vision Encoder',
@@ -1395,10 +1395,10 @@ const squeezebertUncased = () => {
   const configs = [
     ['fp32', 'model.onnx', '192 MB'],
     ['fp16', 'model_fp16.onnx', '96.5 MB'],
-    // ['int8', 'model_quantized.onnx', '48.8 MB'],
+    ['int8', 'model_quantized.onnx', '48.8 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Sentence Order Prediction (SOP)',
+    category: 'Masked Language',
     tag: '',
     id: `squeezebert_uncased_${dt}`,
     name: 'SqueezeBERT Uncased',
@@ -1426,10 +1426,10 @@ const t5SmallDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '158.95 MB'],
     // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
-    // ['int8', 'decoder_model_quantized.onnx', '40.2 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '40.2 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Text-To-Text Translation',
+    category: 'Text2Text Generation',
     tag: '',
     id: `t5_small_decoder_${dt}`,
     name: 'T5 Small Decoder',
@@ -1457,10 +1457,10 @@ const t5SmallDecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '146 MB'],
     // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
-    // ['int8', 'decoder_with_past_model_quantized.onnx', '37.1 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '37.1 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Text-To-Text Translation',
+    category: 'Text2Text Generation',
     tag: '',
     id: `t5_small_decoder_with_past_${dt}`,
     name: 'T5 Small Decoder w/i Past',
@@ -1488,10 +1488,10 @@ const t5SmallDecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '159 MB'],
     ['fp16', 'decoder_model_merged_fp16.onnx', '79.8 MB'],
-    // ['int8', 'decoder_model_merged_quantized.onnx', '40.4 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '40.4 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Text-To-Text Translation',
+    category: 'Text2Text Generation',
     tag: '',
     id: `t5_small_decoder_merged_${dt}`,
     name: 'T5 Small Decoder KV-Cache',
@@ -1523,10 +1523,10 @@ const t5SmallEncoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '134 MB'],
     ['fp16', 'encoder_model_fp16.onnx', '67.4 MB'],
-    // ['int8', 'encoder_model_quantized.onnx', '33.99 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '33.99 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Text-To-Text Translation',
+    category: 'Text2Text Generation',
     tag: '',
     id: `t5_small_encoder_${dt}`,
     name: 'T5 Small Encoder',
@@ -1615,7 +1615,7 @@ const vitBasePatch16224 = () => {
   const configs = [
     ['fp32', 'model.onnx', '330 MB'],
     ['fp16', 'model_fp16.onnx', '165 MB'],
-    // ['int8', 'model_quantized.onnx', '84.17 MB'],
+    ['int8', 'model_quantized.onnx', '84.17 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image Classification',
@@ -1644,7 +1644,7 @@ const vitGpt2ImageCaptioningDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '584 MB'],
     // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
-    // ['int8', 'decoder_model_quantized.onnx', '149 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '149 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-to-Text',
@@ -1674,7 +1674,7 @@ const vitGpt2ImageCaptioningDecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '584 MB'],
     // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
-    // ['int8', 'decoder_with_past_model_quantized.onnx', '149 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '149 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-to-Text',
@@ -1704,7 +1704,7 @@ const vitGpt2ImageCaptioningDecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '586 MB'],
     ['fp16', 'decoder_model_merged_fp16.onnx', '295 MB'],
-    // ['int8', 'decoder_model_merged_quantized.onnx', '149.04 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '149.04 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-to-Text',
@@ -1735,7 +1735,7 @@ const vitGpt2ImageCaptioningEncoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '327 MB'],
     ['fp16', 'encoder_model_fp16.onnx', '163 MB'],
-    // ['int8', 'encoder_model_quantized.onnx', '83.40 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '83.40 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-to-Text',
@@ -1764,7 +1764,7 @@ const whisperTinyDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '112 MB'],
     ['fp16', 'decoder_model_fp16.onnx', '56.6 MB'],
-    // ['int8', 'decoder_model_quantized.onnx', '29.0 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '29.0 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
@@ -1794,7 +1794,7 @@ const whisperTinyWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '108 MB'],
     ['fp16', 'decoder_with_past_model_fp16.onnx', '54.3 MB'],
-    // ['int8', 'decoder_with_past_model_quantized.onnx', '27.8 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '27.8 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
@@ -1827,7 +1827,7 @@ const whisperTinyMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '113 MB'],
     ['fp16', 'decoder_model_merged_fp16.onnx', '56.8 MB'],
-    // ['int8', 'decoder_model_merged_quantized.onnx', '29.2 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '29.2 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
@@ -1861,7 +1861,7 @@ const whisperTinyEncoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '31.3 MB'],
     ['fp16', 'encoder_model_fp16.onnx', '15.7 MB'],
-    // ['int8', 'encoder_model_quantized.onnx', '9.65 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '9.65 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
@@ -1890,7 +1890,7 @@ const xlmRobertaBase = () => {
   const configs = [
     ['fp32', 'model.onnx', '1.03 GB'],
     ['fp16', 'model_fp16.onnx', '531 MB'],
-    // ['int8', 'model_quantized.onnx', '267 MB'],
+    ['int8', 'model_quantized.onnx', '267 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Fill-Mask',
@@ -1920,7 +1920,7 @@ const yoloV8NPose = () => {
   const configs = [
     ['fp32', 'model.onnx', '12.8 MB'],
     ['fp16', 'model_fp16.onnx', '6.47 MB'],
-    // ['int8', 'model_quantized.onnx', '3.58 MB'],
+    ['int8', 'model_quantized.onnx', '3.58 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
@@ -1949,7 +1949,7 @@ const yoloV8XPose = () => {
   const configs = [
     ['fp32', 'model.onnx', '265 MB'],
     ['fp16', 'model_fp16.onnx', '132 MB'],
-    // ['int8', 'model_quantized.onnx', '66.8 MB'],
+    ['int8', 'model_quantized.onnx', '66.8 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
@@ -1978,7 +1978,7 @@ const yoloV10N = () => {
   const configs = [
     ['fp32', 'model.onnx', '8.95 MB'],
     ['fp16', 'model_fp16.onnx', '4.51 MB'],
-    // ['int8', 'model_quantized.onnx', '2.52 MB'],
+    ['int8', 'model_quantized.onnx', '2.52 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
@@ -2022,7 +2022,7 @@ export let models = [
   ...clipVitBasePatch16(),
   ...codeGenMono350M(),
   {
-    category: 'Semantic Segmentation',
+    category: 'Image Segmentation',
     tag: '',
     id: 'deeplab_v3',
     name: 'DeepLab v3',
@@ -2098,21 +2098,21 @@ export let models = [
     inputs: [{ 'images:0': ['float16', 'random', [1, 224, 224, 3], {}] }],
     inputstip: '[1, 224, 224, 3]'
   },
-  // {
-  //   category: 'Image Classification',
-  //   id: 'efficientnet_lite_int8',
-  //   tag: '2h',
-  //   name: 'EfficientNet Lite 4',
-  //   description: 'A convolutional neural network architecture and scaling method.',
-  //   note: '',
-  //   source: 'https://github.com/onnx/models/tree/main/validated/vision/classification/efficientnet-lite4/model onnx-public-models/efficientnet-lite4/opset-11-int8/',
-  //   model: 'int8/efficientnet-lite4-opset-11-int8.onnx',
-  //   size: '12.9 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{ 'images:0': ['float32', 'random', [1, 224, 224, 3], {}] }],
-  //   inputstip: '[1, 224, 224, 3]'
-  // },
+  {
+    category: 'Image Classification',
+    id: 'efficientnet_lite_int8',
+    tag: '2h',
+    name: 'EfficientNet Lite 4',
+    description: 'A convolutional neural network architecture and scaling method.',
+    note: '',
+    source: 'https://github.com/onnx/models/tree/main/validated/vision/classification/efficientnet-lite4/model onnx-public-models/efficientnet-lite4/opset-11-int8/',
+    model: 'int8/efficientnet-lite4-opset-11-int8.onnx',
+    size: '12.9 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'images:0': ['float32', 'random', [1, 224, 224, 3], {}] }],
+    inputstip: '[1, 224, 224, 3]'
+  },
   ...esrgan(),
   {
     category: 'Object Detection',
@@ -2129,22 +2129,22 @@ export let models = [
     inputs: [{ 'image': ['float16', 'random', [3, 224, 224], { "height": 224, "width": 224 }] }],
     inputstip: '[3, 224, 224]'
   },
-  // {
-  //   category: 'Object Detection',
-  //   id: 'faster_r_cnn_int8',
-  //   name: 'Faster R-CNN',
-  //   description: 'Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks',
-  //   note: '',
-  //   source: '',
-  //   model: 'int8/faster-r-cnn-opset-12-int8.onnx',
-  //   size: '42.5 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{ 'image': ['float32', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
-  //   inputstip: '[3, 224, 224]'
-  // },
   {
-    category: 'Semantic Segmentation',
+    category: 'Object Detection',
+    id: 'faster_r_cnn_int8',
+    name: 'Faster R-CNN',
+    description: 'Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks',
+    note: '',
+    source: '',
+    model: 'int8/faster-r-cnn-opset-12-int8.onnx',
+    size: '42.5 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'image': ['float32', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
+    inputstip: '[3, 224, 224]'
+  },
+  {
+    category: 'Image Segmentation',
     tag: '',
     id: 'fcn_resnet50_fp16',
     name: 'FCN ResNet-50',
@@ -2158,20 +2158,20 @@ export let models = [
     inputs: [{ 'input': ['float16', 'random', [1, 3, 224, 224], { "batch": 1, "height": 224, "width": 224 }] }],
     inputstip: '[1, 3, 224, 224]'
   },
-  // {
-  //   category: 'Semantic Segmentation',
-  //   id: 'fcn_resnet50_int8',
-  //   name: 'FCN ResNet-50',
-  //   description: 'Fully-Convolutional Network model with a ResNet-50 backbone',
-  //   note: '',
-  //   source: '',
-  //   model: 'int8/fcn-resnet50-opset-12-int8.onnx',
-  //   size: '33.8 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {"batch": 1, "height": 224, "width": 224}] }],
-  //   inputstip: '[1, 3, 224, 224]'
-  // },
+  {
+    category: 'Image Segmentation',
+    id: 'fcn_resnet50_int8',
+    name: 'FCN ResNet-50',
+    description: 'Fully-Convolutional Network model with a ResNet-50 backbone',
+    note: '',
+    source: '',
+    model: 'int8/fcn-resnet50-opset-12-int8.onnx',
+    size: '33.8 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {"batch": 1, "height": 224, "width": 224}] }],
+    inputstip: '[1, 3, 224, 224]'
+  },
   ...flanT5SmallDecoder(),
   ...flanT5SmallDecoderWithPast(),
   ...flanT5SmallDecoderMerged(),
@@ -2260,22 +2260,22 @@ export let models = [
     inputs: [{ 'data_0': ['float16', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 224, 224]'
   },
-  // {
-  //   category: 'Image Classification',
-  //   id: 'inception_v1_int8',
-  //   name: 'Inception v1',
-  //   description: 'Also known as GoogLeNet, this network set the state of the art in ImageNet classification in 2014.',
-  //   note: '',
-  //   source: '',
-  //   model: 'int8/inception-v1-opset-12-int8.onnx',
-  //   size: '9.71 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{ 'data_0': ['float32', 'random', [1, 3, 224, 224], {}] }],
-  //   inputstip: '[1, 3, 224, 224]'
-  // },
   {
-    category: 'Multilingual Translation',
+    category: 'Image Classification',
+    id: 'inception_v1_int8',
+    name: 'Inception v1',
+    description: 'Also known as GoogLeNet, this network set the state of the art in ImageNet classification in 2014.',
+    note: '',
+    source: '',
+    model: 'int8/inception-v1-opset-12-int8.onnx',
+    size: '9.71 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'data_0': ['float32', 'random', [1, 3, 224, 224], {}] }],
+    inputstip: '[1, 3, 224, 224]'
+  },
+  {
+    category: 'Translation',
     tag: '',
     id: 'm2m100_decoder',
     name: 'M2M100 418M Decoder',
@@ -2294,7 +2294,7 @@ export let models = [
     inputstip: '[1, 128] [1, 128] [1, 128, 1024]'
   },
   {
-    category: 'Multilingual Translation',
+    category: 'Translation',
     tag: '',
     id: 'm2m100_encoder',
     name: 'M2M100 418M Encoder',
@@ -2311,20 +2311,20 @@ export let models = [
     }],
     inputstip: '[1, 128] [1, 128]'
   },
-  // {
-  //   category: 'Object Segmentation',
-  //   id: 'mask_r_cnn_int8',
-  //   name: 'Mask R-CNN',
-  //   description: 'Extends Faster R-CNN by adding a branch for predicting an object mask in parallel with the existing branch for bounding box recognition',
-  //   note: '',
-  //   source: '',
-  //   model: 'int8/mask-r-cnn-opset-12-int8.onnx',
-  //   size: '45.9 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{ 'image': ['float32', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
-  //   inputstip: '[3, 224, 224]'
-  // },
+  {
+    category: 'Object Segmentation',
+    id: 'mask_r_cnn_int8',
+    name: 'Mask R-CNN',
+    description: 'Extends Faster R-CNN by adding a branch for predicting an object mask in parallel with the existing branch for bounding box recognition',
+    note: '',
+    source: '',
+    model: 'int8/mask-r-cnn-opset-12-int8.onnx',
+    size: '45.9 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'image': ['float32', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
+    inputstip: '[3, 224, 224]'
+  },
   {
     category: 'Image Classification',
     tag: '',
@@ -2385,21 +2385,21 @@ export let models = [
     inputs: [{ 'input': ['float16', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
-  // {
-  //   category: 'Image Classification',
-  //   tag: '2h',
-  //   id: 'mobilenet_v2_12_int8',
-  //   name: 'MobileNet v2_12',
-  //   description: 'A computer vision model designed for training classifiers.',
-  //   note: '',
-  //   source: 'https://github.com/onnx/models/tree/main/vision/classification/mobilenet',
-  //   model: 'int8/mobilenetv2-12-int8.onnx',
-  //   size: '13.3 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
-  //   inputstip: '[1, 3, 224, 224]'
-  // },
+  {
+    category: 'Image Classification',
+    tag: '2h',
+    id: 'mobilenet_v2_12_int8',
+    name: 'MobileNet v2_12',
+    description: 'A computer vision model designed for training classifiers.',
+    note: '',
+    source: 'https://github.com/onnx/models/tree/main/vision/classification/mobilenet',
+    model: 'int8/mobilenetv2-12-int8.onnx',
+    size: '13.3 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+    inputstip: '[1, 3, 224, 224]'
+  },
   {
     category: 'Image Classification',
     tag: '',
@@ -2471,7 +2471,7 @@ export let models = [
     inputstip: '[1, 3, 224, 224]'
   },
   {
-    category: 'Mask-Generation',
+    category: 'Mask Generation',
     tag: '',
     id: 'sam_b_decoder',
     name: 'SAM B Decoder',
@@ -2493,7 +2493,7 @@ export let models = [
     inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [512, 512] [2]'
   },
   {
-    category: 'Mask-Generation',
+    category: 'Mask Generation',
     tag: '',
     id: 'sam_b_encoder',
     name: 'SAM B Encoder',
@@ -2640,7 +2640,7 @@ export let models = [
     inputstip: '[1, 4, 64, 64] [1] [1, 77, 1024]'
   },
   {
-    category: 'Image Identification',
+    category: 'Zero-Shot Image Classification',
     tag: '2h',
     id: 'sd_safety_checker_fp16',
     name: 'SD Safety Checker',
@@ -2755,7 +2755,7 @@ export let models = [
     inputstip: '[1, 3, 512, 512]'
   },
   {
-    category: 'Semantic Segmentation',
+    category: 'Mask Generation',
     tag: '2h',
     id: 'segment_anything_decoder',
     name: 'Segment Anything Decoder',
@@ -2777,7 +2777,7 @@ export let models = [
     inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1] [2]'
   },
   {
-    category: 'Semantic Segmentation',
+    category: 'Mask Generation',
     tag: '2h',
     id: 'segment_anything_decoder_fp16',
     name: 'Segment Anything Decoder',
@@ -2799,7 +2799,7 @@ export let models = [
     inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1] [2]'
   },
   {
-    category: 'Semantic Segmentation',
+    category: 'Mask Generation',
     tag: '2h',
     id: 'segment_anything_encoder_fp16',
     name: 'Segment Anything Encoder',
@@ -2817,7 +2817,7 @@ export let models = [
   },
 
   {
-    category: 'Semantic Segmentation',
+    category: 'Image Segmentation',
     tag: '',
     id: 'selfie_segmentation_general',
     name: 'Selfie Segmentation General',
@@ -2832,7 +2832,7 @@ export let models = [
     inputstip: '[1, 256, 256, 3]'
   },
   {
-    category: 'Semantic Segmentation',
+    category: 'Image Segmentation',
     tag: '',
     id: 'selfie_segmentation_landscape',
     name: 'Selfie Segmentation Landscape',
@@ -2861,20 +2861,20 @@ export let models = [
     inputs: [{ 'input': ['float16', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 224, 224]'
   },
-  // {
-  //   category: 'Image Classification',
-  //   id: 'shufflenet_int8',
-  //   name: 'ShuffleNet',
-  //   description: 'An Extremely Efficient Convolutional Neural Network for Mobile Devices',
-  //   note: '',
-  //   source: '',
-  //   model: 'int8/shufflenet-v2-opset-12-int8.onnx',
-  //   size: '2.27 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {}] }],
-  //   inputstip: '[1, 3, 224, 224]'
-  // },
+  {
+    category: 'Image Classification',
+    id: 'shufflenet_int8',
+    name: 'ShuffleNet',
+    description: 'An Extremely Efficient Convolutional Neural Network for Mobile Devices',
+    note: '',
+    source: '',
+    model: 'int8/shufflenet-v2-opset-12-int8.onnx',
+    size: '2.27 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {}] }],
+    inputstip: '[1, 3, 224, 224]'
+  },
   ...squeezebertUncased(),
   {
     category: 'Image Classification',
@@ -2936,34 +2936,34 @@ export let models = [
     inputs: [{ 'inputs': ['uint8', 1, [1, 224, 224, 3], { "unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
     inputstip: '[1, 224, 224, 3]'
   },
-  // {
-  //   category: 'Object Detection',
-  //   id: 'ssd_int8',
-  //   name: 'SSD',
-  //   description: 'Single-Shot multibox Detection (SSD) network for detecting objects in images using a single deep neural network',
-  //   note: '',
-  //   source: '',
-  //   model: 'int8/ssd-opset-12-int8.onnx',
-  //   size: '19.5 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{ 'image': ['float32', 'random', [1, 3, 1200, 1200], {}] }],
-  //   inputstip: '[1, 3, 1200, 1200]'
-  // },
-  // {
-  //   category: 'Object Detection',
-  //   id: 'ssd_mobilenet_v1_int8',
-  //   name: 'SSD MobileNet v1',
-  //   description: 'Single-Shot multibox Detection (SSD) network intended to perform object detection',
-  //   note: '',
-  //   source: '',
-  //   model: 'int8/ssd-mobilenet-v1-opset-12-int8.onnx',
-  //   size: '8.54 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{ 'inputs': ['float32', 'random', [1, 224, 224, 3], {"unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
-  //   inputstip: '[1, 224, 224, 3]'
-  // },
+  {
+    category: 'Object Detection',
+    id: 'ssd_int8',
+    name: 'SSD',
+    description: 'Single-Shot multibox Detection (SSD) network for detecting objects in images using a single deep neural network',
+    note: '',
+    source: '',
+    model: 'int8/ssd-opset-12-int8.onnx',
+    size: '19.5 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'image': ['float32', 'random', [1, 3, 1200, 1200], {}] }],
+    inputstip: '[1, 3, 1200, 1200]'
+  },
+  {
+    category: 'Object Detection',
+    id: 'ssd_mobilenet_v1_int8',
+    name: 'SSD MobileNet v1',
+    description: 'Single-Shot multibox Detection (SSD) network intended to perform object detection',
+    note: '',
+    source: '',
+    model: 'int8/ssd-mobilenet-v1-opset-12-int8.onnx',
+    size: '8.54 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'inputs': ['float32', 'random', [1, 224, 224, 3], {"unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
+    inputstip: '[1, 224, 224, 3]'
+  },
   ...t5SmallDecoder(),
   ...t5SmallDecoderWithPast(),
   ...t5SmallDecoderMerged(),
@@ -3216,23 +3216,23 @@ export let models = [
     }],
     inputstip: '[1, 3, 416, 416]'
   },
-  // {
-  //   category: 'Object Detection',
-  //   id: 'yolo_v3_int8',
-  //   name: 'YOLO v3',
-  //   description: 'YOLOv3 (You Only Look Once, Version 3) is a real-time object detection algorithm that identifies specific objects in videos, live feeds or images',
-  //   note: '',
-  //   source: '',
-  //   model: 'int8/yolo-v3-opset-12-int8.onnx',
-  //   size: '60.2 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_1': ['float32', 'random', [1, 3, 416, 416], { "unk__576": 1, "unk__577": 416, "unk__578": 416 }], 
-  //     'image_shape': ['float32', 'random', [1, 2], { "unk__579": 1 }]
-  //   }],
-  //   inputstip: '[1, 3, 416, 416]'
-  // }
+  {
+    category: 'Object Detection',
+    id: 'yolo_v3_int8',
+    name: 'YOLO v3',
+    description: 'YOLOv3 (You Only Look Once, Version 3) is a real-time object detection algorithm that identifies specific objects in videos, live feeds or images',
+    note: '',
+    source: '',
+    model: 'int8/yolo-v3-opset-12-int8.onnx',
+    size: '60.2 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'input_1': ['float32', 'random', [1, 3, 416, 416], { "unk__576": 1, "unk__577": 416, "unk__578": 416 }], 
+      'image_shape': ['float32', 'random', [1, 2], { "unk__579": 1 }]
+    }],
+    inputstip: '[1, 3, 416, 416]'
+  },
   ...yoloV8NPose(),
   ...yoloV8XPose(),
   ...yoloV10N(),

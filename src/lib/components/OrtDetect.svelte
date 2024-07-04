@@ -242,6 +242,12 @@
 		border: 1px solid var(--font);
 	}
 
+	@media (max-width: 932px) {
+		.version {
+			margin-bottom: 10px;
+		}
+	}
+
 	.stable,
 	.dev,
 	.internal {

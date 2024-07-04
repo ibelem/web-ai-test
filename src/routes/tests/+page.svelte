@@ -28,6 +28,9 @@
 	 * @type {string[]}
 	 */
 	$: uniqueModels = [];
+	/**
+	 * @type {string[]}
+	 */
 	$: orginalUniqueModels = [];
 	/**
 	 * @type {any[]}
@@ -38,28 +41,42 @@
 	let selected = 'onnx';
 
 	const getUniqueCategories = (/** @type {any[]} */ array) => {
-		let categories = array.map(item => item.category);
+		let categories = array.map((item) => item.category);
 		categories = [...new Set(categories)];
-		categories = categories.filter(item => item !== "Model Access Check");
+		categories = categories.filter((item) => item !== 'Model Access Check');
 		return categories.sort();
-	}
+	};
+
+	const filterCategory = (/** @type string */ category) => {
+		if(typeof(category) === "string") {
+			let filterModels = models.filter((item) =>
+				item.category.toLowerCase().includes(category.toLowerCase())
+			);
+			const filter = filterModels.filter((item) => item.format === 'onnx');
+			uniqueModels = sortModelById(filter);
+			uniqueModels = [...new Set(uniqueModels.map((model) => model.id))];
+			uniqueModels = uniqueModels;
+		} else {
+			uniqueModels = orginalUniqueModels;
+		}
+	};
 
 	const filterUniqueModelsByKeyword = (/** @type {any[]} */ array, /** @type {any} */ keyword) => {
 		const lowerKeyword = keyword.toLowerCase();
-		let filterModels = array.filter(item => item.name.toLowerCase().includes(lowerKeyword));
+		let filterModels = array.filter((item) => item.name.toLowerCase().includes(lowerKeyword));
 		const filter = filterModels.filter((item) => item.format === 'onnx');
 		uniqueModels = sortModelById(filter);
 		uniqueModels = [...new Set(uniqueModels.map((model) => model.id))];
 		uniqueModels = uniqueModels;
-	}
+	};
 
 	const searchUniqueModels = () => {
-		if(search) {
+		if (search) {
 			filterUniqueModelsByKeyword(models, search);
 		} else {
 			uniqueModels = orginalUniqueModels;
 		}
-	}
+	};
 
 	const typeChange = (/** @type {{ currentTarget: { value: string; }; }} */ event) => {
 		selected = event.currentTarget.value;
@@ -96,7 +113,32 @@
 	<div class="title">INT8 and INT4 models are not ready for testing</div>
 </div>
 <div class="search">
-	<input id="search" type="text" on:input={searchUniqueModels} on:change={searchUniqueModels} bind:value={search} placeholder="Search models" />
+	<input
+		id="search"
+		type="text"
+		on:input={searchUniqueModels}
+		on:change={searchUniqueModels}
+		bind:value={search}
+		placeholder="Search models"
+	/>
+	<div id="category">
+		{#each categories as tag}
+			<button class="category" on:click={filterCategory(tag)}>{tag}</button>
+		{/each}
+		<button class="category" on:click={filterCategory}>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				height="24px"
+				viewBox="0 -960 960 960"
+				width="24px"
+				fill="#5f6368"
+				><path
+					d="M440-122q-121-15-200.5-105.5T160-440q0-66 26-126.5T260-672l57 57q-38 34-57.5 79T240-440q0 88 56 155.5T440-202v80Zm80 0v-80q87-16 143.5-83T720-440q0-100-70-170t-170-70h-3l44 44-56 56-140-140 140-140 56 56-44 44h3q134 0 227 93t93 227q0 121-79.5 211.5T520-122Z"
+				/></svg
+			>
+			Reset</button
+		>
+	</div>
 </div>
 
 <div class="modelselection">
@@ -123,15 +165,6 @@
 	</div>
 </div>
 
-<div class="main">
-<div id="category">
-	<div class="title tq">Category</div>
-	<div id="tags">
-		{#each categories as tag}
-			<div class="category">{tag}</div>
-		{/each}
-	</div>
-</div>
 <div>
 	<div class="title tq fp16">FLOAT16</div>
 	<div class="tq benchmark fp16">
@@ -147,7 +180,7 @@
 						<div class="status_1 s">
 							<Clock />
 						</div>
-						{#if getModelTypeById(model) === 'onnx'}
+						<!-- {#if getModelTypeById(model) === 'onnx'}
 							<div class="onnx">
 								<Onnx />
 							</div>
@@ -157,7 +190,7 @@
 							<div class="tflite">
 								<Tflite />
 							</div>
-						{/if}
+						{/if} -->
 
 						{#if model.indexOf('_merged') > -1}
 							<span class="kvcache">KV-C</span>
@@ -191,7 +224,7 @@
 						<div class="status_1 s">
 							<Clock />
 						</div>
-						{#if getModelTypeById(model) === 'onnx'}
+						<!-- {#if getModelTypeById(model) === 'onnx'}
 							<div class="onnx">
 								<Onnx />
 							</div>
@@ -201,7 +234,7 @@
 							<div class="tflite">
 								<Tflite />
 							</div>
-						{/if}
+						{/if} -->
 
 						{#if model.indexOf('_merged') > -1}
 							<span class="kvcache">KV-C</span>
@@ -235,7 +268,7 @@
 						<div class="status_1 s">
 							<Clock />
 						</div>
-						{#if getModelTypeById(model) === 'onnx'}
+						<!-- {#if getModelTypeById(model) === 'onnx'}
 							<div class="onnx">
 								<Onnx />
 							</div>
@@ -245,7 +278,7 @@
 							<div class="tflite">
 								<Tflite />
 							</div>
-						{/if}
+						{/if} -->
 
 						{#if model.indexOf('_merged') > -1}
 							<span class="kvcache">KV-C</span>
@@ -279,7 +312,7 @@
 						<div class="status_1 s">
 							<Clock />
 						</div>
-						{#if getModelTypeById(model) === 'onnx'}
+						<!-- {#if getModelTypeById(model) === 'onnx'}
 							<div class="onnx">
 								<Onnx />
 							</div>
@@ -289,7 +322,7 @@
 							<div class="tflite">
 								<Tflite />
 							</div>
-						{/if}
+						{/if} -->
 
 						{#if model.indexOf('_merged') > -1}
 							<span class="kvcache">KV-C</span>
@@ -312,28 +345,61 @@
 			{/if}
 		{/each}
 	</div>
-
-
 	<Environment />
 	<Info />
-</div>
 </div>
 <Footer />
 
 <style>
-	.main {
-		display: grid;
-		grid-template-columns: 3fr 17fr;
-		grid-template-rows: 1fr;
-		grid-column-gap: 10px;
-		grid-row-gap: 0px;
+	#category {
+		display: flex;
+		flex-direction: row;
+		justify-items: center;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+	.category {
+		background-color: transparent;
+		display: inline-flex;
+		font-size: 0.8rem;
+		padding: 2px 8px;
+		border: 1px solid var(--grey-02);
+		border-radius: 20px;
+		margin: 2px;
+		color: var(--font-3);
+		font-family: 'JetBrains Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		cursor: pointer;
+		align-items: center;
 	}
 
-	.category {
-		font-size: 0.8rem;
-		padding: 4px 8px;
-		border: 1px solid var(--grey-02);
-		margin-bottom: -1px;
+	.category:hover {
+		background-color: var(--red-005);
+		color: var(--red);
+	}
+
+	.category svg {
+		width: 18px;
+		height: 18px;
+	}
+
+	.category:hover svg path {
+		fill: var(--red);
+	}
+
+	@keyframes spin {
+		from {
+			transform:rotate(0deg);
+		}
+		to {
+			transform:rotate(360deg);
+		}
+	}
+
+	.category:hover svg {
+		animation-name: spin;
+		animation-duration: 5000ms;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
 	}
 
 	.title {
@@ -358,6 +424,38 @@
 		color: var(--orange);
 	}
 
+	.tq.fp16 .q.tests a:hover {
+		color: var(--fp16);
+	}
+
+	.tq.int8 .q.tests a:hover {
+		color: var(--p);
+	}
+
+	.tq.int4 .q.tests a:hover {
+		color: var(--int4);
+	}
+
+	.tq.fp32 .q.tests a:hover {
+		color: var(--red);
+	}
+
+	.tq.fp16 .q:hover {
+		border-bottom: 1px solid var(--fp16);
+	}
+
+	.tq.int8 .q:hover {
+		border-bottom: 1px solid var(--p);
+	}
+
+	.tq.int4 .q:hover {
+		border-bottom: 1px solid var(--int4);
+	}
+
+	.tq.fp32 .q:hover {
+		border-bottom: 1px solid var(--red);
+	}
+
 	.modelselection {
 		display: flex;
 		align-items: center;
@@ -372,7 +470,7 @@
 			0 6px 12px 0 rgba(var(--red), 0.15);
 		padding: 6px 20px;
 		border-radius: 99px;
-		margin: 0 auto;
+		margin: 10px auto 0 auto;
 		text-align: center;
 	}
 
@@ -470,12 +568,18 @@
 			transform: scale(0.6);
 		}
 	}
- 
+
 	.kvcache {
 		display: inline-block;
 		margin-left: 8px;
 		font-size: 0.7rem;
 		padding: 0px 2px;
 		border: 1px solid var(--grey-02);
+	}
+
+	@media (max-width: 512px) {
+		#search {
+			width: 90vw;
+		}
 	}
 </style>
