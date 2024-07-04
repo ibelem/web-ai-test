@@ -28,8 +28,38 @@
 	 * @type {string[]}
 	 */
 	$: uniqueModels = [];
+	$: orginalUniqueModels = [];
+	/**
+	 * @type {any[]}
+	 */
+	$: categories = [];
+	$: search = '';
 	let subModels = models;
 	let selected = 'onnx';
+
+	const getUniqueCategories = (/** @type {any[]} */ array) => {
+		let categories = array.map(item => item.category);
+		categories = [...new Set(categories)];
+		categories = categories.filter(item => item !== "Model Access Check");
+		return categories.sort();
+	}
+
+	const filterUniqueModelsByKeyword = (/** @type {any[]} */ array, /** @type {any} */ keyword) => {
+		const lowerKeyword = keyword.toLowerCase();
+		let filterModels = array.filter(item => item.name.toLowerCase().includes(lowerKeyword));
+		const filter = filterModels.filter((item) => item.format === 'onnx');
+		uniqueModels = sortModelById(filter);
+		uniqueModels = [...new Set(uniqueModels.map((model) => model.id))];
+		uniqueModels = uniqueModels;
+	}
+
+	const searchUniqueModels = () => {
+		if(search) {
+			filterUniqueModelsByKeyword(models, search);
+		} else {
+			uniqueModels = orginalUniqueModels;
+		}
+	}
 
 	const typeChange = (/** @type {{ currentTarget: { value: string; }; }} */ event) => {
 		selected = event.currentTarget.value;
@@ -52,6 +82,8 @@
 		uniqueModels = sortModelById(subModels);
 		uniqueModels = [...new Set(uniqueModels.map((model) => model.id))];
 		uniqueModels = uniqueModels;
+		orginalUniqueModels = uniqueModels;
+		categories = getUniqueCategories(models);
 	});
 
 	onDestroy(() => {});
@@ -62,6 +94,9 @@
 <div class="tqtitle">
 	<div class="title tq">Benchmark Tests</div>
 	<div class="title">INT8 and INT4 models are not ready for testing</div>
+</div>
+<div class="search">
+	<input id="search" type="text" on:input={searchUniqueModels} on:change={searchUniqueModels} bind:value={search} placeholder="Search models" />
 </div>
 
 <div class="modelselection">
@@ -88,6 +123,15 @@
 	</div>
 </div>
 
+<div class="main">
+<div id="category">
+	<div class="title tq">Category</div>
+	<div id="tags">
+		{#each categories as tag}
+			<div class="category">{tag}</div>
+		{/each}
+	</div>
+</div>
 <div>
 	<div class="title tq fp16">FLOAT16</div>
 	<div class="tq benchmark fp16">
@@ -273,9 +317,25 @@
 	<Environment />
 	<Info />
 </div>
+</div>
 <Footer />
 
 <style>
+	.main {
+		display: grid;
+		grid-template-columns: 3fr 17fr;
+		grid-template-rows: 1fr;
+		grid-column-gap: 10px;
+		grid-row-gap: 0px;
+	}
+
+	.category {
+		font-size: 0.8rem;
+		padding: 4px 8px;
+		border: 1px solid var(--grey-02);
+		margin-bottom: -1px;
+	}
+
 	.title {
 		text-align: center;
 		color: var(--red);
@@ -377,6 +437,32 @@
 	.benchmark.tq .onnx,
 	.benchmark.tq .tflite {
 		margin: 0 0 2px 6px;
+	}
+
+	.search {
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	#search {
+		font-family: 'JetBrains Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		display: inline-block;
+		color: var(--font);
+		border: 1px solid var(--grey-02);
+		padding: 10px 10px;
+		border-radius: 4px;
+		cursor: pointer;
+		margin-bottom: 10px;
+		width: 380px;
+	}
+
+	#search:hover {
+		border: 1px solid var(--grey-06);
+		outline: none;
+	}
+
+	#search:focus {
+		outline: none;
 	}
 
 	@media (max-width: 700px) {

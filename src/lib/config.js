@@ -2113,21 +2113,6 @@ export let models = [
   //   inputs: [{ 'images:0': ['float32', 'random', [1, 224, 224, 3], {}] }],
   //   inputstip: '[1, 224, 224, 3]'
   // },
-  {
-    category: 'Face Analysis',
-    tag: '',
-    id: 'emotion_ferplus',
-    name: 'Emotion FERPlus',
-    description: 'A deep convolutional neural network for emotion recognition in faces.',
-    note: '',
-    source: 'https://github.com/onnx/models/raw/main/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx',
-    model: 'emotion-ferplus-8.onnx',
-    size: '33.42 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{ 'Input3': ['float32', 'random', [1, 1, 64, 64], {}] }],
-    inputstip: '[1, 1, 64, 64]'
-  },
   ...esrgan(),
   {
     category: 'Object Detection',
