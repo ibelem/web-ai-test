@@ -91,7 +91,7 @@ const bartLargeCnn = () => {
     id: `bart_large_cnn_${dt}`,
     name: 'BART Large CNN Encoder',
     description: 'BART is a transformer encoder-encoder (seq2seq) model with a bidirectional (BERT-like) encoder and an autoregressive (GPT-like) decoder.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/bart-large-cnn',
     hf: {
       model: 'xenova/bart-large-cnn',
@@ -121,7 +121,7 @@ const bertBaseCased = () => {
     id: `bert_base_cased_${dt}`,
     name: 'BERT Base Cased',
     description: 'A transformers model pretrained on a large corpus of English data in a self-supervised fashion.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/bert-base-cased',
     hf: {
       model: 'xenova/bert-base-cased',
@@ -152,7 +152,7 @@ const bertBaseUncased = () => {
     id: `bert_base_uncased_${dt}`,
     name: 'BERT Base Uncased',
     description: 'A transformers model pretrained on a large corpus of English data in a self-supervised fashion.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/bert-base-uncased',
     hf: {
       model: 'xenova/bert-base-uncased',
@@ -183,7 +183,7 @@ const bertBaseMultilingualCasedNerHrl = () => {
     id: `bert_base_multilingual_cased_ner_hrl_${dt}`,
     name: 'BERT Base Multilingual Cased NER HRL',
     description: 'A Named Entity Recognition model for 10 high resourced languages (Arabic, German, English, Spanish, French, Italian, Latvian, Dutch, Portuguese and Chinese) based on a fine-tuned mBERT base model.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/bert-base-multilingual-cased-ner-hrl',
     hf: {
       model: 'xenova/bert-base-multilingual-cased-ner-hrl',
@@ -214,7 +214,7 @@ const bertBaseMultilingualUncasedSentiment = () => {
     id: `bert_base_multilingual_uncased_sentiment_${dt}`,
     name: 'BERT Base Multilingual Uncased Sentiment',
     description: 'A bert-base-multilingual-uncased model finetuned for sentiment analysis on product reviews in six languages: English, Dutch, German, French, Spanish, and Italian.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/bert-base-multilingual-uncased-sentiment',
     hf: {
       model: 'xenova/bert-base-multilingual-uncased-sentiment',
@@ -245,7 +245,7 @@ const clipVitBasePatch16 = () => {
     id: `clip_vit_base_patch16_${dt}`,
     name: 'CLIP ViT Base',
     description: 'A Contrastive Language-Image Pre-Training (CLIP) model developed by researchers at OpenAI to learn about what contributes to robustness in computer vision tasks.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/clip-vit-base-patch16',
     hf: {
       model: 'xenova/clip-vit-base-patch16',
@@ -276,7 +276,7 @@ const codeGenMono350M = () => {
     id: `codegen_350m_mono_${dt}`,
     name: 'CodeGen Mono 350M',
     description: 'A family of autoregressive language models for program synthesis.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/codegen-350M-mono',
     hf: {
       model: 'xenova/codegen-350m-mono',
@@ -363,7 +363,7 @@ const distilbartCnn66Decoder = () => {
     id: `distilbart_cnn_6_6_decoder_${dt}`,
     name: 'Distilbart CNN 6-6 Decoder',
     description: 'A text summarization model built upon a Transformer model.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
     hf: {
       model: 'xenova/distilbart-cnn-6-6',
@@ -394,7 +394,7 @@ const distilbartCnn66DecoderWithPast = () => {
     id: `distilbart_cnn_6_6_decoder_with_past_${dt}`,
     name: 'Distilbart CNN 6-6 Decoder w/i Past',
     description: 'A text summarization model built upon a Transformer model.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
     hf: {
       model: 'xenova/distilbart-cnn-6-6',
@@ -428,7 +428,7 @@ const distilbartCnn66DecoderMerged = () => {
     id: `distilbart_cnn_6_6_decoder_merged_${dt}`,
     name: 'Distilbart CNN 6-6 Decoder KV-Cache',
     description: 'A text summarization model built upon a Transformer model.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
     hf: {
       model: 'xenova/distilbart-cnn-6-6',
@@ -463,7 +463,7 @@ const distilbartCnn66Encoder = () => {
     id: `distilbart_cnn_6_6_encoder_${dt}`,
     name: 'Distilbart CNN 6-6 Encoder',
     description: 'A text summarization model built upon a Transformer model.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
     hf: {
       model: 'xenova/distilbart-cnn-6-6',
@@ -674,7 +674,7 @@ const distiluseBaseMultilingualCasedV2 = () => {
     category: 'Sentence Similarity',
     tag: '2h',
     id: `distiluse_base_multilingual_cased_v2_${dt}`,
-    name: 'Distiluse Base Multilingual Cased V2',
+    name: 'Distiluse Base Multilingual Cased v2',
     description: 'Maps sentences & paragraphs to a 512 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
     note: '',
     source: 'https://huggingface.co/Xenova/distiluse-base-multilingual-cased-v2',
@@ -792,7 +792,7 @@ const distilMediumEnEncoder = () => {
     id: `distil_medium_en_encoder_${dt}`,
     name: 'Distil-Whisper Encoder',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/distil-whisper/distil-medium.en',
     hf: {
       model: 'distil-whisper/distil-medium.en',
@@ -979,7 +979,7 @@ const gteBaseEnV1_5 = () => {
     id: `gte_base_en_v1_5_${dt}`,
     name: 'General Text Embeddings (GTE) Base EN v1.5',
     description: 'GTE-v1.5 series upgraded gte embeddings that support the context length of up to 8192, while further enhancing model performance. The models are built upon the transformer++ encoder backbone (BERT + RoPE + GLU).',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Alibaba-NLP/gte-base-en-v1.5',
     hf: {
       model: 'alibaba-nlp/gte-base-en-v1.5',
@@ -1025,6 +1025,127 @@ const gteSmall = () => {
       'token_type_ids': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
     }],
     inputstip: '[1, 16] [1, 16] [1, 16]'
+  }))
+}
+
+const jinaClipV1Text = () => {
+  const configs = [
+    ['fp32', 'text_model.onnx', '522 MB'],
+    ['fp16', 'text_model_fp16.onnx', '261 MB'],
+    ['int8', 'text_model_quantized.onnx', '131 MB'],
+    ['int4', 'text_model_q4.onnx', '157 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '2h',
+    id: `jina_clip_v1_text_${dt}`,
+    name: 'Jina CLIP v1 (Text)',
+    description: 'A state-of-the-art English multimodal (text-image) embedding model.',
+    note: 'Large model',
+    source: 'https://huggingface.co/jinaai/jina-clip-v1',
+    hf: {
+      model: 'jinaai/jina-clip-v1',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 101n, [1, 16], { "batch_size": 1, "sequence_length": 16 }]
+    }],
+    inputstip: '[1, 16]'
+  }))
+}
+
+const jinaClipV1Vision = () => {
+  const configs = [
+    ['fp32', 'vision_model.onnx', '327 MB'],
+    ['fp16', 'vision_model_fp16.onnx', '164 MB'],
+    ['int8', 'vision_model_quantized.onnx', '83.7 MB'],
+    ['int4', 'vision_model_q4.onnx', '54.5 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '2h',
+    id: `jina_clip_v1_vision_${dt}`,
+    name: 'Jina CLIP v1 (Vision)',
+    description: 'A state-of-the-art English multimodal (text-image) embedding model.',
+    note: '',
+    source: 'https://huggingface.co/jinaai/jina-clip-v1',
+    hf: {
+      model: 'jinaai/jina-clip-v1',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 3, 224, 224]'
+  }))
+}
+
+const jinaEmbeddingsV2BaseCode = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '611 MB'],
+    ['fp16', 'model_fp16.onnx', '306 MB'],
+    ['int8', 'model_quantized.onnx', '154 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '2h',
+    id: `jina_embeddings_v2_base_code_${dt}`,
+    name: 'Jina Embeddings v2 Base Code',
+    description: 'An multilingual embedding model speaks English and 30 widely used programming languages. Same as other jina-embeddings-v2 series, it supports 8192 sequence length.',
+    note: 'Large model',
+    source: 'https://huggingface.co/jinaai/jina-embeddings-v2-base-code',
+    hf: {
+      model: 'jinaai/jina-embeddings-v2-base-code',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [2, 26], { "batch": 2, "sequence": 26 }],
+      'attention_mask': ['int64', 1n, [2, 26], { "batch": 2, "sequence": 26 }],
+    }],
+    inputstip: '[2, 26] [2, 26]'
+  }))
+}
+
+const jinaRerankerV1TurboEn = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '144 MB'],
+    ['fp16', 'model_fp16.onnx', '72.2 MB'],
+    ['int8', 'model_quantized.onnx', '36.5 MB'],
+    ['int4', 'model_q4.onnx', '98.7 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Classification',
+    tag: '2h',
+    id: `jina_reranker_v1_turbo_en_${dt}`,
+    name: 'Jina Reranker v1 Turbo EN',
+    description: 'Leverages the power of our JinaBERT model as its foundation, processing significantly longer sequences of text compared to other reranking models, up to an impressive 8,192 tokens.',
+    note: '',
+    source: 'https://huggingface.co/jinaai/jina-reranker-v1-turbo-en',
+    hf: {
+      model: 'jinaai/jina-reranker-v1-turbo-en',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 2n, [10, 20], { "batch": 10, "sequence": 20 }],
+      'attention_mask': ['int64', 1n, [10, 20], { "batch": 10, "sequence": 20 }],
+    }],
+    inputstip: '[10, 20] [10, 20]'
   }))
 }
 
@@ -1097,7 +1218,7 @@ const mt5SmallDecoder = () => {
     id: `mt5_small_decoder_${dt}`,
     name: 'mT5 Small Decoder',
     description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/mt5-small',
     hf: {
       model: 'xenova/mt5-small',
@@ -1128,7 +1249,7 @@ const mt5SmallDecoderWithPast = () => {
     id: `mt5_small_decoder_with_past_${dt}`,
     name: 'mT5 Small Decoder w/i Past',
     description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/mt5-small',
     hf: {
       model: 'xenova/mt5-small',
@@ -1159,7 +1280,7 @@ const mt5SmallDecoderMerged = () => {
     id: `mt5_small_decoder_merged_${dt}`,
     name: 'mT5 Small Decoder KV-Cache',
     description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/mt5-small',
     hf: {
       model: 'xenova/mt5-small',
@@ -1194,7 +1315,7 @@ const mt5SmallEncoder = () => {
     id: `mt5_small_encoder_${dt}`,
     name: 'mT5 Small Encoder',
     description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
-    note: 'Large model.It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large modelIt is recommended to run tests on this large model individually rather than together with other models.',
     source: 'https://huggingface.co/Xenova/mt5-small',
     hf: {
       model: 'xenova/mt5-small',
@@ -1211,6 +1332,96 @@ const mt5SmallEncoder = () => {
     inputstip: '[1, 128] [1, 128]'
   }))
 }
+const mxbaiEmbedLargeV1 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '1.24 GB'],
+    ['fp16', 'model_fp16.onnx', '637 MB'],
+    ['int8', 'model_quantized.onnx', '321 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '2h',
+    id: `mxbai_embed_large_v1_${dt}`,
+    name: 'MxbAI Embed Large v1',
+    description: 'The crispy sentence embedding family from mixedbread ai, provideing several ways to produce sentence embeddings.',
+    note: 'Large model',
+    source: 'https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1',
+    hf: {
+      model: 'mixedbread-ai/mxbai-embed-large-v1',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 101n, [5, 18], { "batch_size": 5, "sequence_length": 18 }],
+      'attention_mask': ['int64', 1n, [5, 18], { "batch_size": 5, "sequence_length": 18 }],
+      'token_type_ids': ['int64', 0n, [5, 18], { "batch_size": 5, "sequence_length": 18 }],
+    }],
+    inputstip: '[5, 18] [5, 18] [5, 18]'
+  }))
+}
+
+const mxbaiRerankBaseV1 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '704 MB'],
+    // // ['fp16', 'model_fp16.onnx', ' MB'],
+    ['int8', 'model_quantized.onnx', '232 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Classification',
+    tag: '2h',
+    id: `mxbai_rerank_base_v1_${dt}`,
+    name: 'MxbAI Rerank Base v1',
+    description: 'The base model of powerful reranker models from mixedbread ai.',
+    note: 'Large model',
+    source: 'https://huggingface.co/mixedbread-ai/mxbai-rerank-base-v1',
+    hf: {
+      model: 'mixedbread-ai/mxbai-rerank-base-v1',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 101n, [5, 18], { "batch_size": 5, "sequence_length": 18 }],
+      'attention_mask': ['int64', 1n, [5, 18], { "batch_size": 5, "sequence_length": 18 }]
+    }],
+    inputstip: '[5, 18] [5, 18]'
+  }))
+}
+
+const nomicEmbedTextV1 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '522 MB'],
+    ['int8', 'model_quantized.onnx', '131 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Similarity',
+    tag: '2h',
+    id: `nomic_embed_text_v1_${dt}`,
+    name: 'Nomic Embed Text v1',
+    description: 'A Reproducible Long Context (8192) Text Embedder that surpasses OpenAI text-embedding-ada-002 and text-embedding-3-small performance on short and long context tasks.',
+    note: 'Large model',
+    source: 'https://huggingface.co/nomic-ai/nomic-embed-text-v1',
+    hf: {
+      model: 'nomic-ai/nomic-embed-text-v1',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 101n, [2, 16], { "batch_size": 2, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [2, 16], { "batch_size": 2, "sequence_length": 16 }],
+      'token_type_ids': ['int64', 0n, [2, 16], { "batch_size": 2, "sequence_length": 16 }],
+    }],
+    inputstip: '[2, 16] [2, 16] [2, 16]'
+  }))
+}
 
 const nomicEmbedTextV1_5 = () => {
   const configs = [
@@ -1221,9 +1432,9 @@ const nomicEmbedTextV1_5 = () => {
     category: 'Sentence Similarity',
     tag: '2h',
     id: `nomic_embed_text_v1_5_${dt}`,
-    name: '[To Do] Nomic Embed Text v1.5',
+    name: 'Nomic Embed Text v1.5',
     description: 'An improvement upon Nomic Embed that utilizes Matryoshka Representation Learning which gives developers the flexibility to trade off the embedding size for a negligible reduction in performance.',
-    note: '',
+    note: 'Large model',
     source: 'https://huggingface.co/nomic-ai/nomic-embed-text-v1.5',
     hf: {
       model: 'nomic-ai/nomic-embed-text-v1.5',
@@ -1234,11 +1445,11 @@ const nomicEmbedTextV1_5 = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
-      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
-      'token_type_ids': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'input_ids': ['int64', 101n, [2, 16], { "batch_size": 2, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [2, 16], { "batch_size": 2, "sequence_length": 16 }],
+      'token_type_ids': ['int64', 0n, [2, 16], { "batch_size": 2, "sequence_length": 16 }],
     }],
-    inputstip: '[1, 16] [1, 16] [1, 16]'
+    inputstip: '[2, 16] [2, 16] [2, 16]'
   }))
 }
 
@@ -1252,9 +1463,9 @@ const paraphraseMultilingualMpnetBaseV2 = () => {
     category: 'Sentence Similarity',
     tag: '2h',
     id: `paraphrase_multilingual_mpnet_base_v2_${dt}`,
-    name: 'Paraphrase Multilingual Mpnet Base V2',
+    name: 'Paraphrase Multilingual Mpnet Base v2',
     description: 'Maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/paraphrase-multilingual-mpnet-base-v2',
     hf: {
       model: 'xenova/paraphrase-multilingual-mpnet-base-v2',
@@ -1282,7 +1493,7 @@ const phi3Mini4kInstructMerged = () => {
     id: `phi_3_mini_4k_instruct_merged_${dt}`,
     name: 'Phi 3 Mini 4k Instruct KV-Cache',
     description: 'Phi-3 Mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-2 - synthetic data and filtered websites - with a focus on very high-quality, reasoning dense data.',
-    note: 'Large model with external data. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model with external data.',
     source: 'https://huggingface.co/Xenova/Phi-3-mini-4k-instruct',
     hf: {
       model: 'xenova/phi-3-mini-4k-instruct',
@@ -1590,7 +1801,7 @@ const tinyLlama1_1BChatv1_0Merged = () => {
     id: `tinyllama_1_1b_chat_v1_0_merged_${dt}`,
     name: 'TinyLlama 1.1B Chat v1.0 KV-Cache',
     description: 'This is the chat model finetuned on top of TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T. ',
-    note: 'Large model with external data. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model with external data.',
     source: 'https://huggingface.co/Xenova/TinyLlama-1.1B-Chat-v1.0',
     hf: {
       model: 'xenova/tinyllama-1.1b-chat-v1.0',
@@ -1621,7 +1832,7 @@ const tinyLlama1_1BChatv1_0Merged_2 = () => {
     id: `tinyllama_1_1b_chat_v1_0_merged_${dt}`,
     name: 'TinyLlama 1.1B Chat v1.0 KV-Cache',
     description: 'This is the chat model finetuned on top of TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T. ',
-    note: 'Large model with external data. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model with external data.',
     source: 'https://huggingface.co/webml/TinyLlama-1.1B-Chat-v1.0',
     hf: {
       model: 'webml/tinyllama-1.1b-chat-v1.0',
@@ -1651,7 +1862,7 @@ const metaLlama_3_8bInstructMerged = () => {
     id: `meta_llama_3_8b_instruct_merged_${dt}`,
     name: '[DO NOT RUN] Meta Llama 3 8b Instruct KV-Cache',
     description: 'Llama 3 is an auto-regressive language model that uses an optimized transformer architecture. The tuned versions use supervised fine-tuning (SFT) and reinforcement learning with human feedback (RLHF).',
-    note: 'Unable to run now, 14.9GB. Large model with external data. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Unable to run now, 14.9GB. Large model with external data.',
     source: 'https://huggingface.co/webml/Meta-Llama-3-8B-Instruct-onnx-fp16',
     hf: {
       model: 'webml/meta-llama-3-8b-instruct-onnx-fp16',
@@ -1712,7 +1923,7 @@ const vitGpt2ImageCaptioningDecoder = () => {
     id: `vit_gpt2_image_captioning_decoder_${dt}`,
     name: 'ViT GPT2 Image Captioning Decoder',
     description: 'An image captioning model using transformers.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
     hf: {
       model: 'xenova/vit-gpt2-image-captioning',
@@ -1742,7 +1953,7 @@ const vitGpt2ImageCaptioningDecoderWithPast = () => {
     id: `vit_gpt2_image_captioning_decoder_with_past_${dt}`,
     name: 'ViT GPT2 Image Captioning Decoder w/i Past',
     description: 'An image captioning model using transformers.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
     hf: {
       model: 'xenova/vit-gpt2-image-captioning',
@@ -1772,7 +1983,7 @@ const vitGpt2ImageCaptioningDecoderMerged = () => {
     id: `vit_gpt2_image_captioning_decoder_merged_${dt}`,
     name: 'ViT GPT2 Image Captioning Decoder KV-Cache',
     description: 'An image captioning model using transformers.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
     hf: {
       model: 'xenova/vit-gpt2-image-captioning',
@@ -1958,7 +2169,7 @@ const xlmRobertaBase = () => {
     id: `xlm_roberta_base_${dt}`,
     name: 'XLM-RoBERTa Base',
     description: 'RoBERTa is a transformers model pretrained on a large corpus in a self-supervised fashion. XLM-RoBERTa is a multilingual version of RoBERTa. It is pre-trained on 2.5TB of filtered CommonCrawl data containing 100 languages.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/xlm-roberta-base',
     hf: {
       model: 'xenova/xlm-roberta-base',
@@ -2242,7 +2453,7 @@ export let models = [
     id: 'gpt2_decoder_fp32',
     name: 'GPT-2 Decoder',
     description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/openai-community/gpt2',
     hf: {
       model: 'openai-community/gpt2',
@@ -2264,7 +2475,7 @@ export let models = [
     id: 'gpt2_decoder_with_past_fp32',
     name: 'GPT-2 Decoder w/i Past',
     description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/openai-community/gpt2',
     hf: {
       model: 'openai-community/gpt2',
@@ -2286,7 +2497,7 @@ export let models = [
     id: 'gpt2_decoder_merged_fp32',
     name: 'GPT-2 Decoder KV-Cache',
     description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/openai-community/gpt2',
     hf: {
       model: 'openai-community/gpt2',
@@ -2340,7 +2551,7 @@ export let models = [
     id: 'm2m100_decoder',
     name: 'M2M100 418M Decoder',
     description: 'A multilingual encoder-decoder (seq-to-seq) model.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/m2m100_418M',
     model: 'm2m100-decoder.onnx',
     size: '1.24 GB',
@@ -2359,7 +2570,7 @@ export let models = [
     id: 'm2m100_encoder',
     name: 'M2M100 418M Encoder',
     description: 'A multilingual encoder-decoder (seq-to-seq) model.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: 'https://huggingface.co/Xenova/m2m100_418M',
     model: 'm2m100-encoder.onnx',
     size: '1.05 GB',
@@ -2477,12 +2688,19 @@ export let models = [
   },
   ...gteBaseEnV1_5(),
   ...gteSmall(),
+  ...jinaClipV1Text(),
+  ...jinaClipV1Vision(),
+  ...jinaEmbeddingsV2BaseCode(),
+  ...jinaRerankerV1TurboEn(),
   ...mobileVitSmall(),
   ...msmarcoDistilbertBaseV4(),
   ...mt5SmallDecoder(),
   ...mt5SmallDecoderWithPast(),
   ...mt5SmallDecoderMerged(),
   ...mt5SmallEncoder(),
+  ...mxbaiEmbedLargeV1(),
+  ...mxbaiRerankBaseV1(),
+  ...nomicEmbedTextV1(),
   ...nomicEmbedTextV1_5(),
   ...paraphraseMultilingualMpnetBaseV2(),
   ...phi3Mini4kInstructMerged(),
@@ -2559,7 +2777,7 @@ export let models = [
     id: 'sam_b_encoder',
     name: 'SAM B Encoder',
     description: 'Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    note: 'Large model',
     source: '',
     model: 'segment-anything/sam-b-encoder.onnx',
     size: '342 MB',

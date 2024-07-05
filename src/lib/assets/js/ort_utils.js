@@ -365,9 +365,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   l(`options:`)
   l(options)
 
-  l(`options.freeDimensionOverrides:`);
-  l(freeDimensionOverrides);
-
   updateTestQueueStatus(_id, 2);
   addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, null, [], null, null, null, null, null);
   addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, null, [], null, null, null, null, null);
