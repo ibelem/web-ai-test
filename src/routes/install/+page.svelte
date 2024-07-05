@@ -35,10 +35,6 @@
 		margin-bottom: 20px;
 	}
 
-	.red {
-		color: var(--red);
-	}
-
 	.title {
 		text-align: center;
 		color: var(--red);
