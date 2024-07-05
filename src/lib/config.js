@@ -233,6 +233,67 @@ const bertBaseMultilingualUncasedSentiment = () => {
   }))
 }
 
+const BGELargeEnV1_5 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '1.24 GB'],
+    ['fp16', 'model_fp16.onnx', ' 637 MB'],
+    ['int8', 'model_quantized.onnx', '321 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '2H',
+    id: `bge_large_en_v1_5_${dt}`,
+    name: 'BAAI General Embedding (BGE) Large EN v1.5',
+    description: 'FlagEmbedding focuses on retrieval-augmented LLMs.',
+    note: 'Large model',
+    source: 'https://huggingface.co/Xenova/bge-large-en-v1.5',
+    hf: {
+      model: 'xenova/bge-large-en-v1.5',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 101n, [2, 5], { "batch_size": 1, "sequence_length": 5 }],
+      'attention_mask': ['int64', 1n, [2, 5], { "batch_size": 2, "sequence_length": 5 }],
+      'token_type_ids': ['int64', 0n, [2, 5], { "batch_size": 2, "sequence_length": 5 }]
+    }],
+    inputstip: '[2, 5] [2, 5] [2, 5]'
+  }))
+}
+
+const BGERerankerBase = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '1.03 GB'],
+    ['fp16', 'model_fp16.onnx', ' 530 MB'],
+    ['int8', 'model_quantized.onnx', '266 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Classification',
+    tag: '2H',
+    id: `bge_reranker_base_${dt}`,
+    name: 'BAAI General Embedding (BGE) Reranker Base',
+    description: 'Lightweight reranker model, easy to deploy, with fast inference.',
+    note: 'Large model',
+    source: 'https://huggingface.co/Xenova/bge-reranker-base',
+    hf: {
+      model: 'xenova/bge-reranker-base',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 101n, [2, 5], { "batch_size": 1, "sequence_length": 5 }],
+      'attention_mask': ['int64', 1n, [2, 5], { "batch_size": 2, "sequence_length": 5 }]
+    }],
+    inputstip: '[2, 5] [2, 5]'
+  }))
+}
+
 const clipVitBasePatch16 = () => {
   const configs = [
     ['fp32', 'model.onnx', '571 MB'],
@@ -840,6 +901,35 @@ const esrgan = () => {
   }))
 }
 
+const faceParsing = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '221 MB'],
+    // ['fp16', 'model_fp16.onnx', ' MB'],
+    ['int8', 'model_quantized.onnx', '56.2 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Segmentation',
+    tag: '',
+    id: `face_parsing_${dt}`,
+    name: 'Face Parsing',
+    description: 'Fine-tuned from nvidia/mit-b5 with CelebAMask-HQ for face parsing.',
+    note: '',
+    source: 'https://huggingface.co/jonathandinu/face-parsing',
+    hf: {
+      model: 'jonathandinu/face-parsing',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 512, 512], { "batch_size": 1 ,"num_channels": 3, "height": 512, "width": 512}]
+    }],
+    inputstip: '[1, 3, 512, 512]'
+  }))
+}
+
 const flanT5SmallDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '221 MB'],
@@ -1146,6 +1236,95 @@ const jinaRerankerV1TurboEn = () => {
       'attention_mask': ['int64', 1n, [10, 20], { "batch": 10, "sequence": 20 }],
     }],
     inputstip: '[10, 20] [10, 20]'
+  }))
+}
+
+const llama2CStories15MDecoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '58.2 MB'],
+    ['fp16', 'decoder_model_fp16.onnx', '29.2 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '14.9 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `llama2_c_stories15m_decoder_${dt}`,
+    name: 'llama2.c Stories 15M Decoder',
+    description: 'Llama 2 LLM architecture',
+    note: '',
+    source: 'https://huggingface.co/Xenova/llama2.c-stories15M',
+    hf: {
+      model: 'xenova/llama2.c-stories15m',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 5], { "batch_size": 1, "sequence_length": 5 }],
+      'attention_mask': ['int64', 1n, [1, 5], { "batch_size": 1, "past_sequence_length + 1": 5 }],
+    }],
+    inputstip: '[1, 5] [1, 5]'
+  }))
+}
+
+const llama2CStories15MDecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '58.5 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '15.3 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `llama2_c_stories15m_decoder_merged_${dt}`,
+    name: 'llama2.c Stories 15M Decoder KV-Cache',
+    description: 'Llama 2 LLM architecture',
+    note: '',
+    source: 'https://huggingface.co/Xenova/llama2.c-stories15M',
+    hf: {
+      model: 'xenova/llama2.c-stories15m',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 5], { "batch_size": 1, "sequence_length": 5 }],
+      'attention_mask': ['int64', 1n, [1, 5], { "batch_size": 1, "attention_mask_sequence_length": 5 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
+    inputstip: '[1, 5] [1, 5]'
+  }))
+}
+
+const llama2CStories15MDecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '58.2 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '14.9 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `llama2_c_stories15m_decoder_with_past_${dt}`,
+    name: 'llama2.c Stories 15M Decoder w/i Past',
+    description: 'Llama 2 LLM architecture',
+    note: '',
+    source: 'https://huggingface.co/Xenova/llama2.c-stories15M',
+    hf: {
+      model: 'xenova/llama2.c-stories15m',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 6], { "batch_size": 1, "past_sequence_length + 1": 6 }],
+    }],
+    inputstip: '[1, 1] [1, 6]'
   }))
 }
 
@@ -1513,6 +1692,38 @@ const phi3Mini4kInstructMerged = () => {
   }))
 }
 
+const Qwen2_0_5bInstructMerged = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '1.85 GB'],
+    ['fp16', 'model_fp16.onnx', '951 MB'],
+    ['int8', 'model_quantized.onnx', '489 MB'],
+    ['int4', 'model_q4.onnx', '750 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `qwen2_0_5b_instruct_merged_${dt}`,
+    name: '[Need to fix INPUTS] Qwen2 0.5b Instruct KV-Cache',
+    description: 'Qwen2 is a language model series including decoder language models of different model sizes.',
+    note: 'Large model',
+    source: 'https://huggingface.co/webml/Qwen2-0.5B-Instruct',
+    hf: {
+      model: 'webml/qwen2-0.5b-instruct',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
+      'attention_mask': ['int64', 1n, [1, 17], { "batch_size": 1, "past_sequence_length + 1": 17 }],
+      'position_ids': ['int64', 1n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
+    }],
+    inputstip: '[1, 17] [1, 17] [1, 17]'
+  }))
+}
+
 const samVitBase = () => {
   const configs = [
     ['fp32', 'model.onnx', '358 MB'],
@@ -1629,6 +1840,38 @@ const samVitBaseVisionEncoder = () => {
       'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }]
     }],
     inputstip: '[1, 3, 1024, 1024]'
+  }))
+}
+
+const SnowflakeArcticEmbedM = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '415 MB'],
+    ['fp16', 'model_fp16.onnx', '208 MB'],
+    ['int8', 'model_quantized.onnx', '104 MB'],
+    ['int4', 'model_q4.onnx', '142 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Similarity',
+    tag: '2h',
+    id: `snowflake_arctic_embed_m_${dt}`,
+    name: 'Snowflake Arctic Embed M',
+    description: 'An improvement upon Nomic Embed that utilizes Matryoshka Representation Learning which gives developers the flexibility to trade off the embedding size for a negligible reduction in performance.',
+    note: 'Large model',
+    source: 'https://huggingface.co/Snowflake/snowflake-arctic-embed-m',
+    hf: {
+      model: 'snowflake/snowflake-arctic-embed-m',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 101n, [3, 19], { "batch_size": 3, "sequence_length": 19 }],
+      'attention_mask': ['int64', 1n, [3, 19], { "batch_size": 3, "sequence_length": 19 }],
+      'token_type_ids': ['int64', 0n, [3, 19], { "batch_size": 3, "sequence_length": 19 }],
+    }],
+    inputstip: '[3, 19] [3, 19] [3, 19]'
   }))
 }
 
@@ -1879,6 +2122,68 @@ const metaLlama_3_8bInstructMerged = () => {
       'position_ids': ['int64', 1n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
     }],
     inputstip: '[1, 41] [1, 41] [1, 41]'
+  }))
+}
+
+const uaeLargeV1 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '1.24 GB'],
+    ['fp16', 'model_fp16.onnx', '637 MB'],
+    ['int8', 'model_quantized.onnx', '321 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '',
+    id: `uae_large_v1_${dt}`,
+    name: 'Universal AnglE Embedding (UAE) Large v1',
+    description: 'Generate high-quality text embeddings.',
+    note: '',
+    source: 'https://huggingface.co/WhereIsAI/UAE-Large-V1',
+    hf: {
+      model: 'whereisai/uae-large-v1',
+      file: `${file}`,
+    },
+    model: 'Large model',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'token_type_ids': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128]'
+  }))
+}
+
+const UniVaRLambda1 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '522 MB'],
+    ['fp16', 'model_fp16.onnx', '261 MB'],
+    ['int8', 'model_quantized.onnx', '131 MB'],
+    ['int8', 'model_q4.onnx', '293 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Similarity',
+    tag: '2h',
+    id: `univar_lambda_1_${dt}`,
+    name: '[Work in Progress] UniVaR Lambda 1',
+    description: 'https://huggingface.co/CAiRE/UniVaR-lambda-1, the same model with nomic-ai/nomic-embed-text-v1? A Reproducible Long Context (8192) Text Embedder that surpasses OpenAI text-embedding-ada-002 and text-embedding-3-small performance on short and long context tasks.',
+    note: 'Large model',
+    source: 'https://huggingface.co/webml/UniVaR-lambda-1',
+    hf: {
+      model: 'webml/univar-lambda-1',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 101n, [2, 16], { "batch_size": 2, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [2, 16], { "batch_size": 2, "sequence_length": 16 }]
+    }],
+    inputstip: '[2, 16] [2, 16]'
   }))
 }
 
@@ -2290,6 +2595,8 @@ export let models = [
   ...bertBaseUncased(),
   ...bertBaseMultilingualCasedNerHrl(),
   ...bertBaseMultilingualUncasedSentiment(),
+  ...BGELargeEnV1_5(),
+  ...BGERerankerBase(),
   ...clipVitBasePatch16(),
   ...codeGenMono350M(),
   {
@@ -2400,6 +2707,7 @@ export let models = [
     inputs: [{ 'image': ['float16', 'random', [3, 224, 224], { "height": 224, "width": 224 }] }],
     inputstip: '[3, 224, 224]'
   },
+  ...faceParsing(),
   {
     category: 'Object Detection',
     id: 'faster_r_cnn_int8',
@@ -2583,7 +2891,7 @@ export let models = [
     inputstip: '[1, 128] [1, 128]'
   },
   {
-    category: 'Object Segmentation',
+    category: 'Object Detection',
     id: 'mask_r_cnn_int8',
     name: 'Mask R-CNN',
     description: 'Extends Faster R-CNN by adding a branch for predicting an object mask in parallel with the existing branch for bounding box recognition',
@@ -2692,6 +3000,9 @@ export let models = [
   ...jinaClipV1Vision(),
   ...jinaEmbeddingsV2BaseCode(),
   ...jinaRerankerV1TurboEn(),
+  ...llama2CStories15MDecoder(),
+  ...llama2CStories15MDecoderMerged(),
+  ...llama2CStories15MDecoderWithPast(),
   ...mobileVitSmall(),
   ...msmarcoDistilbertBaseV4(),
   ...mt5SmallDecoder(),
@@ -2704,6 +3015,7 @@ export let models = [
   ...nomicEmbedTextV1_5(),
   ...paraphraseMultilingualMpnetBaseV2(),
   ...phi3Mini4kInstructMerged(),
+  ...Qwen2_0_5bInstructMerged(),
   {
     category: 'Image Classification',
     tag: '2h',
@@ -3154,6 +3466,7 @@ export let models = [
     inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
+  ...SnowflakeArcticEmbedM(),
   ...squeezebertUncased(),
   {
     category: 'Image Classification',
@@ -3265,6 +3578,8 @@ export let models = [
     inputs: [{ 'image': ['float32', 'random', [1, 3, 416, 416], { "None": 1 }] }],
     inputstip: '[1, 3, 416, 416]'
   },
+  ...uaeLargeV1(),
+  ...UniVaRLambda1(),
   ...vitBasePatch16224(),
   ...vitGpt2ImageCaptioningDecoder(),
   ...vitGpt2ImageCaptioningDecoderWithPast(),

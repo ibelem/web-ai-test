@@ -359,7 +359,7 @@
 		flex-wrap: wrap;
 	}
 	.category {
-		background-color: transparent;
+		background-color: var(--grey-02);
 		display: inline-flex;
 		font-size: 0.8rem;
 		padding: 2px 8px;
@@ -373,7 +373,7 @@
 	}
 
 	.category:hover {
-		background-color: var(--red-005);
+		background-color: transparent;
 		color: var(--red);
 	}
 

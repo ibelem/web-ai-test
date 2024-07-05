@@ -95,6 +95,12 @@ const getFeeds = (session, modelName) => {
           feeds[v] = getTensor('float16', 1, [1, 4, 0, 64]);
         } else if (modelName.indexOf('meta_llama_3_8b_instruct_merged_') > -1) {
           feeds[v] = getTensor('float16', 1, [1, 4, 0, 64]);
+        } else if (modelName.indexOf('llama2_c_stories15m_decoder_merged_') > -1) {
+          feeds[v] = getTensor('float32', 1, [1, 6, 0, 48]);
+        } else if (modelName.indexOf('llama2_c_stories15m_decoder_with_past_') > -1) {
+          feeds[v] = getTensor('float32', 1, [1, 6, 5, 48]);
+        } else if (modelName.indexOf('qwen2_0_5b_instruct_') > -1) {
+          feeds[v] = getTensor('float32', 1, [1, 2, 5, 64]);
         } else if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
         } else if (modelName.indexOf('distilgpt2_decoder_') > -1) {

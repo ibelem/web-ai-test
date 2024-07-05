@@ -6,7 +6,7 @@
 		testQueueStore,
 		testQueueLengthStore
 	} from '$lib/store/store';
-	import { getModelIdfromPath, getModelNameById } from '$lib/assets/js/utils';
+	import { getModelIdfromPath, getModelNameById, getModelExternalDataNameById } from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 
@@ -109,6 +109,11 @@
 			<div class="infodetails {testQueue[0].datatype}">
 				{info.slice(-1)}
 			</div>
+			{#if getModelExternalDataNameById(id)}
+				<div class="infodetails {testQueue[0].datatype}">
+					External data {getModelExternalDataNameById(id)} need to be downloaded, please expect longer time.
+				</div>
+			{/if}
 		{/if}
 		<div class="g2">
 			<div class="next">
