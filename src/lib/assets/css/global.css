@@ -2041,7 +2041,7 @@ background-color: var(--int4-005);
   min-height: 40vh !important;
 }
 
-.jsonfile svg {
+.jsonfile svg, .modelfile svg {
   display: inline-block;
   height: 16px;
   width: 16px;
@@ -2049,11 +2049,11 @@ background-color: var(--int4-005);
   margin-bottom: -3px;
 }
 
-.jsonfile svg path {
+.jsonfile svg path, .modelfile svg path {
   fill: var(--font);
 }
 
-.jsonfile span {
+.jsonfile span, .modelfile span {
   display: inline-block;
   color: var(--font);
   border: 1px solid var(--grey-04);
@@ -2063,12 +2063,12 @@ background-color: var(--int4-005);
   margin-bottom: 10px;
 }
 
-.jsonfile span:hover {
+.jsonfile span:hover, .modelfile span:hover {
   color: var(--red);
   border: 1px solid var(--red);
 }
 
-.jsonfile span:hover svg path {
+.jsonfile span:hover svg path, .modelfile span:hover svg path {
   fill: var(--red);
 }
 

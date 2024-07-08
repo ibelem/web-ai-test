@@ -37,6 +37,10 @@
 	 */
 	$: categories = [];
 	$: search = '';
+	$: fp16Count = 0;
+	$: int8Count = 0;
+	$: int4Count = 0;
+	$: fp32Count = 0;
 	let subModels = models;
 	let selected = 'onnx';
 
@@ -59,7 +63,26 @@
 		} else {
 			uniqueModels = orginalUniqueModels;
 		}
+		updateModelCountofType();
 	};
+
+	const updateModelCountofType = () => {
+		int4Count = 0;
+		int8Count = 0;
+		fp16Count = 0;
+		fp32Count = 0;
+		uniqueModels.forEach(item => {
+			if (item.endsWith("_int4")) {
+				int4Count++;
+			} else if (item.endsWith("_int8")) {
+				int8Count++;
+			} else if (item.endsWith("_fp16")) {
+				fp16Count++;
+			} else {
+				fp32Count++;
+			}
+		});
+	}
 
 	const filterUniqueModelsByKeyword = (/** @type {any[]} */ array, /** @type {any} */ keyword) => {
 		const lowerKeyword = keyword.toLowerCase();
@@ -76,6 +99,7 @@
 		} else {
 			uniqueModels = orginalUniqueModels;
 		}
+		updateModelCountofType();
 	};
 
 	const typeChange = (/** @type {{ currentTarget: { value: string; }; }} */ event) => {
@@ -101,6 +125,7 @@
 		uniqueModels = uniqueModels;
 		orginalUniqueModels = uniqueModels;
 		categories = getUniqueCategories(models);
+		updateModelCountofType();
 	});
 
 	onDestroy(() => {});
@@ -109,7 +134,7 @@
 <Header />
 
 <div class="tqtitle">
-	<div class="title tq">Performance Tests</div>
+	<div class="title tq">Performance Tests · {uniqueModels.length}</div>
 	<div class="title">INT8 and INT4 models are not ready for testing</div>
 </div>
 <div class="search">
@@ -166,7 +191,8 @@
 </div>
 
 <div>
-	<div class="title tq fp16">FLOAT16</div>
+	<div class="title tq fp16">FLOAT16 {#if fp16Count > 0}· {fp16Count}{/if}
+	</div>
 	<div class="tq benchmark fp16">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
@@ -210,7 +236,7 @@
 		{/each}
 	</div>
 
-	<div class="title tq int8">INT8</div>
+	<div class="title tq int8">INT8 {#if int8Count > 0}· {int8Count}{/if}</div>
 	<div class="tq benchmark int8">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
@@ -254,7 +280,7 @@
 		{/each}
 	</div>
 
-	<div class="title tq int4">INT4</div>
+	<div class="title tq int4">INT4 {#if int4Count > 0}· {int4Count}{/if}</div>
 	<div class="tq benchmark int4">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
@@ -298,7 +324,7 @@
 		{/each}
 	</div>
 
-	<div class="title tq">FLOAT32</div>
+	<div class="title tq">FLOAT32 {#if fp32Count > 0}· {fp32Count}{/if}</div>
 	<div class="tq benchmark fp32">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
