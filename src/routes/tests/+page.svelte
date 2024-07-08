@@ -191,8 +191,7 @@
 </div>
 
 <div>
-	<div class="title tq fp16">FLOAT16 {#if fp16Count > 0}· {fp16Count}{/if}
-	</div>
+	<div class="title tq fp16">FLOAT16 · {fp16Count}</div>
 	<div class="tq benchmark fp16">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
@@ -236,7 +235,7 @@
 		{/each}
 	</div>
 
-	<div class="title tq int8">INT8 {#if int8Count > 0}· {int8Count}{/if}</div>
+	<div class="title tq int8">INT8 · {int8Count}</div>
 	<div class="tq benchmark int8">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
@@ -280,7 +279,7 @@
 		{/each}
 	</div>
 
-	<div class="title tq int4">INT4 {#if int4Count > 0}· {int4Count}{/if}</div>
+	<div class="title tq int4">INT4 · {int4Count}</div>
 	<div class="tq benchmark int4">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
@@ -324,7 +323,7 @@
 		{/each}
 	</div>
 
-	<div class="title tq">FLOAT32 {#if fp32Count > 0}· {fp32Count}{/if}</div>
+	<div class="title tq">FLOAT32 · {fp32Count}</div>
 	<div class="tq benchmark fp32">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
