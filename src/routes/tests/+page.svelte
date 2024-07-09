@@ -114,6 +114,14 @@
 		uniqueModels = uniqueModels;
 	};
 
+	const getHTMLModelName = (/** @type {string} */ model) => {
+		let name = getModelNameById(model);
+		name = name?.replace('Encoder','<span>Encoder</span>').replace('Decoder','<span>Decoder</span>')
+		.replace('Non-KV-Cache','<span>Non-KV-Cache</span>').replace(' KV-Cache',' <span>KV-Cache</span>')
+		.replace('w/i Past','<span>w/i Past</span>').replace('Static Shape','<span>Static Shape</span>');
+		return name;
+	}
+
 	beforeUpdate(() => {});
 
 	onMount(() => {
@@ -217,13 +225,9 @@
 							</div>
 						{/if} -->
 
-						{#if model.indexOf('_merged') > -1}
-							<span class="kvcache">KV-C</span>
-						{/if}
-
-						<a href="{base}/run/{model}" class=""
-							>{getModelNameById(model)} ·
-							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)} 
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
 						{#if getModelTagById(model) === '2h'}
@@ -261,13 +265,9 @@
 							</div>
 						{/if} -->
 
-						{#if model.indexOf('_merged') > -1}
-							<span class="kvcache">KV-C</span>
-						{/if}
-
-						<a href="{base}/run/{model}" class=""
-							>{getModelNameById(model)} ·
-							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
 						{#if getModelTagById(model) === '2h'}
@@ -305,13 +305,9 @@
 							</div>
 						{/if} -->
 
-						{#if model.indexOf('_merged') > -1}
-							<span class="kvcache">KV-C</span>
-						{/if}
-
-						<a href="{base}/run/{model}" class=""
-							>{getModelNameById(model)} ·
-							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)} 
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
 						{#if getModelTagById(model) === '2h'}
@@ -349,17 +345,9 @@
 							</div>
 						{/if} -->
 
-						{#if model.indexOf('_merged') > -1}
-							<span class="kvcache">KV-C</span>
-						{/if}
-
-						{#if model.indexOf('_with_past') > -1}
-							<span class="kvcache">PAST</span>
-						{/if}
-
-						<a href="{base}/run/{model}" class=""
-							>{getModelNameById(model)} ·
-							{#if getModelSizeById(model)}{getModelSizeById(model)}{/if}</a
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)} 
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
 						{#if getModelTagById(model) === '2h'}
@@ -370,9 +358,10 @@
 			{/if}
 		{/each}
 	</div>
-	<Environment />
-	<Info />
 </div>
+
+<Environment />
+<Info />
 <Footer />
 
 <style>
@@ -386,7 +375,7 @@
 	.category {
 		background-color: var(--grey-02);
 		display: inline-flex;
-		font-size: 0.8rem;
+		font-size: 0.76rem;
 		padding: 2px 8px;
 		border: 1px solid var(--grey-02);
 		border-radius: 20px;
@@ -465,7 +454,11 @@
 		color: var(--red);
 	}
 
-	.tq.fp16 .q:hover {
+	.tq .q:hover {
+		border-bottom: 0px solid var(--fp16);
+	}
+
+	/* .tq.fp16 .q:hover {
 		border-bottom: 1px solid var(--fp16);
 	}
 
@@ -479,7 +472,7 @@
 
 	.tq.fp32 .q:hover {
 		border-bottom: 1px solid var(--red);
-	}
+	} */
 
 	.modelselection {
 		display: flex;
@@ -595,14 +588,6 @@
 		.tabs {
 			transform: scale(0.6);
 		}
-	}
-
-	.kvcache {
-		display: inline-block;
-		margin-left: 8px;
-		font-size: 0.7rem;
-		padding: 0px 2px;
-		border: 1px solid var(--grey-02);
 	}
 
 	@media (max-width: 512px) {

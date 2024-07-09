@@ -42,7 +42,7 @@ nav a:hover {
 
 header {
   display: grid;
-  grid-template-columns: 2fr 8fr;
+  grid-template-columns: 1fr 10fr;
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
@@ -2070,6 +2070,58 @@ background-color: var(--int4-005);
 
 .jsonfile span:hover svg path, .modelfile span:hover svg path {
   fill: var(--red);
+}
+
+.titlemark span {
+  font-size: 0.68rem;
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin: 1px 0;
+  display: inline-block;
+}
+
+.fp16 .titlemark span {
+  border: 1px solid var(--fp16-01);
+  background-color: var(--fp16-005);
+}
+
+.int8 .titlemark span {
+  border: 1px solid var(--p-01);
+  background-color: var(--p-005);
+}
+
+.int4 .titlemark span {
+  border: 1px solid var(--int4-01);
+  background-color: var(--int4-005);
+}
+
+.fp32 .titlemark span {
+  border: 1px solid var(--red-01);
+  background-color: var(--red-005);
+}
+
+.fp16.tq .q:hover .titlemark span {
+  border: 1px solid var(--fp16-09);
+  background-color: var(--fp16-01);
+  color: var(--fp16);
+}
+
+.int8.tq .q:hover .titlemark span {
+  border: 1px solid var(--p-09);
+  background-color: var(--p-01);
+  color: var(--p);
+}
+
+.int4.tq .q:hover .titlemark span {
+  border: 1px solid var(--int4-09);
+  background-color: var(--int4-01);
+  color: var(--int4);
+}
+
+.fp32.tq .q:hover .titlemark span {
+  border: 1px solid var(--red-09);
+  background-color: var(--red-01);
+  color: var(--red);
 }
 
 .environment svg {
