@@ -1685,7 +1685,7 @@ const phi3Mini4kInstructMerged = () => {
     datatype: `${dt}`,
     inputs: [{
       'input_ids': ['int64', 99n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
-      'attention_mask': ['int64', 1n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
+      'attention_mask': ['int64', 1n, [1, 17], { "batch_size": 1, "total_sequence_length": 17 }],
       'position_ids': ['int64', 1n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
     }],
     inputstip: '[1, 17] [1, 17] [1, 17]'
