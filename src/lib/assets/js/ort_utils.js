@@ -100,7 +100,7 @@ const getFeeds = (session, modelName) => {
         } else if (modelName.indexOf('llama2_c_stories15m_decoder_with_past_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 6, 5, 48]);
         } else if (modelName.indexOf('qwen2_0_5b_instruct_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 2, 5, 64]);
+          feeds[v] = getTensor('float32', 1, [1, 2, 0, 64]);
         } else if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
         } else if (modelName.indexOf('distilgpt2_decoder_') > -1) {

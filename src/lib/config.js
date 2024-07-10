@@ -1684,7 +1684,7 @@ const phi3Mini4kInstructMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
+      'input_ids': ['int64', 99n, [1, 17], { "batch_size": 1, "sequence_length": 17, "past_sequence_length": 0 }],
       'attention_mask': ['int64', 1n, [1, 17], { "batch_size": 1, "total_sequence_length": 17 }],
       'position_ids': ['int64', 1n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
     }],
@@ -1716,11 +1716,11 @@ const Qwen2_0_5bInstructMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
-      'attention_mask': ['int64', 1n, [1, 17], { "batch_size": 1, "past_sequence_length + 1": 17 }],
-      'position_ids': ['int64', 1n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "past_sequence_length + 1": 1 }],
+      'position_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
     }],
-    inputstip: '[1, 17] [1, 17] [1, 17]'
+    inputstip: '[1, 1] [1, 1] [1, 1]'
   }))
 }
 
@@ -2074,7 +2074,7 @@ const tinyLlama1_1BChatv1_0Merged_2 = () => {
     tag: '2h',
     id: `tinyllama_1_1b_chat_v1_0_merged_${dt}`,
     name: 'TinyLlama 1.1B Chat v1.0 KV-Cache',
-    description: 'This is the chat model finetuned on top of TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T. ',
+    description: 'This is the chat model finetuned on top of TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T. https://huggingface.co/schmuell/TinyLlama-1.1B-Chat-v1.0-int4/ https://huggingface.co/schmuell/TinyLlama-1.1B-Chat-v1.0-fp16/',
     note: 'Large model with external data.',
     source: 'https://huggingface.co/webml/TinyLlama-1.1B-Chat-v1.0',
     hf: {
