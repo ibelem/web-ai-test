@@ -1703,7 +1703,7 @@ const Qwen2_0_5bInstructMerged = () => {
     category: 'Text Generation',
     tag: '2h',
     id: `qwen2_0_5b_instruct_merged_${dt}`,
-    name: '[Need to fix INPUTS] Qwen2 0.5b Instruct KV-Cache',
+    name: 'Qwen2 0.5b Instruct KV-Cache',
     description: 'Qwen2 is a language model series including decoder language models of different model sizes.',
     note: 'Large model',
     source: 'https://huggingface.co/webml/Qwen2-0.5B-Instruct',
