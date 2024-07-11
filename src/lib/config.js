@@ -22,7 +22,7 @@ export const corsSites = [
 
 export const ortDists = {
   webgpu: {
-    version: 'internal.0604.2024',
+    version: 'internal.0711.2024',
     url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.webgpu.min.js'
   },
   webnn_webglfix_wasm: {
@@ -2033,6 +2033,95 @@ const t5SmallEncoder = () => {
   }))
 }
 
+const tinyLlamaV0Decoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '17.9 MB'],
+    ['fp16', 'decoder_model_fp16.onnx', '9.20 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '4.88 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `tinyllama_v0_decoder_${dt}`,
+    name: 'TinyLlama v0 Decoder',
+    description: 'https://huggingface.co/Maykeye/TinyLLama-v0 with ONNX weights to be compatible with Transformers.js.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/TinyLLama-v0',
+    hf: {
+      model: 'xenova/tinyllama-v0',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+      'attention_mask': ['int64', 1n, [1, 41], { "batch_size": 1, "sequence_length": 41 }]
+    }],
+    inputstip: '[1, 41] [1, 41]'
+  }))
+}
+
+const tinyLlamaV0DecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '18.2 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '5.36 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `tinyllama_v0_decoder_merged_${dt}`,
+    name: 'TinyLlama v0 Decoder KV-Cache',
+    description: 'https://huggingface.co/Maykeye/TinyLLama-v0 with ONNX weights to be compatible with Transformers.js.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/TinyLLama-v0',
+    hf: {
+      model: 'xenova/tinyllama-v0',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+      'attention_mask': ['int64', 1n, [1, 41], { "batch_size": 1, "attention_mask_sequence_length": 41 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
+    inputstip: '[1, 41] [1, 41]'
+  }))
+}
+
+const tinyLlamaV0DecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '17.9 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '4.88 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `tinyllama_v0_decoder_with_past_${dt}`,
+    name: 'TinyLlama v0 Decoder w/i Past',
+    description: 'https://huggingface.co/Maykeye/TinyLLama-v0 with ONNX weights to be compatible with Transformers.js.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/TinyLLama-v0',
+    hf: {
+      model: 'xenova/tinyllama-v0',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "past_sequence_length + 1": 1 }]
+    }],
+    inputstip: '[1, 1] [1, 1]'
+  }))
+}
+
 const tinyLlama1_1BChatv1_0Merged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '2.00 MB', 'decoder_model_merged.onnx_data', '4.09 GB'],
@@ -2042,7 +2131,7 @@ const tinyLlama1_1BChatv1_0Merged = () => {
     category: 'Text Generation',
     tag: '2h',
     id: `tinyllama_1_1b_chat_v1_0_merged_${dt}`,
-    name: 'TinyLlama 1.1B Chat v1.0 KV-Cache',
+    name: 'TinyLlama 1.1B Chat v1.0 Decoder KV-Cache',
     description: 'This is the chat model finetuned on top of TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T. ',
     note: 'Large model with external data.',
     source: 'https://huggingface.co/Xenova/TinyLlama-1.1B-Chat-v1.0',
@@ -2073,7 +2162,7 @@ const tinyLlama1_1BChatv1_0Merged_2 = () => {
     category: 'Text Generation',
     tag: '2h',
     id: `tinyllama_1_1b_chat_v1_0_merged_${dt}`,
-    name: 'TinyLlama 1.1B Chat v1.0 KV-Cache',
+    name: 'TinyLlama 1.1B Chat v1.0 Decoder KV-Cache',
     description: 'This is the chat model finetuned on top of TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T. https://huggingface.co/schmuell/TinyLlama-1.1B-Chat-v1.0-int4/ https://huggingface.co/schmuell/TinyLlama-1.1B-Chat-v1.0-fp16/',
     note: 'Large model with external data.',
     source: 'https://huggingface.co/webml/TinyLlama-1.1B-Chat-v1.0',
@@ -3560,6 +3649,9 @@ export let models = [
   ...t5SmallDecoderWithPast(),
   ...t5SmallDecoderMerged(),
   ...t5SmallEncoder(),
+  ...tinyLlamaV0Decoder(),
+  ...tinyLlamaV0DecoderMerged(),
+  ...tinyLlamaV0DecoderWithPast(),
   ...tinyLlama1_1BChatv1_0Merged(),
   ...tinyLlama1_1BChatv1_0Merged_2(),
   ...metaLlama_3_8bInstructMerged(),
