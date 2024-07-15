@@ -1,162 +1,42 @@
 export const fallbackEnv = {
-  "windows": 'Windows 11 23H2 22631.3007',
-  "version": '123.0.6283.0',
-  'last_update': 'Feb 06, 2024'
+  "windows": "Windows 11 23H2 22631.3737",
+  "version": "128.0.6591.0",
+  "last_update": "July 12, 2024"
 }
 export const fallback = [
   {
-    "name": "albert_base_v2",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 140,
-    "nodes_in_the_graph": 677,
-    "nodes_supported_by_webnn": 534,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "albert_base_v2",
+    "name": "univar_lambda_1_fp32",
     "backend": "gpu",
-    "error": "",
+    "error": "Failed to execute 'slice' on 'MLGraphBuilder': For dimension (3): the starting index to slice must be less than input size (64).",
     "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 677,
-    "nodes_supported_by_webnn": 677,
+    "nodes_in_the_graph": 644,
+    "nodes_supported_by_webnn": 644,
     "supported": [
       "Add",
       "Cast",
+      "Concat",
       "Div",
       "Gather",
+      "LayerNormalization",
       "MatMul",
       "Mul",
-      "Pow",
-      "ReduceMean",
+      "Neg",
       "Reshape",
+      "Sigmoid",
+      "Slice",
       "Softmax",
-      "Sqrt",
       "Sub",
-      "Tanh",
       "Transpose",
       "Unsqueeze"
     ]
   },
   {
-    "name": "bart_large_cnn",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 136,
-    "nodes_in_the_graph": 703,
-    "nodes_supported_by_webnn": 562,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "bart_large_cnn",
+    "name": "bge_large_en_v1_5_fp32",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 703,
-    "nodes_supported_by_webnn": 703,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ]
-  },
-  {
-    "name": "bert_base_cased",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 139,
-    "nodes_in_the_graph": 636,
-    "nodes_supported_by_webnn": 494,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "bert_base_cased",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 636,
-    "nodes_supported_by_webnn": 636,
+    "nodes_in_the_graph": 1218,
+    "nodes_supported_by_webnn": 1218,
     "supported": [
       "Add",
       "Cast",
@@ -176,108 +56,23 @@ export const fallback = [
     ]
   },
   {
-    "name": "bert_base_multilingual_cased_ner_hrl",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 136,
-    "nodes_in_the_graph": 620,
-    "nodes_supported_by_webnn": 481,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "bert_base_multilingual_cased_ner_hrl",
+    "name": "bge_reranker_base_fp32",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 620,
-    "nodes_supported_by_webnn": 620,
+    "partitions_supported_by_webnn": 2,
+    "nodes_in_the_graph": 629,
+    "nodes_supported_by_webnn": 628,
     "supported": [
       "Add",
       "Cast",
       "Div",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "bert_base_multilingual_uncased_sentiment",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 136,
-    "nodes_in_the_graph": 622,
-    "nodes_supported_by_webnn": 483,
-    "supported": [
-      "Add",
-      "Div",
-      "Gemm",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "bert_base_multilingual_uncased_sentiment",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 622,
-    "nodes_supported_by_webnn": 622,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
+      "Equal",
       "Erf",
       "Gather",
       "Gemm",
       "MatMul",
       "Mul",
+      "Not",
       "Pow",
       "ReduceMean",
       "Reshape",
@@ -287,341 +82,16 @@ export const fallback = [
       "Tanh",
       "Transpose",
       "Unsqueeze"
-    ]
+    ],
+    "not_supported": ["CumSum"]
   },
   {
-    "name": "bert_base_uncased",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 139,
-    "nodes_in_the_graph": 636,
-    "nodes_supported_by_webnn": 494,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "bert_base_uncased",
+    "name": "detr_resnet_50_fp32",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 636,
-    "nodes_supported_by_webnn": 636,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "clip_vit_base_patch16",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 254,
-    "nodes_in_the_graph": 1387,
-    "nodes_supported_by_webnn": 1123,
-    "supported": [
-      "Abs",
-      "Add",
-      "Concat",
-      "Conv",
-      "Div",
-      "Flatten",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Sigmoid",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "ArgMax",
-      "Cast",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "ReduceSum",
-      "Reshape",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "clip_vit_base_patch16",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 1385,
-    "nodes_supported_by_webnn": 1385,
-    "supported": [
-      "Abs",
-      "Add",
-      "ArgMax",
-      "Cast",
-      "Concat",
-      "Conv",
-      "Div",
-      "Expand",
-      "Flatten",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "ReduceSum",
-      "Reshape",
-      "Sigmoid",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ]
-  },
-  {
-    "name": "codegen_350m_mono",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 263,
-    "nodes_in_the_graph": 1441,
-    "nodes_supported_by_webnn": 1172,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "Neg",
-      "ReduceMean",
-      "Reshape",
-      "Slice",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Slice",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "codegen_350m_mono",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 81,
-    "nodes_in_the_graph": 1441,
-    "nodes_supported_by_webnn": 1361,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Neg",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Slice",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "not_supported": [
-      "Slice"
-    ]
-  },
-  {
-    "name": "deeplab_v3",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 108,
-    "nodes_supported_by_webnn": 107,
-    "supported": [
-      "Add",
-      "AveragePool",
-      "Clip",
-      "Concat",
-      "Conv",
-      "Relu",
-      "Resize"
-    ],
-    "not_supported": [
-      "ArgMax"
-    ]
-  },
-  {
-    "name": "deeplab_v3",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 109,
-    "nodes_supported_by_webnn": 109,
-    "supported": [
-      "Add",
-      "ArgMax",
-      "AveragePool",
-      "Clip",
-      "Concat",
-      "Conv",
-      "Relu",
-      "Resize",
-      "Transpose"
-    ]
-  },
-  {
-    "name": "densenet",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 63,
-    "nodes_in_the_graph": 617,
-    "nodes_supported_by_webnn": 555,
-    "supported": [
-      "Add",
-      "AveragePool",
-      "Concat",
-      "Conv",
-      "GlobalAveragePool",
-      "MaxPool",
-      "Mul",
-      "Relu",
-      "Transpose"
-    ],
-    "not_supported": [
-      "BatchNormalization"
-    ]
-  },
-  {
-    "name": "densenet",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 491,
-    "nodes_supported_by_webnn": 491,
-    "supported": [
-      "Add",
-      "AveragePool",
-      "BatchNormalization",
-      "Concat",
-      "Conv",
-      "GlobalAveragePool",
-      "MaxPool",
-      "Mul",
-      "Relu"
-    ]
-  },
-  {
-    "name": "detr_resnet_50",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 169,
-    "nodes_in_the_graph": 1049,
-    "nodes_supported_by_webnn": 863,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "Div",
-      "MaxPool",
-      "Mul",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Sigmoid",
-      "Slice",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Cast",
-      "Cos",
-      "CumSum",
-      "Expand",
-      "Flatten",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Resize",
-      "Sin",
-      "Slice",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Flatten: BOOL",
-      "Unsqueeze: BOOL",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "detr_resnet_50",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 7,
+    "partitions_supported_by_webnn": 8,
     "nodes_in_the_graph": 1017,
-    "nodes_supported_by_webnn": 1011,
+    "nodes_supported_by_webnn": 1010,
     "supported": [
       "Add",
       "Cast",
@@ -639,7 +109,6 @@ export const fallback = [
       "ReduceMean",
       "Relu",
       "Reshape",
-      "Resize",
       "Sigmoid",
       "Sin",
       "Slice",
@@ -650,92 +119,10 @@ export const fallback = [
       "Unsqueeze",
       "Where"
     ],
-    "not_supported": [
-      "CumSum",
-      "Slice"
-    ]
+    "not_supported": ["CumSum", "Resize", "Slice"]
   },
   {
-    "name": "dino_vitb16",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 134,
-    "nodes_in_the_graph": 604,
-    "nodes_supported_by_webnn": 471,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Erf",
-      "MatMul",
-      "Pow"
-    ]
-  },
-  {
-    "name": "dino_vitb16",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 602,
-    "nodes_supported_by_webnn": 602,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "Div",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ]
-  },
-  {
-    "name": "distil_medium_en_decoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 38,
-    "nodes_in_the_graph": 191,
-    "nodes_supported_by_webnn": 151,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64"
-    ]
-  },
-  {
-    "name": "distil_medium_en_decoder",
+    "name": "distil_medium_en_decoder_fp32",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
@@ -758,577 +145,100 @@ export const fallback = [
     ]
   },
   {
-    "name": "distil_medium_en_encoder",
-    "backend": "cpu",
+    "name": "distil_medium_en_decoder_merged_fp32",
+    "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 269,
-    "nodes_in_the_graph": 1391,
-    "nodes_supported_by_webnn": 1122,
+    "partitions_supported_by_webnn": 19,
+    "nodes_in_the_graph": 239,
+    "nodes_supported_by_webnn": 52,
     "supported": [
       "Add",
+      "Concat",
       "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
       "Mul",
+      "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
       "Sqrt",
       "Sub",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze"
     ],
     "not_supported": [
-      "Conv",
+      "Add",
+      "Concat",
+      "Div",
       "Erf",
+      "Gather",
       "MatMul",
-      "Pow"
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Shape",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose"
     ]
   },
   {
-    "name": "distil_medium_en_encoder",
+    "name": "distil_medium_en_decoder_with_past_fp32",
+    "backend": "gpu",
+    "error": ""
+  },
+  {
+    "name": "distil_medium_en_encoder_fp32",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 2,
+    "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 1295,
-    "nodes_supported_by_webnn": 1293,
+    "nodes_supported_by_webnn": 1295,
     "supported": [
       "Add",
-      "Div",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Conv"
-    ]
-  },
-  {
-    "name": "distilbart_cnn_6_6_decoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 113,
-    "nodes_in_the_graph": 590,
-    "nodes_supported_by_webnn": 473,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "distilbart_cnn_6_6_decoder",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 590,
-    "nodes_supported_by_webnn": 590,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ]
-  },
-  {
-    "name": "distilbart_cnn_6_6_decoder_merged",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 102,
-    "nodes_in_the_graph": 536,
-    "nodes_supported_by_webnn": 431,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Erf",
-      "Expand",
-      "Gather",
-      "If",
-      "MatMul",
-      "Pow",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "distilbart_cnn_6_6_decoder_merged",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 536,
-    "nodes_supported_by_webnn": 536,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "not_supported": [
-      "If"
-    ]
-  },
-  {
-    "name": "distilbart_cnn_6_6_decoder_with_past",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 102,
-    "nodes_in_the_graph": 535,
-    "nodes_supported_by_webnn": 431,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "distilbart_cnn_6_6_decoder_with_past",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 535,
-    "nodes_supported_by_webnn": 535,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ]
-  },
-  {
-    "name": "distilbart_cnn_6_6_encoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 70,
-    "nodes_in_the_graph": 361,
-    "nodes_supported_by_webnn": 286,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "distilbart_cnn_6_6_encoder",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 361,
-    "nodes_supported_by_webnn": 361,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ]
-  },
-  {
-    "name": "distilbert_base_cased_distilled_squad",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 70,
-    "nodes_in_the_graph": 319,
-    "nodes_supported_by_webnn": 240,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Squeeze",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Split",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: BOOL"
-    ]
-  },
-  {
-    "name": "distilbert_base_cased_distilled_squad",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 2,
-    "nodes_in_the_graph": 319,
-    "nodes_supported_by_webnn": 318,
-    "supported": [
-      "Add",
-      "Div",
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Squeeze",
-      "Sub",
-      "Transpose",
-      "Where"
-    ],
-    "not_supported": [
-      "Split"
-    ]
-  },
-  {
-    "name": "distilbert_base_uncased",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 72,
-    "nodes_in_the_graph": 332,
-    "nodes_supported_by_webnn": 251,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: BOOL"
-    ]
-  },
-  {
-    "name": "distilbert_base_uncased",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 332,
-    "nodes_supported_by_webnn": 332,
-    "supported": [
-      "Add",
-      "Div",
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Where"
-    ]
-  },
-  {
-    "name": "distilbert_base_uncased_mnli",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 69,
-    "nodes_in_the_graph": 318,
-    "nodes_supported_by_webnn": 240,
-    "supported": [
-      "Add",
-      "Div",
-      "Gemm",
-      "Mul",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: BOOL"
-    ]
-  },
-  {
-    "name": "distilbert_base_uncased_mnli",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 318,
-    "nodes_supported_by_webnn": 318,
-    "supported": [
-      "Add",
-      "Div",
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "Gemm",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Where"
-    ]
-  },
-  {
-    "name": "distilgpt2_decoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 39,
-    "nodes_in_the_graph": 356,
-    "nodes_supported_by_webnn": 312,
-    "supported": [
-      "Add",
-      "Div",
-      "Gemm",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "distilgpt2_decoder",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 356,
-    "nodes_supported_by_webnn": 356,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Gather",
-      "Gemm",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ]
-  },
-  {
-    "name": "distilgpt2_decoder_merged",
-    "backend": "cpu"
-  },
-  {
-    "name": "distilgpt2_decoder_merged",
-    "backend": "gpu"
-  },
-  {
-    "name": "distilgpt2_decoder_with_past",
-    "backend": "cpu"
-  },
-  {
-    "name": "distilgpt2_decoder_with_past",
-    "backend": "gpu"
-  },
-  {
-    "name": "efficientnet_lite",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 179,
-    "nodes_supported_by_webnn": 179,
-    "supported": [
-      "Add",
-      "AveragePool",
-      "Clip",
       "Conv",
-      "Gemm",
+      "Div",
+      "Erf",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
       "Softmax",
-      "Squeeze"
+      "Sqrt",
+      "Sub",
+      "Transpose"
+    ]
+  },
+  {
+    "name": "distiluse_base_multilingual_cased_v2_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 324,
+    "nodes_supported_by_webnn": 324,
+    "supported": [
+      "Add",
+      "Div",
+      "Equal",
+      "Erf",
+      "Expand",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Where"
     ]
   },
   {
@@ -1350,89 +260,193 @@ export const fallback = [
     ]
   },
   {
-    "name": "emotion_ferplus",
-    "backend": "cpu",
+    "name": "face_parsing_fp32",
+    "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 34,
-    "nodes_supported_by_webnn": 34,
+    "partitions_supported_by_webnn": 5,
+    "nodes_in_the_graph": 3621,
+    "nodes_supported_by_webnn": 3617,
     "supported": [
+      "Add",
+      "Concat",
       "Conv",
       "Div",
-      "Gemm",
-      "MaxPool",
+      "Erf",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
       "Relu",
       "Reshape",
+      "Softmax",
+      "Sqrt",
       "Sub",
       "Transpose"
-    ]
+    ],
+    "not_supported": ["Resize"]
   },
   {
-    "name": "emotion_ferplus",
+    "name": "gte_base_en_v1_5_fp32",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 32,
-    "nodes_supported_by_webnn": 32,
+    "nodes_in_the_graph": 759,
+    "nodes_supported_by_webnn": 759,
     "supported": [
-      "Conv",
+      "Add",
+      "Cast",
+      "Concat",
       "Div",
-      "Gemm",
-      "MaxPool",
-      "Relu",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
       "Reshape",
-      "Sub"
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
     ]
   },
   {
-    "name": "flan_t5_small_decoder",
-    "backend": "cpu",
+    "name": "gte_small_fp32",
+    "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 139,
-    "nodes_in_the_graph": 551,
-    "nodes_supported_by_webnn": 392,
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 618,
+    "nodes_supported_by_webnn": 618,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
       "Mul",
+      "Pow",
       "ReduceMean",
       "Reshape",
       "Softmax",
       "Sqrt",
       "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
+      "Transpose",
       "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
     ]
   },
   {
-    "name": "flan_t5_small_decoder",
+    "name": "jina_clip_v1_text_fp32",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 551,
-    "nodes_supported_by_webnn": 551,
+    "nodes_in_the_graph": 588,
+    "nodes_supported_by_webnn": 588,
     "supported": [
       "Add",
       "Cast",
       "Div",
+      "Einsum",
+      "Equal",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Not",
+      "Pow",
+      "ReduceMean",
+      "ReduceSum",
+      "Reshape",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sqrt",
+      "Squeeze",
+      "Sub",
+      "Unsqueeze",
+      "Where"
+    ]
+  },
+  {
+    "name": "jina_clip_v1_vision_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 1215,
+    "nodes_supported_by_webnn": 1215,
+    "supported": [
+      "Add",
+      "Concat",
+      "Conv",
+      "Div",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sqrt",
+      "Squeeze",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "jina_embeddings_v2_base_code_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 988,
+    "nodes_supported_by_webnn": 988,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
       "Gather",
       "MatMul",
       "Mul",
       "Pow",
       "ReduceMean",
       "Reshape",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "jina_reranker_v1_turbo_en_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 338,
+    "nodes_supported_by_webnn": 338,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "Gather",
+      "Gemm",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Slice",
       "Softmax",
       "Sqrt",
       "Sub",
@@ -1442,395 +456,98 @@ export const fallback = [
     ]
   },
   {
-    "name": "flan_t5_small_decoder_merged",
-    "backend": "cpu",
+    "name": "llama2_c_stories15m_decoder_fp32",
+    "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 123,
-    "nodes_in_the_graph": 527,
-    "nodes_supported_by_webnn": 384,
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 335,
+    "nodes_supported_by_webnn": 335,
     "supported": [
       "Add",
+      "Cast",
       "Concat",
       "Div",
+      "Expand",
+      "Gather",
+      "MatMul",
       "Mul",
+      "Neg",
+      "Pow",
       "ReduceMean",
       "Reshape",
+      "Sigmoid",
+      "Slice",
       "Softmax",
       "Sqrt",
       "Sub",
-      "Tanh",
-      "Transpose"
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ]
+  },
+  {
+    "name": "llama2_c_stories15m_decoder_merged_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 58,
+    "nodes_in_the_graph": 507,
+    "nodes_supported_by_webnn": 311,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Div",
+      "Equal",
+      "Expand",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
     ],
     "not_supported": [
-      "Cast",
+      "Add",
+      "Concat",
+      "Div",
       "Gather",
+      "Identity",
       "If",
       "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "flan_t5_small_decoder_merged",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 527,
-    "nodes_supported_by_webnn": 527,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "Gather",
-      "MatMul",
       "Mul",
-      "Pow",
-      "ReduceMean",
+      "Range",
       "Reshape",
+      "Shape",
+      "Slice",
       "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "If"
-    ]
-  },
-  {
-    "name": "flan_t5_small_decoder_with_past",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 123,
-    "nodes_in_the_graph": 519,
-    "nodes_supported_by_webnn": 376,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "flan_t5_small_decoder_with_past",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 527,
-    "nodes_supported_by_webnn": 527,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
+      "Squeeze",
       "Transpose",
       "Unsqueeze"
     ]
   },
   {
-    "name": "flan_t5_small_encoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 82,
-    "nodes_in_the_graph": 350,
-    "nodes_supported_by_webnn": 248,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "flan_t5_small_encoder",
+    "name": "llama2_c_stories15m_decoder_with_past_fp32",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 350,
-    "nodes_supported_by_webnn": 350,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ]
+    "not_supported": ["Identity", "Squeeze"]
   },
   {
-    "name": "gpt2_decoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 75,
-    "nodes_in_the_graph": 692,
-    "nodes_supported_by_webnn": 612,
-    "supported": [
-      "Add",
-      "Div",
-      "Gemm",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "gpt2_decoder",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 692,
-    "nodes_supported_by_webnn": 692,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Gather",
-      "Gemm",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ]
-  },
-  {
-    "name": "gpt2_decoder_merged",
-    "backend": "cpu"
-  },
-  {
-    "name": "gpt2_decoder_merged",
-    "backend": "gpu"
-  },
-  {
-    "name": "gpt2_decoder_with_past",
-    "backend": "cpu"
-  },
-  {
-    "name": "gpt2_decoder_with_past",
-    "backend": "gpu"
-  },
-  {
-    "name": "m2m100_decoder",
-    "backend": "cpu",
-    "error": "Aborted(). Build with -sASSERTIONS for more info."
-  },
-  {
-    "name": "m2m100_decoder",
-    "backend": "gpu",
-    "error": "Aborted(). Build with -sASSERTIONS for more info."
-  },
-  {
-    "name": "m2m100_encoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 125,
-    "nodes_in_the_graph": 666,
-    "nodes_supported_by_webnn": 528,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Add",
-      "Cast",
-      "CumSum",
-      "Equal",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Not",
-      "Pow",
-      "Reshape",
-      "Unsqueeze",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Add: INT64",
-      "Mul: INT32",
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "m2m100_encoder",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 2,
-    "nodes_in_the_graph": 666,
-    "nodes_supported_by_webnn": 665,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Equal",
-      "Expand",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Not",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze",
-      "Where"
-    ],
-    "not_supported": [
-      "CumSum"
-    ]
-  },
-  {
-    "name": "mobilenet_v2",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 102,
-    "nodes_supported_by_webnn": 102,
-    "supported": [
-      "Add",
-      "Clip",
-      "Conv",
-      "Gemm",
-      "GlobalAveragePool",
-      "Reshape",
-      "Transpose"
-    ]
-  },
-  {
-    "name": "mobilenet_v2",
+    "name": "mobilenet_v2_10",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 100,
     "nodes_supported_by_webnn": 100,
-    "supported": [
-      "Add",
-      "Clip",
-      "Conv",
-      "Gemm",
-      "GlobalAveragePool",
-      "Reshape"
-    ]
-  },
-  {
-    "name": "mobilenet_v2_12",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 102,
-    "nodes_supported_by_webnn": 102,
-    "supported": [
-      "Add",
-      "Clip",
-      "Conv",
-      "Gemm",
-      "GlobalAveragePool",
-      "Reshape",
-      "Transpose"
-    ]
+    "supported": ["Add", "Clip", "Conv", "Gemm", "GlobalAveragePool", "Reshape"]
   },
   {
     "name": "mobilenet_v2_12",
@@ -1839,38 +556,16 @@ export const fallback = [
     "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 100,
     "nodes_supported_by_webnn": 100,
-    "supported": [
-      "Add",
-      "Clip",
-      "Conv",
-      "Gemm",
-      "GlobalAveragePool",
-      "Reshape"
-    ]
+    "supported": ["Add", "Clip", "Conv", "Gemm", "GlobalAveragePool", "Reshape"]
   },
   {
-    "name": "mobilenet_v3",
-    "backend": "cpu",
+    "name": "mobilenet_v2_7",
+    "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 10,
-    "nodes_in_the_graph": 124,
-    "nodes_supported_by_webnn": 115,
-    "supported": [
-      "Add",
-      "Conv",
-      "Flatten",
-      "Gemm",
-      "GlobalAveragePool",
-      "HardSigmoid",
-      "HardSwish",
-      "Mul",
-      "ReduceMean",
-      "Relu",
-      "Transpose"
-    ],
-    "not_supported": [
-      "HardSigmoid"
-    ]
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 102,
+    "nodes_supported_by_webnn": 102,
+    "supported": ["Add", "Conv", "GlobalAveragePool", "Relu", "Reshape"]
   },
   {
     "name": "mobilenet_v3",
@@ -1893,34 +588,7 @@ export const fallback = [
     ]
   },
   {
-    "name": "mobilevit_small",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 94,
-    "nodes_in_the_graph": 570,
-    "nodes_supported_by_webnn": 477,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "Div",
-      "Gemm",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Sigmoid",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "MatMul",
-      "Pow"
-    ]
-  },
-  {
-    "name": "mobilevit_small",
+    "name": "mobilevit_small_fp32",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
@@ -1945,480 +613,142 @@ export const fallback = [
     ]
   },
   {
-    "name": "msmarco_distilbert_base_v4",
-    "backend": "cpu",
+    "name": "mxbai_embed_large_v1_fp32",
+    "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 68,
-    "nodes_in_the_graph": 314,
-    "nodes_supported_by_webnn": 237,
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 1218,
+    "nodes_supported_by_webnn": 1218,
     "supported": [
       "Add",
+      "Cast",
       "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Equal",
       "Erf",
-      "Expand",
       "Gather",
       "MatMul",
+      "Mul",
       "Pow",
+      "ReduceMean",
       "Reshape",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: BOOL"
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
     ]
   },
   {
-    "name": "msmarco_distilbert_base_v4",
+    "name": "mxbai_rerank_base_v1_fp32",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 314,
-    "nodes_supported_by_webnn": 314,
+    "partitions_supported_by_webnn": 25,
+    "nodes_in_the_graph": 832,
+    "nodes_supported_by_webnn": 808,
     "supported": [
       "Add",
+      "Cast",
       "Div",
-      "Equal",
       "Erf",
-      "Expand",
       "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Where"
-    ]
-  },
-  {
-    "name": "mt5_small_decoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 139,
-    "nodes_in_the_graph": 551,
-    "nodes_supported_by_webnn": 392,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "mt5_small_decoder",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 551,
-    "nodes_supported_by_webnn": 551,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "mt5_small_decoder_merged",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 123,
-    "nodes_in_the_graph": 527,
-    "nodes_supported_by_webnn": 384,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "If",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "mt5_small_decoder_merged",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 527,
-    "nodes_supported_by_webnn": 527,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "If"
-    ]
-  },
-  {
-    "name": "mt5_small_decoder_with_past",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 123,
-    "nodes_in_the_graph": 519,
-    "nodes_supported_by_webnn": 376,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "mt5_small_decoder_with_past",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 527,
-    "nodes_supported_by_webnn": 527,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "mt5_small_encoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 82,
-    "nodes_in_the_graph": 350,
-    "nodes_supported_by_webnn": 248,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "mt5_small_encoder",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 350,
-    "nodes_supported_by_webnn": 350,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_1024_fp32",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 3,
-    "nodes_in_the_graph": 1030,
-    "nodes_supported_by_webnn": 1028,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Resize"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_1024_fp32",
-    "backend": "gpu",
-    "error": "crash"
-  },
-  {
-    "name": "realesrgan_x4_128_fp32",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 3,
-    "nodes_in_the_graph": 1030,
-    "nodes_supported_by_webnn": 1028,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Resize"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_128_fp32",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 1024,
-    "nodes_supported_by_webnn": 1024,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Resize"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_256_fp32",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 3,
-    "nodes_in_the_graph": 1030,
-    "nodes_supported_by_webnn": 1028,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Resize"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_256_fp32",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 1024,
-    "nodes_supported_by_webnn": 1024,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Resize"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_512_fp32",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 3,
-    "nodes_in_the_graph": 1030,
-    "nodes_supported_by_webnn": 1028,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Resize"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_512_fp32",
-    "backend": "gpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to record commands and bind resources for execution.",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 1024,
-    "nodes_supported_by_webnn": 1024,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Resize"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_64_fp32",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 3,
-    "nodes_in_the_graph": 1030,
-    "nodes_supported_by_webnn": 1028,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Resize"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_64_fp32",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 1024,
-    "nodes_supported_by_webnn": 1024,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Resize"
-    ]
-  },
-  {
-    "name": "resnet50_v1",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 124,
-    "nodes_supported_by_webnn": 124,
-    "supported": [
-      "Add",
-      "Conv",
-      "Flatten",
       "Gemm",
-      "GlobalAveragePool",
-      "MaxPool",
-      "Relu",
-      "Transpose"
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Squeeze",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ],
+    "not_supported": ["GatherElements"]
+  },
+  {
+    "name": "nomic_embed_text_v1_fp32",
+    "backend": "gpu",
+    "error": "Failed to execute 'slice' on 'MLGraphBuilder': For dimension (3): the starting index to slice must be less than input size (64).",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 845,
+    "nodes_supported_by_webnn": 845,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Div",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
     ]
+  },
+  {
+    "name": "nomic_embed_text_v1_5_fp32",
+    "backend": "gpu",
+    "error": "Failed to execute 'slice' on 'MLGraphBuilder': For dimension (3): the starting index to slice must be less than input size (64).",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 845,
+    "nodes_supported_by_webnn": 845,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Div",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "paraphrase_multilingual_mpnet_base_v2_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 2,
+    "nodes_in_the_graph": 625,
+    "nodes_supported_by_webnn": 624,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Equal",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Not",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": ["CumSum"]
   },
   {
     "name": "resnet50_v1",
@@ -2439,27 +769,6 @@ export const fallback = [
   },
   {
     "name": "resnet50_v2",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 18,
-    "nodes_in_the_graph": 177,
-    "nodes_supported_by_webnn": 159,
-    "supported": [
-      "Add",
-      "Conv",
-      "Gemm",
-      "GlobalAveragePool",
-      "MaxPool",
-      "Relu",
-      "Reshape",
-      "Transpose"
-    ],
-    "not_supported": [
-      "BatchNormalization"
-    ]
-  },
-  {
-    "name": "resnet50_v2",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
@@ -2474,63 +783,6 @@ export const fallback = [
       "MaxPool",
       "Relu",
       "Reshape"
-    ]
-  },
-  {
-    "name": "sam_b_decoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 79,
-    "nodes_in_the_graph": 366,
-    "nodes_supported_by_webnn": 258,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "ConvTranspose",
-      "Div",
-      "Flatten",
-      "Floor",
-      "Gemm",
-      "Mul",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Resize",
-      "Slice",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "ArgMax",
-      "Cast",
-      "Concat",
-      "Cos",
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "LayerNormalization",
-      "MatMul",
-      "Not",
-      "Pow",
-      "Reciprocal",
-      "ReduceMax",
-      "Resize",
-      "Shape",
-      "Sin",
-      "Slice",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Concat: INT64",
-      "Slice: INT64",
-      "Unsqueeze: INT64"
     ]
   },
   {
@@ -2576,61 +828,25 @@ export const fallback = [
       "Transpose",
       "Unsqueeze"
     ],
-    "not_supported": [
-      "Resize",
-      "Shape",
-      "Slice"
-    ]
-  },
-  {
-    "name": "sam_b_encoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 120,
-    "nodes_in_the_graph": 591,
-    "nodes_supported_by_webnn": 400,
-    "supported": [
-      "Add",
-      "Conv",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Slice",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Squeeze",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Add",
-      "Einsum",
-      "Erf",
-      "LayerNormalization",
-      "MatMul",
-      "Pad",
-      "Pow",
-      "Unsqueeze"
-    ]
+    "not_supported": ["Resize", "Shape", "Slice"]
   },
   {
     "name": "sam_b_encoder",
     "backend": "gpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to record commands and bind resources for execution.",
-    "partitions_supported_by_webnn": 34,
+    "error": "",
+    "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 593,
-    "nodes_supported_by_webnn": 512,
+    "nodes_supported_by_webnn": 593,
     "supported": [
       "Add",
       "Conv",
       "Div",
+      "Einsum",
       "Erf",
       "LayerNormalization",
       "MatMul",
       "Mul",
+      "Pad",
       "Pow",
       "ReduceMean",
       "Reshape",
@@ -2642,63 +858,15 @@ export const fallback = [
       "Sub",
       "Transpose",
       "Unsqueeze"
-    ],
-    "not_supported": [
-      "Add",
-      "Einsum",
-      "Pad",
-      "Unsqueeze"
     ]
   },
   {
-    "name": "sam_vit_base",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 238,
-    "nodes_in_the_graph": 1136,
-    "nodes_supported_by_webnn": 843,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "ConvTranspose",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Slice",
-      "Softmax",
-      "Sqrt",
-      "Squeeze",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Add",
-      "Cos",
-      "Einsum",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Pad",
-      "Pow",
-      "ScatterND",
-      "Sin",
-      "Split",
-      "Tile",
-      "Unsqueeze",
-      "Where"
-    ]
-  },
-  {
-    "name": "sam_vit_base",
+    "name": "sam_vit_base_fp32",
     "backend": "gpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to record commands and bind resources for execution.",
-    "partitions_supported_by_webnn": 48,
+    "error": "",
+    "partitions_supported_by_webnn": 4,
     "nodes_in_the_graph": 1135,
-    "nodes_supported_by_webnn": 1040,
+    "nodes_supported_by_webnn": 1132,
     "supported": [
       "Add",
       "Concat",
@@ -2706,10 +874,12 @@ export const fallback = [
       "ConvTranspose",
       "Cos",
       "Div",
+      "Einsum",
       "Erf",
       "Gather",
       "MatMul",
       "Mul",
+      "Pad",
       "Pow",
       "ReduceMean",
       "Relu",
@@ -2717,6 +887,7 @@ export const fallback = [
       "Sin",
       "Slice",
       "Softmax",
+      "Split",
       "Sqrt",
       "Squeeze",
       "Sub",
@@ -2724,53 +895,10 @@ export const fallback = [
       "Unsqueeze",
       "Where"
     ],
-    "not_supported": [
-      "Add",
-      "Einsum",
-      "Pad",
-      "ScatterND",
-      "Split",
-      "Tile",
-      "Unsqueeze"
-    ]
+    "not_supported": ["ScatterND", "Tile"]
   },
   {
-    "name": "sam_vit_base_prompt_encoder_mask_decoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 85,
-    "nodes_in_the_graph": 364,
-    "nodes_supported_by_webnn": 272,
-    "supported": [
-      "Add",
-      "Concat",
-      "ConvTranspose",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Slice",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Cos",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "ScatterND",
-      "Sin",
-      "Tile",
-      "Where"
-    ]
-  },
-  {
-    "name": "sam_vit_base_prompt_encoder_mask_decoder",
+    "name": "sam_vit_base_prompt_encoder_mask_decoder_fp32",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 5,
@@ -2799,57 +927,24 @@ export const fallback = [
       "Unsqueeze",
       "Where"
     ],
-    "not_supported": [
-      "ScatterND",
-      "Tile"
-    ]
+    "not_supported": ["ScatterND", "Tile"]
   },
   {
-    "name": "sam_vit_base_vision_encoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 143,
-    "nodes_in_the_graph": 780,
-    "nodes_supported_by_webnn": 590,
-    "supported": [
-      "Add",
-      "Conv",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Slice",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Squeeze",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Add",
-      "Einsum",
-      "Erf",
-      "MatMul",
-      "Pad",
-      "Pow",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "sam_vit_base_vision_encoder",
+    "name": "sam_vit_base_vision_encoder_fp32",
     "backend": "gpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to record commands and bind resources for execution.",
-    "partitions_supported_by_webnn": 33,
+    "error": "",
+    "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 781,
-    "nodes_supported_by_webnn": 701,
+    "nodes_supported_by_webnn": 781,
     "supported": [
       "Add",
       "Conv",
       "Div",
+      "Einsum",
       "Erf",
       "MatMul",
       "Mul",
+      "Pad",
       "Pow",
       "ReduceMean",
       "Reshape",
@@ -2859,306 +954,8 @@ export const fallback = [
       "Sqrt",
       "Squeeze",
       "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Add",
-      "Einsum",
-      "Pad",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "segment_anything",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 73,
-    "nodes_in_the_graph": 345,
-    "nodes_supported_by_webnn": 258,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "ConvTranspose",
-      "Div",
-      "Flatten",
-      "Gemm",
-      "Mul",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Resize",
-      "Slice",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Sub",
       "Transpose",
       "Unsqueeze"
-    ],
-    "not_supported": [
-      "ArgMax",
-      "Cast",
-      "Cos",
-      "Equal",
-      "Erf",
-      "Expand",
-      "Gather",
-      "LayerNormalization",
-      "MatMul",
-      "Not",
-      "Pow",
-      "Sin"
-    ]
-  },
-  {
-    "name": "segment_anything",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 329,
-    "nodes_supported_by_webnn": 329,
-    "supported": [
-      "Add",
-      "ArgMax",
-      "Cast",
-      "Concat",
-      "Conv",
-      "ConvTranspose",
-      "Cos",
-      "Div",
-      "Equal",
-      "Erf",
-      "Expand",
-      "Flatten",
-      "Gather",
-      "Gemm",
-      "LayerNormalization",
-      "MatMul",
-      "Mul",
-      "Not",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Resize",
-      "Sin",
-      "Slice",
-      "Softmax",
-      "Split",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "selfie_segmentation_general",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 170,
-    "nodes_supported_by_webnn": 170,
-    "supported": [
-      "Add",
-      "AveragePool",
-      "Clip",
-      "Conv",
-      "ConvTranspose",
-      "Mul",
-      "Relu",
-      "Resize",
-      "Sigmoid"
-    ]
-  },
-  {
-    "name": "selfie_segmentation_general",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 172,
-    "nodes_supported_by_webnn": 172,
-    "supported": [
-      "Add",
-      "AveragePool",
-      "Clip",
-      "Conv",
-      "ConvTranspose",
-      "Mul",
-      "Relu",
-      "Reshape",
-      "Resize",
-      "Sigmoid",
-      "Transpose"
-    ]
-  },
-  {
-    "name": "selfie_segmentation_landscape",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 170,
-    "nodes_supported_by_webnn": 170,
-    "supported": [
-      "Add",
-      "Clip",
-      "Conv",
-      "ConvTranspose",
-      "GlobalAveragePool",
-      "Mul",
-      "Relu",
-      "Resize",
-      "Sigmoid"
-    ]
-  },
-  {
-    "name": "selfie_segmentation_landscape",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 172,
-    "nodes_supported_by_webnn": 172,
-    "supported": [
-      "Add",
-      "Clip",
-      "Conv",
-      "ConvTranspose",
-      "GlobalAveragePool",
-      "Mul",
-      "Relu",
-      "Reshape",
-      "Resize",
-      "Sigmoid",
-      "Transpose"
-    ]
-  },
-  {
-    "name": "squeezebert_uncased",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 136,
-    "nodes_in_the_graph": 582,
-    "nodes_supported_by_webnn": 444,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Conv",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "squeezebert_uncased",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 73,
-    "nodes_in_the_graph": 536,
-    "nodes_supported_by_webnn": 464,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "Conv"
-    ]
-  },
-  {
-    "name": "squeezenet",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 67,
-    "nodes_supported_by_webnn": 67,
-    "supported": [
-      "AveragePool",
-      "Concat",
-      "Conv",
-      "MaxPool",
-      "Relu",
-      "Reshape",
-      "Transpose"
-    ]
-  },
-  {
-    "name": "squeezenet",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 65,
-    "nodes_supported_by_webnn": 65,
-    "supported": [
-      "AveragePool",
-      "Concat",
-      "Conv",
-      "MaxPool",
-      "Relu",
-      "Reshape"
-    ]
-  },
-  {
-    "name": "sd_2_1_vae_decoder",
-    "backend": "cpu",
-    "error": "",
-    "not_supported": [
-      "Add",
-      "Cast",
-      "Conv",
-      "Div",
-      "Exp",
-      "InstanceNormalization",
-      "MatMul",
-      "Mul",
-      "ReduceMax",
-      "ReduceSum",
-      "Reshape",
-      "Resize",
-      "Sigmoid",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "input_type_not_supported": [
-      "Add: FLOAT16",
-      "Conv: FLOAT16",
-      "Div: FLOAT16",
-      "Mul: FLOAT16",
-      "Reshape: FLOAT16",
-      "Resize: FLOAT16",
-      "Sigmoid: FLOAT16",
-      "Softmax: FLOAT16",
-      "Sqrt: FLOAT16",
-      "Sub: FLOAT16",
-      "Transpose: FLOAT16"
     ]
   },
   {
@@ -3186,32 +983,6 @@ export const fallback = [
   },
   {
     "name": "sd_2_1_vae_encoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 30,
-    "nodes_in_the_graph": 272,
-    "nodes_supported_by_webnn": 242,
-    "supported": [
-      "Add",
-      "Clip",
-      "Conv",
-      "Mul",
-      "Reshape",
-      "Sigmoid",
-      "Slice",
-      "Softmax",
-      "Squeeze",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Exp",
-      "InstanceNormalization",
-      "MatMul",
-      "RandomNormalLike"
-    ]
-  },
-  {
-    "name": "sd_2_1_vae_encoder",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
@@ -3231,324 +1002,23 @@ export const fallback = [
       "Softmax",
       "Transpose"
     ],
-    "not_supported": [
-      "RandomNormalLike"
-    ]
+    "not_supported": ["RandomNormalLike"]
   },
   {
-    "name": "t5_small_decoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 105,
-    "nodes_in_the_graph": 364,
-    "nodes_supported_by_webnn": 255,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "t5_small_decoder",
+    "name": "sd_turbo_text_encoder_fp32",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 364,
-    "nodes_supported_by_webnn": 364,
+    "nodes_in_the_graph": 1330,
+    "nodes_supported_by_webnn": 1330,
     "supported": [
       "Add",
+      "ArgMax",
       "Cast",
-      "Div",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "t5_small_decoder_merged",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 93,
-    "nodes_in_the_graph": 346,
-    "nodes_supported_by_webnn": 249,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "If",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "t5_small_decoder_merged",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 346,
-    "nodes_supported_by_webnn": 346,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": [
-      "If"
-    ]
-  },
-  {
-    "name": "t5_small_decoder_with_past",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 93,
-    "nodes_in_the_graph": 340,
-    "nodes_supported_by_webnn": 243,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "t5_small_decoder_with_past",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 346,
-    "nodes_supported_by_webnn": 346,
-    "supported": [
-      "Add",
-      "Cast",
-      "Concat",
-      "Div",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "t5_small_encoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 62,
-    "nodes_in_the_graph": 212,
-    "nodes_supported_by_webnn": 146,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Cast",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Unsqueeze"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64",
-      "Unsqueeze: INT64"
-    ]
-  },
-  {
-    "name": "t5_small_encoder",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 212,
-    "nodes_supported_by_webnn": 212,
-    "supported": [
-      "Add",
-      "Cast",
-      "Div",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Relu",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ]
-  },
-  {
-    "name": "tinyyolo_v2",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 9,
-    "nodes_in_the_graph": 51,
-    "nodes_supported_by_webnn": 43,
-    "supported": [
-      "Add",
-      "Conv",
-      "LeakyRelu",
-      "MaxPool",
-      "Mul",
-      "Transpose"
-    ],
-    "not_supported": [
-      "BatchNormalization"
-    ]
-  },
-  {
-    "name": "tinyyolo_v2",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 33,
-    "nodes_supported_by_webnn": 33,
-    "supported": [
-      "Add",
-      "BatchNormalization",
-      "Conv",
-      "LeakyRelu",
-      "MaxPool",
-      "Mul"
-    ]
-  },
-  {
-    "name": "vit_base_patch16_224",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 135,
-    "nodes_in_the_graph": 606,
-    "nodes_supported_by_webnn": 472,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "Div",
-      "Gemm",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Pow"
-    ]
-  },
-  {
-    "name": "vit_base_patch16_224",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 604,
-    "nodes_supported_by_webnn": 604,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
       "Div",
       "Erf",
+      "Flatten",
       "Gather",
-      "Gemm",
       "MatMul",
       "Mul",
       "Pow",
@@ -3561,202 +1031,266 @@ export const fallback = [
     ]
   },
   {
-    "name": "vit_gpt2_image_captioning_decoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 136,
-    "nodes_in_the_graph": 1059,
-    "nodes_supported_by_webnn": 923,
-    "supported": [
-      "Add",
-      "Div",
-      "Gemm",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Split",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64"
-    ]
-  },
-  {
-    "name": "vit_gpt2_image_captioning_decoder",
+    "name": "sd_turbo_unet_fp32",
     "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 25,
-    "nodes_in_the_graph": 1059,
-    "nodes_supported_by_webnn": 1035,
-    "supported": [
-      "Add",
-      "Div",
-      "Gather",
-      "Gemm",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Where"
-    ],
-    "not_supported": [
-      "Split"
-    ]
+    "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
   {
-    "name": "vit_gpt2_image_captioning_decoder_merged",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 135,
-    "nodes_in_the_graph": 1095,
-    "nodes_supported_by_webnn": 959,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Gemm",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Gather",
-      "If",
-      "MatMul",
-      "Pow",
-      "Reshape",
-      "Split",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64"
-    ]
-  },
-  {
-    "name": "vit_gpt2_image_captioning_decoder_merged",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 25,
-    "nodes_in_the_graph": 1095,
-    "nodes_supported_by_webnn": 1071,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Gather",
-      "Gemm",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Tanh",
-      "Transpose",
-      "Where"
-    ],
-    "not_supported": [
-      "If",
-      "Split"
-    ]
-  },
-  {
-    "name": "vit_gpt2_image_captioning_decoder_with_past",
-    "backend": "cpu",
-    "error": ""
-  },
-  {
-    "name": "vit_gpt2_image_captioning_decoder_with_past",
-    "backend": "gpu",
-    "error": ""
-  },
-  {
-    "name": "vit_gpt2_image_captioning_encoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 134,
-    "nodes_in_the_graph": 604,
-    "nodes_supported_by_webnn": 471,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Erf",
-      "MatMul",
-      "Pow"
-    ]
-  },
-  {
-    "name": "vit_gpt2_image_captioning_encoder",
+    "name": "sd_turbo_vae_decoder_fp32",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 602,
-    "nodes_supported_by_webnn": 602,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "Div",
-      "Erf",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ]
-  },
-  {
-    "name": "whisper_base_decoder_static",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 561,
-    "nodes_supported_by_webnn": 561,
+    "nodes_in_the_graph": 297,
+    "nodes_supported_by_webnn": 297,
     "supported": [
       "Add",
       "Cast",
+      "Conv",
       "Div",
+      "InstanceNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Resize",
+      "Sigmoid",
+      "Softmax",
+      "Sqrt",
+      "Transpose"
+    ]
+  },
+  {
+    "name": "segment_anything_decoder",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 3,
+    "nodes_in_the_graph": 349,
+    "nodes_supported_by_webnn": 345,
+    "supported": [
+      "Add",
+      "ArgMax",
+      "Cast",
+      "Concat",
+      "Conv",
+      "ConvTranspose",
+      "Cos",
+      "Div",
+      "Equal",
       "Erf",
       "Expand",
+      "Flatten",
+      "Floor",
+      "Gather",
+      "Gemm",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Not",
+      "Pow",
+      "Reciprocal",
+      "ReduceMax",
+      "ReduceMean",
+      "Relu",
+      "Reshape",
+      "Resize",
+      "Sin",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": ["Resize", "Shape", "Slice"]
+  },
+  {
+    "name": "snowflake_arctic_embed_m_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 618,
+    "nodes_supported_by_webnn": 618,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "squeezebert_uncased_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 536,
+    "nodes_supported_by_webnn": 536,
+    "supported": [
+      "Add",
+      "Cast",
+      "Conv",
+      "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "squeezenet",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 65,
+    "nodes_supported_by_webnn": 65,
+    "supported": ["AveragePool", "Concat", "Conv", "MaxPool", "Relu", "Reshape"]
+  },
+  {
+    "name": "tinyllama_1_1b_chat_v1_0_merged_fp32",
+    "backend": "gpu",
+    "error": "WebAssembly.Memory(): Property 'initial': value 67142 is above the upper bound 65536"
+  },
+  {
+    "name": "tinyllama_v0_decoder_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 441,
+    "nodes_supported_by_webnn": 441,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Div",
+      "Expand",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ]
+  },
+  {
+    "name": "tinyllama_v0_decoder_merged_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 76,
+    "nodes_in_the_graph": 669,
+    "nodes_supported_by_webnn": 409,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Div",
+      "Equal",
+      "Expand",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ],
+    "not_supported": [
+      "Add",
+      "Concat",
+      "Div",
+      "Gather",
+      "Identity",
+      "If",
+      "MatMul",
+      "Mul",
+      "Range",
+      "Reshape",
+      "Shape",
+      "Slice",
+      "Softmax",
+      "Squeeze",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "tinyllama_v0_decoder_with_past_fp32",
+    "backend": "gpu",
+    "error": "",
+    "not_supported": ["Identity", "Squeeze"]
+  },
+  {
+    "name": "uae_large_v1_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 1218,
+    "nodes_supported_by_webnn": 1218,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "whisper_base_decoder_static_merged",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 530,
+    "nodes_supported_by_webnn": 530,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Div",
+      "Erf",
       "Gather",
       "MatMul",
       "Mul",
@@ -3772,18 +1306,18 @@ export const fallback = [
     ]
   },
   {
-    "name": "whisper_base_decoder_static_merged",
+    "name": "whisper_base_decoder_static",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 529,
-    "nodes_supported_by_webnn": 529,
+    "nodes_in_the_graph": 562,
+    "nodes_supported_by_webnn": 562,
     "supported": [
       "Add",
       "Cast",
-      "Concat",
       "Div",
       "Erf",
+      "Expand",
       "Gather",
       "MatMul",
       "Mul",
@@ -3822,205 +1356,189 @@ export const fallback = [
     ]
   },
   {
-    "name": "whisper_tiny_decoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 74,
-    "nodes_in_the_graph": 385,
-    "nodes_supported_by_webnn": 309,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64"
-    ]
-  },
-  {
-    "name": "whisper_tiny_decoder",
+    "name": "yolov8n_pose_fp32",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 385,
-    "nodes_supported_by_webnn": 385,
-    "supported": [
-      "Add",
-      "Div",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ]
-  },
-  {
-    "name": "whisper_tiny_decoder_merged",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 67,
-    "nodes_in_the_graph": 357,
-    "nodes_supported_by_webnn": 289,
+    "nodes_in_the_graph": 267,
+    "nodes_supported_by_webnn": 267,
     "supported": [
       "Add",
       "Concat",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Erf",
-      "Gather",
-      "If",
-      "MatMul",
-      "Pow",
-      "Reshape"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64"
-    ]
-  },
-  {
-    "name": "whisper_tiny_decoder_merged",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 357,
-    "nodes_supported_by_webnn": 357,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "If"
-    ]
-  },
-  {
-    "name": "whisper_tiny_decoder_with_past",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 67,
-    "nodes_in_the_graph": 357,
-    "nodes_supported_by_webnn": 289,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Pow",
-      "Reshape"
-    ],
-    "input_type_not_supported": [
-      "Reshape: INT64"
-    ]
-  },
-  {
-    "name": "whisper_tiny_decoder_with_past",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 357,
-    "nodes_supported_by_webnn": 357,
-    "supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Erf",
-      "Gather",
-      "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ]
-  },
-  {
-    "name": "whisper_tiny_encoder",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 49,
-    "nodes_in_the_graph": 259,
-    "nodes_supported_by_webnn": 210,
-    "supported": [
-      "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Reshape",
-      "Softmax",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
       "Conv",
-      "Erf",
-      "MatMul",
-      "Pow"
+      "Div",
+      "MaxPool",
+      "Mul",
+      "Reshape",
+      "Resize",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sub",
+      "Transpose"
     ]
   },
   {
-    "name": "whisper_tiny_encoder",
+    "name": "yolov8x_pose_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 399,
+    "nodes_supported_by_webnn": 399,
+    "supported": [
+      "Add",
+      "Concat",
+      "Conv",
+      "Div",
+      "MaxPool",
+      "Mul",
+      "Reshape",
+      "Resize",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sub",
+      "Transpose"
+    ]
+  },
+  {
+    "name": "univar_lambda_1_fp16",
+    "backend": "gpu",
+    "error": "Failed to execute 'slice' on 'MLGraphBuilder': For dimension (3): the starting index to slice must be less than input size (64).",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 655,
+    "nodes_supported_by_webnn": 655,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Cos",
+      "Div",
+      "Einsum",
+      "Expand",
+      "Gather",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Reshape",
+      "Sigmoid",
+      "Sin",
+      "Slice",
+      "Softmax",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "bge_large_en_v1_5_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 1219,
+    "nodes_supported_by_webnn": 1219,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "bge_reranker_base_fp16",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 2,
-    "nodes_in_the_graph": 243,
-    "nodes_supported_by_webnn": 241,
+    "nodes_in_the_graph": 630,
+    "nodes_supported_by_webnn": 629,
     "supported": [
       "Add",
+      "Cast",
       "Div",
+      "Equal",
       "Erf",
+      "Gather",
+      "Gemm",
+      "MatMul",
+      "Mul",
+      "Not",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Tanh",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": ["CumSum"]
+  },
+  {
+    "name": "detr_resnet_50_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 9,
+    "nodes_in_the_graph": 1069,
+    "nodes_supported_by_webnn": 1061,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Conv",
+      "Cos",
+      "Div",
+      "Expand",
+      "Flatten",
+      "Gather",
+      "MatMul",
+      "MaxPool",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Relu",
+      "Reshape",
+      "Sigmoid",
+      "Sin",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ],
+    "not_supported": ["CumSum", "Resize", "Slice", "Tile"]
+  },
+  {
+    "name": "distiluse_base_multilingual_cased_v2_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 325,
+    "nodes_supported_by_webnn": 325,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Equal",
+      "Erf",
+      "Expand",
+      "Gather",
       "MatMul",
       "Mul",
       "Pow",
@@ -4029,45 +1547,8 @@ export const fallback = [
       "Softmax",
       "Sqrt",
       "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Conv"
-    ]
-  },
-  {
-    "name": "xlm_roberta_base",
-    "backend": "cpu",
-    "error": "Aborted(). Build with -sASSERTIONS for more info."
-  },
-  {
-    "name": "xlm_roberta_base",
-    "backend": "gpu",
-    "error": "Aborted(). Build with -sASSERTIONS for more info."
-  },
-  {
-    "name": "efficientnet_lite_fp16",
-    "backend": "cpu",
-    "error": "",
-    "not_supported": [
-      "Add",
-      "AveragePool",
-      "Clip",
-      "Conv",
-      "Gemm",
-      "Softmax",
-      "Squeeze",
-      "Transpose"
-    ],
-    "input_type_not_supported": [
-      "Add: FLOAT16",
-      "AveragePool: FLOAT16",
-      "Clip: FLOAT16",
-      "Conv: FLOAT16",
-      "Gemm: FLOAT16",
-      "Softmax: FLOAT16",
-      "Squeeze: FLOAT16",
-      "Transpose: FLOAT16"
+      "Transpose",
+      "Where"
     ]
   },
   {
@@ -4089,20 +1570,204 @@ export const fallback = [
     ]
   },
   {
-    "name": "mobilenet_v2_fp16",
-    "backend": "cpu",
+    "name": "gte_base_en_v1_5_fp16",
+    "backend": "gpu",
     "error": "",
-    "not_supported": [
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 760,
+    "nodes_supported_by_webnn": 760,
+    "supported": [
       "Add",
-      "Clip",
+      "Cast",
+      "Concat",
+      "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "gte_small_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 619,
+    "nodes_supported_by_webnn": 619,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "jina_clip_v1_text_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 589,
+    "nodes_supported_by_webnn": 589,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Einsum",
+      "Equal",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Not",
+      "Pow",
+      "ReduceMean",
+      "ReduceSum",
+      "Reshape",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sqrt",
+      "Squeeze",
+      "Sub",
+      "Unsqueeze",
+      "Where"
+    ]
+  },
+  {
+    "name": "jina_clip_v1_vision_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 1217,
+    "nodes_supported_by_webnn": 1217,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
       "Conv",
-      "Reshape"
-    ],
-    "input_type_not_supported": [
-      "Add: FLOAT16",
-      "Clip: FLOAT16",
-      "Conv: FLOAT16",
-      "Reshape: FLOAT16"
+      "Div",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sqrt",
+      "Squeeze",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "jina_embeddings_v2_base_code_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 991,
+    "nodes_supported_by_webnn": 991,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "jina_reranker_v1_turbo_en_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 343,
+    "nodes_supported_by_webnn": 343,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "Gather",
+      "Gemm",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Tanh",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "llama2_c_stories15m_decoder_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 350,
+    "nodes_supported_by_webnn": 350,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Div",
+      "Expand",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
     ]
   },
   {
@@ -4112,240 +1777,86 @@ export const fallback = [
     "partitions_supported_by_webnn": 1,
     "nodes_in_the_graph": 100,
     "nodes_supported_by_webnn": 100,
-    "supported": [
-      "Add",
-      "Clip",
-      "Conv",
-      "Reshape"
-    ]
+    "supported": ["Add", "Clip", "Conv", "Reshape"]
   },
   {
-    "name": "realesrgan_x4_1024_fp16",
-    "backend": "cpu",
-    "error": "",
-    "not_supported": [
-      "Add",
-      "Cast",
-      "CastLike",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Less",
-      "Mul",
-      "Resize",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Add: FLOAT16",
-      "Concat: FLOAT16",
-      "Conv: FLOAT16",
-      "LeakyRelu: FLOAT16",
-      "Mul: FLOAT16",
-      "Resize: FLOAT16"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_1024_fp16",
-    "backend": "gpu",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': DirectML: Failed to record commands and bind resources for execution.",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 1024,
-    "nodes_supported_by_webnn": 1024,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Resize"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_128_fp16",
-    "backend": "cpu",
-    "error": "",
-    "not_supported": [
-      "Add",
-      "Cast",
-      "CastLike",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Less",
-      "Mul",
-      "Resize",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Add: FLOAT16",
-      "Concat: FLOAT16",
-      "Conv: FLOAT16",
-      "LeakyRelu: FLOAT16",
-      "Mul: FLOAT16",
-      "Resize: FLOAT16"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_128_fp16",
+    "name": "mobilevit_small_fp16",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 1024,
-    "nodes_supported_by_webnn": 1024,
+    "nodes_in_the_graph": 565,
+    "nodes_supported_by_webnn": 565,
     "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Resize"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_256_fp16",
-    "backend": "cpu",
-    "error": "",
-    "not_supported": [
       "Add",
       "Cast",
-      "CastLike",
       "Concat",
       "Conv",
-      "LeakyRelu",
-      "Less",
-      "Mul",
-      "Resize",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Add: FLOAT16",
-      "Concat: FLOAT16",
-      "Conv: FLOAT16",
-      "LeakyRelu: FLOAT16",
-      "Mul: FLOAT16",
-      "Resize: FLOAT16"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_256_fp16",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 1024,
-    "nodes_supported_by_webnn": 1024,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Resize"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_512_fp16",
-    "backend": "cpu",
-    "error": "",
-    "not_supported": [
-      "Add",
-      "Cast",
-      "CastLike",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Less",
-      "Mul",
-      "Resize",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Add: FLOAT16",
-      "Concat: FLOAT16",
-      "Conv: FLOAT16",
-      "LeakyRelu: FLOAT16",
-      "Mul: FLOAT16",
-      "Resize: FLOAT16"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_512_fp16",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 1024,
-    "nodes_supported_by_webnn": 1024,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Resize"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_64_fp16",
-    "backend": "cpu",
-    "error": "",
-    "not_supported": [
-      "Add",
-      "Cast",
-      "CastLike",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Less",
-      "Mul",
-      "Resize",
-      "Where"
-    ],
-    "input_type_not_supported": [
-      "Add: FLOAT16",
-      "Concat: FLOAT16",
-      "Conv: FLOAT16",
-      "LeakyRelu: FLOAT16",
-      "Mul: FLOAT16",
-      "Resize: FLOAT16"
-    ]
-  },
-  {
-    "name": "realesrgan_x4_64_fp16",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 1024,
-    "nodes_supported_by_webnn": 1024,
-    "supported": [
-      "Add",
-      "Concat",
-      "Conv",
-      "LeakyRelu",
-      "Mul",
-      "Resize"
-    ]
-  },
-  {
-    "name": "resnet50_v1_fp16",
-    "backend": "cpu",
-    "error": "",
-    "not_supported": [
-      "Add",
-      "Conv",
-      "Flatten",
+      "Div",
       "Gemm",
-      "GlobalAveragePool",
-      "MaxPool",
-      "Relu"
-    ],
-    "input_type_not_supported": [
-      "Add: FLOAT16",
-      "Conv: FLOAT16",
-      "Flatten: FLOAT16",
-      "Gemm: FLOAT16",
-      "GlobalAveragePool: FLOAT16",
-      "MaxPool: FLOAT16",
-      "Relu: FLOAT16"
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Sigmoid",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose"
     ]
+  },
+  {
+    "name": "mxbai_embed_large_v1_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 1219,
+    "nodes_supported_by_webnn": 1219,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "paraphrase_multilingual_mpnet_base_v2_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 2,
+    "nodes_in_the_graph": 626,
+    "nodes_supported_by_webnn": 625,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Equal",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Not",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": ["CumSum"]
   },
   {
     "name": "resnet50_v1_fp16",
@@ -4365,95 +1876,344 @@ export const fallback = [
     ]
   },
   {
-    "name": "segment_anything_fp16",
-    "backend": "cpu",
+    "name": "sam_vit_base_fp16",
+    "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 19,
-    "nodes_in_the_graph": 587,
-    "nodes_supported_by_webnn": 81,
+    "partitions_supported_by_webnn": 6,
+    "nodes_in_the_graph": 1353,
+    "nodes_supported_by_webnn": 1347,
     "supported": [
       "Add",
-      "Div",
-      "Mul",
-      "ReduceMean",
-      "Resize",
-      "Sqrt",
-      "Sub",
-      "Transpose"
-    ],
-    "not_supported": [
-      "Add",
-      "ArgMax",
       "Cast",
       "Concat",
-      "ConstantOfShape",
       "Conv",
       "ConvTranspose",
       "Cos",
       "Div",
+      "Einsum",
       "Equal",
       "Erf",
-      "Exp",
-      "Expand",
-      "Flatten",
       "Gather",
-      "Gemm",
-      "LayerNormalization",
       "MatMul",
       "Mul",
       "Neg",
-      "Not",
+      "Pad",
       "Pow",
-      "Reciprocal",
-      "ReduceMax",
       "ReduceMean",
-      "ReduceSum",
       "Relu",
       "Reshape",
-      "Shape",
       "Sin",
-      "Size",
       "Slice",
       "Softmax",
       "Split",
       "Sqrt",
+      "Squeeze",
       "Sub",
       "Transpose",
       "Unsqueeze",
-      "WEBNN_12145297230675277246_0",
-      "WEBNN_12145297230675277246_1"
+      "Where"
     ],
-    "input_type_not_supported": [
-      "Add: FLOAT16",
-      "Concat: FLOAT16",
-      "Conv: FLOAT16",
-      "ConvTranspose: FLOAT16",
-      "Div: FLOAT16",
-      "Flatten: FLOAT16",
-      "Gemm: FLOAT16",
-      "Mul: FLOAT16",
-      "Neg: INT64",
-      "ReduceMean: FLOAT16",
-      "Relu: FLOAT16",
-      "Reshape: FLOAT16",
-      "Shape: FLOAT16",
-      "Slice: FLOAT16",
-      "Slice: INT64",
-      "Softmax: FLOAT16",
-      "Split: FLOAT16",
-      "Sqrt: FLOAT16",
-      "Sub: FLOAT16",
-      "Transpose: FLOAT16",
-      "Unsqueeze: FLOAT16"
-    ]
+    "not_supported": ["ScatterND", "Tile"]
   },
   {
-    "name": "segment_anything_fp16",
+    "name": "sam_vit_base_prompt_encoder_mask_decoder_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 6,
+    "nodes_in_the_graph": 378,
+    "nodes_supported_by_webnn": 373,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "ConvTranspose",
+      "Cos",
+      "Div",
+      "Equal",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Relu",
+      "Reshape",
+      "Sin",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ],
+    "not_supported": ["ScatterND", "Tile"]
+  },
+  {
+    "name": "sam_vit_base_vision_encoder_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 2,
+    "nodes_in_the_graph": 984,
+    "nodes_supported_by_webnn": 983,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Conv",
+      "Cos",
+      "Div",
+      "Einsum",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pad",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Sin",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sqrt",
+      "Squeeze",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": ["Tile"]
+  },
+  {
+    "name": "sd_vae_decoder_fp16",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 333,
-    "nodes_supported_by_webnn": 333,
+    "nodes_in_the_graph": 355,
+    "nodes_supported_by_webnn": 355,
+    "supported": [
+      "Add",
+      "Cast",
+      "Conv",
+      "InstanceNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Resize",
+      "Sigmoid",
+      "Softmax",
+      "Transpose"
+    ]
+  },
+  {
+    "name": "sd_1_5_text_encoder_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 2,
+    "nodes_in_the_graph": 479,
+    "nodes_supported_by_webnn": 478,
+    "supported": [
+      "Add",
+      "ArgMax",
+      "Flatten",
+      "Gather",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Sigmoid",
+      "Softmax",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": ["Trilu"]
+  },
+  {
+    "name": "sd_1_5_unet_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 1834,
+    "nodes_supported_by_webnn": 1834,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Conv",
+      "Cos",
+      "Div",
+      "Erf",
+      "Expand",
+      "Gemm",
+      "InstanceNormalization",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Resize",
+      "Sigmoid",
+      "Sin",
+      "Slice",
+      "Softmax",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "sd_safety_checker_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 901,
+    "nodes_supported_by_webnn": 901,
+    "supported": [
+      "Add",
+      "Cast",
+      "Clip",
+      "Concat",
+      "Conv",
+      "Div",
+      "Expand",
+      "Gather",
+      "Gemm",
+      "Greater",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "ReduceL2",
+      "ReduceSum",
+      "Reshape",
+      "Sigmoid",
+      "Softmax",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ]
+  },
+  {
+    "name": "sd_turbo_text_encoder_layernorm_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 953,
+    "nodes_supported_by_webnn": 953,
+    "supported": [
+      "Add",
+      "ArgMax",
+      "Cast",
+      "Div",
+      "Erf",
+      "Flatten",
+      "Gather",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Softmax",
+      "Transpose"
+    ]
+  },
+  {
+    "name": "sd_turbo_text_encoder_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 1329,
+    "nodes_supported_by_webnn": 1329,
+    "supported": [
+      "Add",
+      "ArgMax",
+      "Cast",
+      "Div",
+      "Erf",
+      "Flatten",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose"
+    ]
+  },
+  {
+    "name": "sd_turbo_unet_layernorm_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 1740,
+    "nodes_supported_by_webnn": 1740,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Conv",
+      "Cos",
+      "Div",
+      "Erf",
+      "Expand",
+      "Gemm",
+      "InstanceNormalization",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Resize",
+      "Sigmoid",
+      "Sin",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "sd_turbo_unet_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 2124,
+    "nodes_supported_by_webnn": 2124,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Conv",
+      "Cos",
+      "Div",
+      "Erf",
+      "Expand",
+      "Gemm",
+      "InstanceNormalization",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Resize",
+      "Sigmoid",
+      "Sin",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "segment_anything_decoder_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 4,
+    "nodes_in_the_graph": 377,
+    "nodes_supported_by_webnn": 370,
     "supported": [
       "Add",
       "ArgMax",
@@ -4467,6 +2227,7 @@ export const fallback = [
       "Erf",
       "Expand",
       "Flatten",
+      "Floor",
       "Gather",
       "Gemm",
       "LayerNormalization",
@@ -4474,6 +2235,8 @@ export const fallback = [
       "Mul",
       "Not",
       "Pow",
+      "Reciprocal",
+      "ReduceMax",
       "ReduceMean",
       "Relu",
       "Reshape",
@@ -4486,27 +2249,90 @@ export const fallback = [
       "Sub",
       "Transpose",
       "Unsqueeze"
+    ],
+    "not_supported": ["Cast", "Resize", "Shape", "Slice"]
+  },
+  {
+    "name": "segment_anything_encoder_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 782,
+    "nodes_supported_by_webnn": 782,
+    "supported": [
+      "Add",
+      "Cast",
+      "Conv",
+      "Div",
+      "Einsum",
+      "Erf",
+      "Gather",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Pad",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sqrt",
+      "Squeeze",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
     ]
   },
   {
-    "name": "squeezenet_fp16",
-    "backend": "cpu",
+    "name": "snowflake_arctic_embed_m_fp16",
+    "backend": "gpu",
     "error": "",
-    "not_supported": [
-      "Concat",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 619,
+    "nodes_supported_by_webnn": 619,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "squeezebert_uncased_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 537,
+    "nodes_supported_by_webnn": 537,
+    "supported": [
+      "Add",
+      "Cast",
       "Conv",
-      "GlobalAveragePool",
-      "MaxPool",
-      "Relu",
-      "Softmax"
-    ],
-    "input_type_not_supported": [
-      "Concat: FLOAT16",
-      "Conv: FLOAT16",
-      "GlobalAveragePool: FLOAT16",
-      "MaxPool: FLOAT16",
-      "Relu: FLOAT16",
-      "Softmax: FLOAT16"
+      "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
     ]
   },
   {
@@ -4526,142 +2352,298 @@ export const fallback = [
     ]
   },
   {
-    "name": "sd_1_5_unet_fp16",
-    "backend": "cpu",
+    "name": "tinyllama_1_1b_chat_v1_0_merged_fp16",
+    "backend": "gpu"
+  },
+  {
+    "name": "tinyllama_v0_decoder_fp16",
+    "backend": "gpu",
     "error": "",
-    "not_supported": [
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 460,
+    "nodes_supported_by_webnn": 460,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Div",
+      "Expand",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Neg",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ]
+  },
+  {
+    "name": "uae_large_v1_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 1219,
+    "nodes_supported_by_webnn": 1219,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Softmax",
+      "Sqrt",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ]
+  },
+  {
+    "name": "whisper_base_decoder_static_gelu_4dmask_fp16_merged",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 348,
+    "nodes_supported_by_webnn": 348,
+    "supported": [
+      "Add",
+      "Concat",
+      "Gather",
+      "Gelu",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Softmax",
+      "Transpose"
+    ]
+  },
+  {
+    "name": "whisper_base_decoder_static_gelu_fp16_merged",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 354,
+    "nodes_supported_by_webnn": 354,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Gather",
+      "Gelu",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Softmax",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ]
+  },
+  {
+    "name": "whisper_base_decoder_static_fp16_merged",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 378,
+    "nodes_supported_by_webnn": 378,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Div",
+      "Erf",
+      "Gather",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Softmax",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ]
+  },
+  {
+    "name": "whisper_base_decoder_static_gelu_4dmask_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 377,
+    "nodes_supported_by_webnn": 377,
+    "supported": [
+      "Add",
+      "Gather",
+      "Gelu",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Softmax",
+      "Transpose"
+    ]
+  },
+  {
+    "name": "whisper_base_decoder_static_gelu_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 386,
+    "nodes_supported_by_webnn": 386,
+    "supported": [
+      "Add",
+      "Cast",
+      "Expand",
+      "Gather",
+      "Gelu",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Softmax",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ]
+  },
+  {
+    "name": "whisper_base_decoder_static_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 410,
+    "nodes_supported_by_webnn": 410,
+    "supported": [
+      "Add",
+      "Cast",
+      "Div",
+      "Erf",
+      "Expand",
+      "Gather",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Softmax",
+      "Sub",
+      "Transpose",
+      "Unsqueeze",
+      "Where"
+    ]
+  },
+  {
+    "name": "whisper_base_encoder_gelu_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 205,
+    "nodes_supported_by_webnn": 205,
+    "supported": [
+      "Add",
+      "Conv",
+      "Gelu",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Softmax",
+      "Transpose"
+    ]
+  },
+  {
+    "name": "whisper_base_encoder_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 237,
+    "nodes_supported_by_webnn": 237,
+    "supported": [
+      "Add",
+      "Conv",
+      "Div",
+      "Erf",
+      "LayerNormalization",
+      "MatMul",
+      "Mul",
+      "Reshape",
+      "Softmax",
+      "Transpose"
+    ]
+  },
+  {
+    "name": "yolov8n_pose_fp16",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 273,
+    "nodes_supported_by_webnn": 273,
+    "supported": [
       "Add",
       "Cast",
       "Concat",
       "Conv",
-      "Cos",
       "Div",
-      "Erf",
-      "Exp",
-      "Expand",
-      "Gemm",
-      "InstanceNormalization",
+      "Flatten",
       "MatMul",
+      "MaxPool",
       "Mul",
-      "Pow",
       "ReduceMax",
-      "ReduceMean",
-      "ReduceSum",
       "Reshape",
       "Resize",
       "Sigmoid",
-      "Sin",
       "Slice",
       "Softmax",
-      "Sqrt",
+      "Split",
       "Sub",
       "Transpose",
       "Unsqueeze"
     ],
-    "input_type_not_supported": [
-      "Add: FLOAT16",
-      "Concat: FLOAT16",
-      "Conv: FLOAT16",
-      "Div: FLOAT16",
-      "Gemm: FLOAT16",
-      "Mul: FLOAT16",
-      "ReduceMean: FLOAT16",
-      "Reshape: FLOAT16",
-      "Sigmoid: FLOAT16",
-      "Slice: FLOAT16",
-      "Softmax: FLOAT16",
-      "Sqrt: FLOAT16",
-      "Sub: FLOAT16",
-      "Transpose: FLOAT16",
-      "Unsqueeze: FLOAT16",
-      "Unsqueeze: INT64"
-    ]
+    "not_supported": ["GatherElements", "Mod", "Tile", "TopK"]
   },
   {
-    "name": "sd_1_5_unet_fp16",
+    "name": "yolov8x_pose_fp16",
     "backend": "gpu",
     "error": "",
     "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 2218,
-    "nodes_supported_by_webnn": 2218,
+    "nodes_in_the_graph": 405,
+    "nodes_supported_by_webnn": 405,
     "supported": [
       "Add",
       "Cast",
       "Concat",
       "Conv",
-      "Cos",
       "Div",
-      "Erf",
-      "Expand",
-      "Gemm",
-      "InstanceNormalization",
+      "Flatten",
       "MatMul",
+      "MaxPool",
       "Mul",
-      "Pow",
-      "ReduceMean",
+      "ReduceMax",
       "Reshape",
       "Resize",
       "Sigmoid",
-      "Sin",
       "Slice",
       "Softmax",
-      "Sqrt",
+      "Split",
       "Sub",
       "Transpose",
       "Unsqueeze"
-    ]
-  },
-  {
-    "name": "sd_1_5_vae_decoder_fp16",
-    "backend": "cpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 295,
-    "nodes_supported_by_webnn": 1,
-    "supported": [
-      "Softmax"
     ],
-    "not_supported": [
-      "Add",
-      "Cast",
-      "Conv",
-      "InstanceNormalization",
-      "MatMul",
-      "Mul",
-      "Reshape",
-      "Resize",
-      "Sigmoid",
-      "Transpose"
-    ],
-    "input_type_not_supported": [
-      "Add: FLOAT16",
-      "Conv: FLOAT16",
-      "Mul: FLOAT16",
-      "Reshape: FLOAT16",
-      "Resize: FLOAT16",
-      "Sigmoid: FLOAT16",
-      "Transpose: FLOAT16"
-    ]
-  },
-  {
-    "name": "sd_1_5_vae_decoder_fp16",
-    "backend": "gpu",
-    "error": "",
-    "partitions_supported_by_webnn": 1,
-    "nodes_in_the_graph": 295,
-    "nodes_supported_by_webnn": 295,
-    "supported": [
-      "Add",
-      "Cast",
-      "Conv",
-      "InstanceNormalization",
-      "MatMul",
-      "Mul",
-      "Reshape",
-      "Resize",
-      "Sigmoid",
-      "Softmax",
-      "Transpose"
-    ]
+    "not_supported": ["GatherElements", "Mod", "Tile", "TopK"]
   }
 ]

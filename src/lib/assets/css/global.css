@@ -2133,7 +2133,7 @@ background-color: var(--int4-005);
 
 .environment #logo_onnx {
   width: 56px;
-  margin-bottom: -2px;
+  margin-bottom: -1px;
 }
 
 .environment svg path {

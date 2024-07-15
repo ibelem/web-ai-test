@@ -239,7 +239,7 @@
 	}
 
 	.version:hover {
-		border: 1px solid var(--font);
+		border: 1px solid var(--red);
 	}
 
 	@media (max-width: 932px) {
