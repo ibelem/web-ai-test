@@ -1291,11 +1291,11 @@ const llama2CStories15MDecoderMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 5], { "batch_size": 1, "sequence_length": 5 }],
+      'input_ids': ['int64', 99n, [1, 5], { "batch_size": 1, "sequence_length": 5, "past_sequence_length": 0 }],
       'attention_mask': ['int64', 1n, [1, 5], { "batch_size": 1, "attention_mask_sequence_length": 5 }],
       'use_cache_branch': ['bool', 1, [1], {}]
     }],
-    inputstip: '[1, 5] [1, 5]'
+    inputstip: '[1, 5] [1, 5] [1]'
   }))
 }
 
@@ -1321,7 +1321,7 @@ const llama2CStories15MDecoderWithPast = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1 }],
       'attention_mask': ['int64', 1n, [1, 6], { "batch_size": 1, "past_sequence_length + 1": 6 }],
     }],
     inputstip: '[1, 1] [1, 6]'

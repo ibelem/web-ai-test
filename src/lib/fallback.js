@@ -148,9 +148,9 @@ export const fallback = [
     "name": "distil_medium_en_decoder_merged_fp32",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 19,
-    "nodes_in_the_graph": 239,
-    "nodes_supported_by_webnn": 52,
+    "partitions_supported_by_webnn": 3,
+    "nodes_in_the_graph": 177,
+    "nodes_supported_by_webnn": 165,
     "supported": [
       "Add",
       "Concat",
@@ -165,25 +165,12 @@ export const fallback = [
       "Softmax",
       "Sqrt",
       "Sub",
-      "Transpose",
-      "Unsqueeze"
+      "Transpose"
     ],
     "not_supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Erf",
-      "Gather",
       "MatMul",
-      "Mul",
-      "Pow",
-      "ReduceMean",
       "Reshape",
-      "Shape",
-      "Slice",
       "Softmax",
-      "Sqrt",
-      "Sub",
       "Transpose"
     ]
   },
@@ -489,15 +476,14 @@ export const fallback = [
     "name": "llama2_c_stories15m_decoder_merged_fp32",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 58,
-    "nodes_in_the_graph": 507,
-    "nodes_supported_by_webnn": 311,
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 346,
+    "nodes_supported_by_webnn": 346,
     "supported": [
       "Add",
       "Cast",
       "Concat",
       "Div",
-      "Equal",
       "Expand",
       "Gather",
       "MatMul",
@@ -514,24 +500,6 @@ export const fallback = [
       "Transpose",
       "Unsqueeze",
       "Where"
-    ],
-    "not_supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Gather",
-      "Identity",
-      "If",
-      "MatMul",
-      "Mul",
-      "Range",
-      "Reshape",
-      "Shape",
-      "Slice",
-      "Softmax",
-      "Squeeze",
-      "Transpose",
-      "Unsqueeze"
     ]
   },
   {
