@@ -94,7 +94,7 @@ const getFeeds = (session, modelName) => {
         } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp16') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int4') > -1) {
           feeds[v] = getTensor('float16', 1, [1, 4, 0, 64]);
         } else if (modelName.indexOf('tinyllama_v0_decoder_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 16, 0, 4]);
+          feeds[v] = getTensor('float32', 1, [1, 16, 1, 4]);
         } else if (modelName.indexOf('meta_llama_3_8b_instruct_merged_') > -1) {
           feeds[v] = getTensor('float16', 1, [1, 4, 0, 64]);
         } else if (modelName.indexOf('llama2_c_stories15m_decoder_merged_') > -1) {

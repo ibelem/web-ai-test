@@ -834,7 +834,7 @@ const distilMediumEnDecoderMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1, "past_decoder_sequence_length": 1 }],
       'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }],
       'use_cache_branch': ['bool', 1, [1], {}]
     }],
@@ -2085,11 +2085,11 @@ const tinyLlamaV0DecoderMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+      'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "sequence_length": 41, "past_sequence_length": 1 }],
       'attention_mask': ['int64', 1n, [1, 41], { "batch_size": 1, "attention_mask_sequence_length": 41 }],
       'use_cache_branch': ['bool', 1, [1], {}]
     }],
-    inputstip: '[1, 41] [1, 41]'
+    inputstip: '[1, 41] [1, 41] [1]'
   }))
 }
 
@@ -2145,11 +2145,11 @@ const tinyLlama1_1BChatv1_0Merged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
-      'attention_mask': ['int64', 1n, [1, 41], { "batch_size": 1, "past_sequence_length + 1": 41 }],
-      'position_ids': ['int64', 1n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+      'input_ids': ['int64', 99n, [1, 39], { "batch_size": 1, "sequence_length": 39 }],
+      'attention_mask': ['int64', 1n, [1, 39], { "batch_size": 1, "past_sequence_length + 1": 39 }],
+      'position_ids': ['int64', 1n, [1, 39], { "batch_size": 1, "sequence_length": 39 }],
     }],
-    inputstip: '[1, 41] [1, 41] [1, 41]'
+    inputstip: '[1, 39] [1, 39] [1, 39]'
   }))
 }
 
