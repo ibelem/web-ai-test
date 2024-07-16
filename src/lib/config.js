@@ -2085,7 +2085,7 @@ const tinyLlamaV0DecoderMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "sequence_length": 41, "past_sequence_length": 1 }],
+      'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "sequence_length": 41, "past_sequence_length": 0 }],
       'attention_mask': ['int64', 1n, [1, 41], { "batch_size": 1, "attention_mask_sequence_length": 41 }],
       'use_cache_branch': ['bool', 1, [1], {}]
     }],

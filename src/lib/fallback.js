@@ -1170,15 +1170,14 @@ export const fallback = [
     "name": "tinyllama_v0_decoder_merged_fp32",
     "backend": "gpu",
     "error": "",
-    "partitions_supported_by_webnn": 76,
-    "nodes_in_the_graph": 669,
-    "nodes_supported_by_webnn": 409,
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 456,
+    "nodes_supported_by_webnn": 456,
     "supported": [
       "Add",
       "Cast",
       "Concat",
       "Div",
-      "Equal",
       "Expand",
       "Gather",
       "MatMul",
@@ -1195,24 +1194,6 @@ export const fallback = [
       "Transpose",
       "Unsqueeze",
       "Where"
-    ],
-    "not_supported": [
-      "Add",
-      "Concat",
-      "Div",
-      "Gather",
-      "Identity",
-      "If",
-      "MatMul",
-      "Mul",
-      "Range",
-      "Reshape",
-      "Shape",
-      "Slice",
-      "Softmax",
-      "Squeeze",
-      "Transpose",
-      "Unsqueeze"
     ]
   },
   {
