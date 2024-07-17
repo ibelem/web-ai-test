@@ -2548,11 +2548,8 @@ export const fallback = [
       "Concat",
       "Conv",
       "Div",
-      "Flatten",
-      "MatMul",
       "MaxPool",
       "Mul",
-      "ReduceMax",
       "Reshape",
       "Resize",
       "Sigmoid",
@@ -2560,10 +2557,8 @@ export const fallback = [
       "Softmax",
       "Split",
       "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": ["GatherElements", "Mod", "Tile", "TopK"]
+      "Transpose"
+    ]
   },
   {
     "name": "yolov8x_pose_fp16",
@@ -2578,11 +2573,8 @@ export const fallback = [
       "Concat",
       "Conv",
       "Div",
-      "Flatten",
-      "MatMul",
       "MaxPool",
       "Mul",
-      "ReduceMax",
       "Reshape",
       "Resize",
       "Sigmoid",
@@ -2590,9 +2582,7 @@ export const fallback = [
       "Softmax",
       "Split",
       "Sub",
-      "Transpose",
-      "Unsqueeze"
-    ],
-    "not_supported": ["GatherElements", "Mod", "Tile", "TopK"]
+      "Transpose"
+    ]
   }
 ]
