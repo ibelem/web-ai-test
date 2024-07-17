@@ -2145,11 +2145,11 @@ const tinyLlama1_1BChatv1_0Merged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 39], { "batch_size": 1, "sequence_length": 39 }],
-      'attention_mask': ['int64', 1n, [1, 39], { "batch_size": 1, "past_sequence_length + 1": 39 }],
-      'position_ids': ['int64', 1n, [1, 39], { "batch_size": 1, "sequence_length": 39 }],
+      'input_ids': ['int64', 1n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+      'attention_mask': ['int64', 1n, [1, 41], { "batch_size": 1, "past_sequence_length + 1": 41 }],
+      'position_ids': ['int64', 0n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
     }],
-    inputstip: '[1, 39] [1, 39] [1, 39]'
+    inputstip: '[1, 41] [1, 41] [1, 41]'
   }))
 }
 
@@ -2176,9 +2176,9 @@ const tinyLlama1_1BChatv1_0Merged_2 = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+      'input_ids': ['int64', 1n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
       'attention_mask': ['int64', 1n, [1, 41], { "batch_size": 1, "past_sequence_length + 1": 41 }],
-      'position_ids': ['int64', 1n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
+      'position_ids': ['int64', 0n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
     }],
     inputstip: '[1, 41] [1, 41] [1, 41]'
   }))

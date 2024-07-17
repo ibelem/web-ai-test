@@ -118,7 +118,7 @@
 		let name = getModelNameById(model);
 		name = name?.replace('Encoder','<span>Encoder</span>').replace('Decoder','<span>Decoder</span>')
 		.replace('Non-KV-Cache','<span>Non-KV-Cache</span>').replace(' KV-Cache',' <span>KV-Cache</span>')
-		.replace('w/i Past','<span>w/i Past</span>').replace('Static Shape','<span>Static Shape</span>');
+		.replace('w/i Past','<span>w/i Past</span>').replace('Static Shape','<span class="static">Static Shape</span>');
 		return name;
 	}
 

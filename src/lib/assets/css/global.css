@@ -2104,6 +2104,11 @@ background-color: var(--int4-005);
   background-color: var(--red-005);
 }
 
+.titlemark span.static {
+  border: 1px solid var(--green-02);
+  background-color: var(--green-005);
+}
+
 .fp16.tq .q:hover .titlemark span {
   border: 1px solid var(--fp16-09);
   background-color: var(--fp16-01);
@@ -2126,6 +2131,12 @@ background-color: var(--int4-005);
   border: 1px solid var(--red-09);
   background-color: var(--red-01);
   color: var(--red);
+}
+
+.tq .q:hover .titlemark span.static {
+  border: 1px solid var(--green-09);
+  background-color: var(--green-01);
+  color: var(--green);
 }
 
 .environment svg {
