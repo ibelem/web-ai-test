@@ -5,8 +5,10 @@
 		getModelNameById,
 		getModelTypeById,
 		getModelDataTypeById,
+		getModelHFUrlById,
 		sortModelById
 	} from '$lib/assets/js/utils';
+	import ArrowOutward from './svg/ArrowOutward.svelte';
 	import { afterUpdate, onMount } from 'svelte';
 	import { page } from '$app/stores';
 
@@ -170,8 +172,9 @@
 				>
 			</div>
 			<div class="result">
-				<div class="q _3 title {y_pin}">
+				<div class="q _4 title {y_pin}">
 					<div class="name" title="Model Name">Model</div>
+					<div class="netron" title="Model Netron">Netron</div>
 					<div class="info" title="Model Info">Info</div>
 					<div class="su" title="Supported">Supported</div>
 					<div class="su ns" title="Not Supported">Not Supported</div>
@@ -181,8 +184,14 @@
 				</div>
 				{#each filteredBackendDataFallback as { name, backend, supported, not_supported, input_type_not_supported, partitions_supported_by_webnn, nodes_in_the_graph, nodes_supported_by_webnn, error }, i}
 					{#if backend === 'gpu'}
-						<div class="q _3">
+						<div class="q _4">
 							<div class="name" title={name?.replaceAll('_', '-')}>{getModelNameById(name)}</div>
+							<div class="netron" title="Check WebNN support status of {getModelNameById(name)}">
+								<a
+								href="https://ibelem.github.io/netron/?url={getModelHFUrlById(name)}"
+								><ArrowOutward /></a
+								>
+							</div>
 							<div class="info">
 								{getModelTypeById(name)}<br />
 								{getModelDataTypeById(name)}<br />
@@ -233,8 +242,14 @@
 
 				{#each filteredBackendDataFallback as { name, backend, supported, not_supported, input_type_not_supported, partitions_supported_by_webnn, nodes_in_the_graph, nodes_supported_by_webnn, error }, i}
 					{#if backend === 'cpu'}
-						<div class="q _3">
+						<div class="q _4">
 							<div class="name" title={name?.replaceAll('_', '-')}>{getModelNameById(name)}</div>
+							<div class="netron" title="Check WebNN support status of {getModelNameById(name)}">
+								<a
+								href="https://ibelem.github.io/netron/?url={getModelHFUrlById(name)}"
+								><ArrowOutward /></a
+								>
+							</div>
 							<div class="info">
 								{getModelTypeById(name)}<br />
 								{getModelDataTypeById(name)}<br />
@@ -306,20 +321,36 @@
 		color: var(--green);
 	}
 
-	#fallback .q._3.title.true {
+	#fallback .q._4.title.true {
 		position: sticky;
 		top: -1px;
 		background-color: var(--white-09);
 	}
 
-	.q._3.title div {
+	.q._4.title div {
 		padding: 8px 2px;
 	}
 
-	.q._3 div {
+	.q._4 div {
 		padding: 2px 2px;
 		text-align: center;
 		justify-self: center;
+	}
+
+	.q._4 .name {
+		min-width: 10vw;
+	}
+
+	.q._4 .info, .q._4 .node {
+		min-width: 3vw;
+	}
+
+	.q._4 .netron {
+		min-width: 3vw;
+	}
+
+	.q._4 .err {
+		max-width: 20vw;
 	}
 
 	.mb {
@@ -328,14 +359,6 @@
 
 	.mt {
 		margin-top: 20px;
-	}
-
-	.name {
-		width: 6vw;
-	}
-
-	.info {
-		width: 4vw;
 	}
 
 	.info span.cpu {

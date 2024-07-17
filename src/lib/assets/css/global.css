@@ -1260,6 +1260,10 @@ padding: 2px 4px 2px 4px;
   grid-template-columns: repeat(8, 1fr);
 }
 
+.result .q .netron:hover svg path {
+  fill: var(--green);
+}
+
 .result .q._5 {
   grid-template-columns: repeat(9, 1fr);
 }
