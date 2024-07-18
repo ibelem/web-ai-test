@@ -1057,6 +1057,36 @@ const flanT5SmallEncoder = () => {
   }))
 }
 
+const gemma2bItMerged = () => {
+  const configs = [
+    ['int4', 'model.onnx', '150 KB', 'model.onnx.data', '2.29 GB'],
+  ]
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `gemma_2b_it_merged_${dt}`,
+    name: 'Gemma 2B IT KV-Cache',
+    description: 'Gemma is a family of lightweight, state-of-the-art open models from Google, text-to-text, decoder-only. ONNX model converted by https://huggingface.co/EmbeddedLLM/gemma-2b-it-onnx',
+    note: 'Large model with external data.',
+    source: 'https://huggingface.co/webml/gemma-2b-it',
+    hf: {
+      model: 'webml/gemma-2b-it',
+      file: `${file}`,
+      externalData: `${externalData}`
+    },
+    model: '',
+    size: `${size} + ${edSize}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1, "past_sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "total_sequence_length": 1 }],
+      'position_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+    }],
+    inputstip: '[1, 1] [1, 1] [1, 1]'
+  }))
+}
+
 const gteBaseEnV1_5 = () => {
   const configs = [
     ['fp32', 'model.onnx', '530 MB'],
@@ -1291,11 +1321,11 @@ const llama2CStories15MDecoderMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 5], { "batch_size": 1, "sequence_length": 5, "past_sequence_length": 0 }],
-      'attention_mask': ['int64', 1n, [1, 5], { "batch_size": 1, "attention_mask_sequence_length": 5 }],
+      'input_ids': ['int64', 99n, [1, 5], { "batch_size": 1, "sequence_length": 5, "past_sequence_length": 4 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "attention_mask_sequence_length": 1 }],
       'use_cache_branch': ['bool', 1, [1], {}]
     }],
-    inputstip: '[1, 5] [1, 5] [1]'
+    inputstip: '[1, 5] [1, 1] [1]'
   }))
 }
 
@@ -1717,10 +1747,10 @@ const Qwen2_0_5bInstructMerged = () => {
     datatype: `${dt}`,
     inputs: [{
       'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
-      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "past_sequence_length + 1": 1 }],
+      'attention_mask': ['int64', 1n, [1, 2], { "batch_size": 1, "past_sequence_length + 1": 2 }],
       'position_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
     }],
-    inputstip: '[1, 1] [1, 1] [1, 1]'
+    inputstip: '[1, 1] [1, 2] [1, 1]'
   }))
 }
 
@@ -2844,6 +2874,7 @@ export let models = [
   ...flanT5SmallDecoderWithPast(),
   ...flanT5SmallDecoderMerged(),
   ...flanT5SmallEncoder(),
+  ...gemma2bItMerged(),
   {
     category: 'Text Generation',
     tag: '',

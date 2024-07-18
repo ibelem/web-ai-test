@@ -500,6 +500,9 @@ export const fallback = [
       "Transpose",
       "Unsqueeze",
       "Where"
+    ],
+    "not_supported": [
+      "If"
     ]
   },
   {
