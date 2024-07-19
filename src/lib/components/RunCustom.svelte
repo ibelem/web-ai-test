@@ -16,9 +16,11 @@
 		resetResult,
 		resetInfo
 	} from '$lib/assets/js/utils';
+	import * as BrowserHost from '$lib/assets/js/onnx/browser'
+	import * as View from '$lib/assets/js/onnx/view'
 	import {
 		runOnnx
-	} from '$lib/assets/js/ort_utils_customized';
+	} from '$lib/assets/js/ort_utils_custom';
 	import {
 		autoStore,
 		testQueueStore,
@@ -94,45 +96,64 @@
 
 	$: loaded = false;
 
-	const handleFileInput = async (event) => {
-		const file = event.target.files[0];
-		
-		console.log(file);
+	// const readFileAsArrayBuffer = (/** @type {Blob} */ file) => {
+	// 	return new Promise((resolve, reject) => {
+	// 		const reader = new FileReader();
+	// 		reader.onload = () => resolve(reader.result);
+	// 		reader.onerror = () => reject(reader.error);
+	// 		reader.readAsArrayBuffer(file);
+	// 	});
+	// }
+
+	const handleFileInput = async (e) => {
+		const file = e.target.files[0];
+		// console.log(file);
 		if (file) {
 			loaded = true;
 			modelName = file.name;
 			size = file.size / (1024 * 1024);
 			id = modelName.replaceAll(' ', '_').replaceAll('-', '_').replaceAll('.', '_').toLowerCase();
 			try {
-				const fileContent = await readFile(file);
-				console.log(fileContent);
+				// const arrayBuffer = await readFileAsArrayBuffer(file);
+      			// const buffer = new Uint8Array(arrayBuffer);
+  				// const reader = protobuf.TextReader.open(buffer);
+				// let tags = reader?.signature();
+				// console.log(tags);
+
+				// await runOnnx(1, id, 'onnx', 'fp32', size, 'webnn_gpu', buffer);
+
+				
+				if (e.target && e.target.files && e.target.files.length > 0) {
+					const host = new BrowserHost.BrowserHost()
+					const v = new View.View(host);
+
+                    const files = Array.from(e.target.files);
+					console.log(files);
+                    const file = files.find(async (file) => {
+						v.accept(file.name, file.size);
+						if (file) {
+							console.log(file);
+							const context = new BrowserHost.BrowserHost.BrowserFileContext(this, file, files);
+							await context.open();
+							const model = await v.open(context);
+							console.log(model);
+							// v._open(file, files);
+                    	}
+					});
+                    
+                }
+
 			} catch (error) {
-				show = false;
 				console.error('Error reading or parsing the file:', error);
 			}
 		}
 	};
 
-	function readFile(file) {
-		return new Promise((resolve, reject) => {
-			const reader = new FileReader();
-
-			reader.onload = (event) => {
-				resolve(event.target.result);
-			};
-
-			reader.onerror = (error) => {
-				reject(error);
-			};
-
-			reader.readAsText(file);
-		});
-	}
-
 	onMount(() => {
 		if (testQueue.length > 0 && auto) {
-			run();
+			 // run();
 		}
+        
 	});
 
 	afterUpdate(() => {
@@ -155,7 +176,7 @@
 		<Header />
 		<div class="tqtitle">
 			<div class="title tq s">
-				Performance Test (Customized Model)
+				Performance Test · Custom Model
 			</div>
 		</div>
 		<div class="modelfile">
