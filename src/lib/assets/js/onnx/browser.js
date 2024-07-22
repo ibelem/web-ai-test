@@ -201,10 +201,44 @@ host.BrowserHost = class {
         // }
         openFileDialog.addEventListener('change', (e) => {
             if (e.target && e.target.files && e.target.files.length > 0) {
+                this._element('netron-graph').setAttribute('class', 'none');
+                this._element('map').setAttribute('class', 'none');
                 const files = Array.from(e.target.files);
                 const file = files.find((file) => this._view.accept(file.name, file.size));
                 if (file) {
                     this._open(file, files);
+                    this._element('map').removeAttribute('class', 'none');
+                    this._element('map').innerHTML = `
+                        <div id="progress">
+                            <svg version="1.1" id="loading" x="0px" y="0px"
+                            viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+                            <circle fill="#aaa" stroke="none" cx="6" cy="50" r="6">
+                                <animate
+                                attributeName="opacity"
+                                dur="1s"
+                                values="0;1;0"
+                                repeatCount="indefinite"
+                                begin="0.1"/>    
+                            </circle>
+                            <circle fill="#aaa" stroke="none" cx="26" cy="50" r="6">
+                                <animate
+                                attributeName="opacity"
+                                dur="1s"
+                                values="0;1;0"
+                                repeatCount="indefinite" 
+                                begin="0.2"/>       
+                            </circle>
+                            <circle fill="#aaa" stroke="none" cx="46" cy="50" r="6">
+                                <animate
+                                attributeName="opacity"
+                                dur="1s"
+                                values="0;1;0"
+                                repeatCount="indefinite" 
+                                begin="0.3"/>     
+                            </circle>
+                            </svg>
+                        </div>
+                    `
                 }
             }
         });

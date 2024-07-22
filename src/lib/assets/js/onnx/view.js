@@ -10,6 +10,7 @@ import * as flatbuffers from './flatbuffers.js';
 // import * as hdf5 from './hdf5.js';
 // import * as python from './python.js';
 import * as grapher from './grapher.js';
+import { _getWebnnOps } from '../webnn_impl.js';
 
 const view =  {};
 const markdown = {};
@@ -680,6 +681,96 @@ view.View = class {
             let inputs = graph.inputs;
             let outputs = graph.outputs;
 
+            const _showWebnnOpsMap = async (model) => {
+                let ops = [];
+                nodes.map((x) => {
+                    ops.push(x.type.name);
+                }
+                );
+                const filter = new Set(ops);
+                ops = [...filter].sort();
+                const webnnops = await _getWebnnOps();
+            
+                if (ops?.length) {
+                    let tr = '', trs = '', index = 1;
+                    for (const i of ops) {
+                        const o = i.toLowerCase();
+                        let spec = '';
+                        let alias = '';
+                        let tflite = '❌';
+                        let dml = '❌';
+                        let coreml = '❌';
+                        webnnops.map((v) => {
+                            if (v.spec.toLowerCase() === o) {
+                                spec = v.spec;
+                                alias = v.alias.toString().replaceAll(/,/g, ', ');
+                                if (v.tflite === 4) {
+                                    tflite = `✨✔️ ${v.tflite_chromium_version_added}`;
+                                } else if (v.tflite === 3) {
+                                    tflite = '🚀 WIP';
+                                }
+                                if (v.dml === 4) {
+                                    dml = `✨✔️ ${v.dml_chromium_version_added}`;
+                                } else if (v.dml === 3) {
+                                    dml = '🚀 WIP';
+                                }
+                                if (v.coreml === 4) {
+                                    coreml = `✨✔️ ${v.coreml_chromium_version_added}`;
+                                } else if (v.coreml === 3) {
+                                    coreml = '🚀 WIP';
+                                }
+                            } else {
+                                for (const a of v.alias) {
+                                    if (a.toLowerCase() === o) {
+                                        spec = v.spec;
+                                        alias = v.alias.toString().replaceAll(/,/g, ', ');
+                                        if (v.tflite === 4) {
+                                            tflite = `✨✔️ ${v.tflite_chromium_version_added}`;
+                                        } else if (v.tflite === 3) {
+                                            tflite = '🚀 WIP';
+                                        }
+                                        if (v.dml === 4) {
+                                            dml = `✨✔️ ${v.dml_chromium_version_added}`;
+                                        } else if (v.dml === 3) {
+                                            dml = '🚀 WIP';
+                                        }
+                                        if (v.coreml === 4) {
+                                            coreml = `✨✔️ ${v.coreml_chromium_version_added}`;
+                                        } else if (v.coreml === 3) {
+                                            coreml = '🚀 WIP';
+                                        }
+                                    }
+                                }
+                            }
+                        });
+            
+                        tr = `<tr><td>${index}</td><td>${i}</td><td>${spec}</td><td>${tflite}</td><td>${dml}</td><td>${coreml}</td><td class="alias">${alias}</td></tr>`;
+                        trs += tr;
+                        index += 1;
+                    }
+            
+                    const table = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><span>Index</span></th>
+                                <th><span>Model Operations</span></th>
+                                <th><span>WebNN Spec</span></th>
+                                <th><span>TensorFlow Lite</span></th>
+                                <th><span>DirectML</span></th>
+                                <th><span>Core ML</span></th>
+                                <th><span>Alias</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="support">${trs}</tbody>
+                    </table>
+                `;
+                    this._element('map').innerHTML = table;
+                }
+            }
+
+            _showWebnnOpsMap();
+
             if(graph) {
                 this._element('netron-graph').removeAttribute('class', 'none');
             }
@@ -700,15 +791,15 @@ view.View = class {
                 count: counts[key]
             }));
 
-            let nodesDiv = '';
+            let nodesDiv = '<div class="title"><span>Operations * Count</span></div>';
             if (newNodesArray && newNodesArray.length > 0) {
                 newNodesArray.forEach(element => {
-                    nodesDiv = nodesDiv + `<div><span class="name" title="${element.type}">${element.type}</span> <span class="value" title="${element.count}">${element.count}</span></div>`;
+                    nodesDiv = nodesDiv + `<div><span class="name" title="${element.type}">${element.type}</span> <span class="value" title="${element.count}">x ${element.count}</span></div>`;
                 });
             }
             this._element('graph-nodes').innerHTML = nodesDiv;
 
-            let propertiesDiv = '';
+            let propertiesDiv = '<div class="title"><span>Properties</span></div>';
             if(model.format) {
                 propertiesDiv = propertiesDiv + `<div><span class="name" title="format">format</span> <span class="value" title="${model.format}">${model.format}</span></div>`;
             }
@@ -728,7 +819,7 @@ view.View = class {
             this._element('graph-properties').innerHTML = propertiesDiv;
 
 
-            let metaDiv = '';
+            let metaDiv = '<div class="title"><span>Metadata</span></div>';
             if (Array.isArray(model.metadata) && model.metadata.length > 0) {
                 model.metadata.forEach(element => {
                     metaDiv = metaDiv + `<div><span class="name" title="${element.name}">${element.name}</span> <span class="value" title="${element.value}">${element.value}</span></div>`;

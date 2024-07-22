@@ -1454,14 +1454,26 @@ padding: 2px 4px 2px 4px;
   background-color: transparent;
   color: var(--font);
   padding: 10px;
-  border: 1px solid var(--grey-02);
-  border-bottom: 0px;
   text-align: center;
 }
 
-#modeldesc.reverse:hover {
+#netron-graph:hover, #map:hover {
   border: 1px solid var(--grey-04);
   border-bottom: 0px;
+}
+
+#map div#progress {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+#map svg {
+  height: 20px;
+}
+
+#map div#progress svg circle {
+  fill: var(--red);
 }
 
 #modeldesc.reverse .note, #modeldesc.reverse .modeldes {
@@ -1500,10 +1512,6 @@ padding: 2px 4px 2px 4px;
   padding: 0px 10px 0px 10px;
   margin: 4px 4px;
   border-radius: 999px;
-}
-
-#modeldesc div {
-  padding: 0 15px;
 }
 
 #modeldesc.fp32 .modeldes {
@@ -2072,6 +2080,10 @@ background-color: var(--int4-005);
   margin-bottom: 10px;
 }
 
+.modelfile span {
+  margin-bottom: 20px;
+}
+
 .jsonfile span:hover, .modelfile span:hover {
   color: var(--red);
   border: 1px solid var(--red);
@@ -2190,7 +2202,7 @@ background-color: var(--int4-005);
 
 #netron-graph {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-column-gap: 8px;
   grid-row-gap: 8px;
@@ -2202,7 +2214,7 @@ background-color: var(--int4-005);
   font-size: 0.8rem;
 }
 
-#netron-graph.none {
+#netron-graph.none, #map.none {
   display: none;
 }
 
@@ -2210,6 +2222,26 @@ background-color: var(--int4-005);
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
+}
+
+#netron-graph .list div.title {
+  display: block;
+  margin: 0 auto 4px auto;
+  text-align: center;
+}
+
+#netron-graph .list div.title span, #map table th span {
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  color: var(--red);
+  background-color: var(--red-005);
+  font-weight: 400;
+}
+
+#netron-graph .list div.title {
+  padding-bottom: 6px;
 }
 
 #netron-graph span.name {
@@ -2237,6 +2269,31 @@ background-color: var(--int4-005);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+#map {
+  padding: 10px;
+  align-items: center;
+  border: 1px solid var(--grey-02);
+  align-items: start;
+  border-bottom-width: 0px;
+}
+
+#map table {
+  width: 100%;
+  font-size: 0.68rem;
+}
+
+#map table th {
+  padding-bottom: 6px;
+}
+
+#map table th, #map table td {
+  text-align: center;
+}
+
+#map table .alias {
+  max-width: 33vw;
 }
 
 @media (max-width: 1120px) {
