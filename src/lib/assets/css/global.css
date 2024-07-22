@@ -1446,12 +1446,17 @@ padding: 2px 4px 2px 4px;
   color: rgba(255, 255, 255, 1);
 }
 
+#modeldesc:hover span {
+  border:1px solid var(--red);
+}
+
 #modeldesc.reverse {
   background-color: transparent;
   color: var(--font);
   padding: 10px;
   border: 1px solid var(--grey-02);
   border-bottom: 0px;
+  text-align: center;
 }
 
 #modeldesc.reverse:hover {
@@ -2181,6 +2186,57 @@ background-color: var(--int4-005);
 
 .environment svg#logo_onnx .logo_onnx_7 {
   fill: var(--font);
+}
+
+#netron-graph {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+  padding: 10px;
+  align-items: center;
+  border: 1px solid var(--grey-02);
+  align-items: start;
+  border-bottom-width: 0px;
+  font-size: 0.8rem;
+}
+
+#netron-graph.none {
+  display: none;
+}
+
+#netron-graph .list div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+#netron-graph span.name {
+  font-size: 0.68rem;
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin: 1px 0;
+  display: inline-block;
+  width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+}
+
+#netron-graph span.value {
+  font-size: 0.68rem;
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin: 1px 0;
+  display: inline-block;
+  border: 1px solid var(--grey-02);
+  background-color: var(--grey-005);
+  width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 1120px) {

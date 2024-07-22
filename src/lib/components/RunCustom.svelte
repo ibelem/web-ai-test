@@ -123,25 +123,25 @@
 				// await runOnnx(1, id, 'onnx', 'fp32', size, 'webnn_gpu', buffer);
 
 				
-				if (e.target && e.target.files && e.target.files.length > 0) {
-					const host = new BrowserHost.BrowserHost()
-					const v = new View.View(host);
+				// if (e.target && e.target.files && e.target.files.length > 0) {
+				// 	const host = new BrowserHost.BrowserHost()
+				// 	const v = new View.View(host);
 
-                    const files = Array.from(e.target.files);
-					console.log(files);
-                    const file = files.find(async (file) => {
-						v.accept(file.name, file.size);
-						if (file) {
-							console.log(file);
-							const context = new BrowserHost.BrowserHost.BrowserFileContext(this, file, files);
-							await context.open();
-							const model = await v.open(context);
-							console.log(model);
-							// v._open(file, files);
-                    	}
-					});
+                //     const files = Array.from(e.target.files);
+				// 	console.log(files);
+                //     const file = files.find(async (file) => {
+				// 		v.accept(file.name, file.size);
+				// 		if (file) {
+				// 			console.log(file);
+				// 			const context = new BrowserHost.BrowserHost.BrowserFileContext(file, files);
+				// 			await context.open();
+				// 			const model = await v.open(context);
+				// 			console.log(model);
+				// 			// v._open(file, files);
+                //     	}
+				// 	});
                     
-                }
+                // }
 
 			} catch (error) {
 				console.error('Error reading or parsing the file:', error);
@@ -149,11 +149,13 @@
 		}
 	};
 
-	onMount(() => {
+	onMount(async () => {
 		if (testQueue.length > 0 && auto) {
 			 // run();
 		}
-        
+		const host = new BrowserHost.BrowserHost();
+		const v = new View.View(host);
+		await v.start();
 	});
 
 	afterUpdate(() => {
@@ -181,7 +183,7 @@
 		</div>
 		<div class="modelfile">
 			<label>
-				<input type="file" accept=".onnx" on:change={handleFileInput} hidden />
+				<input id="open-file-dialog" type="file" accept=".onnx" on:change={handleFileInput} hidden />
 				<span><Upload />Upload ONNX File</span>
 			</label>
 		</div>
@@ -204,6 +206,15 @@
 					>{note}
 				</div>
 			{/if}
+		</div>
+		<div id="netron-graph" class="none">
+			<div id="graph-nodes" class="list"></div>
+			<div id="graph-nodes-webnn-dml" class="list"></div>
+			<div id="graph-nodes-webnn-coreml" class="list"></div>
+			<div id="graph-nodes-webnn-tflite" class="list"></div>
+			<div id="graph-properties" class="list"></div>
+			<div id="graph-meta" class="list"></div>
+			<div id="graph-inputs" class="list"></div>
 		</div>
 		{#if !auto}
 			<div class="config">

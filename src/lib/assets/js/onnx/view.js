@@ -34,13 +34,13 @@ view.View = class {
         this._find = null;
         this._modelFactoryService = new view.ModelFactoryService(this._host);
         this._modelFactoryService.import();
-        // this._worker = this._host.environment('measure') ? null : new view.Worker(this._host);
+        this._worker = this._host.environment('measure') ? null : new view.Worker(this._host);
         this._worker = new view.Worker(this._host);
     }
 
     async start() {
         try {
-            await zip.Archive.import();
+            // await zip.Archive.import();
             await this._host.view(this);
             const options = this._host.get('options') || {};
             for (const [name, value] of Object.entries(options)) {
@@ -63,160 +63,160 @@ view.View = class {
             //         e.preventDefault();
             //     }
             // }, { passive: true });
-            this._host.document.addEventListener('keydown', () => {
-                if (this._graph) {
-                    this._graph.select(null);
-                }
-            });
-            if (this._host.type === 'Electron') {
-                this._host.update({ 'can-copy': false });
-                this._host.document.addEventListener('selectionchange', () => {
-                    const selection = this._host.document.getSelection();
-                    const selected = selection.rangeCount === 0 || selection.toString().trim() !== '';
-                    this._host.update({ 'can-copy': selected });
-                });
-            }
+            // this._host.document.addEventListener('keydown', () => {
+            //     if (this._graph) {
+            //         this._graph.select(null);
+            //     }
+            // });
+            // if (this._host.type === 'Electron') {
+            //     this._host.update({ 'can-copy': false });
+            //     this._host.document.addEventListener('selectionchange', () => {
+            //         const selection = this._host.document.getSelection();
+            //         const selected = selection.rangeCount === 0 || selection.toString().trim() !== '';
+            //         this._host.update({ 'can-copy': selected });
+            //     });
+            // }
             const platform = this._host.environment('platform');
-            this._menu = new view.Menu(this._host);
-            this._menu.add({
-                accelerator: platform === 'darwin' ? 'Ctrl+Cmd+F' : 'F11',
-                execute: async () => await this._host.execute('fullscreen')
-            });
-            this._menu.add({
-                accelerator: 'Backspace',
-                execute: async () => await this.popGraph()
-            });
-            if (this._host.environment('menu')) {
-                this._menu.attach(this._element('menu'), this._element('menu-button'));
-                const file = this._menu.group('&File');
-                file.add({
-                    label: '&Open...',
-                    accelerator: 'CmdOrCtrl+O',
-                    execute: async () => await this._host.execute('open')
-                });
-                if (this._host.type === 'Electron') {
-                    this._recents = file.group('Open &Recent');
-                    file.add({
-                        label: '&Export...',
-                        accelerator: 'CmdOrCtrl+Shift+E',
-                        execute: async () => await this._host.execute('export'),
-                        enabled: () => this.activeGraph
-                    });
-                    file.add({
-                        label: platform === 'darwin' ? '&Close Window' : '&Close',
-                        accelerator: 'CmdOrCtrl+W',
-                        execute: async () => await this._host.execute('close'),
-                    });
-                    file.add({
-                        label: platform === 'win32' ? 'E&xit' : '&Quit',
-                        accelerator: platform === 'win32' ? '' : 'CmdOrCtrl+Q',
-                        execute: async () => await this._host.execute('quit'),
-                    });
-                } else {
-                    file.add({
-                        label: 'Export as &PNG',
-                        accelerator: 'CmdOrCtrl+Shift+E',
-                        execute: async () => await this.export(`${this._host.document.title}.png`),
-                        enabled: () => this.activeGraph
-                    });
-                    file.add({
-                        label: 'Export as &SVG',
-                        accelerator: 'CmdOrCtrl+Alt+E',
-                        execute: async () => await this.export(`${this._host.document.title}.svg`),
-                        enabled: () => this.activeGraph
-                    });
-                }
-                const edit = this._menu.group('&Edit');
-                edit.add({
-                    label: '&Find...',
-                    accelerator: 'CmdOrCtrl+F',
-                    execute: () => this.find(),
-                    enabled: () => this.activeGraph
-                });
-                const view = this._menu.group('&View');
-                view.add({
-                    label: () => this.options.attributes ? 'Hide &Attributes' : 'Show &Attributes',
-                    accelerator: 'CmdOrCtrl+D',
-                    execute: () => this.toggle('attributes'),
-                    enabled: () => this.activeGraph
-                });
-                view.add({
-                    label: () => this.options.weights ? 'Hide &Weights' : 'Show &Weights',
-                    accelerator: 'CmdOrCtrl+I',
-                    execute: () => this.toggle('weights'),
-                    enabled: () => this.activeGraph
-                });
-                view.add({
-                    label: () => this.options.names ? 'Hide &Names' : 'Show &Names',
-                    accelerator: 'CmdOrCtrl+U',
-                    execute: () => this.toggle('names'),
-                    enabled: () => this.activeGraph
-                });
-                view.add({
-                    label: () => this.options.direction === 'vertical' ? 'Show &Horizontal' : 'Show &Vertical',
-                    accelerator: 'CmdOrCtrl+K',
-                    execute: () => this.toggle('direction'),
-                    enabled: () => this.activeGraph
-                });
-                view.add({
-                    label: () => this.options.mousewheel === 'scroll' ? '&Mouse Wheel: Zoom' : '&Mouse Wheel: Scroll',
-                    accelerator: 'CmdOrCtrl+M',
-                    execute: () => this.toggle('mousewheel'),
-                    enabled: () => this.activeGraph
-                });
-                view.add({});
-                if (this._host.type === 'Electron') {
-                    view.add({
-                        label: '&Reload',
-                        accelerator: platform === 'darwin' ? 'CmdOrCtrl+R' : 'F5',
-                        execute: async () => await this._host.execute('reload'),
-                        enabled: () => this.activeGraph
-                    });
-                    view.add({});
-                }
-                view.add({
-                    label: 'Zoom &In',
-                    accelerator: 'Shift+Up',
-                    execute: () => this.zoomIn(),
-                    enabled: () => this.activeGraph
-                });
-                view.add({
-                    label: 'Zoom &Out',
-                    accelerator: 'Shift+Down',
-                    execute: () => this.zoomOut(),
-                    enabled: () => this.activeGraph
-                });
-                view.add({
-                    label: 'Actual &Size',
-                    accelerator: 'Shift+Backspace',
-                    execute: () => this.resetZoom(),
-                    enabled: () => this.activeGraph
-                });
-                view.add({});
-                view.add({
-                    label: '&Properties...',
-                    accelerator: 'CmdOrCtrl+Enter',
-                    execute: () => this.showModelProperties(),
-                    enabled: () => this.activeGraph
-                });
-                if (this._host.type === 'Electron' && !this._host.environment('packaged')) {
-                    view.add({});
-                    view.add({
-                        label: '&Developer Tools...',
-                        accelerator: 'CmdOrCtrl+Alt+I',
-                        execute: async () => await this._host.execute('toggle-developer-tools')
-                    });
-                }
-                const help = this._menu.group('&Help');
-                help.add({
-                    label: 'Report &Issue',
-                    execute: async () => await this._host.execute('report-issue')
-                });
-                help.add({
-                    label: `&About ${this._host.environment('name')}`,
-                    execute: async () => await this._host.execute('about')
-                });
-            }
+            // this._menu = new view.Menu(this._host);
+            // this._menu.add({
+            //     accelerator: platform === 'darwin' ? 'Ctrl+Cmd+F' : 'F11',
+            //     execute: async () => await this._host.execute('fullscreen')
+            // });
+            // this._menu.add({
+            //     accelerator: 'Backspace',
+            //     execute: async () => await this.popGraph()
+            // });
+            // if (this._host.environment('menu')) {
+            //     this._menu.attach(this._element('menu'), this._element('menu-button'));
+            //     const file = this._menu.group('&File');
+            //     file.add({
+            //         label: '&Open...',
+            //         accelerator: 'CmdOrCtrl+O',
+            //         execute: async () => await this._host.execute('open')
+            //     });
+            //     if (this._host.type === 'Electron') {
+            //         this._recents = file.group('Open &Recent');
+            //         file.add({
+            //             label: '&Export...',
+            //             accelerator: 'CmdOrCtrl+Shift+E',
+            //             execute: async () => await this._host.execute('export'),
+            //             enabled: () => this.activeGraph
+            //         });
+            //         file.add({
+            //             label: platform === 'darwin' ? '&Close Window' : '&Close',
+            //             accelerator: 'CmdOrCtrl+W',
+            //             execute: async () => await this._host.execute('close'),
+            //         });
+            //         file.add({
+            //             label: platform === 'win32' ? 'E&xit' : '&Quit',
+            //             accelerator: platform === 'win32' ? '' : 'CmdOrCtrl+Q',
+            //             execute: async () => await this._host.execute('quit'),
+            //         });
+            //     } else {
+            //         file.add({
+            //             label: 'Export as &PNG',
+            //             accelerator: 'CmdOrCtrl+Shift+E',
+            //             execute: async () => await this.export(`${this._host.document.title}.png`),
+            //             enabled: () => this.activeGraph
+            //         });
+            //         file.add({
+            //             label: 'Export as &SVG',
+            //             accelerator: 'CmdOrCtrl+Alt+E',
+            //             execute: async () => await this.export(`${this._host.document.title}.svg`),
+            //             enabled: () => this.activeGraph
+            //         });
+            //     }
+            //     const edit = this._menu.group('&Edit');
+            //     edit.add({
+            //         label: '&Find...',
+            //         accelerator: 'CmdOrCtrl+F',
+            //         execute: () => this.find(),
+            //         enabled: () => this.activeGraph
+            //     });
+            //     const view = this._menu.group('&View');
+            //     view.add({
+            //         label: () => this.options.attributes ? 'Hide &Attributes' : 'Show &Attributes',
+            //         accelerator: 'CmdOrCtrl+D',
+            //         execute: () => this.toggle('attributes'),
+            //         enabled: () => this.activeGraph
+            //     });
+            //     view.add({
+            //         label: () => this.options.weights ? 'Hide &Weights' : 'Show &Weights',
+            //         accelerator: 'CmdOrCtrl+I',
+            //         execute: () => this.toggle('weights'),
+            //         enabled: () => this.activeGraph
+            //     });
+            //     view.add({
+            //         label: () => this.options.names ? 'Hide &Names' : 'Show &Names',
+            //         accelerator: 'CmdOrCtrl+U',
+            //         execute: () => this.toggle('names'),
+            //         enabled: () => this.activeGraph
+            //     });
+            //     view.add({
+            //         label: () => this.options.direction === 'vertical' ? 'Show &Horizontal' : 'Show &Vertical',
+            //         accelerator: 'CmdOrCtrl+K',
+            //         execute: () => this.toggle('direction'),
+            //         enabled: () => this.activeGraph
+            //     });
+            //     view.add({
+            //         label: () => this.options.mousewheel === 'scroll' ? '&Mouse Wheel: Zoom' : '&Mouse Wheel: Scroll',
+            //         accelerator: 'CmdOrCtrl+M',
+            //         execute: () => this.toggle('mousewheel'),
+            //         enabled: () => this.activeGraph
+            //     });
+            //     view.add({});
+            //     if (this._host.type === 'Electron') {
+            //         view.add({
+            //             label: '&Reload',
+            //             accelerator: platform === 'darwin' ? 'CmdOrCtrl+R' : 'F5',
+            //             execute: async () => await this._host.execute('reload'),
+            //             enabled: () => this.activeGraph
+            //         });
+            //         view.add({});
+            //     }
+            //     view.add({
+            //         label: 'Zoom &In',
+            //         accelerator: 'Shift+Up',
+            //         execute: () => this.zoomIn(),
+            //         enabled: () => this.activeGraph
+            //     });
+            //     view.add({
+            //         label: 'Zoom &Out',
+            //         accelerator: 'Shift+Down',
+            //         execute: () => this.zoomOut(),
+            //         enabled: () => this.activeGraph
+            //     });
+            //     view.add({
+            //         label: 'Actual &Size',
+            //         accelerator: 'Shift+Backspace',
+            //         execute: () => this.resetZoom(),
+            //         enabled: () => this.activeGraph
+            //     });
+            //     view.add({});
+            //     view.add({
+            //         label: '&Properties...',
+            //         accelerator: 'CmdOrCtrl+Enter',
+            //         execute: () => this.showModelProperties(),
+            //         enabled: () => this.activeGraph
+            //     });
+            //     if (this._host.type === 'Electron' && !this._host.environment('packaged')) {
+            //         view.add({});
+            //         view.add({
+            //             label: '&Developer Tools...',
+            //             accelerator: 'CmdOrCtrl+Alt+I',
+            //             execute: async () => await this._host.execute('toggle-developer-tools')
+            //         });
+            //     }
+            //     const help = this._menu.group('&Help');
+            //     help.add({
+            //         label: 'Report &Issue',
+            //         execute: async () => await this._host.execute('report-issue')
+            //     });
+            //     help.add({
+            //         label: `&About ${this._host.environment('name')}`,
+            //         execute: async () => await this._host.execute('about')
+            //     });
+            // }
             await this._host.start();
         } catch (error) {
             this.error(error, null, null);
@@ -357,7 +357,7 @@ view.View = class {
     }
 
     _reload() {
-        this.show('welcome spinner');
+        // this.show('welcome spinner');
         if (this._model && this._stack.length > 0) {
             this._updateGraph(this._model, this._stack).catch((error) => {
                 if (error) {
@@ -632,7 +632,7 @@ view.View = class {
         if (report) {
             this._host.openURL(url || `${this._host.environment('repository')}/issues`);
         }
-        this.show(screen);
+        // this.show(screen);
     }
 
     accept(file, size) {
@@ -643,7 +643,9 @@ view.View = class {
         // this._sidebar.close();
         // await this._timeout(2);
         try {
-            const model = await this._modelFactoryService.open(context);
+            let model = [];
+            // const model = await this._modelFactoryService.open(context);
+            model = await this._modelFactoryService.open(context);
             const format = [];
             if (model.format) {
                 format.push(model.format);
@@ -667,17 +669,88 @@ view.View = class {
                 };
                 stack.push(entry);
             }
-            return await this._updateGraph(model, stack);
+
+            console.log('------------------')
+            console.log(model);
+            console.log('------------------')
+            console.log(stack)
+
+            let graph = stack[0].graph;
+            let nodes = graph.nodes;
+            let inputs = graph.inputs;
+            let outputs = graph.outputs;
+
+            if(graph) {
+                this._element('netron-graph').removeAttribute('class', 'none');
+            }
+
+            let nodesArray = [];
+            nodes.forEach(element => {
+                nodesArray.push(element.type.name);
+            })
+            nodesArray.sort();
+
+            let counts = nodesArray.reduce((acc, type) => {
+                acc[type] = (acc[type] || 0) + 1;
+                return acc;
+            }, {});
+            
+            let newNodesArray = Object.keys(counts).map(key => ({
+                type: key,
+                count: counts[key]
+            }));
+
+            let nodesDiv = '';
+            if (newNodesArray && newNodesArray.length > 0) {
+                newNodesArray.forEach(element => {
+                    nodesDiv = nodesDiv + `<div><span class="name" title="${element.type}">${element.type}</span> <span class="value" title="${element.count}">${element.count}</span></div>`;
+                });
+            }
+            this._element('graph-nodes').innerHTML = nodesDiv;
+
+            let propertiesDiv = '';
+            if(model.format) {
+                propertiesDiv = propertiesDiv + `<div><span class="name" title="format">format</span> <span class="value" title="${model.format}">${model.format}</span></div>`;
+            }
+
+            if(model.producer) {
+                propertiesDiv = propertiesDiv + `<div><span class="name" title="version">version</span> <span class="value" title="${model.producer}">${model.producer}</span></div>`;
+            }
+
+            if(model.version) {
+                propertiesDiv = propertiesDiv + `<div><span class="name" title="version">version</span> <span class="value" title="${model.version}">${model.version}</span></div>`;
+            }
+
+            if(model.imports) {
+                propertiesDiv = propertiesDiv + `<div><span class="name" title="imports">imports</span> <span class="value" title="${model.imports}">${model.imports}</span></div>`;
+            }
+
+            this._element('graph-properties').innerHTML = propertiesDiv;
+
+
+            let metaDiv = '';
+            if (Array.isArray(model.metadata) && model.metadata.length > 0) {
+                model.metadata.forEach(element => {
+                    metaDiv = metaDiv + `<div><span class="name" title="${element.name}">${element.name}</span> <span class="value" title="${element.value}">${element.value}</span></div>`;
+                });
+            }
+            this._element('graph-meta').innerHTML = metaDiv;
+
+            // return await this._updateGraph(model, stack);
         } catch (error) {
             error.context = !error.context && context && context.identifier ? context.identifier : error.context || '';
             throw error;
         }
     }
 
+    getModel () {
+        return this._model;
+    }
+
     async _updateActive(stack) {
         this._sidebar.close();
         if (this._model) {
-            this.show('welcome spinner');
+            // this.show('welcome spinner');
             await this._timeout(200);
             try {
                 await this._updateGraph(this._model, stack);
@@ -713,7 +786,7 @@ view.View = class {
                 this._stack = [];
                 this._activeGraph = null;
             }
-            this.show(null);
+            // this.show(null);
             const path = this._element('toolbar-path');
             const back = this._element('toolbar-path-back-button');
             while (path.children.length > 1) {
@@ -6029,18 +6102,29 @@ view.ModelFactoryService = class {
 
     async import() {
         if (this._host.type === 'Browser' || this._host.type === 'Python') {
+            // const files = [
+            //     './server', './onnx', './pytorch', './tflite', './mlnet',
+            //     './onnx-proto', './onnx-schema', './tflite-schema',
+            //     'onnx-metadata.json', 'pytorch-metadata.json', 'tflite-metadata.json'
+            // ];
             const files = [
-                './server', './onnx', './pytorch', './tflite', './mlnet',
-                './onnx-proto', './onnx-schema', './tflite-schema',
-                'onnx-metadata.json', 'pytorch-metadata.json', 'tflite-metadata.json'
+                './server', './onnx', 
+                './onnx-proto', './onnx-schema',
+                'onnx-metadata.json'
             ];
             for (const file of files) {
                 /* eslint-disable no-await-in-loop */
                 try {
-                    if (file.startsWith('./')) {
-                        await this._host.require(file);
-                    } else if (file.endsWith('.json')) {
+                    // if (file.startsWith('./')) {
+                    //     await this._host.require(file);
+                    // } else if (file.endsWith('.json')) {
+                    //     await this._host.request(file, 'utf-8', null);
+                    // }
+                    if (file.endsWith('.json')) {
                         await this._host.request(file, 'utf-8', null);
+                    }
+                    else {
+                        await this._host.require(file);
                     }
                 } catch {
                     // continue regardless of error

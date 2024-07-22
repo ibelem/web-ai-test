@@ -20,17 +20,18 @@ host.BrowserHost = class {
                 this._meta[element.name].push(element.content);
             }
         }
-        // this._environment = {
-        //     name: this._document.title,
-        //     type: this._meta.type ? this._meta.type[0] : 'Browser',
-        //     version: this._meta.version ? this._meta.version[0] : null,
-        //     date: Array.isArray(this._meta.date) && this._meta.date.length > 0 && this._meta.date[0] ? new Date(`${this._meta.date[0].split(' ').join('T')}Z`) : new Date(),
-        //     packaged: this._meta.version && this._meta.version[0] !== '0.0.0',
-        //     platform: /(Mac|iPhone|iPod|iPad)/i.test(this._navigator.platform) ? 'darwin' : undefined,
-        //     agent: this._navigator.userAgent.toLowerCase().indexOf('safari') !== -1 && this._navigator.userAgent.toLowerCase().indexOf('chrome') === -1 ? 'safari' : '',
-        //     repository: this._element('logo-github').getAttribute('href'),
-        //     menu: true
-        // };
+        this._environment = {
+            name: this._document.title,
+            type: this._meta.type ? this._meta.type[0] : 'Browser',
+            version: this._meta.version ? this._meta.version[0] : null,
+            date: Array.isArray(this._meta.date) && this._meta.date.length > 0 && this._meta.date[0] ? new Date(`${this._meta.date[0].split(' ').join('T')}Z`) : new Date(),
+            packaged: this._meta.version && this._meta.version[0] !== '0.0.0',
+            platform: /(Mac|iPhone|iPod|iPad)/i.test(this._navigator.platform) ? 'darwin' : undefined,
+            agent: this._navigator.userAgent.toLowerCase().indexOf('safari') !== -1 && this._navigator.userAgent.toLowerCase().indexOf('chrome') === -1 ? 'safari' : '',
+            // repository: this._element('logo-github').getAttribute('href'),
+            repository: '',
+            menu: true
+        };
         // if (!/^\d\.\d\.\d$/.test(this.version)) {
         //     throw new Error('Invalid version.');
         // }
@@ -44,13 +45,13 @@ host.BrowserHost = class {
         return this._document;
     }
 
-    // get version() {
-    //     return this._environment.version;
-    // }
+    get version() {
+        return this._environment.version;
+    }
 
-    // get type() {
-    //     return this._environment.type;
-    // }
+    get type() {
+        return this._environment.type;
+    }
 
     async view(view) {
         this._view = view;
@@ -155,49 +156,59 @@ host.BrowserHost = class {
                 }
             }
         }
-        const search = this.window.location.search;
-        const params = new Map(search ? new URLSearchParams(this.window.location.search) : []);
-        const hash = this.window.location.hash ? this.window.location.hash.replace(/^#/, '') : '';
-        const url = hash ? hash : params.get('url');
-        if (url) {
-            const identifier = params.get('identifier') || null;
-            const location = url
-                .replace(/^https:\/\/github\.com\/([\w-]*\/[\w-]*)\/blob\/([\w/\-_.]*)(\?raw=true)?$/, 'https://raw.githubusercontent.com/$1/$2')
-                .replace(/^https:\/\/github\.com\/([\w-]*\/[\w-]*)\/raw\/([\w/\-_.]*)$/, 'https://raw.githubusercontent.com/$1/$2')
-                .replace(/^https:\/\/huggingface.co\/(.*)\/blob\/(.*)$/, 'https://huggingface.co/$1/resolve/$2');
-            if (this._view.accept(identifier || location)) {
-                const status = await this._openModel(location, identifier);
-                if (status === '') {
-                    return;
-                }
-            }
-        }
-        const gist = params.get('gist');
-        if (gist) {
-            this._openGist(gist);
-            return;
-        }
+        // const search = this.window.location.search;
+        // const params = new Map(search ? new URLSearchParams(this.window.location.search) : []);
+        // const hash = this.window.location.hash ? this.window.location.hash.replace(/^#/, '') : '';
+        // const url = hash ? hash : params.get('url');
+        // if (url) {
+        //     const identifier = params.get('identifier') || null;
+        //     const location = url
+        //         .replace(/^https:\/\/github\.com\/([\w-]*\/[\w-]*)\/blob\/([\w/\-_.]*)(\?raw=true)?$/, 'https://raw.githubusercontent.com/$1/$2')
+        //         .replace(/^https:\/\/github\.com\/([\w-]*\/[\w-]*)\/raw\/([\w/\-_.]*)$/, 'https://raw.githubusercontent.com/$1/$2')
+        //         .replace(/^https:\/\/huggingface.co\/(.*)\/blob\/(.*)$/, 'https://huggingface.co/$1/resolve/$2');
+        //     if (this._view.accept(identifier || location)) {
+        //         const status = await this._openModel(location, identifier);
+        //         if (status === '') {
+        //             return;
+        //         }
+        //     }
+        // }
+        // const gist = params.get('gist');
+        // if (gist) {
+        //     this._openGist(gist);
+        //     return;
+        // }
         const openFileButton = this._element('open-file-button');
         const openFileDialog = this._element('open-file-dialog');
-        if (openFileButton && openFileDialog) {
-            openFileButton.addEventListener('click', () => {
-                this.execute('open');
-            });
-            const mobileSafari = this.environment('platform') === 'darwin' && navigator.maxTouchPoints && navigator.maxTouchPoints > 1;
-            if (!mobileSafari) {
-                const extensions = new base.Metadata().extensions.map((extension) => `.${extension}`);
-                openFileDialog.setAttribute('accept', extensions.join(', '));
-            }
-            openFileDialog.addEventListener('change', (e) => {
-                if (e.target && e.target.files && e.target.files.length > 0) {
-                    const files = Array.from(e.target.files);
-                    const file = files.find((file) => this._view.accept(file.name, file.size));
-                    if (file) {
-                        this._open(file, files);
-                    }
+        // if (openFileButton && openFileDialog) {
+        //     openFileButton.addEventListener('click', () => {
+        //         this.execute('open');
+        //     });
+        //     const mobileSafari = this.environment('platform') === 'darwin' && navigator.maxTouchPoints && navigator.maxTouchPoints > 1;
+        //     if (!mobileSafari) {
+        //         const extensions = new base.Metadata().extensions.map((extension) => `.${extension}`);
+        //         openFileDialog.setAttribute('accept', extensions.join(', '));
+        //     }
+        //     openFileDialog.addEventListener('change', (e) => {
+        //         if (e.target && e.target.files && e.target.files.length > 0) {
+        //             const files = Array.from(e.target.files);
+        //             const file = files.find((file) => this._view.accept(file.name, file.size));
+        //             if (file) {
+        //                 this._open(file, files);
+        //             }
+        //         }
+        //     });
+        // }
+        openFileDialog.addEventListener('change', (e) => {
+            if (e.target && e.target.files && e.target.files.length > 0) {
+                const files = Array.from(e.target.files);
+                const file = files.find((file) => this._view.accept(file.name, file.size));
+                if (file) {
+                    this._open(file, files);
                 }
-            });
-        }
+            }
+        });
+
         this.document.addEventListener('dragover', (e) => {
             e.preventDefault();
         });
@@ -214,12 +225,12 @@ host.BrowserHost = class {
                 }
             }
         });
-        this._view.show('welcome');
+        // this._view.show('welcome');
     }
 
-    // environment(name) {
-    //     return this._environment[name];
-    // }
+    environment(name) {
+        return this._environment[name];
+    }
 
     async require(id) {
         return import(`${id}.js`);
@@ -322,15 +333,15 @@ host.BrowserHost = class {
             if (error.context) {
                 context = typeof error.context === 'string' ? error.context : JSON.stringify(error.context);
             }
-            this._telemetry.send('exception', {
-                app_name: this.type,
-                app_version: this.version,
-                error_name: name,
-                error_message: message,
-                error_context: context,
-                error_stack: stack,
-                error_fatal: fatal ? true : false
-            });
+            // this._telemetry.send('exception', {
+            //     app_name: this.type,
+            //     app_version: this.version,
+            //     error_name: name,
+            //     error_message: message,
+            //     error_context: context,
+            //     error_stack: stack,
+            //     error_fatal: fatal ? true : false
+            // });
         }
     }
 
@@ -416,7 +427,7 @@ host.BrowserHost = class {
 
     async _openModel(url, identifier, name) {
         url = url.startsWith('data:') ? url : `${url + ((/\?/).test(url) ? '&' : '?')}cb=${(new Date()).getTime()}`;
-        this._view.show('welcome spinner');
+        // this._view.show('welcome spinner');
         let context = null;
         try {
             const progress = (value) => {
@@ -432,17 +443,17 @@ host.BrowserHost = class {
                 }
             }
             context = new host.BrowserHost.Context(this, url, identifier, name, stream);
-            this._telemetry.set('session_engaged', 1);
+            // this._telemetry.set('session_engaged', 1);
         } catch (error) {
             await this._view.error(error, 'Model load request failed.');
-            this._view.show('welcome');
+            // this._view.show('welcome');
             return null;
         }
         return await this._openContext(context);
     }
 
     async _open(file, files) {
-        this._view.show('welcome spinner');
+        // this._view.show('welcome spinner');
         const context = new host.BrowserHost.BrowserFileContext(this, file, files);
         try {
             await context.open();
@@ -453,7 +464,7 @@ host.BrowserHost = class {
     }
 
     async _openGist(gist) {
-        this._view.show('welcome spinner');
+        // this._view.show('welcome spinner');
         const url = `https://api.github.com/gists/${gist}`;
         try {
             const text = await this._request(url, { 'Content-Type': 'application/json' }, 'utf-8');
@@ -479,12 +490,12 @@ host.BrowserHost = class {
             await this._openContext(context);
         } catch (error) {
             await this._view.error(error, 'Error while loading Gist.');
-            this._view.show('welcome');
+            // this._view.show('welcome');
         }
     }
 
     async _openContext(context) {
-        this._telemetry.set('session_engaged', 1);
+        // this._telemetry.set('session_engaged', 1);
         try {
             const model = await this._view.open(context);
             if (model) {
@@ -670,7 +681,6 @@ host.BrowserHost.BrowserFileContext = class {
     }
 
     async require(id) {
-        console.log(this._host);
         return this._host.require(id);
     }
 
