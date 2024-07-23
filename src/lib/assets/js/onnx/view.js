@@ -671,11 +671,6 @@ view.View = class {
                 stack.push(entry);
             }
 
-            console.log('------------------')
-            console.log(model);
-            console.log('------------------')
-            console.log(stack)
-
             let graph = stack[0].graph;
             let nodes = graph.nodes;
             let inputs = graph.inputs;
@@ -705,17 +700,17 @@ view.View = class {
                                 spec = v.spec;
                                 alias = v.alias.toString().replaceAll(/,/g, ', ');
                                 if (v.tflite === 4) {
-                                    tflite = `✨✔️ ${v.tflite_chromium_version_added}`;
+                                    tflite = `✔️ ${v.tflite_chromium_version_added}`;
                                 } else if (v.tflite === 3) {
                                     tflite = '🚀 WIP';
                                 }
                                 if (v.dml === 4) {
-                                    dml = `✨✔️ ${v.dml_chromium_version_added}`;
+                                    dml = `✔️ ${v.dml_chromium_version_added}`;
                                 } else if (v.dml === 3) {
                                     dml = '🚀 WIP';
                                 }
                                 if (v.coreml === 4) {
-                                    coreml = `✨✔️ ${v.coreml_chromium_version_added}`;
+                                    coreml = `✔️ ${v.coreml_chromium_version_added}`;
                                 } else if (v.coreml === 3) {
                                     coreml = '🚀 WIP';
                                 }
@@ -725,17 +720,17 @@ view.View = class {
                                         spec = v.spec;
                                         alias = v.alias.toString().replaceAll(/,/g, ', ');
                                         if (v.tflite === 4) {
-                                            tflite = `✨✔️ ${v.tflite_chromium_version_added}`;
+                                            tflite = `✔️ ${v.tflite_chromium_version_added}`;
                                         } else if (v.tflite === 3) {
                                             tflite = '🚀 WIP';
                                         }
                                         if (v.dml === 4) {
-                                            dml = `✨✔️ ${v.dml_chromium_version_added}`;
+                                            dml = `✔️ ${v.dml_chromium_version_added}`;
                                         } else if (v.dml === 3) {
                                             dml = '🚀 WIP';
                                         }
                                         if (v.coreml === 4) {
-                                            coreml = `✨✔️ ${v.coreml_chromium_version_added}`;
+                                            coreml = `✔️ ${v.coreml_chromium_version_added}`;
                                         } else if (v.coreml === 3) {
                                             coreml = '🚀 WIP';
                                         }
@@ -794,26 +789,71 @@ view.View = class {
             let nodesDiv = '<div class="title"><span>Operations * Count</span></div>';
             if (newNodesArray && newNodesArray.length > 0) {
                 newNodesArray.forEach(element => {
-                    nodesDiv = nodesDiv + `<div><span class="name" title="${element.type}">${element.type}</span> <span class="value" title="${element.count}">x ${element.count}</span></div>`;
+                    nodesDiv = nodesDiv + `<div><span class="name count" title="${element.type}">${element.type}</span> <span class="value count" title="${element.count}">x${element.count}</span> <span class="value count" title="Percentage ${(element.count*100/nodesArray.length).toFixed(2)}%">${(element.count*100/nodesArray.length).toFixed(1)}%</span></div>`;
                 });
             }
+            nodesDiv = nodesDiv + `<div><span class="name count" title="Total"></span> <span class="value count" title="${nodesArray.length}">${nodesArray.length}</span> <span class="value count" title="Percentage 100.00%">100%</span></div>`;
             this._element('graph-nodes').innerHTML = nodesDiv;
+
+            console.log(graph);
+
+            let inputsArray = [];
+            inputs.forEach(element => {
+                let inputO = { name: '', datatype: '', shapeDimensions: ''}
+                inputO.name = element.name;
+                inputO.datatype = element.value[0].type.dataType;
+                inputO.shapeDimensions = element.value[0].type.shape.dimensions;
+                inputsArray.push(inputO);
+            })
+
+            console.log(inputsArray);
+
+            let inputsDiv = '<div class="title"><span>Inputs</span></div>';
+            if (inputsArray && inputsArray.length > 0) {
+                inputsArray.forEach(element => {
+                    inputsDiv = inputsDiv + `<div><span class="name inputs" title="${element.name}">${element.name}</span> <span class="value datatype" title="${element.datatype}">${element.datatype}</span> <span class="value dim" title="Shape Dimensions [${element.shapeDimensions}]">${element.shapeDimensions}</span></div>`;
+                });
+            }
+            this._element('graph-inputs').innerHTML = inputsDiv;
+
+            let outputsArray = [];
+            outputs.forEach(element => {
+                let outputO = { name: '', datatype: '', shapeDimensions: ''}
+                outputO.name = element.name;
+                outputO.datatype = element.value[0].type.dataType;
+                outputO.shapeDimensions = element.value[0].type.shape.dimensions;
+                outputsArray.push(outputO);
+            })
+
+            console.log(outputsArray);
+
+            let outputsDiv = '<div class="title"><span>Outputs</span></div>';
+            if (outputsArray && outputsArray.length > 0) {
+                outputsArray.forEach(element => {
+                    outputsDiv = outputsDiv + `<div><span class="name outputs" title="${element.name}">${element.name}</span> <span class="value datatype" title="${element.datatype}">${element.datatype}</span> <span class="value dim" title="Shape Dimensions [${element.shapeDimensions}]">${element.shapeDimensions}</span></div>`;
+                });
+            }
+            this._element('graph-outputs').innerHTML = outputsDiv;
 
             let propertiesDiv = '<div class="title"><span>Properties</span></div>';
             if(model.format) {
-                propertiesDiv = propertiesDiv + `<div><span class="name" title="format">format</span> <span class="value" title="${model.format}">${model.format}</span></div>`;
+                propertiesDiv = propertiesDiv + `<div><span class="name properties" title="format">format</span> <span class="value properties" title="${model.format}">${model.format}</span></div>`;
             }
 
             if(model.producer) {
-                propertiesDiv = propertiesDiv + `<div><span class="name" title="version">version</span> <span class="value" title="${model.producer}">${model.producer}</span></div>`;
+                propertiesDiv = propertiesDiv + `<div><span class="name properties" title="version">producer</span> <span class="value properties" title="${model.producer}">${model.producer}</span></div>`;
             }
 
             if(model.version) {
-                propertiesDiv = propertiesDiv + `<div><span class="name" title="version">version</span> <span class="value" title="${model.version}">${model.version}</span></div>`;
+                propertiesDiv = propertiesDiv + `<div><span class="name properties" title="version">version</span> <span class="value properties" title="${model.version}">${model.version}</span></div>`;
             }
 
             if(model.imports) {
-                propertiesDiv = propertiesDiv + `<div><span class="name" title="imports">imports</span> <span class="value" title="${model.imports}">${model.imports}</span></div>`;
+                propertiesDiv = propertiesDiv + `<div><span class="name properties" title="imports">imports</span> <span class="value properties" title="${model.imports}">${model.imports}</span></div>`;
+            }
+
+            if(graph && graph.name) {
+                propertiesDiv = propertiesDiv + `<div><span class="name properties" title="graph">graph</span> <span class="value properties" title="${graph.name}">${graph.name}</span></div>`;
             }
 
             this._element('graph-properties').innerHTML = propertiesDiv;
@@ -822,7 +862,7 @@ view.View = class {
             let metaDiv = '<div class="title"><span>Metadata</span></div>';
             if (Array.isArray(model.metadata) && model.metadata.length > 0) {
                 model.metadata.forEach(element => {
-                    metaDiv = metaDiv + `<div><span class="name" title="${element.name}">${element.name}</span> <span class="value" title="${element.value}">${element.value}</span></div>`;
+                    metaDiv = metaDiv + `<div><span class="name metadata" title="${element.name}">${element.name}</span> <span class="value metadata" title="${element.value}">${element.value}</span></div>`;
                 });
             }
             this._element('graph-meta').innerHTML = metaDiv;

@@ -2202,16 +2202,23 @@ background-color: var(--int4-005);
 
 #netron-graph {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
   grid-template-rows: 1fr;
   grid-column-gap: 8px;
   grid-row-gap: 8px;
-  padding: 10px;
-  align-items: center;
+  padding: 0px;
+  align-items: stretch;
   border: 1px solid var(--grey-02);
-  align-items: start;
   border-bottom-width: 0px;
   font-size: 0.8rem;
+}
+
+#netron-graph>div {
+  padding: 10px;
+}
+
+#graph-nodes, #graph-inputs, #graph-outputs {
+  border-right: 1px solid var(--grey-02);
 }
 
 #netron-graph.none, #map.none {
@@ -2222,12 +2229,26 @@ background-color: var(--int4-005);
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
+  grid-column-gap: 8px;
 }
 
-#netron-graph .list div.title {
+#netron-graph .list#graph-nodes div, 
+#netron-graph .list#graph-inputs div, 
+#netron-graph .list#graph-outputs div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 4px;
+}
+
+#netron-graph .list div.title, 
+#netron-graph .list#graph-nodes div.title,
+#netron-graph .list#graph-inputs div.title,
+#netron-graph .list#graph-outputs div.title {
   display: block;
   margin: 0 auto 4px auto;
   text-align: center;
+  padding-bottom: 6px;
 }
 
 #netron-graph .list div.title span, #map table th span {
@@ -2238,10 +2259,6 @@ background-color: var(--int4-005);
   color: var(--red);
   background-color: var(--red-005);
   font-weight: 400;
-}
-
-#netron-graph .list div.title {
-  padding-bottom: 6px;
 }
 
 #netron-graph span.name {
@@ -2265,10 +2282,52 @@ background-color: var(--int4-005);
   display: inline-block;
   border: 1px solid var(--grey-02);
   background-color: var(--grey-005);
-  width: 160px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+#graph-nodes span.name.count {
+  width: 88px;
+}
+
+#graph-nodes span.value.count {
+  min-width: 36px;
+}
+
+#graph-inputs span.name.inputs {
+  width: 146px;
+}
+
+#graph-outputs span.name.outputs {
+  width: 106px;
+}
+
+#graph-inputs span.value.datatype,
+#graph-outputs span.value.datatype {
+  width: 46px;
+}
+
+#graph-inputs span.value.dim {
+  width: 242px;
+}
+
+#graph-outputs span.value.dim {
+  width: 262px;
+}
+
+#graph-properties span.name.properties,
+#graph-meta span.name.metadata {
+  width: 50px;
+}
+
+#graph-properties span.value.properties,
+#graph-meta span.value.metadata {
+  min-width: 80px;
+}
+
+#properties-meta {
+  margin-left: -10px;
 }
 
 #map {
@@ -2290,6 +2349,14 @@ background-color: var(--int4-005);
 
 #map table th, #map table td {
   text-align: center;
+}
+
+#map table tr:nth-child(even) td {
+  background-color: var(--grey-005);
+}
+
+#map table tr:hover td, #netron-graph span:hover {
+  background-color: var(--red-005);
 }
 
 #map table .alias {

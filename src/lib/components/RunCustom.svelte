@@ -180,10 +180,12 @@
 		<div id="map" class="none"></div>
 		<div id="netron-graph" class="none">
 			<div id="graph-nodes" class="list"></div>
-			<div id="graph-properties" class="list"></div>
-			<div id="graph-meta" class="list"></div>
 			<div id="graph-inputs" class="list"></div>
-			<div id="graph-ouputs" class="list"></div>
+			<div id="graph-outputs" class="list"></div>
+			<div id="properties-meta">
+				<div id="graph-properties" class="list"></div>
+				<div id="graph-meta" class="list"></div>
+			</div>
 		</div>
 		{#if !auto}
 			<div class="config">
@@ -234,5 +236,9 @@
 
 	.modelfile span {
 		padding: 12px 28px;
+	}
+
+	#graph-meta {
+		margin-top: 10px;
 	}
 </style>
