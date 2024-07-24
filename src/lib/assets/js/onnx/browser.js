@@ -268,7 +268,7 @@ host.BrowserHost = class {
     }
 
     async require(id) {
-        return await import(`./${id}.js`);
+        return import(`./${id}.js`);
     }
 
     worker(id) {
