@@ -227,7 +227,7 @@
 					<span>Inputs · Feeds</span>
 				</div>
 			</div>
-			<div class="note"><span class="title">Making symbolic dimensions fixed</span> Please specify fixed integer values for the symbolic dimensions below before running the performance testing</div>
+			<div class="note"><span class="title">Making dynamic input shapes fixed</span> Please specify fixed integer values for the symbolic dimensions below before running the performance testing</div>
 			<div id="override-settings"></div>
 			<div id="inputs-feeds">
 			</div>

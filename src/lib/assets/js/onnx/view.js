@@ -6262,8 +6262,8 @@ view.ModelFactoryService = class {
             //     'onnx-metadata.json', 'pytorch-metadata.json', 'tflite-metadata.json'
             // ];
             const files = [
-                './server', './onnx', 
-                './onnx-proto', './onnx-schema',
+                // './server', './onnx', 
+                // './onnx-proto', './onnx-schema',
                 'onnx-metadata.json'
             ];
             for (const file of files) {
@@ -6277,9 +6277,9 @@ view.ModelFactoryService = class {
                     if (file.endsWith('.json')) {
                         await this._host.request(file, 'utf-8', null);
                     }
-                    else {
-                        await this._host.require(file);
-                    }
+                    // else {
+                    //     await this._host.require(file);
+                    // }
                 } catch {
                     // continue regardless of error
                 }

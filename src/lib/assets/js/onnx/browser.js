@@ -1,5 +1,9 @@
 
 import * as base from './base.js';
+import './server.js';
+import './onnx.js';
+import './onnx-proto.js';
+import './onnx-schema.js';
 
 const host = {};
 
