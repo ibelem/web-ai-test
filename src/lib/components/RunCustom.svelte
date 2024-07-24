@@ -20,6 +20,10 @@
 	} from '$lib/assets/js/utils';
 	import * as BrowserHost from '$lib/assets/js/onnx/browser'
 	import * as View from '$lib/assets/js/onnx/view'
+	import '$lib/assets/js/onnx/server.js';
+	import '$lib/assets/js/onnx/onnx.js';
+	import '$lib/assets/js/onnx/onnx-proto.js';
+	import '$lib/assets/js/onnx/onnx-schema.js';
 	import {
 		runOnnx
 	} from '$lib/assets/js/ort_utils_custom';
