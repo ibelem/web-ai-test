@@ -326,7 +326,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       {
         name: backend,
         deviceType: deviceType,
-        powerPreference: "default",
         preferredLayout: 'NHWC',
         numThreads: numThreads
       },
@@ -403,6 +402,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Compilation Time: ${compilationTime} ms`);
 
   let feeds = getFeeds(sess, _model);
+  console.log('-- feeds --');
   console.log(feeds);
 
   let numOfWarmups = 1;

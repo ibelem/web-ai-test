@@ -317,7 +317,6 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
       {
         name: backend,
         deviceType: deviceType,
-        powerPreference: "default",
         preferredLayout: 'NHWC',
         numThreads: numThreads
       },

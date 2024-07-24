@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
 	import { onMount, afterUpdate } from 'svelte';
 	// import TestQueue from './TestQueue.svelte';
 	import Header from '$lib/components/Header.svelte';
@@ -53,6 +55,18 @@
 		resetResult();
 		resetInfo();
 		run();
+	};
+
+	let statusCollapse;
+	let map;
+	const toggle = () => {
+		if (statusCollapse.classList.contains('show')) {
+			statusCollapse.removeAttribute('class');
+			map.removeAttribute('class');
+		} else {
+			statusCollapse.setAttribute('class', 'show');
+			map.setAttribute('class', 'none');
+		}
 	};
 
 	/**
@@ -151,7 +165,7 @@
 	afterUpdate(() => {
 		if (!auto) {
 			if ($page.url.searchParams.size === 0) {
-				let path = `${location.pathname}/?backend=none&run=100&modeltype=${modelType}`;
+				let path = `${location.pathname}/?backend=none&run=1&modeltype=${modelType}`;
 				// goto(path);
 				location.href = location.origin + path;
 			} else {
@@ -177,7 +191,24 @@
 				<span><Upload />Upload ONNX File</span>
 			</label>
 		</div>
-		<div id="map" class="none"></div>
+		{#if !auto}
+			<div class="config">
+				<ConfigBackends />
+				<ConfigNumOfRuns />
+			</div>
+		{/if}
+		<div id="map" class="none">
+			<div id="status_collapse" bind:this={statusCollapse}>
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<!-- svelte-ignore a11y-no-static-element-interactions -->
+				<div on:click={toggle} title="WebNN Implementation Status in Chromium for this model">
+					<svg id="up"  height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z"/></svg>
+					<svg id="down" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+					<span>IMPL STATUS</span>
+				</div>
+			</div>
+			<div id="status_map" class="" bind:this={map}></div>
+		</div>
 		<div id="netron-graph" class="none">
 			<div id="graph-nodes" class="list"></div>
 			<div id="graph-inputs" class="list"></div>
@@ -187,12 +218,18 @@
 				<div id="graph-meta" class="list"></div>
 			</div>
 		</div>
-		{#if !auto}
-			<div class="config">
-				<ConfigBackends />
-				<ConfigNumOfRuns />
+		<div id="webnn-inputs-overrides" class="none">
+			<div class="title">
+				<span>{id} · Inputs and Feeds</span>
 			</div>
-		{/if}
+			<div id="inputs-feeds">
+				<div><span id="">111</span><input id="" placeholder="Enter dimension value" /></div>
+				<div><span id="">111</span><input id="" placeholder="Enter dimension value" /></div>
+				<div><span id="">111</span><input id="" placeholder="Enter dimension value" /></div>
+				<div><span id="">111</span><input id="" placeholder="Enter dimension value" /></div>
+			</div>
+		</div>
+		<div id="override" class="none"></div>
 		<Results />
 		<InferenceLog bind:logShow />
 		<div class="run">

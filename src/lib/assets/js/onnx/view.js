@@ -760,7 +760,7 @@ view.View = class {
                         <tbody id="support">${trs}</tbody>
                     </table>
                 `;
-                    this._element('map').innerHTML = table;
+                    this._element('status_map').innerHTML = table;
                 }
             }
 
@@ -768,6 +768,7 @@ view.View = class {
 
             if(graph) {
                 this._element('netron-graph').removeAttribute('class', 'none');
+                this._element('webnn-inputs-overrides').removeAttribute('class', 'none');
             }
 
             let nodesArray = [];
@@ -795,7 +796,7 @@ view.View = class {
             nodesDiv = nodesDiv + `<div><span class="name count" title="Total"></span> <span class="value count" title="${nodesArray.length}">${nodesArray.length}</span> <span class="value count" title="Percentage 100.00%">100%</span></div>`;
             this._element('graph-nodes').innerHTML = nodesDiv;
 
-            console.log(graph);
+            // console.log(graph);
 
             let inputsArray = [];
             inputs.forEach(element => {
@@ -811,7 +812,7 @@ view.View = class {
             let inputsDiv = '<div class="title"><span>Inputs</span></div>';
             if (inputsArray && inputsArray.length > 0) {
                 inputsArray.forEach(element => {
-                    inputsDiv = inputsDiv + `<div><span class="name inputs" title="${element.name}">${element.name}</span> <span class="value datatype" title="${element.datatype}">${element.datatype}</span> <span class="value dim" title="Shape Dimensions [${element.shapeDimensions}]">${element.shapeDimensions}</span></div>`;
+                    inputsDiv = inputsDiv + `<div><span class="name inputs" title="${element.name}">${element.name}</span> <span class="value datatype" title="${element.datatype}">${element.datatype}</span> <span class="value dim" title="Shape Dimensions [${element.shapeDimensions}]">[${element.shapeDimensions}]</span></div>`;
                 });
             }
             this._element('graph-inputs').innerHTML = inputsDiv;
@@ -825,12 +826,10 @@ view.View = class {
                 outputsArray.push(outputO);
             })
 
-            console.log(outputsArray);
-
             let outputsDiv = '<div class="title"><span>Outputs</span></div>';
             if (outputsArray && outputsArray.length > 0) {
                 outputsArray.forEach(element => {
-                    outputsDiv = outputsDiv + `<div><span class="name outputs" title="${element.name}">${element.name}</span> <span class="value datatype" title="${element.datatype}">${element.datatype}</span> <span class="value dim" title="Shape Dimensions [${element.shapeDimensions}]">${element.shapeDimensions}</span></div>`;
+                    outputsDiv = outputsDiv + `<div><span class="name outputs" title="${element.name}">${element.name}</span> <span class="value datatype" title="${element.datatype}">${element.datatype}</span> <span class="value dim" title="Shape Dimensions [${element.shapeDimensions}]">[${element.shapeDimensions}]</span></div>`;
                 });
             }
             this._element('graph-outputs').innerHTML = outputsDiv;
@@ -866,6 +865,24 @@ view.View = class {
                 });
             }
             this._element('graph-meta').innerHTML = metaDiv;
+
+            const extractVariables = (data) => {
+                let variables = new Set();
+                data.forEach(item => {
+                    item.shapeDimensions.forEach(dimension => {
+                        if (typeof dimension === 'string' && isNaN(dimension)) {
+                            // Split by any operators or spaces to catch variables
+                            dimension.split(/[^a-zA-Z_]+/).forEach(variable => {
+                                if (variable) variables.add(variable);
+                            });
+                        }
+                    });
+                });
+                return Array.from(variables);
+            }
+            
+            const overrides = extractVariables(inputsArray);
+            console.log(overrides);
 
             // return await this._updateGraph(model, stack);
         } catch (error) {

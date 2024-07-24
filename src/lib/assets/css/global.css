@@ -1457,9 +1457,9 @@ padding: 2px 4px 2px 4px;
   text-align: center;
 }
 
-#netron-graph:hover, #map:hover {
+#netron-graph:hover, #map:hover, #webnn-inputs-overrides:hover {
   border: 1px solid var(--grey-04);
-  border-bottom: 0px;
+  border-top: 0px;
 }
 
 #map div#progress {
@@ -2209,7 +2209,7 @@ background-color: var(--int4-005);
   padding: 0px;
   align-items: stretch;
   border: 1px solid var(--grey-02);
-  border-bottom-width: 0px;
+  border-top-width: 0px;
   font-size: 0.8rem;
 }
 
@@ -2221,8 +2221,16 @@ background-color: var(--int4-005);
   border-right: 1px solid var(--grey-02);
 }
 
-#netron-graph.none, #map.none {
+#netron-graph.none, #map.none, #override.none, #webnn-inputs-overrides.none {
   display: none;
+}
+
+#webnn-inputs-overrides #inputs-feeds {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 }
 
 #netron-graph .list div {
@@ -2251,7 +2259,9 @@ background-color: var(--int4-005);
   padding-bottom: 6px;
 }
 
-#netron-graph .list div.title span, #map table th span {
+#netron-graph .list div.title span,
+#map table th span,
+#webnn-inputs-overrides .title span {
   font-size: 12px;
   padding: 2px 10px;
   border-radius: 9999px;
@@ -2259,6 +2269,10 @@ background-color: var(--int4-005);
   color: var(--red);
   background-color: var(--red-005);
   font-weight: 400;
+}
+
+#webnn-inputs-overrides .title {
+  margin-bottom: 10px;
 }
 
 #netron-graph span.name {
@@ -2296,11 +2310,11 @@ background-color: var(--int4-005);
 }
 
 #graph-inputs span.name.inputs {
-  width: 146px;
+  width: 132px;
 }
 
 #graph-outputs span.name.outputs {
-  width: 106px;
+  width: 100px;
 }
 
 #graph-inputs span.value.datatype,
@@ -2309,33 +2323,35 @@ background-color: var(--int4-005);
 }
 
 #graph-inputs span.value.dim {
-  width: 242px;
+  width: 250px;
 }
 
 #graph-outputs span.value.dim {
-  width: 262px;
+  width: 276px;
 }
 
 #graph-properties span.name.properties,
 #graph-meta span.name.metadata {
-  width: 50px;
+  width: 54px;
 }
 
 #graph-properties span.value.properties,
 #graph-meta span.value.metadata {
-  min-width: 80px;
+  min-width: 94px;
 }
 
+#graph-inputs,
+#graph-outputs,
 #properties-meta {
   margin-left: -10px;
 }
 
-#map {
+#map, #override, #webnn-inputs-overrides {
   padding: 10px;
   align-items: center;
   border: 1px solid var(--grey-02);
   align-items: start;
-  border-bottom-width: 0px;
+  border-top-width: 0px;
 }
 
 #map table {
@@ -2361,6 +2377,70 @@ background-color: var(--int4-005);
 
 #map table .alias {
   max-width: 33vw;
+}
+
+#status_collapse {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  font-size: 12px;
+}
+
+#status_collapse div {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+#status_map {
+  margin-top: -24px;
+}
+
+#status_collapse svg {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+#status_collapse span {
+  color: var(--grey-04);
+}
+
+#status_collapse svg path {
+  fill: var(--grey-04);
+}
+
+#status_collapse svg:hover {
+  cursor: pointer;
+}
+
+#status_collapse:hover svg path {
+  fill: var(--red);
+}
+
+#status_collapse:hover span {
+  color: var(--red);
+  cursor: pointer;
+}
+
+#status_collapse svg#up {
+  display: inline-block;
+}
+
+#status_collapse.show svg#up {
+  display: none;
+}
+
+#status_collapse svg#down {
+  display: none;
+}
+
+#status_collapse.show svg#down {
+  display: inline-block;
+}
+
+#status_map.none {
+  display: none;
 }
 
 @media (max-width: 1120px) {
