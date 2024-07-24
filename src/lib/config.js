@@ -1746,7 +1746,7 @@ const Qwen2_0_5bInstructMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1, "past_sequence_length": 1 }],
       'attention_mask': ['int64', 1n, [1, 2], { "batch_size": 1, "past_sequence_length + 1": 2 }],
       'position_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
     }],

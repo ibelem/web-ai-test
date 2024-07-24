@@ -62,6 +62,14 @@ header .nav {
   text-align: center;
 }
 
+.init {
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
 .config {
   display: grid;
   grid-template-columns: 1fr 9fr;
@@ -2053,12 +2061,16 @@ background-color: var(--int4-005);
   fill: var(--green);
 }
 
+.init input[type='range'] {
+  width: 50vw !important;
+}
+
 .vis-network {
   height: auto;
   min-height: 40vh !important;
 }
 
-.jsonfile svg, .modelfile svg {
+.jsonfile svg {
   display: inline-block;
   height: 16px;
   width: 16px;
@@ -2066,11 +2078,17 @@ background-color: var(--int4-005);
   margin-bottom: -3px;
 }
 
+.modelfile svg {
+  display: inline-block;
+  height: 36px;
+  width: 36px;
+}
+
 .jsonfile svg path, .modelfile svg path {
   fill: var(--font);
 }
 
-.jsonfile span, .modelfile span {
+.jsonfile span {
   display: inline-block;
   color: var(--font);
   border: 1px solid var(--grey-04);
@@ -2081,12 +2099,16 @@ background-color: var(--int4-005);
 }
 
 .modelfile span {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  align-items: center;
 }
 
-.jsonfile span:hover, .modelfile span:hover {
+.jsonfile span:hover, .modelfile label:hover {
   color: var(--red);
-  border: 1px solid var(--red);
+  cursor: pointer;
 }
 
 .jsonfile span:hover svg path, .modelfile span:hover svg path {
@@ -2225,6 +2247,39 @@ background-color: var(--int4-005);
   display: none;
 }
 
+#webnn-inputs-overrides #override-settings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  grid-column-gap: 10px;
+  grid-row-gap: 4px;
+  border: 1px solid var(--grey-02);
+  padding: 10px;
+}
+
+#webnn-inputs-overrides .note {
+  margin: 10px auto;
+  text-align: center;
+}
+
+#override-settings>div {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  align-items: center;
+}
+
+#override-settings span {
+  justify-self: right;
+  border: 1px solid var(--grey-02);
+  padding: 4px 10px;
+  align-self: stretch;
+  font-size: 0.68rem;
+  background-color: var(--red);
+  color: var(--white);
+  width: 210px;
+  text-align: right;
+}
+
 #webnn-inputs-overrides #inputs-feeds {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -2261,7 +2316,7 @@ background-color: var(--int4-005);
 
 #netron-graph .list div.title span,
 #map table th span,
-#webnn-inputs-overrides .title span {
+#webnn-inputs-overrides .note span.title {
   font-size: 12px;
   padding: 2px 10px;
   border-radius: 9999px;
@@ -2272,7 +2327,11 @@ background-color: var(--int4-005);
 }
 
 #webnn-inputs-overrides .title {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
+}
+
+#webnn-inputs-overrides .tqtitle {
+  margin-top: 0;
 }
 
 #netron-graph span.name {
@@ -2441,6 +2500,23 @@ background-color: var(--int4-005);
 
 #status_map.none {
   display: none;
+}
+
+#webnn-inputs-overrides input {
+	border: 1px solid var(--red-01);
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 0;
+  width: 70px;
+  align-self: stretch;
+}
+
+#webnn-inputs-overrides input:hover {
+	border: 1px solid var(--red);
+}
+
+#webnn-inputs-overrides input:focus, #webnn-inputs-overrides input:active {
+  outline: none;
 }
 
 @media (max-width: 1120px) {

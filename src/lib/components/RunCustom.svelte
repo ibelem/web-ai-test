@@ -185,20 +185,23 @@
 				Performance Test · {#if modelName}{modelName} · {#if size}{size.toFixed(2)} MB{/if}{:else}Custom Model{/if}
 			</div>
 		</div>
-		<div class="modelfile">
-			<label>
-				<input id="open-file-dialog" type="file" accept=".onnx" on:change={handleFileInput} hidden />
-				<span><Upload />Upload ONNX File</span>
-			</label>
-		</div>
+
 		{#if !auto}
+		<div class="init">
 			<div class="config">
 				<ConfigBackends />
 				<ConfigNumOfRuns />
 			</div>
+			<div class="modelfile">
+				<label>
+					<input id="open-file-dialog" type="file" accept=".onnx" on:change={handleFileInput} hidden />
+					<span><Upload />Upload ONNX Model</span>
+				</label>
+			</div>
+		</div>
 		{/if}
 		<div id="map" class="none">
-			<div id="status_collapse" bind:this={statusCollapse}>
+			<div id="status_collapse" bind:this={statusCollapse} class="show">
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<!-- svelte-ignore a11y-no-static-element-interactions -->
 				<div on:click={toggle} title="WebNN Implementation Status in Chromium for this model">
@@ -207,7 +210,7 @@
 					<span>IMPL STATUS</span>
 				</div>
 			</div>
-			<div id="status_map" class="" bind:this={map}></div>
+			<div id="status_map" class="none" bind:this={map}></div>
 		</div>
 		<div id="netron-graph" class="none">
 			<div id="graph-nodes" class="list"></div>
@@ -219,14 +222,14 @@
 			</div>
 		</div>
 		<div id="webnn-inputs-overrides" class="none">
-			<div class="title">
-				<span>{id} · Inputs and Feeds</span>
+			<div class="tqtitle">
+				<div class="title tq s">
+					<span>Inputs · Feeds</span>
+				</div>
 			</div>
+			<div class="note"><span class="title">Making symbolic dimensions fixed</span> Please specify fixed integer values for the symbolic dimensions below before running the performance testing</div>
+			<div id="override-settings"></div>
 			<div id="inputs-feeds">
-				<div><span id="">111</span><input id="" placeholder="Enter dimension value" /></div>
-				<div><span id="">111</span><input id="" placeholder="Enter dimension value" /></div>
-				<div><span id="">111</span><input id="" placeholder="Enter dimension value" /></div>
-				<div><span id="">111</span><input id="" placeholder="Enter dimension value" /></div>
 			</div>
 		</div>
 		<div id="override" class="none"></div>
@@ -261,18 +264,29 @@
 	}
 	
 	.modelfile {
-		margin: 0px auto;
-		text-align: center;
+		display: grid;
 		font-family: 'JetBrains Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	}
+
+	.modelfile label {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+		align-self: stretch;
+		justify-items: center;
+		border: 1px solid var(--red-005);
+		background-color: var(--red-005);
+		border-left: 0px solid var(--red-005);
+	}
+
+	.modelfile label:hover {
+		border: 1px solid var(--red);
+		background-color: var(--red-01);
 	}
 
 	.modelfile input {
 		font-family: 'JetBrains Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		background-color: transparent;
-	}
-
-	.modelfile span {
-		padding: 12px 28px;
 	}
 
 	#graph-meta {

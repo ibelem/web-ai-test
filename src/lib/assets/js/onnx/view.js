@@ -787,7 +787,7 @@ view.View = class {
                 count: counts[key]
             }));
 
-            let nodesDiv = '<div class="title"><span>Operations * Count</span></div>';
+            let nodesDiv = '<div class="title"><span>Operations · Count</span></div>';
             if (newNodesArray && newNodesArray.length > 0) {
                 newNodesArray.forEach(element => {
                     nodesDiv = nodesDiv + `<div><span class="name count" title="${element.type}">${element.type}</span> <span class="value count" title="${element.count}">x${element.count}</span> <span class="value count" title="Percentage ${(element.count*100/nodesArray.length).toFixed(2)}%">${(element.count*100/nodesArray.length).toFixed(1)}%</span></div>`;
@@ -871,10 +871,7 @@ view.View = class {
                 data.forEach(item => {
                     item.shapeDimensions.forEach(dimension => {
                         if (typeof dimension === 'string' && isNaN(dimension)) {
-                            // Split by any operators or spaces to catch variables
-                            dimension.split(/[^a-zA-Z_]+/).forEach(variable => {
-                                if (variable) variables.add(variable);
-                            });
+                            variables.add(dimension);
                         }
                     });
                 });
@@ -882,7 +879,16 @@ view.View = class {
             }
             
             const overrides = extractVariables(inputsArray);
-            console.log(overrides);
+            if(overrides && overrides.length >0) {
+                let overridesDiv = '';
+                overrides.forEach(item => {
+                    overridesDiv = overridesDiv + `<div><span id="overrides_span_${item}" class="overridename">${item}</span><input id="overrides_input_${item}" class="overridevalue" type="text"></div>`;
+                })
+                this._element('override-settings').innerHTML = overridesDiv;
+            } else {
+                this._element('override-settings').innerHTML = '';
+                this._element('webnn-inputs-overrides').setAttribute('class', 'none');
+            }
 
             // return await this._updateGraph(model, stack);
         } catch (error) {
