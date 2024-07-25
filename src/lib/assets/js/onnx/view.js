@@ -6262,8 +6262,8 @@ view.ModelFactoryService = class {
             //     'onnx-metadata.json', 'pytorch-metadata.json', 'tflite-metadata.json'
             // ];
             const files = [
-                'module-server', 'module-onnx', 
-                'module-onnx-proto', 'module-onnx-schema',
+                'server', 'onnx', 
+                'onnx-proto', 'onnx-schema',
                 'onnx-metadata.json'
             ];
             for (const file of files) {

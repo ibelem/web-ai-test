@@ -268,16 +268,16 @@ host.BrowserHost = class {
     }
 
     async require(id) {
-        if(id === "./onnx") {
-            id = "module-onnx";
-        } else if (id === "./onnx-proto") {
-            id = "module-onnx-proto";
-        } else if (id === "./onnx-schema") {
-            id = "module-onnx-schema";
-        } else if (id === "./server") {
-            id = "module-server";
+        if (id === "./onnx" || id === "./onnx-proto"
+            || id === "./onnx-schema" || id === "./server") {
+            id = id.replace('./','');
+            return import(`./module-${id}.js`);
+        } else if (id === "onnx" || id === "onnx-proto"
+            || id === "onnx-schema" || id === "server") {
+            return import(`./module-${id}.js`);
+        }  {
+            return import(`./${id}.js`);
         }
-        return import(`./${id}.js`);
     }
 
     worker(id) {
