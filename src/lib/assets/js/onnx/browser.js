@@ -268,6 +268,15 @@ host.BrowserHost = class {
     }
 
     async require(id) {
+        if(id === "./onnx") {
+            id = "module-onnx";
+        } else if (id === "./onnx-proto") {
+            id = "module-onnx-proto";
+        } else if (id === "./onnx-schema") {
+            id = "module-onnx-schema";
+        } else if (id === "./server") {
+            id = "module-server";
+        }
         return import(`./${id}.js`);
     }
 
