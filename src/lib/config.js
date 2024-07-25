@@ -2915,9 +2915,9 @@ export let models = [
     datatype: 'fp32',
     inputs: [{
       'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 8, "past_sequence_length": 8 }],
-      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "past_sequence_length + 1": 8 }],
+      'attention_mask': ['int64', 1n, [1, 9], { "batch_size": 1, "past_sequence_length + 1": 9 }],
     }],
-    inputstip: '[1, 1] [1, 8]'
+    inputstip: '[1, 1] [1, 9]'
   },
   {
     category: 'Text Generation',
