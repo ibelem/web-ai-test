@@ -11,6 +11,12 @@ import * as flatbuffers from './flatbuffers.js';
 // import * as python from './python.js';
 import * as grapher from './grapher.js';
 import { _getWebnnOps } from '../webnn_impl.js';
+import { customStore } from '$lib/store/store';
+
+let custom;
+$: customStore.subscribe((value) => {
+    custom = value;
+});
 
 const view =  {};
 const markdown = {};
@@ -672,6 +678,13 @@ view.View = class {
             }
 
             let graph = stack[0].graph;
+
+            // console.log(typeof(graph));
+            // console.log(graph);
+
+            // updateObject(graph);
+
+            // let graph = stack[0].graph;
             let nodes = graph.nodes;
             let inputs = graph.inputs;
             let outputs = graph.outputs;
@@ -766,11 +779,6 @@ view.View = class {
 
             _showWebnnOpsMap();
 
-            if(graph) {
-                this._element('netron-graph').removeAttribute('class', 'none');
-                this._element('webnn-inputs-overrides').removeAttribute('class', 'none');
-            }
-
             let nodesArray = [];
             nodes.forEach(element => {
                 nodesArray.push(element.type.name);
@@ -787,16 +795,11 @@ view.View = class {
                 count: counts[key]
             }));
 
-            let nodesDiv = '<div class="title"><span>Operations · Count</span></div>';
-            if (newNodesArray && newNodesArray.length > 0) {
-                newNodesArray.forEach(element => {
-                    nodesDiv = nodesDiv + `<div><span class="name count" title="${element.type}">${element.type}</span> <span class="value count" title="${element.count}">x${element.count}</span> <span class="value count" title="Percentage ${(element.count*100/nodesArray.length).toFixed(2)}%">${(element.count*100/nodesArray.length).toFixed(1)}%</span></div>`;
-                });
+            // let customData = localStorage.getItem('customStore');
+            if (custom) {
+                custom.nodes = newNodesArray;
+                customStore.update(() => custom);
             }
-            nodesDiv = nodesDiv + `<div><span class="name count" title="Total"></span> <span class="value count" title="${nodesArray.length}">${nodesArray.length}</span> <span class="value count" title="Percentage 100.00%">100%</span></div>`;
-            this._element('graph-nodes').innerHTML = nodesDiv;
-
-            // console.log(graph);
 
             let inputsArray = [];
             inputs.forEach(element => {
@@ -807,15 +810,19 @@ view.View = class {
                 inputsArray.push(inputO);
             })
 
-            console.log(inputsArray);
+            // // customData = localStorage.getItem('customStore');
+            // // if (customData) {
+            //     let customObject = JSON.parse(customData);
+            //     customObject.inputs = inputsArray;
+            //     let updatedCustomData = JSON.stringify(customObject);
+            //     // localStorage.setItem('customStore', updatedCustomData);
+            //     customStore.update(() => updatedCustomData);
+            // // }
 
-            let inputsDiv = '<div class="title"><span>Inputs</span></div>';
-            if (inputsArray && inputsArray.length > 0) {
-                inputsArray.forEach(element => {
-                    inputsDiv = inputsDiv + `<div><span class="name inputs" title="${element.name}">${element.name}</span> <span class="value datatype" title="${element.datatype}">${element.datatype}</span> <span class="value dim" title="Shape Dimensions [${element.shapeDimensions}]">[${element.shapeDimensions}]</span></div>`;
-                });
+            if (custom) {
+                custom.inputs = inputsArray;
+                customStore.update(() => custom);
             }
-            this._element('graph-inputs').innerHTML = inputsDiv;
 
             let outputsArray = [];
             outputs.forEach(element => {
@@ -826,45 +833,78 @@ view.View = class {
                 outputsArray.push(outputO);
             })
 
-            let outputsDiv = '<div class="title"><span>Outputs</span></div>';
-            if (outputsArray && outputsArray.length > 0) {
-                outputsArray.forEach(element => {
-                    outputsDiv = outputsDiv + `<div><span class="name outputs" title="${element.name}">${element.name}</span> <span class="value datatype" title="${element.datatype}">${element.datatype}</span> <span class="value dim" title="Shape Dimensions [${element.shapeDimensions}]">[${element.shapeDimensions}]</span></div>`;
-                });
+            // customData = localStorage.getItem('customStore');
+            // if (customData) {
+            //     let customObject = JSON.parse(customData);
+            //     customObject.outputs = outputsArray;
+            //     let updatedCustomData = JSON.stringify(customObject);
+            //     // localStorage.setItem('customStore', updatedCustomData);
+            //     customStore.update(() => updatedCustomData);
+            // }
+
+            if (custom) {
+                custom.outputs = outputsArray;
+                customStore.update(() => custom);
             }
-            this._element('graph-outputs').innerHTML = outputsDiv;
-
-            let propertiesDiv = '<div class="title"><span>Properties</span></div>';
-            if(model.format) {
-                propertiesDiv = propertiesDiv + `<div><span class="name properties" title="format">format</span> <span class="value properties" title="${model.format}">${model.format}</span></div>`;
+            
+            let properties = [];
+            if (model.format) {
+                let pFormat = { name: "format", value: model.format };
+                properties.push(pFormat);
+            }
+            if (model.producer) {
+                let pProducer = { name: "producer", value: model.producer };
+                properties.push(pProducer);
+            }
+            if (model.version) {
+                let pVersion = { name: "version", value: model.version };
+                properties.push(pVersion);
+            }
+            if (model.imports) {
+                let imp = model.imports.join(" ")
+                let pImports = { name: "imports", value: imp };
+                properties.push(pImports);
+            }
+            if (graph && graph.name) {
+                let pGraph = { name: "graph", value: graph.name };
+                properties.push(pGraph);
             }
 
-            if(model.producer) {
-                propertiesDiv = propertiesDiv + `<div><span class="name properties" title="version">producer</span> <span class="value properties" title="${model.producer}">${model.producer}</span></div>`;
+            // customData = localStorage.getItem('customStore');
+            // if (customData) {
+            //     let customObject = JSON.parse(customData);
+            //     customObject.properties = properties;
+            //     let updatedCustomData = JSON.stringify(customObject);
+            //     // localStorage.setItem('customStore', updatedCustomData);
+            //     customStore.update(() => updatedCustomData);
+            // }
+
+            if (custom) {
+                custom.properties = properties;
+                customStore.update(() => custom);
             }
 
-            if(model.version) {
-                propertiesDiv = propertiesDiv + `<div><span class="name properties" title="version">version</span> <span class="value properties" title="${model.version}">${model.version}</span></div>`;
-            }
-
-            if(model.imports) {
-                propertiesDiv = propertiesDiv + `<div><span class="name properties" title="imports">imports</span> <span class="value properties" title="${model.imports}">${model.imports}</span></div>`;
-            }
-
-            if(graph && graph.name) {
-                propertiesDiv = propertiesDiv + `<div><span class="name properties" title="graph">graph</span> <span class="value properties" title="${graph.name}">${graph.name}</span></div>`;
-            }
-
-            this._element('graph-properties').innerHTML = propertiesDiv;
-
-
-            let metaDiv = '<div class="title"><span>Metadata</span></div>';
+            let metadata = [];
             if (Array.isArray(model.metadata) && model.metadata.length > 0) {
                 model.metadata.forEach(element => {
-                    metaDiv = metaDiv + `<div><span class="name metadata" title="${element.name}">${element.name}</span> <span class="value metadata" title="${element.value}">${element.value}</span></div>`;
+                        let m = { name: element.name, value: element.value };
+                        metadata.push(m);
                 });
             }
-            this._element('graph-meta').innerHTML = metaDiv;
+
+            // customData = localStorage.getItem('customStore');
+            // if (customData) {
+            //     let customObject = JSON.parse(customData);
+            //     customObject.metadata = metadata;
+            //     let updatedCustomData = JSON.stringify(customObject);
+            //     // localStorage.setItem('customStore', updatedCustomData);
+            //     customStore.update(() => updatedCustomData);
+            // }
+
+            if (custom) {
+                custom.metadata = metadata;
+                customStore.update(() => custom);
+            }
 
             const extractVariables = (data) => {
                 let variables = new Set();
@@ -879,15 +919,24 @@ view.View = class {
             }
             
             const overrides = extractVariables(inputsArray);
+            let overridesObject = overrides.map(item => {
+                return { name: item, value: null };
+            });
+
             if(overrides && overrides.length >0) {
-                let overridesDiv = '';
-                overrides.forEach(item => {
-                    overridesDiv = overridesDiv + `<div><span id="overrides_span_${item}" class="overridename">${item}</span><input id="overrides_input_${item}" class="overridevalue" type="text"></div>`;
-                })
-                this._element('override-settings').innerHTML = overridesDiv;
-            } else {
-                this._element('override-settings').innerHTML = '';
-                this._element('webnn-inputs-overrides').setAttribute('class', 'none');
+                // customData = localStorage.getItem('customStore');
+                // if (customData) {
+                //     let customObject = JSON.parse(customData);
+                //     customObject.overrides = overridesObject;
+                //     let updatedCustomData = JSON.stringify(customObject);
+                //     // localStorage.setItem('customStore', updatedCustomData);
+                //     customStore.update(() => updatedCustomData);
+                // }
+
+                if (custom) {
+                    custom.overrides = overrides;
+                    customStore.update(() => custom);
+                }
             }
 
             // return await this._updateGraph(model, stack);

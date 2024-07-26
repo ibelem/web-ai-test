@@ -201,8 +201,6 @@ host.BrowserHost = class {
         // }
         openFileDialog.addEventListener('change', (e) => {
             if (e.target && e.target.files && e.target.files.length > 0) {
-                this._element('netron-graph').setAttribute('class', 'none');
-                this._element('webnn-inputs-overrides').setAttribute('class', 'none');
                 this._element('map').setAttribute('class', 'none');
                 const files = Array.from(e.target.files);
                 const file = files.find((file) => this._view.accept(file.name, file.size));

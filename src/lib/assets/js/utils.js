@@ -258,6 +258,16 @@ export const getDateTime = () => {
   return `${m}/${d} ${hour}:${min}:${sec}`;
 };
 
+export const getDateTimeCustom = () => {
+  let date = new Date(),
+    m = padNumber(date.getMonth() + 1, 2),
+    d = padNumber(date.getDate(), 2),
+    hour = padNumber(date.getHours(), 2),
+    min = padNumber(date.getMinutes(), 2),
+    sec = padNumber(date.getSeconds(), 2);
+  return `${m}${d}${hour}${min}${sec}`;
+};
+
 export const updateInfo = (value) => {
   infoStore.update((arr) => [...arr, getDateTime() + ' ' + value]);
 }
