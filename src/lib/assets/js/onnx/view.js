@@ -783,7 +783,7 @@ view.View = class {
             nodes.forEach(element => {
                 nodesArray.push(element.type.name);
             })
-            nodesArray.sort();
+            // nodesArray.sort();
 
             let counts = nodesArray.reduce((acc, type) => {
                 acc[type] = (acc[type] || 0) + 1;

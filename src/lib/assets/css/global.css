@@ -2368,6 +2368,50 @@ background-color: var(--int4-005);
   min-width: 36px;
 }
 
+#graph-nodes span button {
+  border: 0px solid transparent;
+  background-color: transparent;
+  display: grid;
+  align-items: center;
+  justify-items: end;
+  height: 12px;
+  width: 12px;
+  padding-right: 2px;
+}
+
+#graph-nodes span button {
+  display: grid;
+  align-items: center;
+  justify-items: end;
+  padding-right: 11px;
+}
+
+#graph-nodes span button svg {
+  width: 12px;
+  height: 12px;
+} 
+
+#graph-nodes span button svg path {
+  fill: var(--grey-08);
+} 
+
+#graph-nodes span:hover button  {
+  cursor: pointer;
+}
+
+#graph-nodes span:hover button svg path {
+  fill: var(--red);
+} 
+
+#graph-nodes span#order-name,
+#graph-nodes span#order-value {
+  display: grid;
+  border: 0px;
+  background-color: transparent;
+  justify-content: end;
+}
+
+
 #graph-inputs span.name.inputs {
   width: 132px;
 }
@@ -2430,7 +2474,9 @@ background-color: var(--int4-005);
   background-color: var(--grey-005);
 }
 
-#map table tr:hover td, #netron-graph span:hover {
+#map table tr:hover td, #netron-graph span:hover, 
+#graph-nodes span#order-name:hover,
+#graph-nodes span#order-value:hover {
   background-color: var(--red-005);
 }
 

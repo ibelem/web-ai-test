@@ -179,6 +179,26 @@
 		}
 	};
 
+	let ascending = true;
+	const sortNodebyName = () => {
+		custom.nodes.sort((a, b) => {
+			if (a.type < b.type) return ascending ? -1 : 1;
+			if (a.type > b.type) return ascending ? 1 : -1;
+			return 0;
+		});
+		ascending = !ascending;
+		customStore.update(() => custom);
+	}
+
+	let descending = true;
+	const sortNodebyCount = () => {
+		custom.nodes.sort((a, b) => {
+        return descending ? a.count - b.count : b.count - a.count;
+		});
+		descending = !descending;
+		customStore.update(() => custom);
+	}
+
 	onMount(async () => {
 		if (testQueue.length > 0 && auto) {
 			// run();
@@ -259,6 +279,22 @@
 			{#if custom && custom.nodes.length > 0}
 				<div id="graph-nodes" class="list">
 					<div class="title"><span>Operations · Count</span></div>
+					<div>
+						<span id="order-name" class="name count" title="Sort by name">
+							<button on:click={sortNodebyName}>
+								<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+									<path d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"/>
+								</svg>
+							</button>
+						</span>
+						<span id="order-value" class="value count" title="Sort by count">
+							<button on:click={sortNodebyCount}>
+								<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+									<path d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z"/>
+								</svg>
+							</button>
+						</span>
+					</div>
 					{#if custom && custom.nodes.length > 0 && nodeCount != 0}
 						{#each custom.nodes as node}
 							<div>
@@ -291,6 +327,7 @@
 					{/if}
 				</div>
 				<div id="graph-outputs" class="list">
+					<div class="title"><span>Outputs</span></div>
 					{#if custom && custom.outputs.length > 0}
 						{#each custom.outputs as output}
 							<div>
