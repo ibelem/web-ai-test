@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	import { onMount, afterUpdate } from 'svelte';
+	import { onMount, afterUpdate, beforeUpdate } from 'svelte';
 	import { customStore } from '$lib/store/store';
 	// import TestQueue from './TestQueue.svelte';
 	import Header from '$lib/components/Header.svelte';
@@ -13,7 +13,15 @@
 	import Environment from './Environment.svelte';
 	import Info from './Info.svelte';
 	import OnnxCustom from '$lib/components/svg/OnnxCustom.svelte';
-	import { auto, run, resetResult, resetInfo, getDateTimeCustom } from '$lib/assets/js/utils';
+	import {
+		auto,
+		resetResult,
+		resetInfo,
+		getDateTimeCustom,
+		updateTestQueueCustom,
+		resetStore,
+		urlToStore
+	} from '$lib/assets/js/utils';
 	import * as BrowserHost from '$lib/assets/js/onnx/browser';
 	// import { onnxGraph } from '$lib/assets/js/onnx/view';
 	import * as View from '$lib/assets/js/onnx/view';
@@ -65,12 +73,58 @@
 		metadata: []
 	};
 
-	const runCustomize = async () => {
+	const runCustom = async () => {
+		if (testQueue[0] && getModelIdfromPath() === testQueue[0].model) {
+			let t0 = testQueue[0];
+			let r = {
+				id: t0.id,
+				model: t0.model,
+				modeltype: t0.modeltype,
+				datatype: t0.datatype,
+				modelsize: getModelSizeById(t0.model)
+			};
+			for (const prop of selectedBackends) {
+				r[prop] = {
+					status: 1,
+					inference: [],
+					compilation: null,
+					warmup: null,
+					timetofirstinference: null,
+					inferencebest: null,
+					inferencemedian: null,
+					inferencethroughput: null,
+					inferenceninety: null,
+					inferenceaverage: null,
+					error: null
+				};
+			}
+			initResult(r);
+
+			if (t0.modeltype === 'onnx') {
+				await runOnnx(
+					t0.id,
+					t0.model,
+					t0.modeltype,
+					t0.datatype,
+					getModelSizeById(t0.model),
+					t0.backend
+				);
+			}
+
+			filterTestQueue(t0.id);
+			runCustom();
+		} else {
+			updateInfo(`[${testQueueLength - testQueue.length}/${testQueueLength}] All tests completed`);
+		}
+	};
+
+	const run = async () => {
 		autoStore.update(() => false);
-		modelDownloadProgressStore.update(() => []);
+		updateTestQueueCustom();
 		resetResult();
 		resetInfo();
-		run();
+		runCustom();
+		// await runOnnx(1, id, 'onnx', 'fp32', size, 'webnn_gpu', buffer);
 	};
 
 	let statusCollapse;
@@ -112,14 +166,17 @@
 
 	$: loaded = false;
 
-	// const readFileAsArrayBuffer = (/** @type {Blob} */ file) => {
-	// 	return new Promise((resolve, reject) => {
-	// 		const reader = new FileReader();
-	// 		reader.onload = () => resolve(reader.result);
-	// 		reader.onerror = () => reject(reader.error);
-	// 		reader.readAsArrayBuffer(file);
-	// 	});
-	// }
+	const readFileAsArrayBuffer = (/** @type {Blob} */ file) => {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = () => reject(reader.error);
+			reader.readAsArrayBuffer(file);
+		});
+	};
+
+	let openFile;
+	let buffer = null;
 
 	const handleFileInput = async (e) => {
 		const file = e.target.files[0];
@@ -130,33 +187,11 @@
 			size = file.size / (1024 * 1024);
 			id = fileName.replaceAll(' ', '_').replaceAll('-', '_').replaceAll('.', '_').toLowerCase();
 			try {
-				// const arrayBuffer = await readFileAsArrayBuffer(file);
-				// const buffer = new Uint8Array(arrayBuffer);
+				const arrayBuffer = await readFileAsArrayBuffer(file);
+				buffer = new Uint8Array(arrayBuffer);
 				// const reader = protobuf.TextReader.open(buffer);
 				// let tags = reader?.signature();
 				// console.log(tags);
-
-				// await runOnnx(1, id, 'onnx', 'fp32', size, 'webnn_gpu', buffer);
-
-				// if (e.target && e.target.files && e.target.files.length > 0) {
-				// 	const host = new BrowserHost.BrowserHost()
-				// 	const v = new View.View(host);
-
-				//     const files = Array.from(e.target.files);
-				// 	console.log(files);
-				//     const file = files.find(async (file) => {
-				// 		v.accept(file.name, file.size);
-				// 		if (file) {
-				// 			console.log(file);
-				// 			const context = new BrowserHost.BrowserHost.BrowserFileContext(file, files);
-				// 			await context.open();
-				// 			const model = await v.open(context);
-				// 			console.log(model);
-				// 			// v._open(file, files);
-				//     	}
-				// 	});
-
-				// }
 
 				custominit.id = id;
 				custominit.filename = fileName;
@@ -170,8 +205,8 @@
 		}
 	};
 
-	if(custom && custom.overrides) {
-		custom.overrides.forEach(override => {
+	if (custom && custom.overrides) {
+		custom.overrides.forEach((override) => {
 			if (override.value === null) {
 				override.value = 0;
 			}
@@ -179,14 +214,14 @@
 	}
 
 	const setOverrideValue = (name, value) => {
-		let override = custom.overrides.find(override => override.name === name);
+		let override = custom.overrides.find((override) => override.name === name);
 		if (override) {
 			override.value = value;
 			customStore.update(() => custom);
 		} else {
 			console.log(`Override with name ${name} not found.`);
 		}
-	}
+	};
 
 	const updateInputValue = () => {
 		// Helper function to process a single dimension
@@ -194,37 +229,37 @@
 			if (dim.includes('+')) {
 				const baseName = dim.split(' + ')[0];
 				const add1Name = baseName + '_add1';
-				const add1Override = custom.overrides.find(o => o.name === add1Name);
+				const add1Override = custom.overrides.find((o) => o.name === add1Name);
 				return add1Override && add1Override.value !== null ? add1Override.value : dim;
 			} else if (dim.includes('/')) {
 				const baseName = dim.split(' / ')[0];
 				const div2Name = baseName + '_div2';
-				const div2Override = custom.overrides.find(o => o.name === div2Name);
-			return div2Override && div2Override.value !== null ? div2Override.value : dim;
+				const div2Override = custom.overrides.find((o) => o.name === div2Name);
+				return div2Override && div2Override.value !== null ? div2Override.value : dim;
 			} else {
-				const override = custom.overrides.find(o => o.name === dim);
+				const override = custom.overrides.find((o) => o.name === dim);
 				return override && override.value !== null ? override.value : dim;
 			}
 		}
 
-		['inputs', 'outputs'].forEach(io => {
-			custom[io].forEach(item => {
-			item.shapeDimensions = item.shapeDimensionsRaw.map(dim => {
-				if (typeof dim === 'string') {
-				return processDimension(dim);
-				}
-				return dim;
-			});
+		['inputs', 'outputs'].forEach((io) => {
+			custom[io].forEach((item) => {
+				item.shapeDimensions = item.shapeDimensionsRaw.map((dim) => {
+					if (typeof dim === 'string') {
+						return processDimension(dim);
+					}
+					return dim;
+				});
 			});
 		});
 		customStore.update(() => custom);
-	}
+	};
 
 	const updateOverride = (override) => {
 		let name = override.name;
 		let value = override.value;
 		if (value === '-') {
-			return;  // Keep the minus sign and exit the function
+			return; // Keep the minus sign and exit the function
 		}
 
 		value = value.replace(/(?!^-)\D/g, '');
@@ -235,7 +270,7 @@
 			value = Math.max(-1, Math.min(10000, Math.round(value)));
 
 			// Find the index of the override with the given name
-			const index = custom.overrides.findIndex(override => override.name === name);
+			const index = custom.overrides.findIndex((override) => override.name === name);
 			if (index === -1) return; // If not found, exit the function
 
 			// Update the value
@@ -244,31 +279,31 @@
 			// Handle special cases
 			if (name.endsWith('_add1')) {
 				const baseName = name.slice(0, -5);
-				const baseIndex = custom.overrides.findIndex(override => override.name === baseName);
+				const baseIndex = custom.overrides.findIndex((override) => override.name === baseName);
 				if (baseIndex !== -1) {
 					custom.overrides[baseIndex].value = value - 1;
 				}
 			} else if (name.endsWith('_div2')) {
 				const baseName = name.slice(0, -5);
-				const baseIndex = custom.overrides.findIndex(override => override.name === baseName);
+				const baseIndex = custom.overrides.findIndex((override) => override.name === baseName);
 				if (baseIndex !== -1) {
 					custom.overrides[baseIndex].value = value * 2;
 				}
 			} else {
 				const add1Name = `${name}_add1`;
-				const add1Index = custom.overrides.findIndex(override => override.name === add1Name);
+				const add1Index = custom.overrides.findIndex((override) => override.name === add1Name);
 				if (add1Index !== -1) {
 					custom.overrides[add1Index].value = value + 1;
 				}
 
 				const div2Name = `${name}_div2`;
-				const div2Index = custom.overrides.findIndex(override => override.name === div2Name);
+				const div2Index = custom.overrides.findIndex((override) => override.name === div2Name);
 				if (div2Index !== -1) {
 					custom.overrides[div2Index].value = Math.floor(value / 2);
 				}
 			}
 		} else {
-			const index = custom.overrides.findIndex(override => override.name === name);
+			const index = custom.overrides.findIndex((override) => override.name === name);
 			if (index === -1) return; // If not found, exit the function
 
 			// Update the value
@@ -277,39 +312,39 @@
 			// Handle special cases
 			if (name.endsWith('_add1')) {
 				const baseName = name.slice(0, -5);
-				const baseIndex = custom.overrides.findIndex(override => override.name === baseName);
+				const baseIndex = custom.overrides.findIndex((override) => override.name === baseName);
 				if (baseIndex !== -1) {
 					custom.overrides[baseIndex].value = null;
 				}
 			} else if (name.endsWith('_div2')) {
 				const baseName = name.slice(0, -5);
-				const baseIndex = custom.overrides.findIndex(override => override.name === baseName);
+				const baseIndex = custom.overrides.findIndex((override) => override.name === baseName);
 				if (baseIndex !== -1) {
 					custom.overrides[baseIndex].value = null;
 				}
 			} else {
 				const add1Name = `${name}_add1`;
-				const add1Index = custom.overrides.findIndex(override => override.name === add1Name);
+				const add1Index = custom.overrides.findIndex((override) => override.name === add1Name);
 				if (add1Index !== -1) {
 					custom.overrides[add1Index].value = null;
 				}
 
 				const div2Name = `${name}_div2`;
-				const div2Index = custom.overrides.findIndex(override => override.name === div2Name);
+				const div2Index = custom.overrides.findIndex((override) => override.name === div2Name);
 				if (div2Index !== -1) {
 					custom.overrides[div2Index].value = null;
 				}
 			}
 		}
- 
+
 		customStore.update(() => custom);
 		updateInputValue();
-  	}
+	};
 
 	let nodeCount = 0;
 	const getTotalNodeCount = () => {
 		if (custom && custom.nodes.length > 0) {
-			nodeCount  = custom.nodes.reduce((acc, item) => acc + item.count, 0);
+			nodeCount = custom.nodes.reduce((acc, item) => acc + item.count, 0);
 		} else {
 		}
 	};
@@ -323,18 +358,21 @@
 		});
 		ascending = !ascending;
 		customStore.update(() => custom);
-	}
+	};
 
 	let descending = true;
 	const sortNodebyCount = () => {
 		custom.nodes.sort((a, b) => {
-        return descending ? a.count - b.count : b.count - a.count;
+			return descending ? a.count - b.count : b.count - a.count;
 		});
 		descending = !descending;
 		customStore.update(() => custom);
-	}
+	};
+
+	beforeUpdate(() => {});
 
 	onMount(async () => {
+		resetStore();
 		if (testQueue.length > 0 && auto) {
 			// run();
 		}
@@ -353,11 +391,14 @@
 	afterUpdate(() => {
 		if (!auto) {
 			if ($page.url.searchParams.size === 0) {
-				let path = `${location.pathname}/?backend=none&run=1&modeltype=onnx`;
+				let path = `${location.pathname}/?backend=webnn_gpu&run=1&modeltype=onnx&datatype=all`;
 				// goto(path);
 				location.href = location.origin + path;
 			} else {
 				getTotalNodeCount();
+				if (id) {
+					urlToStore($page.url.searchParams, id);
+				}
 			}
 		}
 	});
@@ -385,6 +426,7 @@
 					<label>
 						<input
 							id="open-file-dialog"
+							bind:value={openFile}
 							type="file"
 							accept=".onnx"
 							on:change={handleFileInput}
@@ -419,14 +461,18 @@
 						<span id="order-name" class="name count" title="Sort by name">
 							<button on:click={sortNodebyName}>
 								<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
-									<path d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"/>
+									<path
+										d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"
+									/>
 								</svg>
 							</button>
 						</span>
 						<span id="order-value" class="value count" title="Sort by count">
 							<button on:click={sortNodebyCount}>
 								<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
-									<path d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z"/>
+									<path
+										d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z"
+									/>
 								</svg>
 							</button>
 						</span>
@@ -514,19 +560,20 @@
 					for the symbolic dimensions below before running the performance testing
 				</div>
 				<div id="override-settings">
-						{#each custom.overrides as override (override.name)}
-							<div>
-								<span id="overrides_span_{override.name}" class="overridename">{override.name.replace('_div2', ' / 2').replace('_add1', ' + 1')}</span
-								>
-								<input
-									id="{override.name}"
-									class="overridevalue"
-									type="text"
-									bind:value={override.value}
-									on:input={() => updateOverride(override)}
-								/>
-							</div>
-						{/each}
+					{#each custom.overrides as override (override.name)}
+						<div>
+							<span id="overrides_span_{override.name}" class="overridename"
+								>{override.name.replace('_div2', ' / 2').replace('_add1', ' + 1')}</span
+							>
+							<input
+								id={override.name}
+								class="overridevalue"
+								type="text"
+								bind:value={override.value}
+								on:input={() => updateOverride(override)}
+							/>
+						</div>
+					{/each}
 				</div>
 				<!-- <p>Override values:</p>
 				<ul>
@@ -542,8 +589,8 @@
 		<InferenceLog bind:logShow />
 		<div class="run">
 			{#if selectedBackends.length > 0 && !auto}
-				{#if testQueue.length === 0}
-					<button on:click={runCustomize}>Run</button>
+				{#if buffer}
+					<button on:click={run}>Run</button>
 				{/if}
 			{/if}
 			{#if !logShow}

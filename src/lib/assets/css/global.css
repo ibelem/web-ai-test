@@ -1800,6 +1800,11 @@ padding: 2px 4px 2px 4px;
   .figure span:last-child {
     margin-bottom: 0px;
   }
+
+  .init {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
 }
 
 @media (max-width: 512px) { 
@@ -1927,6 +1932,11 @@ padding: 2px 4px 2px 4px;
 
   #modeldesc .note {
     border-radius: 0px;
+  }
+
+  .init {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
   }
 }
 
