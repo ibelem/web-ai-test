@@ -12,7 +12,7 @@
 	import Results from '$lib/components/Results.svelte';
 	import Environment from './Environment.svelte';
 	import Info from './Info.svelte';
-	import Upload from '$lib/components/svg/Upload.svelte';
+	import OnnxCustom from '$lib/components/svg/OnnxCustom.svelte';
 	import { auto, run, resetResult, resetInfo, getDateTimeCustom } from '$lib/assets/js/utils';
 	import * as BrowserHost from '$lib/assets/js/onnx/browser';
 	// import { onnxGraph } from '$lib/assets/js/onnx/view';
@@ -163,19 +163,154 @@
 				custominit.size = size;
 				custominit.time = getDateTimeCustom();
 				customStore.update(() => custominit);
+				getTotalNodeCount();
 			} catch (error) {
 				console.error('Error reading or parsing the file:', error);
 			}
 		}
 	};
 
-	$: nodeCount = getTotalNodeCount();
+	if(custom && custom.overrides) {
+		custom.overrides.forEach(override => {
+			if (override.value === null) {
+				override.value = 0;
+			}
+		});
+	}
 
+	const setOverrideValue = (name, value) => {
+		let override = custom.overrides.find(override => override.name === name);
+		if (override) {
+			override.value = value;
+			customStore.update(() => custom);
+		} else {
+			console.log(`Override with name ${name} not found.`);
+		}
+	}
+
+	const updateInputValue = () => {
+		// Helper function to process a single dimension
+		function processDimension(dim) {
+			if (dim.includes('+')) {
+				const baseName = dim.split(' + ')[0];
+				const add1Name = baseName + '_add1';
+				const add1Override = custom.overrides.find(o => o.name === add1Name);
+				return add1Override && add1Override.value !== null ? add1Override.value : dim;
+			} else if (dim.includes('/')) {
+				const baseName = dim.split(' / ')[0];
+				const div2Name = baseName + '_div2';
+				const div2Override = custom.overrides.find(o => o.name === div2Name);
+			return div2Override && div2Override.value !== null ? div2Override.value : dim;
+			} else {
+				const override = custom.overrides.find(o => o.name === dim);
+				return override && override.value !== null ? override.value : dim;
+			}
+		}
+
+		['inputs', 'outputs'].forEach(io => {
+			custom[io].forEach(item => {
+			item.shapeDimensions = item.shapeDimensionsRaw.map(dim => {
+				if (typeof dim === 'string') {
+				return processDimension(dim);
+				}
+				return dim;
+			});
+			});
+		});
+		customStore.update(() => custom);
+	}
+
+	const updateOverride = (override) => {
+		let name = override.name;
+		let value = override.value;
+		if (value === '-') {
+			return;  // Keep the minus sign and exit the function
+		}
+
+		value = value.replace(/(?!^-)\D/g, '');
+		value = parseInt(value, 10);
+
+		if (!isNaN(value)) {
+			// Ensure value is an integer between -1 and 10000
+			value = Math.max(-1, Math.min(10000, Math.round(value)));
+
+			// Find the index of the override with the given name
+			const index = custom.overrides.findIndex(override => override.name === name);
+			if (index === -1) return; // If not found, exit the function
+
+			// Update the value
+			custom.overrides[index].value = value;
+
+			// Handle special cases
+			if (name.endsWith('_add1')) {
+				const baseName = name.slice(0, -5);
+				const baseIndex = custom.overrides.findIndex(override => override.name === baseName);
+				if (baseIndex !== -1) {
+					custom.overrides[baseIndex].value = value - 1;
+				}
+			} else if (name.endsWith('_div2')) {
+				const baseName = name.slice(0, -5);
+				const baseIndex = custom.overrides.findIndex(override => override.name === baseName);
+				if (baseIndex !== -1) {
+					custom.overrides[baseIndex].value = value * 2;
+				}
+			} else {
+				const add1Name = `${name}_add1`;
+				const add1Index = custom.overrides.findIndex(override => override.name === add1Name);
+				if (add1Index !== -1) {
+					custom.overrides[add1Index].value = value + 1;
+				}
+
+				const div2Name = `${name}_div2`;
+				const div2Index = custom.overrides.findIndex(override => override.name === div2Name);
+				if (div2Index !== -1) {
+					custom.overrides[div2Index].value = Math.floor(value / 2);
+				}
+			}
+		} else {
+			const index = custom.overrides.findIndex(override => override.name === name);
+			if (index === -1) return; // If not found, exit the function
+
+			// Update the value
+			custom.overrides[index].value = null;
+
+			// Handle special cases
+			if (name.endsWith('_add1')) {
+				const baseName = name.slice(0, -5);
+				const baseIndex = custom.overrides.findIndex(override => override.name === baseName);
+				if (baseIndex !== -1) {
+					custom.overrides[baseIndex].value = null;
+				}
+			} else if (name.endsWith('_div2')) {
+				const baseName = name.slice(0, -5);
+				const baseIndex = custom.overrides.findIndex(override => override.name === baseName);
+				if (baseIndex !== -1) {
+					custom.overrides[baseIndex].value = null;
+				}
+			} else {
+				const add1Name = `${name}_add1`;
+				const add1Index = custom.overrides.findIndex(override => override.name === add1Name);
+				if (add1Index !== -1) {
+					custom.overrides[add1Index].value = null;
+				}
+
+				const div2Name = `${name}_div2`;
+				const div2Index = custom.overrides.findIndex(override => override.name === div2Name);
+				if (div2Index !== -1) {
+					custom.overrides[div2Index].value = null;
+				}
+			}
+		}
+ 
+		customStore.update(() => custom);
+		updateInputValue();
+  	}
+
+	let nodeCount = 0;
 	const getTotalNodeCount = () => {
 		if (custom && custom.nodes.length > 0) {
-			return custom.nodes.reduce((acc, item) => acc + item.count, 0);
+			nodeCount  = custom.nodes.reduce((acc, item) => acc + item.count, 0);
 		} else {
-			return 0;
 		}
 	};
 
@@ -222,6 +357,7 @@
 				// goto(path);
 				location.href = location.origin + path;
 			} else {
+				getTotalNodeCount();
 			}
 		}
 	});
@@ -254,7 +390,7 @@
 							on:change={handleFileInput}
 							hidden
 						/>
-						<span><Upload />Upload ONNX Model</span>
+						<span><OnnxCustom />Upload ONNX Model</span>
 					</label>
 				</div>
 			</div>
@@ -277,7 +413,7 @@
 		</div>
 		<div id="netron-graph" class="">
 			{#if custom && custom.nodes.length > 0}
-				<div id="graph-nodes" class="list">
+				<div id="graph-nodes" class="list netron-analysis">
 					<div class="title"><span>Operations · Count</span></div>
 					<div>
 						<span id="order-name" class="name count" title="Sort by name">
@@ -312,35 +448,35 @@
 						</div>
 					{/if}
 				</div>
-				<div id="graph-inputs" class="list">
+				<div id="graph-inputs" class="list netron-analysis">
 					<div class="title"><span>Inputs</span></div>
 					{#if custom && custom.inputs.length > 0}
 						{#each custom.inputs as input}
 							<div>
 								<span class="name inputs" title={input.name}>{input.name}</span>
 								<span class="value datatype" title={input.datatype}>{input.datatype}</span>
-								<span class="value dim" title="[{input.shapeDimensions}]"
+								<span class="value dim" title="[{input.shapeDimensionsRaw}]"
 									>[{input.shapeDimensions}]</span
 								>
 							</div>
 						{/each}
 					{/if}
 				</div>
-				<div id="graph-outputs" class="list">
+				<div id="graph-outputs" class="list netron-analysis">
 					<div class="title"><span>Outputs</span></div>
 					{#if custom && custom.outputs.length > 0}
 						{#each custom.outputs as output}
 							<div>
 								<span class="name outputs" title={output.name}>{output.name}</span>
 								<span class="value datatype" title={output.datatype}>{output.datatype}</span>
-								<span class="value dim" title="[{output.shapeDimensions}]"
+								<span class="value dim" title="[{output.shapeDimensionsRaw}]"
 									>[{output.shapeDimensions}]</span
 								>
 							</div>
 						{/each}
 					{/if}
 				</div>
-				<div id="properties-meta">
+				<div id="properties-meta" class="netron-analysis">
 					<div id="graph-properties" class="list">
 						<div class="title"><span>Properties</span></div>
 						{#if custom && custom.properties.length > 0}
@@ -378,18 +514,26 @@
 					for the symbolic dimensions below before running the performance testing
 				</div>
 				<div id="override-settings">
-						{#each custom.overrides as override}
+						{#each custom.overrides as override (override.name)}
 							<div>
-								<span id="overrides_span_{override.name}" class="overridename">{override.name}</span
+								<span id="overrides_span_{override.name}" class="overridename">{override.name.replace('_div2', ' / 2').replace('_add1', ' + 1')}</span
 								>
 								<input
-									id="overrides_input_{override.name}"
+									id="{override.name}"
 									class="overridevalue"
 									type="text"
+									bind:value={override.value}
+									on:input={() => updateOverride(override)}
 								/>
 							</div>
 						{/each}
 				</div>
+				<!-- <p>Override values:</p>
+				<ul>
+				{#each custom.overrides as override (override.name)}
+					<li>{override.name}: {override.value}</li>
+				{/each}
+				</ul> -->
 				<div id="inputs-feeds"></div>
 			</div>
 		{/if}

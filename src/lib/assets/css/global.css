@@ -2080,8 +2080,8 @@ background-color: var(--int4-005);
 
 .modelfile svg {
   display: inline-block;
-  height: 36px;
-  width: 36px;
+  height: 28px;
+  width: 28px;
 }
 
 .jsonfile svg path, .modelfile svg path {
@@ -2235,6 +2235,37 @@ background-color: var(--int4-005);
   font-size: 0.8rem;
 }
 
+.netron-analysis {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.netron-analysis {
+  scrollbar-width: auto;
+  scrollbar-color: var(--grey-02), #ffffff;
+}
+
+.netron-analysis::-webkit-scrollbar {
+  width: 12px !important;
+  height: 11px !important;
+}
+
+.netron-analysis::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.netron-analysis::-webkit-scrollbar-thumb {
+  background-color: var(--grey-04);
+  border-radius: 10px;
+  border: 5px solid #ffffff;
+}
+
+.netron-analysis:hover::-webkit-scrollbar-thumb {
+  background-color: var(--green);
+}
+
 #netron-graph>div {
   padding: 10px;
 }
@@ -2274,10 +2305,16 @@ background-color: var(--int4-005);
   padding: 4px 10px;
   align-self: stretch;
   font-size: 0.68rem;
-  background-color: var(--red);
-  color: var(--white);
+  background-color: var(--red-005);
+  color: var(--font);
   width: 210px;
   text-align: right;
+}
+
+#override-settings div:hover span {
+  border: 1px solid var(--grey-02);
+  background-color: var(--red);
+  color: var(--white);
 }
 
 #webnn-inputs-overrides #inputs-feeds {
@@ -2426,11 +2463,11 @@ background-color: var(--int4-005);
 }
 
 #graph-inputs span.value.dim {
-  width: 250px;
+  width: 230px;
 }
 
 #graph-outputs span.value.dim {
-  width: 276px;
+  width: 256px;
 }
 
 #graph-properties span.name.properties,
@@ -2557,12 +2594,38 @@ background-color: var(--int4-005);
   align-self: stretch;
 }
 
-#webnn-inputs-overrides input:hover {
+#override-settings div:hover input {
 	border: 1px solid var(--red);
 }
 
 #webnn-inputs-overrides input:focus, #webnn-inputs-overrides input:active {
   outline: none;
+}
+
+#onnx_custom path.st0_onnx {fill: #333;}
+#onnx_custom path.st1_onnx {fill:#DEDEDD;}
+#onnx_custom path.st2_onnx {fill: #b2b2b2;}
+#onnx_custom path.st3_onnx {fill:#D1D1D1;}
+#onnx_custom path.st4_onnx {fill:#F2F2F2;}
+#onnx_custom path.st5_onnx {fill:#D8D8D7;}
+#onnx_custom path.st6_onnx {fill:#FFFFFF;}
+
+.modelfile span:hover #onnx_custom path.st0_onnx {
+  fill: var(--red);
+}
+
+.modelfile span:hover #onnx_custom path.st2_onnx,
+.modelfile span:hover #onnx_custom path.st3_onnx {
+  fill: var(--red-01);
+}
+
+.modelfile span:hover #onnx_custom path.st4_onnx {
+  fill: var(--red-002);
+}
+
+.modelfile span:hover #onnx_custom path.st1_onnx,
+.modelfile span:hover #onnx_custom path.st5_onnx {
+  fill: var(--red-005);
 }
 
 @media (max-width: 1120px) {

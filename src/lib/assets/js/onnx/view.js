@@ -803,10 +803,11 @@ view.View = class {
 
             let inputsArray = [];
             inputs.forEach(element => {
-                let inputO = { name: '', datatype: '', shapeDimensions: ''}
+                let inputO = { name: '', datatype: '', shapeDimensions: '', shapeDimensionsRaw: ''}
                 inputO.name = element.name;
                 inputO.datatype = element.value[0].type.dataType;
                 inputO.shapeDimensions = element.value[0].type.shape.dimensions;
+                inputO.shapeDimensionsRaw = element.value[0].type.shape.dimensions;
                 inputsArray.push(inputO);
             })
 
@@ -826,10 +827,11 @@ view.View = class {
 
             let outputsArray = [];
             outputs.forEach(element => {
-                let outputO = { name: '', datatype: '', shapeDimensions: ''}
+                let outputO = { name: '', datatype: '', shapeDimensions: '', shapeDimensionsRaw: ''}
                 outputO.name = element.name;
                 outputO.datatype = element.value[0].type.dataType;
                 outputO.shapeDimensions = element.value[0].type.shape.dimensions;
+                outputO.shapeDimensionsRaw = element.value[0].type.shape.dimensions;
                 outputsArray.push(outputO);
             })
 
@@ -920,6 +922,7 @@ view.View = class {
             
             const overrides = extractVariables(inputsArray);
             let overridesObject = overrides.map(item => {
+                item = item.replace(' / 2', '_div2').replace(' + 1', '_add1')
                 return { name: item, value: null };
             });
 
@@ -934,10 +937,12 @@ view.View = class {
                 // }
 
                 if (custom) {
-                    custom.overrides = overrides;
+                    custom.overrides = overridesObject;
                     customStore.update(() => custom);
                 }
             }
+
+            console.log(custom);
 
             // return await this._updateGraph(model, stack);
         } catch (error) {
