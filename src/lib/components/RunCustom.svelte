@@ -20,7 +20,10 @@
 		getDateTimeCustom,
 		resetStore,
 		updateStore,
-		stringToArray
+		stringToArray,
+		initResult,
+		filterTestQueue,
+		updateInfo
 	} from '$lib/assets/js/utils';
 	import * as BrowserHost from '$lib/assets/js/onnx/browser';
 	// import { onnxGraph } from '$lib/assets/js/onnx/view';
@@ -30,7 +33,8 @@
 		autoStore,
 		testQueueStore,
 		backendsStore,
-		modelDownloadProgressStore
+		modelDownloadProgressStore,
+		testQueueLengthStore
 	} from '$lib/store/store';
 	import { page } from '$app/stores';
 
@@ -50,6 +54,15 @@
 	let testQueue;
 	testQueueStore.subscribe((value) => {
 		testQueue = value;
+	});
+
+	/**
+	 * @type {number}
+	 */
+	export let testQueueLength;
+
+	testQueueLengthStore.subscribe((value) => {
+	testQueueLength = value;
 	});
 
 	/**
@@ -83,31 +96,22 @@
 		 * @type {string[]}
 		 */
 		let testQueue = [];
-		if (selectedModels) {
-			console.log(selectedModels);
-			let id = 1;
-			for (const dt of selectedDataTypes) {
-				for (const b of selectedBackends) {
-					for (const mt of selectedModelTypes) {
-						// t = `${mt} ${m} ${dt} ${b}`;
-						// testQueue.push(t);
-						// Status: 0 Not selected, 1 Not started, 2 In testing, 3 Completed, 4 Fail or Error
-						let t = {
-							id: id,
-							status: 1,
-							model: selectedModels[0],
-							modeltype: mt,
-							datatype: dt,
-							backend: b
-						};
-						testQueue.push(t);
-					}
-				}
-			}
-
-			testQueueStore.update(() => testQueue);
-			testQueueLengthStore.update(() => testQueue.length);
+		for (const b of selectedBackends) {
+			// t = `${mt} ${m} ${dt} ${b}`;
+			// testQueue.push(t);
+			// Status: 0 Not selected, 1 Not started, 2 In testing, 3 Completed, 4 Fail or Error
+			let t = {
+				id: 1,
+				status: 1,
+				model: id,
+				modeltype: "onnx",
+				datatype: dataType,
+				backend: b
+			};
+			testQueue.push(t);
 		}
+		testQueueStore.update(() => testQueue);
+		testQueueLengthStore.update(() => testQueue.length);
 	};
 
 	const urlToStore = (urlSearchParams, modelIdFromUrl, dataType) => {
@@ -179,14 +183,15 @@
 	};
 
 	const runCustom = async () => {
-		if (testQueue[0] && getModelIdfromPath() === testQueue[0].model) {
+		if (testQueue[0]) {
 			let t0 = testQueue[0];
+			let modelSize = size.toFixed(2) + " MB";
 			let r = {
 				id: t0.id,
 				model: t0.model,
 				modeltype: t0.modeltype,
 				datatype: t0.datatype,
-				modelsize: getModelSizeById(t0.model)
+				modelsize: modelSize
 			};
 			for (const prop of selectedBackends) {
 				r[prop] = {
@@ -206,13 +211,16 @@
 			initResult(r);
 
 			if (t0.modeltype === 'onnx') {
+				// await runOnnx(1, id, 'onnx', 'fp32', size, 'webnn_gpu', buffer);
 				await runOnnx(
 					t0.id,
 					t0.model,
 					t0.modeltype,
 					t0.datatype,
-					getModelSizeById(t0.model),
-					t0.backend
+					modelSize,
+					t0.backend,
+					buffer,
+					custom
 				);
 			}
 
@@ -229,7 +237,6 @@
 		resetResult();
 		resetInfo();
 		runCustom();
-		// await runOnnx(1, id, 'onnx', 'fp32', size, 'webnn_gpu', buffer);
 	};
 
 	let statusCollapse;

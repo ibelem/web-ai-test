@@ -107,12 +107,12 @@
 	}
 
 	input[type='range']:hover {
-		height: 4px;
+		height: 2px;
 	}
 
 	input[type='range']:hover::-webkit-slider-thumb {
-		width: 16px;
-		height: 16px;
+		width: 12px;
+		height: 12px;
 		cursor: pointer;
 	}
 

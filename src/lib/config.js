@@ -834,7 +834,7 @@ const distilMediumEnDecoderMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1, "past_decoder_sequence_length": 1 }],
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1, "past_decoder_sequence_length": 1, "encoder_sequence_length_out": 1 }],
       'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }],
       'use_cache_branch': ['bool', 1, [1], {}]
     }],

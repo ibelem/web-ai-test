@@ -60,30 +60,27 @@ resultsStore.subscribe((value) => {
   results = value;
 });
 
-const getInputsById = (id) => {
-  for (const model of models) {
-    if (model.id === id) {
-      return model.inputs;
-    }
-  }
-  return null;
-}
-
-const getFeeds = (session, modelName) => {
+const getFeeds = (_custom) => {
   let feeds = {};
-  let inputs = getInputsById(modelName);
-  let inputNames = session.inputNames;
-
-  for (let input of inputs) {
-    if (isDict(input)) {
-      for (let key in input) {
-        let value = input[key];
-        feeds[key] = getTensor(value[0], value[1], value[2]);
+  console.log(_custom.inputs)
+  if(_custom.inputs && _custom.inputs.length > 0) {
+    _custom.inputs.forEach((e) => {
+      let data = 0;
+      if (e.datatype === 'float32' || e.datatype === 'float16') {
+        data = 'random'
+      } else if (e.datatype === 'int64') {
+        if(e.name === 'input_ids') {
+          data = 99n;
+        } else {
+          data = 1n;
+        }
       }
-    }
+      feeds[e.name] = getTensor(e.datatype, data, e.shapeDimensions);
+    })
+    return feeds;
+  } else {
+    return null;
   }
-
-  return feeds;
 }
 
 const getTensor = (type, data, dims) => {
@@ -145,27 +142,28 @@ const l = (i) => {
   console.log(i);
 }
 
-const getFreeDimensionOverridesById = (id) => {
-  for (let i = 0; i < models.length; i++) {
-    if (models[i].id === id) {
-      let fdo = {};
-      for (let input of models[i].inputs) {
-        for (let key in input) {
-          let value = input[key];
-          let ob = value[3];
-          if (Object.keys(ob).length !== 0) {
-            Object.keys(ob).forEach(key => {
-              if (ob[key].toString().trim()) {
-                fdo[key] = ob[key];
-              }
-            });
-          }
-        }
+const getFreeDimensionOverridesFromCustom = (_custom) => {
+  if (_custom.overrides && _custom.overrides.length > 0) {
+    const result = {};
+    _custom.overrides.forEach(override => {
+      let key = override.name;
+
+      // Check if the name includes "_add1" and transform it
+      if (key.includes("_add1")) {
+        key = key.replace("_add1", " + 1");
       }
-      return fdo;
-    }
+      // Check if the name includes "_div2" and transform it
+      else if (key.includes("_div2")) {
+        key = key.replace("_div2", " / 2");
+      }
+
+      result[key] = override.value;
+    });
+
+    return result;
+  } else {
+    return null;
   }
-  return null;
 }
 
 const getModelUrl = (_model) => {
@@ -186,7 +184,7 @@ const removeTag = () => {
   removeElement('webnn');
 }
 
-const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _modelBuffer) => {
+const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _modelBuffer, _custom) => {
 
   let backend = 'wasm';
   let numThreads = 1;
@@ -264,7 +262,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _m
     }
   }
 
-  let modelPath = getModelUrl(_model);
+  // let modelPath = getModelUrl(_model);
+  let modelPath = 'local';
 
   let options = {
     executionProviders: [
@@ -304,8 +303,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _m
   // (backend === 'webnn' || _backend === 'wasm_4') ? ort.env.wasm.proxy = true : ort.env.wasm.proxy = false;
   // (_backend === 'wasm_4') ? ort.env.wasm.proxy = true : ort.env.wasm.proxy = false;
 
-  let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
-
+  let freeDimensionOverrides = getFreeDimensionOverridesFromCustom(_custom);
   if (freeDimensionOverrides) {
     options.freeDimensionOverrides = freeDimensionOverrides;
   }
@@ -319,122 +317,98 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _m
   l(`options:`)
   l(options)
 
+  updateTestQueueStatus(_id, 2);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, null, [], null, null, null, null, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, null, [], null, null, null, null, null);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}/${_modelSize}) with ${_backend} backend`);
 
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Downloading model from ${modelPath}`);
 
-  // Load the ONNX model
-  // const session = await ort.InferenceSession.create(_modelBuffer);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Creating onnx runtime web inference session`);
 
-  // console.log(session);
+  const compilationStart = performance.now();
 
-  // Get input information
-  // const inputNames = session.inputNames;
-  // const inputInfo = inputNames.map(name => session.inputMetadata[name]);
-
-  // // Print input information
-  // inputInfo.forEach((info, index) => {
-  //   console.log(`Input ${index + 1}:`);
-  //   console.log(`  Name: ${inputNames[index]}`);
-  //   console.log(`  Type: ${info.type}`);
-  //   console.log(`  Shape: ${info.dims}`);
-  // });
-
-  // updateTestQueueStatus(_id, 2);
-  // addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, null, [], null, null, null, null, null);
-  // addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, null, [], null, null, null, null, null);
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}/${_modelSize}) with ${_backend} backend`);
-
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Downloading model from ${modelPath}`);
-
-  // let modelBuffer = await getModelOPFS(_model, modelPath, false);
-  // if (modelBuffer.byteLength < 1024) {
-  //   modelBuffer = await getModelOPFS(_model, modelPath, true);
-  // }
-
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Creating onnx runtime web inference session`);
-
-  // const compilationStart = performance.now();
-
-  // // const sess = null;
+  // const sess = null;
   // // if(externalDataName) {
   // //   sess = await ort.InferenceSession.create(modelPath, options);
   // // } else {
   // //   sess = await ort.InferenceSession.create(modelBuffer, options);
   // // }
-  // const sess = await ort.InferenceSession.create(modelBuffer, options);
+  const sess = await ort.InferenceSession.create(_modelBuffer, options);
 
-  // let compilationTime = performance.now() - compilationStart;
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Compilation Time: ${compilationTime} ms`);
+  let compilationTime = performance.now() - compilationStart;
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Compilation Time: ${compilationTime} ms`);
 
-  // let feeds = getFeeds(sess, _model);
-  // console.log(feeds);
+  let feeds = getFeeds(_custom);
+  console.log(feeds);
 
-  // let numOfWarmups = 1;
+  let numOfWarmups = 1;
 
-  // if (backend === 'webgl' || backend === 'webgpu' || (backend === 'webnn' && deviceType === 'gpu')) {
-  //   numOfWarmups = 1;
-  // }
+  if (backend === 'webgl' || backend === 'webgpu' || (backend === 'webnn' && deviceType === 'gpu')) {
+    numOfWarmups = 1;
+  }
 
-  // let firstInferenceTime = 0, warmupTimes = [], inferenceTimes = [], timeToFirstInference = null, inferenceTimesAverage = null, inferenceTimesMedian = null, inferenceTimesThroughput = null, inferenceTimesNinety = null, inferenceTimesBest = null;
+  let firstInferenceTime = 0, warmupTimes = [], inferenceTimes = [], timeToFirstInference = null, inferenceTimesAverage = null, inferenceTimesMedian = null, inferenceTimesThroughput = null, inferenceTimesNinety = null, inferenceTimesBest = null;
 
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inferencing, please wait... `);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inferencing, please wait... `);
 
-  // let throughputStart = performance.now();
-  // for (let i = 0; i < numOfWarmups + numOfRuns; i++) {
-  //   let start;
-  //   start = performance.now();
-  //   await sess.run(feeds);
-  //   let inferenceTime = performance.now() - start;
+  let throughputStart = performance.now();
+  for (let i = 0; i < numOfWarmups + numOfRuns; i++) {
+    let start;
+    start = performance.now();
+    await sess.run(feeds);
+    let inferenceTime = performance.now() - start;
 
-  //   if (i === 0) {
-  //     firstInferenceTime = parseFloat(inferenceTime).toFixed(2);
-  //     timeToFirstInference = (parseFloat(compilationTime) + parseFloat(firstInferenceTime)).toFixed(2);
-  //   }
+    if (i === 0) {
+      firstInferenceTime = parseFloat(inferenceTime).toFixed(2);
+      timeToFirstInference = (parseFloat(compilationTime) + parseFloat(firstInferenceTime)).toFixed(2);
+    }
 
-  //   (i < numOfWarmups) ? warmupTimes.push(inferenceTime) : inferenceTimes.push(inferenceTime);
+    (i < numOfWarmups) ? warmupTimes.push(inferenceTime) : inferenceTimes.push(inferenceTime);
 
-  //   // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
-  // }
+    // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
+  }
 
-  // inferenceTimesThroughput = parseFloat(1000.00 / ((performance.now() - throughputStart) / (numOfWarmups + numOfRuns))).toFixed(2) + ' FPS';
+  inferenceTimesThroughput = parseFloat(1000.00 / ((performance.now() - throughputStart) / (numOfWarmups + numOfRuns))).toFixed(2) + ' FPS';
 
-  // inferenceTimesAverage = average(inferenceTimes);
-  // inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
+  inferenceTimesAverage = average(inferenceTimes);
+  inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
 
-  // inferenceTimesNinety = percentile(90, inferenceTimes);
-  // inferenceTimesNinety = inferenceTimesNinety.toFixed(2);
-  // inferenceTimesBest = minimum(inferenceTimes);
+  inferenceTimesNinety = percentile(90, inferenceTimes);
+  inferenceTimesNinety = inferenceTimesNinety.toFixed(2);
+  inferenceTimesBest = minimum(inferenceTimes);
 
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time on Warmup / ${numOfWarmups} time(s): [${warmupTimes}] ms`);
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] First Inference Time: ${firstInferenceTime} ms`);
-  // await sleep(100);
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Time to First Inference: ${timeToFirstInference} ms`);
-  // await sleep(100);
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Average): ${inferenceTimesAverage} ms`);
-  // await sleep(100);
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Median): ${inferenceTimesMedian} ms`);
-  // await sleep(100);
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (90th Percentile): ${inferenceTimesNinety} ms`);
-  // await sleep(100);
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Best): ${inferenceTimesBest} ms`);
-  // await sleep(100);
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (${numOfRuns} times): [${inferenceTimes}] ms`);
-  // await sleep(100);
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Throughput (${numOfRuns} times): ${inferenceTimesThroughput}`);
-  // addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, timeToFirstInference, inferenceTimes, inferenceTimesMedian, inferenceTimesThroughput, inferenceTimesNinety, inferenceTimesAverage, inferenceTimesBest, null);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time on Warmup / ${numOfWarmups} time(s): [${warmupTimes}] ms`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] First Inference Time: ${firstInferenceTime} ms`);
+  await sleep(100);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Time to First Inference: ${timeToFirstInference} ms`);
+  await sleep(100);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Average): ${inferenceTimesAverage} ms`);
+  await sleep(100);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Median): ${inferenceTimesMedian} ms`);
+  await sleep(100);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (90th Percentile): ${inferenceTimesNinety} ms`);
+  await sleep(100);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Best): ${inferenceTimesBest} ms`);
+  await sleep(100);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (${numOfRuns} times): [${inferenceTimes}] ms`);
+  await sleep(100);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Throughput (${numOfRuns} times): ${inferenceTimesThroughput}`);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, timeToFirstInference, inferenceTimes, inferenceTimesMedian, inferenceTimesThroughput, inferenceTimesNinety, inferenceTimesAverage, inferenceTimesBest, null);
 
-  // await sess.release();
-  // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
-  // await sleep(500);
+  await sess.release();
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
+  await sleep(500);
 }
 
-export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _backend, modelBuffer) => {
-  await main(_id, _model, _modelType, _dataType, _modelSize, _backend, modelBuffer);
-  // const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend, modelBuffer));
-  // if (err) {
-  //   addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
-  //   updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-  //   updateInfo(err.message);
-  // } else {
-  //   // use data 
-  // }
+export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _modelBuffer, _custom) => {
+  // await main(_id, _model, _modelType, _dataType, _modelSize, _backend, _modelBuffer, _custom);
+  const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend, _modelBuffer, _custom));
+  if (err) {
+    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
+    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+    updateInfo(err.message);
+  } else {
+    // use data 
+  }
 }

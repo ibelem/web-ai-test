@@ -2111,6 +2111,34 @@ background-color: var(--int4-005);
   width: 50vw !important;
 }
 
+.fp16 input[type='range']:hover,
+.fp16 input[type='range']:hover::-webkit-slider-thumb {
+  background-color: var(--fp16) !important;
+}
+
+.int8 input[type='range']:hover,
+.int8 input[type='range']:hover::-webkit-slider-thumb {
+  background-color: var(--p) !important;
+}
+
+.fp16 input[type='number']:hover,
+.fp16 input[type='number']:focus {
+  border: 1px solid var(--fp16) !important;
+}
+
+.int8 input[type='number']:hover,
+.int8 input[type='number']:focus {
+  border: 1px solid var(--p) !important;
+}
+
+.fp16 #install-guides a {
+  background-color: var(--fp16-01) !important;
+}
+
+.int8 #install-guides a {
+  background-color: var(--p-01) !important;
+}
+
 .vis-network {
   height: auto;
   min-height: 40vh !important;

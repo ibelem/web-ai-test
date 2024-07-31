@@ -506,7 +506,11 @@ export const getModelInputsRawById = (id) => {
 
 export const getModelNameById = (id) => {
   const model = models.find(item => item.id === id);
-  return model?.name;
+  if(model?.name) {
+    return model?.name;
+  } else {
+    return id;
+  }
 }
 
 export const getModelDescriptionById = (id) => {
