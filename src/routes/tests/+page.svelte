@@ -11,7 +11,7 @@
 	import Onnx from '$lib/components/svg/Onnx.svelte';
 	import Tflite from '$lib/components/svg/Tflite.svelte';
 	import { base } from '$app/paths';
-	import { autoStore } from '$lib/store/store';
+	import { autoStore, customStore } from '$lib/store/store';
 	import {
 		resetStore,
 		getModelNameById,
@@ -52,7 +52,7 @@
 	};
 
 	const filterCategory = (/** @type string */ category) => {
-		if(typeof(category) === "string") {
+		if (typeof category === 'string') {
 			let filterModels = models.filter((item) =>
 				item.category.toLowerCase().includes(category.toLowerCase())
 			);
@@ -71,18 +71,18 @@
 		int8Count = 0;
 		fp16Count = 0;
 		fp32Count = 0;
-		uniqueModels.forEach(item => {
-			if (item.endsWith("_int4")) {
+		uniqueModels.forEach((item) => {
+			if (item.endsWith('_int4')) {
 				int4Count++;
-			} else if (item.endsWith("_int8")) {
+			} else if (item.endsWith('_int8')) {
 				int8Count++;
-			} else if (item.endsWith("_fp16")) {
+			} else if (item.endsWith('_fp16')) {
 				fp16Count++;
 			} else {
 				fp32Count++;
 			}
 		});
-	}
+	};
 
 	const filterUniqueModelsByKeyword = (/** @type {any[]} */ array, /** @type {any} */ keyword) => {
 		const lowerKeyword = keyword.toLowerCase();
@@ -116,16 +116,34 @@
 
 	const getHTMLModelName = (/** @type {string} */ model) => {
 		let name = getModelNameById(model);
-		name = name?.replace('Encoder','<span>Encoder</span>').replace('Decoder','<span>Decoder</span>')
-		.replace('Non-KV-Cache','<span>Non-KV-Cache</span>').replace(' KV-Cache',' <span>KV-Cache</span>')
-		.replace('w/i Past','<span>w/i Past</span>').replace('Static Shape','<span class="static">Static Shape</span>');
+		name = name
+			?.replace('Encoder', '<span>Encoder</span>')
+			.replace('Decoder', '<span>Decoder</span>')
+			.replace('Non-KV-Cache', '<span>Non-KV-Cache</span>')
+			.replace(' KV-Cache', ' <span>KV-Cache</span>')
+			.replace('w/i Past', '<span>w/i Past</span>')
+			.replace('Static Shape', '<span class="static">Static Shape</span>');
 		return name;
-	}
+	};
 
 	beforeUpdate(() => {});
 
 	onMount(() => {
 		resetStore();
+		let custom = {
+			id: '',
+			filename: '',
+			size: '',
+			time: '',
+			node_attributes_value_fp16: false,
+			properties: [],
+			metadata: [],
+			nodes: [],
+			inputs: [],
+			outputs: [],
+			overrides: []
+		};
+		customStore.update(() => custom);
 		autoStore.update(() => false);
 		subModels = models.filter((item) => item.format === 'onnx');
 		uniqueModels = sortModelById(subModels);
@@ -226,7 +244,7 @@
 						{/if} -->
 
 						<a href="{base}/run/{model}" class="titlemark"
-							>{@html getHTMLModelName(model)} 
+							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
@@ -306,7 +324,7 @@
 						{/if} -->
 
 						<a href="{base}/run/{model}" class="titlemark"
-							>{@html getHTMLModelName(model)} 
+							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
@@ -346,7 +364,7 @@
 						{/if} -->
 
 						<a href="{base}/run/{model}" class="titlemark"
-							>{@html getHTMLModelName(model)} 
+							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
@@ -402,10 +420,10 @@
 
 	@keyframes spin {
 		from {
-			transform:rotate(0deg);
+			transform: rotate(0deg);
 		}
 		to {
-			transform:rotate(360deg);
+			transform: rotate(360deg);
 		}
 	}
 

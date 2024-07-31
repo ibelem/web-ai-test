@@ -785,6 +785,17 @@ view.View = class {
             })
             // nodesArray.sort();
 
+            let dataTypeArray = [];
+            nodes.forEach(element => {
+                element.attributes.forEach(e => {
+                    dataTypeArray.push(e.value);
+                })
+            })
+
+            if(dataTypeArray) {
+                custom.node_attributes_value_fp16 = dataTypeArray.includes("float16");
+            }
+
             let counts = nodesArray.reduce((acc, type) => {
                 acc[type] = (acc[type] || 0) + 1;
                 return acc;
@@ -941,8 +952,6 @@ view.View = class {
                     customStore.update(() => custom);
                 }
             }
-
-            console.log(custom);
 
             // return await this._updateGraph(model, stack);
         } catch (error) {

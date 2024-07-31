@@ -22,4 +22,4 @@ export const conformanceLogStore = persisted('conformanceLogStore', []);
 export const conformanceStore = persisted('conformanceStore', []);
 export const sleepStore = persisted('sleepStore', false);
 export const ortWebVersionStore = persisted('ortWebVersionStore', { selected: 2, dev: '', stable: '' });
-export const customStore = persisted('customStore', { id: '', filename: '', size: '', time: '', properties: [], metadata: [], nodes: [], inputs: [], outputs: [], overrides: []});
+export const customStore = persisted('customStore', { id: '', filename: '', size: '', time: '', node_attributes_value_fp16: false, properties: [], metadata: [], nodes: [], inputs: [], outputs: [], overrides: []});

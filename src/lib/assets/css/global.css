@@ -449,6 +449,14 @@ header .nav {
   text-transform: uppercase;
 }
 
+.fp16 .title.tq {
+  background-color: var(--fp16-005);
+}
+
+.int8 .title.tq {
+  background-color: var(--p-005);
+}
+
 .title.rq {
   color: var(--green);
   display: inline-block;
@@ -1173,7 +1181,7 @@ padding: 2px 4px 2px 4px;
   text-align: center;
 }
 .run button {
-  padding: 4px 16px;
+  padding: 4px 26px;
   background-color: var(--red);
   border: 1px solid var(--red);
   color: white;
@@ -1185,13 +1193,27 @@ padding: 2px 4px 2px 4px;
     var(--red) 0px 18px 16px -18px;
 }
 
-.run button:hover, .run button.log:hover {
+.fp16 .run button {
+  background-color: var(--fp16) !important;
+  border: 1px solid var(--fp16) !important;
+  box-shadow: var(--fp16) 0px 6px 12px -8px, var(--fp16) 0px 12px 10px -12px !important;
+}
+
+.int8 .run button {
+  background-color: var(--p) !important;
+  border: 1px solid var(--p) !important;
+  box-shadow: var(--p) 0px 6px 12px -8px, var(--p) 0px 12px 10px -12px !important;
+}
+
+.run button:hover, .run button.log:hover,
+.fp16 .run button:hover, .fp16 .run button.log:hover,
+.int8 .run button:hover, .int8 .run button.log:hover {
   color: white;
-  background-color: var(--green);
-  border: 1px solid var(--green);
+  background-color: var(--green) !important;
+  border: 1px solid var(--green) !important;
   box-shadow:
     var(--green) 0px 6px 12px -8px,
-    var(--green) 0px 12px 10px -12px;
+    var(--green) 0px 12px 10px -12px !important;
 }
 
 .run button.log {
@@ -2139,6 +2161,44 @@ background-color: var(--int4-005);
   fill: var(--red);
 }
 
+.fp16 .modelfile label:hover {
+  color: var(--fp16);
+}
+
+.fp16 .modelfile span:hover svg path {
+  fill: var(--fp16);
+}
+
+.int8 .modelfile label:hover {
+  color: var(--p);
+}
+
+.int8  .modelfile span:hover svg path {
+  fill: var(--p);
+}
+
+.fp16 .modelfile label {
+  border: 1px solid var(--fp16-005) !important;
+  background-color: var(--fp16-005) !important;
+  border-left: 0px solid var(--fp16-005) !important;
+}
+
+.int8 .modelfile label {
+  border: 1px solid var(--p-005) !important;
+  background-color: var(--p-005) !important;
+  border-left: 0px solid var(--p-005) !important;
+}
+
+.fp16 .modelfile label:hover {
+  border: 1px solid var(--fp16) !important;
+  background-color: var(--fp16-01) !important;
+}
+
+.int8 .modelfile label:hover {
+  border: 1px solid var(--p) !important;
+  background-color: var(--p-01) !important;
+}
+
 .titlemark span {
   font-size: 0.68rem;
   padding: 1px 4px;
@@ -2272,8 +2332,8 @@ background-color: var(--int4-005);
 }
 
 .netron-analysis::-webkit-scrollbar {
-  width: 12px !important;
-  height: 11px !important;
+  width: 6px !important;
+  height: 6px !important;
 }
 
 .netron-analysis::-webkit-scrollbar-track {
@@ -2283,11 +2343,19 @@ background-color: var(--int4-005);
 .netron-analysis::-webkit-scrollbar-thumb {
   background-color: var(--grey-04);
   border-radius: 10px;
-  border: 5px solid #ffffff;
+  border: 3px solid #ffffff;
 }
 
 .netron-analysis:hover::-webkit-scrollbar-thumb {
   background-color: var(--green);
+}
+
+.fp16 .netron-analysis:hover::-webkit-scrollbar-thumb {
+  background-color: var(--fp16);
+}
+
+.int8 .netron-analysis:hover::-webkit-scrollbar-thumb {
+  background-color: var(--p);
 }
 
 #netron-graph>div {
@@ -2335,10 +2403,144 @@ background-color: var(--int4-005);
   text-align: right;
 }
 
+.fp16 #override-settings span {
+  background-color: var(--fp16-005);
+}
+
+.int8 #override-settings span {
+  background-color: var(--p-005);
+}
+
 #override-settings div:hover span {
   border: 1px solid var(--grey-02);
   background-color: var(--red);
   color: var(--white);
+}
+
+.fp16 #override-settings div:hover span {
+  background-color: var(--fp16);
+}
+
+.int8 #override-settings div:hover span {
+  background-color: var(--p);
+}
+
+.fp16 .tqtitle .title {
+  color: var(--fp16) !important;
+}
+  
+.int8 .tqtitle .title {
+  color: var(--p) !important;
+}
+
+.fp16 #logo {
+  background-color: var(--fp16) !important;
+  box-shadow: rgba(43, 1, 127, 0.15) 0px 10px 20px -12px,
+  rgba(43, 1, 127, 0.3) 0px 18px 16px -18px !important;
+}
+
+.fp16 #logo svg rect {
+  fill: var(--fp16);
+}
+
+.int8 #logo {
+  background-color: var(--p) !important;
+  box-shadow: rgba(1, 134, 179, 0.15) 0px 10px 20px -12px,
+  rgba(1, 134, 179, 0.3) 0px 18px 16px -18px !important;
+}
+
+.int8 #logo svg rect {
+  fill: var(--p);
+}
+
+.fp16 .version label.true {
+  background-color: var(--fp16) !important;
+}
+
+.fp16 .version:hover {
+  border: 1px solid var(--fp16) !important;
+}
+
+.fp16 .version label:hover {
+  background-color: var(--fp16-005) !important;
+  color: var(--font) !important;
+}
+
+.int8 .version label.true {
+  background-color: var(--p) !important;
+}
+
+.int8 .version:hover {
+  border: 1px solid var(--p) !important;
+}
+
+.int8 .version label:hover {
+  background-color: var(--p-005) !important;
+  color: var(--font) !important;
+}
+
+.fp16 .badge .title.true {
+  border: 1px solid var(--fp16) !important;
+  background-color: var(--fp16) !important;
+}
+
+.fp16 .badge .status.true {
+  border: 1px solid var(--fp16) !important;
+  color: var(--fp16) !important;
+}
+
+.fp16 .badge .status.true:hover, .fp16 .badge .status.true:hover a {
+  background-color: var(--fp16) !important;
+  color: #fff !important;
+}
+
+.fp16 .badge .status.true a {
+  color: var(--fp16) !important;
+}
+
+.int8 .badge .title.true {
+  border: 1px solid var(--p) !important;
+  background-color: var(--p) !important;
+}
+
+.int8 .badge .status.true {
+  border: 1px solid var(--p) !important;
+  color: var(--p) !important;
+}
+
+.int8 .badge .status.true a {
+  color: var(--p) !important;
+}
+
+.int8 .badge .status.true:hover, .int8 .badge .status.true:hover a {
+  background-color: var(--p) !important;
+  color: #fff !important;
+}
+
+.fp16 footer .alpha {
+  background-color: var(--fp16) !important;
+}
+
+.int8 footer .alpha {
+  background-color: var(--p) !important;
+}
+
+.fp16 a:hover {
+  border-bottom: 0px solid var(--fp16) !important;
+  color: var(--fp16) !important;
+}
+
+.int8 a:hover {
+  border-bottom: 0px solid var(--p) !important;
+  color: var(--p) !important;
+}
+
+.fp16 .webnn .version a:hover {
+  color: var(--white) !important;
+}
+
+.int8 .webnn .version a:hover {
+  color: var(--white) !important;
 }
 
 #webnn-inputs-overrides #inputs-feeds {
@@ -2385,6 +2587,20 @@ background-color: var(--int4-005);
   color: var(--red);
   background-color: var(--red-005);
   font-weight: 400;
+}
+
+.fp16 #netron-graph .list div.title span,
+.fp16 #map table th span,
+.fp16 #webnn-inputs-overrides .note span.title {
+  color: var(--fp16);
+  background-color: var(--fp16-005);
+}
+
+.int8 #netron-graph .list div.title span,
+.int8 #map table th span,
+.int8 #webnn-inputs-overrides .note span.title {
+  color: var(--p);
+  background-color: var(--p-005);
 }
 
 #webnn-inputs-overrides .title {
@@ -2464,6 +2680,14 @@ background-color: var(--int4-005);
   fill: var(--red);
 } 
 
+.fp16 #graph-nodes span:hover button svg path {
+  fill: var(--fp16);
+}
+
+.int8 #graph-nodes span:hover button svg path {
+  fill: var(--p);
+}
+
 #graph-nodes span#order-name,
 #graph-nodes span#order-value {
   display: grid;
@@ -2541,6 +2765,18 @@ background-color: var(--int4-005);
   background-color: var(--red-005);
 }
 
+.fp16 #map table tr:hover td, .fp16 #netron-graph span:hover, 
+.fp16 #graph-nodes span#order-name:hover,
+.fp16 #graph-nodes span#order-value:hover {
+  background-color: var(--fp16-005);
+}
+
+.int8 #map table tr:hover td, .int8 #netron-graph span:hover, 
+.int8 #graph-nodes span#order-name:hover,
+.int8 #graph-nodes span#order-value:hover {
+  background-color: var(--p-005);
+}
+
 #map table .alias {
   max-width: 33vw;
 }
@@ -2584,9 +2820,25 @@ background-color: var(--int4-005);
   fill: var(--red);
 }
 
+.fp16 #status_collapse:hover svg path {
+  fill: var(--fp16);
+}
+
+.int8 #status_collapse:hover svg path {
+  fill: var(--p);
+}
+
 #status_collapse:hover span {
   color: var(--red);
   cursor: pointer;
+}
+
+.fp16 #status_collapse:hover span {
+  color: var(--fp16);
+}
+
+.int8 #status_collapse:hover span {
+  color: var(--p);
 }
 
 #status_collapse svg#up {
@@ -2618,8 +2870,24 @@ background-color: var(--int4-005);
   align-self: stretch;
 }
 
+.fp16 #webnn-inputs-overrides input {
+  border: 1px solid var(--fp16-01);
+}
+
+.int8 #webnn-inputs-overrides input {
+  border: 1px solid var(--p-01);
+}
+
 #override-settings div:hover input {
 	border: 1px solid var(--red);
+}
+
+.fp16 #override-settings div:hover input {
+	border: 1px solid var(--fp16);
+}
+
+.int8 #override-settings div:hover input {
+	border: 1px solid var(--p);
 }
 
 #webnn-inputs-overrides input:focus, #webnn-inputs-overrides input:active {
@@ -2650,6 +2918,42 @@ background-color: var(--int4-005);
 .modelfile span:hover #onnx_custom path.st1_onnx,
 .modelfile span:hover #onnx_custom path.st5_onnx {
   fill: var(--red-005);
+}
+
+.fp16 .modelfile span:hover #onnx_custom path.st0_onnx {
+  fill: var(--fp16);
+}
+
+.fp16 .modelfile span:hover #onnx_custom path.st2_onnx,
+.fp16 .modelfile span:hover #onnx_custom path.st3_onnx {
+  fill: var(--fp16-01);
+}
+
+.fp16 .modelfile span:hover #onnx_custom path.st4_onnx {
+  fill: var(--fp16-002);
+}
+
+.fp16 .modelfile span:hover #onnx_custom path.st1_onnx,
+.fp16 .modelfile span:hover #onnx_custom path.st5_onnx {
+  fill: var(--fp16-005);
+}
+
+.int8 .modelfile span:hover #onnx_custom path.st0_onnx {
+  fill: var(--p);
+}
+
+.int8 .modelfile span:hover #onnx_custom path.st2_onnx,
+.int8 .modelfile span:hover #onnx_custom path.st3_onnx {
+  fill: var(--p-01);
+}
+
+.int8 .modelfile span:hover #onnx_custom path.st4_onnx {
+  fill: var(--p-002);
+}
+
+.int8 .modelfile span:hover #onnx_custom path.st1_onnx,
+.int8 .modelfile span:hover #onnx_custom path.st5_onnx {
+  fill: var(--p-005);
 }
 
 @media (max-width: 1120px) {

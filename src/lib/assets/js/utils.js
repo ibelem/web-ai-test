@@ -656,39 +656,6 @@ export const updateTestQueueStatus = (id, status) => {
   });
 }
 
-export const updateTestQueueCustom = () => {
-
-  /**
-   * @type {string[]}
-  */
-  let testQueue = [];
-  if (selectedModels) {
-    console.log(selectedModels);
-    let id = 1;
-    for (const dt of selectedDataTypes) {
-      for (const b of selectedBackends) {
-        for (const mt of selectedModelTypes) {
-            // t = `${mt} ${m} ${dt} ${b}`;
-            // testQueue.push(t);
-            // Status: 0 Not selected, 1 Not started, 2 In testing, 3 Completed, 4 Fail or Error
-            let t = {
-              id: id,
-              status: 1,
-              model: selectedModels[0],
-              modeltype: mt,
-              datatype: dt,
-              backend: b
-            }
-            testQueue.push(t);
-        }
-      }
-    }
-
-    testQueueStore.update(() => testQueue);
-    testQueueLengthStore.update(() => testQueue.length)
-  }
-};
-
 export const updateTestQueue = () => {
 
   /**

@@ -18,9 +18,9 @@
 		resetResult,
 		resetInfo,
 		getDateTimeCustom,
-		updateTestQueueCustom,
 		resetStore,
-		urlToStore
+		updateStore,
+		stringToArray
 	} from '$lib/assets/js/utils';
 	import * as BrowserHost from '$lib/assets/js/onnx/browser';
 	// import { onnxGraph } from '$lib/assets/js/onnx/view';
@@ -53,6 +53,11 @@
 	});
 
 	/**
+	 * @type {string}
+	 */
+	let dataType = 'fp32';
+
+	/**
 	 * @type {object{}}
 	 */
 	let custom;
@@ -71,6 +76,106 @@
 		overrides: [],
 		properties: [],
 		metadata: []
+	};
+
+	const updateTestQueue = () => {
+		/**
+		 * @type {string[]}
+		 */
+		let testQueue = [];
+		if (selectedModels) {
+			console.log(selectedModels);
+			let id = 1;
+			for (const dt of selectedDataTypes) {
+				for (const b of selectedBackends) {
+					for (const mt of selectedModelTypes) {
+						// t = `${mt} ${m} ${dt} ${b}`;
+						// testQueue.push(t);
+						// Status: 0 Not selected, 1 Not started, 2 In testing, 3 Completed, 4 Fail or Error
+						let t = {
+							id: id,
+							status: 1,
+							model: selectedModels[0],
+							modeltype: mt,
+							datatype: dt,
+							backend: b
+						};
+						testQueue.push(t);
+					}
+				}
+			}
+
+			testQueueStore.update(() => testQueue);
+			testQueueLengthStore.update(() => testQueue.length);
+		}
+	};
+
+	const urlToStore = (urlSearchParams, modelIdFromUrl, dataType) => {
+		if (urlSearchParams.size > 0 && urlSearchParams.size != 1) {
+			let modelType = urlSearchParams.get('modeltype');
+			let backend = urlSearchParams.get('backend');
+			let numOfRuns = urlSearchParams.get('run');
+			let model = urlSearchParams.get('model');
+
+			if (modelType.indexOf(',') > -1) {
+				modelType = stringToArray(modelType);
+			} else if (modelType.toLowerCase() === 'none') {
+				modelType = [];
+			} else if (modelType.toLowerCase() === 'all') {
+				modelType = getUniqueModelTypes();
+			} else {
+				modelType = [modelType];
+			}
+
+			dataType = [dataType];
+
+			if (backend.indexOf(',') > -1) {
+				backend = stringToArray(backend);
+			} else if (backend.toLowerCase() === 'none') {
+				backend = [];
+			} else if (backend.toLowerCase() === 'all') {
+				backend = uniqueBackends;
+			} else {
+				backend = [backend];
+			}
+
+			if (model && model.indexOf(',') > -1) {
+				model = stringToArray(model);
+			} else if (model?.toLowerCase() === 'none') {
+				model = [];
+			} else if (model?.toLowerCase() === 'all') {
+				model = getUniqueModels();
+			} else {
+				model = [model];
+			}
+
+			numOfRuns = parseInt(numOfRuns);
+
+			if (!auto && numOfRuns > 500000 && location.pathname?.indexOf('run') > -1) {
+				numOfRuns = 500000;
+			}
+			if (!auto && numOfRuns > 0 && numOfRuns <= 500000 && location.pathname?.indexOf('run') > -1) {
+				numOfRuns = numOfRuns;
+			} else if (numOfRuns < 1) {
+				numOfRuns = 1;
+			} else if (numOfRuns > 200) {
+				numOfRuns = 200;
+			}
+
+			if (modelIdFromUrl) {
+				updateStore(numOfRuns, backend, dataType, modelType, [modelIdFromUrl]);
+			} else {
+				updateStore(numOfRuns, backend, dataType, modelType, model);
+			}
+
+			// if (!auto) {
+			//   updateTestQueue();
+			// }
+
+			if (modelType.length === 0 && dataType.length === 0 && backend.length === 0) {
+				resetResult();
+			}
+		}
 	};
 
 	const runCustom = async () => {
@@ -120,7 +225,7 @@
 
 	const run = async () => {
 		autoStore.update(() => false);
-		updateTestQueueCustom();
+		updateTestQueue();
 		resetResult();
 		resetInfo();
 		runCustom();
@@ -159,11 +264,6 @@
 	 */
 	$: time = '';
 
-	// /**
-	//  * @type {string}
-	//  */
-	// let dataType = 'fp32';
-
 	$: loaded = false;
 
 	const readFileAsArrayBuffer = (/** @type {Blob} */ file) => {
@@ -196,9 +296,11 @@
 				custominit.id = id;
 				custominit.filename = fileName;
 				custominit.size = size;
+				custominit.node_attributes_value_fp16 = false;
 				custominit.time = getDateTimeCustom();
 				customStore.update(() => custominit);
 				getTotalNodeCount();
+				getDataType();
 			} catch (error) {
 				console.error('Error reading or parsing the file:', error);
 			}
@@ -212,6 +314,39 @@
 			}
 		});
 	}
+
+	$: getDataType = () => {
+		// Check if any input has datatype of float16
+		const hasFloat16Input = custom.inputs.some((input) => input.datatype === 'float16');
+
+		// List of quantized operation types
+		const quantizedOps = [
+			'QuantizeLinear',
+			'DequantizeLinear',
+			'DynamicQuantizeLinear',
+			'MatMulInteger',
+			'ConvInteger',
+			'MatMulNBits',
+			'QLinearAdd',
+			'QLinearConv',
+			'QLinearMatMul',
+			'QLinearAveragePool',
+			'QlinearGlobalAveragePool'
+		];
+
+		// Check if any node type is in the quantizedOps list
+		const hasQuantizedOp = custom.nodes.some((node) => quantizedOps.includes(node.type));
+
+		if (hasFloat16Input || custom.node_attributes_value_fp16) {
+			dataType = 'fp16';
+		} else if (hasQuantizedOp) {
+			dataType = 'int8';
+		} else {
+			// If neither condition is met, return fp32
+			dataType = 'fp32';
+		}
+		document.body.setAttribute('class', dataType);
+	};
 
 	const setOverrideValue = (name, value) => {
 		let override = custom.overrides.find((override) => override.name === name);
@@ -373,6 +508,8 @@
 
 	onMount(async () => {
 		resetStore();
+		getTotalNodeCount();
+		getDataType();
 		if (testQueue.length > 0 && auto) {
 			// run();
 		}
@@ -391,13 +528,14 @@
 	afterUpdate(() => {
 		if (!auto) {
 			if ($page.url.searchParams.size === 0) {
-				let path = `${location.pathname}/?backend=webnn_gpu&run=1&modeltype=onnx&datatype=all`;
+				let path = `${location.pathname}/?backend=webnn_gpu&run=1&modeltype=onnx`;
 				// goto(path);
 				location.href = location.origin + path;
 			} else {
 				getTotalNodeCount();
+				getDataType();
 				if (id) {
-					urlToStore($page.url.searchParams, id);
+					urlToStore($page.url.searchParams, id, dataType);
 				}
 			}
 		}
@@ -412,7 +550,7 @@
 		<div class="tqtitle">
 			<div class="title tq s">
 				Performance Test · {#if fileName}{fileName} · {#if size}{size.toFixed(2)} MB{/if}{:else}Custom
-					Model{/if}
+					Model{/if} {#if dataType && dataType != 'fp32'}· {dataType}{/if}
 			</div>
 		</div>
 
