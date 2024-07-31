@@ -196,7 +196,7 @@
 				<span class="modeldes">{inputs}</span>
 			{/if}
 			<span class="modeldes">{size}</span>
-			<div>{description}</div>
+			<div class="des">{description}</div>
 			{#if note}
 				<div class="note">
 					<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 -960 960 960" width="14"

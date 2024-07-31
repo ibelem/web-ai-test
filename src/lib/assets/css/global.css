@@ -1463,8 +1463,22 @@ padding: 2px 4px 2px 4px;
   color: var(--font);
   padding: 10px;
   text-align: center;
+  border: 1px solid var(--grey-02);
+  border-bottom: 0px solid transparent;
 }
 
+#modeldesc.reverse:hover {
+  border: 1px solid var(--grey-04);
+}
+
+#modeldesc .des {
+  text-align: left;
+  padding: 0px 10px;
+}
+
+#modeldesc .note {
+  text-align: left;
+}
 #netron-graph:hover, #map:hover, #webnn-inputs-overrides:hover {
   border: 1px solid var(--grey-04);
   border-top: 0px;
@@ -1575,8 +1589,8 @@ padding: 2px 4px 2px 4px;
 #modeldesc .note {
   display: inline-block;
   color: var(--white);
-  margin: 6px 4px 4px 4px;
-  padding: 0px 10px;
+  margin: 4px 4px 4px 4px;
+  padding: 0px 6px;
   border-radius: 999px;
 }
 

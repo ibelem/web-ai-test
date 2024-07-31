@@ -2611,22 +2611,20 @@ const xlmRobertaBase = () => {
   }))
 }
 
-const yoloV8NPose = () => {
+const yoloV8N = () => {
   const configs = [
-    ['fp32', 'model.onnx', '12.8 MB'],
-    ['fp16', 'model_fp16.onnx', '6.47 MB'],
-    ['int8', 'model_quantized.onnx', '3.58 MB'],
+    ['fp32', 'yolov8n.onnx', '12.8 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
     tag: '2h',
-    id: `yolov8n_pose_${dt}`,
-    name: 'YOLO v8n Pose',
+    id: `yolov8n_${dt}`,
+    name: 'YOLO v8n',
     description: 'Real-Time End-to-End Object Detection',
-    note: '',
-    source: 'https://huggingface.co/Xenova/yolov8n-pose',
+    note: 'Manually exported to ONNX',
+    source: 'https://github.com/ultralytics/ultralytics',
     hf: {
-      model: 'xenova/yolov8n-pose',
+      model: 'webml/yolov8n',
       file: `${file}`,
     },
     model: '',
@@ -2648,7 +2646,7 @@ const yoloV8XPose = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
-    tag: '2h',
+    tag: '',
     id: `yolov8x_pose_${dt}`,
     name: 'YOLO v8x Pose',
     description: 'Real-Time End-to-End Object Detection',
@@ -3951,7 +3949,7 @@ export let models = [
     }],
     inputstip: '[1, 3, 416, 416]'
   },
-  ...yoloV8NPose(),
+  ...yoloV8N(),
   ...yoloV8XPose(),
   ...yoloV10N(),
 ];
