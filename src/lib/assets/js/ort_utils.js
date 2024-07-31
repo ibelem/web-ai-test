@@ -63,7 +63,6 @@ resultsStore.subscribe((value) => {
 const getInputsById = (id) => {
   for (const model of models) {
     if (model.id === id) {
-      console.log(model.inputs)
       return model.inputs;
     }
   }
@@ -138,9 +137,6 @@ const getFeeds = (session, modelName) => {
       }
     }
   }
-
-  console.log(feeds);
-
   return feeds;
 }
 
