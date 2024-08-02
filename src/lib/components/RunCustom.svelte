@@ -62,7 +62,7 @@
 	export let testQueueLength;
 
 	testQueueLengthStore.subscribe((value) => {
-	testQueueLength = value;
+		testQueueLength = value;
 	});
 
 	/**
@@ -105,7 +105,7 @@
 				id: i,
 				status: 1,
 				model: id,
-				modeltype: "onnx",
+				modeltype: 'onnx',
 				datatype: dataType,
 				backend: b
 			};
@@ -187,7 +187,7 @@
 	const runCustom = async () => {
 		if (testQueue[0]) {
 			let t0 = testQueue[0];
-			let modelSize = size.toFixed(2) + " MB";
+			let modelSize = size.toFixed(2) + ' MB';
 			let r = {
 				id: t0.id,
 				model: t0.model,
@@ -525,17 +525,19 @@
 				if (overrides) {
 					if (overrides.length === 0) {
 						console.log('----- 000 ----');
-						checkRun = true
+						checkRun = true;
 					} else {
 						console.log('----- r ----');
-						let r = overrides.every(override => Number.isInteger(override.value) && override.value !== null);
+						let r = overrides.every(
+							(override) => Number.isInteger(override.value) && override.value !== null
+						);
 						console.log(r);
 						checkRun = r;
 					}
 				}
 			}
 		}
-	}
+	};
 
 	beforeUpdate(() => {});
 
@@ -585,7 +587,8 @@
 		<div class="tqtitle">
 			<div class="title tq s">
 				Performance Test · {#if fileName}{fileName} · {#if size}{size.toFixed(2)} MB{/if}{:else}Custom
-					Model{/if} {#if dataType && dataType != 'fp32'}· {#if dataType=== 'int8'}Quantized{:else}{dataType}{/if}{/if}
+					Model{/if}
+				{#if dataType && dataType != 'fp32'}· {#if dataType === 'int8'}Quantized{:else}{dataType}{/if}{/if}
 			</div>
 		</div>
 

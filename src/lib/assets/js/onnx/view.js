@@ -773,7 +773,22 @@ view.View = class {
                         <tbody id="support">${trs}</tbody>
                     </table>
                 `;
-                    this._element('status_map').innerHTML = table;
+                const note = `
+                    <div id="map_note">
+					The presence of ❌ doesn't necessarily mean the model can't run in WebNN
+					<ol>
+						<li>
+							During the session creation phase, ONNX Runtime Web optimizes the model by
+							eliminating, refining, or fusing operations that WebNN doesn't support.
+						</li>
+						<li>
+							The optimized graph is then passed to the WebNN Execution Provider (EP) for
+							delegation, with any unsupported operations falling back to the Wasm CPU EP.
+						</li>
+					</ol>
+				</div>
+                `;
+                    this._element('status_map').innerHTML = table + note;
                 }
             }
 

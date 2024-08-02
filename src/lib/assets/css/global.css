@@ -1520,6 +1520,45 @@ padding: 2px 4px 2px 4px;
   fill: var(--red);
 }
 
+.fp16 #map div#progress svg circle {
+  fill: var(--fp16);
+}
+
+.int8 #map div#progress svg circle {
+  fill: var(--p);
+}
+
+#map_note {
+  background-color: var(--red-005);
+  padding: 10px;
+  margin-top: 10px;
+}
+
+#map_note ol {
+  margin: 0;
+}
+
+#map_note:hover {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+.fp16 #map_note:hover {
+  background-color: var(--fp16);
+}
+
+.int8 #map_note:hover {
+  background-color: var(--p);
+}
+
+.fp16 #map_note {
+  background-color: var(--fp16-005);
+}
+
+.int8 #map_note {
+  background-color: var(--p-005);
+}
+
 #modeldesc.reverse .note, #modeldesc.reverse .modeldes {
   border-radius: 0px;
 }
