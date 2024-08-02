@@ -54,8 +54,8 @@
 
 		<ul id="menu">
 			<a href="{base}/"><li>Home</li></a>
-			<a href="{base}/tests"><li>Performance · SOTA</li></a>
-			<!-- <a href="{base}/custom"><li>Performance · Custom</li></a> -->
+			<a href="{base}/tests"><li>SOTA</li></a>
+			<a href="{base}/custom"><li>Custom</li></a>
 			<a href="{base}/fallback"><li>Fallback</li></a>
 			<a href="{base}/graph"><li>Graph</li></a>
 			<a href="{base}/conformance"><li>Conformance</li></a>

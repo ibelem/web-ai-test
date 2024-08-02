@@ -2145,10 +2145,10 @@ const tinyLlamaV0DecoderWithPast = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
-      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "past_sequence_length + 1": 1 }]
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "past_sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 2], { "batch_size": 1, "past_sequence_length + 1": 2 }]
     }],
-    inputstip: '[1, 1] [1, 1]'
+    inputstip: '[1, 1] [1, 2]'
   }))
 }
 

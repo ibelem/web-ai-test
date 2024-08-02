@@ -96,12 +96,13 @@
 		 * @type {string[]}
 		 */
 		let testQueue = [];
+		let i = 1;
 		for (const b of selectedBackends) {
 			// t = `${mt} ${m} ${dt} ${b}`;
 			// testQueue.push(t);
 			// Status: 0 Not selected, 1 Not started, 2 In testing, 3 Completed, 4 Fail or Error
 			let t = {
-				id: 1,
+				id: i,
 				status: 1,
 				model: id,
 				modeltype: "onnx",
@@ -109,6 +110,7 @@
 				backend: b
 			};
 			testQueue.push(t);
+			i++;
 		}
 		testQueueStore.update(() => testQueue);
 		testQueueLengthStore.update(() => testQueue.length);
@@ -282,10 +284,12 @@
 		});
 	};
 
+	let bh, v;
 	let openFile;
 	let buffer = null;
 
 	const handleFileInput = async (e) => {
+		buffer = null;
 		const file = e.target.files[0];
 		// console.log(file);
 		if (file) {
@@ -306,8 +310,10 @@
 				custominit.node_attributes_value_fp16 = false;
 				custominit.time = getDateTimeCustom();
 				customStore.update(() => custominit);
+				await v.start();
 				getTotalNodeCount();
 				getDataType();
+				initRun();
 			} catch (error) {
 				console.error('Error reading or parsing the file:', error);
 			}
@@ -511,12 +517,33 @@
 		customStore.update(() => custom);
 	};
 
+	let checkRun = false;
+	$: initRun = () => {
+		if (selectedBackends.length > 0 && !auto) {
+			if (custom && buffer) {
+				const overrides = custom.overrides;
+				if (overrides) {
+					if (overrides.length === 0) {
+						console.log('----- 000 ----');
+						checkRun = true
+					} else {
+						console.log('----- r ----');
+						let r = overrides.every(override => Number.isInteger(override.value) && override.value !== null);
+						console.log(r);
+						checkRun = r;
+					}
+				}
+			}
+		}
+	}
+
 	beforeUpdate(() => {});
 
 	onMount(async () => {
 		resetStore();
 		getTotalNodeCount();
 		getDataType();
+		initRun();
 		if (testQueue.length > 0 && auto) {
 			// run();
 		}
@@ -527,8 +554,8 @@
 			time = custom.time;
 		}
 
-		const host = new BrowserHost.BrowserHost();
-		const v = new View.View(host);
+		bh = new BrowserHost.BrowserHost();
+		v = new View.View(bh);
 		await v.start();
 	});
 
@@ -541,6 +568,7 @@
 			} else {
 				getTotalNodeCount();
 				getDataType();
+				initRun();
 				if (id) {
 					urlToStore($page.url.searchParams, id, dataType);
 				}
@@ -733,10 +761,8 @@
 		<Results />
 		<InferenceLog bind:logShow />
 		<div class="run">
-			{#if selectedBackends.length > 0 && !auto}
-				{#if buffer}
-					<button on:click={run}>Run</button>
-				{/if}
+			{#if checkRun}
+				<button on:click={run}>Run</button>
 			{/if}
 			{#if !logShow}
 				<button
