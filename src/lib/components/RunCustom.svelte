@@ -585,7 +585,7 @@
 		<div class="tqtitle">
 			<div class="title tq s">
 				Performance Test · {#if fileName}{fileName} · {#if size}{size.toFixed(2)} MB{/if}{:else}Custom
-					Model{/if} {#if dataType && dataType != 'fp32'}· {dataType}{/if}
+					Model{/if} {#if dataType && dataType != 'fp32'}· {#if dataType=== 'int8'}Quantized{:else}{dataType}{/if}{/if}
 			</div>
 		</div>
 
