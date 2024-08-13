@@ -949,14 +949,13 @@ export const getGpu = () => {
       //   .replace('(Google', 'Google')
       //   .replace('(TM', '').replaceAll('(', '').replaceAll(')', '')
       //   .trim();
-      renderer = renderer
-        .replace('DCH', '')
+      renderer = renderer?.replace('DCH', '')
         .replace('-401783', '')
         .replace('gfx-driver-verify-comp_', ' ')
         .replace(' i ', '')
         .replace('  ', ' ')
         .trim();
-      if (renderer.toLowerCase().indexOf('adreno') > -1) {
+      if (renderer?.toLowerCase().indexOf('adreno') > -1) {
         renderer = 'Qualcomm ' + renderer;
       }
       return renderer
