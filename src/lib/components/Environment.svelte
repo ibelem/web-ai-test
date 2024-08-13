@@ -162,27 +162,44 @@
 	};
 
 	onMount(async () => {
-		navigator.userAgentData.getHighEntropyValues(['platformVersion']).then((ua) => {
-			if (navigator.userAgentData.platform === 'Windows') {
-				const majorPlatformVersion = parseInt(ua.platformVersion.split('.')[0]);
-				if (majorPlatformVersion >= 13) {
-					environment.osVersion = '11 or later';
-				} else if (majorPlatformVersion > 0) {
-					environment.osVersion = '10';
-				} else {
-					environment.osVersion = '7, 8 or 8.1';
-				}
-			} else {
-				environment.osVersion = parser.os.version;
-			}
-		});
-
 		let parser = UAParser(navigator.userAgent);
 		if (cpuInfo) {
 			environment.cpu = cpuInfo;
 		} else {
 			environment.cpu = parser.cpu.architecture;
 		}
+
+		navigator.userAgentData
+			?.getHighEntropyValues(['platformVersion', 'architecture', 'bitness'])
+			.then((ua) => {
+				if (navigator.userAgentData?.platform === 'Windows') {
+					const majorPlatformVersion = parseInt(ua.platformVersion.split('.')[0]);
+					if (majorPlatformVersion >= 13) {
+						environment.osVersion = '11 or later';
+					} else if (majorPlatformVersion > 0) {
+						environment.osVersion = '10';
+					} else {
+						environment.osVersion = '7, 8 or 8.1';
+					}
+				} else {
+					environment.osVersion = parser.os.version;
+				}
+
+				if (ua.architecture === 'x86') {
+					if (ua.bitness === '64') {
+						environment.cpu = 'x86-64';
+					} else if (ua.bitness === '32') {
+						environment.cpu = 'x86';
+					}
+				} else if (ua.architecture === 'arm') {
+					if (ua.bitness === '64') {
+						environment.cpu = 'arm64';
+					} else if (ua.bitness === '32') {
+						environment.cpu = 'arm32';
+					}
+				}
+			});
+
 		environment.logicCores = navigator.hardwareConcurrency;
 		environment.gpu = getGpu();
 		environment.os = parser.os.name;
