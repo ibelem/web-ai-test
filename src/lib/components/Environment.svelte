@@ -162,6 +162,22 @@
 	};
 
 	onMount(async () => {
+		navigator.userAgentData.getHighEntropyValues(['platformVersion']).then((ua) => {
+			if (navigator.userAgentData.platform === 'Windows') {
+				const majorPlatformVersion = parseInt(ua.platformVersion.split('.')[0]);
+				console.log(ua.platformVersion)
+				if (majorPlatformVersion >= 13) {
+					environment.osVersion = '11 or later';
+				} else if (majorPlatformVersion > 0) {
+					environment.osVersion = '10';
+				} else {
+					environment.osVersion = '7, 8 or 8.1';
+				}
+			} else {
+				environment.osVersion = parser.os.version;
+			}
+		});
+
 		let parser = UAParser(navigator.userAgent);
 		if (cpuInfo) {
 			environment.cpu = cpuInfo;
@@ -171,7 +187,7 @@
 		environment.logicCores = navigator.hardwareConcurrency;
 		environment.gpu = getGpu();
 		environment.os = parser.os.name;
-		environment.osVersion = parser.os.version;
+		// environment.osVersion = parser.os.version;
 		environment.webbrowser = parser.browser.name;
 		environment.browserVersion = parser.browser.version;
 
