@@ -202,7 +202,12 @@
 
 		environment.logicCores = navigator.hardwareConcurrency;
 		environment.gpu = getGpu();
-		environment.os = parser.os.name;
+
+		if (navigator.userAgentData) {
+			environment.os = navigator.userAgentData.platform;
+		} else {
+			environment.os = parser.os.name;
+		}
 		// environment.osVersion = parser.os.version;
 		environment.webbrowser = parser.browser.name;
 		environment.browserVersion = parser.browser.version;
