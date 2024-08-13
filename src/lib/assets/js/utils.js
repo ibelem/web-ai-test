@@ -928,40 +928,45 @@ export const getGpu = () => {
   if (debugInfo) {
     let renderer = gl?.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
     // .replace('0x00003EA0', '').replace('0x000056A0', '').replace('0x00004680', '')
-
-    if (renderer) {
-      console.log(renderer);
-      renderer = renderer?.split(',')[1]?.replace('vs_5_0', '').replace('ps_5_0', '')
-        .replace('(R)', '').replace('(TM)', '')
-        .replace(/0x[a-fA-F0-9]+/g, '')
-        .replace('()', '').replace(' )', ')')
-        .replace('  ', ' ').trim();
-      // renderer = renderer
-      //   .replace('ANGLE', '')
-      //   .replace('SwiftShader driver', '')
-      //   .replace('Subzero', '')
-      //   .replace('Device', '')
-      //   .replace('Mesa DRI', '')
-      //   .replace('OpenGL ES', '').replace('OpenGL 4.6', '')
-      //   .replace('3.2', '').replace('Open Source Technology Center', '')
-      //   .replace('Direct3D11', '').replace('D3D11', '')
-      //   .replace('(Intel', '').replace('Microsoft', '')
-      //   .replace('(Google', 'Google')
-      //   .replace('(TM', '').replaceAll('(', '').replaceAll(')', '')
-      //   .trim();
-      console.log(renderer);
-      renderer = renderer?.replace('DCH', '')
-        .replace('-401783', '')
-        .replace('gfx-driver-verify-comp_', ' ')
-        .replace(' i ', '')
-        .replace('  ', ' ')
-        .trim();
-      console.log(renderer);
-      if (renderer?.toLowerCase().indexOf('adreno') > -1) {
-        renderer = 'Qualcomm ' + renderer;
+    function cleanRendererString(renderer) {
+      if (!renderer) {
+        console.warn('Renderer is undefined or null');
+        return 'Unknown';
       }
-      return renderer
+      try {
+        // Extract the second part of the renderer string if it contains a comma
+        renderer = renderer.split(',')[1] || renderer;
+    
+        // Define patterns to remove
+        const patternsToRemove = [
+          /vs_5_0|ps_5_0/g,
+          /\(R\)|\(TM\)/g,
+          /0x[a-fA-F0-9]+/g,
+          /\(\)| \)/g,
+          /DCH|-401783|gfx-driver-verify-comp_| i /g
+        ];
+    
+        // Apply all removal patterns
+        patternsToRemove.forEach(pattern => {
+          renderer = renderer.replace(pattern, '');
+        });
+    
+        // Clean up extra spaces and trim
+        renderer = renderer.replace(/\s+/g, ' ').trim();
+    
+        // Add 'Qualcomm' prefix for Adreno GPUs
+        if (renderer.toLowerCase().includes('adreno')) {
+          renderer = 'Qualcomm ' + renderer;
+        }
+    
+        return renderer;
+      } catch (error) {
+        console.error('Error processing renderer string:', error);
+        return 'Unknown';
+      }
     }
+    
+    return cleanRendererString(renderer);
   }
 }
 
