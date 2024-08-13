@@ -165,7 +165,6 @@
 		navigator.userAgentData.getHighEntropyValues(['platformVersion']).then((ua) => {
 			if (navigator.userAgentData.platform === 'Windows') {
 				const majorPlatformVersion = parseInt(ua.platformVersion.split('.')[0]);
-				console.log(ua.platformVersion)
 				if (majorPlatformVersion >= 13) {
 					environment.osVersion = '11 or later';
 				} else if (majorPlatformVersion > 0) {

@@ -930,7 +930,8 @@ export const getGpu = () => {
     // .replace('0x00003EA0', '').replace('0x000056A0', '').replace('0x00004680', '')
 
     if (renderer) {
-      renderer = renderer.split(',')[1]?.replace('vs_5_0', '').replace('ps_5_0', '')
+      console.log(renderer);
+      renderer = renderer?.split(',')[1]?.replace('vs_5_0', '').replace('ps_5_0', '')
         .replace('(R)', '').replace('(TM)', '')
         .replace(/0x[a-fA-F0-9]+/g, '')
         .replace('()', '').replace(' )', ')')
