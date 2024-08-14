@@ -633,92 +633,132 @@
 			{#if custom && custom.nodes.length > 0}
 				<div id="graph-nodes" class="list netron-analysis">
 					<div class="title"><span>Operations · Count</span></div>
-					<div>
-						<span id="order-name" class="name count" title="Sort by name">
-							<button on:click={sortNodebyName}>
-								<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
-									<path
-										d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"
-									/>
-								</svg>
-							</button>
-						</span>
-						<span id="order-value" class="value count" title="Sort by count">
-							<button on:click={sortNodebyCount}>
-								<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
-									<path
-										d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z"
-									/>
-								</svg>
-							</button>
-						</span>
-					</div>
+					<table>
+						<tr>
+							<td>
+								<span id="order-name" class="name count" title="Sort by name">
+									<button on:click={sortNodebyName}>
+										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+											<path
+												d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"
+											/>
+										</svg>
+									</button>
+								</span>
+							</td>
+							<td>
+								<span id="order-value" class="value count" title="Sort by count">
+									<button on:click={sortNodebyCount}>
+										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+											<path
+												d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z"
+											/>
+										</svg>
+									</button>
+								</span>
+							</td>
+							<td></td>
+						</tr>
+					</table>
 					{#if custom && custom.nodes.length > 0 && nodeCount != 0}
-						{#each custom.nodes as node}
-							<div>
-								<span class="name count" title={node.type}>{node.type}</span>
-								<span class="value count" title={node.count}>x{node.count}</span>
-								<span class="value count" title="{((node.count * 100) / nodeCount).toFixed(2)}%"
-									>{((node.count * 100) / nodeCount).toFixed(1)}%</span
-								>
-							</div>
-						{/each}
-						<div>
-							<span class="name count" title="Total"></span>
-							<span class="value count" title={nodeCount}>{nodeCount}</span>
-							<span class="value count" title="100.00%">100%</span>
-						</div>
+						<table>
+							{#each custom.nodes as node}
+								<tr>
+									<td><span class="name count" title={node.type}>{node.type}</span></td>
+									<td><span class="value count" title={node.count}>x{node.count}</span></td>
+									<td
+										><span
+											class="value count"
+											title="{((node.count * 100) / nodeCount).toFixed(2)}%"
+											>{((node.count * 100) / nodeCount).toFixed(1)}%</span
+										></td
+									>
+								</tr>
+							{/each}
+							<tr>
+								<td><span class="name count" title="Total"></span></td>
+								<td><span class="value count" title={nodeCount}>{nodeCount}</span></td>
+								<td><span class="value count" title="100.00%">100%</span></td>
+							</tr>
+						</table>
 					{/if}
 				</div>
 				<div id="graph-inputs" class="list netron-analysis">
 					<div class="title"><span>Inputs</span></div>
 					{#if custom && custom.inputs.length > 0}
-						{#each custom.inputs as input}
-							<div>
-								<span class="name inputs" title={input.name}>{input.name}</span>
-								<span class="value datatype" title={input.datatype}>{input.datatype}</span>
-								<span class="value dim" title="[{input.shapeDimensionsRaw}]"
-									>[{input.shapeDimensions}]</span
-								>
-							</div>
-						{/each}
+						<table>
+							{#each custom.inputs as input}
+								<tr>
+									<td><span class="name inputs" title={input.name}>{input.name}</span></td>
+									<td
+										><span class="value datatype" title={input.datatype}>{input.datatype}</span></td
+									>
+									<td
+										><span class="value dim" title="[{input.shapeDimensionsRaw}]"
+											>[{input.shapeDimensions}]</span
+										></td
+									>
+								</tr>
+							{/each}
+						</table>
 					{/if}
 				</div>
 				<div id="graph-outputs" class="list netron-analysis">
 					<div class="title"><span>Outputs</span></div>
 					{#if custom && custom.outputs.length > 0}
-						{#each custom.outputs as output}
-							<div>
-								<span class="name outputs" title={output.name}>{output.name}</span>
-								<span class="value datatype" title={output.datatype}>{output.datatype}</span>
-								<span class="value dim" title="[{output.shapeDimensionsRaw}]"
-									>[{output.shapeDimensions}]</span
-								>
-							</div>
-						{/each}
+						<table>
+							{#each custom.outputs as output}
+								<tr>
+									<td><span class="name outputs" title={output.name}>{output.name}</span></td>
+									<td
+										><span class="value datatype" title={output.datatype}>{output.datatype}</span
+										></td
+									>
+									<td
+										><span class="value dim" title="[{output.shapeDimensionsRaw}]"
+											>[{output.shapeDimensions}]</span
+										></td
+									>
+								</tr>
+							{/each}
+						</table>
 					{/if}
 				</div>
 				<div id="properties-meta" class="netron-analysis">
 					<div id="graph-properties" class="list">
 						<div class="title"><span>Properties</span></div>
 						{#if custom && custom.properties.length > 0}
-							{#each custom.properties as property}
-								<div>
-									<span class="name properties" title={property.name}>{property.name}</span>
-									<span class="value properties" title={property.value}>{property.value}</span>
-								</div>
-							{/each}
+							<table>
+								{#each custom.properties as property}
+									<tr>
+										<td
+											><span class="name properties" title={property.name}>{property.name}</span
+											></td
+										>
+										<td
+											><span class="value properties" title={property.value}>{property.value}</span
+											></td
+										>
+									</tr>
+								{/each}
+							</table>
 						{/if}
 					</div>
 					<div id="graph-meta" class="list">
 						<div class="title"><span>Metadata</span></div>
 						{#if custom && custom.metadata.length > 0}
-							{#each custom.metadata as metadata}
-								<div>
-									<span class="name metadata" title={metadata.name}>{metadata.name}</span>
-									<span class="value metadata" title={metadata.value}>{metadata.value}</span>
-								</div>
-							{/each}
+							<table>
+								{#each custom.metadata as metadata}
+									<tr>
+										<td><span class="name metadata" title={metadata.name}>{metadata.name}</span></td
+										>
+										<td
+											><span class="value metadata" title={metadata.value}>{metadata.value}</span
+											></td
+										>
+									</tr>
+								{/each}
+							</table>
 						{/if}
 					</div>
 				</div>

@@ -2682,7 +2682,7 @@ background-color: var(--int4-005);
   font-size: 0.68rem;
   padding: 1px 4px;
   border-radius: 3px;
-  margin: 1px 0;
+  margin: 0;
   display: inline-block;
   width: 80px;
   white-space: nowrap;
@@ -2695,7 +2695,7 @@ background-color: var(--int4-005);
   font-size: 0.68rem;
   padding: 1px 4px;
   border-radius: 3px;
-  margin: 1px 0;
+  margin: 0;
   display: inline-block;
   border: 1px solid var(--grey-02);
   background-color: var(--grey-005);
@@ -2761,8 +2761,18 @@ background-color: var(--int4-005);
   border: 0px;
   background-color: transparent;
   justify-content: end;
+  margin-bottom: 2px;
 }
 
+#netron-graph table {
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
+#netron-graph table td {
+  padding: 0 2px;
+  margin: 0;
+}
 
 #graph-inputs span.name.inputs {
   width: 132px;
@@ -2778,11 +2788,11 @@ background-color: var(--int4-005);
 }
 
 #graph-inputs span.value.dim {
-  width: 230px;
+ 
 }
 
 #graph-outputs span.value.dim {
-  width: 256px;
+ 
 }
 
 #graph-properties span.name.properties,
