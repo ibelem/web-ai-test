@@ -122,7 +122,8 @@
 			.replace('Non-KV-Cache', '<span>Non-KV-Cache</span>')
 			.replace(' KV-Cache', ' <span>KV-Cache</span>')
 			.replace('w/i Past', '<span>w/i Past</span>')
-			.replace('Static Shape', '<span class="static">Static Shape</span>');
+			.replace('Static Shape', '<span class="static">Static Shape</span>')
+			.replace('QDQ', '<span class="qdq" title="Quantization using QuantizeLinear and DeQuantizeLinear only">QDQ</span>');
 		return name;
 	};
 
