@@ -59,6 +59,7 @@
 			<a href="{base}/fallback"><li>Fallback</li></a>
 			<a href="{base}/graph"><li>Graph</li></a>
 			<a href="{base}/conformance"><li>Conformance</li></a>
+			<a href="{base}/limits"><li>Support Limits</li></a>
 			<a href="{base}/about"><li>About</li></a>
 		</ul>
 	</div>
