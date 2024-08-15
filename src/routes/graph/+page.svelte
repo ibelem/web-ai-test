@@ -34,154 +34,176 @@
 	let network;
 	let UniqueNodes = [];
 
+	const generateGraph = async (fileContent) => {
+		showloadingbar = true;
+		let edges;
+		let nodes;
+		let allNodes;
+		let allEdges;
+		let nodeColors;
+		let data;
+
+		if (typeof(fileContent) === 'string') {
+			fileContent = JSON.parse(fileContent);
+		}
+
+		const drawGraph = () => {
+			let nodesFromJson = fileContent.nodes.map((node) => ({
+					color: '#97c2fc',
+					id: node.name,
+					label: node.name,
+					shape: 'box'
+				}));
+
+			if (nodesFromJson.length > 0) {
+				nodesFromJson = nodesFromJson.map((item) => ({
+					...item,
+					color: item.id.startsWith('Input_') ? '#97fcc2' : item.color
+				}));
+
+				nodesFromJson.forEach((node) => {
+					if (node.id === 'Input_0') {
+						node.color = 'rgba(106, 198, 0, 0.95)';
+					}
+				});
+
+				nodesFromJson.forEach((node) => {
+					if (node.id === 'Output_0') {
+						node.color = 'rgba(226, 69, 124, 0.95)';
+					}
+				});
+
+				UniqueNodes = [...new Set([...fileContent.nodes.map((node) => node.name)])];
+			}
+
+			nodes = new vis.DataSet(nodesFromJson);
+
+			let edgesFromJson = fileContent.edges.map((edge) => ({
+				from: edge.FromNode,
+				to: edge.ToNode
+			}));
+
+			edges = new vis.DataSet(edgesFromJson);
+
+			nodeColors = {};
+			allNodes = nodes.get({ returnType: 'Object' });
+			for (let nodeId in allNodes) {
+				nodeColors[nodeId] = allNodes[nodeId].color;
+			}
+			allEdges = edges.get({ returnType: 'Object' });
+			data = { nodes: nodes, edges: edges };
+
+			let options = {
+				layout: { hierarchical: false },
+				edges: { arrows: { to: { enabled: true } } }
+			};
+
+			network = new vis.Network(mynetwork, data, options);
+
+			network.on('stabilizationProgress', function (params) {
+				loadingBar.removeAttribute('style');
+				let maxWidth = 496;
+				let minWidth = 20;
+				let widthFactor = params.iterations / params.total;
+				let width = Math.max(minWidth, maxWidth * widthFactor);
+				bar.style.width = width + 'px';
+				text.innerHTML = Math.round(widthFactor * 100) + '%';
+			});
+
+			network.once('stabilizationIterationsDone', function () {
+				text.innerHTML = '100%';
+				bar.style.width = '496px';
+				loadingBar.style.opacity = 0;
+				// really clean the dom element
+				setTimeout(function () {
+					loadingBar.style.display = 'none';
+				}, 100);
+			});
+
+			network.on('selectNode', function (params) {
+				if (params.nodes.length == 1) {
+					let obj = {};
+					obj.clicked_id = params.nodes[0];
+					let options = {
+						color: {
+							background: 'rgba(0, 79, 255, 0.95)',
+							border: 'rgba(0, 79, 255, 1)'
+						},
+						font: { color: 'rgba(255, 255, 255, 1)' }
+					};
+
+					if (params.nodes[0].toLowerCase().startsWith('input_')) {
+						options = {
+							color: {
+								background: 'rgba(3, 192, 74, 0.95)',
+								border: 'rgba(3, 192, 74, 1)'
+							},
+							font: { color: 'rgba(255, 255, 255, 1)' }
+						};
+
+						network.clustering.updateEdge(params.edges[0], {
+							color: 'rgba(3, 192, 74, 1)',
+							borderWidthSelected: 3
+						});
+					}
+
+					if (params.nodes[0].toLowerCase().startsWith('output_')) {
+						options = {
+							color: {
+								background: 'rgba(226, 69, 124, 0.95)',
+								border: 'rgba(226, 69, 124, 1)'
+							},
+							font: { color: 'rgba(255, 255, 255, 1)' }
+						};
+
+						network.clustering.updateEdge(params.edges[0], {
+							color: 'rgba(226, 69, 124, 1)',
+							borderWidthSelected: 3
+						});
+					}
+
+					network.clustering.updateClusteredNode(params.nodes[0], options);
+				}
+			});
+
+			network.on('selectEdge', function (params) {
+				if (params.edges.length == 1) {
+					// Single edge selected
+					let obj = {};
+					obj.clicked_id = params.edges[0];
+					network.clustering.updateEdge(params.edges[0], {
+						borderWidthSelected: 3
+					});
+					// obj.base_edge = network.clustering.getBaseEdge(params.edges[0]);
+					// obj.all_clustered_edges = network.clustering.getClusteredEdges(params.edges[0]);
+				}
+			});
+			show = true;
+			return network;
+		};
+		drawGraph();
+	};
+
+	const handleResNet50 = async (event) => {
+		try {
+				const response = await fetch('../src/lib/assets/json/resnet50v1_webnn_npu_graph.json');
+				if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+				const fileContent = await response.json();
+				await generateGraph(fileContent);
+			} catch (error) {
+				show = false;
+				console.error('Error reading or parsing the file:', error);
+			}
+	}
+
 	const handleFileInput = async (event) => {
 		const file = event.target.files[0];
 		if (file) {
 			try {
 				const fileContent = await readFile(file);
-				showloadingbar = true;
-				let edges;
-				let nodes;
-				let allNodes;
-				let allEdges;
-				let nodeColors;
-				let data;
-
-				const drawGraph = () => {
-					let nodesFromJson = JSON.parse(fileContent).nodes.map((node) => ({
-						color: '#97c2fc',
-						id: node.name,
-						label: node.name,
-						shape: 'box'
-					}));
-
-					if (nodesFromJson.length > 0) {
-						nodesFromJson = nodesFromJson.map((item) => ({
-							...item,
-							color: item.id.startsWith('Input_') ? '#97fcc2' : item.color
-						}));
-
-						nodesFromJson.forEach((node) => {
-							if (node.id === 'Input_0') {
-								node.color = 'rgba(106, 198, 0, 0.95)';
-							}
-						});
-
-						nodesFromJson.forEach((node) => {
-							if (node.id === 'Output_0') {
-								node.color = 'rgba(226, 69, 124, 0.95)';
-							}
-						});
-
-						UniqueNodes = [...new Set([...JSON.parse(fileContent).nodes.map((node) => node.name)])];
-					}
-
-					nodes = new vis.DataSet(nodesFromJson);
-
-					let edgesFromJson = JSON.parse(fileContent).edges.map((edge) => ({
-						from: edge.FromNode,
-						to: edge.ToNode
-					}));
-
-					edges = new vis.DataSet(edgesFromJson);
-
-					nodeColors = {};
-					allNodes = nodes.get({ returnType: 'Object' });
-					for (let nodeId in allNodes) {
-						nodeColors[nodeId] = allNodes[nodeId].color;
-					}
-					allEdges = edges.get({ returnType: 'Object' });
-					data = { nodes: nodes, edges: edges };
-
-					let options = {
-						layout: { hierarchical: false },
-						edges: { arrows: { to: { enabled: true } } }
-					};
-
-					network = new vis.Network(mynetwork, data, options);
-
-					network.on('stabilizationProgress', function (params) {
-						loadingBar.removeAttribute('style');
-						let maxWidth = 496;
-						let minWidth = 20;
-						let widthFactor = params.iterations / params.total;
-						let width = Math.max(minWidth, maxWidth * widthFactor);
-						bar.style.width = width + 'px';
-						text.innerHTML = Math.round(widthFactor * 100) + '%';
-					});
-
-					network.once('stabilizationIterationsDone', function () {
-						text.innerHTML = '100%';
-						bar.style.width = '496px';
-						loadingBar.style.opacity = 0;
-						// really clean the dom element
-						setTimeout(function () {
-							loadingBar.style.display = 'none';
-						}, 100);
-					});
-
-					network.on('selectNode', function (params) {
-						if (params.nodes.length == 1) {
-							let obj = {};
-							obj.clicked_id = params.nodes[0];
-							let options = {
-								color: {
-									background: 'rgba(0, 79, 255, 0.95)',
-									border: 'rgba(0, 79, 255, 1)'
-								},
-								font: { color: 'rgba(255, 255, 255, 1)' }
-							};
-
-							if (params.nodes[0].toLowerCase().startsWith('input_')) {
-								options = {
-									color: {
-										background: 'rgba(3, 192, 74, 0.95)',
-										border: 'rgba(3, 192, 74, 1)'
-									},
-									font: { color: 'rgba(255, 255, 255, 1)' }
-								};
-
-								network.clustering.updateEdge(params.edges[0], {
-									color: 'rgba(3, 192, 74, 1)',
-									borderWidthSelected: 3
-								});
-							}
-
-							if (params.nodes[0].toLowerCase().startsWith('output_')) {
-								options = {
-									color: {
-										background: 'rgba(226, 69, 124, 0.95)',
-										border: 'rgba(226, 69, 124, 1)'
-									},
-									font: { color: 'rgba(255, 255, 255, 1)' }
-								};
-
-								network.clustering.updateEdge(params.edges[0], {
-									color: 'rgba(226, 69, 124, 1)',
-									borderWidthSelected: 3
-								});
-							}
-
-							network.clustering.updateClusteredNode(params.nodes[0], options);
-						}
-					});
-
-					network.on('selectEdge', function (params) {
-						if (params.edges.length == 1) {
-							// Single edge selected
-							let obj = {};
-							obj.clicked_id = params.edges[0];
-							network.clustering.updateEdge(params.edges[0], {
-								borderWidthSelected: 3
-							});
-							// obj.base_edge = network.clustering.getBaseEdge(params.edges[0]);
-							// obj.all_clustered_edges = network.clustering.getClusteredEdges(params.edges[0]);
-						}
-					});
-					show = true;
-					return network;
-				};
-				drawGraph();
+				await generateGraph(fileContent);
 			} catch (error) {
 				show = false;
 				console.error('Error reading or parsing the file:', error);
@@ -303,6 +325,10 @@
 		<label>
 			<input type="file" accept=".json" on:change={handleFileInput} hidden />
 			<span><Upload />Select .json file</span>
+		</label>
+		<label>
+			<input type="button" on:click={handleResNet50} hidden />
+			<span>Try ResNet50v1</span>
 		</label>
 	</div>
 </div>
