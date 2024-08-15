@@ -15,7 +15,7 @@
 	let numberofNpuOps = 0;
 
 	function generateHTMLTable(limits) {
-		let html = '<table border="1"><tr><th>Operation</th><th>Item</th>';
+		let html = '<table border="1"><tr><th>operation</th><th>item</th>';
 
 		// Get all unique dataTypes
 		const allDataTypes = new Set();
@@ -25,8 +25,10 @@
 			}
 		}
 
+		const sortedDataTypes = Array.from(allDataTypes).sort();
+
 		// Add dataTypes as column headers
-		allDataTypes.forEach((dt) => {
+		sortedDataTypes.forEach((dt) => {
 			html += `<th>${dt}</th>`;
 		});
 		html += '</tr>';
@@ -36,7 +38,7 @@
 			if (typeof opData === 'object' && opData !== null) {
 				for (const [subItemName, subItemData] of Object.entries(opData)) {
 					html += `<tr><td>${opName}</td><td>${subItemName}</td>`;
-					allDataTypes.forEach((dt) => {
+						sortedDataTypes.forEach((dt) => {
 						if (
 							subItemData &&
 							Array.isArray(subItemData.dataTypes) &&
