@@ -123,7 +123,9 @@
 			.replace(' KV-Cache', ' <span>KV-Cache</span>')
 			.replace('w/i Past', '<span>w/i Past</span>')
 			.replace('Static Shape', '<span class="static">Static Shape</span>')
-			.replace('QDQ', '<span class="qdq" title="Quantization using QuantizeLinear and DeQuantizeLinear only">QDQ</span>');
+			.replace('QDQ', '<span class="qdq" title="Quantization using QuantizeLinear and DeQuantizeLinear only">QDQ</span>')
+			.replace('MS Word', '<span class="word" title="Microsoft Word">MS Word</span>')
+			.replace('MS PowerPoint', '<span class="powerpoint" title="Microsoft PowerPoint">MS PowerPoint</span>');
 		return name;
 	};
 

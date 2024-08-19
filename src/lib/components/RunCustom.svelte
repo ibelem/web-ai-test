@@ -164,8 +164,8 @@
 				numOfRuns = numOfRuns;
 			} else if (numOfRuns < 1) {
 				numOfRuns = 1;
-			} else if (numOfRuns > 200) {
-				numOfRuns = 200;
+			} else if (numOfRuns > 1000) {
+				numOfRuns = 1000;
 			}
 
 			if (modelIdFromUrl) {

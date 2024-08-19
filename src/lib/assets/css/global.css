@@ -3098,6 +3098,24 @@ background-color: var(--int4-005);
   column-gap: 10px;
 }
 
+.titlemark span.powerpoint {
+  border: 1px solid rgba(198, 66, 31, 1);
+  background-color: rgba(198, 66, 31, 1);
+  color: var(--white);
+}
+
+.titlemark span.word {
+  border: 1px solid rgba(25, 90, 187, 1);
+  background-color: rgba(25, 90, 187, 1);
+  color: var(--white);
+}
+
+.ms365 {
+  height: 16px;
+  width: 16px;
+  margin-bottom: -4px;
+}
+
 @media (max-width: 1120px) {
   .ort .wasm,
   .ort .webgpu,

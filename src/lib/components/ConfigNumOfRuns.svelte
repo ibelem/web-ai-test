@@ -35,7 +35,7 @@
 		if (!auto && location.pathname?.toLowerCase().indexOf('run') > -1) {
 			max = 500000;
 		} else {
-			max = 200;
+			max = 1000;
 		}
 	};
 
