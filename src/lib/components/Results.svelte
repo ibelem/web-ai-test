@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import {
 		testQueueStore,
 		testQueueLengthStore,
@@ -295,6 +296,15 @@
 			resultOptions.average = true;
 		}
 	};
+
+	let notCustom = true;
+	$: checkCustomPage = () => {
+		(location.pathname.toLowerCase().indexOf('custom') >-1) ? notCustom = false : notCustom = true;
+	};
+
+	onMount(async () => {
+		checkCustomPage();
+	});
 </script>
 
 <!-- <Info /> -->
@@ -464,11 +474,13 @@
 							{getModelNameById(key.model)}
 						{/if}
 
+						{#if notCustom}
 						<a
 							title="Check WebNN support status of {getModelNameById(key.model)}"
 							href="https://ibelem.github.io/netron/?url={getModelHFUrlById(key.model)}"
 							><ArrowOutward /></a
 						>
+						{/if}
 					</div>
 
 					<div class="ms">
