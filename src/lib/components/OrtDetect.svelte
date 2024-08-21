@@ -31,26 +31,13 @@
 
 	const getVersion = async () => {
 		try {
-			const response = await fetch('https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/');
-			const htmlString = await response.text();
-
-			const parser = new DOMParser();
-			const doc = parser.parseFromString(htmlString, 'text/html');
-
-			let selectElement = doc.querySelector('.path li');
-			const itemid = Array.from(selectElement.querySelectorAll('a span')).map(
-				(item) => item.innerHTML
-			);
-			ortStable = itemid[0].replace('onnxruntime-web@', '');
-
-			selectElement = doc.querySelector('select.versions.select-css');
-			let options = Array.from(selectElement.querySelectorAll('option')).map(
-				(option) => option.value
-			);
-
-			options = options.filter(option => !option.includes("esmtest"));
-			ortDev = options[0];
-			ortDev = ortDev.replace('onnxruntime-web@', '');
+			const response = await fetch('https://data.jsdelivr.com/v1/packages/npm/onnxruntime-web');
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+			const data = await response.json();
+			ortStable = data.tags.latest;
+			ortDev = data.tags.dev;
 
 			selected = Number(selected);
 
