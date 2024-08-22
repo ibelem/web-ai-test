@@ -1700,12 +1700,42 @@ const phi3Mini4kInstructMerged = () => {
     category: 'Text Generation',
     tag: '2h',
     id: `phi_3_mini_4k_instruct_merged_${dt}`,
-    name: 'Phi 3 Mini 4k Instruct KV-Cache',
+    name: 'Phi-3 Mini 4k Instruct KV-Cache',
     description: 'Phi-3 Mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-2 - synthetic data and filtered websites - with a focus on very high-quality, reasoning dense data.',
     note: 'Large model with external data.',
     source: 'https://huggingface.co/Xenova/Phi-3-mini-4k-instruct',
     hf: {
       model: 'xenova/phi-3-mini-4k-instruct',
+      file: `${file}`,
+      externalData: `${externalData}`
+    },
+    model: '',
+    size: `${size} + ${edSize}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 17], { "batch_size": 1, "sequence_length": 17, "past_sequence_length": 0 }],
+      'attention_mask': ['int64', 1n, [1, 17], { "batch_size": 1, "total_sequence_length": 17 }],
+      'position_ids': ['int64', 1n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
+    }],
+    inputstip: '[1, 17] [1, 17] [1, 17]'
+  }))
+}
+
+const phi35MiniInstructMerged = () => {
+  const configs = [
+    ['int4', 'model_q4f16.onnx', '210 MB', 'model_q4f16.onnx_data', '1.95 GB'],
+  ]
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `phi_3_5_mini_instruct_merged_${dt}`,
+    name: 'Phi-3.5-mini Instruct KV-Cache',
+    description: 'Phi-3.5-mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-3 - synthetic data and filtered publicly available websites - with a focus on very high-quality, reasoning dense data.',
+    note: 'Large model with external data.',
+    source: 'https://huggingface.co/onnx-community/Phi-3.5-mini-instruct-onnx-web',
+    hf: {
+      model: 'onnx-community/phi-3.5-mini-instruct-onnx-web',
       file: `${file}`,
       externalData: `${externalData}`
     },
@@ -3503,6 +3533,7 @@ export let models = [
   ...nomicEmbedTextV1(),
   ...nomicEmbedTextV1_5(),
   ...paraphraseMultilingualMpnetBaseV2(),
+  ...phi35MiniInstructMerged(),
   ...phi3Mini4kInstructMerged(),
   ...Qwen2_0_5bInstructMerged(),
   {

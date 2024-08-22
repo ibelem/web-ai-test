@@ -3110,6 +3110,20 @@ background-color: var(--int4-005);
   color: var(--white);
 }
 
+.titlemark span.phi3 {
+  border: 1px solid #FEDB37;
+  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 4%, #FDB931 10%, #9f7928 30%, transparent 80%),
+  radial-gradient(ellipse farthest-corner at left top, #FCF6BA 2%, #FFFFAC 6%, #D1B464 50.5%, #5d4a1f 100%);;
+  color: #FFFFAC;
+}
+
+.tq .q:hover .titlemark span.phi3 {
+  border: 1px solid #9f7928;
+  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+  radial-gradient(ellipse farthest-corner at left top,  #FBF5B7 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);;
+  color: var(--white);
+}
+
 .ms365 {
   height: 16px;
   width: 16px;

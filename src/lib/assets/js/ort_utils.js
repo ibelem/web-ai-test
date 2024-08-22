@@ -89,7 +89,9 @@ const getFeeds = (session, modelName) => {
       if (v.startsWith('past_key_values.')) {
         if (modelName.indexOf('phi_3_mini_4k_instruct_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 32, 0, 96]);
-        } if (modelName.indexOf('gemma_2b_it_') > -1) {
+        } else if (modelName.indexOf('phi_3_5_mini_instruct_merged_') > -1) {
+          feeds[v] = getTensor('float16', 1, [1, 32, 0, 96]);
+        } else if (modelName.indexOf('gemma_2b_it_') > -1) {
           feeds[v] = getTensor('float16', 1, [1, 1, 1, 256]);
         } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp32') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int8') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 4, 0, 64]);

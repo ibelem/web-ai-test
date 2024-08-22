@@ -125,7 +125,10 @@
 			.replace('Static Shape', '<span class="static">Static Shape</span>')
 			.replace('QDQ', '<span class="qdq" title="Quantization using QuantizeLinear and DeQuantizeLinear only">QDQ</span>')
 			.replace('MS Word', '<span class="word" title="Microsoft Word">MS Word</span>')
-			.replace('MS PowerPoint', '<span class="powerpoint" title="Microsoft PowerPoint">MS PowerPoint</span>');
+			.replace('MS PowerPoint', '<span class="powerpoint" title="Microsoft PowerPoint">MS PowerPoint</span>')
+			.replace('Gemma', '<span class="phi3">Gemma</span>')
+			.replace('Phi-3.5-mini', '<span class="phi3">Phi-3.5-mini</span>')
+			.replace('Phi-3 Mini', '<span class="phi3">Phi-3 Mini</span>');
 		return name;
 	};
 
