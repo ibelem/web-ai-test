@@ -223,11 +223,11 @@
 </div>
 
 <div>
-	<div class="title tq fp16">FLOAT16 · {fp16Count}</div>
-	<div class="tq benchmark fp16">
+	<div class="title tq int4">INT4 · {int4Count}</div>
+	<div class="tq benchmark int4">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'fp16'}
+				{#if getModelDataTypeById(model) === 'int4'}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -303,11 +303,11 @@
 		{/each}
 	</div>
 
-	<div class="title tq int4">INT4 · {int4Count}</div>
-	<div class="tq benchmark int4">
+	<div class="title tq fp16">FLOAT16 · {fp16Count}</div>
+	<div class="tq benchmark fp16">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'int4'}
+				{#if getModelDataTypeById(model) === 'fp16'}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
