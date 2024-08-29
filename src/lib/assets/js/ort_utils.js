@@ -123,8 +123,14 @@ const getFeeds = (session, modelName) => {
           feeds[v] = getTensor('float32', 1, [1, 8, 128, 64]);
         } else if (modelName.indexOf('vit_gpt2_image_captioning_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 12, 168, 64]);
-        } else if (modelName.indexOf('distil_medium_en_decoder_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 16, 1, 64]);
+        } else if (modelName.indexOf('distil_medium_en_decoder_merged_') > -1) {
+            feeds[v] = getTensor('float32', 1, [1, 16, 1, 64]);
+        } else if (modelName.indexOf('distil_medium_en_decoder_with_past_') > -1) {
+          if (v.includes('decoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 16, 1, 64]);
+          } else if (v.includes('encoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 16, 1500, 64]);
+          }
         } else if (modelName.indexOf('whisper_base_decoder_static_') > -1) {
           if (v.includes('decoder')) {
             feeds[v] = getTensor('float16', 1, [1, 8, 127, 64]);
