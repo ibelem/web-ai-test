@@ -806,7 +806,7 @@ const distilMediumEnDecoderWithPast = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "past_decoder_sequence_length": 1, "encoder_sequence_length_out": 1500 }],
     }],
     inputstip: '[1, 1] [1, 1500, 1024]'
   }))
