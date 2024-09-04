@@ -115,15 +115,20 @@
 		if (navigator.ml) {
 			const cpuContext = await navigator.ml?.createContext({ deviceType: 'cpu' });
 			const cpuJson = cpuContext.opSupportLimits();
+			console.log('-- cpu --');
 			console.log(cpuJson);
 			cpuSupportLimits = generateHTMLTable(cpuJson);
 			numberofCpuOps = countUniqueKeys(cpuJson);
 			const gpuContext = await navigator.ml?.createContext({ deviceType: 'gpu' });
 			const gpuJson = gpuContext.opSupportLimits();
+			console.log('-- gpu --');
+			console.log(gpuJson);
 			gpuSupportLimits = generateHTMLTable(gpuJson);
 			numberofGpuOps = countUniqueKeys(gpuJson);
 			const npuContext = await navigator.ml?.createContext({ deviceType: 'npu' });
 			const npuJson = npuContext.opSupportLimits();
+			console.log('-- npu --');
+			console.log(npuJson);
 			npuSupportLimits = generateHTMLTable(npuJson);
 			numberofNpuOps = countUniqueKeys(npuJson);
 		}
