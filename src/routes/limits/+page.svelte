@@ -40,9 +40,13 @@
 					html += `<tr><td>${opName}</td><td>${subItemName}</td>`;
 						sortedDataTypes.forEach((dt) => {
 						if (
-							subItemData &&
+							(subItemData &&
 							Array.isArray(subItemData.dataTypes) &&
-							subItemData.dataTypes.includes(dt)
+							subItemData.dataTypes.includes(dt)) || (
+							subItemData &&
+							Array.isArray(subItemData) &&
+							subItemData.includes(dt)
+							)
 						) {
 							html += '<td>Yes</td>';
 						} else {
@@ -111,6 +115,7 @@
 		if (navigator.ml) {
 			const cpuContext = await navigator.ml?.createContext({ deviceType: 'cpu' });
 			const cpuJson = cpuContext.opSupportLimits();
+			console.log(cpuJson);
 			cpuSupportLimits = generateHTMLTable(cpuJson);
 			numberofCpuOps = countUniqueKeys(cpuJson);
 			const gpuContext = await navigator.ml?.createContext({ deviceType: 'gpu' });
