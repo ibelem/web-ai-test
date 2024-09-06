@@ -1714,11 +1714,11 @@ const phi3Mini4kInstructMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 17], { "batch_size": 1, "sequence_length": 17, "past_sequence_length": 0 }],
-      'attention_mask': ['int64', 1n, [1, 17], { "batch_size": 1, "total_sequence_length": 17 }],
-      'position_ids': ['int64', 1n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1, "past_sequence_length": 255 }],
+      'attention_mask': ['int64', 1n, [1, 256], { "batch_size": 1, "total_sequence_length": 256 }],
+      'position_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
     }],
-    inputstip: '[1, 17] [1, 17] [1, 17]'
+    inputstip: '[1, 1] [1, 256] [1, 1]'
   }))
 }
 
@@ -1744,11 +1744,12 @@ const phi35MiniInstructMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 17], { "batch_size": 1, "sequence_length": 17, "past_sequence_length": 0 }],
-      'attention_mask': ['int64', 1n, [1, 17], { "batch_size": 1, "total_sequence_length": 17 }],
-      'position_ids': ['int64', 1n, [1, 17], { "batch_size": 1, "sequence_length": 17 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1, "past_sequence_length": 255 }],
+      'attention_mask': ['int64', 1n, [1, 256], { "batch_size": 1, "total_sequence_length": 256 }],
+      'position_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
     }],
-    inputstip: '[1, 17] [1, 17] [1, 17]'
+    inputstip: '[1, 1] [1, 256] [1, 1]'
+
   }))
 }
 

@@ -82,17 +82,27 @@ const getFeeds = (session, modelName) => {
       const v = inputNames[k];
       if (v.startsWith('past_key_values.')) {
         if (modelName.indexOf('phi_3_mini_4k_instruct_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 32, 0, 96]);
+          feeds[v] = getTensor('float32', 1, [1, 32, 255, 96]);
+        } else if (modelName.indexOf('phi_3_5_mini_instruct_merged_') > -1) {
+          feeds[v] = getTensor('float16', 1, [1, 32, 255, 96]);
+        } else if (modelName.indexOf('gemma_2b_it_') > -1) {
+          feeds[v] = getTensor('float16', 1, [1, 1, 1, 256]);
         } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp32') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int8') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 4, 0, 64]);
         } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp16') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int4') > -1) {
           feeds[v] = getTensor('float16', 1, [1, 4, 0, 64]);
+        } else if (modelName.indexOf('tinyllama_v0_decoder_merged_') > -1) {
+          feeds[v] = getTensor('float32', 1, [1, 16, 40, 4]);
+        } else if (modelName.indexOf('tinyllama_v0_decoder_with_past_') > -1) {
+          feeds[v] = getTensor('float32', 1, [1, 16, 1, 4]);
         } else if (modelName.indexOf('meta_llama_3_8b_instruct_merged_') > -1) {
           feeds[v] = getTensor('float16', 1, [1, 4, 0, 64]);
         } else if (modelName.indexOf('llama2_c_stories15m_decoder_merged_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 6, 0, 48]);
+          feeds[v] = getTensor('float32', 1, [1, 6, 4, 48]);
         } else if (modelName.indexOf('llama2_c_stories15m_decoder_with_past_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 6, 5, 48]);
+        } else if (modelName.indexOf('qwen2_0_5b_instruct_') > -1) {
+          feeds[v] = getTensor('float32', 1, [1, 2, 1, 64]);
         } else if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
         } else if (modelName.indexOf('distilgpt2_decoder_') > -1) {
@@ -107,8 +117,14 @@ const getFeeds = (session, modelName) => {
           feeds[v] = getTensor('float32', 1, [1, 8, 128, 64]);
         } else if (modelName.indexOf('vit_gpt2_image_captioning_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 12, 168, 64]);
-        } else if (modelName.indexOf('distil_medium_en_decoder_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 16, 1, 64]);
+        } else if (modelName.indexOf('distil_medium_en_decoder_merged_') > -1) {
+            feeds[v] = getTensor('float32', 1, [1, 16, 1, 64]);
+        } else if (modelName.indexOf('distil_medium_en_decoder_with_past_') > -1) {
+          if (v.includes('decoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 16, 1, 64]);
+          } else if (v.includes('encoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 16, 1500, 64]);
+          }
         } else if (modelName.indexOf('whisper_base_decoder_static_') > -1) {
           if (v.includes('decoder')) {
             feeds[v] = getTensor('float16', 1, [1, 8, 127, 64]);
