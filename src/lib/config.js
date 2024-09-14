@@ -1057,6 +1057,362 @@ const flanT5SmallEncoder = () => {
   }))
 }
 
+const florence2Decoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '370 MB'],
+    ['fp16', 'decoder_model_fp16.onnx', '185 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '93.2 MB'],
+    ['int4', 'decoder_model_q4.onnx', '61 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `florence2_decoder_${dt}`,
+    name: 'Florence-2 Base Decoder',
+    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/Florence-2-base',
+    hf: {
+      model: 'onnx-community/florence-2-base',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 512, 768], { "batch_size": 1, "decoder_sequence_length": 512 }],
+      'encoder_attention_mask': ['int64', 99n, [1, 512], { "batch_size": 1, "encoder_sequence_length": 512 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 512, 768], { "batch_size": 1, "encoder_sequence_length": 512 }],
+    }],
+    inputstip: '[1, 512, 768] [1, 512] [1, 512, 768]'
+  }))
+}
+
+const florence2DecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '370 MB'],
+    ['fp16', 'decoder_model_merged_fp16.onnx', '185 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '93.6 MB'],
+    ['int4', 'decoder_model_merged_q4.onnx', '61.4 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `florence2_decoder_merged_${dt}`,
+    name: 'Florence-2 Base Decoder KV-Cache',
+    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/Florence-2-base',
+    hf: {
+      model: 'onnx-community/florence-2-base',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 16, 768], { "batch_size": 1, "decoder_sequence_length": 16, "past_decoder_sequence_length": 16, "encoder_sequence_length_out": 512 }],
+      'encoder_attention_mask': ['int64', 99n, [1, 512], { "batch_size": 1, "encoder_sequence_length": 512 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 512, 768], { "batch_size": 1, "encoder_sequence_length": 512 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
+    inputstip: '[1, 16, 768] [1, 512] [1, 512, 768]'
+  }))
+}
+
+const florence2DecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '343 MB'],
+    ['fp16', 'decoder_with_past_model_fp16.onnx', '171 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '86.3 MB'],
+    ['int4', 'decoder_with_past_model_q4.onnx', '56.7 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `florence2_decoder_with_past_${dt}`,
+    name: 'Florence-2 Base Decoder w/i Past',
+    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/Florence-2-base',
+    hf: {
+      model: 'onnx-community/florence-2-base',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 16, 768], { "batch_size": 1, "past_decoder_sequence_length": 16, "encoder_sequence_length_out": 512 }],
+      'encoder_attention_mask': ['int64', 99n, [1, 512], { "batch_size": 1, "encoder_sequence_length_out": 512 }],
+    }],
+    inputstip: '[1, 16, 768] [1, 512]'
+  }))
+}
+
+const florence2Encoder = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '165 MB'],
+    ['fp16', 'encoder_model_fp16.onnx', '82.7 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '41.6 MB'],
+    ['int4', 'encoder_model_q4.onnx', '28.6 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `florence2_encoder_${dt}`,
+    name: 'Florence-2 Base Encoder',
+    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/Florence-2-base',
+    hf: {
+      model: 'onnx-community/florence-2-base',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 512, 768], { "batch_size": 1, "encoder_sequence_length": 512 }],
+      'attention_mask': ['int64', 1n, [1, 512], { "batch_size": 1, "encoder_sequence_length": 512 }],
+    }],
+    inputstip: '[1, 512, 768] [1, 512]'
+  }))
+}
+
+const florence2EmbedTokens = () => {
+  const configs = [
+    ['fp32', 'embed_tokens.onnx', '150 MB'],
+    ['fp16', 'embed_tokens_fp16.onnx', '75.1 MB'],
+    ['int8', 'embed_tokens_quantized.onnx', '37.5 MB'],
+    ['int4', 'embed_tokens_q4.onnx', '150 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `florence2_embed_tokens_${dt}`,
+    name: 'Florence-2 Base Embed Tokens',
+    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/Florence-2-base',
+    hf: {
+      model: 'onnx-community/florence-2-base',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 512], { "batch_size": 1, "sequence_length": 512 }],
+    }],
+    inputstip: '[1, 512]'
+  }))
+}
+
+const florence2VisionEncoder = () => {
+  const configs = [
+    ['fp32', 'vision_encoder.onnx', '349 MB'],
+    ['fp16', 'vision_encoder_fp16.onnx', '175 MB'],
+    ['int8', 'vision_encoder_quantized.onnx', '77.5 MB'],
+    ['int4', 'vision_encoder_q4.onnx', '89.4 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `florence2_vision_encoder_${dt}`,
+    name: 'Florence-2 Base Vision Encoder',
+    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/Florence-2-base',
+    hf: {
+      model: 'onnx-community/florence-2-base',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1, "height": 30, "width": 30 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
+const florence2ConditionalDecoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '7.44 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `florence2_conditional_decoder_${dt}`,
+    name: 'Florence 2 For Conditional Generation Decoder',
+    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: '',
+    source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-florence2forconditionalgeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 16, 32], { "batch_size": 1, "decoder_sequence_length": 16 }],
+      'encoder_attention_mask': ['int64', 99n, [1, 512], { "batch_size": 1, "encoder_sequence_length": 512 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 512, 32], { "batch_size": 1, "encoder_sequence_length": 512 }],
+    }],
+    inputstip: '[1, 16, 32] [1, 512] [1, 512, 32]'
+  }))
+}
+
+const florence2ConditionalDecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '7.50 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `florence2_conditional_decoder_merged_${dt}`,
+    name: 'Florence 2 For Conditional Generation Decoder KV-Cache',
+    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: '',
+    source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-florence2forconditionalgeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 16, 32], { "batch_size": 1, "decoder_sequence_length": 16, "past_decoder_sequence_length": 16, "encoder_sequence_length_out": 512 }],
+      'encoder_attention_mask': ['int64', 99n, [1, 512], { "batch_size": 1, "encoder_sequence_length": 512 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 512, 32], { "batch_size": 1, "encoder_sequence_length": 512 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
+    inputstip: '[1, 16, 32] [1, 512] [1, 512, 32]'
+  }))
+}
+
+const florence2ConditionalDecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '7.43 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `florence2_conditional_decoder_with_past_${dt}`,
+    name: 'Florence 2 For Conditional Generation Decoder w/i Past',
+    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: '',
+    source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-florence2forconditionalgeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 16, 32], { "batch_size": 1, "past_decoder_sequence_length": 16, "encoder_sequence_length_out": 512 }],
+      'encoder_attention_mask': ['int64', 99n, [1, 512], { "batch_size": 1, "encoder_sequence_length": 512 }],
+    }],
+    inputstip: '[1, 16, 32] [1, 512]'
+  }))
+}
+
+const florence2ConditionalEncoder = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '4.82 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `florence2_conditional_encoder_${dt}`,
+    name: 'Florence 2 For Conditional Generation Encoder',
+    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: '',
+    source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-florence2forconditionalgeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 512, 32], { "batch_size": 1, "encoder_sequence_length": 512 }],
+      'attention_mask': ['int64', 1n, [1, 512], { "batch_size": 1, "encoder_sequence_length": 512 }],
+    }],
+    inputstip: '[1, 512, 32] [1, 512]'
+  }))
+}
+
+const florence2ConditionalEmbedTokens = () => {
+  const configs = [
+    ['fp32', 'embed_tokens.onnx', '6.26 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `florence2_conditional_embed_tokens_${dt}`,
+    name: 'Florence 2 For Conditional Generation Embed Tokens',
+    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: '',
+    source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-florence2forconditionalgeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 512], { "batch_size": 1, "sequence_length": 512 }],
+    }],
+    inputstip: '[1, 512]'
+  }))
+}
+
+const florence2ConditionalVisionEncoder = () => {
+  const configs = [
+    ['fp32', 'vision_encoder.onnx', '2.62 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `florence2_conditional_vision_encoder_${dt}`,
+    name: 'Florence 2 For Conditional Generation Vision Encoder',
+    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: '',
+    source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-florence2forconditionalgeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1, "height": 30, "width": 30 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
 const gemma2bItMerged = () => {
   const configs = [
     ['int4', 'model.onnx', '150 KB', 'model.onnx.data', '2.29 GB'],
@@ -1512,6 +1868,89 @@ const llavaVisionEncoder = () => {
   }))
 }
 
+const llavaPhiDecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '2.19 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `llava_phi_decoder_merged_${dt}`,
+    name: '[Undefined] Llava Phi Decoder KV-Cache',
+    description: 'Tiny Random Llava For Conditional Generation Phi',
+    note: '',
+    source: 'https://huggingface.co/Xenova/tiny-random-LlavaForConditionalGeneration_phi',
+    hf: {
+      model: 'xenova/tiny-random-llavaforconditionalgeneration_phi',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'position_ids': ['int64', 99n, [1, 576], { "batch_size": 1, "sequence_length": 576, "past_sequence_length": 575 }],
+      'inputs_embeds': ['float32', 'random', [1, 576, 16], { "batch_size": 1, "sequence_length": 576 }],
+      'attention_mask': ['int64', 1n, [1, 576], { "batch_size": 1, "past_sequence_length + 1": 576 }],
+    }],
+    inputstip: '[1, 576, 16] [1, 576, 16] [1, 576]'
+  }))
+}
+
+const llavaPhiEmbedTokens = () => {
+  const configs = [
+    ['fp32', 'embed_tokens.onnx', '1.95 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `llava_phi_embed_tokens_${dt}`,
+    name: 'Llava Phi Embed Tokens',
+    description: 'Tiny Random Llava For Conditional Generation Phi',
+    note: '',
+    source: 'https://huggingface.co/Xenova/tiny-random-LlavaForConditionalGeneration_phi',
+    hf: {
+      model: 'xenova/tiny-random-llavaforconditionalgeneration_phi',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 256], { "batch_size": 1, "sequence_length": 256 }],
+    }],
+    inputstip: '[1, 256]'
+  }))
+}
+
+const llavaPhiVisionEncoder = () => {
+  const configs = [
+    ['fp32', 'vision_encoder.onnx', '100 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `llava_phi_vision_encoder_${dt}`,
+    name: 'Llava Phi Vision Encoder',
+    description: 'Tiny Random Llava For Conditional Generation Phi',
+    note: 'Large model',
+    source: 'https://huggingface.co/Xenova/tiny-random-LlavaForConditionalGeneration_phi',
+    hf: {
+      model: 'xenova/tiny-random-llavaforconditionalgeneration_phi',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
 const mobileVitSmall = () => {
   const configs = [
     ['fp32', 'model.onnx', '21.5 MB'],
@@ -1536,6 +1975,96 @@ const mobileVitSmall = () => {
     datatype: `${dt}`,
     inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 256, 256], { "batch_size": 1, "num_channels": 3, "height": 256, "width": 256 }] }],
     inputstip: '[1, 3, 256, 256]'
+  }))
+}
+
+const moondream2DecoderMerged = () => {
+  const configs = [
+    ['fp16', 'decoder_model_merged_fp16.onnx', '194 MB', 'decoder_model_merged_fp16.onnx_data', '2.25 GB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '1.22 GB', '', ''],
+    ['int4', 'decoder_model_merged_q4.onnx', '786 MB', '', ''],
+  ]
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `moondream2_decoder_merged_${dt}`,
+    name: '[Undefined] moondream2 Decoder KV-Cache',
+    description: 'A small vision language model designed to run efficiently on edge devices',
+    note: 'Large model',
+    source: 'https://huggingface.co/Xenova/moondream2',
+    hf: {
+      model: 'xenova/moondream2',
+      file: `${file}`,
+      externalData: `${externalData}`
+    },
+    model: '',
+    size: `${size} ${edSize}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'position_ids': ['int64', 99n, [1, 256], { "batch_size": 1, "sequence_length": 256, "past_sequence_length": 255 }],    
+      'attention_mask': ['int64', 1n, [1, 256], { "batch_size": 1, "past_sequence_length + 1": 256 }],  
+      'inputs_embeds': ['float32', 'random', [1, 256, 2048], { "batch_size": 1, "sequence_length": 256 }],
+    }],
+    inputstip: '[1, 256] [1, 256] [1, 256, 2048]'
+  }))
+}
+
+const moondream2EmbedTokens = () => {
+  const configs = [
+    ['fp16', 'embed_tokens_fp16.onnx', '200 MB'],
+    ['int8', 'embed_tokens_quantized.onnx', '100 MB'],
+    ['int4', 'embed_tokens_q4.onnx', '400 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `moondream2_embed_tokens_${dt}`,
+    name: 'moondream2 Embed Tokens',
+    description: 'A small vision language model designed to run efficiently on edge devices',
+    note: '',
+    source: 'https://huggingface.co/Xenova/moondream2',
+    hf: {
+      model: 'xenova/moondream2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 256], { "batch_size": 1, "sequence_length": 256 }],
+    }],
+    inputstip: '[1, 256]'
+  }))
+}
+
+const moondream2VisionEncoder = () => {
+  const configs = [
+    ['fp16', 'vision_encoder_fp16.onnx', '838 MB'],
+    ['int8', 'vision_encoder_quantized.onnx', '423 MB'],
+    ['int4', 'vision_encoder_q4.onnx', '266 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '2h',
+    id: `moondream2_vision_encoder_${dt}`,
+    name: 'moondream2 Vision Encoder',
+    description: 'A small vision language model designed to run efficiently on edge devices',
+    note: 'Large model',
+    source: 'https://huggingface.co/Xenova/moondream2',
+    hf: {
+      model: 'xenova/moondream2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 378, 378], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 3, 378, 378]'
   }))
 }
 
@@ -3100,6 +3629,18 @@ export let models = [
   ...flanT5SmallDecoderWithPast(),
   ...flanT5SmallDecoderMerged(),
   ...flanT5SmallEncoder(),
+  ...florence2Decoder(),
+  ...florence2DecoderMerged(),
+  ...florence2DecoderWithPast(),
+  ...florence2Encoder(),
+  ...florence2EmbedTokens(),
+  ...florence2VisionEncoder(),
+  ...florence2ConditionalDecoder(),
+  ...florence2ConditionalDecoderMerged(),
+  ...florence2ConditionalDecoderWithPast(),
+  ...florence2ConditionalEncoder(),
+  ...florence2ConditionalEmbedTokens(),
+  ...florence2ConditionalVisionEncoder(),
   ...gemma2bItMerged(),
   {
     category: 'Text Generation',
@@ -3368,6 +3909,12 @@ export let models = [
   ...llavaDecoderWithPast(),
   ...llavaEmbedTokens(),
   ...llavaVisionEncoder(),
+  ...llavaPhiDecoderMerged(),
+  ...llavaPhiEmbedTokens(),
+  ...llavaPhiVisionEncoder(),
+  ...moondream2DecoderMerged(),
+  ...moondream2EmbedTokens(),
+  ...moondream2VisionEncoder(),
   ...mobileVitSmall(),
   ...msmarcoDistilbertBaseV4(),
   // {

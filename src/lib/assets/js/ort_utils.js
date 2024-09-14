@@ -111,6 +111,10 @@ const getFeeds = (session, modelName) => {
           feeds[v] = getTensor('float32', 1, [1, 4, 576, 4]);
         } else if (modelName.indexOf('llava_decoder_with_past_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 4, 575, 4]);
+        } else if (modelName.indexOf('llava_phi_decoder_merged_') > -1) {
+          feeds[v] = getTensor('float32', 1, [1, 4, 575, 4]);
+        } else if (modelName.indexOf('moondream2_decoder_merged_') > -1) {
+          feeds[v] = getTensor('float32', 1, [1, 32, 255, 64]);
         } else if (modelName.indexOf('qwen2_0_5b_instruct_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 2, 1, 64]);
         } else if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
@@ -119,6 +123,30 @@ const getFeeds = (session, modelName) => {
           feeds[v] = getTensor('float32', 1, [1, 12, 16, 64]);
         } else if (modelName.indexOf('flan_t5_small_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
+        } else if (modelName.indexOf('florence2_decoder_merged_') > -1) {
+          if (v.includes('decoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 12, 16, 64]);
+          } else if (v.includes('encoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 12, 512, 64]);
+          }
+        } else if (modelName.indexOf('florence2_decoder_with_past_') > -1) {
+          if (v.includes('decoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 12, 16, 64]);
+          } else if (v.includes('encoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 12, 512, 64]);
+          }
+        } else if (modelName.indexOf('florence2_conditional_decoder_merged_') > -1) {
+          if (v.includes('decoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 2, 16, 16]);
+          } else if (v.includes('encoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 2, 512, 16]);
+          }
+        } else if (modelName.indexOf('florence2_conditional_decoder_with_past_') > -1) {
+          if (v.includes('decoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 2, 16, 16]);
+          } else if (v.includes('encoder')) {
+            feeds[v] = getTensor('float32', 1, [1, 2, 512, 16]);
+          }
         } else if (modelName.indexOf('gpt2_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 12, 8, 64]);
         } else if (modelName.indexOf('mt5_small_decoder_') > -1) {
