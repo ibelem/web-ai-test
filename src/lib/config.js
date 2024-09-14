@@ -1358,6 +1358,160 @@ const llama2CStories15MDecoderWithPast = () => {
   }))
 }
 
+const llavaDecoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '6.05 MB'],
+    ['fp16', 'decoder_model_fp16.onnx', '5.09 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '4.61 MB'],
+    ['int4', 'decoder_model_q4.onnx', '4.69 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `llava_decoder_${dt}`,
+    name: 'Llava Decoder',
+    description: 'Tiny Random Llava For Conditional Generation',
+    note: 'https://huggingface.co/docs/transformers/main/en/model_doc/llava',
+    source: 'https://huggingface.co/Xenova/tiny-random-LlavaForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-llavaforconditionalgeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 576, 16], { "batch_size": 1, "sequence_length": 576 }],
+      'attention_mask': ['int64', 1n, [1, 576], { "batch_size": 1, "sequence_length": 576 }],
+    }],
+    inputstip: '[1, 576, 16] [1, 576]'
+  }))
+}
+
+const llavaDecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '10.1 MB'],
+    ['fp16', 'decoder_model_merged_fp16.onnx', '9.19 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '8.73 MB'],
+    ['int4', 'decoder_model_merged_q4.onnx', '8.76 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `llava_decoder_merged_${dt}`,
+    name: 'Llava Decoder KV-Cache',
+    description: 'Tiny Random Llava For Conditional Generation',
+    note: 'https://huggingface.co/docs/transformers/main/en/model_doc/llava',
+    source: 'https://huggingface.co/Xenova/tiny-random-LlavaForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-llavaforconditionalgeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 576, 16], { "batch_size": 1, "sequence_length": 576, "past_sequence_length": 576 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "batch_size": 1, "attention_mask_sequence_length": 1 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
+    inputstip: '[1, 576, 16] [1, 1] [1]'
+  }))
+}
+
+const llavaDecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '6.05 MB'],
+    ['fp16', 'decoder_with_past_model_fp16.onnx', '5.09 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '4.61 MB'],
+    ['int4', 'decoder_with_past_model_q4.onnx', '4.69 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `llava_decoder_with_past_${dt}`,
+    name: 'Llava Decoder w/i Past',
+    description: 'Tiny Random Llava For Conditional Generation',
+    note: 'https://huggingface.co/docs/transformers/main/en/model_doc/llava',
+    source: 'https://huggingface.co/Xenova/tiny-random-LlavaForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-llavaforconditionalgeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 576, 16], { "batch_size": 1, "sequence_length": 576 }],
+      'attention_mask': ['int64', 1n, [1, 576], { "batch_size": 1, "past_sequence_length + 1": 576 }],
+    }],
+    inputstip: '[1, 576, 16] [1, 576]'
+  }))
+}
+
+const llavaEmbedTokens = () => {
+  const configs = [
+    ['fp32', 'embed_tokens.onnx', '1.95 MB'],
+    ['fp16', 'embed_tokens_fp16.onnx', '0.97 MB'],
+    ['int8', 'embed_tokens_quantized.onnx', '500 KB'],
+    ['int4', 'embed_tokens_q4.onnx', '1.95 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `llava_embed_tokens_${dt}`,
+    name: 'Llava Embed Tokens',
+    description: 'Tiny Random Llava For Conditional Generation',
+    note: 'https://huggingface.co/docs/transformers/main/en/model_doc/llava',
+    source: 'https://huggingface.co/Xenova/tiny-random-LlavaForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-llavaforconditionalgeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 576], { "batch_size": 1, "sequence_length": 576 }],
+    }],
+    inputstip: '[1, 576]'
+  }))
+}
+
+const llavaVisionEncoder = () => {
+  const configs = [
+    ['fp32', 'vision_encoder.onnx', '100 KB'],
+    ['fp16', 'vision_encoder_fp16.onnx', '84.9 KB'],
+    ['int8', 'vision_encoder_quantized.onnx', '83.5 KB'],
+    ['int4', 'vision_encoder_q4.onnx', '78.4 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `llava_vision_encoder_${dt}`,
+    name: 'Llava Vision Encoder',
+    description: 'Tiny Random Llava For Conditional Generation',
+    note: 'https://huggingface.co/docs/transformers/main/en/model_doc/llava',
+    source: 'https://huggingface.co/Xenova/tiny-random-LlavaForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-llavaforconditionalgeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
 const mobileVitSmall = () => {
   const configs = [
     ['fp32', 'model.onnx', '21.5 MB'],
@@ -2317,7 +2471,7 @@ const UniVaRLambda1 = () => {
     category: 'Sentence Similarity',
     tag: '2h',
     id: `univar_lambda_1_${dt}`,
-    name: '[Work in Progress] UniVaR Lambda 1',
+    name: 'UniVaR Lambda 1',
     description: 'https://huggingface.co/CAiRE/UniVaR-lambda-1, the same model with nomic-ai/nomic-embed-text-v1? A Reproducible Long Context (8192) Text Embedder that surpasses OpenAI text-embedding-ada-002 and text-embedding-3-small performance on short and long context tasks.',
     note: 'Large model',
     source: 'https://huggingface.co/webml/UniVaR-lambda-1',
@@ -3209,6 +3363,11 @@ export let models = [
   ...llama2CStories15MDecoder(),
   ...llama2CStories15MDecoderMerged(),
   ...llama2CStories15MDecoderWithPast(),
+  ...llavaDecoder(),
+  ...llavaDecoderMerged(),
+  ...llavaDecoderWithPast(),
+  ...llavaEmbedTokens(),
+  ...llavaVisionEncoder(),
   ...mobileVitSmall(),
   ...msmarcoDistilbertBaseV4(),
   // {
@@ -4135,6 +4294,21 @@ export let models = [
     datatype: 'int8',
     inputs: [{ 'image': ['float32', 'random', [1, 3, 1200, 1200], {}] }],
     inputstip: '[1, 3, 1200, 1200]'
+  },
+  {
+    category: 'Image Classification',
+    id: 'swin_small_fp32',
+    tag: '2h',
+    name: '[dml-ai-hub] Swim Small',
+    description: 'https://huggingface.co/microsoft/dml-ai-hub-models/',
+    note: '',
+    source: 'https://huggingface.co/microsoft/dml-ai-hub-models/',
+    model: 'dml-ai-hub-models/swin_small.onnx',
+    size: '192 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'image_tensor': ['float32', 'random', [1, 3, 224, 224], {}] }],
+    inputstip: '[1, 3, 224, 224]'
   },
   ...t5SmallDecoder(),
   ...t5SmallDecoderWithPast(),
