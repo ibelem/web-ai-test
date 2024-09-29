@@ -716,6 +716,11 @@ export const containsAllElementsInArray = (string, array) => {
   return array.every(element => string.includes(element));
 }
 
+export const getQueryValue = (name) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+};
+
 export const urlToStore = (urlSearchParams, modelIdFromUrl) => {
   if (urlSearchParams.size > 0 && urlSearchParams.size != 1) {
     let modelType = urlSearchParams.get('modeltype');

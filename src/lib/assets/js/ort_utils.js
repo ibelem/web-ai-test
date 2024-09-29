@@ -2,7 +2,7 @@
 import { models, ortDists } from '$lib/config';
 import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getModelHFFileById, getModelExternalDataNameById, getHfUrlById, getAwsUrlById, getLocalUrlById, average, minimum } from '../js/utils';
 import { ortWebVersionStore, testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
-import { sleep, } from '$lib/assets/js/utils';
+import { sleep, getQueryValue } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
 import { dataTypeToArrayConstructor, isDict } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
@@ -69,175 +69,6 @@ const getInputsById = (id) => {
   return null;
 }
 
-const getFeeds = (session, modelName) => {
-  let feeds = {};
-  let inputs = getInputsById(modelName);
-  let inputNames = session.inputNames;
-
-  for (let input of inputs) {
-    if (isDict(input)) {
-      for (let key in input) {
-        let value = input[key];
-        feeds[key] = getTensor(value[0], value[1], value[2]);
-      }
-    }
-  }
-
-  if (modelName.indexOf('_merged') > -1 || modelName.indexOf('_with_past') > -1) {
-    for (var k in inputNames) {
-      const v = inputNames[k];
-      if (v.startsWith('past_key_values.')) {
-        if (modelName.indexOf('phi_3_mini_4k_instruct_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 32, 255, 96]);
-        } else if (modelName.indexOf('phi_3_5_mini_instruct_merged_') > -1) {
-          feeds[v] = getTensor('float16', 1, [1, 32, 255, 96]);
-        } else if (modelName.indexOf('gemma_2b_it_') > -1) {
-          feeds[v] = getTensor('float16', 1, [1, 1, 1, 256]);
-        } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp32') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int8') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 4, 0, 64]);
-        } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp16') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int4') > -1) {
-          feeds[v] = getTensor('float16', 1, [1, 4, 0, 64]);
-        } else if (modelName.indexOf('tinyllama_v0_decoder_merged_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 16, 40, 4]);
-        } else if (modelName.indexOf('tinyllama_v0_decoder_with_past_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 16, 1, 4]);
-        } else if (modelName.indexOf('meta_llama_3_8b_instruct_merged_') > -1) {
-          feeds[v] = getTensor('float16', 1, [1, 4, 0, 64]);
-        } else if (modelName.indexOf('llama2_c_stories15m_decoder_merged_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 6, 4, 48]);
-        } else if (modelName.indexOf('llama2_c_stories15m_decoder_with_past_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 6, 5, 48]);
-        } else if (modelName.indexOf('llava_decoder_merged_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 4, 576, 4]);
-        } else if (modelName.indexOf('llava_decoder_with_past_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 4, 575, 4]);
-        } else if (modelName.indexOf('llava_phi_decoder_merged_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 4, 575, 4]);
-        } else if (modelName.indexOf('moondream2_decoder_merged_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 32, 255, 64]);
-        } else if (modelName.indexOf('qwen2_0_5b_instruct_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 2, 1, 64]);
-        } else if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 16, 168, 64]);
-        } else if (modelName.indexOf('distilgpt2_decoder_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 12, 16, 64]);
-        } else if (modelName.indexOf('flan_t5_small_decoder_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
-        } else if (modelName.indexOf('florence2_decoder_merged_') > -1) {
-          if (v.includes('decoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 12, 16, 64]);
-          } else if (v.includes('encoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 12, 512, 64]);
-          }
-        } else if (modelName.indexOf('florence2_decoder_with_past_') > -1) {
-          if (v.includes('decoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 12, 16, 64]);
-          } else if (v.includes('encoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 12, 512, 64]);
-          }
-        } else if (modelName.indexOf('florence2_conditional_decoder_merged_') > -1) {
-          if (v.includes('decoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 2, 16, 16]);
-          } else if (v.includes('encoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 2, 512, 16]);
-          }
-        } else if (modelName.indexOf('florence2_conditional_decoder_with_past_') > -1) {
-          if (v.includes('decoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 2, 16, 16]);
-          } else if (v.includes('encoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 2, 512, 16]);
-          }
-        } else if (modelName.indexOf('gpt2_decoder_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 12, 8, 64]);
-        } else if (modelName.indexOf('mt5_small_decoder_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
-        } else if (modelName.indexOf('t5_small_decoder_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 8, 128, 64]);
-        } else if (modelName.indexOf('vit_gpt2_image_captioning_decoder_') > -1) {
-          feeds[v] = getTensor('float32', 1, [1, 12, 168, 64]);
-        } else if (modelName.indexOf('distil_medium_en_decoder_merged_') > -1) {
-            feeds[v] = getTensor('float32', 1, [1, 16, 1, 64]);
-        } else if (modelName.indexOf('distil_medium_en_decoder_with_past_') > -1) {
-          if (v.includes('decoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 16, 1, 64]);
-          } else if (v.includes('encoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 16, 1500, 64]);
-          }
-        } else if (modelName.indexOf('whisper_base_decoder_static_') > -1) {
-          if (v.includes('decoder')) {
-            feeds[v] = getTensor('float16', 1, [1, 8, 127, 64]);
-          } else if (v.includes('encoder')) {
-            feeds[v] = getTensor('float16', 1, [1, 8, 1500, 64]);
-          }
-        } else if (modelName.indexOf('whisper_tiny_decoder_') > -1) {
-          if (v.includes('decoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 6, 128, 64]);
-          } else if (v.includes('encoder')) {
-            feeds[v] = getTensor('float32', 1, [1, 6, 1500, 64]);
-          }
-        }
-      }
-    }
-  }
-  
-  return feeds;
-}
-
-const getTensor = (type, data, dims) => {
-  let typedArray;
-  if (type === 'bool') {
-    return new ort.Tensor(type, [data], [1]);
-  } else if (type === 'int4') {
-    typedArray = Int8Array;
-  } else if (type === 'int8') {
-    typedArray = Int8Array;
-  } else if (type === 'uint8') {
-    typedArray = Uint8Array;
-  } else if (type === 'uint16') {
-    typedArray = Uint16Array;
-  } else if (type === 'float16') {
-    typedArray = Uint16Array;
-  } else if (type === 'float32') {
-    typedArray = Float32Array;
-  } else if (type === 'int32') {
-    typedArray = Int32Array;
-  } else if (type === 'int64') {
-    typedArray = BigInt64Array;
-  }
-
-  let _data;
-  if (Array.isArray(data) || ArrayBuffer.isView(data)) {
-    _data = data;
-  } else {
-    let size = 1;
-    dims.forEach((dim) => {
-      size *= dim;
-    });
-    if (data === 'random') {
-      _data = typedArray.from({ length: size }, () => Math.random());
-    } else if (data === 'ramp') {
-      _data = typedArray.from({ length: size }, (_, i) => i);
-    } else {
-      _data = typedArray.from({ length: size }, () => data);
-    }
-  }
-  return new ort.Tensor(type, _data, dims);
-}
-
-export const clone = (x) => {
-  let feed = {};
-  for (const [key, value] of Object.entries(x)) {
-    let func = dataTypeToArrayConstructor[value.type];
-    let arrayType = func.from(value.data);
-    feed[key] = new ort.Tensor(
-      value.type,
-      arrayType.slice(0),
-      value.dims
-    );
-  }
-  return feed;
-}
-
 const l = (i) => {
   console.log(i);
 }
@@ -282,6 +113,14 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   let backend = 'wasm';
   let numThreads = 1;
   let deviceType = 'cpu';
+  let enableIoBinding = true;
+  let webgpuDevice;
+  let webgpuInputBuffer = {};
+  let feedsInfo = [];
+
+  if(getQueryValue('io') == 'false') {
+    enableIoBinding = false;
+  }
 
   switch (_backend) {
     case 'wasm_1':
@@ -376,7 +215,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   };
 
   const externalDataName = getModelExternalDataNameById(_model);
-  if(externalDataName) {
+  if (externalDataName) {
     const modelHFFile = getModelHFFileById(_model);
     let externalDataPath = modelPath.replace(modelHFFile, externalDataName);
     options.externalData = [
@@ -385,6 +224,175 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
         data: externalDataPath
       }
     ];
+  }
+
+  const mlContext = await navigator.ml.createContext({ deviceType, numThreads });
+
+  const getFeedInfo = (inputName, type, data, dims) => {
+    if (!sess.inputNames.includes(inputName)) {
+      return;
+    }
+    let typedArray;
+    let typeBytes;
+    if (type === 'bool') {
+      return new ort.Tensor(type, [data], [1]);
+    } else if (type === 'int4') {
+      typedArray = Int8Array;
+    } else if (type === 'int8') {
+      typedArray = Int8Array;
+    } else if (type === 'uint8') {
+      typedArray = Uint8Array;
+    } else if (type === 'uint16') {
+      typedArray = Uint16Array;
+    } else if (type === 'float16') {
+      typedArray = Uint16Array;
+    } else if (type === 'float32') {
+      typedArray = Float32Array;
+    } else if (type === 'int32') {
+      typedArray = Int32Array;
+    } else if (type === 'int64') {
+      typedArray = BigInt64Array;
+    }
+    if (typeBytes === undefined) {
+      typeBytes = typedArray.BYTES_PER_ELEMENT;
+    }
+
+    let size, _data;
+    if (Array.isArray(data) || ArrayBuffer.isView(data)) {
+      size = data.length;
+      _data = typedArray.from(data);
+    } else {
+      size = dims.reduce((a, b) => a * b);
+      if (data === 'random') {
+        _data = typedArray.from({ length: size }, () => Math.random());
+      } else if (data === 'ramp') {
+        _data = typedArray.from({ length: size }, (_, i) => i);
+      } else {
+        _data = typedArray.from({ length: size }, () => data);
+      }
+    }
+
+    feedsInfo[inputName] = {
+      type: type,
+      data: _data,
+      dims: dims,
+      size: Math.ceil(size * typeBytes / 16) * 16
+    };
+    // return new ort.Tensor(type, _data, dims);
+  }
+
+  const getFeedsInfo = (session, modelName) => {
+    let feeds = {};
+    let inputs = getInputsById(modelName);
+    let inputNames = session.inputNames;
+
+    for (let input of inputs) {
+      if (isDict(input)) {
+        for (let key in input) {
+          let value = input[key];
+          feeds[key] = getFeedInfo(key, value[0], value[1], value[2]);
+        }
+      }
+    }
+
+    if (modelName.indexOf('_merged') > -1 || modelName.indexOf('_with_past') > -1) {
+      for (var k in inputNames) {
+        const v = inputNames[k];
+        if (v.startsWith('past_key_values.')) {
+          if (modelName.indexOf('phi_3_mini_4k_instruct_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 32, 255, 96]);
+          } else if (modelName.indexOf('phi_3_5_mini_instruct_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float16', 1, [1, 32, 255, 96]);
+          } else if (modelName.indexOf('gemma_2b_it_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float16', 1, [1, 1, 1, 256]);
+          } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp32') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int8') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 0, 64]);
+          } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_fp16') > -1 || modelName.indexOf('tinyllama_1_1b_chat_v1_0_merged_int4') > -1) {
+            feeds[v] = getFeedInfo(v, 'float16', 1, [1, 4, 0, 64]);
+          } else if (modelName.indexOf('tinyllama_v0_decoder_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 40, 4]);
+          } else if (modelName.indexOf('tinyllama_v0_decoder_with_past_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1, 4]);
+          } else if (modelName.indexOf('meta_llama_3_8b_instruct_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float16', 1, [1, 4, 0, 64]);
+          } else if (modelName.indexOf('llama2_c_stories15m_decoder_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 4, 48]);
+          } else if (modelName.indexOf('llama2_c_stories15m_decoder_with_past_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 5, 48]);
+          } else if (modelName.indexOf('llava_decoder_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 576, 4]);
+          } else if (modelName.indexOf('llava_decoder_with_past_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 575, 4]);
+          } else if (modelName.indexOf('llava_phi_decoder_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 575, 4]);
+          } else if (modelName.indexOf('moondream2_decoder_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 32, 255, 64]);
+          } else if (modelName.indexOf('qwen2_0_5b_instruct_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 2, 1, 64]);
+          } else if (modelName.indexOf('distilbart_cnn_6_6_decoder_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 168, 64]);
+          } else if (modelName.indexOf('distilgpt2_decoder_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 16, 64]);
+          } else if (modelName.indexOf('flan_t5_small_decoder_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 128, 64]);
+          } else if (modelName.indexOf('florence2_decoder_merged_') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 16, 64]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 512, 64]);
+            }
+          } else if (modelName.indexOf('florence2_decoder_with_past_') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 16, 64]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 512, 64]);
+            }
+          } else if (modelName.indexOf('florence2_conditional_decoder_merged_') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 2, 16, 16]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 2, 512, 16]);
+            }
+          } else if (modelName.indexOf('florence2_conditional_decoder_with_past_') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 2, 16, 16]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 2, 512, 16]);
+            }
+          } else if (modelName.indexOf('gpt2_decoder_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 8, 64]);
+          } else if (modelName.indexOf('mt5_small_decoder_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 128, 64]);
+          } else if (modelName.indexOf('t5_small_decoder_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 8, 128, 64]);
+          } else if (modelName.indexOf('vit_gpt2_image_captioning_decoder_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 168, 64]);
+          } else if (modelName.indexOf('distil_medium_en_decoder_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1, 64]);
+          } else if (modelName.indexOf('distil_medium_en_decoder_with_past_') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1, 64]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1500, 64]);
+            }
+          } else if (modelName.indexOf('whisper_base_decoder_static_') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float16', 1, [1, 8, 127, 64]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float16', 1, [1, 8, 1500, 64]);
+            }
+          } else if (modelName.indexOf('whisper_tiny_decoder_') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 128, 64]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 1500, 64]);
+            }
+          }
+        }
+      }
+    }
+
+    return feeds;
   }
 
   options.logSeverityLevel = 0;
@@ -405,6 +413,10 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   if (freeDimensionOverrides) {
     options.freeDimensionOverrides = freeDimensionOverrides;
+  }
+
+  if (_backend === "webgpu" && enableIoBinding === true) {
+    options.preferredOutputLocation = "gpu-buffer";
   }
 
   l(`ort.env.wasm.numThreads: ${ort.env.wasm.numThreads}`)
@@ -440,12 +452,16 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   // }
   const sess = await ort.InferenceSession.create(modelBuffer, options);
 
+  if (Object.keys(feedsInfo).length === 0) {
+    getFeedsInfo(sess, _model);
+  }
+
   let compilationTime = performance.now() - compilationStart;
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Compilation Time: ${compilationTime} ms`);
 
-  let feeds = getFeeds(sess, _model);
-  console.log('-- feeds --');
-  console.log(feeds);
+  if (_backend === "webgpu" && enableIoBinding === true) {
+    webgpuDevice = ort.env.webgpu.device;
+  }
 
   let numOfWarmups = 1;
 
@@ -459,6 +475,33 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   let throughputStart = performance.now();
   for (let i = 0; i < numOfWarmups + numOfRuns; i++) {
+    let feeds = {};
+    Object.keys(feedsInfo).forEach(key => {
+      let dims = feedsInfo[key].dims;
+      let bufferSize = feedsInfo[key].size;
+      if (enableIoBinding && _backend === "webgpu") {
+        const myPreAllocatedBuffer = webgpuDevice.createBuffer({
+          size: bufferSize,
+          usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST | GPUBufferUsage.STORAGE,
+        });
+
+        webgpuDevice.queue.writeBuffer(myPreAllocatedBuffer, 0, feedsInfo[key].data);
+        feeds[key] = ort.Tensor.fromGpuBuffer(myPreAllocatedBuffer, { dataType: feedsInfo[key].type, dims });
+      }
+      else if (enableIoBinding && _backend === "webnn") {
+        //console.time(feed);
+        // mlContext.writeTensor(inputMlBuffer[key], feeds[key].data);
+        //console.timeEnd(feed);
+        feeds[key] = new ort.Tensor(feedsInfo[key].type, feedsInfo[key].data, feedsInfo[key].dims);
+      }
+      else {
+        feeds[key] = new ort.Tensor(feedsInfo[key].type, feedsInfo[key].data, feedsInfo[key].dims);
+      }
+    });
+
+    // console.log('-- feeds --');
+    // console.log(feeds);
+
     let start;
     start = performance.now();
     await sess.run(feeds);
@@ -470,6 +513,10 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     }
 
     (i < numOfWarmups) ? warmupTimes.push(inferenceTime) : inferenceTimes.push(inferenceTime);
+
+    if (_backend === "webgpu" && enableIoBinding) {
+      await webgpuDevice.queue.onSubmittedWorkDone();
+    }
 
     // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
   }
