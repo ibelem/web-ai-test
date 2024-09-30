@@ -541,6 +541,11 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     let start;
     start = performance.now();
     await sess.run(feeds);
+
+    if (_backend === "webgpu" && enableIoBinding) {
+      await webgpuDevice.queue.onSubmittedWorkDone();
+    }
+
     let inferenceTime = performance.now() - start;
 
     if (i === 0) {
@@ -549,10 +554,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     }
 
     (i < numOfWarmups) ? warmupTimes.push(inferenceTime) : inferenceTimes.push(inferenceTime);
-
-    if (_backend === "webgpu" && enableIoBinding) {
-      await webgpuDevice.queue.onSubmittedWorkDone();
-    }
 
     // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
   }
