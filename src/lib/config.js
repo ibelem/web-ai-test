@@ -4889,6 +4889,109 @@ export let models = [
   ...vitGpt2ImageCaptioningDecoderWithPast(),
   ...vitGpt2ImageCaptioningDecoderMerged(),
   ...vitGpt2ImageCaptioningEncoder(),
+  {
+    category: 'Automatic Speech Recognition',
+    tag: '2h',
+    id: 'voiceitt_casr_decoder_epoch_fp32',
+    name: 'ISV Voiceitt CASR.JS Decoder Epoch',
+    description: 'Voiceitt CASR.JS Library',
+    note: '',
+    source: 'https://www.voiceitt.com/',
+    model: 'isv/voiceitt/onnx/decoder-epoch-40-avg-10.onnx',
+    size: '1.99MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'y': ['int64', 99n, [1000, 2], { "N": 1000 }],
+    }],
+    inputstip: '[1000, 2]'
+  },
+  {
+    category: 'Automatic Speech Recognition',
+    tag: '2h',
+    id: 'voiceitt_casr_encoder_epoch_merged_int8',
+    name: 'ISV Voiceitt CASR.JS Encoder Epoch KV-Cache',
+    description: 'Voiceitt CASR.JS Library',
+    note: '',
+    source: 'https://www.voiceitt.com/',
+    model: 'isv/voiceitt/onnx/encoder-epoch-40-avg-10.qt8.onnx',
+    size: '120MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'x': ['float32', 'random', [1, 39, 80], { "N": 1 }],
+    }],
+    inputstip: '[1, 39, 80]'
+  },
+  {
+    category: 'Automatic Speech Recognition',
+    tag: '2h',
+    id: 'voiceitt_casr_joiner_epoch_fp32',
+    name: 'ISV Voiceitt CASR.JS Joiner Epoch',
+    description: 'Voiceitt CASR.JS Library',
+    note: '',
+    source: 'https://www.voiceitt.com/',
+    model: 'isv/voiceitt/onnx/joiner-epoch-40-avg-10.onnx',
+    size: '0.97MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'encoder_out': ['float32', 'random', [1000, 512], { "N": 1000 }],
+      'decoder_out': ['float32', 'random', [1000, 512], { "N": 1000 }]
+    }],
+    inputstip: '[1000, 512] [1000, 512]'
+  },
+  {
+    category: 'Automatic Speech Recognition',
+    tag: '2h',
+    id: 'voiceitt_casr_tack_fbank_fp32',
+    name: 'ISV Voiceitt CASR.JS Library Tack Fbank',
+    description: 'Voiceitt CASR.JS Library',
+    note: '',
+    source: 'https://www.voiceitt.com/',
+    model: 'isv/voiceitt/onnx/tack_fbank.onnx',
+    size: '90.6KB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'audio': ['float32', 'random', [1, 1000], { "length": 1000 }]
+    }],
+    inputstip: '[1, 1000]'
+  },
+  {
+    category: 'Automatic Speech Recognition',
+    tag: '2h',
+    id: 'voiceitt_casr_tack_mfcc_fp32',
+    name: 'ISV Voiceitt CASR.JS Library Tack MFCC',
+    description: 'Voiceitt CASR.JS Library',
+    note: '',
+    source: 'https://www.voiceitt.com/',
+    model: 'isv/voiceitt/onnx/tack_mfcc.onnx',
+    size: '61KB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'audio': ['float32', 'random', [1, 1000], { "length": 1000 }]
+    }],
+    inputstip: '[1, 1000]'
+  },
+  {
+    category: 'Automatic Speech Recognition',
+    tag: '2h',
+    id: 'voiceitt_casr_vad_fp32',
+    name: 'ISV Voiceitt CASR.JS Library VAD',
+    description: 'Voiceitt CASR.JS Library',
+    note: '',
+    source: 'https://www.voiceitt.com/',
+    model: 'isv/voiceitt/onnx/vad_model.onnx',
+    size: '874KB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{
+      'mfcc': ['float32', 'random', [1000, 40], { "length": 1000 }]
+    }],
+    inputstip: '[1000, 40]'
+  },
   ...whisperTinyDecoder(),
   ...whisperTinyWithPast(),
   ...whisperTinyMerged(),

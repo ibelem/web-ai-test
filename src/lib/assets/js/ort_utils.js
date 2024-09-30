@@ -118,7 +118,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   let webgpuInputBuffer = {};
   let feedsInfo = [];
 
-  if(getQueryValue('io') == 'false') {
+  if (getQueryValue('io') == 'false') {
     enableIoBinding = false;
   }
 
@@ -388,7 +388,43 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 1500, 64]);
             }
           }
-        }
+        } else if (modelName.indexOf('voiceitt_casr_encoder_epoch_merged_int8') > -1) {
+          feeds['cached_len_0'] = getFeedInfo('cached_len_0', 'int64', 1n, [2, 1]);
+          feeds['cached_len_1'] = getFeedInfo('cached_len_1', 'int64', 1n, [4, 1]);
+          feeds['cached_len_2'] = getFeedInfo('cached_len_2', 'int64', 1n, [3, 1]);
+          feeds['cached_len_3'] = getFeedInfo('cached_len_3', 'int64', 1n, [2, 1]);
+          feeds['cached_len_4'] = getFeedInfo('cached_len_4', 'int64', 1n, [4, 1]);
+          feeds['cached_avg_0'] = getFeedInfo('cached_avg_0', 'float32', 1, [2, 1, 384]);
+          feeds['cached_avg_1'] = getFeedInfo('cached_avg_1', 'float32', 1, [4, 1, 384]);
+          feeds['cached_avg_2'] = getFeedInfo('cached_avg_2', 'float32', 1, [3, 1, 384]);
+          feeds['cached_avg_3'] = getFeedInfo('cached_avg_3', 'float32', 1, [2, 1, 384]);
+          feeds['cached_avg_4'] = getFeedInfo('cached_avg_4', 'float32', 1, [4, 1, 384]);
+          feeds['cached_key_0'] = getFeedInfo('cached_key_0', 'float32', 1, [2, 64, 1, 192]);
+          feeds['cached_key_1'] = getFeedInfo('cached_key_1', 'float32', 1, [4, 32, 1, 192]);
+          feeds['cached_key_2'] = getFeedInfo('cached_key_2', 'float32', 1, [3, 16, 1, 192]);
+          feeds['cached_key_3'] = getFeedInfo('cached_key_3', 'float32', 1, [2, 8, 1, 192]);
+          feeds['cached_key_4'] = getFeedInfo('cached_key_4', 'float32', 1, [4, 32, 1, 192]);
+          feeds['cached_val_0'] = getFeedInfo('cached_val_0', 'float32', 1, [2, 64, 1, 96]);
+          feeds['cached_val_1'] = getFeedInfo('cached_val_1', 'float32', 1, [4, 32, 1, 96]);
+          feeds['cached_val_2'] = getFeedInfo('cached_val_2', 'float32', 1, [3, 16, 1, 96]);
+          feeds['cached_val_3'] = getFeedInfo('cached_val_3', 'float32', 1, [2, 8, 1, 96]);
+          feeds['cached_val_4'] = getFeedInfo('cached_val_4', 'float32', 1, [4, 32, 1, 96]);
+          feeds['cached_val2_0'] = getFeedInfo('cached_val2_0', 'float32', 1, [2, 64, 1, 96]);
+          feeds['cached_val2_1'] = getFeedInfo('cached_val2_1', 'float32', 1, [4, 32, 1, 96]);
+          feeds['cached_val2_2'] = getFeedInfo('cached_val2_2', 'float32', 1, [3, 16, 1, 96]);
+          feeds['cached_val2_3'] = getFeedInfo('cached_val2_3', 'float32', 1, [2, 8, 1, 96]);
+          feeds['cached_val2_4'] = getFeedInfo('cached_val2_4', 'float32', 1, [4, 32, 1, 96]);
+          feeds['cached_conv1_0'] = getFeedInfo('cached_conv1_0', 'float32', 1, [2, 1, 384, 30]);
+          feeds['cached_conv1_1'] = getFeedInfo('cached_conv1_1', 'float32', 1, [4, 1, 384, 30]);
+          feeds['cached_conv1_2'] = getFeedInfo('cached_conv1_2', 'float32', 1, [3, 1, 384, 30]);
+          feeds['cached_conv1_3'] = getFeedInfo('cached_conv1_3', 'float32', 1, [2, 1, 384, 30]);
+          feeds['cached_conv1_4'] = getFeedInfo('cached_conv1_4', 'float32', 1, [4, 1, 384, 30]);
+          feeds['cached_conv2_0'] = getFeedInfo('cached_conv2_0', 'float32', 1, [2, 1, 384, 30]);
+          feeds['cached_conv2_1'] = getFeedInfo('cached_conv2_1', 'float32', 1, [4, 1, 384, 30]);
+          feeds['cached_conv2_2'] = getFeedInfo('cached_conv2_2', 'float32', 1, [3, 1, 384, 30]);
+          feeds['cached_conv2_3'] = getFeedInfo('cached_conv2_3', 'float32', 1, [2, 1, 384, 30]);
+          feeds['cached_conv2_4'] = getFeedInfo('cached_conv2_4', 'float32', 1, [4, 1, 384, 30]);
+        } 
       }
     }
 

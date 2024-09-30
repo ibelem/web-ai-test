@@ -128,7 +128,8 @@
 			.replace('MS PowerPoint', '<span class="powerpoint" title="Microsoft PowerPoint">MS PowerPoint</span>')
 			.replace('Gemma', '<span class="phi3">Gemma</span>')
 			.replace('Phi-3.5-mini', '<span class="phi3">Phi-3.5-mini</span>')
-			.replace('Phi-3 Mini', '<span class="phi3">Phi-3 Mini</span>');
+			.replace('Phi-3 Mini', '<span class="phi3">Phi-3 Mini</span>')
+			.replace('ISV', '<span class="isv">ISV</span>');
 		return name;
 	};
 

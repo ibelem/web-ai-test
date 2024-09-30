@@ -1,10 +1,159 @@
 export const fallbackEnv = {
   "windows": "Windows 11 23H2 22631.4169",
-  "version": "130.0.6715.0",
-  "last_update": "Sept 14, 2024"
+  "version": "131.0.6747.0",
+  "last_update": "Sept 30, 2024"
 }
 
 export const fallback = [
+  {
+    "name": "voiceitt_casr_tack_mfcc_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 2,
+    "nodes_in_the_graph": 43,
+    "nodes_supported_by_webnn": 41,
+    "supported": [
+      "Add",
+      "Concat",
+      "Gather",
+      "Gemm",
+      "Log",
+      "MatMul",
+      "Max",
+      "Mul",
+      "Pad",
+      "Pow",
+      "ReduceMean",
+      "ReduceSum",
+      "Reshape",
+      "Slice",
+      "Sqrt",
+      "Squeeze",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": [
+      "STFT",
+      "ScatterND"
+    ]
+  },
+  {
+    "name": "voiceitt_casr_tack_fbank_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 2,
+    "nodes_in_the_graph": 30,
+    "nodes_supported_by_webnn": 29,
+    "supported": [
+      "Add",
+      "Gather",
+      "Gemm",
+      "Log",
+      "Max",
+      "Mul",
+      "Pad",
+      "Pow",
+      "ReduceMean",
+      "Reshape",
+      "Slice",
+      "Sqrt",
+      "Squeeze",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": [
+      "STFT"
+    ]
+  },
+  {
+    "name": "voiceitt_casr_vad_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 2,
+    "nodes_in_the_graph": 20,
+    "nodes_supported_by_webnn": 19,
+    "supported": [
+      "Add",
+      "BatchNormalization",
+      "Conv",
+      "Exp",
+      "Gather",
+      "MatMul",
+      "Relu",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": [
+      "LogSoftmax"
+    ]
+  },
+  {
+    "name": "voiceitt_casr_encoder_epoch_merged_int8",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 198,
+    "nodes_in_the_graph": 2784,
+    "nodes_supported_by_webnn": 2420,
+    "supported": [
+      "Add",
+      "Cast",
+      "Concat",
+      "Conv",
+      "Expand",
+      "Gather",
+      "MatMul",
+      "Mul",
+      "Pow",
+      "Reciprocal",
+      "ReduceMean",
+      "ReduceSum",
+      "Reshape",
+      "Sigmoid",
+      "Slice",
+      "Softmax",
+      "Split",
+      "Sub",
+      "Transpose",
+      "Unsqueeze"
+    ],
+    "not_supported": [
+      "CumSum",
+      "DynamicQuantizeLinear",
+      "GatherElements",
+      "MatMulInteger"
+    ]
+  },
+  {
+    "name": "voiceitt_casr_joiner_epoch_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 3,
+    "nodes_supported_by_webnn": 3,
+    "supported": [
+      "Add",
+      "Gemm",
+      "Tanh"
+    ]
+  },
+  {
+    "name": "voiceitt_casr_decoder_epoch_fp32",
+    "backend": "gpu",
+    "error": "",
+    "partitions_supported_by_webnn": 1,
+    "nodes_in_the_graph": 7,
+    "nodes_supported_by_webnn": 7,
+    "supported": [
+      "Conv",
+      "Gather",
+      "Gemm",
+      "Relu",
+      "Squeeze",
+      "Transpose"
+    ]
+  },
   {
     "name": "florence2_decoder_fp16",
     "backend": "gpu",
