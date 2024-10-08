@@ -113,12 +113,14 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   let backend = 'wasm';
   let numThreads = 1;
   let deviceType = 'cpu';
-  let enableIoBinding = true;
+  let enableIoBinding = false;
   let webgpuDevice;
   let webgpuInputBuffer = {};
   let feedsInfo = [];
 
-  if (getQueryValue('io') == 'false') {
+  if (getQueryValue('io') == 'true') {
+    enableIoBinding = true;
+  } else {
     enableIoBinding = false;
   }
 
@@ -501,11 +503,15 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   let numOfWarmups = 1;
 
-  if (backend === 'webgl' || backend === 'webgpu' || (backend === 'webnn' && deviceType === 'gpu')) {
+  if (_backend === 'webgl' || _backend === 'webgpu' || (_backend === 'webnn' && deviceType === 'gpu')) {
     numOfWarmups = 1;
   }
 
   let firstInferenceTime = 0, warmupTimes = [], inferenceTimes = [], timeToFirstInference = null, inferenceTimesAverage = null, inferenceTimesMedian = null, inferenceTimesThroughput = null, inferenceTimesNinety = null, inferenceTimesBest = null;
+
+  if(_backend === 'webgpu' || _backend === 'webnn') {
+    updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] IO Binding: ${enableIoBinding}`);
+  }
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inferencing, please wait... `);
 
