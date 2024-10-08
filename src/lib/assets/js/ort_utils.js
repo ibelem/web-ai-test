@@ -226,7 +226,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     ];
   }
 
-  const mlContext = await navigator.ml.createContext({ deviceType, numThreads });
+  const mlContext = await navigator.ml?.createContext({ deviceType, numThreads });
 
   const getFeedInfo = (inputName, type, data, dims) => {
     if (!sess.inputNames.includes(inputName)) {
