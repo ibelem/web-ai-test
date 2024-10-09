@@ -71,7 +71,6 @@ export const getModelOPFS = async (name, url, updateModel) => {
     await writable.write(buffer);
     await writable.close();
     return buffer;
-
   }
 
   if (updateModel) {
@@ -93,7 +92,7 @@ export const getModelOPFS = async (name, url, updateModel) => {
 }
 
 // Get model via Cache API
-const getModelCache = async (name, url, updateModel) => {
+export const getModelCache = async (name, url, updateModel) => {
   const cache = await caches.open(name);
   if (updateModel) {
     await cache.add(url);

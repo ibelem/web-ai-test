@@ -3,7 +3,7 @@ import { models, ortDists } from '$lib/config';
 import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getModelHFFileById, getModelExternalDataNameById, getHfUrlById, getAwsUrlById, getLocalUrlById, average, minimum } from '../js/utils';
 import { ortWebVersionStore, testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { sleep, getQueryValue } from '$lib/assets/js/utils';
-import { getModelOPFS } from '$lib/assets/js/nn_utils'
+import { getModelOPFS, getModelCache } from '$lib/assets/js/nn_utils'
 import { dataTypeToArrayConstructor, isDict } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
 import percentile from 'percentile';
@@ -473,9 +473,19 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Downloading model from ${modelPath}`);
 
-  let modelBuffer = await getModelOPFS(_model, modelPath, false);
-  if (modelBuffer.byteLength < 1024) {
-    modelBuffer = await getModelOPFS(_model, modelPath, true);
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  let modelBuffer = null;
+  if(!isSafari) {
+    modelBuffer= await getModelOPFS(_model, modelPath, false);
+    if (modelBuffer.byteLength < 1024) {
+      modelBuffer = await getModelOPFS(_model, modelPath, true);
+    }
+  } else {
+    modelBuffer = await getModelCache(_model, modelPath, false);
+    if (modelBuffer.byteLength < 1024) {
+      modelBuffer = await getModelCache(_model, modelPath, true);
+    }
   }
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Creating onnx runtime web inference session`);
