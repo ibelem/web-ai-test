@@ -3136,6 +3136,18 @@ background-color: var(--int4-005);
   color: var(--white) !important;
 }
 
+.titlemark span.demo {
+  border: 1px solid rgba(39, 94, 254, 1) !important;
+  background-color: rgba(39, 94, 254, 1) !important;
+  color: var(--white);
+}
+
+.tq .q:hover .titlemark span.demo {
+  border: 1px solid rgba(45, 45, 45, 1);
+  background-color: rgba(45, 45, 45, 1);
+  color: var(--white) !important;
+}
+
 .ms365 {
   height: 16px;
   width: 16px;

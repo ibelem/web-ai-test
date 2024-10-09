@@ -84,7 +84,7 @@ const getFreeDimensionOverridesById = (id) => {
           if (Object.keys(ob).length !== 0) {
             Object.keys(ob).forEach(key => {
               if (ob[key].toString().trim()) {
-                fdo[key] = ob[key];
+                fdo[key?.toString().trim()] = ob[key];
               }
             });
           }

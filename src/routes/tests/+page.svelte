@@ -129,7 +129,8 @@
 			.replace('Gemma', '<span class="phi3">Gemma</span>')
 			.replace('Phi-3.5-mini', '<span class="phi3">Phi-3.5-mini</span>')
 			.replace('Phi-3 Mini', '<span class="phi3">Phi-3 Mini</span>')
-			.replace('ISV', '<span class="isv">ISV</span>');
+			.replace('ISV', '<span class="isv">ISV</span>')
+			.replace('Demo', '<span class="demo" title="WebNN Developer Preview Demo model">Demo</span>');
 		return name;
 	};
 
