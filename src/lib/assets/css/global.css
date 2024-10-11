@@ -3055,7 +3055,7 @@ background-color: var(--int4-005);
 
 .limits table th,
 .limits table td {
-  padding: 2px 8px;
+  padding: 2px 2px;
   text-align: center;
   border: 1px solid var(--grey-02);
   color: var(--font);

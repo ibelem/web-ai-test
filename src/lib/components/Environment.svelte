@@ -212,6 +212,17 @@
 		environment.webbrowser = parser.browser.name;
 		environment.browserVersion = parser.browser.version;
 
+		if (navigator.userAgentData) {
+			navigator.userAgentData.getHighEntropyValues(["fullVersionList"])
+				.then((ua) => {
+					for (let i of ua.fullVersionList) {
+						if (i.brand.toLowerCase().indexOf('brand') === -1 && i.brand.toLowerCase().indexOf('chromium') === -1) {
+							environment.browserVersion = i.version;
+						}
+					}
+				});
+		}
+
 		const [err, data] = await to(getCP());
 		const [errNI, dataNI] = await to(getNetworkInfomation());
 
