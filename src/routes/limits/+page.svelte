@@ -73,7 +73,7 @@
 	};
 
 	let os = 'windows';
-	let osVersion = '11';
+	let osVersion = '';
 	let cpu = '';
 
 	onMount(async () => {

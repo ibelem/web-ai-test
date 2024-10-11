@@ -169,6 +169,8 @@
 			environment.cpu = parser.cpu.architecture;
 		}
 
+		environment.osVersion = parser.os.version;
+
 		navigator.userAgentData
 			?.getHighEntropyValues(['platformVersion', 'architecture', 'bitness'])
 			.then((ua) => {
@@ -208,7 +210,7 @@
 		} else {
 			environment.os = parser.os.name;
 		}
-		// environment.osVersion = parser.os.version;
+
 		environment.webbrowser = parser.browser.name;
 		environment.browserVersion = parser.browser.version;
 
