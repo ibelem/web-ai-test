@@ -186,7 +186,7 @@
 
 	const handleResNet50 = async (event) => {
 		try {
-				const response = await fetch('../src/lib/assets/json/resnet50v1_webnn_npu_graph.json');
+				let response = await fetch('../json/resnet50v1_webnn_npu_graph.json');
 				if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
