@@ -4954,8 +4954,8 @@ export let models = [
   {
     category: 'Automatic Speech Recognition',
     tag: '2h',
-    id: 'voiceitt_casr_encoder_epoch_merged_int8',
-    name: 'ISV Voiceitt CASR.JS Encoder Epoch KV-Cache',
+    id: 'voiceitt_casr_encoder_epoch_40_merged_int8',
+    name: 'ISV Voiceitt CASR.JS Encoder Epoch 40 KV-Cache',
     description: 'Voiceitt CASR.JS Library',
     note: '',
     source: 'https://www.voiceitt.com/',
@@ -4967,6 +4967,26 @@ export let models = [
       'x': ['float32', 'random', [1, 39, 80], { "N": 1 }],
     }],
     inputstip: '[1, 39, 80]'
+  },
+  {
+    category: 'Automatic Speech Recognition',
+    tag: '2h',
+    id: 'voiceitt_casr_encoder_epoch_70_merged_int8',
+    name: 'ISV Voiceitt CASR.JS Encoder Epoch 70 KV-Cache',
+    description: 'Voiceitt CASR.JS Library',
+    note: '',
+    source: 'https://www.voiceitt.com/',
+    model: 'isv/voiceitt/onnx/encoder-epoch-70-avg-20.onnx',
+    size: '147MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{
+      'x': ['float32', 'random', [1, 45, 80], { "N": 1 }],
+      'x_lens': ['int64', 1n, [1], { "N": 1 }],
+      'processed_lens': ['int64', 1n, [1], { "N": 1 }],
+      'embed_states': ['float32', 'random', [1, 128, 3, 19], { "N": 1 }],
+    }],
+    inputstip: '[1, 45, 80] [1] [1] [1, 128, 3, 19]'
   },
   {
     category: 'Automatic Speech Recognition',

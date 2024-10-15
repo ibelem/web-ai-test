@@ -277,6 +277,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     feedsInfo[inputName] = {
       type: type,
       data: _data,
+      shape: dims,
       dims: dims,
       size: Math.ceil(size * typeBytes / 16) * 16
     };
@@ -390,7 +391,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 1500, 64]);
             }
           }
-        } else if (modelName.indexOf('voiceitt_casr_encoder_epoch_merged_int8') > -1) {
+        } else if (modelName.indexOf('voiceitt_casr_encoder_epoch_40_merged_int8') > -1) {
           feeds['cached_len_0'] = getFeedInfo('cached_len_0', 'int64', 1n, [2, 1]);
           feeds['cached_len_1'] = getFeedInfo('cached_len_1', 'int64', 1n, [4, 1]);
           feeds['cached_len_2'] = getFeedInfo('cached_len_2', 'int64', 1n, [3, 1]);
@@ -426,6 +427,119 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
           feeds['cached_conv2_2'] = getFeedInfo('cached_conv2_2', 'float32', 1, [3, 1, 384, 30]);
           feeds['cached_conv2_3'] = getFeedInfo('cached_conv2_3', 'float32', 1, [2, 1, 384, 30]);
           feeds['cached_conv2_4'] = getFeedInfo('cached_conv2_4', 'float32', 1, [4, 1, 384, 30]);
+        } else if (modelName.indexOf('voiceitt_casr_encoder_epoch_70_merged_int8') > -1) {
+          feeds['cached_key_0'] = getFeedInfo('cached_key_0', 'float32', 1, [128,1,128]);
+          feeds['cached_nonlin_attn_0'] = getFeedInfo('cached_nonlin_attn_0', 'float32', 1, [1,1,128,144]);
+          feeds['cached_val1_0'] = getFeedInfo('cached_val1_0', 'float32', 1, [128,1,48]);
+          feeds['cached_val2_0'] = getFeedInfo('cached_val2_0', 'float32', 1, [128,1,48]);
+          feeds['cached_conv1_0'] = getFeedInfo('cached_conv1_0', 'float32', 1, [1,192,15]);
+          feeds['cached_conv2_0'] = getFeedInfo('cached_conv2_0', 'float32', 1, [1,192,15]);
+          feeds['cached_key_1'] = getFeedInfo('cached_key_1', 'float32', 1, [128,1,128]);
+          feeds['cached_nonlin_attn_1'] = getFeedInfo('cached_nonlin_attn_1', 'float32', 1, [1,1,128,144]);
+          feeds['cached_val1_1'] = getFeedInfo('cached_val1_1', 'float32', 1, [128,1,48]);
+          feeds['cached_val2_1'] = getFeedInfo('cached_val2_1', 'float32', 1, [128,1,48]);
+          feeds['cached_conv1_1'] = getFeedInfo('cached_conv1_1', 'float32', 1, [1,192,15]);
+          feeds['cached_conv2_1'] = getFeedInfo('cached_conv2_1', 'float32', 1, [1,192,15]);
+          feeds['cached_key_2'] = getFeedInfo('cached_key_2', 'float32', 1, [64,1,128]);
+          feeds['cached_nonlin_attn_2'] = getFeedInfo('cached_nonlin_attn_2', 'float32', 1, [1,1,64,192]);
+          feeds['cached_val1_2'] = getFeedInfo('cached_val1_2', 'float32', 1, [64,1,128]);
+          feeds['cached_val2_2'] = getFeedInfo('cached_val2_2', 'float32', 1, [64,1,128]);
+          feeds['cached_conv1_2'] = getFeedInfo('cached_conv1_2', 'float32', 1, [1,256,15]);
+          feeds['cached_conv2_2'] = getFeedInfo('cached_conv2_2', 'float32', 1, [1,256,15]);
+          feeds['cached_key_3'] = getFeedInfo('cached_key_3', 'float32', 1, [64,1,128]);
+          feeds['cached_nonlin_attn_3'] = getFeedInfo('cached_nonlin_attn_3', 'float32', 1, [1,1,64,192]);
+          feeds['cached_val1_3'] = getFeedInfo('cached_val1_3', 'float32', 1, [64,1,128]);
+          feeds['cached_val2_3'] = getFeedInfo('cached_val2_3', 'float32', 1, [64,1,48]);
+          feeds['cached_conv1_3'] = getFeedInfo('cached_conv1_3', 'float32', 1, [1,256,15]);
+          feeds['cached_conv2_3'] = getFeedInfo('cached_conv2_3', 'float32', 1, [1,256,15]);
+          feeds['cached_key_4'] = getFeedInfo('cached_key_4', 'float32', 1, [32,1,128]);
+          feeds['cached_nonlin_attn_4'] = getFeedInfo('cached_nonlin_attn_4', 'float32', 1, [1,1,32,384]);
+          feeds['cached_val1_4'] = getFeedInfo('cached_val1_4', 'float32', 1, [32,1,48]);
+          feeds['cached_val2_4'] = getFeedInfo('cached_val2_4', 'float32', 1, [32,1,48]);
+          feeds['cached_conv1_4'] = getFeedInfo('cached_conv1_4', 'float32', 1, [1,512,7]);
+          feeds['cached_conv2_4'] = getFeedInfo('cached_conv2_4', 'float32', 1, [1,512,7]);
+          feeds['cached_key_5'] = getFeedInfo('cached_key_5', 'float32', 1, [32,1,128]);
+          feeds['cached_nonlin_attn_5'] = getFeedInfo('cached_nonlin_attn_5', 'float32', 1, [1,1,32,384]);
+          feeds['cached_val1_5'] = getFeedInfo('cached_val1_5', 'float32', 1, [32,1,48]);
+          feeds['cached_val2_5'] = getFeedInfo('cached_val2_5', 'float32', 1, [32,1,48]);
+          feeds['cached_conv1_5'] = getFeedInfo('cached_conv1_5', 'float32', 1, [1,512,7]);
+          feeds['cached_conv2_5'] = getFeedInfo('cached_conv2_5', 'float32', 1, [1,512,7]);
+          feeds['cached_key_6'] = getFeedInfo('cached_key_6', 'float32', 1, [32,1,128]);
+          feeds['cached_nonlin_attn_6'] = getFeedInfo('cached_nonlin_attn_6', 'float32', 1, [1,1,32,384]);
+          feeds['cached_val1_6'] = getFeedInfo('cached_val1_6', 'float32', 1, [32,1,48]);
+          feeds['cached_val2_6'] = getFeedInfo('cached_val2_6', 'float32', 1, [32,1,48]);
+          feeds['cached_conv1_6'] = getFeedInfo('cached_conv1_6', 'float32', 1, [1,512,7]);
+          feeds['cached_conv2_6'] = getFeedInfo('cached_conv2_6', 'float32', 1, [1,512,7]);
+          feeds['cached_key_7'] = getFeedInfo('cached_key_7', 'float32', 1, [32,1,128]);
+          feeds['cached_nonlin_attn_7'] = getFeedInfo('cached_nonlin_attn_7', 'float32', 1, [1,1,32,384]);
+          feeds['cached_val1_7'] = getFeedInfo('cached_val1_7', 'float32', 1, [32,1,48]);
+          feeds['cached_val2_7'] = getFeedInfo('cached_val2_7', 'float32', 1, [32,1,48]);
+          feeds['cached_conv1_7'] = getFeedInfo('cached_conv1_7', 'float32', 1, [1,512,7]);
+          feeds['cached_conv2_7'] = getFeedInfo('cached_conv2_7', 'float32', 1, [1,512,7]);
+          feeds['cached_key_8'] = getFeedInfo('cached_key_8', 'float32', 1, [16,1,256]);
+          feeds['cached_nonlin_attn_8'] = getFeedInfo('cached_nonlin_attn_8', 'float32', 1, [1,1,16,576]);
+          feeds['cached_val1_8'] = getFeedInfo('cached_val1_8', 'float32', 1, [16,1,96]);
+          feeds['cached_val2_8'] = getFeedInfo('cached_val2_8', 'float32', 1, [16,1,96]);
+          feeds['cached_conv1_8'] = getFeedInfo('cached_conv1_8', 'float32', 1, [1,768,7]);
+          feeds['cached_conv2_8'] = getFeedInfo('cached_conv2_8', 'float32', 1, [1,768,7]);
+          feeds['cached_key_9'] = getFeedInfo('cached_key_9', 'float32', 1, [16,1,256]);
+          feeds['cached_nonlin_attn_9'] = getFeedInfo('cached_nonlin_attn_9', 'float32', 1, [1,1,16,576]);
+          feeds['cached_val1_9'] = getFeedInfo('cached_val1_9', 'float32', 1, [16,1,96]);
+          feeds['cached_val2_9'] = getFeedInfo('cached_val2_9', 'float32', 1, [16,1,96]);
+          feeds['cached_conv1_9'] = getFeedInfo('cached_conv1_9', 'float32', 1, [1,768,7]);
+          feeds['cached_conv2_9'] = getFeedInfo('cached_conv2_9', 'float32', 1, [1,768,7]);
+          feeds['cached_key_10'] = getFeedInfo('cached_key_10', 'float32', 1, [16,1,256]);
+          feeds['cached_nonlin_attn_10'] = getFeedInfo('cached_nonlin_attn_10', 'float32', 1, [1,1,16,576]);
+          feeds['cached_val1_10'] = getFeedInfo('cached_val1_10', 'float32', 1, [16,1,96]);
+          feeds['cached_val2_10'] = getFeedInfo('cached_val2_10', 'float32', 1, [16,1,96]);
+          feeds['cached_conv1_10'] = getFeedInfo('cached_conv1_10', 'float32', 1, [1,768,7]);
+          feeds['cached_conv2_10'] = getFeedInfo('cached_conv2_10', 'float32', 1, [1,768,7]);
+          feeds['cached_key_11'] = getFeedInfo('cached_key_11', 'float32', 1, [16,1,256]);
+          feeds['cached_nonlin_attn_11'] = getFeedInfo('cached_nonlin_attn_11', 'float32', 1, [1,1,16,576]);
+          feeds['cached_val1_11'] = getFeedInfo('cached_val1_11', 'float32', 1, [16,1,96]);
+          feeds['cached_val2_11'] = getFeedInfo('cached_val2_11', 'float32', 1, [16,1,96]);
+          feeds['cached_conv1_11'] = getFeedInfo('cached_conv1_11', 'float32', 1, [1,768,7]);
+          feeds['cached_conv2_11'] = getFeedInfo('cached_conv2_11', 'float32', 1, [1,768,7]);
+          feeds['cached_key_12'] = getFeedInfo('cached_key_12', 'float32', 1, [16,1,256]);
+          feeds['cached_nonlin_attn_12'] = getFeedInfo('cached_nonlin_attn_12', 'float32', 1, [1,1,16,576]);
+          feeds['cached_val1_12'] = getFeedInfo('cached_val1_12', 'float32', 1, [16,1,96]);
+          feeds['cached_val2_12'] = getFeedInfo('cached_val2_12', 'float32', 1, [16,1,96]);
+          feeds['cached_conv1_12'] = getFeedInfo('cached_conv1_12', 'float32', 1, [1,768,7]);
+          feeds['cached_conv2_12'] = getFeedInfo('cached_conv2_12', 'float32', 1, [1,768,7]);
+          feeds['cached_key_13'] = getFeedInfo('cached_key_13', 'float32', 1, [32,1,128]);
+          feeds['cached_nonlin_attn_13'] = getFeedInfo('cached_nonlin_attn_13', 'float32', 1, [1,1,32,384]);
+          feeds['cached_conv1_13'] = getFeedInfo('cached_conv1_13', 'float32', 1, [1,512,7]);
+          feeds['cached_conv2_13'] = getFeedInfo('cached_conv2_13', 'float32', 1, [1,512,7]);
+          feeds['cached_key_14'] = getFeedInfo('cached_key_14', 'float32', 1, [32,1,128]);
+          feeds['cached_nonlin_attn_14'] = getFeedInfo('cached_nonlin_attn_14', 'float32', 1, [1,1,32,384]);
+          feeds['cached_val1_14'] = getFeedInfo('cached_val1_14', 'float32', 1, [32,1,48]);
+          feeds['cached_val2_14'] = getFeedInfo('cached_val2_14', 'float32', 1, [32,1,48]);
+          feeds['cached_conv1_14'] = getFeedInfo('cached_conv1_14', 'float32', 1, [1,512,7]);
+          feeds['cached_conv2_14'] = getFeedInfo('cached_conv2_14', 'float32', 1, [1,512,7]);
+          feeds['cached_key_15'] = getFeedInfo('cached_key_15', 'float32', 1, [32,1,128]);
+          feeds['cached_nonlin_attn_15'] = getFeedInfo('cached_nonlin_attn_15', 'float32', 1, [1,1,32,384]);
+          feeds['cached_val1_15'] = getFeedInfo('cached_val1_15', 'float32', 1, [32,1,48]);
+          feeds['cached_val2_15'] = getFeedInfo('cached_val2_15', 'float32', 1, [32,1,48]);
+          feeds['cached_conv1_15'] = getFeedInfo('cached_conv1_15', 'float32', 1, [1,512,7]);
+          feeds['cached_conv2_15'] = getFeedInfo('cached_conv2_15', 'float32', 1, [1,512,7]);
+          feeds['cached_key_16'] = getFeedInfo('cached_key_16', 'float32', 1, [32,1,128]);
+          feeds['cached_nonlin_attn_16'] = getFeedInfo('cached_nonlin_attn_16', 'float32', 1, [1,1,32,384]);
+          feeds['cached_val1_16'] = getFeedInfo('cached_val1_16', 'float32', 1, [32,1,48]);
+          feeds['cached_val2_16'] = getFeedInfo('cached_val2_16', 'float32', 1, [32,1,48]);
+          feeds['cached_conv1_16'] = getFeedInfo('cached_conv1_16', 'float32', 1, [1,512,7]);
+          feeds['cached_conv2_16'] = getFeedInfo('cached_conv2_16', 'float32', 1, [1,512,7]);
+          feeds['cached_key_17'] = getFeedInfo('cached_key_17', 'float32', 1, [64,1,128]);
+          feeds['cached_nonlin_attn_17'] = getFeedInfo('cached_nonlin_attn_17', 'float32', 1, [1,1,64,192]);
+          feeds['cached_val1_17'] = getFeedInfo('cached_val1_17', 'float32', 1, [64,1,48]);
+          feeds['cached_val2_17'] = getFeedInfo('cached_val2_17', 'float32', 1, [64,1,48]);
+          feeds['cached_conv1_17'] = getFeedInfo('cached_conv1_17', 'float32', 1, [1,256,15]);
+          feeds['cached_conv2_17'] = getFeedInfo('cached_conv2_17', 'float32', 1, [1,256,15]);
+          feeds['cached_key_18'] = getFeedInfo('cached_key_18', 'float32', 1, [64,1,128]);
+          feeds['cached_nonlin_attn_18'] = getFeedInfo('cached_nonlin_attn_18', 'float32', 1, [1,1,64,192]);
+          feeds['cached_val1_18'] = getFeedInfo('cached_val1_18', 'float32', 1, [64,1,48]);
+          feeds['cached_val2_18'] = getFeedInfo('cached_val2_18', 'float32', 1, [64,1,48]);
+          feeds['cached_conv1_18'] = getFeedInfo('cached_conv1_18', 'float32', 1, [1,256,15]);
+          feeds['cached_conv2_18'] = getFeedInfo('cached_conv2_18', 'float32', 1, [1,256,15]);          
         } 
       }
     }
