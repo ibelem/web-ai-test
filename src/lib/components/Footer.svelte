@@ -46,7 +46,7 @@
 		><a
 			href="../install"
 			title="WebNN Installation Guide for the AI PC"
-			>Install Guide</a
+			>Installation Guide</a
 		></span>
 		<!-- <span class="status {webnn}"
 		><a

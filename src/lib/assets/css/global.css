@@ -1733,6 +1733,10 @@ padding: 2px 4px 2px 4px;
   outline: none;
 }
 
+.environment .info {
+  margin-bottom: 20px;
+}
+
 .autocomplete:not(.hide-arrow):not(.is-loading)::after {
   border-color: var(--b1) !important;
 }
@@ -2531,6 +2535,28 @@ background-color: var(--int4-005);
 
 .int8 #logo svg rect {
   fill: var(--p);
+}
+
+.selector {
+  display: inline-block;
+  margin-left: -9px !important;
+}
+
+.selector button {
+  height: 17px;
+}
+
+.selector:hover, .selector:hover button {
+  cursor: pointer;
+}
+
+.selector:hover svg path {
+  fill: white !important;
+}
+
+.selector button {
+  background-color: transparent;
+  border: 0px solid transparent;
 }
 
 .fp16 .version label.true {

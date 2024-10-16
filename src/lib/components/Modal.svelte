@@ -1,15 +1,17 @@
 <script>
 	export let showModal; // boolean
+	export let showOrtDevModal;
+	export let showOrtStableModal;
 
 	let dialog; // HTMLDialogElement
 
-	$: if (dialog && showModal) dialog.showModal();
+	$: if (dialog && (showModal || showOrtDevModal || showOrtStableModal)) dialog.showModal();
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
 <dialog
 	bind:this={dialog}
-	on:close={() => (showModal = false)}
+	on:close={() => { showModal = false; showOrtDevModal = false; showOrtStableModal = false; }}
 	on:click|self={() => dialog.close()}
 >
 	<!-- svelte-ignore a11y-no-static-element-interactions -->

@@ -16,7 +16,6 @@ export const corsSites = [
   'github.io',
   'huggingface.co',
   'vercel.app',
-  'netlify.app',
   'webai.run'
 ]
 

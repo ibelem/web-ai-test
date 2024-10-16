@@ -2,12 +2,20 @@
 	import { onMount } from 'svelte';
 	import { ortDists } from '$lib/config.js';
 	import { ortWebVersionStore } from '$lib/store/store';
+	import Modal from './Modal.svelte';
+	import AutoComplete from 'simple-svelte-autocomplete';
 	let ortStable = '';
 	let ortDev = '';
 	/**
 	 * @type {number }
 	 */
-	let selected = 2;
+	let selected = 1;
+	let showOrtDevModal = false;
+	let showOrtStableModal = false;
+	let devList = [];
+	let stableList = [];
+	let selectedDev = '';
+	let selectedStable = '';
 
 	/**
 	 * @type {{ selected?: any; stable?: any; dev?: any; }}
@@ -21,11 +29,8 @@
 	let onChange = (/** @type {{ currentTarget: { value: number; }; }} */ event) => {
 		selected = event.currentTarget.value;
 		selected = Number(selected);
-		let ort = {
-			selected: selected,
-			stable: ortStable,
-			dev: ortDev
-		};
+		let ort = ortWebVersion;
+		ort.selected = selected;
 		ortWebVersionStore.update(() => ort);
 	};
 
@@ -36,11 +41,38 @@
 				throw new Error(`HTTP error! status: ${response.status}`);
 			}
 			const data = await response.json();
-			ortStable = data.tags.latest;
-			ortDev = data.tags.dev;
 
+			if (ortWebVersion.dev) {
+				ortDev = ortWebVersion.dev;
+			} else {
+				ortDev = data.tags.dev;
+			}
+
+			if (ortWebVersion.stable) {
+				ortStable = ortWebVersion.stable;
+			} else {
+				ortStable = data.tags.latest;
+			}
+
+			devList = [];
+			stableList = [];
+			
+			data.versions.forEach(v => {
+				if(v.version.toLowerCase().indexOf('-dev.') >-1) {
+					let mainversion = v.version.split('-')[0].split('.')[1];
+					if(parseInt(mainversion) >= 19) {
+						devList.push(v.version);
+					}
+				}
+				if(v.version.toLowerCase().indexOf('-dev.') == -1 && v.version.toLowerCase().indexOf('-esm') == -1) {
+					console.log(v.version)
+					let mainversion = v.version.split('-')[0].split('.')[1];
+					if(parseInt(mainversion) >= 17) {
+						stableList.push(v.version);
+					}
+				}
+			})
 			selected = Number(selected);
-
 			let ort = {
 				selected: selected,
 				stable: ortStable,
@@ -51,6 +83,22 @@
 			console.error('Error:', error.message);
 		}
 	};
+
+	const updateDev = () => {
+		let ort = ortWebVersion;
+		if(selectedDev) {
+			ort.dev = selectedDev;
+			ortWebVersionStore.update(() => ort);
+		}
+	}
+
+	const updateStable = () => {
+		let ort = ortWebVersion;
+		if(selectedStable) {
+			ort.stable = selectedStable;
+			ortWebVersionStore.update(() => ort);
+		}
+	}
 
 	onMount(async () => {
 		if (ortWebVersion) {
@@ -63,6 +111,22 @@
 </script>
 
 <div class="environment framework">
+	<Modal bind:showOrtDevModal>
+		<h2 slot="header" class="updatecpu">ONNX Runtime Web</h2>	
+		<div class="info">
+			Select the Dev version of ONNX Runtime Web to be tested.
+		</div>
+		<AutoComplete items={devList} bind:selectedItem={selectedDev} onChange={updateDev} />
+	</Modal>
+
+	<Modal bind:showOrtStableModal>
+		<h2 slot="header" class="updatecpu">ONNX Runtime Web</h2>	
+		<div class="info">
+			Select the Stable version of ONNX Runtime Web to be tested.
+		</div>
+		<AutoComplete items={stableList} bind:selectedItem={selectedStable} onChange={updateStable} />
+	</Modal>
+
 	<div class="ort">
 		{#if ortWebVersion}
 			<div class="version">
@@ -203,7 +267,13 @@
 							>{ortWebVersion.dev}</a
 						></span
 					>
+					<span class="version selector">
+						<button on:click={() => (showOrtDevModal = true)}>
+							<svg height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+						</button>
+					</span>
 				</div>
+				
 			{:else}
 				<div class="webnn">
 					<span class="title">Wasm · WebGPU · WebNN</span>
@@ -212,6 +282,11 @@
 							>{ortWebVersion.stable}</a
 						></span
 					>
+					<span class="version selector">
+						<button on:click={() => (showOrtStableModal = true)}>
+							<svg height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+						</button>
+					</span>
 				</div>
 			{/if}
 		{/if}
