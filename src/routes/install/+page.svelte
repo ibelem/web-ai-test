@@ -38,18 +38,18 @@
 		</ul>
 		<h4>Chrome Canary</h4>
 		<ol>
-			<li>Download the latest redistributable <a href="https://www.nuget.org/packages/Microsoft.AI.DirectML/1.15.2">Microsoft.AI.DirectML</a>, rename the microsoft.ai.directml.&lt;version&gt;.nupkg to microsoft.ai.directml.&lt;version&gt;.nupkg.zip and extract it</li>
+			<li>Download the latest redistributable <a href="https://www.nuget.org/packages/Microsoft.AI.DirectML/1.15.2">Microsoft.AI.DirectML</a>, rename <code>microsoft.ai.directml.&lt;version&gt;.nupkg</code> to <code>microsoft.ai.directml.&lt;version&gt;.nupkg.zip</code> and extract it</li>
 			<li>Copy <code>\bin\x64-win\DirectML.dll</code> to <code>%LOCALAPPDATA%\Google\Chrome SxS\Application\&lt;version&gt;\</code>
 				<ul>
 					<li><code>%LOCALAPPDATA%</code> means <code>C:\Users\&lt;username&gt;\AppData\Local\</code></li>
-					<li>Note that Chrome Canary frequently updates automatically. When this occurs, you'll need to recopy the <code>DirectML.dll</code> to the new version's directory.</li>
+					<li>Note that Chrome Canary frequently updates automatically. When this occurs, recopy the <code>DirectML.dll</code> to the new version's directory.</li>
 				</ul>
 			</li>
 			<li>Launch Chrome Canary in Windows Command Line: <code>"%LOCALAPPDATA%\Google\Chrome SxS\Application\chrome.exe" --use-redist-dml --disable_webnn_for_npu=0</code></li>
 		</ol>
 		<h4>Edge Canary</h4>
 		<ol>
-			<li>Ensure the DirectML.dll was downloaded automatically (may take several minutes)
+			<li>Ensure the <code>DirectML.dll</code> was downloaded automatically (may take several minutes)
 				<ol>
 					<li>Launch Edge Canary</li>
 					<li>Go to <code>%LOCALAPPDATA%\Microsoft\Edge SxS\User Data</code>, check the <code>EdgeOnnxRuntimeDirectML\&lt;version&gt;\DirectML.dll</code> exists</li>
@@ -58,6 +58,13 @@
 				</ol>
 			</li>
 			<li>Launch Edge Canary in Windows Command Line: <code>"%LOCALAPPDATA%\Microsoft\Edge SxS\Application\msedge.exe" --disable_webnn_for_npu=0</code></li>
+			<li>If <code>EdgeOnnxRuntimeDirectML\&lt;version&gt;\DirectML.dll</code> does not exist under <code>%LOCALAPPDATA%\Microsoft\Edge SxS\User Data</code>:
+				<ul>
+					<li>Go to <code>edge://components/</code></li>
+					<li>Click <code>Check for update</code> button of <code>Edge Video Super Resolution</code></li>
+					<li>Repeat step 2</li>
+				</ul>
+			</li>
 		</ol>
 	</div>
 </div>
