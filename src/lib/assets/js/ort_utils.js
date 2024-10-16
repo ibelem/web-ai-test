@@ -141,32 +141,26 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       break;
     case 'webgpu':
       backend = 'webgpu';
-      numThreads = 4;
       deviceType = 'gpu';
       break;
     case 'webnn_cpu_1':
       backend = 'webnn';
-      numThreads = 1;
       deviceType = 'cpu';
       break;
     case 'webnn_cpu_4':
       backend = 'webnn';
-      numThreads = 4;
       deviceType = 'cpu';
       break;
     case 'webnn_gpu':
       backend = 'webnn';
-      numThreads = 4;
       deviceType = 'gpu';
       break;
     case 'webnn_npu':
       backend = 'webnn';
-      numThreads = 4;
       deviceType = 'npu';
       break;
     default:
       backend = 'wasm';
-      numThreads = 1;
       deviceType = 'cpu';
       break;
   }
@@ -209,12 +203,16 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       {
         name: backend,
         deviceType: deviceType,
-        preferredLayout: 'NHWC',
-        numThreads: numThreads
+        preferredLayout: 'NHWC'
       },
     ],
     //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
   };
+
+  if(_backend === 'wasm_1' || _backend === 'wasm_4' ) {
+    options.executionProviders[0].numThreads = numThreads
+    l(`Wasm EP options numThreads: ${numThreads}`)
+  }
 
   const externalDataName = getModelExternalDataNameById(_model);
   if (externalDataName) {
@@ -228,7 +226,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     ];
   }
 
-  const mlContext = await navigator.ml?.createContext({ deviceType, numThreads });
+  const mlContext = await navigator.ml?.createContext({ deviceType });
 
   const getFeedInfo = (inputName, type, data, dims) => {
     if (!sess.inputNames.includes(inputName)) {
@@ -576,8 +574,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   l(`ort.env.wasm.numThreads: ${ort.env.wasm.numThreads}`)
   l(`ort.env.wasm.simd: ${ort.env.wasm.simd}`)
   l(`ort.env.wasm.proxy: ${ort.env.wasm.proxy}`)
-
-  l(`EP options numThreads: ${numThreads}`)
 
   l(`options:`)
   l(options)

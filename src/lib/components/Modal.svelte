@@ -1,7 +1,7 @@
 <script>
-	export let showModal; // boolean
-	export let showOrtDevModal;
-	export let showOrtStableModal;
+	export let showModal = false; // boolean
+	export let showOrtDevModal = false;
+	export let showOrtStableModal = false;
 
 	let dialog; // HTMLDialogElement
 

@@ -65,7 +65,6 @@
 					}
 				}
 				if(v.version.toLowerCase().indexOf('-dev.') == -1 && v.version.toLowerCase().indexOf('-esm') == -1) {
-					console.log(v.version)
 					let mainversion = v.version.split('-')[0].split('.')[1];
 					if(parseInt(mainversion) >= 17) {
 						stableList.push(v.version);
