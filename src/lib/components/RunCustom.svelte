@@ -508,6 +508,66 @@
 		customStore.update(() => custom);
 	};
 
+	let inputAscending = true;
+	const sortInputsbyName = () => {
+		custom.inputs.sort((a, b) => {
+			// Regex to extract alphabetic part and numeric part
+			const regex = /^([a-zA-Z_]+)(\d+)$/;
+			
+			// Apply regex to extract parts for both names
+			const aMatch = a.name.match(regex);
+			const bMatch = b.name.match(regex);
+
+			if (aMatch && bMatch) {
+				// Compare the alphabetic part first
+				if (aMatch[1] < bMatch[1]) return inputAscending ? -1 : 1;
+				if (aMatch[1] > bMatch[1]) return inputAscending ? 1 : -1;
+
+				// If alphabetic parts are equal, compare the numeric part
+				const aNum = parseInt(aMatch[2], 10);
+				const bNum = parseInt(bMatch[2], 10);
+
+				if (aNum < bNum) return inputAscending ? -1 : 1;
+				if (aNum > bNum) return inputAscending ? 1 : -1;
+			}
+
+			// In case the regex doesn't match, do default string comparison
+			return a.name < b.name ? (inputAscending ? -1 : 1) : (inputAscending ? 1 : -1);
+		});
+		inputAscending = !inputAscending;
+		customStore.update(() => custom);
+	};
+
+	let outputAscending = true;
+	const sortOutputsbyName = () => {
+		custom.outputs.sort((a, b) => {
+			// Regex to extract alphabetic part and numeric part
+			const regex = /^([a-zA-Z_]+)(\d+)$/;
+			
+			// Apply regex to extract parts for both names
+			const aMatch = a.name.match(regex);
+			const bMatch = b.name.match(regex);
+
+			if (aMatch && bMatch) {
+				// Compare the alphabetic part first
+				if (aMatch[1] < bMatch[1]) return outputAscending ? -1 : 1;
+				if (aMatch[1] > bMatch[1]) return outputAscending ? 1 : -1;
+
+				// If alphabetic parts are equal, compare the numeric part
+				const aNum = parseInt(aMatch[2], 10);
+				const bNum = parseInt(bMatch[2], 10);
+
+				if (aNum < bNum) return outputAscending ? -1 : 1;
+				if (aNum > bNum) return outputAscending ? 1 : -1;
+			}
+
+			// In case the regex doesn't match, do default string comparison
+			return a.name < b.name ? (outputAscending ? -1 : 1) : (outputAscending ? 1 : -1);
+		});
+		outputAscending = !outputAscending;
+		customStore.update(() => custom);
+	};
+
 	let descending = true;
 	const sortNodebyCount = () => {
 		custom.nodes.sort((a, b) => {
@@ -516,6 +576,24 @@
 		descending = !descending;
 		customStore.update(() => custom);
 	};
+
+	const copyPlain = async () => {
+		let plain = '';
+		custom.inputs.forEach((input) => {
+			let i = `${input.name}\t\t${input.datatype}\t\t[${input.shapeDimensions}]\r\n`;
+			plain += i;
+		})
+		await navigator.clipboard.writeText(plain);
+	}
+
+	const generateFeedsCode  = async () => {
+		let code = '';
+		custom.inputs.forEach((input) => {
+			let i = `feeds['${input.name}'] = getFeedInfo('${input.name}', 'float32', 1, [${input.shapeDimensions}]);\r\n`;
+			code += i;
+		})
+		await navigator.clipboard.writeText(code);
+	}
 
 	let checkRun = false;
 	$: initRun = () => {
@@ -685,6 +763,32 @@
 				</div>
 				<div id="graph-inputs" class="list netron-analysis">
 					<div class="title"><span>Inputs</span></div>
+					<table id="inputButtons">
+						<tr>
+							<td class="r">
+								<span id="order-name-input" class="name count" title="Sort by name">
+									<button on:click={sortInputsbyName}>
+										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+											<path
+												d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"
+											/>
+										</svg>
+									</button>
+								</span>
+							</td>
+							<td class="c"></td>
+							<td class="e">
+								<span class="name count copy">
+									<button class="copy" on:click={copyPlain} title="Copy Inputs">
+										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
+									</button>
+									<button class="code" on:click={generateFeedsCode} title="Generate Feeds code">
+										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
+									</button>
+								</span>
+							</td>
+						</tr>
+					</table>
 					{#if custom && custom.inputs.length > 0}
 						<table>
 							{#each custom.inputs as input}
@@ -705,6 +809,23 @@
 				</div>
 				<div id="graph-outputs" class="list netron-analysis">
 					<div class="title"><span>Outputs</span></div>
+					<table id="outputButtons">
+						<tr>
+							<td class="r">
+								<span id="order-name-output" class="name count" title="Sort by name">
+									<button on:click={sortOutputsbyName}>
+										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+											<path
+												d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"
+											/>
+										</svg>
+									</button>
+								</span>
+							</td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
 					{#if custom && custom.outputs.length > 0}
 						<table>
 							{#each custom.outputs as output}

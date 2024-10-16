@@ -2725,7 +2725,9 @@ background-color: var(--int4-005);
   min-width: 36px;
 }
 
-#graph-nodes span button {
+#graph-nodes span button,
+#graph-inputs span button,
+#graph-outputs span button {
   border: 0px solid transparent;
   background-color: transparent;
   display: grid;
@@ -2736,40 +2738,58 @@ background-color: var(--int4-005);
   padding-right: 2px;
 }
 
-#graph-nodes span button {
+#graph-nodes span button,
+#graph-inputs span button,
+#graph-outputs span button {
   display: grid;
   align-items: center;
   justify-items: end;
   padding-right: 11px;
 }
 
-#graph-nodes span button svg {
+#graph-nodes span button svg,
+#graph-inputs span button svg,
+#graph-outputs span button svg {
   width: 12px;
   height: 12px;
 } 
 
-#graph-nodes span button svg path {
+#graph-nodes span button svg path,
+#graph-inputs span button svg path,
+#graph-outputs span button svg path {
   fill: var(--grey-08);
 } 
 
-#graph-nodes span:hover button  {
+#graph-nodes span:hover button,
+#graph-inputs span:hover button,
+#graph-outputs span:hover button  {
   cursor: pointer;
 }
 
-#graph-nodes span:hover button svg path {
+#graph-nodes span:hover button svg path,
+#graph-inputs span:hover button svg path,
+#graph-outputs span:hover button svg path {
   fill: var(--red);
 } 
 
-.fp16 #graph-nodes span:hover button svg path {
+.fp16 #graph-nodes span:hover button svg path,
+.fp16 #graph-inputs span:hover button svg path,
+.fp16 #graph-outputs span:hover button svg path {
   fill: var(--fp16);
 }
 
-.int8 #graph-nodes span:hover button svg path {
+.int8 #graph-nodes span:hover button svg path,
+.int8 #graph-inputs span:hover button svg path,
+.int8 #graph-outputs span:hover button svg path {
   fill: var(--p);
 }
 
 #graph-nodes span#order-name,
-#graph-nodes span#order-value {
+#graph-nodes span#order-value,
+#graph-inputs span#order-name,
+#graph-inputs span#order-value,
+#graph-outputs span#order-name,
+#graph-outputs span#order-value {
   display: grid;
   border: 0px;
   background-color: transparent;
@@ -2787,17 +2807,47 @@ background-color: var(--int4-005);
   margin: 0;
 }
 
-#graph-inputs span.name.inputs {
+#graph-inputs span.name.inputs,
+#graph-inputs #order-name-input {
   width: 132px;
 }
 
-#graph-outputs span.name.outputs {
+#graph-inputs #order-name-input, #graph-inputs span.copy,
+#graph-inputs #order-name-output {
+  height: 12px;
+}
+
+#graph-inputs td.r span button,
+#graph-outputs td.r span button {
+  display: inline-block;
+}
+
+#graph-outputs span.name.outputs,
+#graph-outputs #order-name-output {
   width: 100px;
 }
 
 #graph-inputs span.value.datatype,
-#graph-outputs span.value.datatype {
+#graph-outputs span.value.datatype,
+table td.c {
   width: 46px;
+}
+
+#netron-graph td.e span.name {
+  text-align: left;
+  align-content: center;
+}
+
+#inputButtons, #outputButtons {
+  margin-bottom: -2px;
+}
+
+#graph-inputs span button.copy {
+  margin-top: -2px;
+}
+
+#graph-inputs .code, #graph-inputs .copy {
+  display: inline-block;
 }
 
 #graph-inputs span.value.dim {
@@ -2851,19 +2901,31 @@ background-color: var(--int4-005);
 
 #map table tr:hover td, #netron-graph span:hover, 
 #graph-nodes span#order-name:hover,
-#graph-nodes span#order-value:hover {
+#graph-nodes span#order-value:hover,
+#graph-inputs span#order-name:hover,
+#graph-inputs span#order-value:hover,
+#graph-outputs span#order-name:hover,
+#graph-outputs span#order-value:hover {
   background-color: var(--red-005);
 }
 
 .fp16 #map table tr:hover td, .fp16 #netron-graph span:hover, 
 .fp16 #graph-nodes span#order-name:hover,
-.fp16 #graph-nodes span#order-value:hover {
+.fp16 #graph-nodes span#order-value:hover,
+.fp16 #graph-inputs span#order-name:hover,
+.fp16 #graph-inputs span#order-value:hover,
+.fp16 #graph-outputs span#order-name:hover,
+.fp16 #graph-outputs span#order-value:hover {
   background-color: var(--fp16-005);
 }
 
 .int8 #map table tr:hover td, .int8 #netron-graph span:hover, 
 .int8 #graph-nodes span#order-name:hover,
-.int8 #graph-nodes span#order-value:hover {
+.int8 #graph-nodes span#order-value:hover,
+.int8 #graph-inputs span#order-name:hover,
+.int8 #graph-inputs span#order-value:hover,
+.int8 #graph-outputs span#order-name:hover,
+.int8 #graph-outputs span#order-value:hover {
   background-color: var(--p-005);
 }
 

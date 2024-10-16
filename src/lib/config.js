@@ -22,11 +22,11 @@ export const corsSites = [
 
 export const ortDists = {
   webgpu: {
-    version: '2024-09-19',
+    version: '2024-10-14',
     url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.all.min.js'
   },
   webnn_webglfix_wasm: {
-    version: '2024-07-26',
+    version: '2024-10-10',
     url: '../ort/ort.all.min.js'
   }
 }
@@ -4986,7 +4986,7 @@ export let models = [
       'processed_lens': ['int64', 1n, [1], { "N": 1 }],
       'embed_states': ['float32', 'random', [1, 128, 3, 19], { "N": 1 }],
     }],
-    inputstip: '[1, 45, 80] [1] [1] [1, 128, 3, 19]'
+    inputstip: '[1, 45, 80] [1] [1 [1, 128, 3, 19]'
   },
   {
     category: 'Automatic Speech Recognition',
