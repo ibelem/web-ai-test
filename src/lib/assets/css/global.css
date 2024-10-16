@@ -479,7 +479,7 @@ header .nav {
   background-color: var(--p2-01);
 }
 
-.webnn_cpu_1 span {
+.webnn_cpu span {
   background-color: var(--b1-01);
 }
 
@@ -1480,6 +1480,18 @@ padding: 2px 4px 2px 4px;
   border:1px solid var(--red);
 }
 
+#modeldesc.fp16:hover span.modeldes {
+  border:1px solid var(--fp16);
+}
+
+#modeldesc.int8:hover span.modeldes {
+  border:1px solid var(--p);
+}
+
+#modeldesc.int4:hover span.modeldes {
+  border:1px solid var(--int4);
+}
+
 #modeldesc.reverse {
   background-color: transparent;
   color: var(--font);
@@ -1919,7 +1931,7 @@ padding: 2px 4px 2px 4px;
     display: flex;
     align-items: center;
   }
-  
+
   #webnn_npu {
     margin-top: 0px;
   }

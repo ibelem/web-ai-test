@@ -143,7 +143,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       backend = 'webgpu';
       deviceType = 'gpu';
       break;
-    case 'webnn_cpu_1':
+    case 'webnn_cpu':
       backend = 'webnn';
       deviceType = 'cpu';
       break;

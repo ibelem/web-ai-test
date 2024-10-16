@@ -530,7 +530,7 @@
 			{/if}
 			<div class="q copy">
 				<div>
-					<div class="noborder webnn_cpu_1">
+					<div class="noborder webnn_cpu">
 						Inference result <span>WebNN CPU</span>
 					</div>
 					<button title="Switch the element size" on:click={() => toggleConsole()}>
@@ -826,7 +826,7 @@
 		font-size: 0.8em;
 	}
 
-	.noborder.webnn_cpu_1 span {
+	.noborder.webnn_cpu span {
 		background-color: var(--b1-005);
 	}
 

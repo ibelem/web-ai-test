@@ -345,7 +345,7 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
       numThreads = 4;
       deviceType = 'gpu';
       break;
-    case 'webnn_cpu_1':
+    case 'webnn_cpu':
       backend = 'webnn';
       numThreads = 1;
       deviceType = 'cpu';
@@ -628,7 +628,7 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
 }
 
 export const runOnnxConformance = async (_model, _modelType, _dataType) => {
-  let backends = ['wasm_1', 'webnn_cpu_1', 'webgl', 'webgpu', 'webnn_gpu'];
+  let backends = ['wasm_1', 'webnn_cpu', 'webgl', 'webgpu', 'webnn_gpu'];
 
   wasmResult = '';
   webglResult = '';

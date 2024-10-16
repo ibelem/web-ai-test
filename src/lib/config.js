@@ -41,7 +41,7 @@ export const uniqueBackends = [
   'wasm_4',
   'webgl',
   'webgpu',
-  'webnn_cpu_1',
+  'webnn_cpu',
   'webnn_gpu',
   'webnn_npu'
 ];

@@ -286,7 +286,7 @@
 					</div>
 					<div class="i">
 						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_1')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_1')}
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu')}
 							>WebNN CPU
 						</a>
 						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
@@ -316,7 +316,7 @@
 					</div>
 					<div class="i">
 						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_1')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_1')}
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu')}
 							>WebNN CPU
 						</a>
 						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
@@ -346,7 +346,7 @@
 					</div>
 					<div class="i">
 						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_1')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_1')}
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu')}
 							>WebNN CPU
 						</a>
 						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
@@ -377,7 +377,7 @@
 					</div>
 					<div class="i">
 						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_1')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_1')}
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu')}
 							>WebNN CPU
 						</a>
 						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>

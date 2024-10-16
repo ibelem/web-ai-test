@@ -161,7 +161,7 @@
 				<div class="su" title="WebNN GPU">WebNN GPU</div>
 				<div class="su" title="WebNN NPU">WebNN NPU</div>
 			</div>
-			{#each filteredDataConformance as { name, gpu, wasm_1, webnn_cpu_1, webgl, webgpu, webnn_gpu, webnn_npu }, i}
+			{#each filteredDataConformance as { name, gpu, wasm_1, webnn_cpu, webgl, webgpu, webnn_gpu, webnn_npu }, i}
 				<div class="q _5">
 					<div class="name c" title={name?.replaceAll('_', '-')}>{getModelNameById(name)}</div>
 					<div class="su info c">
@@ -273,46 +273,46 @@
 						{/if}
 					</div>
 					<div class="su">
-						{#if webnn_cpu_1}
-							{#if webnn_cpu_1.e3 === 'pass'}<span class="pass">{webnn_cpu_1.e3}</span
-								>{:else if webnn_cpu_1.e3 === 'fail'}<span class="fail">{webnn_cpu_1.e3}</span
-								>{:else if webnn_cpu_1.e3 === 'n/a'}
-								<span class="na">{webnn_cpu_1.e3}</span>{:else}<span>{webnn_cpu_1.e3}</span>
+						{#if webnn_cpu}
+							{#if webnn_cpu.e3 === 'pass'}<span class="pass">{webnn_cpu.e3}</span
+								>{:else if webnn_cpu.e3 === 'fail'}<span class="fail">{webnn_cpu.e3}</span
+								>{:else if webnn_cpu.e3 === 'n/a'}
+								<span class="na">{webnn_cpu.e3}</span>{:else}<span>{webnn_cpu.e3}</span>
 							{/if}
-							{#if webnn_cpu_1.e4 === 'pass'}<span class="pass">{webnn_cpu_1.e4}</span
-								>{:else if webnn_cpu_1.e4 === 'fail'}<span class="fail">{webnn_cpu_1.e4}</span
-								>{:else if webnn_cpu_1.e4 === 'n/a'}
-								<span class="na">{webnn_cpu_1.e4}</span>{:else}<span>{webnn_cpu_1.e4}</span>
+							{#if webnn_cpu.e4 === 'pass'}<span class="pass">{webnn_cpu.e4}</span
+								>{:else if webnn_cpu.e4 === 'fail'}<span class="fail">{webnn_cpu.e4}</span
+								>{:else if webnn_cpu.e4 === 'n/a'}
+								<span class="na">{webnn_cpu.e4}</span>{:else}<span>{webnn_cpu.e4}</span>
 							{/if}
-							{#if webnn_cpu_1.e5 === 'pass'}<span class="pass">{webnn_cpu_1.e5}</span
-								>{:else if webnn_cpu_1.e5 === 'fail'}<span class="fail">{webnn_cpu_1.e5}</span
-								>{:else if webnn_cpu_1.e5 === 'n/a'}
-								<span class="na">{webnn_cpu_1.e5}</span>{:else}<span>{webnn_cpu_1.e5}</span>
+							{#if webnn_cpu.e5 === 'pass'}<span class="pass">{webnn_cpu.e5}</span
+								>{:else if webnn_cpu.e5 === 'fail'}<span class="fail">{webnn_cpu.e5}</span
+								>{:else if webnn_cpu.e5 === 'n/a'}
+								<span class="na">{webnn_cpu.e5}</span>{:else}<span>{webnn_cpu.e5}</span>
 							{/if}
-							{#if webnn_cpu_1.e6 === 'pass'}<span class="pass">{webnn_cpu_1.e6}</span
-								>{:else if webnn_cpu_1.e6 === 'fail'}<span class="fail">{webnn_cpu_1.e6}</span
-								>{:else if webnn_cpu_1.e6 === 'n/a'}
-								<span class="na">{webnn_cpu_1.e6}</span>{:else}<span>{webnn_cpu_1.e6}</span>
+							{#if webnn_cpu.e6 === 'pass'}<span class="pass">{webnn_cpu.e6}</span
+								>{:else if webnn_cpu.e6 === 'fail'}<span class="fail">{webnn_cpu.e6}</span
+								>{:else if webnn_cpu.e6 === 'n/a'}
+								<span class="na">{webnn_cpu.e6}</span>{:else}<span>{webnn_cpu.e6}</span>
 							{/if}
-							{#if webnn_cpu_1.e7 === 'pass'}<span class="pass">{webnn_cpu_1.e7}</span
-								>{:else if webnn_cpu_1.e7 === 'fail'}<span class="fail">{webnn_cpu_1.e7}</span
-								>{:else if webnn_cpu_1.e7 === 'n/a'}
-								<span class="na">{webnn_cpu_1.e7}</span>{:else}<span>{webnn_cpu_1.e7}</span>
+							{#if webnn_cpu.e7 === 'pass'}<span class="pass">{webnn_cpu.e7}</span
+								>{:else if webnn_cpu.e7 === 'fail'}<span class="fail">{webnn_cpu.e7}</span
+								>{:else if webnn_cpu.e7 === 'n/a'}
+								<span class="na">{webnn_cpu.e7}</span>{:else}<span>{webnn_cpu.e7}</span>
 							{/if}
-							{#if webnn_cpu_1.e8 === 'pass'}<span class="pass">{webnn_cpu_1.e8}</span
-								>{:else if webnn_cpu_1.e8 === 'fail'}<span class="fail">{webnn_cpu_1.e8}</span
-								>{:else if webnn_cpu_1.e8 === 'n/a'}
-								<span class="na">{webnn_cpu_1.e8}</span>{:else}<span>{webnn_cpu_1.e8}</span>
+							{#if webnn_cpu.e8 === 'pass'}<span class="pass">{webnn_cpu.e8}</span
+								>{:else if webnn_cpu.e8 === 'fail'}<span class="fail">{webnn_cpu.e8}</span
+								>{:else if webnn_cpu.e8 === 'n/a'}
+								<span class="na">{webnn_cpu.e8}</span>{:else}<span>{webnn_cpu.e8}</span>
 							{/if}
 							<div class="dif">
-								{#if webnn_cpu_1.max_diff}
-									{#each webnn_cpu_1.max_diff as j}
+								{#if webnn_cpu.max_diff}
+									{#each webnn_cpu.max_diff as j}
 										<span class="diff" title={j}>{j}</span>
 									{/each}
 								{/if}
 							</div>
-							{#if webnn_cpu_1.error}<span class="err" title={webnn_cpu_1.error}>error</span>{/if}
-							<span class="test"><a href="../c?q={name}__webnn_cpu_1">raw</a></span>
+							{#if webnn_cpu.error}<span class="err" title={webnn_cpu.error}>error</span>{/if}
+							<span class="test"><a href="../c?q={name}__webnn_cpu">raw</a></span>
 						{/if}
 					</div>
 					<div class="su">

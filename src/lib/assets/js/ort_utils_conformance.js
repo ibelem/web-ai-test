@@ -300,14 +300,9 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
       numThreads = 4;
       deviceType = 'gpu';
       break;
-    case 'webnn_cpu_1':
+    case 'webnn_cpu':
       backend = 'webnn';
       numThreads = 1;
-      deviceType = 'cpu';
-      break;
-    case 'webnn_cpu_4':
-      backend = 'webnn';
-      numThreads = 4;
       deviceType = 'cpu';
       break;
     case 'webnn_gpu':
