@@ -212,11 +212,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       numThreads = 1;
       deviceType = 'cpu';
       break;
-    case 'webnn_cpu_4':
-      backend = 'webnn';
-      numThreads = 4;
-      deviceType = 'cpu';
-      break;
     case 'webnn_gpu':
       backend = 'webnn';
       numThreads = 4;

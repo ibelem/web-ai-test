@@ -157,8 +157,6 @@
 			sortWasm4 = !sortWasm4;
 		} else if (value === 'webnn_cpu_1') {
 			sortWebnnCpu1 = !sortWebnnCpu1;
-		} else if (value === 'webnn_cpu_4') {
-			sortWebnnCpu4 = !sortWebnnCpu4;
 		} else if (value === 'webgl') {
 			sortWebGl = !sortWebGl;
 		} else if (value === 'webgpu') {
@@ -192,9 +190,6 @@
 			} else if (value === 'webnn_cpu_1') {
 				modelA = a.webnn_cpu_1.inferencemedian;
 				modelB = b.webnn_cpu_1.inferencemedian;
-			} else if (value === 'webnn_cpu_4') {
-				modelA = a.webnn_cpu_4.inferencemedian;
-				modelB = b.webnn_cpu_4.inferencemedian;
 			} else if (value === 'webgl') {
 				modelA = a.webgl.inferencemedian;
 				modelB = b.webgl.inferencemedian;
@@ -224,8 +219,6 @@
 					return sortWasm4 ? -1 : 1;
 				} else if (value === 'webnn_cpu_1') {
 					return sortWebnnCpu1 ? -1 : 1;
-				} else if (value === 'webnn_cpu_4') {
-					return sortWebnnCpu4 ? -1 : 1;
 				} else if (value === 'webgl') {
 					return sortWebGl ? -1 : 1;
 				} else if (value === 'webgpu') {
@@ -250,8 +243,6 @@
 					return sortWasm4 ? 1 : -1;
 				} else if (value === 'webnn_cpu_1') {
 					return sortWebnnCpu1 ? 1 : -1;
-				} else if (value === 'webnn_cpu_4') {
-					return sortWebnnCpu4 ? 1 : -1;
 				} else if (value === 'webgl') {
 					return sortWebGl ? 1 : -1;
 				} else if (value === 'webgpu') {
@@ -411,18 +402,10 @@
 						>
 					</div>{/if}
 				{#if results[0].webnn_cpu_1 && results[0].webnn_cpu_1.status !== 0}<div class="backend cpu">
-						<span title="WebNN CPU with 1 Thread on CPU"
-							><span class="hide">Web</span>NN CPU 1T
+						<span title="WebNN CPU on CPU"
+							><span class="hide">Web</span>NN CPU
 							<button on:click={sortResult('webnn_cpu_1')} class="btn"
 								>{#if !sortWebnnCpu1}<SortAscending />{:else}<SortDescending />{/if}</button
-							></span
-						>
-					</div>{/if}
-				{#if results[0].webnn_cpu_4 && results[0].webnn_cpu_4.status !== 0}<div class="backend cpu">
-						<span title="WebNN CPU with 4 Threads on CPU"
-							><span class="hide">Web</span>NN CPU 4T
-							<button on:click={sortResult('webnn_cpu_4')} class="btn"
-								>{#if !sortWebnnCpu4}<SortAscending />{:else}<SortDescending />{/if}</button
 							></span
 						>
 					</div>{/if}
@@ -757,80 +740,6 @@
 
 						{#if key.webnn_cpu_1.status === 4}
 							<div class="status_{key.webnn_cpu_1.status} s" title={key.webnn_cpu_1.error}>
-								<Fail />
-							</div>
-						{/if}
-					{/if}
-
-					{#if key.webnn_cpu_4 && key.webnn_cpu_4.status !== 0}
-						{#if key.webnn_cpu_4.status === 1}
-							<div class="status_{key.webnn_cpu_4.status} s">
-								<Queue />
-							</div>
-						{/if}
-
-						{#if key.webnn_cpu_4.status === 2}
-							<div class="status_{key.webnn_cpu_4.status} s">
-								<Testing />
-							</div>
-						{/if}
-
-						{#if key.webnn_cpu_4.status === 3}
-							<div
-								class="status_{key.webnn_cpu_4.status} s backend"
-								title="Compilation Time: {key.webnn_cpu_4.compilation.toString()} ms;  First Inference Time: {key.webnn_cpu_4.warmup.toString()} ms; Time to First Inference: {key.webnn_cpu_4.timetofirstinference.toString()} ms; Inference Time (Median): {key
-									.webnn_cpu_4.inferencemedian} ms; 90th Percentile Inference: {key.webnn_cpu_4
-									.inferenceninety} ms; Inference Time (Average): {key.webnn_cpu_4
-									.inferenceaverage} ms; Inference Time (Best): {key.webnn_cpu_4
-									.inferencebest} ms; Throughput: {key.webnn_cpu_4.inferencethroughput}; Inference Times: [{key.webnn_cpu_4.inference
-									.toString()
-									.replace(',', ', ')}] ms"
-							>
-								<div
-									class="data"
-									role="button"
-									tabindex="0"
-									on:keydown={() => {}}
-									on:click={() =>
-										copyRawInference(
-											`Compilation Time: ${key.webnn_cpu_4.compilation.toString()} ms; First Inference Time: ${key.webnn_cpu_4.warmup.toString()} ms; Time to First Inference: ${key.webnn_cpu_4.timetofirstinference.toString()} ms; Inference Time (Median): ${
-												key.webnn_cpu_4.inferencemedian
-											} ms; 90th Percentile Inference: ${
-												key.webnn_cpu_4.inferenceninety
-											} ms; Inference Time (Average): ${
-												key.webnn_cpu_4.inferenceaverage
-											} ms; Inference Time (Best): ${
-												key.webnn_cpu_4.inferencebest
-											} ms; Throughput: ${key.webnn_cpu_4.inferencethroughput}; Inference Times: [${key.webnn_cpu_4.inference
-												.toString()
-												.replace(',', ', ')}] ms`
-										)}
-								>
-									{#if resultOptions.compilation}<span class="compilation"
-											>{key.webnn_cpu_4.compilation.toFixed(2)}</span
-										>{/if}
-									{#if resultOptions.first}<span class="first">{key.webnn_cpu_4.warmup}</span>{/if}
-									{#if resultOptions.tofirst}<span class="tofirst"
-											>{key.webnn_cpu_4.timetofirstinference}</span
-										>{/if}
-									{#if resultOptions.average}<span class="average"
-											>{key.webnn_cpu_4.inferenceaverage}</span
-										>{/if}
-									{#if resultOptions.median}<span class="median"
-											>{key.webnn_cpu_4.inferencemedian}</span
-										>{/if}
-									{#if resultOptions.ninety}<span class="ninety"
-											>{key.webnn_cpu_4.inferenceninety}</span
-										>{/if}
-									{#if resultOptions.best}<span class="best">{key.webnn_cpu_4.inferencebest}</span
-										>{/if}
-										{#if resultOptions.throughput}<span class="throughput">{key.webnn_cpu_4.inferencethroughput}</span>{/if}	
-								</div>
-							</div>
-						{/if}
-
-						{#if key.webnn_cpu_4.status === 4}
-							<div class="status_{key.webnn_cpu_4.status} s" title={key.webnn_cpu_4.error}>
 								<Fail />
 							</div>
 						{/if}

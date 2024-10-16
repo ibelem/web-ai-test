@@ -17,16 +17,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -78,20 +68,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0007402896881103516,
-      0.00028884410858154297,
-      0.00026535987854003906
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -138,20 +114,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00013017654418945312,
-      0.00011157989501953125,
-      0.00010967254638671875
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -204,20 +166,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00010013580322265625,
-      0.0000972747802734375,
-      0.00009632110595703125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -269,20 +217,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The operator (reduceSum) is not supported.",
-    "max_diff": [
-      0.00010013580322265625,
-      0.0000972747802734375,
-      0.00009632110595703125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -331,20 +265,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.00010013580322265625,
-      0.0000972747802734375,
-      0.00009632110595703125
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -395,20 +315,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.00010013580322265625,
-      0.0000972747802734375,
-      0.00009632110595703125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -451,20 +357,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.000022619962692260742,
-      0.000018477439880371094,
-      0.00001811981201171875
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -521,20 +413,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.000022619962692260742,
-      0.000018477439880371094,
-      0.00001811981201171875
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -589,20 +467,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.0000591278076171875,
-      0.00005340576171875,
-      0.00005340576171875
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -659,20 +523,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00002288818359375,
-      0.00002288818359375,
-      0.00002288818359375
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -723,20 +573,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "fail",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "crash",
-    "max_diff": [
-      0.0014657974243164062,
-      0.0008783340454101562,
-      0.0007991790771484375
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -789,20 +625,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00018787384033203125,
-      0.00018787384033203125,
-      0.00018739700317382812
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -850,19 +672,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]"
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]",
-    "max_diff": [
-      4.76837158203125e-7,
-      1.1920928955078125e-7
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -909,20 +718,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "pass",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      1.3969838619232178e-8,
-      1.0710209608078003e-8,
-      1.0710209608078003e-8
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -979,20 +774,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000011920928955078125,
-      9.685754776000977e-7,
-      9.5367431640625e-7
-    ]
-  },
   "webgl": {
     "e3": "pass",
     "e4": "pass",
@@ -1047,20 +828,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000011920928955078125,
-      9.685754776000977e-7,
-      9.5367431640625e-7
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -1117,16 +884,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -1178,16 +935,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK only supports constant padding mode.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -1237,16 +984,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "dims.forEach is not a function"
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": []
   },
   "webgl": {
     "e3": "n/a",
@@ -1299,16 +1036,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -1351,20 +1078,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.000003337860107421875,
-      0.0000030994415283203125,
-      0.0000030994415283203125
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -1412,20 +1125,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00005996227264404297,
-      0.00005817413330078125,
-      0.00005650520324707031
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -1482,20 +1181,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00005996227264404297,
-      0.00005817413330078125,
-      0.00005650520324707031
-    ]
-  },
   "webgl": {
     "e3": "pass",
     "e4": "pass",
@@ -1551,20 +1236,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.000030159950256347656,
-      0.000030159950256347656,
-      0.0000286102294921875
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -1611,20 +1282,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00002384185791015625,
-      0.000020802021026611328,
-      0.000019073486328125
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -1681,20 +1338,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000021457672119140625,
-      0.0000019073486328125,
-      0.0000019073486328125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -1750,20 +1393,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000021457672119140625,
-      0.0000019073486328125,
-      0.0000019073486328125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -1818,20 +1447,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000021457672119140625,
-      0.0000019073486328125,
-      0.0000019073486328125
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -1895,16 +1510,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -1963,16 +1568,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -2019,16 +1614,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-    "max_diff": []
   },
   "webgl": {
     "e3": "n/a",
@@ -2080,20 +1665,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-    "max_diff": [
-      0.00003355741500854492,
-      0.000029981136322021484,
-      0.000028848648071289062
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -2150,20 +1721,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.000018596649169921875,
-      0.000018417835235595703,
-      0.000015616416931152344
-    ]
-  },
   "webgl": {
     "e3": "pass",
     "e4": "pass",
@@ -2218,16 +1775,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 1, ERROR_MESSAGE: Non-zero status code returned while running Resize node. Name:'/Resize_1' Status Message: upsamplebase.h:345 ScalesValidation Scale value should be greater than 0."
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": []
   },
   "webgl": {
     "e3": "n/a",
@@ -2285,20 +1832,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      9.5367431640625e-7,
-      1.1920928955078125e-7,
-      5.960464477539063e-8
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -2348,20 +1881,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "offset is out of bounds"
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.03125,
-      0.0078125,
-      0.00390625
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -2413,16 +1932,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": []
   },
   "webgl": {
     "e3": "fail",
@@ -2479,20 +1988,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "pass",
-    "e8": "fail",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      5.960479366348107e-8,
-      5.960476942542322e-8,
-      5.960475225729188e-8
-    ]
-  },
   "webgl": {
     "e3": "fail",
     "e4": "fail",
@@ -2548,20 +2043,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]"
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]",
-    "max_diff": [
-      5.960479366348107e-8,
-      5.960476942542322e-8,
-      5.960475225729188e-8
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -2608,20 +2089,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]"
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]",
-    "max_diff": [
-      0.00001239776611328125,
-      0.000011682510375976562,
-      0.000011682510375976562
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -2678,20 +2145,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]"
   },
-  "webnn_cpu_4": {
-    "e3": "fail",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]",
-    "max_diff": [
-      0.0028543025255203247,
-      0.0026347339153289795,
-      0.0024251341819763184
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -2747,20 +2200,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "fail",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0167999267578125,
-      0.010313987731933594,
-      0.007810831069946289
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -2811,20 +2250,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "crash",
-    "max_diff": [
-      0.00002288818359375,
-      0.00002288818359375,
-      0.00002288818359375
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -2877,20 +2302,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      8.344650268554688e-7,
-      7.972121238708496e-7,
-      7.953494787216187e-7
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -2941,20 +2352,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000209808349609375,
-      0.000019073486328125,
-      0.000018358230590820312
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -3011,20 +2408,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000133514404296875,
-      0.0000133514404296875,
-      0.000011444091796875
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -3079,20 +2462,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00012874603271484375,
-      0.00009107589721679688,
-      0.0000699758529663086
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -3149,20 +2518,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.00012874603271484375,
-      0.00009107589721679688,
-      0.0000699758529663086
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -3218,20 +2573,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000019073486328125,
-      0.0000013113021850585938,
-      9.5367431640625e-7
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -3282,20 +2623,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000023245811462402344,
-      0.000002123415470123291,
-      0.0000016689300537109375
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -3348,20 +2675,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.000049591064453125,
-      0.0000457763671875,
-      0.0000457763671875
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -3408,20 +2721,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 1, ERROR_MESSAGE: Non-zero status code returned while running Resize node. Name:'/Resize_1' Status Message: upsamplebase.h:345 ScalesValidation Scale value should be greater than 0."
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.000013470649719238281,
-      0.000013113021850585938,
-      0.000012278556823730469
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -3470,20 +2769,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 1, ERROR_MESSAGE: Non-zero status code returned while running Resize node. Name:'/Resize_1' Status Message: upsamplebase.h:345 ScalesValidation Scale value should be greater than 0."
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.00000667572021484375,
-      0.00000667572021484375,
-      0.0000057220458984375
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -3530,16 +2815,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": []
   },
   "webgl": {
     "e3": "n/a",
@@ -3592,20 +2867,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000032186508178710938,
-      0.00000286102294921875,
-      0.0000026226043701171875
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -3657,20 +2918,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000032186508178710938,
-      0.00000286102294921875,
-      0.0000026226043701171875
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -3721,20 +2968,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00010037422180175781,
-      0.00003314018249511719,
-      0.000033020973205566406
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -3788,20 +3021,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0007402896881103516,
-      0.00028884410858154297,
-      0.00026535987854003906
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -3852,20 +3071,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00013017654418945312,
-      0.00011157989501953125,
-      0.00010967254638671875
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -3918,20 +3123,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00010013580322265625,
-      0.0000972747802734375,
-      0.00009632110595703125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -3983,20 +3174,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The operator (reduceSum) is not supported.",
-    "max_diff": [
-      0.00010013580322265625,
-      0.0000972747802734375,
-      0.00009632110595703125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -4043,20 +3220,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.00010013580322265625,
-      0.0000972747802734375,
-      0.00009632110595703125
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -4107,20 +3270,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.00010013580322265625,
-      0.0000972747802734375,
-      0.00009632110595703125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -4167,20 +3316,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.000022619962692260742,
-      0.000018477439880371094,
-      0.00001811981201171875
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -4237,20 +3372,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.000022619962692260742,
-      0.000018477439880371094,
-      0.00001811981201171875
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -4305,20 +3426,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.0000591278076171875,
-      0.00005340576171875,
-      0.00005340576171875
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -4375,20 +3482,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00002288818359375,
-      0.00002288818359375,
-      0.00002288818359375
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -4439,20 +3532,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "fail",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "crash",
-    "max_diff": [
-      0.0014657974243164062,
-      0.0008783340454101562,
-      0.0007991790771484375
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -4505,20 +3584,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00018787384033203125,
-      0.00018787384033203125,
-      0.00018739700317382812
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -4570,19 +3635,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      4.76837158203125e-7,
-      1.1920928955078125e-7
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -4632,20 +3684,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "pass",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      1.3969838619232178e-8,
-      1.0710209608078003e-8,
-      1.0710209608078003e-8
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -4702,20 +3740,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000011920928955078125,
-      9.685754776000977e-7,
-      9.5367431640625e-7
-    ]
-  },
   "webgl": {
     "e3": "pass",
     "e4": "pass",
@@ -4770,20 +3794,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000011920928955078125,
-      9.685754776000977e-7,
-      9.5367431640625e-7
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -4840,16 +3850,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -4901,16 +3901,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK only supports constant padding mode.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -4960,16 +3950,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "dims.forEach is not a function"
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": []
   },
   "webgl": {
     "e3": "n/a",
@@ -5022,16 +4002,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -5083,20 +4053,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.000003337860107421875,
-      0.0000030994415283203125,
-      0.0000030994415283203125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -5147,20 +4103,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.00005996227264404297,
-      0.00005817413330078125,
-      0.00005650520324707031
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -5217,20 +4159,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.00005996227264404297,
-      0.00005817413330078125,
-      0.00005650520324707031
-    ]
-  },
   "webgl": {
     "e3": "pass",
     "e4": "pass",
@@ -5285,20 +4213,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.000030159950256347656,
-      0.000030159950256347656,
-      0.0000286102294921875
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -5355,20 +4269,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.00002384185791015625,
-      0.000020802021026611328,
-      0.000019073486328125
-    ]
-  },
   "webgl": {
     "e3": "pass",
     "e4": "pass",
@@ -5424,34 +4324,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.0000021457672119140625,
-      0.0000019073486328125,
-      0.0000019073486328125
-    ]
-  },
-  "webgl": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "cannot resolve operator 'Expand' with opsets: ai.onnx v11",
-    "max_diff": [
-      null,
-      null,
-      null
-    ]
-  },
   "webgpu": {
     "e3": "fail",
     "e4": "fail",
@@ -5492,20 +4364,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000021457672119140625,
-      0.0000019073486328125,
-      0.0000019073486328125
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -5561,20 +4419,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000021457672119140625,
-      0.0000019073486328125,
-      0.0000019073486328125
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -5637,16 +4481,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-    "max_diff": []
   },
   "webgl": {
     "e3": "n/a",
@@ -5723,16 +4557,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -5783,20 +4607,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-    "max_diff": [
-      0.00003355741500854492,
-      0.000029981136322021484,
-      0.000028848648071289062
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -5853,20 +4663,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-    "max_diff": [
-      0.000018596649169921875,
-      0.000018417835235595703,
-      0.000015616416931152344
-    ]
-  },
   "webgl": {
     "e3": "pass",
     "e4": "pass",
@@ -5922,16 +4718,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 1, ERROR_MESSAGE: Non-zero status code returned while running Resize node. Name:'/Resize_1' Status Message: upsamplebase.h:345 ScalesValidation Scale value should be greater than 0."
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -5974,15 +4760,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "max_diff": []
   },
   "webgl": {
     "e3": "n/a",
@@ -6031,15 +4808,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -6086,20 +4854,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 1, ERROR_MESSAGE: Non-zero status code returned while running Resize node. Name:'/Resize_1' Status Message: upsamplebase.h:345 ScalesValidation Scale value should be greater than 0."
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      9.5367431640625e-7,
-      1.1920928955078125e-7,
-      5.960464477539063e-8
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -6155,20 +4909,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.016644954681396484,
-      0.010313987731933594,
-      0.007664918899536133
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -6219,20 +4959,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.016644954681396484,
-      0.010313987731933594,
-      0.007664918899536133
-    ]
   },
   "webgl": {
     "e3": "fail",
@@ -6289,20 +5015,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "pass",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      5.960479366348107e-8,
-      5.960476942542322e-8,
-      5.960475225729188e-8
-    ]
-  },
   "webgl": {
     "e3": "fail",
     "e4": "fail",
@@ -6358,34 +5070,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]"
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]",
-    "max_diff": [
-      5.960479366348107e-8,
-      5.960476942542322e-8,
-      5.960475225729188e-8
-    ]
-  },
-  "webgl": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "cannot resolve operator 'Erf' with opsets: ai.onnx v11",
-    "max_diff": [
-      1.0000000596046448,
-      1.0000000596046448,
-      1.0000000596046448
-    ]
-  },
   "webgpu": {
     "e3": "fail",
     "e4": "fail",
@@ -6418,20 +5102,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00001239776611328125,
-      0.000011682510375976562,
-      0.000011682510375976562
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -6488,20 +5158,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "fail",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0028543025255203247,
-      0.0026347339153289795,
-      0.0024251341819763184
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -6557,20 +5213,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "fail",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.016644954681396484,
-      0.010313987731933594,
-      0.007664918899536133
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -6621,20 +5263,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "crash",
-    "max_diff": [
-      0.00002288818359375,
-      0.00002288818359375,
-      0.00002288818359375
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -6687,20 +5315,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      8.344650268554688e-7,
-      7.972121238708496e-7,
-      7.953494787216187e-7
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -6751,20 +5365,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000209808349609375,
-      0.000019073486328125,
-      0.000018358230590820312
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -6821,20 +5421,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000133514404296875,
-      0.0000133514404296875,
-      0.000011444091796875
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -6885,20 +5471,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00012874603271484375,
-      0.00009107589721679688,
-      0.0000699758529663086
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -6951,20 +5523,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.00012874603271484375,
-      0.00009107589721679688,
-      0.0000699758529663086
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -7015,20 +5573,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000019073486328125,
-      0.0000013113021850585938,
-      9.5367431640625e-7
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -7081,20 +5625,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000023245811462402344,
-      0.000002123415470123291,
-      0.0000016689300537109375
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -7145,20 +5675,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "crash",
-    "max_diff": [
-      0.000049591064453125,
-      0.0000457763671875,
-      0.0000457763671875
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -7211,20 +5727,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.000013470649719238281,
-      0.000013113021850585938,
-      0.000012278556823730469
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -7275,20 +5777,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00000667572021484375,
-      0.00000667572021484375,
-      0.0000057220458984375
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -7341,16 +5829,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -7401,20 +5879,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000032186508178710938,
-      0.00000286102294921875,
-      0.0000026226043701171875
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -7467,20 +5931,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000032186508178710938,
-      0.00000286102294921875,
-      0.0000026226043701171875
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -7531,20 +5981,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00010037422180175781,
-      0.00003314018249511719,
-      0.000033020973205566406
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -7597,16 +6033,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -7657,20 +6083,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0007402896881103516,
-      0.00028884410858154297,
-      0.00026535987854003906
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -7723,20 +6135,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00013017654418945312,
-      0.00011157989501953125,
-      0.00010967254638671875
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -7787,20 +6185,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000019073486328125,
-      0.0000013113021850585938,
-      9.5367431640625e-7
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -7853,20 +6237,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000023245811462402344,
-      0.000002123415470123291,
-      0.0000016689300537109375
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -7917,20 +6287,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00010013580322265625,
-      0.0000972747802734375,
-      0.00009632110595703125
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -7983,20 +6339,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The operator (reduceSum) is not supported.",
-    "max_diff": [
-      0.00010013580322265625,
-      0.0000972747802734375,
-      0.00009632110595703125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -8043,20 +6385,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.00010013580322265625,
-      0.0000972747802734375,
-      0.00009632110595703125
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -8107,20 +6435,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.00010013580322265625,
-      0.0000972747802734375,
-      0.00009632110595703125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -8163,20 +6477,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.000022619962692260742,
-      0.000018477439880371094,
-      0.00001811981201171875
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -8233,20 +6533,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.000022619962692260742,
-      0.000018477439880371094,
-      0.00001811981201171875
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -8301,20 +6587,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.0000591278076171875,
-      0.00005340576171875,
-      0.00005340576171875
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -8371,20 +6643,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.00002288818359375,
-      0.00002288818359375,
-      0.00002288818359375
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -8440,20 +6698,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "fail",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "crash",
-    "max_diff": [
-      0.0014657974243164062,
-      0.0008783340454101562,
-      0.0007991790771484375
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -8500,20 +6744,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "crash"
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "crash",
-    "max_diff": [
-      0.000049591064453125,
-      0.0000457763671875,
-      0.0000457763671875
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -8566,20 +6796,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.000013470649719238281,
-      0.000013113021850585938,
-      0.000012278556823730469
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -8631,20 +6847,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00000667572021484375,
-      0.00000667572021484375,
-      0.0000057220458984375
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -8691,20 +6893,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00018787384033203125,
-      0.00018787384033203125,
-      0.00018739700317382812
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -8757,19 +6945,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      4.76837158203125e-7,
-      1.1920928955078125e-7
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -8821,19 +6996,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      4.76837158203125e-7,
-      1.1920928955078125e-7
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -8884,20 +7046,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "pass",
-    "e8": "fail",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      1.3969838619232178e-8,
-      1.0710209608078003e-8,
-      1.0710209608078003e-8
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -8954,20 +7102,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000011920928955078125,
-      9.685754776000977e-7,
-      9.5367431640625e-7
-    ]
-  },
   "webgl": {
     "e3": "pass",
     "e4": "pass",
@@ -9023,16 +7157,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -9083,16 +7207,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": []
   },
   "webgl": {
     "e3": "n/a",
@@ -9145,16 +7259,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK only supports constant padding mode.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -9204,16 +7308,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "dims.forEach is not a function"
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": []
   },
   "webgl": {
     "e3": "n/a",
@@ -9266,16 +7360,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -9327,20 +7411,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.000003337860107421875,
-      0.0000030994415283203125,
-      0.0000030994415283203125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -9391,20 +7461,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.00005996227264404297,
-      0.00005817413330078125,
-      0.00005650520324707031
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -9461,20 +7517,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.00005996227264404297,
-      0.00005817413330078125,
-      0.00005650520324707031
-    ]
-  },
   "webgl": {
     "e3": "pass",
     "e4": "pass",
@@ -9529,20 +7571,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.000030159950256347656,
-      0.000030159950256347656,
-      0.0000286102294921875
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -9599,20 +7627,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.00002384185791015625,
-      0.000020802021026611328,
-      0.000019073486328125
-    ]
-  },
   "webgl": {
     "e3": "pass",
     "e4": "pass",
@@ -9667,20 +7681,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.0000021457672119140625,
-      0.0000019073486328125,
-      0.0000019073486328125
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -9737,20 +7737,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000021457672119140625,
-      0.0000019073486328125,
-      0.0000019073486328125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -9806,20 +7792,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000021457672119140625,
-      0.0000019073486328125,
-      0.0000019073486328125
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -9866,14 +7838,6 @@ export const conformance = [{
 {
   "name": "realesrgan_x4_1024_fp32",
   "gpu": "N2",
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5"
-  },
   "webnn_gpu": {
     "error": "crash"
   }
@@ -9889,16 +7853,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-    "max_diff": []
   },
   "webgl": {
     "e3": "n/a",
@@ -9951,16 +7905,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -10011,16 +7955,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-    "max_diff": []
   },
   "webgl": {
     "e3": "n/a",
@@ -10073,26 +8007,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': XNNPACK backend doesn't support concat inputs size 5",
-    "max_diff": []
-  },
-  "webgl": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "resize (packed) does not support mode: 'nearest'",
-    "max_diff": []
-  },
   "webgpu": {
     "e3": "pass",
     "e4": "pass",
@@ -10133,20 +8047,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00003355741500854492,
-      0.000029981136322021484,
-      0.000028848648071289062
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -10203,20 +8103,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.000018596649169921875,
-      0.000018417835235595703,
-      0.000015616416931152344
-    ]
-  },
   "webgl": {
     "e3": "pass",
     "e4": "pass",
@@ -10271,20 +8157,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 1, ERROR_MESSAGE: Non-zero status code returned while running Resize node. Name:'/Resize_1' Status Message: upsamplebase.h:345 ScalesValidation Scale value should be greater than 0."
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      0.000018596649169921875,
-      0.000018417835235595703,
-      0.000015616416931152344
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -10355,20 +8227,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      9.5367431640625e-7,
-      1.1920928955078125e-7,
-      5.960464477539063e-8
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -10423,16 +8281,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -10483,16 +8331,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": []
   },
   "webgl": {
     "e3": "fail",
@@ -10549,20 +8387,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "pass",
-    "e8": "fail",
-    "error": "Can't create a session. ERROR_CODE: 1, ERROR_MESSAGE: Node 'Resize' OpType:Resize with domain:com.ms.internal.nhwc was inserted using the NHWC format as requested by WebNNExecutionProvider, but was not selected by that EP. This means the graph is now invalid as there will not be an EP able to run the node. This could be a bug in layout transformer, or in the GetCapability implementation of the EP.",
-    "max_diff": [
-      5.960479366348107e-8,
-      5.960476942542322e-8,
-      5.960475225729188e-8
-    ]
-  },
   "webgl": {
     "e3": "fail",
     "e4": "fail",
@@ -10618,20 +8442,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]"
   },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]",
-    "max_diff": [
-      5.960479366348107e-8,
-      5.960476942542322e-8,
-      5.960475225729188e-8
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -10678,20 +8488,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]"
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]",
-    "max_diff": [
-      0.00001239776611328125,
-      0.000011682510375976562,
-      0.000011682510375976562
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -10748,20 +8544,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]"
   },
-  "webnn_cpu_4": {
-    "e3": "fail",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "failed to call OrtRun(). ERROR_CODE: 2, ERROR_MESSAGE: Non-zero status code returned while running Gather node. Name:'/embeddings/token_type_embeddings/Gather' Status Message: indices element out of data bounds, idx=99 must be within the inclusive range [-2,1]",
-    "max_diff": [
-      0.0028543025255203247,
-      0.0026347339153289795,
-      0.0024251341819763184
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -10817,20 +8599,7 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "fail",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.016916513442993164,
-      0.010313987731933594,
-      0.007756948471069336
-    ]
-  },
+
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -10882,20 +8651,7 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "crash",
-    "max_diff": [
-      0.00002288818359375,
-      0.00002288818359375,
-      0.00002288818359375
-    ]
-  },
+
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -10947,20 +8703,7 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "pass",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      8.344650268554688e-7,
-      7.972121238708496e-7,
-      7.953494787216187e-7
-    ]
-  },
+
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -11011,20 +8754,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000209808349609375,
-      0.000019073486328125,
-      0.000018358230590820312
-    ]
   },
   "webgl": {
     "e3": "pass",
@@ -11081,20 +8810,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "pass",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000032186508178710938,
-      0.00000286102294921875,
-      0.0000026226043701171875
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -11149,20 +8864,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Failed to execute 'buildSync' on 'MLGraphBuilder': The value of scalar operand b must be 2 or 0.5 for pow.",
-    "max_diff": [
-      0.0000032186508178710938,
-      0.00000286102294921875,
-      0.0000026226043701171875
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -11219,20 +8920,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00010037422180175781,
-      0.00003314018249511719,
-      0.000033020973205566406
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -11283,20 +8970,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": ""
-  },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "pass",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.0000133514404296875,
-      0.0000133514404296875,
-      0.000011444091796875
-    ]
   },
   "webgl": {
     "e3": "n/a",
@@ -11349,20 +9022,6 @@ export const conformance = [{
     "e8": "1e-8",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "pass",
-    "e4": "fail",
-    "e5": "fail",
-    "e6": "fail",
-    "e7": "fail",
-    "e8": "fail",
-    "error": "",
-    "max_diff": [
-      0.00012874603271484375,
-      0.00009107589721679688,
-      0.0000699758529663086
-    ]
-  },
   "webgl": {
     "e3": "n/a",
     "e4": "n/a",
@@ -11413,20 +9072,6 @@ export const conformance = [{
     "e7": "1e-7",
     "e8": "1e-8",
     "error": "Aborted(). Build with -sASSERTIONS for more info."
-  },
-  "webnn_cpu_4": {
-    "e3": "n/a",
-    "e4": "n/a",
-    "e5": "n/a",
-    "e6": "n/a",
-    "e7": "n/a",
-    "e8": "n/a",
-    "error": "Aborted(). Build with -sASSERTIONS for more info.",
-    "max_diff": [
-      0.00012874603271484375,
-      0.00009107589721679688,
-      0.0000699758529663086
-    ]
   },
   "webgl": {
     "e3": "n/a",

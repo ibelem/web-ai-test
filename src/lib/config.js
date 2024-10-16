@@ -42,7 +42,6 @@ export const uniqueBackends = [
   'webgl',
   'webgpu',
   'webnn_cpu_1',
-  'webnn_cpu_4',
   'webnn_gpu',
   'webnn_npu'
 ];

@@ -114,7 +114,7 @@
 	});
 </script>
 
-{#if (results && results.length > 0 && (results[0].webnn_cpu_1 || results[0].webnn_cpu_4 || results[0].webnn_gpu || results[0].webnn_npu)) || $page.url.pathname.indexOf('fallback') > -1}
+{#if (results && results.length > 0 && (results[0].webnn_cpu_1 || results[0].webnn_gpu || results[0].webnn_npu)) || $page.url.pathname.indexOf('fallback') > -1}
 	{#if filteredBackendDataFallback && filteredBackendDataFallback.length > 0}
 		<div id="fallback">
 			<div class="rqtitle">

@@ -479,7 +479,7 @@ header .nav {
   background-color: var(--p2-01);
 }
 
-.webnn_cpu_1 span, .webnn_cpu_4 span {
+.webnn_cpu_1 span {
   background-color: var(--b1-01);
 }
 
@@ -1798,7 +1798,7 @@ padding: 2px 4px 2px 4px;
     align-items: center;
   }
 
-  #webnn_cpu_4, #webnn_gpu, #webnn_npu {
+  #webnn_gpu, #webnn_npu {
     margin-top: 4px;
   }
 
@@ -1826,7 +1826,7 @@ padding: 2px 4px 2px 4px;
     align-items: center;
   }
 
-   #webnn_cpu_4, #webnn_gpu {
+  #webnn_gpu {
     margin-top: 4px;
   }
 
@@ -1919,11 +1919,7 @@ padding: 2px 4px 2px 4px;
     display: flex;
     align-items: center;
   }
-
-  #webnn_cpu_4 {
-    margin-top: 4px;
-  }
-
+  
   #webnn_npu {
     margin-top: 0px;
   }

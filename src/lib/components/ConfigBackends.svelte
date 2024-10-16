@@ -29,7 +29,6 @@
 		webgl: false,
 		webgpu: false,
 		webnn_cpu_1: false,
-		webnn_cpu_4: false,
 		webnn_gpu: false,
 		webnn_npu: false
 	};
@@ -107,7 +106,6 @@
 						'webgl',
 						'webgpu',
 						'webnn_cpu_1',
-						'webnn_cpu_4',
 						'webnn_gpu',
 						'webnn_npu'
 					],
@@ -140,7 +138,6 @@
 				'webgl',
 				'webgpu',
 				'webnn_cpu_1',
-				'webnn_cpu_4',
 				'webnn_gpu',
 				'webnn_npu'
 			];
@@ -170,8 +167,7 @@
 	<div
 		class="cpu group {backends.wasm_1 ||
 			backends.wasm_4 ||
-			backends.webnn_cpu_1 ||
-			backends.webnn_cpu_4}"
+			backends.webnn_cpu_1}"
 	>
 		<span>CPU</span>
 		<div class="block">
@@ -186,18 +182,10 @@
 			<label
 				id="webnn_cpu_1"
 				class={backends.webnn_cpu_1.toString()}
-				title="WebNN CPU with 1 thread"
+				title="WebNN CPU"
 			>
 				<input type="checkbox" on:change={() => toggleBackend('webnn_cpu_1')} />
 				WebNN
-			</label>
-			<label
-				id="webnn_cpu_4"
-				class={backends.webnn_cpu_4.toString()}
-				title="WebNN CPU with 4 threads"
-			>
-				<input type="checkbox" on:change={() => toggleBackend('webnn_cpu_4')} />
-				WebNN 4
 			</label>
 		</div>
 	</div>

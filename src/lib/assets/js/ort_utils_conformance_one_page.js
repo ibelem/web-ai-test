@@ -276,16 +276,6 @@ let res = {
     "e8": "",
     "error": ""
   },
-  "webnn_cpu_4": {
-    "e3": "",
-    "e4": "",
-    "e5": "",
-    "e6": "",
-    "e7": "",
-    "e8": "",
-    "error": "",
-    "max_diff": []
-  },
   "webgl": {
     "e3": "",
     "e4": "",
@@ -358,11 +348,6 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
     case 'webnn_cpu_1':
       backend = 'webnn';
       numThreads = 1;
-      deviceType = 'cpu';
-      break;
-    case 'webnn_cpu_4':
-      backend = 'webnn';
-      numThreads = 4;
       deviceType = 'cpu';
       break;
     case 'webnn_gpu':
@@ -512,9 +497,6 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
   } else if (_backend === 'webgpu') {
     webgpuResult = result;
     console.log(webgpuResult);
-  } else if (_backend === 'webnn_cpu_4') {
-    webnncpu4Result = result;
-    console.log(webnncpu4Result);
   } else if (_backend === 'webnn_gpu') {
     webnngpuResult = result;
     console.log(webnngpuResult);
@@ -646,7 +628,7 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
 }
 
 export const runOnnxConformance = async (_model, _modelType, _dataType) => {
-  let backends = ['wasm_4', 'webnn_cpu_4', 'webgl', 'webgpu', 'webnn_gpu'];
+  let backends = ['wasm_1', 'webnn_cpu_1', 'webgl', 'webgpu', 'webnn_gpu'];
 
   wasmResult = '';
   webglResult = '';

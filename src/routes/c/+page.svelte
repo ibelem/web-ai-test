@@ -285,8 +285,8 @@
 						{getModelNameById(m.id)}
 					</div>
 					<div class="i">
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_4')}
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_1')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_1')}
 							>WebNN CPU
 						</a>
 						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
@@ -315,8 +315,8 @@
 						{getModelNameById(m.id)}
 					</div>
 					<div class="i">
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_4')}
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_1')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_1')}
 							>WebNN CPU
 						</a>
 						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
@@ -345,8 +345,8 @@
 						{getModelNameById(m.id)}
 					</div>
 					<div class="i">
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_4')}
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_1')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_1')}
 							>WebNN CPU
 						</a>
 						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
@@ -376,8 +376,8 @@
 						{getModelNameById(m.id)}
 					</div>
 					<div class="i">
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_4')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_4')}
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_1')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu_1')}
 							>WebNN CPU
 						</a>
 						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
