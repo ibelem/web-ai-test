@@ -296,7 +296,27 @@ let res = {
     "error": "",
     "max_diff": []
   },
+  "webnn_cpu": {
+    "e3": "",
+    "e4": "",
+    "e5": "",
+    "e6": "",
+    "e7": "",
+    "e8": "",
+    "error": "",
+    "max_diff": []
+  },
   "webnn_gpu": {
+    "e3": "",
+    "e4": "",
+    "e5": "",
+    "e6": "",
+    "e7": "",
+    "e8": "",
+    "error": "",
+    "max_diff": []
+  },
+  "webnn_npu": {
     "e3": "",
     "e4": "",
     "e5": "",
@@ -628,7 +648,7 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
 }
 
 export const runOnnxConformance = async (_model, _modelType, _dataType) => {
-  let backends = ['wasm_1', 'webnn_cpu', 'webgl', 'webgpu', 'webnn_gpu'];
+  let backends = ['wasm_4', 'webnn_cpu', 'webgl', 'webgpu', 'webnn_gpu'];
 
   wasmResult = '';
   webglResult = '';

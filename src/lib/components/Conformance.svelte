@@ -135,7 +135,7 @@
 					<div class="su" title="WebNN GPU">WebNN GPU</div>
 					<div class="su" title="WebNN NPU">WebNN NPU</div>
 				</div>
-				{#each filteredDataConformance as { name, gpu, wasm_1, webnn_cpu, webgl, webgpu, webnn_gpu, webnn_npu }, i}
+				{#each filteredDataConformance as { name, gpu, wasm_4, webnn_cpu, webgl, webgpu, webnn_gpu, webnn_npu }, i}
 					<div class="q _5">
 						<div class="name c" title={name?.replaceAll('_', '-')}>{getModelNameById(name)}</div>
 						<div class="su info c">
@@ -144,20 +144,20 @@
 						</div>
 						<div class="hardware c" title="Hardware">{gpu}</div>
 						<div class="su info">
-							{#if wasm_1}
-								<span class="base">{wasm_1.e3}</span>
-								<span class="base">{wasm_1.e4}</span>
-								<span class="base">{wasm_1.e5}</span>
-								<span class="base">{wasm_1.e6}</span>
-								<span class="base">{wasm_1.e7}</span>
-								<span class="base">{wasm_1.e8}</span>
+							{#if wasm_4}
+								<span class="base">{wasm_4.e3}</span>
+								<span class="base">{wasm_4.e4}</span>
+								<span class="base">{wasm_4.e5}</span>
+								<span class="base">{wasm_4.e6}</span>
+								<span class="base">{wasm_4.e7}</span>
+								<span class="base">{wasm_4.e8}</span>
 								<div class="dif">
 									<span class="diff">max diff 1</span>
 									<span class="diff">max diff 2</span>
 									<span class="diff">max diff 3</span>
 								</div>
-								{#if wasm_1.error}<span class="err" title={wasm_1.error}>error</span>{/if}
-								<span class="test"><a href="../c?q={name}__wasm_1">raw</a></span>
+								{#if wasm_4.error}<span class="err" title={wasm_4.error}>error</span>{/if}
+								<span class="test"><a href="../c?q={name}__wasm_4">raw</a></span>
 							{/if}
 						</div>
 						<div class="su">
