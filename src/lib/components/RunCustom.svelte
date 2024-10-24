@@ -586,10 +586,32 @@
 		await navigator.clipboard.writeText(plain);
 	}
 
+	// 'processed_lens': ['int64', 1n, [1], {}],
+	// 'embed_states': ['float32', 'random', [1, 128, 3, 19], {}],
+
+	const generateInputsCode  = async () => {
+		let code = '';
+		custom.inputs.forEach((input) => {
+			let i = '';
+			if (input.datatype === 'float32') {
+				i = `'${input.name}': ['float32', 'random', [${input.shapeDimensions}], {}],\r\n`;
+			} else if (input.datatype === 'int64') {
+				i = `'${input.name}': ['int64', 1n, [${input.shapeDimensions}], {}],\r\n`;
+			}
+			code += i;
+		})
+		await navigator.clipboard.writeText(code);
+	}
+
 	const generateFeedsCode  = async () => {
 		let code = '';
 		custom.inputs.forEach((input) => {
-			let i = `feeds['${input.name}'] = getFeedInfo('${input.name}', 'float32', 1, [${input.shapeDimensions}]);\r\n`;
+			let i = '';
+			if (input.datatype === 'float32') {
+				i = `feeds['${input.name}'] = getFeedInfo('${input.name}', 'float32', 1, [${input.shapeDimensions}]);\r\n`;
+			} else if (input.datatype === 'int64') {
+				i = `feeds['${input.name}'] = getFeedInfo('${input.name}', 'int64', 1n, [${input.shapeDimensions}]);\r\n`;
+			} 
 			code += i;
 		})
 		await navigator.clipboard.writeText(code);
@@ -781,6 +803,9 @@
 								<span class="name count copy">
 									<button class="copy" on:click={copyPlain} title="Copy Inputs">
 										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
+									</button>
+									<button class="code" on:click={generateInputsCode} title="Generate Inputs code">
+										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
 									</button>
 									<button class="code" on:click={generateFeedsCode} title="Generate Feeds code">
 										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
