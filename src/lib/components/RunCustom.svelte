@@ -624,10 +624,8 @@
 				const overrides = custom.overrides;
 				if (overrides) {
 					if (overrides.length === 0) {
-						console.log('----- 000 ----');
 						checkRun = true;
 					} else {
-						console.log('----- r ----');
 						let r = overrides.every(
 							(override) => Number.isInteger(override.value) && override.value !== null
 						);

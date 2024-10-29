@@ -6357,7 +6357,7 @@ view.ModelFactoryService = class {
             // ];
             const files = [
                 'server', 'onnx', 'tflite', 
-                'onnx-proto', 'onnx-schema',
+                'onnx-proto', 'onnx-schema', 'tflite-schema',
                 'onnx-metadata.json', 'tflite-metadata.json'
             ];
             for (const file of files) {
