@@ -2732,7 +2732,7 @@ background-color: var(--int4-005);
   margin: 0;
   display: inline-block;
   width: 80px;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: right;
@@ -2746,13 +2746,14 @@ background-color: var(--int4-005);
   display: inline-block;
   border: 1px solid var(--grey-02);
   background-color: var(--grey-005);
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 #graph-nodes span.name.count {
   width: 88px;
+  word-break: break-all;
 }
 
 #graph-nodes span.value.count {
@@ -2900,6 +2901,7 @@ table td.c {
 #graph-properties span.value.properties,
 #graph-meta span.value.metadata {
   min-width: 94px;
+  word-break: break-all;
 }
 
 #graph-inputs,

@@ -704,7 +704,7 @@
 							id="open-file-dialog"
 							bind:value={openFile}
 							type="file"
-							accept=".onnx"
+							accept=".onnx,.tflite"
 							on:change={handleFileInput}
 							hidden
 						/>
