@@ -267,11 +267,11 @@ host.BrowserHost = class {
 
     async require(id) {
         if (id === "./onnx" || id === "./onnx-proto"
-            || id === "./onnx-schema" || id === "./server") {
+            || id === "./onnx-schema" || id === "./server" || id === "./tflite") {
             id = id.replace('./','');
             return import(`./module-${id}.js`);
         } else if (id === "onnx" || id === "onnx-proto"
-            || id === "onnx-schema" || id === "server") {
+            || id === "onnx-schema" || id === "server" || id === "tflite") {
             return import(`./module-${id}.js`);
         }  {
             return import(`./${id}.js`);
