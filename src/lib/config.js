@@ -5400,25 +5400,6 @@ export let models = [
   {
     category: 'Automatic Speech Recognition',
     tag: '2h',
-    id: 'whisper_base_decoder_static_4dmask_fp16_merged',
-    name: 'Whisper Base Decoder Static Shape KV-Cache (LayerNorm + 4dmask) Demo',
-    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
-    note: '',
-    source: 'https://huggingface.co/microsoft/whisper-base-webnn/',
-    model: 'fp16/whisper-base/whisper_base_decoder_static_kvcache_128_lm_fp16_layernorm_4dmask.onnx',
-    size: '143 MB',
-    format: 'onnx',
-    datatype: 'fp16',
-    inputs: [{
-      'input_ids': ['int32', 1, [1, 1], {}],
-      'attention_mask': ['float16', 'random', [1, 1, 1, 128], {}],
-      'position_ids': ['int32', 1, [1], {}]
-    }],
-    inputstip: '[1, 1] [1, 1, 1, 128] [1]'
-  },
-  {
-    category: 'Automatic Speech Recognition',
-    tag: '2h',
     id: 'whisper_base_decoder_static_gelu_4dmask_fp16_merged',
     name: 'Whisper Base Decoder Static Shape KV-Cache (LayerNorm + Gelu + 4dmask) Demo',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -5438,25 +5419,6 @@ export let models = [
   {
     category: 'Automatic Speech Recognition',
     tag: '2h',
-    id: 'whisper_base_decoder_static_4dmask_fp16',
-    name: 'Whisper Base Decoder Static Shape Non-KV-Cache (LayerNorm + 4dmask) Demo',
-    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
-    note: '',
-    source: 'https://huggingface.co/microsoft/whisper-base-webnn/',
-    model: 'fp16/whisper-base/whisper_base_decoder_static_non_kvcache_lm_fp16_layernorm_4dmask.onnx',
-    size: '149 MB',
-    format: 'onnx',
-    datatype: 'fp16',
-    inputs: [{
-      'input_ids': ['int32', 1, [1, 4], {}],
-      'attention_mask': ['float16', 'random', [1, 1, 4, 4], {}],
-      'encoder_hidden_states': ['float16', 'random', [1, 1500, 512], {}]
-    }],
-    inputstip: '[1, 4] [1, 1, 4, 4] [1, 1500, 512]'
-  },
-  {
-    category: 'Automatic Speech Recognition',
-    tag: '2h',
     id: 'whisper_base_decoder_static_gelu_4dmask_fp16',
     name: 'Whisper Base Decoder Static Shape Non-KV-Cache (LayerNorm + Gelu + 4dmask) Demo',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -5472,23 +5434,6 @@ export let models = [
       'encoder_hidden_states': ['float16', 'random', [1, 1500, 512], {}]
     }],
     inputstip: '[1, 4] [1, 1, 4, 4] [1, 1500, 512]'
-  },
-  {
-    category: 'Automatic Speech Recognition',
-    tag: '2h',
-    id: 'whisper_base_encoder_fp16',
-    name: 'Whisper Base Encoder (LayerNorm) Demo',
-    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
-    note: '',
-    source: 'https://huggingface.co/microsoft/whisper-base-webnn/',
-    model: 'fp16/whisper-base/whisper_base_encoder_lm_fp16_layernorm.onnx',
-    size: '39.3 MB',
-    format: 'onnx',
-    datatype: 'fp16',
-    inputs: [{
-      'input_features': ['float16', 'random', [1, 80, 3000], {}]
-    }],
-    inputstip: '[1, 80, 3000]'
   },
   {
     category: 'Automatic Speech Recognition',
