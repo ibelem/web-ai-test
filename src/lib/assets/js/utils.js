@@ -963,6 +963,8 @@ export const getGpu = () => {
         if (renderer.toLowerCase().includes('adreno')) {
           renderer = 'Qualcomm ' + renderer;
         }
+
+        renderer = renderer.replace('))', ') )');
     
         return renderer;
       } catch (error) {
