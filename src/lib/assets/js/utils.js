@@ -964,7 +964,7 @@ export const getGpu = () => {
           renderer = 'Qualcomm ' + renderer;
         }
 
-        renderer = renderer.replace('))', ') )');
+        renderer = renderer.replace(') )', '))');
     
         return renderer;
       } catch (error) {
