@@ -772,7 +772,7 @@ view.View = class {
                                 <th><span>Index</span></th>
                                 <th><span>Model Operations</span></th>
                                 <th><span>WebNN Spec</span></th>
-                                <th><span>TensorFlow Lite</span></th>
+                                <th><span>Lite RT</span></th>
                                 <th><span>DirectML</span></th>
                                 <th><span>Core ML</span></th>
                                 <th><span>Alias</span></th>

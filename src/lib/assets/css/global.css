@@ -180,34 +180,35 @@ header .nav {
 }
 
 .config .types label.tflite.false.extra:hover {
-  border: 1px solid var(--tflite) !important;
+  border: 1px solid var(--litert) !important;
   background-image: none;
-  background-color: var(--tflite-005);
-  color: var(--tflite);
+  background-color: var(--litert-005);
+  color: var(--litert);
 }
 
 .types label.tflite.false.extra:hover svg .logo_tflite_1 {
-  fill: var(--tflite);
+  fill: var(--litert);
 }
 
 .config .types label.tflite:hover  {
   background-image: none;
-  background-color: var(--tflite-005);
-  color: var(--tflite);
-  border: 1px solid var(--tflite);
+  background-color: var(--litert-005);
+  color: var(--litert);
+  border: 1px solid var(--litert);
 }
 
 .types label:hover svg .logo_tflite {
-  fill: var(--tflite);
+  fill: var(--litert);
 }
 
 .config label.true.tflite {
-  background-color: var(--tflite);
-  background-image: linear-gradient(to right, var(--tflite-09) 0%,  var(--tflite) 100%);
+  background-color: var(--litert-005);
+  background-image: linear-gradient(to right, var(--litert-02) 0%,  var(--litert-005) 100%);
+  border: 1px solid var(--litert);
 }
 
 .types label.tflite.true.extra:hover svg .logo_tflite, .types label.tflite:hover svg#logo_tflite path {
-  fill: var(--tflite) !important;
+  fill: var(--litert) !important;
 }
 
 .config .types label.npy.false.extra:hover {
@@ -419,9 +420,13 @@ header .nav {
   display: inline-block;
 }
 
-.types svg#logo_onnx, .types svg#logo_tflite, .types svg#logo_npy, .types svg#logo_pt {
+.types svg#logo_onnx, .types #logo_tflite, .types svg#logo_tflite, .types svg#logo_npy, .types svg#logo_pt {
   display: inline-block;
   height: 14px;
+}
+
+.types #logo_tflite {
+  margin-bottom: -2px;
 }
 
 #result {
