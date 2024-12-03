@@ -4554,7 +4554,7 @@ export let models = [
     category: 'Text-to-Image',
     tag: '2h',
     id: 'sd_1_5_unet_fp16',
-    name: 'SD 1.5 UNet (layernorm) demo',
+    name: 'SD 1.5 UNet (layernorm) Demo',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: 'Large model',
     source: 'https://huggingface.co/runwayml/stable-diffusion-v1-5',
