@@ -804,17 +804,21 @@ export const random = () => {
 };
 
 export const median = (arr) => {
-  const sorted = arr.slice().sort((a, b) => a - b);
+  // Ensure all elements are converted to numbers
+  const sorted = arr
+    .map(Number)  // Convert all elements to numbers
+    .filter(num => !isNaN(num))  // Remove any non-numeric values
+    .sort((a, b) => a - b);
 
   // Check if the array length is even or odd
   const middle = Math.floor(sorted.length / 2.0);
 
   if (sorted.length % 2 === 0) {
     // If the array length is even, return the average of the two middle values
-    return (parseFloat(sorted[middle - 1]) + parseFloat(sorted[middle])) / 2.0;
+    return (sorted[middle - 1] + sorted[middle]) / 2.0;
   } else {
     // If the array length is odd, return the middle value
-    return parseFloat(sorted[middle].toFixed(2));
+    return sorted[middle];
   }
 };
 
