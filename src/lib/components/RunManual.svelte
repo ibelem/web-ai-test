@@ -1,5 +1,7 @@
 <script>
 	import { onMount, afterUpdate } from 'svelte';
+	import { getGpu, isMobile, getURLParameterValue } from '$lib/assets/js/utils.js';
+	import { tracking } from '../config.js';
 	// import TestQueue from './TestQueue.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
@@ -10,6 +12,8 @@
 	import Results from '$lib/components/Results.svelte';
 	import Environment from './Environment.svelte';
 	import Info from './Info.svelte';
+	import ValidationModal from '$lib/components/ValidationModal.svelte';
+	import { writable } from 'svelte/store';
 	import {
 		auto,
 		run,
@@ -38,6 +42,11 @@
 	import Fallback from './Fallback.svelte';
 
 	let logShow = true;
+	let ia = true;
+	let showModal = false;
+	let attempts = writable(3);
+	let isValidated = false;
+	let urlPin = false;
 
 	/**
 	 * @type {string[]}
@@ -55,7 +64,24 @@
 		testQueue = value;
 	});
 
-	const runManual = async () => {
+	const openValidationModal = () => {
+		showModal = true;
+	};
+
+	const handleValidation = async () => {
+		isValidated = true;
+		showModal = false;
+		console.log('Access granted');
+		await proceed();
+	};
+
+	const handleCancel = () => {
+		showModal = false;
+		console.log('Access denied');
+		attempts.set(3);
+	};
+
+	const proceed = async () => {
 		autoStore.update(() => false);
 		modelDownloadProgressStore.update(() => []);
 		updateTestQueue();
@@ -63,6 +89,14 @@
 		resetInfo();
 		await setModelDownloadUrl();
 		run();
+	};
+
+	const runManual = async () => {
+		if (ia) {
+			await proceed();
+		} else {
+			openValidationModal();
+		}
 	};
 
 	/**
@@ -88,7 +122,7 @@
 	/**
 	 * @type {string}
 	 */
-	 let category = '';
+	let category = '';
 
 	/**
 	 * @type {string}
@@ -103,7 +137,7 @@
 	/**
 	 * @type {string}
 	 */
-	 let inputs = '';
+	let inputs = '';
 
 	/**
 	 * @type {string}
@@ -111,7 +145,7 @@
 	let size = '';
 
 	onMount(() => {
-		id = getModelIdfromPath()|| '';
+		id = getModelIdfromPath() || '';
 		modelName = getModelNameById(id) || '';
 		modelType = getModelTypeById(id) || '';
 		dataType = getModelDataTypeById(id) || '';
@@ -120,7 +154,7 @@
 		note = getModelNoteById(id) || '';
 		inputs = getModelInputsById(id) || '';
 		size = getModelSizeById(id) || '';
- 
+
 		// if (console.everything === undefined) {
 		// 	console.everything = [];
 		// 	function TS() {
@@ -159,6 +193,20 @@
 		// 	});
 		// }
 
+		urlPin = getURLParameterValue('pin')?.toLocaleLowerCase().trim();
+		const reversedTracking = tracking.map(item => item.split('').reverse().join(''));
+		if (!reversedTracking.includes(urlPin)) {
+			navigator.userAgentData.getHighEntropyValues(['architecture']).then((ua) => {
+				if (ua.architecture === 'arm' && !isMobile()) {
+					const vendors = ['apple', 'qualcomm', 'adreno'];
+					const hasVendor = vendors.some((vendor) => getGpu().toLowerCase().includes(vendor));
+					if (hasVendor) {
+						ia = false;
+					}
+				}
+			});
+		}
+
 		if (testQueue.length > 0 && auto) {
 			run();
 		}
@@ -176,6 +224,10 @@
 		}
 	});
 </script>
+
+{#if showModal}
+	<ValidationModal onValidate={handleValidation} onCancel={handleCancel} />
+{/if}
 
 {#if testQueue}
 	{#if testQueue.length != 0}

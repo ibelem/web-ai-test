@@ -1033,3 +1033,29 @@ export const removeElement = async (id) => {
     el.parentNode.removeChild(el);
   }
 }
+
+export const isMobile = () => {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  
+  // Regex method
+  const mobileRegex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|Kindle|Silk|KFAPWI|Mobile Safari|Mobile\/|Tablet|Touch/i;
+  
+  // Touch capabilities
+  const hasTouchScreen = (
+    'maxTouchPoints' in navigator && navigator.maxTouchPoints > 0
+  ) || (
+    'msMaxTouchPoints' in navigator && navigator.msMaxTouchPoints > 0
+  );
+  
+  // Screen size check
+  const isSmallScreen = window.innerWidth <= 768;
+  
+  // Additional checks
+  const isMobileVendor = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+  
+  return (
+    mobileRegex.test(userAgent) || 
+    (hasTouchScreen && isSmallScreen) ||
+    isMobileVendor
+  );
+};

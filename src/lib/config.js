@@ -19,6 +19,12 @@ export const corsSites = [
   'webai.run'
 ]
 
+export const tracking = [
+  'tfsm',
+  'goog',
+  'ctni'
+]
+
 export const ortDists = {
   webgpu: {
     version: '2024-11-19',
