@@ -113,15 +113,17 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   let backend = 'wasm';
   let numThreads = 1;
   let deviceType = 'cpu';
-  let enableIoBinding = false;
+  let enableMLTensor = false;
   let webgpuDevice;
   let webgpuInputBuffer = {};
   let feedsInfo = [];
 
-  if (getQueryValue('io') == 'true') {
-    enableIoBinding = true;
-  } else {
-    enableIoBinding = false;
+  if (_model.indexOf('mltensor') > -1) {
+    enableMLTensor = true;
+  }
+
+  if (getQueryValue('mltensor') == 'true') {
+    enableMLTensor = true;
   }
 
   switch (_backend) {
@@ -205,7 +207,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
   };
 
-  if(_backend === 'wasm_1' || _backend === 'wasm_4' ) {
+  if (_backend === 'wasm_1' || _backend === 'wasm_4') {
     options.executionProviders[0].numThreads = numThreads
     l(`Wasm EP options numThreads: ${numThreads}`)
   }
@@ -413,8 +415,31 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     options.freeDimensionOverrides = freeDimensionOverrides;
   }
 
-  if (_backend === "webgpu" && enableIoBinding === true) {
+  if (_backend === "webgpu" && enableMLTensor === true) {
     options.preferredOutputLocation = "gpu-buffer";
+  }
+
+  if (_backend === "webnn_gpu" && enableMLTensor === true) {
+    if (_model.indexOf('mltensor') > -1) {
+      let pairs = {};
+      if (
+        _model.indexOf('whisper_base_decoder_static_gelu_4dmask_mltensor_demo_fp16') > -1) {
+        for (let i = 0; i < 6; i++) {
+          pairs[`updated_present_key_values.${i}.decoder.key`] = "ml-tensor";
+          pairs[`updated_present_key_values.${i}.decoder.value`] = "ml-tensor";
+        }
+      }
+
+      if (_model.indexOf('whisper_base_decoder_static_gelu_4dmask_mltensor_demo_merged_fp16') > -1) {
+        for (let i = 0; i < 6; i++) {
+          pairs[`present_key_values.${i}.encoder.key`] = "ml-tensor";
+          pairs[`present_key_values.${i}.encoder.value`] = "ml-tensor";
+          pairs[`updated_present_key_values.${i}.decoder.key`] = "ml-tensor";
+          pairs[`updated_present_key_values.${i}.decoder.value`] = "ml-tensor";
+        }
+      }
+      options.preferredOutputLocation = pairs;
+    }
   }
 
   l(`ort.env.wasm.numThreads: ${ort.env.wasm.numThreads}`)
@@ -465,7 +490,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   let compilationTime = performance.now() - compilationStart;
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Compilation Time: ${compilationTime} ms`);
 
-  if (_backend === "webgpu" && enableIoBinding === true) {
+  if (_backend === "webgpu" && enableMLTensor === true) {
     webgpuDevice = ort.env.webgpu.device;
   }
 
@@ -478,7 +503,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   let firstInferenceTime = 0, warmupTimes = [], inferenceTimes = [], timeToFirstInference = null, inferenceTimesAverage = null, inferenceTimesMedian = null, inferenceTimesThroughput = null, inferenceTimesNinety = null, inferenceTimesBest = null;
 
   if (_backend === 'webgpu' || _backend === 'webnn') {
-    updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] IO Binding: ${enableIoBinding}`);
+    updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] IO Binding: ${enableMLTensor}`);
   }
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inferencing, please wait... `);
@@ -489,19 +514,17 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     Object.keys(feedsInfo).forEach(key => {
       let dims = feedsInfo[key].dims;
       let bufferSize = feedsInfo[key].size;
-      if (enableIoBinding && _backend === "webgpu") {
-        const myPreAllocatedBuffer = webgpuDevice.createBuffer({
-          size: bufferSize,
-          usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST | GPUBufferUsage.STORAGE,
-        });
-
-        webgpuDevice.queue.writeBuffer(myPreAllocatedBuffer, 0, feedsInfo[key].data);
-        feeds[key] = ort.Tensor.fromGpuBuffer(myPreAllocatedBuffer, { dataType: feedsInfo[key].type, dims });
+      if (enableMLTensor && _backend === "webgpu") {
+        if (!(bufferSize in webgpuInputBuffer)) {
+          webgpuInputBuffer[bufferSize] = webgpuDevice.createBuffer({
+            size: bufferSize,
+            usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST | GPUBufferUsage.STORAGE,
+          });
+        }
+        webgpuDevice.queue.writeBuffer(webgpuInputBuffer[bufferSize], 0, feedsInfo[key].data);
+        feeds[key] = ort.Tensor.fromGpuBuffer(webgpuInputBuffer[feedsInfo[key].size], { dataType: feedsInfo[key].type, dims });
       }
-      else if (enableIoBinding && _backend === "webnn") {
-        //console.time(feed);
-        // mlContext.writeTensor(inputMlBuffer[key], feeds[key].data);
-        //console.timeEnd(feed);
+      else if (enableMLTensor && _backend === "webnn") {
         feeds[key] = new ort.Tensor(feedsInfo[key].type, feedsInfo[key].data, feedsInfo[key].dims);
       }
       else {
@@ -509,14 +532,16 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       }
     });
 
-    // console.log('-- feeds --');
-    // console.log(feeds);
+    console.log('-- feeds --');
+    console.log(feeds);
 
     let start;
     start = performance.now();
-    await sess.run(feeds);
+    const result = await sess.run(feeds);
 
-    if (_backend === "webgpu" && enableIoBinding) {
+    // await Promise.all(Object.values(result).map(output => f.dispose()));
+
+    if (_backend === "webgpu" && enableMLTensor) {
       await webgpuDevice.queue.onSubmittedWorkDone();
     }
 

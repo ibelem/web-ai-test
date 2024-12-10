@@ -4469,7 +4469,7 @@ export let models = [
   {
     category: 'Text-to-Image',
     tag: '2h',
-    id: 'sd_turbo_text_encoder_layernorm_fp16',
+    id: 'sd_turbo_text_encoder_layernorm_demo_fp16',
     name: 'SD-Turbo Text Encoder (layernorm) Demo',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
     note: '',
@@ -4505,7 +4505,7 @@ export let models = [
   {
     category: 'Text-to-Image',
     tag: '2h',
-    id: 'sd_turbo_unet_layernorm_fp16',
+    id: 'sd_turbo_unet_layernorm_demo_fp16',
     name: 'SD-Turbo UNet (layernorm) Demo',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
     note: 'Large model',
@@ -4524,7 +4524,7 @@ export let models = [
   {
     category: 'Zero-Shot Image Classification',
     tag: '2h',
-    id: 'sd_safety_checker_fp16',
+    id: 'sd_safety_checker_demo_fp16',
     name: 'SD Safety Checker Demo',
     description: 'Can be used for identifying not safe for work (NSFW) image. Should not be used to intentionally create hostile or alienating environments for people.',
     note: 'Large model',
@@ -4542,7 +4542,7 @@ export let models = [
   {
     category: 'Text-to-Image',
     tag: '2h',
-    id: 'sd_1_5_text_encoder_fp16',
+    id: 'sd_1_5_text_encoder_demo_fp16',
     name: 'SD 1.5 text Encoder Demo',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: '',
@@ -4559,7 +4559,7 @@ export let models = [
   {
     category: 'Text-to-Image',
     tag: '2h',
-    id: 'sd_1_5_unet_fp16',
+    id: 'sd_1_5_unet_demo_fp16',
     name: 'SD 1.5 UNet (layernorm) Demo',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: 'Large model',
@@ -4578,7 +4578,7 @@ export let models = [
   {
     category: 'Text-to-Image',
     tag: '2h',
-    id: 'sd_vae_decoder_fp16',
+    id: 'sd_vae_decoder_demo_fp16',
     name: 'SD (1.5 + Turbo) VAE Decoder Demo',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: '',
@@ -4661,7 +4661,7 @@ export let models = [
   {
     category: 'Mask Generation',
     tag: '2h',
-    id: 'segment_anything_decoder_fp16',
+    id: 'segment_anything_decoder_demo_fp16',
     name: 'Segment Anything Decoder Demo',
     description: 'An AI model from Meta AI that can cut out any object in any image.',
     note: '',
@@ -4683,7 +4683,7 @@ export let models = [
   {
     category: 'Mask Generation',
     tag: '2h',
-    id: 'segment_anything_encoder_fp16',
+    id: 'segment_anything_encoder_demo_fp16',
     name: 'Segment Anything Encoder Demo',
     description: 'An AI model from Meta AI that can cut out any object in any image.',
     note: '',
@@ -5406,9 +5406,9 @@ export let models = [
   {
     category: 'Automatic Speech Recognition',
     tag: '2h',
-    id: 'whisper_base_decoder_static_gelu_4dmask_fp16_merged',
-    name: 'Whisper Base Decoder Static Shape KV-Cache (LayerNorm + Gelu + 4dmask) Demo',
-    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    id: 'whisper_base_decoder_static_gelu_4dmask_demo_merged_fp16',
+    name: 'Whisper Base Decoder Static Shape KV-Cache Demo',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation. (LayerNorm, Gelu, 4dmask)',
     note: '',
     source: 'https://huggingface.co/microsoft/whisper-base-webnn/',
     model: 'fp16/whisper-base/whisper_base_decoder_static_kvcache_128_lm_fp16_layernorm_gelu_4dmask.onnx',
@@ -5425,9 +5425,28 @@ export let models = [
   {
     category: 'Automatic Speech Recognition',
     tag: '2h',
-    id: 'whisper_base_decoder_static_gelu_4dmask_fp16',
-    name: 'Whisper Base Decoder Static Shape Non-KV-Cache (LayerNorm + Gelu + 4dmask) Demo',
-    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    id: 'whisper_base_decoder_static_gelu_4dmask_mltensor_demo_merged_fp16',
+    name: 'Whisper Base Decoder Static Shape KV-Cache MLTensor Demo GPU WIP',
+    description: '[Working in Progress, please do not test] A pre-trained model for automatic speech recognition (ASR) and speech translation. (LayerNorm, Gelu, 4dmask) https://github.com/microsoft/webnn-developer-preview/pull/67',
+    note: '',
+    source: 'https://huggingface.co/microsoft/whisper-base-webnn/',
+    model: 'fp16/whisper-base/whisper_base_decoder_static_kvcache_128_lm_fp16_layernorm_gelu_4dmask_iobinding.onnx',
+    size: '143 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'input_ids': ['int32', 1, [1, 1], {}],
+      'attention_mask': ['float16', 'random', [1, 1, 1, 128], {}],
+      'position_ids': ['int32', 1, [1], {}]
+    }],
+    inputstip: '[1, 1] [1, 1, 1, 128] [1]'
+  },
+  {
+    category: 'Automatic Speech Recognition',
+    tag: '2h',
+    id: 'whisper_base_decoder_static_gelu_4dmask_demo_fp16',
+    name: 'Whisper Base Decoder Static Shape Non-KV-Cache Demo',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation. (LayerNorm, Gelu, 4dmask)',
     note: '',
     source: 'https://huggingface.co/microsoft/whisper-base-webnn/',
     model: 'fp16/whisper-base/whisper_base_decoder_static_non_kvcache_lm_fp16_layernorm_gelu_4dmask.onnx',
@@ -5444,9 +5463,28 @@ export let models = [
   {
     category: 'Automatic Speech Recognition',
     tag: '2h',
-    id: 'whisper_base_encoder_gelu_fp16',
-    name: 'Whisper Base Encoder (LayerNorm + Gelu) Demo',
-    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    id: 'whisper_base_decoder_static_gelu_4dmask_mltensor_demo_fp16',
+    name: 'Whisper Base Decoder Static Shape Non-KV-Cache MLTensor Demo GPU WIP',
+    description: '[Working in Progress, please do not test] A pre-trained model for automatic speech recognition (ASR) and speech translation. (LayerNorm, Gelu, 4dmask) https://github.com/microsoft/webnn-developer-preview/pull/67',
+    note: '',
+    source: 'https://huggingface.co/microsoft/whisper-base-webnn/',
+    model: 'fp16/whisper-base/whisper_base_decoder_static_non_kvcache_lm_fp16_layernorm_gelu_4dmask_iobinding.onnx',
+    size: '149 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'input_ids': ['int32', 1, [1, 4], {}],
+      'attention_mask': ['float16', 'random', [1, 1, 4, 4], {}],
+      'encoder_hidden_states': ['float16', 'random', [1, 1500, 512], {}]
+    }],
+    inputstip: '[1, 4] [1, 1, 4, 4] [1, 1500, 512]'
+  },
+  {
+    category: 'Automatic Speech Recognition',
+    tag: '2h',
+    id: 'whisper_base_encoder_gelu_demo_fp16',
+    name: 'Whisper Base Encoder Demo',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation. (LayerNorm + Gelu)',
     note: '',
     source: 'https://huggingface.co/microsoft/whisper-base-webnn/',
     model: 'fp16/whisper-base/whisper_base_encoder_lm_fp16_layernorm_gelu.onnx',

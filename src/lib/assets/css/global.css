@@ -2096,6 +2096,14 @@ background-color: var(--p-005);
 background-color: var(--int4-005);
 }
 
+.title.demo, .title.tq.demo button {
+  color: var(--demo) !important;
+}
+
+.title.tq.demo {
+background-color: var(--demo-005);
+}
+
 .ho {
   display: flex;
   flex-wrap: wrap;
@@ -2304,6 +2312,11 @@ background-color: var(--int4-005);
 .int4 .titlemark span {
   border: 1px solid var(--int4-01);
   background-color: var(--int4-005);
+}
+
+.demo .titlemark span {
+  border: 1px solid var(--demo-01);
+  background-color: var(--demo-005);
 }
 
 .fp32 .titlemark span {
@@ -3248,6 +3261,42 @@ table td.c {
 .tq .q:hover .titlemark span.demo {
   border: 1px solid rgba(45, 45, 45, 1);
   background-color: rgba(45, 45, 45, 1);
+  color: var(--white) !important;
+}
+
+.titlemark span.gpu {
+  border: 1px solid var(--pink) !important;
+  background-color: var(--pink) !important;
+  color: var(--white);
+}
+
+.tq .q:hover .titlemark span.gpu {
+  border: 1px solid var(--pink);
+  background-color: var(--pink);
+  color: var(--white) !important;
+}
+
+.titlemark span.mltensor {
+  border: 1px solid var(--pt) !important;
+  background-color: var(--pt) !important;
+  color: var(--white);
+}
+
+.tq .q:hover .titlemark span.mltensor {
+  border: 1px solid var(--pt);
+  background-color: var(--pt);
+  color: var(--white) !important;
+}
+
+.titlemark span.wip {
+  border: 1px solid var(--yellow) !important;
+  background-color: var(--yellow) !important;
+  color: var(--white);
+}
+
+.tq .q:hover .titlemark span.wip {
+  border: 1px solid var(--yellow);
+  background-color: var(--yellow);
   color: var(--white) !important;
 }
 

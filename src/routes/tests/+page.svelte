@@ -41,6 +41,7 @@
 	$: int8Count = 0;
 	$: int4Count = 0;
 	$: fp32Count = 0;
+	$: demoCount = 0;
 	let subModels = models;
 	let selected = 'onnx';
 
@@ -71,6 +72,7 @@
 		int8Count = 0;
 		fp16Count = 0;
 		fp32Count = 0;
+		demoCount = 0;
 		uniqueModels.forEach((item) => {
 			if (item.endsWith('_int4')) {
 				int4Count++;
@@ -80,6 +82,10 @@
 				fp16Count++;
 			} else {
 				fp32Count++;
+			}
+
+			if (item.indexOf('_demo') > -1) {
+				demoCount++;
 			}
 		});
 	};
@@ -123,14 +129,23 @@
 			.replace(' KV-Cache', ' <span>KV-Cache</span>')
 			.replace('w/i Past', '<span>w/i Past</span>')
 			.replace('Static Shape', '<span class="static">Static Shape</span>')
-			.replace('QDQ', '<span class="qdq" title="Quantization using QuantizeLinear and DeQuantizeLinear only">QDQ</span>')
+			.replace(
+				'QDQ',
+				'<span class="qdq" title="Quantization using QuantizeLinear and DeQuantizeLinear only">QDQ</span>'
+			)
 			.replace('MS Word', '<span class="word" title="Microsoft Word">MS Word</span>')
-			.replace('MS PowerPoint', '<span class="powerpoint" title="Microsoft PowerPoint">MS PowerPoint</span>')
+			.replace(
+				'MS PowerPoint',
+				'<span class="powerpoint" title="Microsoft PowerPoint">MS PowerPoint</span>'
+			)
 			.replace('Gemma', '<span class="phi3">Gemma</span>')
 			.replace('Phi-3.5-mini', '<span class="phi3">Phi-3.5-mini</span>')
 			.replace('Phi-3 Mini', '<span class="phi3">Phi-3 Mini</span>')
 			.replace('ISV', '<span class="isv">ISV</span>')
-			.replace('Demo', '<span class="demo" title="WebNN Developer Preview Demo model">Demo</span>');
+			.replace('Demo', '<span class="demo" title="WebNN Developer Preview Demo model">Demo</span>')
+			.replace('GPU', '<span class="gpu">GPU</span>')
+			.replace('MLTensor', '<span class="mltensor">MLTensor</span>')
+			.replace('WIP', '<span class="wip">WIP</span>');
 		return name;
 	};
 
@@ -225,6 +240,46 @@
 </div>
 
 <div>
+	<div class="title tq demo">Developer Preview Models · {demoCount}</div>
+	<div class="tq benchmark demo">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if model.indexOf('_demo') > -1}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s">
+							<Clock />
+						</div>
+						<!-- {#if getModelTypeById(model) === 'onnx'}
+							<div class="onnx">
+								<Onnx />
+							</div>
+						{/if}
+
+						{#if getModelTypeById(model) === 'tflite'}
+							<div class="tflite">
+								<Tflite />
+							</div>
+						{/if} -->
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
 	<div class="title tq int4">INT4 · {int4Count}</div>
 	<div class="tq benchmark int4">
 		{#each uniqueModels as model}
@@ -480,6 +535,10 @@
 		color: var(--red);
 	}
 
+	.tq.demo .q.tests a:hover {
+		color: var(--demo);
+	}
+
 	.tq .q:hover {
 		border-bottom: 0px solid var(--fp16);
 	}
@@ -574,6 +633,10 @@
 		z-index: 1;
 		border-radius: 99px;
 		transition: 0.25s ease-out;
+	}
+
+	.benchmark {
+		margin: 0.5rem 0 2rem 0;
 	}
 
 	.benchmark.tq .onnx,
