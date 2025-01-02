@@ -4,6 +4,7 @@
 	import Environment from '$lib/components/Environment.svelte';
 	import Info from '$lib/components/Info.svelte';
 	import Clock from '$lib/components/svg/Clock.svelte';
+	import ArrowOutward from '$lib/components/svg/ArrowOutward.svelte';
 	import { models } from '$lib/config';
 	import { beforeUpdate, onMount, onDestroy } from 'svelte';
 	import OnnxFull from '$lib/components/svg/OnnxFull.svelte';
@@ -21,7 +22,8 @@
 		getModelTypeById,
 		getModelTagById,
 		sortModelById,
-		getModelSizeById
+		getModelSizeById,
+		getModelHFUrlById
 	} from '$lib/assets/js/utils';
 
 	/**
@@ -251,8 +253,10 @@
 							model
 						)} · {getModelNoteById(model)}"
 					>
-						<div class="status_1 s">
-							<Clock />
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
 						</div>
 						<!-- {#if getModelTypeById(model) === 'onnx'}
 							<div class="onnx">
@@ -291,8 +295,10 @@
 							model
 						)} · {getModelNoteById(model)}"
 					>
-						<div class="status_1 s">
-							<Clock />
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
 						</div>
 						<!-- {#if getModelTypeById(model) === 'onnx'}
 							<div class="onnx">
@@ -331,8 +337,10 @@
 							model
 						)} · {getModelNoteById(model)}"
 					>
-						<div class="status_1 s">
-							<Clock />
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
 						</div>
 						<!-- {#if getModelTypeById(model) === 'onnx'}
 							<div class="onnx">
@@ -371,8 +379,10 @@
 							model
 						)} · {getModelNoteById(model)}"
 					>
-						<div class="status_1 s">
-							<Clock />
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
 						</div>
 						<!-- {#if getModelTypeById(model) === 'onnx'}
 							<div class="onnx">
@@ -411,8 +421,10 @@
 							model
 						)} · {getModelNoteById(model)}"
 					>
-						<div class="status_1 s">
-							<Clock />
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
 						</div>
 						<!-- {#if getModelTypeById(model) === 'onnx'}
 							<div class="onnx">

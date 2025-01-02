@@ -3306,6 +3306,11 @@ table td.c {
   margin-bottom: -4px;
 }
 
+.netron_link svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
 @media (max-width: 1120px) {
   .ort .wasm,
   .ort .webgpu,
