@@ -2,7 +2,7 @@
 import { models, ortDists } from '$lib/config';
 import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getModelHFFileById, getModelExternalDataNameById, getHfUrlById, getAwsUrlById, getLocalUrlById, average, minimum } from '../js/utils';
 import { ortWebVersionStore, testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
-import { sleep, getQueryValue } from '$lib/assets/js/utils';
+import { sleep, getQueryValue, getURLParameterValue } from '$lib/assets/js/utils';
 import { getModelOPFS, getModelCache } from '$lib/assets/js/nn_utils'
 import { dataTypeToArrayConstructor, isDict } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
@@ -169,6 +169,9 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     removeElement('webnn');
   }
 
+  let relaxedSimd = null;
+  relaxedSimd = getURLParameterValue('relaxedsimd')?.toLocaleLowerCase().trim();
+
   if (ortWebVersion) {
     if (ortWebVersion.selected === 2) {
       if (backend === 'webgpu') {
@@ -176,7 +179,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
         await loadScript('webgpu', ortDists.webgpu.url);
       } else {
         removeTag();
-        await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
+        if (relaxedSimd === "1") {
+          l(`Loading ONNX Runtime Web with relaxed SIMD optimization`)
+          await loadScript('wasm', ortDists.wasm_relaxed_simd.url);
+        } else {
+          await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
+        }
       }
     } else if (ortWebVersion.selected === 1) {
       await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.all.min.js`);
@@ -190,7 +198,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       await loadScript('webgpu', ortDists.webgpu.url);
     } else {
       removeTag();
-      await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
+      if (relaxedSimd === "1") {
+        l(`Loading ONNX Runtime Web with relaxed SIMD optimization`)
+        await loadScript('wasm', ortDists.wasm_relaxed_simd.url);
+      } else {
+        await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
+      }
     }
   }
 
@@ -405,6 +418,11 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   }
   ort.env.wasm.simd = true;
   ort.env.wasm.proxy = false;
+
+  if (relaxedSimd === "1") {
+    l('Setting: ort.env.wasm.relaxedSimd = true')
+    ort.env.wasm.relaxedSimd = true;
+  }
 
   // (backend === 'webnn' || _backend === 'wasm_4') ? ort.env.wasm.proxy = true : ort.env.wasm.proxy = false;
   // (_backend === 'wasm_4') ? ort.env.wasm.proxy = true : ort.env.wasm.proxy = false;

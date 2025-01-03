@@ -33,6 +33,10 @@ export const ortDists = {
   webnn_webglfix_wasm: {
     version: '2024-11-14',
     url: '../ort/ort.all.min.js'
+  },
+  wasm_relaxed_simd: {
+    version: '2025-01-03',
+    url: '../ort_relaxed_simd/ort.all.min.js'
   }
 }
 

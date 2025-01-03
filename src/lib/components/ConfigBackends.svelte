@@ -34,6 +34,7 @@
 	};
 
 	let backendsFromUrl;
+	let relaxedSimd = null;
 
 	const toggleBackends = () => {
 		for (const backend in backends) {
@@ -154,6 +155,7 @@
 
 	onMount(() => {
 		highlightBackend();
+		relaxedSimd = getURLParameterValue('relaxedsimd')?.toLocaleLowerCase().trim();
 	});
 </script>
 
@@ -175,13 +177,13 @@
 				<input type="checkbox" on:change={() => toggleBackend('wasm_1')} />
 				Wasm
 			</label>
-			<label id="wasm_4" class={backends.wasm_4.toString()} title="WebAssembly SIMD with 4 threads">
+			<label id="wasm_4" class="{backends.wasm_4.toString()} relaxedsimd_{relaxedSimd}" title="WebAssembly SIMD with 4 threads">
 				<input type="checkbox" on:change={() => toggleBackend('wasm_4')} />
 				Wasm 4
 			</label>
 			<label
 				id="webnn_cpu"
-				class={backends.webnn_cpu.toString()}
+				class="{backends.webnn_cpu.toString()} relaxedsimd_{relaxedSimd}"
 				title="WebNN CPU"
 			>
 				<input type="checkbox" on:change={() => toggleBackend('webnn_cpu')} />
@@ -189,7 +191,8 @@
 			</label>
 		</div>
 	</div>
-	<div class="gpu group {backends.webgl || backends.webgpu || backends.webnn_gpu}">
+ 
+	<div class="gpu group {backends.webgl || backends.webgpu || backends.webnn_gpu} relaxedsimd_{relaxedSimd}">
 		<span>GPU</span>
 		<div class="block">
 			<label class={backends.webgl.toString()} title="WebGL">
@@ -207,7 +210,7 @@
 		</div>
 	</div>
 
-	<div class="npu group {backends.webnn_npu}">
+	<div class="npu group {backends.webnn_npu} relaxedsimd_{relaxedSimd}">
 		<span>NPU</span>
 		<div class="block">
 			<label id="webnn_npu" class={backends.webnn_npu.toString()} title="WebNN NPU">

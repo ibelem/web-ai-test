@@ -3288,6 +3288,18 @@ table td.c {
   color: var(--white) !important;
 }
 
+.titlemark span.relaxed_simd {
+  border: 1px solid var(--avg) !important;
+  background-color: var(--avg) !important;
+  color: var(--white);
+}
+
+.tq .q:hover .titlemark span.relaxed_simd {
+  border: 1px solid var(--avg);
+  background-color: var(--avg);
+  color: var(--white) !important;
+}
+
 .titlemark span.wip {
   border: 1px solid var(--yellow) !important;
   background-color: var(--yellow) !important;
@@ -3309,6 +3321,10 @@ table td.c {
 .netron_link svg {
   width: 16px !important;
   height: 16px !important;
+}
+
+.relaxedsimd_0, .relaxedsimd_1 {
+  display: none !important;
 }
 
 @media (max-width: 1120px) {

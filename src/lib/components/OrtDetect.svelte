@@ -2,10 +2,14 @@
 	import { onMount } from 'svelte';
 	import { ortDists } from '$lib/config.js';
 	import { ortWebVersionStore } from '$lib/store/store';
+	import {
+		getURLParameterValue
+	} from '$lib/assets/js/utils';
 	import Modal from './Modal.svelte';
 	import AutoComplete from 'simple-svelte-autocomplete';
 	let ortStable = '';
 	let ortDev = '';
+	let relaxedSimd = null;
 	/**
 	 * @type {number }
 	 */
@@ -106,6 +110,7 @@
 			ortStable = ortWebVersion.stable;
 		}
 		await getVersion();
+		relaxedSimd = getURLParameterValue('relaxedsimd')?.toLocaleLowerCase().trim();
 	});
 </script>
 
@@ -244,11 +249,15 @@
 			{#if ortWebVersion.selected === 2}
 				<div class="wasm">
 					<span class="title">Wasm</span>
-					<span class="version"
-						><a href="https://www.npmjs.com/package/onnxruntime-web/v/{ortWebVersion.stable}"
-							>{ortWebVersion.stable}</a
-						></span
-					>
+					{#if relaxedSimd === '1'}
+						<span class="version">Relaxed Simd {ortDists.wasm_relaxed_simd.version}</span>
+					{:else}
+						<span class="version"
+							><a href="https://www.npmjs.com/package/onnxruntime-web/v/{ortWebVersion.stable}"
+								>{ortWebVersion.stable}</a
+							></span
+						>
+					{/if}
 				</div>
 				<div class="webgpu">
 					<span class="title">WebGPU</span>
