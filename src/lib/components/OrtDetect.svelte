@@ -104,13 +104,18 @@
 	}
 
 	onMount(async () => {
-		if (ortWebVersion) {
-			selected = ortWebVersion.selected;
-			ortDev = ortWebVersion.dev;
-			ortStable = ortWebVersion.stable;
+		relaxedSimd = getURLParameterValue('relaxedsimd')?.toLocaleLowerCase().trim();
+		if (relaxedSimd === '0' || relaxedSimd === '1') {
+			selected = 0
+		} else {
+			if (ortWebVersion) {
+				selected = ortWebVersion.selected;
+				ortDev = ortWebVersion.dev;
+				ortStable = ortWebVersion.stable;
+			}
 		}
 		await getVersion();
-		relaxedSimd = getURLParameterValue('relaxedsimd')?.toLocaleLowerCase().trim();
+
 	});
 </script>
 
@@ -249,15 +254,11 @@
 			{#if ortWebVersion.selected === 2}
 				<div class="wasm">
 					<span class="title">Wasm</span>
-					{#if relaxedSimd === '1'}
-						<span class="version">Relaxed Simd {ortDists.wasm_relaxed_simd.version}</span>
-					{:else}
-						<span class="version"
-							><a href="https://www.npmjs.com/package/onnxruntime-web/v/{ortWebVersion.stable}"
-								>{ortWebVersion.stable}</a
-							></span
-						>
-					{/if}
+					<span class="version"
+						><a href="https://www.npmjs.com/package/onnxruntime-web/v/{ortWebVersion.stable}"
+							>{ortWebVersion.stable}</a
+						></span
+					>
 				</div>
 				<div class="webgpu">
 					<span class="title">WebGPU</span>
@@ -284,12 +285,24 @@
 				
 			{:else}
 				<div class="webnn">
+					{#if relaxedSimd === '1'}
+					  <span class="title">Wasm</span>
+						<span class="version">Relaxed Simd {ortDists.wasm_relaxed_simd.version}</span>
+					{:else if relaxedSimd === '0'}
+						<span class="title">Wasm</span>
+						<span class="version"
+						><a href="https://www.npmjs.com/package/onnxruntime-web/v/{ortWebVersion.stable}"
+							>{ortWebVersion.stable}</a
+						></span
+					>
+					{:else }
 					<span class="title">Wasm · WebGPU · WebNN</span>
 					<span class="version"
 						><a href="https://www.npmjs.com/package/onnxruntime-web/v/{ortWebVersion.stable}"
 							>{ortWebVersion.stable}</a
 						></span
 					>
+					{/if}
 					<span class="version selector">
 						<button on:click={() => (showOrtStableModal = true)}>
 							<svg height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
