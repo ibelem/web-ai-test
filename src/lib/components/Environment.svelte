@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { environment, cpu } from '$lib/config.js';
-	import { getGpu } from '$lib/assets/js/utils.js';
+	import { getGpu, isNonChromiumBrowser } from '$lib/assets/js/utils.js';
 	// @ts-ignore
 	import { UAParser } from 'ua-parser-js';
 	import to from 'await-to-js';
@@ -171,58 +171,64 @@
 
 		environment.osVersion = parser.os.version;
 
-		navigator.userAgentData
-			?.getHighEntropyValues(['platformVersion', 'architecture', 'bitness'])
-			.then((ua) => {
-				if (navigator.userAgentData?.platform === 'Windows') {
-					const majorPlatformVersion = parseInt(ua.platformVersion.split('.')[0]);
-					if (majorPlatformVersion >= 13) {
-						environment.osVersion = '11 or later';
-					} else if (majorPlatformVersion > 0) {
-						environment.osVersion = '10';
+		if(!isNonChromiumBrowser) {
+			navigator.userAgentData
+				?.getHighEntropyValues(['platformVersion', 'architecture', 'bitness'])
+				.then((ua) => {
+					if (navigator.userAgentData?.platform === 'Windows') {
+						const majorPlatformVersion = parseInt(ua.platformVersion.split('.')[0]);
+						if (majorPlatformVersion >= 13) {
+							environment.osVersion = '11 or later';
+						} else if (majorPlatformVersion > 0) {
+							environment.osVersion = '10';
+						} else {
+							environment.osVersion = '7, 8 or 8.1';
+						}
 					} else {
-						environment.osVersion = '7, 8 or 8.1';
+						environment.osVersion = parser.os.version;
 					}
-				} else {
-					environment.osVersion = parser.os.version;
-				}
 
-				if (ua.architecture === 'x86') {
-					if (ua.bitness === '64') {
-						environment.cpu = 'x86-64';
-					} else if (ua.bitness === '32') {
-						environment.cpu = 'x86';
+					if (ua.architecture === 'x86') {
+						if (ua.bitness === '64') {
+							environment.cpu = 'x86-64';
+						} else if (ua.bitness === '32') {
+							environment.cpu = 'x86';
+						}
+					} else if (ua.architecture === 'arm') {
+						if (ua.bitness === '64') {
+							environment.cpu = 'arm64';
+						} else if (ua.bitness === '32') {
+							environment.cpu = 'arm32';
+						}
 					}
-				} else if (ua.architecture === 'arm') {
-					if (ua.bitness === '64') {
-						environment.cpu = 'arm64';
-					} else if (ua.bitness === '32') {
-						environment.cpu = 'arm32';
-					}
-				}
-			});
+				});
+		}
 
 		environment.logicCores = navigator.hardwareConcurrency;
 		environment.gpu = getGpu();
 
-		if (navigator.userAgentData) {
-			environment.os = navigator.userAgentData.platform;
-		} else {
+		if(isNonChromiumBrowser) {
 			environment.os = parser.os.name;
+		} else {
+			if (navigator.userAgentData) {
+				environment.os = navigator.userAgentData.platform;
+			}
 		}
 
 		environment.webbrowser = parser.browser.name;
 		environment.browserVersion = parser.browser.version;
 
-		if (navigator.userAgentData) {
-			navigator.userAgentData.getHighEntropyValues(["fullVersionList"])
-				.then((ua) => {
-					for (let i of ua.fullVersionList) {
-						if (i.brand.toLowerCase().indexOf('brand') === -1 && i.brand.toLowerCase().indexOf('chromium') === -1) {
-							environment.browserVersion = i.version;
+		if(!isNonChromiumBrowser) {
+			if (navigator.userAgentData) {
+				navigator.userAgentData.getHighEntropyValues(["fullVersionList"])
+					.then((ua) => {
+						for (let i of ua.fullVersionList) {
+							if (i.brand.toLowerCase().indexOf('brand') === -1 && i.brand.toLowerCase().indexOf('chromium') === -1) {
+								environment.browserVersion = i.version;
+							}
 						}
-					}
-				});
+					});
+			}
 		}
 
 		const [err, data] = await to(getCP());

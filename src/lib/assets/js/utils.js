@@ -1059,3 +1059,27 @@ export const isMobile = () => {
     isMobileVendor
   );
 };
+
+export const isNonChromiumBrowser = () => {
+  // Check if the browser supports the window.chrome object
+  if (!window.chrome) {
+      return true;
+  }
+
+  // Check for specific browser engines and properties
+  const isFirefox = typeof InstallTrigger !== 'undefined';
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const isIE = /*@cc_on!@*/false || !!document.documentMode;
+  const isEdgeLegacy = !isIE && !!window.StyleMedia;
+
+  // Return true if any non-Chromium browser is detected
+  return isFirefox || isSafari || isIE || isEdgeLegacy;
+}
+
+export const isSafari = () => {
+  const userAgent = navigator.userAgent.toLowerCase();
+  const vendor = navigator.vendor.toLowerCase();
+  const isSafariBrowser = vendor.includes('apple') && userAgent.includes('safari') && !userAgent.includes('chrome');
+
+  return isSafariBrowser;
+}

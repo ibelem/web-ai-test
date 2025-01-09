@@ -3,6 +3,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Environment from '$lib/components/Environment.svelte';
 	import { onMount } from 'svelte';
+	import { isNonChromiumBrowser } from '$lib/assets/js/utils.js';
 
 	/**
 	 * @type {string | null}
@@ -77,40 +78,43 @@
 	let cpu = '';
 
 	onMount(async () => {
-		if (navigator.userAgentData) {
-			os = navigator.userAgentData.platform;
-		}
 
-		navigator.userAgentData
-			?.getHighEntropyValues(['platformVersion', 'architecture', 'bitness'])
-			.then((ua) => {
-				if (navigator.userAgentData?.platform === 'Windows') {
-					const majorPlatformVersion = parseInt(ua.platformVersion.split('.')[0]);
-					if (majorPlatformVersion >= 13) {
-						osVersion = '11 or later';
-					} else if (majorPlatformVersion > 0) {
-						osVersion = '10';
+		if(!isNonChromiumBrowser) {
+			if (navigator.userAgentData) {
+				os = navigator.userAgentData.platform;
+			}
+
+			navigator.userAgentData
+				?.getHighEntropyValues(['platformVersion', 'architecture', 'bitness'])
+				.then((ua) => {
+					if (navigator.userAgentData?.platform === 'Windows') {
+						const majorPlatformVersion = parseInt(ua.platformVersion.split('.')[0]);
+						if (majorPlatformVersion >= 13) {
+							osVersion = '11 or later';
+						} else if (majorPlatformVersion > 0) {
+							osVersion = '10';
+						} else {
+							osVersion = '7, 8 or 8.1';
+						}
 					} else {
-						osVersion = '7, 8 or 8.1';
+						osVersion = parser.os.version;
 					}
-				} else {
-					osVersion = parser.os.version;
-				}
 
-				if (ua.architecture === 'x86') {
-					if (ua.bitness === '64') {
-						cpu = 'x86-64';
-					} else if (ua.bitness === '32') {
-						cpu = 'x86';
+					if (ua.architecture === 'x86') {
+						if (ua.bitness === '64') {
+							cpu = 'x86-64';
+						} else if (ua.bitness === '32') {
+							cpu = 'x86';
+						}
+					} else if (ua.architecture === 'arm') {
+						if (ua.bitness === '64') {
+							cpu = 'arm64';
+						} else if (ua.bitness === '32') {
+							cpu = 'arm32';
+						}
 					}
-				} else if (ua.architecture === 'arm') {
-					if (ua.bitness === '64') {
-						cpu = 'arm64';
-					} else if (ua.bitness === '32') {
-						cpu = 'arm32';
-					}
-				}
-			});
+				});
+		}
 
 		if (navigator.ml) {
 			const cpuContext = await navigator.ml?.createContext({ deviceType: 'cpu' });

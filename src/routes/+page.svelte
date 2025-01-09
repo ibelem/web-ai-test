@@ -1,5 +1,5 @@
 <script>
-	import { getGpu, isMobile, getURLParameterValue } from '$lib/assets/js/utils.js';
+	import { getGpu, isMobile, getURLParameterValue, isNonChromiumBrowser, isSafari } from '$lib/assets/js/utils.js';
 	import { tracking } from '../lib/config.js';
 	import Environment from '$lib/components/Environment.svelte';
 	import Config from '$lib/components/Config.svelte';
@@ -158,15 +158,21 @@
 		urlPin = getURLParameterValue('pin')?.toLocaleLowerCase().trim();
 		const reversedTracking = tracking.map(item => item.split('').reverse().join(''));
 		if (!reversedTracking.includes(urlPin)) {
-			navigator.userAgentData.getHighEntropyValues(['architecture']).then((ua) => {
-				if (ua.architecture === 'arm' && !isMobile()) {
-					const vendors = ['apple', 'qualcomm', 'adreno'];
-					const hasVendor = vendors.some((vendor) => getGpu().toLowerCase().includes(vendor));
-					if (hasVendor) {
-						ia = false;
+			if(!isNonChromiumBrowser) {
+				navigator.userAgentData.getHighEntropyValues(['architecture']).then((ua) => {
+					if (ua.architecture === 'arm' && !isMobile()) {
+						const vendors = ['apple', 'qualcomm', 'adreno'];
+						const hasVendor = vendors.some((vendor) => getGpu().toLowerCase().includes(vendor));
+						if (hasVendor) {
+							ia = false;
+						}
 					}
-				}
-			});
+				});
+			}
+
+			if(isSafari) {
+				ia = false;
+			}
 		}
 	});
 
