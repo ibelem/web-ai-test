@@ -88,7 +88,7 @@
 
 {#if testQueue.length > 0 && $page.url.pathname.length > 1}
 	<div class="info">
-		<div class="title tq {testQueue[0].datatype}">
+		<div class="title tq {testQueue[0].datatype} testing">
 			{testQueue[0].model}
 		</div>
 		<div class="s">
@@ -142,6 +142,10 @@
 		text-align: center;
 		width: 50vw;
 		border: 1px solid var(--grey-02);
+	}
+
+	.testing {
+		margin-top: 15px !important;
 	}
 
 	.g2 {

@@ -437,27 +437,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     options.preferredOutputLocation = "gpu-buffer";
   }
 
-  if (_backend === "webnn_gpu" && enableMLTensor === true) {
-    if (_model.indexOf('mltensor') > -1) {
-      let pairs = {};
-      if (
-        _model.indexOf('whisper_base_decoder_static_gelu_4dmask_mltensor_demo_fp16') > -1) {
-        for (let i = 0; i < 6; i++) {
-          pairs[`updated_present_key_values.${i}.decoder.key`] = "ml-tensor";
-          pairs[`updated_present_key_values.${i}.decoder.value`] = "ml-tensor";
-        }
-      }
-
-      if (_model.indexOf('whisper_base_decoder_static_gelu_4dmask_mltensor_demo_merged_fp16') > -1) {
-        for (let i = 0; i < 6; i++) {
-          pairs[`present_key_values.${i}.encoder.key`] = "ml-tensor";
-          pairs[`present_key_values.${i}.encoder.value`] = "ml-tensor";
-          pairs[`updated_present_key_values.${i}.decoder.key`] = "ml-tensor";
-          pairs[`updated_present_key_values.${i}.decoder.value`] = "ml-tensor";
-        }
-      }
-      options.preferredOutputLocation = pairs;
-    }
+  if (_backend === "webnn_gpu" && enableMLTensor === true && _model.indexOf('mltensor') > -1) {
+    options.preferredOutputLocation = "ml-tensor";
   }
 
   l(`ort.env.wasm.numThreads: ${ort.env.wasm.numThreads}`)
@@ -514,14 +495,14 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   let numOfWarmups = 1;
 
-  if (_backend === 'webgl' || _backend === 'webgpu' || (_backend === 'webnn' && deviceType === 'gpu')) {
+  if (_backend === 'webgl' || _backend === 'webgpu' || (_backend === 'webnn_gpu' && deviceType === 'gpu')) {
     numOfWarmups = 1;
   }
 
   let firstInferenceTime = 0, warmupTimes = [], inferenceTimes = [], timeToFirstInference = null, inferenceTimesAverage = null, inferenceTimesMedian = null, inferenceTimesThroughput = null, inferenceTimesNinety = null, inferenceTimesBest = null;
 
-  if (_backend === 'webgpu' || _backend === 'webnn') {
-    updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] IO Binding: ${enableMLTensor}`);
+  if (_backend === 'webgpu' || _backend === 'webnn_gpu') {
+    updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] enableMLTensor: ${enableMLTensor}`);
   }
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inferencing, please wait... `);
@@ -541,17 +522,10 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
         }
         webgpuDevice.queue.writeBuffer(webgpuInputBuffer[bufferSize], 0, feedsInfo[key].data);
         feeds[key] = ort.Tensor.fromGpuBuffer(webgpuInputBuffer[feedsInfo[key].size], { dataType: feedsInfo[key].type, dims });
-      }
-      else if (enableMLTensor && _backend === "webnn") {
-        feeds[key] = new ort.Tensor(feedsInfo[key].type, feedsInfo[key].data, feedsInfo[key].dims);
-      }
-      else {
+      } else {
         feeds[key] = new ort.Tensor(feedsInfo[key].type, feedsInfo[key].data, feedsInfo[key].dims);
       }
     });
-
-    console.log('-- feeds --');
-    console.log(feeds);
 
     let start;
     start = performance.now();
@@ -561,6 +535,25 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
     if (_backend === "webgpu" && enableMLTensor) {
       await webgpuDevice.queue.onSubmittedWorkDone();
+    }
+
+    if (_backend === "webnn_gpu" && enableMLTensor === true && _model.indexOf('mltensor') > -1) {
+      if (i === (numOfWarmups + numOfRuns - 1)) {
+        // console.log(result);
+        // console.log(sess.outputNames);
+
+        const promises = [];
+        for (let j = 0; j < sess.outputNames.length; j++) {
+          promises.push(result[sess.outputNames[j]].getData());
+        }
+        await Promise.all(promises)
+        .then((results) => {
+          console.log("[Success] readTensor: ", results);
+        })
+        .catch((e) => {
+          console.log("[Error] readTensor: ", e.message);
+        });
+      }
     }
 
     let inferenceTime = performance.now() - start;
