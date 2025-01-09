@@ -3,7 +3,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Environment from '$lib/components/Environment.svelte';
 	import { onMount } from 'svelte';
-	import { isNonChromiumBrowser } from '$lib/assets/js/utils.js';
+	import { isFirefoxOrSafari } from '$lib/assets/js/utils.js';
 
 	/**
 	 * @type {string | null}
@@ -79,7 +79,7 @@
 
 	onMount(async () => {
 
-		if(!isNonChromiumBrowser) {
+		if(!isFirefoxOrSafari()) {
 			if (navigator.userAgentData) {
 				os = navigator.userAgentData.platform;
 			}

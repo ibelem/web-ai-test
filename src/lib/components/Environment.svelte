@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { environment, cpu } from '$lib/config.js';
-	import { getGpu, isNonChromiumBrowser } from '$lib/assets/js/utils.js';
+	import { getGpu, isFirefoxOrSafari } from '$lib/assets/js/utils.js';
 	// @ts-ignore
 	import { UAParser } from 'ua-parser-js';
 	import to from 'await-to-js';
@@ -171,7 +171,7 @@
 
 		environment.osVersion = parser.os.version;
 
-		if(!isNonChromiumBrowser) {
+		if(!isFirefoxOrSafari()) {
 			navigator.userAgentData
 				?.getHighEntropyValues(['platformVersion', 'architecture', 'bitness'])
 				.then((ua) => {
@@ -207,18 +207,16 @@
 		environment.logicCores = navigator.hardwareConcurrency;
 		environment.gpu = getGpu();
 
-		if(isNonChromiumBrowser) {
+		if(isFirefoxOrSafari()) {
 			environment.os = parser.os.name;
-		} else {
-			if (navigator.userAgentData) {
+		} else if (navigator.userAgentData) {
 				environment.os = navigator.userAgentData.platform;
-			}
 		}
 
 		environment.webbrowser = parser.browser.name;
 		environment.browserVersion = parser.browser.version;
 
-		if(!isNonChromiumBrowser) {
+		if(!isFirefoxOrSafari()) {
 			if (navigator.userAgentData) {
 				navigator.userAgentData.getHighEntropyValues(["fullVersionList"])
 					.then((ua) => {

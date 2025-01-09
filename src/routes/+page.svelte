@@ -1,5 +1,5 @@
 <script>
-	import { getGpu, isMobile, getURLParameterValue, isNonChromiumBrowser, isSafari } from '$lib/assets/js/utils.js';
+	import { getGpu, isMobile, getURLParameterValue, isFirefoxOrSafari, isSafari } from '$lib/assets/js/utils.js';
 	import { tracking } from '../lib/config.js';
 	import Environment from '$lib/components/Environment.svelte';
 	import Config from '$lib/components/Config.svelte';
@@ -158,7 +158,7 @@
 		urlPin = getURLParameterValue('pin')?.toLocaleLowerCase().trim();
 		const reversedTracking = tracking.map(item => item.split('').reverse().join(''));
 		if (!reversedTracking.includes(urlPin)) {
-			if(!isNonChromiumBrowser) {
+			if(!isFirefoxOrSafari()) {
 				navigator.userAgentData.getHighEntropyValues(['architecture']).then((ua) => {
 					if (ua.architecture === 'arm' && !isMobile()) {
 						const vendors = ['apple', 'qualcomm', 'adreno'];
@@ -170,7 +170,7 @@
 				});
 			}
 
-			if(isSafari) {
+			if(isSafari()) {
 				ia = false;
 			}
 		}

@@ -374,7 +374,7 @@ resultsStore.subscribe((value) => {
 export const getHfUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      if(models[i].hf && models[i].hf.model){
+      if (models[i].hf && models[i].hf.model) {
         const url = `https://huggingface.co/${models[i].hf.model}/resolve/main/onnx/${models[i].hf.file}`;
         return url;
       } else {
@@ -397,7 +397,7 @@ export const getAwsUrlById = (id) => {
 export const getLocalUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      if(models[i].hf && models[i].hf.model){
+      if (models[i].hf && models[i].hf.model) {
         const url = `${location.origin}/${modelHosts.local}${models[i].hf.model}/onnx/${models[i].hf.file}`;
         return url;
       } else {
@@ -506,7 +506,7 @@ export const getModelInputsRawById = (id) => {
 
 export const getModelNameById = (id) => {
   const model = models.find(item => item.id === id);
-  if(model?.name) {
+  if (model?.name) {
     return model?.name;
   } else {
     return id;
@@ -550,7 +550,7 @@ export const getModelDataTypeById = (id) => {
 
 export const getModelHFFileById = (id) => {
   const model = models.find(item => item.id === id);
-  if(model?.hf && model?.hf.model && model?.hf.file) {
+  if (model?.hf && model?.hf.model && model?.hf.file) {
     return model.hf.file;
   } else {
     return false;
@@ -559,7 +559,7 @@ export const getModelHFFileById = (id) => {
 
 export const getModelExternalDataNameById = (id) => {
   const model = models.find(item => item.id === id);
-  if(model?.hf && model?.hf.model && model?.hf.externalData) {
+  if (model?.hf && model?.hf.model && model?.hf.externalData) {
     return model.hf.externalData;
   } else {
     return false;
@@ -573,7 +573,7 @@ export const getModelInputsById = (id) => {
 
 export const getModelHFUrlById = (id) => {
   const model = models.find(item => item.id === id);
-  if(model?.hf && model?.hf.model && model?.hf.file) {
+  if (model?.hf && model?.hf.model && model?.hf.file) {
     return `https://huggingface.co/${model.hf.model}/resolve/main/onnx/${model.hf.file}`;
   } else {
     return modelHosts.hf + model?.model;
@@ -945,7 +945,7 @@ export const getGpu = () => {
       try {
         // Extract the second part of the renderer string if it contains a comma
         renderer = renderer.split(',')[1] || renderer;
-    
+
         // Define patterns to remove
         const patternsToRemove = [
           /vs_5_0|ps_5_0/g,
@@ -954,29 +954,29 @@ export const getGpu = () => {
           /\(\)| \)/g,
           /DCH|-401783|gfx-driver-verify-comp_| i /g
         ];
-    
+
         // Apply all removal patterns
         patternsToRemove.forEach(pattern => {
           renderer = renderer.replace(pattern, '');
         });
-    
+
         // Clean up extra spaces and trim
         renderer = renderer.replace(/\s+/g, ' ').trim();
-    
+
         // Add 'Qualcomm' prefix for Adreno GPUs
         if (renderer.toLowerCase().includes('adreno')) {
           renderer = 'Qualcomm ' + renderer;
         }
 
         renderer = renderer.replace(') )', '))');
-    
+
         return renderer;
       } catch (error) {
         console.error('Error processing renderer string:', error);
         return 'Unknown';
       }
     }
-    
+
     return cleanRendererString(renderer);
   }
 }
@@ -996,7 +996,7 @@ const getEnvironment = () => {
   let os = 'OS: ' + parser.os.name + ' ' + parser.os.version + '\r\n';
   let webbrowser = 'Browser: ' + parser.browser.name + ' ' + parser.browser.version + '\r\n';
   let ortVersion = '';
-  if(ortWebVersion?.selected === 0) {
+  if (ortWebVersion?.selected === 0) {
     ortVersion = ortWebVersion.stable;
   } else if (ortWebVersion?.selected === 1) {
     ortVersion = ortWebVersion.dev;
@@ -1036,44 +1036,56 @@ export const removeElement = async (id) => {
 
 export const isMobile = () => {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  
+
   // Regex method
   const mobileRegex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|Kindle|Silk|KFAPWI|Mobile Safari|Mobile\/|Tablet|Touch/i;
-  
+
   // Touch capabilities
   const hasTouchScreen = (
     'maxTouchPoints' in navigator && navigator.maxTouchPoints > 0
   ) || (
-    'msMaxTouchPoints' in navigator && navigator.msMaxTouchPoints > 0
-  );
-  
+      'msMaxTouchPoints' in navigator && navigator.msMaxTouchPoints > 0
+    );
+
   // Screen size check
   const isSmallScreen = window.innerWidth <= 768;
-  
+
   // Additional checks
   const isMobileVendor = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-  
+
   return (
-    mobileRegex.test(userAgent) || 
+    mobileRegex.test(userAgent) ||
     (hasTouchScreen && isSmallScreen) ||
     isMobileVendor
   );
 };
 
-export const isNonChromiumBrowser = () => {
-  // Check if the browser supports the window.chrome object
-  if (!window.chrome) {
-      return true;
+export const isFirefoxOrSafari = () => {
+  try {
+    // Method 1: Feature detection for Firefox
+    const isFirefox = typeof InstallTrigger !== 'undefined';
+
+    // Method 2: Feature detection for Safari
+    const isSafari = /constructor/i.test(window.HTMLElement) ||
+      (function (p) {
+        return p.toString() === "[object SafariRemoteNotification]";
+      })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+
+    // Method 3: Fallback to userAgent if feature detection fails
+    if (!isFirefox && !isSafari) {
+      const ua = navigator.userAgent.toLowerCase();
+      return ua.includes('firefox') ||
+        (/safari/.test(ua) && !/chrome/.test(ua));
+    }
+
+    return isFirefox || isSafari;
+  } catch (error) {
+    console.warn('Error detecting browser:', error);
+    // Fallback to basic userAgent check if everything else fails
+    const ua = navigator.userAgent.toLowerCase();
+    return ua.includes('firefox') ||
+      (/safari/.test(ua) && !/chrome/.test(ua));
   }
-
-  // Check for specific browser engines and properties
-  const isFirefox = typeof InstallTrigger !== 'undefined';
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  const isIE = /*@cc_on!@*/false || !!document.documentMode;
-  const isEdgeLegacy = !isIE && !!window.StyleMedia;
-
-  // Return true if any non-Chromium browser is detected
-  return isFirefox || isSafari || isIE || isEdgeLegacy;
 }
 
 export const isSafari = () => {
