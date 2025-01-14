@@ -1100,7 +1100,7 @@ const florence2Decoder = () => {
 const florence2DecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '370 MB'],
-    ['fp16', 'decoder_model_merged_fp16.onnx', '185 MB'],
+    // ['fp16', 'decoder_model_merged_fp16.onnx', '185 MB'],
     ['int8', 'decoder_model_merged_quantized.onnx', '93.6 MB'],
     ['int4', 'decoder_model_merged_q4.onnx', '61.4 MB'],
   ]
@@ -1756,7 +1756,7 @@ const llavaDecoder = () => {
 const llavaDecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '10.1 MB'],
-    ['fp16', 'decoder_model_merged_fp16.onnx', '9.19 MB'],
+    // ['fp16', 'decoder_model_merged_fp16.onnx', '9.19 MB'],
     ['int8', 'decoder_model_merged_quantized.onnx', '8.73 MB'],
     ['int4', 'decoder_model_merged_q4.onnx', '8.76 MB'],
   ]
