@@ -4,7 +4,7 @@ import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, remov
 import { ortWebVersionStore, testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { sleep, getQueryValue, getURLParameterValue } from '$lib/assets/js/utils';
 import { getModelOPFS, getModelCache } from '$lib/assets/js/nn_utils'
-import { dataTypeToArrayConstructor, isDict } from '$lib/assets/js/data_type';
+import { isDict } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
 import percentile from 'percentile';
 
@@ -246,7 +246,10 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     let typedArray;
     let typeBytes;
     if (type === 'bool') {
-      return new ort.Tensor(type, [data], [1]);
+      data = [data];
+      dims = [1];
+      typedArray = Uint8Array;
+      typeBytes = 1;
     } else if (type === 'int4') {
       typedArray = Int8Array;
     } else if (type === 'int8') {
@@ -256,7 +259,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     } else if (type === 'uint16') {
       typedArray = Uint16Array;
     } else if (type === 'float16') {
-      typedArray = Uint16Array;
+      typedArray = Float16Array;
     } else if (type === 'float32') {
       typedArray = Float32Array;
     } else if (type === 'int32') {
@@ -290,6 +293,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       dims: dims,
       size: Math.ceil(size * typeBytes / 16) * 16
     };
+
+    // console.log(feedsInfo);
     // return new ort.Tensor(type, _data, dims);
   }
 
@@ -303,6 +308,15 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
         for (let key in input) {
           let value = input[key];
           feeds[key] = getFeedInfo(key, value[0], value[1], value[2]);
+        }
+      }
+    }
+
+    if (modelName.indexOf('llama2_c_stories15m_tfbench_model_') > -1) {
+      for (var k in inputNames) {
+        const v = inputNames[k];
+        if (v.startsWith('past_key_values.')) {
+          feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 4, 48]);
         }
       }
     }
@@ -347,6 +361,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 16, 64]);
           } else if (modelName.indexOf('flan_t5_small_decoder_') > -1) {
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 128, 64]);
+          } else if (modelName.indexOf('qwen2_vl_for_conditional_generation_text_decoder_tfbench_model_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 1, 0, 8]);
           } else if (modelName.indexOf('florence2_decoder_merged_') > -1) {
             if (v.includes('decoder')) {
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 16, 64]);
@@ -529,6 +545,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
     let start;
     start = performance.now();
+    console.log(feeds);
     const result = await sess.run(feeds);
 
     // await Promise.all(Object.values(result).map(output => f.dispose()));

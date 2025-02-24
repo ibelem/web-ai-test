@@ -302,6 +302,35 @@ const BGERerankerBase = () => {
   }))
 }
 
+const clipTinyRandom = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '782 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Zero-Shot Image Classification',
+    tag: '',
+    id: `tiny_random_clip_tfbench_model_${dt}`,
+    name: 'CLIPModel Tiny Random Benchmark',
+    description: 'Tiny Random Clip model',
+    note: '',
+    source: 'https://huggingface.co/onnx-internal-testing/tiny-random-CLIPModel-ONNX',
+    hf: {
+      model: 'onnx-internal-testing/tiny-random-CLIPModel-ONNX',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [2, 4], { "text_batch_size": 2, "sequence_length": 4 }],
+      'pixel_values': ['float32', 'random', [1, 3, 224, 224], {"image_batch_size": 1, "num_channels": 3, "height": 224, "width": 224}],
+      'attention_mask': ['int64', 1n, [2, 4], { "text_batch_size": 2, "sequence_length": 4 }],
+    }],
+    inputstip: '[2, 4] [1, 3, 224, 224] [2, 4]'
+  }))
+}
+
 const clipVitBasePatch16 = () => {
   const configs = [
     ['fp32', 'model.onnx', '571 MB'],
@@ -1722,6 +1751,35 @@ const llama2CStories15MDecoderWithPast = () => {
   }))
 }
 
+const llama2CStories15MHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '58.0 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '2h',
+    id: `llama2_c_stories15m_tfbench_model_${dt}`,
+    name: 'LlamaForCausalLM llama2.c Stories 15M Benchmark',
+    description: 'Llama 2 LLM architecture',
+    note: '',
+    source: 'https://huggingface.co/Xenova/llama2.c-stories15M',
+    hf: {
+      model: 'xenova/llama2.c-stories15m',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 5], { "batch_size": 1, "sequence_length": 5 }],
+      'attention_mask': ['int64', 1n, [1, 5], { "batch_size": 1, "past_sequence_length + 1": 5 }],
+      'position_ids': ['int64', 1n, [1, 5], { "batch_size": 1, "sequence_length": 5 }],
+    }],
+    inputstip: '[1, 5] [1, 5] [1, 5]'
+  }))
+}
+
 const llavaDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '6.05 MB'],
@@ -2476,6 +2534,100 @@ const Qwen2_0_5bInstructMerged = () => {
   }))
 }
 
+const Qwen2VLForConditionalGenerationEmbedding = () => {
+  const configs = [
+    ['fp32', 'embed_tokens.onnx', '9.28 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    id: `qwen2_vl_for_conditional_generation_embed_tfbench_model_${dt}`,
+    name: 'Qwen2VLForConditionalGeneration Embedding Benchmark',
+    description: 'Qwen2 VL for Conditional Generation Embedding',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+    }],
+    inputstip: '[1, 16]'
+  }))
+}
+
+const Qwen2VLForConditionalGenerationTextDecoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '9.37 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    id: `qwen2_vl_for_conditional_generation_text_decoder_tfbench_model_merged_${dt}`,
+    name: 'Qwen2VLForConditionalGeneration Text Decoder Benchmark',
+    description: 'Qwen2 VL for Conditional Generation Text Decoder',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 16, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'attention_mask': ['int64', 99n, [1, 16], { "past_sequence_length": 0 }],
+      'position_ids': ['int64', 1n, [3, 1, 16], {}],
+    }],
+    inputstip: '[1, 16, 16] [1, 16] [3, 1, 16]'
+  }))
+}
+
+const Qwen2VLForConditionalGenerationVisionEncoder = () => {
+  const configs = [
+    ['fp32', 'vision_encoder.onnx', '204 KB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    id: `qwen2_vl_for_conditional_generation_vision_encoder_tfbench_model_${dt}`,
+    name: 'Qwen2VLForConditionalGeneration Vision Encoder Benchmark',
+    description: 'Qwen2 VL for Conditional Generation Vision Encoder',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [256, 8232], { 
+          // "batch_size": 0, 
+          // "grid_t": 1, 
+          // "grid_h": 16, 
+          // "grid_w": 16,
+          // "channel": 3,
+          // "patch_size": 14,
+          "batch_size * grid_t * grid_h * grid_w": 256,
+          "channel * temporal_patch_size * patch_size * patch_size": 8232
+        }
+      ],
+      'grid_thw': ['int64', 99n, [1, 3], { "batch_size": 1 }],
+    }],
+    inputstip: '[256, 8232] [1, 3]'
+  }))
+}
+
 const samVitBase = () => {
   const configs = [
     ['fp32', 'model.onnx', '358 MB'],
@@ -2595,6 +2747,63 @@ const samVitBaseVisionEncoder = () => {
   }))
 }
 
+const slimSAM77UniformVisionEncoder = () => {
+  const configs = [
+    ['fp32', 'vision_encoder.onnx', '22.1 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Mask Generation',
+    tag: '',
+    id: `slimsam_77_uniform_vision_encoder_tfbench_model_${dt}`,
+    name: 'SamModel SlimSAM 77 Uniform Vision Encoder Benchmark',
+    description: 'SamModel SlimSAM 77 Uniform Vision Encoder',
+    note: '',
+    source: 'https://huggingface.co/Xenova/slimsam-77-uniform',
+    hf: {
+      model: 'xenova/slimsam-77-uniform',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 3, 1024, 1024]'
+  }))
+}
+
+const slimSAM77UniformPromptEncoderMaskDecoder = () => {
+  const configs = [
+    ['fp32', 'prompt_encoder_mask_decoder.onnx', '15.7 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Mask Generation',
+    tag: '',
+    id: `slimsam_77_uniform_prompt_encoder_mask_decoder_tfbench_model_${dt}`,
+    name: 'SamModel SlimSAM 77 Uniform Prompt Encoder Mask Decoder Benchmark',
+    description: 'SlimSAM 77 Uniform Prompt Encoder Mask Decoder',
+    note: '',
+    source: 'https://huggingface.co/Xenova/slimsam-77-uniform',
+    hf: {
+      model: 'xenova/slimsam-77-uniform',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
+      'input_labels': ['int64', 99n, [1, 1, 1], {}],
+      'image_embeddings': ['float32', 'random', [1, 256, 64, 64], {}],
+      'image_positional_embeddings': ['float32', 'random', [1, 256, 64, 64], {}],
+    }],
+    inputstip: '[1, 1, 1, 2] [1, 1, 1] [1, 256, 64, 64] [1, 256, 64, 64]'
+  }))
+}
+
 const SnowflakeArcticEmbedM = () => {
   const configs = [
     ['fp32', 'model.onnx', '415 MB'],
@@ -2624,6 +2833,35 @@ const SnowflakeArcticEmbedM = () => {
       'token_type_ids': ['int64', 0n, [3, 19], { "batch_size": 3, "sequence_length": 19 }],
     }],
     inputstip: '[3, 19] [3, 19] [3, 19]'
+  }))
+}
+
+const snowflakeArcticEmbedXs = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '86.2 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Similarity',
+    tag: '',
+    id: `snowflake_arctic_embed_xs_tfbench_model_${dt}`,
+    name: 'BertModel Arctic Embed XS Benchmark',
+    description: 'A suite of text embedding models that focuses on creating high-quality retrieval models optimized for performance',
+    note: '',
+    source: 'https://huggingface.co/Snowflake/snowflake-arctic-embed-xs',
+    hf: {
+      model: 'snowflake/snowflake-arctic-embed-xs',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [2, 4], { "batch_size": 2, "sequence_length": 4 }],
+      'attention_mask': ['int64', 1n, [2, 4], {}],
+      'token_type_ids': ['int64', 1n, [2, 4], {}],
+    }],
+    inputstip: '[2, 4] [2, 4] [2, 4]'
   }))
 }
 
@@ -2722,7 +2960,6 @@ const t5SmallDecoderWithPast = () => {
 
 const t5SmallDecoderMerged = () => {
   const configs = [
-    ['fp32', 'decoder_model_merged.onnx', '159 MB'],
     ['fp16', 'decoder_model_merged_fp16.onnx', '79.8 MB'],
     ['int8', 'decoder_model_merged_quantized.onnx', '40.4 MB'],
   ]
@@ -2757,7 +2994,6 @@ const t5SmallDecoderMerged = () => {
 
 const t5SmallEncoder = () => {
   const configs = [
-    ['fp32', 'encoder_model.onnx', '134 MB'],
     ['fp16', 'encoder_model_fp16.onnx', '67.4 MB'],
     ['int8', 'encoder_model_quantized.onnx', '33.99 MB'],
   ]
@@ -2782,6 +3018,67 @@ const t5SmallEncoder = () => {
       'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
     }],
     inputstip: '[1, 128] [1, 128]'
+  }))
+}
+
+const t5SmallEncoderHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '134 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    tag: '',
+    id: `t5_small_encoder_tfbench_model_${dt}`,
+    name: 'T5ForConditionalGeneration T5 Small Encoder',
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/t5-small',
+    hf: {
+      model: 'xenova/t5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 128]'
+  }))
+}
+
+const t5SmallDecoderMergedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '159 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    tag: '',
+    id: `t5_small_decoder_tfbench_model_merged_${dt}`,
+    name: 'T5ForConditionalGeneration T5 Small Decoder KV-Cache',
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/t5-small',
+    hf: {
+      model: 'xenova/t5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128,
+        "past_decoder_sequence_length": 128,
+        "encoder_sequence_length_out": 128  
+      }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
   }))
 }
 
@@ -3436,6 +3733,7 @@ export let models = [
   ...bertBaseMultilingualUncasedSentiment(),
   ...BGELargeEnV1_5(),
   ...BGERerankerBase(),
+  ...clipTinyRandom(),
   ...clipVitBasePatch16(),
   ...codeGenMono350M(),
   {
@@ -3942,6 +4240,7 @@ export let models = [
   ...llama2CStories15MDecoder(),
   ...llama2CStories15MDecoderMerged(),
   ...llama2CStories15MDecoderWithPast(),
+  ...llama2CStories15MHFTFBenchmark(),
   ...llavaDecoder(),
   ...llavaDecoderMerged(),
   ...llavaDecoderWithPast(),
@@ -4281,6 +4580,9 @@ export let models = [
   ...phi35MiniInstructMerged(),
   ...phi3Mini4kInstructMerged(),
   ...Qwen2_0_5bInstructMerged(),
+  ...Qwen2VLForConditionalGenerationEmbedding(),
+  ...Qwen2VLForConditionalGenerationTextDecoder(),
+  ...Qwen2VLForConditionalGenerationVisionEncoder(),
   {
     category: 'Image Classification',
     tag: '2h',
@@ -4761,7 +5063,10 @@ export let models = [
     inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
+  ...slimSAM77UniformVisionEncoder(),
+  ...slimSAM77UniformPromptEncoderMaskDecoder(),
   ...SnowflakeArcticEmbedM(),
+  ...snowflakeArcticEmbedXs(),
   ...squeezebertUncased(),
   {
     category: 'Image Classification',
@@ -4914,6 +5219,8 @@ export let models = [
   ...t5SmallDecoderWithPast(),
   ...t5SmallDecoderMerged(),
   ...t5SmallEncoder(),
+  ...t5SmallEncoderHFTFBenchmark(),
+  ...t5SmallDecoderMergedHFTFBenchmark(),
   ...tinyLlamaV0Decoder(),
   ...tinyLlamaV0DecoderMerged(),
   ...tinyLlamaV0DecoderWithPast(),

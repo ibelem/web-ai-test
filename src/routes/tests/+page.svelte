@@ -44,6 +44,8 @@
 	$: int4Count = 0;
 	$: fp32Count = 0;
 	$: demoCount = 0;
+	$: hfbenchModelCount = 0;
+	$: hfbenchPipelineCount = 0;
 	let subModels = models;
 	let selected = 'onnx';
 
@@ -75,6 +77,8 @@
 		fp16Count = 0;
 		fp32Count = 0;
 		demoCount = 0;
+		hfbenchModelCount = 0;
+		hfbenchPipelineCount = 0;
 		uniqueModels.forEach((item) => {
 			if (item.endsWith('_int4')) {
 				int4Count++;
@@ -88,6 +92,12 @@
 
 			if (item.indexOf('_demo') > -1) {
 				demoCount++;
+			}
+			if (item.indexOf('_tfbench') > -1 && item.indexOf('_model') > -1) {
+				hfbenchModelCount++;
+			}
+			if (item.indexOf('_tfbench') > -1 && item.indexOf('_pipeline') > -1) {
+				hfbenchPipelineCount++;
 			}
 		});
 	};
@@ -147,7 +157,8 @@
 			.replace('Demo', '<span class="demo" title="WebNN Developer Preview Demo model">Demo</span>')
 			.replace('GPU', '<span class="gpu">GPU</span>')
 			.replace('MLTensor', '<span class="mltensor">MLTensor</span>')
-			.replace('WIP', '<span class="wip">WIP</span>');
+			.replace('WIP', '<span class="wip">WIP</span>')
+			.replace('Benchmark', '<span class="tfbench">Benchmark</span>');
 		return name;
 	};
 
@@ -242,6 +253,93 @@
 </div>
 
 <div>
+
+	<div class="title tq tf_benchmark">Transformers.js Benchmarking Pipeline Test Suite · {hfbenchPipelineCount}</div>
+	<div>Reference: <a href="https://github.com/huggingface/transformers.js-benchmarking/tree/main/packages/core/src">Transformers.js Benchmarking</a></div>
+	<div class="tq benchmark tf_benchmark">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if model.indexOf('_tfbench') > -1 && model.indexOf('_pipeline') > -1}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+						<!-- {#if getModelTypeById(model) === 'onnx'}
+							<div class="onnx">
+								<Onnx />
+							</div>
+						{/if}
+
+						{#if getModelTypeById(model) === 'tflite'}
+							<div class="tflite">
+								<Tflite />
+							</div>
+						{/if} -->
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq tf_benchmark">Transformers.js Benchmarking Model Test Suite · {hfbenchModelCount}</div>
+	<div>Reference: <a href="https://github.com/huggingface/transformers.js-benchmarking/tree/main/packages/core/src">Transformers.js Benchmarking</a></div>
+	<div class="tq benchmark tf_benchmark">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if model.indexOf('_tfbench') > -1 && model.indexOf('_model') > -1}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+						<!-- {#if getModelTypeById(model) === 'onnx'}
+							<div class="onnx">
+								<Onnx />
+							</div>
+						{/if}
+
+						{#if getModelTypeById(model) === 'tflite'}
+							<div class="tflite">
+								<Tflite />
+							</div>
+						{/if} -->
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
 	<div class="title tq demo">Developer Preview Models · {demoCount}</div>
 	<div class="tq benchmark demo">
 		{#each uniqueModels as model}

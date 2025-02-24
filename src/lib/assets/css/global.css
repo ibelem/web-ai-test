@@ -2104,6 +2104,14 @@ background-color: var(--int4-005);
 background-color: var(--demo-005);
 }
 
+.title.tf_benchmark, .title.tq.tf_benchmark button {
+  color: var(--tfbench) !important;
+}
+
+.title.tq.tf_benchmark {
+background-color: var(--tfbench-005);
+}
+
 .ho {
   display: flex;
   flex-wrap: wrap;
@@ -3259,6 +3267,18 @@ table td.c {
 }
 
 .tq .q:hover .titlemark span.demo {
+  border: 1px solid var(--tfbench);
+  background-color: var(--tfbench);
+  color: var(--white) !important;
+}
+
+.titlemark span.tfbench {
+  border: 1px solid var(--tfbench) !important;
+  background-color: var(--tfbench) !important;
+  color: var(--white);
+}
+
+.tq .q:hover .titlemark span.tfbench {
   border: 1px solid rgba(45, 45, 45, 1);
   background-color: rgba(45, 45, 45, 1);
   color: var(--white) !important;
