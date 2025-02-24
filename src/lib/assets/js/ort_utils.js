@@ -1,10 +1,13 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '$lib/config';
-import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getModelHFFileById, getModelExternalDataNameById, getHfUrlById, getAwsUrlById, getLocalUrlById, average, minimum } from '../js/utils';
+import {
+  updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getModelHFFileById, getModelExternalDataNameById,
+  getHfUrlById, getHfmUrlById, getAwsUrlById, getLocalUrlById, getHfConfigById, getHfmConfigById, getLocalConfigById, average, minimum
+} from '../js/utils';
 import { ortWebVersionStore, testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { sleep, getQueryValue, getURLParameterValue } from '$lib/assets/js/utils';
 import { getModelOPFS, getModelCache } from '$lib/assets/js/nn_utils'
-import { dataTypeToArrayConstructor, isDict } from '$lib/assets/js/data_type';
+import { isDict } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
 import percentile from 'percentile';
 
@@ -100,12 +103,30 @@ const getModelUrl = (_model) => {
   let modelPath = getHfUrlById(_model);
   if (modelDownloadUrl === 1) {
     modelPath = getHfUrlById(_model);
+  } else if (modelDownloadUrl === 2) {
+    modelPath = getHfmUrlById(_model);
   } else if (modelDownloadUrl === 3) {
     modelPath = getAwsUrlById(_model);
   } else if (modelDownloadUrl === 0) {
     modelPath = getLocalUrlById(_model);
   }
   return modelPath;
+}
+
+const getConfigUrl = (_model) => {
+  let configPath = getHfConfigById(_model);
+  if (modelDownloadUrl === 1) {
+    configPath = getHfConfigById(_model);
+  } else if (modelDownloadUrl === 2) {
+    configPath = getHfmConfigById(_model);
+  }
+  // else if (modelDownloadUrl === 3) {
+  //   configPath = getAwsUrlById(_model);
+  // } 
+  else if (modelDownloadUrl === 0) {
+    configPath = getLocalConfigById(_model);
+  }
+  return configPath;
 }
 
 const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
@@ -208,6 +229,42 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   }
 
   let modelPath = getModelUrl(_model);
+  let configPath = getConfigUrl(_model);
+
+  const fetchConfigJson = async () => {
+    if(configPath) {
+      try {
+        updateInfo(`Config.json - Fetching from ${configPath}`);
+        const response = await fetch(configPath);
+        if (!response.ok) {
+          if (response.status === 404) {
+            updateInfo(`Config.json - HTTP 404 when fetching from ${configPath}, use local freeDimensionOverrides when needed`);
+            return;
+          }
+        }
+
+        const config = await response.json();
+        if (config.hasOwnProperty('transformers.js_config') &&
+          config['transformers.js_config'].hasOwnProperty('free_dimension_overrides')) {
+          const overrides = config['transformers.js_config']['free_dimension_overrides'];
+          console.log(overrides);
+          updateInfo(`Config.json - Free dimension overrides value:`);
+          if (overrides) {
+            for (let key in overrides) {
+              updateInfo(`Config.json - ${key}: ${overrides[key]}`);
+            }
+            return overrides;
+          }
+        } else {
+          updateInfo(`Config.json - No transformers.js_config found in config.json, so no freeDimensionOverrides available, use local freeDimensionOverrides when needed`);
+        }
+      } catch (error) {
+        updateInfo(`Config.json - Error fetching or processing - ${error}, use local freeDimensionOverrides when needed`);
+      }
+    } else {
+      updateInfo(`Config.json - No Config.json can be leveraged, use local freeDimensionOverrides when needed`);
+    }
+  }
 
   let options = {
     executionProviders: [
@@ -246,7 +303,10 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     let typedArray;
     let typeBytes;
     if (type === 'bool') {
-      return new ort.Tensor(type, [data], [1]);
+      data = [data];
+      dims = [1];
+      typedArray = Uint8Array;
+      typeBytes = 1;
     } else if (type === 'int4') {
       typedArray = Int8Array;
     } else if (type === 'int8') {
@@ -256,7 +316,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     } else if (type === 'uint16') {
       typedArray = Uint16Array;
     } else if (type === 'float16') {
-      typedArray = Uint16Array;
+      typedArray = Float16Array;
     } else if (type === 'float32') {
       typedArray = Float32Array;
     } else if (type === 'int32') {
@@ -290,6 +350,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       dims: dims,
       size: Math.ceil(size * typeBytes / 16) * 16
     };
+
+    // console.log(feedsInfo);
     // return new ort.Tensor(type, _data, dims);
   }
 
@@ -307,12 +369,27 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       }
     }
 
+    if (modelName.indexOf('llama2_c_stories15m_tfbench_model_') > -1) {
+      for (var k in inputNames) {
+        const v = inputNames[k];
+        if (v.startsWith('past_key_values.')) {
+          feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 9, 48]);
+        }
+      }
+    }
+
     if (modelName.indexOf('_merged') > -1 || modelName.indexOf('_with_past') > -1) {
       for (var k in inputNames) {
         const v = inputNames[k];
         if (v.startsWith('past_key_values.')) {
           if (modelName.indexOf('phi_3_mini_4k_instruct_') > -1) {
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 32, 255, 96]);
+          } else if (modelName.indexOf('t5__small_decoder_tfbench_model') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 8, 2, 64]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 8, 9, 64]);
+            }
           } else if (modelName.indexOf('phi_3_5_mini_instruct_merged_') > -1) {
             feeds[v] = getFeedInfo(v, 'float16', 1, [1, 32, 255, 96]);
           } else if (modelName.indexOf('gemma_2b_it_') > -1) {
@@ -347,6 +424,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 16, 64]);
           } else if (modelName.indexOf('flan_t5_small_decoder_') > -1) {
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 128, 64]);
+          } else if (modelName.indexOf('qwen2_vl_for_conditional_generation_text_decoder_tfbench_model_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 1, 0, 8]);
           } else if (modelName.indexOf('florence2_decoder_merged_') > -1) {
             if (v.includes('decoder')) {
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 16, 64]);
@@ -381,6 +460,10 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 168, 64]);
           } else if (modelName.indexOf('distil_medium_en_decoder_merged_') > -1) {
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1, 64]);
+          } else if (modelName.indexOf('tiny_random_vision_encoder_decoder_vit_gpt_decoder_tfbench') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 0, 8]);
+          } else if (modelName.indexOf('tiny_random_vision_encoder_decoder_vit_gpt_2_decoder_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 0, 8]);
           } else if (modelName.indexOf('distil_medium_en_decoder_with_past_') > -1) {
             if (v.includes('decoder')) {
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1, 64]);
@@ -399,6 +482,36 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             } else if (v.includes('encoder')) {
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 1500, 64]);
             }
+          } else if (modelName.indexOf('whisper_tiny_en_decoder_tfbench_model') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 0, 64]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 0, 64]);
+            }
+          } else if (modelName.indexOf('tiny_random_moonshine_for_conditional_generation_decoder_tfbench_pipeline') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 2, 0, 32]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 2, 0, 32]);
+            }
+          } else if (modelName.indexOf('tiny_random_t5_for_conditional_generation_decoder_tfbench_pipeline') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 0, 8]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 0, 8]);
+            }
+          } else if (modelName.indexOf('tiny_random_t5_for_conditional_generation_decoder_t2t_tfbench_pipeline') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 0, 8]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 0, 8]);
+            }
+          } else if (modelName.indexOf('tiny_random_m2m100_for_conditional_generation_tfbench_pipeline') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 0, 4]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 0, 4]);
+            }
           }
         }
       }
@@ -408,7 +521,11 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   }
 
   options.logSeverityLevel = 0;
-  // options.logVerbosityLevel = 0;
+  options.logVerbosityLevel = 0;
+
+  ort.env.logLevel = "verbose";
+  ort.env.debug = true;
+
   // options.graphOptimizationLevel = 'disabled';
 
   if (_backend === 'wasm_4') {
@@ -427,9 +544,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   // (backend === 'webnn' || _backend === 'wasm_4') ? ort.env.wasm.proxy = true : ort.env.wasm.proxy = false;
   // (_backend === 'wasm_4') ? ort.env.wasm.proxy = true : ort.env.wasm.proxy = false;
 
-  let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
+  const freeDimensionOverrides = getFreeDimensionOverridesById(_model);
+  const freeDimensionOverridesFromConfigJson = await fetchConfigJson();
 
-  if (freeDimensionOverrides) {
+  if (freeDimensionOverridesFromConfigJson) {
+    options.freeDimensionOverrides = freeDimensionOverridesFromConfigJson;
+  } else if (freeDimensionOverrides) {
     options.freeDimensionOverrides = freeDimensionOverrides;
   }
 
@@ -453,7 +573,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, null, [], null, null, null, null, null);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}/${_modelSize}) with ${_backend} backend`);
 
-  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Downloading model from ${modelPath}`);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Fetching model from ${modelPath}`);
 
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
@@ -493,10 +613,10 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     webgpuDevice = ort.env.webgpu.device;
   }
 
-  let numOfWarmups = 1;
+  let numOfWarmups = 3;
 
   if (_backend === 'webgl' || _backend === 'webgpu' || (_backend === 'webnn_gpu' && deviceType === 'gpu')) {
-    numOfWarmups = 1;
+    numOfWarmups = 3;
   }
 
   let firstInferenceTime = 0, warmupTimes = [], inferenceTimes = [], timeToFirstInference = null, inferenceTimesAverage = null, inferenceTimesMedian = null, inferenceTimesThroughput = null, inferenceTimesNinety = null, inferenceTimesBest = null;
@@ -529,6 +649,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
     let start;
     start = performance.now();
+    console.log('---- feeds ----');
+    console.log(feeds);
     const result = await sess.run(feeds);
 
     // await Promise.all(Object.values(result).map(output => f.dispose()));
@@ -547,12 +669,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
           promises.push(result[sess.outputNames[j]].getData());
         }
         await Promise.all(promises)
-        .then((results) => {
-          console.log("[Success] readTensor: ", results);
-        })
-        .catch((e) => {
-          console.log("[Error] readTensor: ", e.message);
-        });
+          .then((results) => {
+            console.log("[Success] readTensor: ", results);
+          })
+          .catch((e) => {
+            console.log("[Error] readTensor: ", e.message);
+          });
       }
     }
 

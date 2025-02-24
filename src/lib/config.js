@@ -30,9 +30,13 @@ export const ortDists = {
     version: '2024-11-19',
     url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.all.min.js'
   },
+  // webnn_webglfix_wasm: {
+  //   version: '2024-11-14',
+  //   url: '../ort/ort.all.min.js'
+  // },
   webnn_webglfix_wasm: {
-    version: '2024-11-14',
-    url: '../ort/ort.all.min.js'
+    version: '2025-02-26',
+    url: '../ort-debug/ort.all.min.js'
   },
   wasm_relaxed_simd: {
     version: '2025-01-03',
@@ -42,6 +46,7 @@ export const ortDists = {
 
 export const modelHosts = {
   hf: 'https://huggingface.co/webml/models/resolve/main/',
+  hfm: 'https://hf-mirror.com/webml/models/resolve/main/',
   cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/',
   local: 'models/'
 }
@@ -299,6 +304,122 @@ const BGERerankerBase = () => {
       'attention_mask': ['int64', 1n, [2, 5], { "batch_size": 2, "sequence_length": 5 }]
     }],
     inputstip: '[2, 5] [2, 5]'
+  }))
+}
+
+const tinyClapHtsatUnfusedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '7.54 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '',
+    id: `tiny_clap_htsat_unfused_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Zero-shot Audio Classification Tiny CLAP HTSAT Unfused',
+    description: 'Zero-shot Audio Classification - Tiny CLAP HTSAT Unfused',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-clap-htsat-unfused',
+    hf: {
+      model: 'hf-internal-testing/tiny-clap-htsat-unfused',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [2, 6], { "text_batch_size": 2, "sequence_length": 6 }],
+      'input_features': ['float32', 'random', [1, 1, 1001, 64], { "audio_batch_size": 1, "num_channels": 1, "height": 1001, "width": 64 }],
+      'attention_mask': ['int64', 1n, [2, 6], {}],
+    }],
+    inputstip: '[2, 6] [1, 1, 1001, 64] [2, 6]'
+  }))
+}
+
+const tinyRandomGroupViTModelHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '4.48 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '',
+    id: `tiny_random_group_vit_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Zero-shot Image Classification Tiny Random Group ViT',
+    description: 'Zero-shot Image Classification - Tiny Random Group ViT Model',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-GroupViTModel',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-GroupViTModel',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [2, 10], { "text_batch_size": 2, "sequence_length": 10 }],
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "image_batch_size": 1, "num_channels": 3, "height": 30, "width": 30 }],
+      'attention_mask': ['int64', 1n, [2, 10], {}],
+    }],
+    inputstip: '[2, 10] [1, 3, 30, 30] [2, 10]'
+  }))
+}
+
+const tinyRandomOwlViTHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '1.99 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '',
+    id: `tiny_random_owl_vit_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Zero-shot Object Detection Tiny Random Owl ViT',
+    description: 'Zero-shot Object Detection - Tiny Random Owl ViT for Object Detection',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-OwlViTForObjectDetection',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-OwlViTForObjectDetection',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [2, 4], { "text_batch_size": 2, "sequence_length": 4 }],
+      'pixel_values': ['float32', 'random', [1, 3, 32, 32], { "image_batch_size": 1, "num_channels": 3, "height": 32, "width": 32 }],
+      'attention_mask': ['int64', 1n, [2, 4], {}],
+    }],
+    inputstip: '[2, 4] [1, 3, 32, 32] [2, 4]'
+  }))
+}
+
+const tinyRandomClipModelHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '782 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Zero-Shot Image Classification',
+    tag: '',
+    id: `tiny_random_clip_tfbench_model_${dt}`,
+    name: 'TFBench_Model CLIPModel Tiny Random',
+    description: 'Tiny Random Clip model',
+    note: '',
+    source: 'https://huggingface.co/onnx-internal-testing/tiny-random-CLIPModel-ONNX',
+    hf: {
+      model: 'onnx-internal-testing/tiny-random-CLIPModel-ONNX',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [2, 15], { "text_batch_size": 2, "sequence_length": 15 }],
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "image_batch_size": 1, "num_channels": 3, "height": 30, "width": 30 }],
+      'attention_mask': ['int64', 1n, [2, 15], {}],
+    }],
+    inputstip: '[2, 15] [1, 3, 30, 30] [2, 15]'
   }))
 }
 
@@ -878,6 +999,37 @@ const distilMediumEnEncoder = () => {
   }))
 }
 
+const dPTForDepthEstimationHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '68.3 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Depth Estimation',
+    tag: '',
+    id: `tiny_random_dpt_for_depth_estimation_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Depth Estimation Tiny Random DPT',
+    description: 'Depth Estimation - Tiny Random DPT for Depth Estimation',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-DPTForDepthEstimation',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-DPTForDepthEstimation',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 32, 32], {
+        "batch_size": 1, "num_channels": 3,
+        "height": 32,
+        "width": 32
+      }],
+    }],
+    inputstip: '[1, 3, 32, 32]'
+  }))
+}
+
 const esrgan = () => {
   const configs = [
     // tile size, float bits, est. VRAM requirement
@@ -932,7 +1084,7 @@ const faceParsing = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'pixel_values': ['float32', 'random', [1, 3, 512, 512], { "batch_size": 1 ,"num_channels": 3, "height": 512, "width": 512}]
+      'pixel_values': ['float32', 'random', [1, 3, 512, 512], { "batch_size": 1, "num_channels": 3, "height": 512, "width": 512 }]
     }],
     inputstip: '[1, 3, 512, 512]'
   }))
@@ -1260,7 +1412,7 @@ const florence2ConditionalDecoder = () => {
     category: 'Image-Text-to-Text',
     tag: '2h',
     id: `florence2_conditional_decoder_${dt}`,
-    name: 'Florence 2 For Conditional Generation Decoder',
+    name: 'Florence 2 Conditional Generation Decoder',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
@@ -1289,7 +1441,7 @@ const florence2ConditionalDecoderMerged = () => {
     category: 'Image-Text-to-Text',
     tag: '2h',
     id: `florence2_conditional_decoder_merged_${dt}`,
-    name: 'Florence 2 For Conditional Generation Decoder KV-Cache',
+    name: 'Florence 2 Conditional Generation Decoder KV-Cache',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
@@ -1319,7 +1471,7 @@ const florence2ConditionalDecoderWithPast = () => {
     category: 'Image-Text-to-Text',
     tag: '2h',
     id: `florence2_conditional_decoder_with_past_${dt}`,
-    name: 'Florence 2 For Conditional Generation Decoder w/i Past',
+    name: 'Florence 2 Conditional Generation Decoder w/i Past',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
@@ -1347,7 +1499,7 @@ const florence2ConditionalEncoder = () => {
     category: 'Image-Text-to-Text',
     tag: '2h',
     id: `florence2_conditional_encoder_${dt}`,
-    name: 'Florence 2 For Conditional Generation Encoder',
+    name: 'Florence 2 Conditional Generation Encoder',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
@@ -1375,7 +1527,7 @@ const florence2ConditionalEmbedTokens = () => {
     category: 'Image-Text-to-Text',
     tag: '2h',
     id: `florence2_conditional_embed_tokens_${dt}`,
-    name: 'Florence 2 For Conditional Generation Embed Tokens',
+    name: 'Florence 2 Conditional Generation Embed Tokens',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
@@ -1402,7 +1554,7 @@ const florence2ConditionalVisionEncoder = () => {
     category: 'Image-Text-to-Text',
     tag: '2h',
     id: `florence2_conditional_vision_encoder_${dt}`,
-    name: 'Florence 2 For Conditional Generation Vision Encoder',
+    name: 'Florence 2 Conditional Generation Vision Encoder',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
@@ -1722,6 +1874,36 @@ const llama2CStories15MDecoderWithPast = () => {
   }))
 }
 
+const llama2CStories15MHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '58.0 MB'],
+    ['int8', 'model_quantized.onnx', '14.6 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '',
+    id: `llama2_c_stories15m_tfbench_model_${dt}`,
+    name: `TFBench_Model LlamaForCausalLM llama2.c Stories 15M ${dt}`,
+    description: 'Llama 2 LLM architecture',
+    note: '',
+    source: 'https://huggingface.co/Xenova/llama2.c-stories15M',
+    hf: {
+      model: 'xenova/llama2.c-stories15m',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 10], { "batch_size": 1, "past_sequence_length + 1": 10, "past_sequence_length": 9 }],
+      'position_ids': ['int64', 9n, [1, 1], {}],
+    }],
+    inputstip: '[1, 1] [1, 10] [1, 1]'
+  }))
+}
+
 const llavaDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '6.05 MB'],
@@ -1734,7 +1916,7 @@ const llavaDecoder = () => {
     tag: '2h',
     id: `llava_decoder_${dt}`,
     name: 'Llava Decoder',
-    description: 'Tiny Random Llava For Conditional Generation',
+    description: 'Tiny Random Llava for Conditional Generation',
     note: 'https://huggingface.co/docs/transformers/main/en/model_doc/llava',
     source: 'https://huggingface.co/Xenova/tiny-random-LlavaForConditionalGeneration',
     hf: {
@@ -1765,7 +1947,7 @@ const llavaDecoderMerged = () => {
     tag: '2h',
     id: `llava_decoder_merged_${dt}`,
     name: 'Llava Decoder KV-Cache',
-    description: 'Tiny Random Llava For Conditional Generation',
+    description: 'Tiny Random Llava for Conditional Generation',
     note: 'https://huggingface.co/docs/transformers/main/en/model_doc/llava',
     source: 'https://huggingface.co/Xenova/tiny-random-LlavaForConditionalGeneration',
     hf: {
@@ -1959,6 +2141,40 @@ const llavaPhiVisionEncoder = () => {
   }))
 }
 
+const mobileNetV4 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '14.3 MB'],
+    ['fp16', 'model_fp16.onnx', '7.21 MB'],
+    ['int8', 'model_quantized.onnx', '3.74 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Classification',
+    tag: '',
+    id: `mobilenet_v4_${dt}`,
+    name: 'MobileNet v4 HF-FDO',
+    description: 'https://huggingface.co/timm/mobilenetv4_conv_small.e2400_r224_in1k with ONNX weights to be compatible with Transformers.js.',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/mobilenetv4s-webnn',
+    hf: {
+      model: 'onnx-community/mobilenetv4s-webnn',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 224, 224], {
+        "batch_size": 1,
+        "num_channels": 3,
+        "height": 224,
+        "width": 224,
+      }]
+    }],
+    inputstip: '[1, 3, 224, 224]'
+  }))
+}
+
 const mobileVitSmall = () => {
   const configs = [
     ['fp32', 'model.onnx', '21.5 MB'],
@@ -2010,8 +2226,8 @@ const moondream2DecoderMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'position_ids': ['int64', 99n, [1, 256], { "batch_size": 1, "sequence_length": 256, "past_sequence_length": 255 }],    
-      'attention_mask': ['int64', 1n, [1, 256], { "batch_size": 1, "past_sequence_length + 1": 256 }],  
+      'position_ids': ['int64', 99n, [1, 256], { "batch_size": 1, "sequence_length": 256, "past_sequence_length": 255 }],
+      'attention_mask': ['int64', 1n, [1, 256], { "batch_size": 1, "past_sequence_length + 1": 256 }],
       'inputs_embeds': ['float32', 'random', [1, 256, 2048], { "batch_size": 1, "sequence_length": 256 }],
     }],
     inputstip: '[1, 256] [1, 256] [1, 256, 2048]'
@@ -2476,6 +2692,93 @@ const Qwen2_0_5bInstructMerged = () => {
   }))
 }
 
+const Qwen2VLForConditionalGenerationEmbedding = () => {
+  const configs = [
+    ['fp32', 'embed_tokens.onnx', '9.28 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    id: `qwen2_vl_for_conditional_generation_embed_tfbench_model_${dt}`,
+    name: 'TFBench_Model Qwen2VL Conditional Generation Embedding',
+    description: 'Qwen2 VL for Conditional Generation Embedding',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+    }],
+    inputstip: '[1, 1]'
+  }))
+}
+
+const Qwen2VLForConditionalGenerationTextDecoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '9.37 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    id: `qwen2_vl_for_conditional_generation_text_decoder_tfbench_model_merged_${dt}`,
+    name: 'TFBench_Model Qwen2VL Conditional Generation WIP attention_mask-dim_changes context-is-lost Text Decoder',
+    description: 'Qwen2 VL for Conditional Generation Text Decoder',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'inputs_embeds': ['float32', 'random', [1, 1, 16], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 1], { "past_sequence_length": 0 }],
+      'position_ids': ['int64', 1n, [3, 1, 1], {}],
+    }],
+    inputstip: '[1, 1, 16] [1, 1] [3, 1, 1]'
+  }))
+}
+
+const Qwen2VLForConditionalGenerationVisionEncoder = () => {
+  const configs = [
+    ['fp32', 'vision_encoder.onnx', '204 KB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    id: `qwen2_vl_for_conditional_generation_vision_encoder_tfbench_model_${dt}`,
+    name: 'TFBench_Model Qwen2VL Conditional Generation WIP dimension-with-value-zero-exceeds-the-dimension-size-of-the-input-tensor Vision Encoder',
+    description: 'Qwen2 VL for Conditional Generation Vision Encoder',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [256, 1176], {
+        "batch_size * grid_t * grid_h * grid_w": 256,
+        "channel * temporal_patch_size * patch_size * patch_size": 1176
+      }],
+      'grid_thw': ['int64', 1n, [1, 3], { "batch_size": 1 }],
+    }],
+    inputstip: '[256, 1176] [1, 3]'
+  }))
+}
+
 const samVitBase = () => {
   const configs = [
     ['fp32', 'model.onnx', '358 MB'],
@@ -2595,6 +2898,65 @@ const samVitBaseVisionEncoder = () => {
   }))
 }
 
+const slimSAM77UniformVisionEncoder = () => {
+  const configs = [
+    ['fp32', 'vision_encoder.onnx', '22.1 MB'],
+    ['int8', 'vision_encoder_quantized.onnx', '8.46 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Mask Generation',
+    tag: '',
+    id: `slimsam_77_uniform_vision_encoder_tfbench_model_${dt}`,
+    name: `TFBench_Model SamModel SlimSAM 77 Uniform Vision Encoder ${dt}`,
+    description: 'SamModel SlimSAM 77 Uniform Vision Encoder',
+    note: '',
+    source: 'https://huggingface.co/Xenova/slimsam-77-uniform',
+    hf: {
+      model: 'xenova/slimsam-77-uniform',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 3, 1024, 1024]'
+  }))
+}
+
+const slimSAM77UniformPromptEncoderMaskDecoder = () => {
+  const configs = [
+    ['fp32', 'prompt_encoder_mask_decoder.onnx', '15.7 MB'],
+    ['int8', 'prompt_encoder_mask_decoder_quantized.onnx', '4.67 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Mask Generation',
+    tag: '',
+    id: `slimsam_77_uniform_prompt_encoder_mask_decoder_tfbench_model_${dt}`,
+    name: `TFBench_Model SamModel SlimSAM 77 Uniform Prompt Encoder Mask Decoder ${dt}`,
+    description: 'SlimSAM 77 Uniform Prompt Encoder Mask Decoder',
+    note: '',
+    source: 'https://huggingface.co/Xenova/slimsam-77-uniform',
+    hf: {
+      model: 'xenova/slimsam-77-uniform',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
+      'input_labels': ['int64', 0n, [1, 1, 1], {}],
+      'image_embeddings': ['float32', 'random', [1, 256, 64, 64], {}],
+      'image_positional_embeddings': ['float32', 'random', [1, 256, 64, 64], {}],
+    }],
+    inputstip: '[1, 1, 1, 2] [1, 1, 1] [1, 256, 64, 64] [1, 256, 64, 64]'
+  }))
+}
+
 const SnowflakeArcticEmbedM = () => {
   const configs = [
     ['fp32', 'model.onnx', '415 MB'],
@@ -2624,6 +2986,36 @@ const SnowflakeArcticEmbedM = () => {
       'token_type_ids': ['int64', 0n, [3, 19], { "batch_size": 3, "sequence_length": 19 }],
     }],
     inputstip: '[3, 19] [3, 19] [3, 19]'
+  }))
+}
+
+const snowflakeArcticEmbedXs = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '86.2 MB'],
+    ['int8', 'model_quantized.onnx', '21.9 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Similarity',
+    tag: '',
+    id: `snowflake_arctic_embed_xs_tfbench_model_${dt}`,
+    name: `TFBench_Model BertModel Arctic Embed XS ${dt}`,
+    description: 'A suite of text embedding models that focuses on creating high-quality retrieval models optimized for performance',
+    note: '',
+    source: 'https://huggingface.co/Snowflake/snowflake-arctic-embed-xs',
+    hf: {
+      model: 'snowflake/snowflake-arctic-embed-xs',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [2, 4], { "batch_size": 2, "sequence_length": 4 }],
+      'attention_mask': ['int64', 1n, [2, 4], {}],
+      'token_type_ids': ['int64', 0n, [2, 4], {}],
+    }],
+    inputstip: '[2, 4] [2, 4] [2, 4]'
   }))
 }
 
@@ -2681,11 +3073,11 @@ const t5SmallDecoder = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
       'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 128, "past_decoder_sequence_length": 128, "encoder_sequence_length_out": 128 }],
       'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
     }],
-    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+    inputstip: '[1, 128] [1, 1] [1, 128, 512]'
   }))
 }
 
@@ -2712,17 +3104,22 @@ const t5SmallDecoderWithPast = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 128, "past_decoder_sequence_length": 128, "encoder_sequence_length_out": 128 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+      'encoder_attention_mask': ['int64', 1n, [1, 9], { "encoder_sequence_length": 9 }],
+      'input_ids': ['int64', 5n, [1, 1], { 
+        "batch_size": 1, 
+        "decoder_sequence_length": 1,
+        "past_decoder_sequence_length": 2,
+        "encoder_sequence_length_out": 9
+       }],
+       'encoder_hidden_states': ['float32', 'random', [1, 9, 512], {}],
+       'use_cache_branch': ['bool', 1, [1], {}]
     }],
-    inputstip: '[1, 128] [1, 1] [1, 128, 512]'
+    inputstip: '[1, 9] [1, 1] [1, 9, 512] [1]'
   }))
 }
 
 const t5SmallDecoderMerged = () => {
   const configs = [
-    ['fp32', 'decoder_model_merged.onnx', '159 MB'],
     ['fp16', 'decoder_model_merged_fp16.onnx', '79.8 MB'],
     ['int8', 'decoder_model_merged_quantized.onnx', '40.4 MB'],
   ]
@@ -2743,21 +3140,22 @@ const t5SmallDecoderMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'use_cache_branch': ['bool', 1, [1], {
-        "past_decoder_sequence_length": 128,
-        "encoder_sequence_length_out": 128
-      }]
+      'encoder_attention_mask': ['int64', 1n, [1, 9], { "encoder_sequence_length": 9 }],
+      'input_ids': ['int64', 5n, [1, 1], {
+        "batch_size": 1, 
+        "decoder_sequence_length": 1,
+        "past_decoder_sequence_length": 2,
+        "encoder_sequence_length_out": 9
+      }],
+      'encoder_hidden_states': ['float32', 'random', [1, 9, 512], {}],
+      'use_cache_branch': ['bool', 1, [1], {}]
     }],
-    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+    inputstip: '[1, 9] [1, 1] [1, 9, 512] [1]'
   }))
 }
 
 const t5SmallEncoder = () => {
   const configs = [
-    ['fp32', 'encoder_model.onnx', '134 MB'],
     ['fp16', 'encoder_model_fp16.onnx', '67.4 MB'],
     ['int8', 'encoder_model_quantized.onnx', '33.99 MB'],
   ]
@@ -2778,10 +3176,75 @@ const t5SmallEncoder = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
+      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1, "encoder_sequence_length": 9 }],
+      'attention_mask': ['int64', 1n, [1, 9], {}]
     }],
-    inputstip: '[1, 128] [1, 128]'
+    inputstip: '[1, 9] [1, 9]'
+  }))
+}
+
+const t5SmallEncoderHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '134 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '33.9 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    tag: '',
+    id: `t5__small_encoder_tfbench_model_${dt}`,
+    name: `TFBench_Model T5 Conditional Generation T5 Small Encoder ${dt}`,
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/t5-small',
+    hf: {
+      model: 'xenova/t5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 9], { "batch_size": 1, "encoder_sequence_length": 9 }],
+      'attention_mask': ['int64', 1n, [1, 9], {}]
+    }],
+    inputstip: '[1, 9] [1, 9]'
+  }))
+}
+
+const t5SmallDecoderMergedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '159 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '40.4 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    tag: '',
+    id: `t5__small_decoder_tfbench_model_merged_${dt}`,
+    name: `TFBench_Model T5 Conditional Generation WIP WebNN_ONLY_FAIL exception-during-initialization T5 Small Decoder KV-Cache ${dt}`,
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/t5-small',
+    hf: {
+      model: 'xenova/t5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 9], { "encoder_sequence_length": 9 }],
+      'input_ids': ['int64', 5n, [1, 1], {
+        "batch_size": 1, 
+        "decoder_sequence_length": 1,
+        "past_decoder_sequence_length": 2,
+        "encoder_sequence_length_out": 9
+      }],
+      'encoder_hidden_states': ['float32', 'random', [1, 9, 512], {}],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
+    inputstip: '[1, 9] [1, 1] [1, 9, 512] [1]'
   }))
 }
 
@@ -2933,6 +3396,691 @@ const tinyLlama1_1BChatv1_0Merged_2 = () => {
       'position_ids': ['int64', 0n, [1, 41], { "batch_size": 1, "sequence_length": 41 }],
     }],
     inputstip: '[1, 41] [1, 41] [1, 41]'
+  }))
+}
+
+const tinyRandomBertForQuestionAnsweringHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '448 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Question Answering',
+    tag: '',
+    id: `tiny_random_bert_for_question_answering_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Question Answering Tiny Random Bert',
+    description: 'Question Answering - Tiny Random Bert for Question Answering',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-BertForQuestionAnswering',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-BertForQuestionAnswering',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 512], { "batch_size": 1, "sequence_length": 512 }],
+      'attention_mask': ['int64', 1n, [1, 512], {}],
+      'token_type_ids': ['int64', 0n, [1, 512], {}],
+    }],
+    inputstip: '[1, 512] [1, 512] [1, 512]'
+  }))
+}
+
+const tinyRandomBertForSequenceClassificationHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '453 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Classification',
+    tag: '',
+    id: `tiny_random_bert_for_sequence_classification_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Text Classification Tiny Random Bert for Sequence Classification',
+    description: 'Text Classification - Tiny Random Bert for Sequence Classification',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-BertForSequenceClassification',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-BertForSequenceClassification',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 43n, [1, 512], { "batch_size": 1, "sequence_length": 512 }],
+      'attention_mask': ['int64', 1n, [1, 512], {}],
+      'token_type_ids': ['int64', 0n, [1, 512], {}],
+    }],
+    inputstip: '[1, 512] [1, 512] [1, 512]'
+  }))
+}
+
+const tinyRandomBertForTokenClassificationHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '448 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Token Classification',
+    tag: '',
+    id: `tiny_random_bert_for_token_classification_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Token Classification Tiny Random Bert',
+    description: 'Token Classification - Tiny Random Bert for Token Classification',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-BertForTokenClassification',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-BertForTokenClassification',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [256, 7], { "batch_size": 256, "sequence_length": 7 }],
+      'attention_mask': ['int64', 1n, [256, 7], {}],
+      'token_type_ids': ['int64', 0n, [256, 7], {}],
+    }],
+    inputstip: '[256, 7] [256, 7] [256, 7]'
+  }))
+}
+
+const tinyRandomBertModelHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '439 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '',
+    id: `tiny_random_bert_model_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Feature Extraction Tiny Random Bert',
+    description: 'Feature Extraction - Tiny Random Bert Model',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-BertModel',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-BertModel',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [64, 20], { "batch_size": 64, "sequence_length": 20 }],
+      'attention_mask': ['int64', 1n, [64, 20], {}],
+      'token_type_ids': ['int64', 0n, [64, 20], {}],
+    }],
+    inputstip: '[64, 20] [64, 20] [64, 20]'
+  }))
+}
+
+const tinyRandomBertForMaskedLMHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '461 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Fill-Mask',
+    tag: '',
+    id: `tiny_random_bert_for_masked_lm_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Fill-Mask Tiny Random Bert for Masked LM',
+    description: 'Fill-Mask - Tiny Random Bert for Masked LM',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-BertForMaskedLM',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-BertForMaskedLM',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [32, 36], { "batch_size": 32, "sequence_length": 36 }],
+      'attention_mask': ['int64', 1n, [32, 36], {}],
+      'token_type_ids': ['int64', 0n, [32, 36], {}],
+    }],
+    inputstip: '[32, 36] [32, 36] [32, 36]'
+  }))
+}
+
+
+const tinyRandomLlamaForCausalLMHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '8.00 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '',
+    id: `tiny_random_llama_for_causal_lm_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Text Generation Tiny Random Llama for Causal LM',
+    description: 'Text Generation - Tiny Random Llama for Causal LM',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-LlamaForCausalLM',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-LlamaForCausalLM',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 266], { "past_sequence_length + 1": 266 }],
+      'position_ids': ['int64', 1n, [1, 1], {}],
+      'past_key_values.0.key': ['float32', 'random', [1, 4, 265, 4], { "past_sequence_length": 265 }],
+      'past_key_values.0.value': ['float32', 'random', [1, 4, 265, 4], {}],
+      'past_key_values.1.key': ['float32', 'random', [1, 4, 265, 4], {}],
+      'past_key_values.1.value': ['float32', 'random', [1, 4, 265, 4], {}],
+    }],
+    inputstip: '[1, 1] [1, 266] [1, 1] [1, 4, 265, 4]'
+  }))
+}
+
+const tinyRandomMoonshineForConditionalGenerationEncoderHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '533 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    tag: '',
+    id: `tiny_random_moonshine_for_conditional_generation_encoder_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Automatic Speech Recognition Tiny Random Moonshine Conditional Generation Encoder',
+    description: 'Automatic Speech Recognition - Tiny Random Moonshine for Conditional Generation Encoder',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-MoonshineForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-MoonshineForConditionalGeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_values': ['float32', 'random', [1, 16000], { "batch_size": 1, "num_samples": 16000 }],
+    }],
+    inputstip: '[1, 16000]'
+  }))
+}
+
+const tinyRandomMoonshineForConditionalGenerationDecoderMergedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '8.38 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    tag: '',
+    id: `tiny_random_moonshine_for_conditional_generation_decoder_tfbench_pipeline_merged_${dt}`,
+    name: 'TFBench_Pipeline Automatic Speech Recognition WIP Tiny Random Moonshine Conditional Generation Decoder KV-Cache',
+    description: 'Automatic Speech Recognition - Tiny Random Moonshine for Conditional Generation Decoder KV-Cache',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-MoonshineForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-MoonshineForConditionalGeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 40, 64], { "batch_size": 1, "encoder_sequence_length": 40 }],
+      'use_cache_branch': ['bool', 1, [1], { 'past_decoder_sequence_length': 0, 'encoder_sequence_length_out': 0 }]
+    }],
+    inputstip: '[1, 1] [1, 40, 64] [1]'
+  }))
+}
+
+const tinyRandomM2M100ForConditionalGenerationEncoderT2THFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '7.87 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    tag: '',
+    id: `tiny_random_m2m100_for_conditional_generation_encoder_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Translation Tiny Random M2M100 Conditional Generation Encoder',
+    description: 'Translation - Tiny Random M2M100 for Conditional Generation Encoder',
+    note: '',
+    source: 'https://huggingface.co/Xenova/tiny-random-M2M100ForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-M2M100ForConditionalGeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 14], { "batch_size": 1, "encoder_sequence_length": 14 }],
+      'attention_mask': ['int64', 1n, [1, 14], {}],
+    }],
+    inputstip: '[1, 14] [1, 14]'
+  }))
+}
+
+const tinyRandomM2M100ForConditionalGenerationDecoderT2TMergedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '8.02 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    tag: '',
+    id: `tiny_random_m2m100_for_conditional_generation_tfbench_pipeline_merged_${dt}`,
+    name: 'TFBench_Pipeline Translation WIP Tiny Random M2M100 Conditional Generation Decoder KV-Cache',
+    description: 'Translation - Tiny Random M2M100 for Conditional Generation Decoder KV-Cache',
+    note: '',
+    source: 'https://huggingface.co/Xenova/tiny-random-M2M100ForConditionalGeneration',
+    hf: {
+      model: 'xenova/tiny-random-M2M100ForConditionalGeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 14], { "encoder_sequence_length": 14 }],
+      'input_ids': ['int64', 2n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 14, 16], {}],
+      'use_cache_branch': ['bool', 1, [1], { "past_decoder_sequence_length": 0, "encoder_sequence_length_out": 0 }]
+    }],
+    inputstip: '[1, 14] [1, 14] [1, 14, 16] [1]'
+  }))
+}
+
+const tinyRandomSwin2SRForImageSuperResolutionHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '1.16 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-to-Image',
+    tag: '',
+    id: `tiny_random_swin_2_sr_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Image to Image Tiny Random Swin2 SR for Image Super Resolution',
+    description: 'Image to Image - Tiny Random Swin2 SR for Image Super Resolution',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-Swin2SRForImageSuperResolution',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-Swin2SRForImageSuperResolution',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 16, 32], { "batch_size": 1, "num_channels": 3, "height": 16, "width": 32 }],
+    }],
+    inputstip: '[1, 3, 16, 32]'
+  }))
+}
+
+const tinyRandomT5ForConditionalGenerationEncoderHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '4.10 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Summarization',
+    tag: '',
+    id: `tiny_random_t5_for_conditional_generation_encoder_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Summarization Tiny Random T5 Conditional Generation Encoder',
+    description: 'Summarization - Tiny Random T5 for Conditional Generation Encoder',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 512], { "batch_size": 1, "encoder_sequence_length": 512 }],
+      'attention_mask': ['int64', 1n, [1, 512], {}],
+    }],
+    inputstip: '[1, 512] [1, 512]'
+  }))
+}
+
+const tinyRandomT5ForConditionalGenerationDecoderMergedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '4.39 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Summarization',
+    tag: '',
+    id: `tiny_random_t5_for_conditional_generation_decoder_tfbench_pipeline_merged_${dt}`,
+    name: 'TFBench_Pipeline Summarization WIP Tiny Random T5 Conditional Generation Decoder KV-Cache',
+    description: 'Summarization - Tiny Random T5 for Conditional Generation Decoder KV-Cache',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 512], { "batch_size": 1, "encoder_sequence_length": 512 }],
+      'input_ids': ['int64', 0n, [1, 1], { "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 512, 32], {}],
+      'use_cache_branch': ['bool', 1, [1], { "past_decoder_sequence_length": 0, "encoder_sequence_length_out": 0 }]
+    }],
+    inputstip: '[1, 512] [1, 512] [1, 512, 32] [1]'
+  }))
+}
+
+const tinyRandomT5ForConditionalGenerationEncoderT2THFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '4.10 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    tag: '',
+    id: `tiny_random_t5_for_conditional_generation_encoder_t2t_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Text to Text Generation Tiny Random T5 Conditional Generation Encoder',
+    description: 'Text to Text Generation - Tiny Random T5 for Conditional Generation Encoder',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 9n, [1, 512], { "batch_size": 1, "encoder_sequence_length": 512 }],
+      'attention_mask': ['int64', 1n, [1, 512], {}],
+    }],
+    inputstip: '[1, 512] [1, 512]'
+  }))
+}
+
+const tinyRandomT5ForConditionalGenerationDecoderT2TMergedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '4.39 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    tag: '',
+    id: `tiny_random_t5_for_conditional_generation_decoder_t2t_tfbench_pipeline_merged_${dt}`,
+    name: 'TFBench_Pipeline Text to Text Generation WIP Tiny Random T5 Conditional Generation Decoder KV-Cache',
+    description: 'Text to Text Generation - Tiny Random T5 for Conditional Generation Decoder KV-Cache',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 512], { "batch_size": 1, "encoder_sequence_length": 512 }],
+      'input_ids': ['int64', 0n, [1, 1], { "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 512, 32], {}],
+      'use_cache_branch': ['bool', 1, [1], { "past_decoder_sequence_length": 0, "encoder_sequence_length_out": 0 }]
+    }],
+    inputstip: '[1, 512] [1, 512] [1, 512, 32] [1]'
+  }))
+}
+
+const tinyRandomUnispeechHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '238 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Audio Classification',
+    tag: '',
+    id: `tiny_random_unispeech_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Audio Classification Tiny Random Unispeech',
+    description: 'Audio Classification - Tiny Random Unispeech.',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-unispeech',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-unispeech',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_values': ['float32', 'random', [1, 16000], { "batch_size": 1, "sequence_length": 16000 }],
+    }],
+    inputstip: '[1, 16000]'
+  }))
+}
+
+const tinyRandomVisionEncoderDecoderModelViTGPTEncoderHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '262 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    id: `tiny_random_vision_encoder_decoder_vit_gpt_encoder_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Document Question Answering Tiny Random Vit GPT2 Encoder',
+    description: 'Document Question Answering - Tiny Random Vision Encoder Decoder Model ViT GPT2 Encoder',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1, "num_channels": 3, "height": 30, "width": 30 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
+const tinyRandomVisionEncoderDecoderModelViTGPTDecoderMergedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '1.57 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    id: `tiny_random_vision_encoder_decoder_vit_gpt_decoder_tfbench_pipeline_merged_${dt}`,
+    name: 'TFBench_Pipeline Document Question Answering WIP Tiny Random Vit GPT2 Decoder KV-Cache',
+    description: 'Document Question Answering - Tiny Random Vision Encoder Decoder Model ViT GPT2 Decoder KV-Cache',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "decoder_sequence_length": 41 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 226, 32], { "batch_size": 1, "encoder_sequence_length": 226 }],
+      'use_cache_branch': ['bool', 1, [1], { 'past_sequence_length': 0}]
+    }],
+    inputstip: '[1, 41] [1, 226, 32] [1]'
+  }))
+}
+
+const tinyRandomVisionEncoderDecoderModelViTGPT2EncoderHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '262 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    id: `tiny_random_vision_encoder_decoder_vit_gpt_2_encoder_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Image to Text Tiny Random Vit GPT2 Encoder',
+    description: 'Image to Text - Tiny Random Vision Encoder Decoder Model ViT GPT2 Encoder',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1, "num_channels": 3, "height": 30, "width": 30 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
+const tinyRandomVisionEncoderDecoderModelViTGPT2DecoderMergedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '1.57 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    id: `tiny_random_vision_encoder_decoder_vit_gpt_2_decoder_tfbench_pipeline_merged_${dt}`,
+    name: 'TFBench_Pipeline Image to Text WIP Tiny Random Vit GPT2 Decoder KV-Cache',
+    description: 'Image to Text - Tiny Random Vision Encoder Decoder Model ViT GPT2 Decoder KV-Cache',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 0n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 226, 32], { "batch_size": 1, "encoder_sequence_length": 226 }],
+      'use_cache_branch': ['bool', 1, [1], { 'past_sequence_length': 0 }]
+    }],
+    inputstip: '[1, 1] [1, 226, 32] [1]'
+  }))
+}
+
+const tinyRandomViTHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '270 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Classification',
+    tag: '',
+    id: `tiny_random_vit_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Image Classification Tiny Random ViT',
+    description: 'Image Classification - Tiny Random ViT',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-vit',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-vit',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1, "num_channels": 3, "height": 30, "width": 30 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
+const tinyRandomViTMAEModelHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '254 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Feature Extraction',
+    tag: '',
+    id: `tiny_random_vit_mae_model_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Image Feature Extraction Tiny Random ViT MAE',
+    description: 'Image Feature Extraction - Tiny Random ViT MAE Model',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-ViTMAEModel',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-ViTMAEModel',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1, "num_channels": 3, "height": 30, "width": 30 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
+
+const tinyRandomViTsHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '511 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Speech',
+    tag: '',
+    id: `tiny_random_vits_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Text to Audio Tiny Random ViTs',
+    description: 'Text to Audio - Tiny Random ViTs',
+    note: '',
+    source: 'https://huggingface.co/Xenova/tiny-random-vits',
+    hf: {
+      model: 'xenova/tiny-random-vits',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 383], { "text_batch_size": 1, "sequence_length": 383 }],
+      'attention_mask': ['int64', 1n, [1, 383], {}],
+    }],
+    inputstip: '[1, 383] [1, 383]'
+  }))
+}
+
+const tinyRandomYolosForObjectDetectionHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '1.16 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Object Detection',
+    tag: '',
+    id: `tiny_random_yolos_for_object_detection_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Object Detection Tiny Random Yolos',
+    description: 'Object Detection - Tiny Random Yolos for Object Detection',
+    note: '',
+    source: 'https://huggingface.co/onnx-internal-testing/tiny-random-YolosForObjectDetection-ONNX',
+    hf: {
+      model: 'onnx-internal-testing/tiny-random-YolosForObjectDetection-ONNX',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1, "num_channels": 3, "height": 30, "width": 30 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
   }))
 }
 
@@ -3303,6 +4451,67 @@ const whisperTinyEncoder = () => {
   }))
 }
 
+const whisperTinyEnEncoderHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '31.3 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '9.65 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    tag: '',
+    id: `whisper_tiny_en_encoder_tfbench_model_${dt}`,
+    name: `TFBench_Model Whisper Conditional Generation Whisper Tiny.en Encoder ${dt}`,
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/whisper-tiny.en',
+    hf: {
+      model: 'onnx-community/whisper-tiny.en',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }],
+    }],
+    inputstip: '[1, 80, 3000]'
+  }))
+}
+
+const whisperTinyEnDecoderMergedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '113.0 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '29.2 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    tag: '',
+    id: `whisper_tiny_en_decoder_tfbench_model_merged_${dt}`,
+    name: `TFBench_Model Whisper Conditional Generation WIP exception-during-initialization Whisper Tiny.en Decoder KV-Cache ${dt}`,
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/whisper-tiny.en',
+    hf: {
+      model: 'onnx-community/whisper-tiny.en',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 2], { "batch_size": 1, "decoder_sequence_length": 2 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }],
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_decoder_sequence_length": 0,
+        "encoder_sequence_length_out": 0
+      }]
+    }],
+    inputstip: '[1, 2] [1, 1500, 384] [1]'
+  }))
+}
+
 const xlmRobertaBase = () => {
   const configs = [
     ['fp32', 'model.onnx', '1.03 GB'],
@@ -3436,6 +4645,7 @@ export let models = [
   ...bertBaseMultilingualUncasedSentiment(),
   ...BGELargeEnV1_5(),
   ...BGERerankerBase(),
+  ...tinyRandomClipModelHFTFBenchmark(),
   ...clipVitBasePatch16(),
   ...codeGenMono350M(),
   {
@@ -3560,6 +4770,7 @@ export let models = [
     inputs: [{ 'images:0': ['float32', 'random', [1, 224, 224, 3], {}] }],
     inputstip: '[1, 224, 224, 3]'
   },
+  ...dPTForDepthEstimationHFTFBenchmark(),
   ...esrgan(),
   ...faceParsing(),
   {
@@ -3588,7 +4799,7 @@ export let models = [
     size: '42.5 MB',
     format: 'onnx',
     datatype: 'int8',
-    inputs: [{ 'image': ['float32', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
+    inputs: [{ 'image': ['float32', 'random', [3, 224, 224], { "height": 224, "width": 224 }] }],
     inputstip: '[3, 224, 224]'
   },
   {
@@ -3602,7 +4813,7 @@ export let models = [
     size: '42.4 MB',
     format: 'onnx',
     datatype: 'int8',
-    inputs: [{ 'image': ['float32', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
+    inputs: [{ 'image': ['float32', 'random', [3, 224, 224], { "height": 224, "width": 224 }] }],
     inputstip: '[3, 224, 224]'
   },
   {
@@ -3631,7 +4842,7 @@ export let models = [
     size: '33.8 MB',
     format: 'onnx',
     datatype: 'int8',
-    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {"batch": 1, "height": 224, "width": 224}] }],
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch": 1, "height": 224, "width": 224 }] }],
     inputstip: '[1, 3, 224, 224]'
   },
   {
@@ -3645,7 +4856,7 @@ export let models = [
     size: '33.7 MB',
     format: 'onnx',
     datatype: 'int8',
-    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {"batch": 1, "height": 224, "width": 224}] }],
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch": 1, "height": 224, "width": 224 }] }],
     inputstip: '[1, 3, 224, 224]'
   },
   ...flanT5SmallDecoder(),
@@ -3811,7 +5022,7 @@ export let models = [
     size: '45.9 MB',
     format: 'onnx',
     datatype: 'int8',
-    inputs: [{ 'image': ['float32', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
+    inputs: [{ 'image': ['float32', 'random', [3, 224, 224], { "height": 224, "width": 224 }] }],
     inputstip: '[3, 224, 224]'
   },
   {
@@ -3825,7 +5036,7 @@ export let models = [
     size: '43.5 MB',
     format: 'onnx',
     datatype: 'int8',
-    inputs: [{ 'image': ['float32', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
+    inputs: [{ 'image': ['float32', 'random', [3, 224, 224], { "height": 224, "width": 224 }] }],
     inputstip: '[3, 224, 224]'
   },
   {
@@ -3942,6 +5153,7 @@ export let models = [
   ...llama2CStories15MDecoder(),
   ...llama2CStories15MDecoderMerged(),
   ...llama2CStories15MDecoderWithPast(),
+  ...llama2CStories15MHFTFBenchmark(),
   ...llavaDecoder(),
   ...llavaDecoderMerged(),
   ...llavaDecoderWithPast(),
@@ -3953,6 +5165,7 @@ export let models = [
   ...moondream2DecoderMerged(),
   ...moondream2EmbedTokens(),
   ...moondream2VisionEncoder(),
+  ...mobileNetV4(),
   ...mobileVitSmall(),
   ...msmarcoDistilbertBaseV4(),
   // {
@@ -4202,10 +5415,10 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'raw_timings': ['float32', 'random', [1, 20], {"?": 1}],
-      'raw_tcids': ['int64', 1n, [1, 20], {"?": 1}],
-      'raw_contexts': ['int64', 1n, [1], {"?": 1}],
-      'raw_explicits': ['int64', 1n, [1], {"?": 1}],
+      'raw_timings': ['float32', 'random', [1, 20], { "?": 1 }],
+      'raw_tcids': ['int64', 1n, [1, 20], { "?": 1 }],
+      'raw_contexts': ['int64', 1n, [1], { "?": 1 }],
+      'raw_explicits': ['int64', 1n, [1], { "?": 1 }],
     }],
     inputstip: '[1, 20] [1, 20] [1] [1]'
   },
@@ -4281,6 +5494,9 @@ export let models = [
   ...phi35MiniInstructMerged(),
   ...phi3Mini4kInstructMerged(),
   ...Qwen2_0_5bInstructMerged(),
+  ...Qwen2VLForConditionalGenerationEmbedding(),
+  ...Qwen2VLForConditionalGenerationTextDecoder(),
+  ...Qwen2VLForConditionalGenerationVisionEncoder(),
   {
     category: 'Image Classification',
     tag: '2h',
@@ -4323,7 +5539,7 @@ export let models = [
     size: '48.7 MB',
     format: 'onnx',
     datatype: 'fp16',
-    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224 ," width": 224 }] }],
+    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, " width": 224 }] }],
     inputstip: '[1, 3, 224, 224]'
   },
   {
@@ -4761,7 +5977,10 @@ export let models = [
     inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
+  ...slimSAM77UniformVisionEncoder(),
+  ...slimSAM77UniformPromptEncoderMaskDecoder(),
   ...SnowflakeArcticEmbedM(),
+  ...snowflakeArcticEmbedXs(),
   ...squeezebertUncased(),
   {
     category: 'Image Classification',
@@ -4849,7 +6068,7 @@ export let models = [
     size: '8.54 MB',
     format: 'onnx',
     datatype: 'int8',
-    inputs: [{ 'inputs': ['float32', 'random', [1, 224, 224, 3], {"unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
+    inputs: [{ 'inputs': ['float32', 'random', [1, 224, 224, 3], { "unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
     inputstip: '[1, 224, 224, 3]'
   },
   {
@@ -4914,11 +6133,40 @@ export let models = [
   ...t5SmallDecoderWithPast(),
   ...t5SmallDecoderMerged(),
   ...t5SmallEncoder(),
+  ...t5SmallEncoderHFTFBenchmark(),
+  ...t5SmallDecoderMergedHFTFBenchmark(),
   ...tinyLlamaV0Decoder(),
   ...tinyLlamaV0DecoderMerged(),
   ...tinyLlamaV0DecoderWithPast(),
   ...tinyLlama1_1BChatv1_0Merged(),
   ...tinyLlama1_1BChatv1_0Merged_2(),
+  ...tinyClapHtsatUnfusedHFTFBenchmark(),
+  ...tinyRandomGroupViTModelHFTFBenchmark(),
+  ...tinyRandomOwlViTHFTFBenchmark(),
+  ...tinyRandomBertModelHFTFBenchmark(),
+  ...tinyRandomBertForQuestionAnsweringHFTFBenchmark(),
+  ...tinyRandomBertForSequenceClassificationHFTFBenchmark(),
+  ...tinyRandomBertForTokenClassificationHFTFBenchmark(),
+  ...tinyRandomBertForMaskedLMHFTFBenchmark(),
+  ...tinyRandomLlamaForCausalLMHFTFBenchmark(),
+  ...tinyRandomMoonshineForConditionalGenerationEncoderHFTFBenchmark(),
+  ...tinyRandomMoonshineForConditionalGenerationDecoderMergedHFTFBenchmark(),
+  ...tinyRandomM2M100ForConditionalGenerationEncoderT2THFTFBenchmark(),
+  ...tinyRandomM2M100ForConditionalGenerationDecoderT2TMergedHFTFBenchmark(),
+  ...tinyRandomSwin2SRForImageSuperResolutionHFTFBenchmark(),
+  ...tinyRandomT5ForConditionalGenerationEncoderHFTFBenchmark(),
+  ...tinyRandomT5ForConditionalGenerationDecoderMergedHFTFBenchmark(),
+  ...tinyRandomT5ForConditionalGenerationEncoderT2THFTFBenchmark(),
+  ...tinyRandomT5ForConditionalGenerationDecoderT2TMergedHFTFBenchmark(),
+  ...tinyRandomUnispeechHFTFBenchmark(),
+  ...tinyRandomVisionEncoderDecoderModelViTGPTEncoderHFTFBenchmark(),
+  ...tinyRandomVisionEncoderDecoderModelViTGPTDecoderMergedHFTFBenchmark(),
+  ...tinyRandomVisionEncoderDecoderModelViTGPT2EncoderHFTFBenchmark(),
+  ...tinyRandomVisionEncoderDecoderModelViTGPT2DecoderMergedHFTFBenchmark(),
+  ...tinyRandomViTHFTFBenchmark(),
+  ...tinyRandomViTMAEModelHFTFBenchmark(),
+  ...tinyRandomViTsHFTFBenchmark(),
+  ...tinyRandomYolosForObjectDetectionHFTFBenchmark(),
   ...metaLlama_3_8bInstructMerged(),
   {
     category: 'Object Detection',
@@ -4972,42 +6220,42 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'x': ['float32', 'random', [1,39,80], {"N": 1}],
-      'cached_val_4': ['float32', 'random', [4,32,1,96], {}],
-      'cached_val_3': ['float32', 'random', [2,8,1,96], {}],
-      'cached_val_2': ['float32', 'random', [3,16,1,96], {}],
-      'cached_val_1': ['float32', 'random', [4,32,1,96], {}],
-      'cached_val_0': ['float32', 'random', [2,64,1,96], {}],
-      'cached_val2_4': ['float32', 'random', [4,32,1,96], {}],
-      'cached_val2_3': ['float32', 'random', [2,8,1,96], {}],
-      'cached_val2_2': ['float32', 'random', [3,16,1,96], {}],
-      'cached_val2_1': ['float32', 'random', [4,32,1,96], {}],
-      'cached_val2_0': ['float32', 'random', [2,64,1,96], {}],
-      'cached_len_4': ['int64', 1n, [4,1], {}],
-      'cached_len_3': ['int64', 1n, [2,1], {}],
-      'cached_len_2': ['int64', 1n, [3,1], {}],
-      'cached_len_1': ['int64', 1n, [4,1], {}],
-      'cached_len_0': ['int64', 1n, [2,1], {}],
-      'cached_key_4': ['float32', 'random', [4,32,1,192], {}],
-      'cached_key_3': ['float32', 'random', [2,8,1,192], {}],
-      'cached_key_2': ['float32', 'random', [3,16,1,192], {}],
-      'cached_key_1': ['float32', 'random', [4,32,1,192], {}],
-      'cached_key_0': ['float32', 'random', [2,64,1,192], {}],
-      'cached_conv2_4': ['float32', 'random', [4,1,384,30], {}],
-      'cached_conv2_3': ['float32', 'random', [2,1,384,30], {}],
-      'cached_conv2_2': ['float32', 'random', [3,1,384,30], {}],
-      'cached_conv2_1': ['float32', 'random', [4,1,384,30], {}],
-      'cached_conv2_0': ['float32', 'random', [2,1,384,30], {}],
-      'cached_conv1_4': ['float32', 'random', [4,1,384,30], {}],
-      'cached_conv1_3': ['float32', 'random', [2,1,384,30], {}],
-      'cached_conv1_2': ['float32', 'random', [3,1,384,30], {}],
-      'cached_conv1_1': ['float32', 'random', [4,1,384,30], {}],
-      'cached_conv1_0': ['float32', 'random', [2,1,384,30], {}],
-      'cached_avg_4': ['float32', 'random', [4,1,384], {}],
-      'cached_avg_3': ['float32', 'random', [2,1,384], {}],
-      'cached_avg_2': ['float32', 'random', [3,1,384], {}],
-      'cached_avg_1': ['float32', 'random', [4,1,384], {}],
-      'cached_avg_0': ['float32', 'random', [2,1,384], {}]
+      'x': ['float32', 'random', [1, 39, 80], { "N": 1 }],
+      'cached_val_4': ['float32', 'random', [4, 32, 1, 96], {}],
+      'cached_val_3': ['float32', 'random', [2, 8, 1, 96], {}],
+      'cached_val_2': ['float32', 'random', [3, 16, 1, 96], {}],
+      'cached_val_1': ['float32', 'random', [4, 32, 1, 96], {}],
+      'cached_val_0': ['float32', 'random', [2, 64, 1, 96], {}],
+      'cached_val2_4': ['float32', 'random', [4, 32, 1, 96], {}],
+      'cached_val2_3': ['float32', 'random', [2, 8, 1, 96], {}],
+      'cached_val2_2': ['float32', 'random', [3, 16, 1, 96], {}],
+      'cached_val2_1': ['float32', 'random', [4, 32, 1, 96], {}],
+      'cached_val2_0': ['float32', 'random', [2, 64, 1, 96], {}],
+      'cached_len_4': ['int64', 1n, [4, 1], {}],
+      'cached_len_3': ['int64', 1n, [2, 1], {}],
+      'cached_len_2': ['int64', 1n, [3, 1], {}],
+      'cached_len_1': ['int64', 1n, [4, 1], {}],
+      'cached_len_0': ['int64', 1n, [2, 1], {}],
+      'cached_key_4': ['float32', 'random', [4, 32, 1, 192], {}],
+      'cached_key_3': ['float32', 'random', [2, 8, 1, 192], {}],
+      'cached_key_2': ['float32', 'random', [3, 16, 1, 192], {}],
+      'cached_key_1': ['float32', 'random', [4, 32, 1, 192], {}],
+      'cached_key_0': ['float32', 'random', [2, 64, 1, 192], {}],
+      'cached_conv2_4': ['float32', 'random', [4, 1, 384, 30], {}],
+      'cached_conv2_3': ['float32', 'random', [2, 1, 384, 30], {}],
+      'cached_conv2_2': ['float32', 'random', [3, 1, 384, 30], {}],
+      'cached_conv2_1': ['float32', 'random', [4, 1, 384, 30], {}],
+      'cached_conv2_0': ['float32', 'random', [2, 1, 384, 30], {}],
+      'cached_conv1_4': ['float32', 'random', [4, 1, 384, 30], {}],
+      'cached_conv1_3': ['float32', 'random', [2, 1, 384, 30], {}],
+      'cached_conv1_2': ['float32', 'random', [3, 1, 384, 30], {}],
+      'cached_conv1_1': ['float32', 'random', [4, 1, 384, 30], {}],
+      'cached_conv1_0': ['float32', 'random', [2, 1, 384, 30], {}],
+      'cached_avg_4': ['float32', 'random', [4, 1, 384], {}],
+      'cached_avg_3': ['float32', 'random', [2, 1, 384], {}],
+      'cached_avg_2': ['float32', 'random', [3, 1, 384], {}],
+      'cached_avg_1': ['float32', 'random', [4, 1, 384], {}],
+      'cached_avg_0': ['float32', 'random', [2, 1, 384], {}]
     }],
     inputstip: '[1, 39, 80]'
   },
@@ -5024,124 +6272,124 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'x_lens': ['int64', 1n, [1], {"N": 1}],
-      'x': ['float32', 'random', [1,45,80], {}],
+      'x_lens': ['int64', 1n, [1], { "N": 1 }],
+      'x': ['float32', 'random', [1, 45, 80], {}],
       'processed_lens': ['int64', 1n, [1], {}],
-      'embed_states': ['float32', 'random', [1,128,3,19], {}],
-      'cached_val2_9': ['float32', 'random', [16,1,96], {}],
-      'cached_val2_8': ['float32', 'random', [16,1,96], {}],
-      'cached_val2_7': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_6': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_5': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_4': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_3': ['float32', 'random', [64,1,48], {}],
-      'cached_val2_2': ['float32', 'random', [64,1,48], {}],
-      'cached_val2_18': ['float32', 'random', [64,1,48], {}],
-      'cached_val2_17': ['float32', 'random', [64,1,48], {}],
-      'cached_val2_16': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_15': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_14': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_13': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_12': ['float32', 'random', [16,1,96], {}],
-      'cached_val2_11': ['float32', 'random', [16,1,96], {}],
-      'cached_val2_10': ['float32', 'random', [16,1,96], {}],
-      'cached_val2_1': ['float32', 'random', [128,1,48], {}],
-      'cached_val2_0': ['float32', 'random', [128,1,48], {}],
-      'cached_val1_9': ['float32', 'random', [16,1,96], {}],
-      'cached_val1_8': ['float32', 'random', [16,1,96], {}],
-      'cached_val1_7': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_6': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_5': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_4': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_3': ['float32', 'random', [64,1,48], {}],
-      'cached_val1_2': ['float32', 'random', [64,1,48], {}],
-      'cached_val1_18': ['float32', 'random', [64,1,48], {}],
-      'cached_val1_17': ['float32', 'random', [64,1,48], {}],
-      'cached_val1_16': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_15': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_14': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_13': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_12': ['float32', 'random', [16,1,96], {}],
-      'cached_val1_11': ['float32', 'random', [16,1,96], {}],
-      'cached_val1_10': ['float32', 'random', [16,1,96], {}],
-      'cached_val1_1': ['float32', 'random', [128,1,48], {}],
-      'cached_val1_0': ['float32', 'random', [128,1,48], {}],
-      'cached_nonlin_attn_18': ['float32', 'random', [1,1,64,192], {}],
-      'cached_nonlin_attn_17': ['float32', 'random', [1,1,64,192], {}],
-      'cached_nonlin_attn_16': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_15': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_14': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_13': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_12': ['float32', 'random', [1,1,16,576], {}],
-      'cached_nonlin_attn_11': ['float32', 'random', [1,1,16,576], {}],
-      'cached_nonlin_attn_10': ['float32', 'random', [1,1,16,576], {}],
-      'cached_nonlin_attn_9': ['float32', 'random', [1,1,16,576], {}],
-      'cached_nonlin_attn_8': ['float32', 'random', [1,1,16,576], {}],
-      'cached_nonlin_attn_7': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_6': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_5': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_4': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_3': ['float32', 'random', [1,1,64,192], {}],
-      'cached_nonlin_attn_2': ['float32', 'random', [1,1,64,192], {}],
-      'cached_nonlin_attn_1': ['float32', 'random', [1,1,128,144], {}],
-      'cached_nonlin_attn_0': ['float32', 'random', [1,1,128,144], {}],
-      'cached_key_18': ['float32', 'random', [64,1,128], {}],
-      'cached_key_17': ['float32', 'random', [64,1,128], {}],
-      'cached_key_16': ['float32', 'random', [32,1,128], {}],
-      'cached_key_15': ['float32', 'random', [32,1,128], {}],
-      'cached_key_14': ['float32', 'random', [32,1,128], {}],
-      'cached_key_13': ['float32', 'random', [32,1,128], {}],
-      'cached_key_12': ['float32', 'random', [16,1,256], {}],
-      'cached_key_11': ['float32', 'random', [16,1,256], {}],
-      'cached_key_10': ['float32', 'random', [16,1,256], {}],
-      'cached_key_9': ['float32', 'random', [16,1,256], {}],
-      'cached_key_8': ['float32', 'random', [16,1,256], {}],
-      'cached_key_7': ['float32', 'random', [32,1,128], {}],
-      'cached_key_6': ['float32', 'random', [32,1,128], {}],
-      'cached_key_5': ['float32', 'random', [32,1,128], {}],
-      'cached_key_4': ['float32', 'random', [32,1,128], {}],
-      'cached_key_3': ['float32', 'random', [64,1,128], {}],
-      'cached_key_2': ['float32', 'random', [64,1,128], {}],
-      'cached_key_1': ['float32', 'random', [128,1,128], {}],
-      'cached_key_0': ['float32', 'random', [128,1,128], {}],
-      'cached_conv2_9': ['float32', 'random', [1,768,7], {}],
-      'cached_conv2_8': ['float32', 'random', [1,768,7], {}],
-      'cached_conv2_7': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_6': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_5': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_4': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_3': ['float32', 'random', [1,256,15], {}],
-      'cached_conv2_2': ['float32', 'random', [1,256,15], {}],
-      'cached_conv2_18': ['float32', 'random', [1,256,15], {}],
-      'cached_conv2_17': ['float32', 'random', [1,256,15], {}],
-      'cached_conv2_16': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_15': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_14': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_13': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_12': ['float32', 'random', [1,768,7], {}],
-      'cached_conv2_11': ['float32', 'random', [1,768,7], {}],
-      'cached_conv2_10': ['float32', 'random', [1,768,7], {}],
-      'cached_conv2_1': ['float32', 'random', [1,192,15], {}],
-      'cached_conv2_0': ['float32', 'random', [1,192,15], {}],
-      'cached_conv1_9': ['float32', 'random', [1,768,7], {}],
-      'cached_conv1_8': ['float32', 'random', [1,768,7], {}],
-      'cached_conv1_7': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_6': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_5': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_4': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_3': ['float32', 'random', [1,256,15], {}],
-      'cached_conv1_2': ['float32', 'random', [1,256,15], {}],
-      'cached_conv1_18': ['float32', 'random', [1,256,15], {}],
-      'cached_conv1_17': ['float32', 'random', [1,256,15], {}],
-      'cached_conv1_16': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_15': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_14': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_13': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_12': ['float32', 'random', [1,768,7], {}],
-      'cached_conv1_11': ['float32', 'random', [1,768,7], {}],
-      'cached_conv1_10': ['float32', 'random', [1,768,7], {}],
-      'cached_conv1_1': ['float32', 'random', [1,192,15], {}],
-      'cached_conv1_0': ['float32', 'random', [1,192,15], {}],
+      'embed_states': ['float32', 'random', [1, 128, 3, 19], {}],
+      'cached_val2_9': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val2_8': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val2_7': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_6': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_5': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_4': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_3': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val2_2': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val2_18': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val2_17': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val2_16': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_15': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_14': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_13': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_12': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val2_11': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val2_10': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val2_1': ['float32', 'random', [128, 1, 48], {}],
+      'cached_val2_0': ['float32', 'random', [128, 1, 48], {}],
+      'cached_val1_9': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val1_8': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val1_7': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_6': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_5': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_4': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_3': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val1_2': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val1_18': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val1_17': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val1_16': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_15': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_14': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_13': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_12': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val1_11': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val1_10': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val1_1': ['float32', 'random', [128, 1, 48], {}],
+      'cached_val1_0': ['float32', 'random', [128, 1, 48], {}],
+      'cached_nonlin_attn_18': ['float32', 'random', [1, 1, 64, 192], {}],
+      'cached_nonlin_attn_17': ['float32', 'random', [1, 1, 64, 192], {}],
+      'cached_nonlin_attn_16': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_15': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_14': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_13': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_12': ['float32', 'random', [1, 1, 16, 576], {}],
+      'cached_nonlin_attn_11': ['float32', 'random', [1, 1, 16, 576], {}],
+      'cached_nonlin_attn_10': ['float32', 'random', [1, 1, 16, 576], {}],
+      'cached_nonlin_attn_9': ['float32', 'random', [1, 1, 16, 576], {}],
+      'cached_nonlin_attn_8': ['float32', 'random', [1, 1, 16, 576], {}],
+      'cached_nonlin_attn_7': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_6': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_5': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_4': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_3': ['float32', 'random', [1, 1, 64, 192], {}],
+      'cached_nonlin_attn_2': ['float32', 'random', [1, 1, 64, 192], {}],
+      'cached_nonlin_attn_1': ['float32', 'random', [1, 1, 128, 144], {}],
+      'cached_nonlin_attn_0': ['float32', 'random', [1, 1, 128, 144], {}],
+      'cached_key_18': ['float32', 'random', [64, 1, 128], {}],
+      'cached_key_17': ['float32', 'random', [64, 1, 128], {}],
+      'cached_key_16': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_15': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_14': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_13': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_12': ['float32', 'random', [16, 1, 256], {}],
+      'cached_key_11': ['float32', 'random', [16, 1, 256], {}],
+      'cached_key_10': ['float32', 'random', [16, 1, 256], {}],
+      'cached_key_9': ['float32', 'random', [16, 1, 256], {}],
+      'cached_key_8': ['float32', 'random', [16, 1, 256], {}],
+      'cached_key_7': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_6': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_5': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_4': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_3': ['float32', 'random', [64, 1, 128], {}],
+      'cached_key_2': ['float32', 'random', [64, 1, 128], {}],
+      'cached_key_1': ['float32', 'random', [128, 1, 128], {}],
+      'cached_key_0': ['float32', 'random', [128, 1, 128], {}],
+      'cached_conv2_9': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv2_8': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv2_7': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_6': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_5': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_4': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_3': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv2_2': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv2_18': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv2_17': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv2_16': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_15': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_14': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_13': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_12': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv2_11': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv2_10': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv2_1': ['float32', 'random', [1, 192, 15], {}],
+      'cached_conv2_0': ['float32', 'random', [1, 192, 15], {}],
+      'cached_conv1_9': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv1_8': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv1_7': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_6': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_5': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_4': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_3': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv1_2': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv1_18': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv1_17': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv1_16': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_15': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_14': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_13': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_12': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv1_11': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv1_10': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv1_1': ['float32', 'random', [1, 192, 15], {}],
+      'cached_conv1_0': ['float32', 'random', [1, 192, 15], {}],
     }],
     inputstip: '[1, 45, 80] [1] [1 [1, 128, 3, 19]'
   },
@@ -5159,123 +6407,123 @@ export let models = [
     datatype: 'fp32',
     inputs: [{
       'x_lens': ['int64', 1n, [1], {}],
-      'x': ['float32', 'random', [1,45,80], {}],
+      'x': ['float32', 'random', [1, 45, 80], {}],
       'processed_lens': ['int64', 1n, [1], {}],
-      'embed_states': ['float32', 'random', [1,128,3,19], {}],
-      'cached_val2_9': ['float32', 'random', [16,1,96], {}],
-      'cached_val2_8': ['float32', 'random', [16,1,96], {}],
-      'cached_val2_7': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_6': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_5': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_4': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_3': ['float32', 'random', [64,1,48], {}],
-      'cached_val2_2': ['float32', 'random', [64,1,48], {}],
-      'cached_val2_18': ['float32', 'random', [64,1,48], {}],
-      'cached_val2_17': ['float32', 'random', [64,1,48], {}],
-      'cached_val2_16': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_15': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_14': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_13': ['float32', 'random', [32,1,48], {}],
-      'cached_val2_12': ['float32', 'random', [16,1,96], {}],
-      'cached_val2_11': ['float32', 'random', [16,1,96], {}],
-      'cached_val2_10': ['float32', 'random', [16,1,96], {}],
-      'cached_val2_1': ['float32', 'random', [128,1,48], {}],
-      'cached_val2_0': ['float32', 'random', [128,1,48], {}],
-      'cached_val1_9': ['float32', 'random', [16,1,96], {}],
-      'cached_val1_8': ['float32', 'random', [16,1,96], {}],
-      'cached_val1_7': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_6': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_5': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_4': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_3': ['float32', 'random', [64,1,48], {}],
-      'cached_val1_2': ['float32', 'random', [64,1,48], {}],
-      'cached_val1_18': ['float32', 'random', [64,1,48], {}],
-      'cached_val1_17': ['float32', 'random', [64,1,48], {}],
-      'cached_val1_16': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_15': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_14': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_13': ['float32', 'random', [32,1,48], {}],
-      'cached_val1_12': ['float32', 'random', [16,1,96], {}],
-      'cached_val1_11': ['float32', 'random', [16,1,96], {}],
-      'cached_val1_10': ['float32', 'random', [16,1,96], {}],
-      'cached_val1_1': ['float32', 'random', [128,1,48], {}],
-      'cached_val1_0': ['float32', 'random', [128,1,48], {}],
-      'cached_nonlin_attn_18': ['float32', 'random', [1,1,64,192], {}],
-      'cached_nonlin_attn_17': ['float32', 'random', [1,1,64,192], {}],
-      'cached_nonlin_attn_16': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_15': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_14': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_13': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_12': ['float32', 'random', [1,1,16,576], {}],
-      'cached_nonlin_attn_11': ['float32', 'random', [1,1,16,576], {}],
-      'cached_nonlin_attn_10': ['float32', 'random', [1,1,16,576], {}],
-      'cached_nonlin_attn_9': ['float32', 'random', [1,1,16,576], {}],
-      'cached_nonlin_attn_8': ['float32', 'random', [1,1,16,576], {}],
-      'cached_nonlin_attn_7': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_6': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_5': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_4': ['float32', 'random', [1,1,32,384], {}],
-      'cached_nonlin_attn_3': ['float32', 'random', [1,1,64,192], {}],
-      'cached_nonlin_attn_2': ['float32', 'random', [1,1,64,192], {}],
-      'cached_nonlin_attn_1': ['float32', 'random', [1,1,128,144], {}],
-      'cached_nonlin_attn_0': ['float32', 'random', [1,1,128,144], {}],
-      'cached_key_18': ['float32', 'random', [64,1,128], {}],
-      'cached_key_17': ['float32', 'random', [64,1,128], {}],
-      'cached_key_16': ['float32', 'random', [32,1,128], {}],
-      'cached_key_15': ['float32', 'random', [32,1,128], {}],
-      'cached_key_14': ['float32', 'random', [32,1,128], {}],
-      'cached_key_13': ['float32', 'random', [32,1,128], {}],
-      'cached_key_12': ['float32', 'random', [16,1,256], {}],
-      'cached_key_11': ['float32', 'random', [16,1,256], {}],
-      'cached_key_10': ['float32', 'random', [16,1,256], {}],
-      'cached_key_9': ['float32', 'random', [16,1,256], {}],
-      'cached_key_8': ['float32', 'random', [16,1,256], {}],
-      'cached_key_7': ['float32', 'random', [32,1,128], {}],
-      'cached_key_6': ['float32', 'random', [32,1,128], {}],
-      'cached_key_5': ['float32', 'random', [32,1,128], {}],
-      'cached_key_4': ['float32', 'random', [32,1,128], {}],
-      'cached_key_3': ['float32', 'random', [64,1,128], {}],
-      'cached_key_2': ['float32', 'random', [64,1,128], {}],
-      'cached_key_1': ['float32', 'random', [128,1,128], {}],
-      'cached_key_0': ['float32', 'random', [128,1,128], {}],
-      'cached_conv2_9': ['float32', 'random', [1,768,7], {}],
-      'cached_conv2_8': ['float32', 'random', [1,768,7], {}],
-      'cached_conv2_7': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_6': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_5': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_4': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_3': ['float32', 'random', [1,256,15], {}],
-      'cached_conv2_2': ['float32', 'random', [1,256,15], {}],
-      'cached_conv2_18': ['float32', 'random', [1,256,15], {}],
-      'cached_conv2_17': ['float32', 'random', [1,256,15], {}],
-      'cached_conv2_16': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_15': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_14': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_13': ['float32', 'random', [1,512,7], {}],
-      'cached_conv2_12': ['float32', 'random', [1,768,7], {}],
-      'cached_conv2_11': ['float32', 'random', [1,768,7], {}],
-      'cached_conv2_10': ['float32', 'random', [1,768,7], {}],
-      'cached_conv2_1': ['float32', 'random', [1,192,15], {}],
-      'cached_conv2_0': ['float32', 'random', [1,192,15], {}],
-      'cached_conv1_9': ['float32', 'random', [1,768,7], {}],
-      'cached_conv1_8': ['float32', 'random', [1,768,7], {}],
-      'cached_conv1_7': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_6': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_5': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_4': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_3': ['float32', 'random', [1,256,15], {}],
-      'cached_conv1_2': ['float32', 'random', [1,256,15], {}],
-      'cached_conv1_18': ['float32', 'random', [1,256,15], {}],
-      'cached_conv1_17': ['float32', 'random', [1,256,15], {}],
-      'cached_conv1_16': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_15': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_14': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_13': ['float32', 'random', [1,512,7], {}],
-      'cached_conv1_12': ['float32', 'random', [1,768,7], {}],
-      'cached_conv1_11': ['float32', 'random', [1,768,7], {}],
-      'cached_conv1_10': ['float32', 'random', [1,768,7], {}],
-      'cached_conv1_1': ['float32', 'random', [1,192,15], {}],
-      'cached_conv1_0': ['float32', 'random', [1,192,15], {}],
+      'embed_states': ['float32', 'random', [1, 128, 3, 19], {}],
+      'cached_val2_9': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val2_8': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val2_7': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_6': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_5': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_4': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_3': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val2_2': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val2_18': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val2_17': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val2_16': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_15': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_14': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_13': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val2_12': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val2_11': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val2_10': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val2_1': ['float32', 'random', [128, 1, 48], {}],
+      'cached_val2_0': ['float32', 'random', [128, 1, 48], {}],
+      'cached_val1_9': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val1_8': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val1_7': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_6': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_5': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_4': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_3': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val1_2': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val1_18': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val1_17': ['float32', 'random', [64, 1, 48], {}],
+      'cached_val1_16': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_15': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_14': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_13': ['float32', 'random', [32, 1, 48], {}],
+      'cached_val1_12': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val1_11': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val1_10': ['float32', 'random', [16, 1, 96], {}],
+      'cached_val1_1': ['float32', 'random', [128, 1, 48], {}],
+      'cached_val1_0': ['float32', 'random', [128, 1, 48], {}],
+      'cached_nonlin_attn_18': ['float32', 'random', [1, 1, 64, 192], {}],
+      'cached_nonlin_attn_17': ['float32', 'random', [1, 1, 64, 192], {}],
+      'cached_nonlin_attn_16': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_15': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_14': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_13': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_12': ['float32', 'random', [1, 1, 16, 576], {}],
+      'cached_nonlin_attn_11': ['float32', 'random', [1, 1, 16, 576], {}],
+      'cached_nonlin_attn_10': ['float32', 'random', [1, 1, 16, 576], {}],
+      'cached_nonlin_attn_9': ['float32', 'random', [1, 1, 16, 576], {}],
+      'cached_nonlin_attn_8': ['float32', 'random', [1, 1, 16, 576], {}],
+      'cached_nonlin_attn_7': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_6': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_5': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_4': ['float32', 'random', [1, 1, 32, 384], {}],
+      'cached_nonlin_attn_3': ['float32', 'random', [1, 1, 64, 192], {}],
+      'cached_nonlin_attn_2': ['float32', 'random', [1, 1, 64, 192], {}],
+      'cached_nonlin_attn_1': ['float32', 'random', [1, 1, 128, 144], {}],
+      'cached_nonlin_attn_0': ['float32', 'random', [1, 1, 128, 144], {}],
+      'cached_key_18': ['float32', 'random', [64, 1, 128], {}],
+      'cached_key_17': ['float32', 'random', [64, 1, 128], {}],
+      'cached_key_16': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_15': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_14': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_13': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_12': ['float32', 'random', [16, 1, 256], {}],
+      'cached_key_11': ['float32', 'random', [16, 1, 256], {}],
+      'cached_key_10': ['float32', 'random', [16, 1, 256], {}],
+      'cached_key_9': ['float32', 'random', [16, 1, 256], {}],
+      'cached_key_8': ['float32', 'random', [16, 1, 256], {}],
+      'cached_key_7': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_6': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_5': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_4': ['float32', 'random', [32, 1, 128], {}],
+      'cached_key_3': ['float32', 'random', [64, 1, 128], {}],
+      'cached_key_2': ['float32', 'random', [64, 1, 128], {}],
+      'cached_key_1': ['float32', 'random', [128, 1, 128], {}],
+      'cached_key_0': ['float32', 'random', [128, 1, 128], {}],
+      'cached_conv2_9': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv2_8': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv2_7': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_6': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_5': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_4': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_3': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv2_2': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv2_18': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv2_17': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv2_16': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_15': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_14': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_13': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv2_12': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv2_11': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv2_10': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv2_1': ['float32', 'random', [1, 192, 15], {}],
+      'cached_conv2_0': ['float32', 'random', [1, 192, 15], {}],
+      'cached_conv1_9': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv1_8': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv1_7': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_6': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_5': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_4': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_3': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv1_2': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv1_18': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv1_17': ['float32', 'random', [1, 256, 15], {}],
+      'cached_conv1_16': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_15': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_14': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_13': ['float32', 'random', [1, 512, 7], {}],
+      'cached_conv1_12': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv1_11': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv1_10': ['float32', 'random', [1, 768, 7], {}],
+      'cached_conv1_1': ['float32', 'random', [1, 192, 15], {}],
+      'cached_conv1_0': ['float32', 'random', [1, 192, 15], {}],
     }],
     inputstip: '[1, 45, 80] [1] [1] [1, 128, 3, 19]'
   },
@@ -5352,6 +6600,8 @@ export let models = [
   ...whisperTinyWithPast(),
   ...whisperTinyMerged(),
   ...whisperTinyEncoder(),
+  ...whisperTinyEnEncoderHFTFBenchmark(),
+  ...whisperTinyEnDecoderMergedHFTFBenchmark(),
   {
     category: 'Automatic Speech Recognition',
     tag: '2h',
@@ -5531,7 +6781,7 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{
-      'input_1': ['float32', 'random', [1, 3, 416, 416], { "unk__576": 1, "unk__577": 416, "unk__578": 416 }], 
+      'input_1': ['float32', 'random', [1, 3, 416, 416], { "unk__576": 1, "unk__577": 416, "unk__578": 416 }],
       'image_shape': ['float32', 'random', [1, 2], { "unk__579": 1 }]
     }],
     inputstip: '[1, 3, 416, 416]'
@@ -5599,8 +6849,8 @@ export const cpu = [
   "AMD Ryzen 9 PRO 3900", "AMD Ryzen 9 PRO 5945", "AMD Ryzen 9 PRO 6950H", "AMD Ryzen 9 PRO 6950HS", "AMD Ryzen V2516", "AMD Ryzen V2546", "AMD Ryzen V2718", "AMD Ryzen V2748",
   "AMD Ryzen 9 5900", "AMD Ryzen 9 7900", "AMD Ryzen 9 3900", "AMD Ryzen 9 3900X", "AMD Ryzen 9 3900XT", "AMD Ryzen 9 3950X", "AMD Ryzen 9 4900H", "AMD Ryzen 9 4900HS", "AMD Ryzen 9 5900HS", "AMD Ryzen 9 5900HX", "AMD Ryzen 9 5900XT", "AMD Ryzen 9 5900X", "AMD Ryzen 9 5950X",
   "AMD Ryzen 7 2700",
-  "AMD Ryzen 7 5800XT", "AMD Ryzen 7 5800", "AMD Ryzen 7 7700", "AMD Ryzen 7 2700E", "AMD Ryzen 7 2700X", "AMD Ryzen 7 3700C", "AMD Ryzen 7 3700U", "AMD Ryzen 7 3700X", "AMD Ryzen 7 3750H", "AMD Ryzen 7 3780U", "AMD Ryzen 7 3800X", "AMD Ryzen 7 3800XT", "AMD Ryzen 7 4700G", "AMD Ryzen 7 4700GE", "AMD Ryzen 7 4700U", "AMD Ryzen 7 4800H", "AMD Ryzen 7 4800HS", "AMD Ryzen 7 4800U", "AMD Ryzen 7 5700G", "AMD Ryzen 7 5700GE", "AMD Ryzen 7 5700U", "AMD Ryzen 7 5700X", "AMD Ryzen 7 5800H", "AMD Ryzen 7 5800HS", "AMD Ryzen 7 5800U", "AMD Ryzen 7 5800X", "AMD Ryzen 7 5800X3D", 
-  "AMD Ryzen 7 5825C", "AMD Ryzen 7 5825U", "AMD Ryzen 7 6800H", "AMD Ryzen 7 6800HS", "AMD Ryzen 7 6800U", "AMD Ryzen 7 6810U", "AMD Ryzen 7 7700X", "AMD Ryzen 7 7730U", "AMD Ryzen 7 7735HS", "AMD Ryzen 7 7735U", "AMD Ryzen 7 7736U", "AMD Ryzen 7 7745HX", 
+  "AMD Ryzen 7 5800XT", "AMD Ryzen 7 5800", "AMD Ryzen 7 7700", "AMD Ryzen 7 2700E", "AMD Ryzen 7 2700X", "AMD Ryzen 7 3700C", "AMD Ryzen 7 3700U", "AMD Ryzen 7 3700X", "AMD Ryzen 7 3750H", "AMD Ryzen 7 3780U", "AMD Ryzen 7 3800X", "AMD Ryzen 7 3800XT", "AMD Ryzen 7 4700G", "AMD Ryzen 7 4700GE", "AMD Ryzen 7 4700U", "AMD Ryzen 7 4800H", "AMD Ryzen 7 4800HS", "AMD Ryzen 7 4800U", "AMD Ryzen 7 5700G", "AMD Ryzen 7 5700GE", "AMD Ryzen 7 5700U", "AMD Ryzen 7 5700X", "AMD Ryzen 7 5800H", "AMD Ryzen 7 5800HS", "AMD Ryzen 7 5800U", "AMD Ryzen 7 5800X", "AMD Ryzen 7 5800X3D",
+  "AMD Ryzen 7 5825C", "AMD Ryzen 7 5825U", "AMD Ryzen 7 6800H", "AMD Ryzen 7 6800HS", "AMD Ryzen 7 6800U", "AMD Ryzen 7 6810U", "AMD Ryzen 7 7700X", "AMD Ryzen 7 7730U", "AMD Ryzen 7 7735HS", "AMD Ryzen 7 7735U", "AMD Ryzen 7 7736U", "AMD Ryzen 7 7745HX",
   "AMD Ryzen 7 7800X3D", "AMD Ryzen 7 7840H", "AMD Ryzen 7 7840HS", "AMD Ryzen 7 7840S", "AMD Ryzen 7 7840U", "AMD Ryzen 7 PRO 2700", "AMD Ryzen 7 PRO 3700", "AMD Ryzen 7 PRO 5845", "AMD Ryzen 7 PRO 2700X", "AMD Ryzen 7 PRO 3700U", "AMD Ryzen 7 PRO 4750G", "AMD Ryzen 7 PRO 4750GE", "AMD Ryzen 7 PRO 4750U", "AMD Ryzen 7 PRO 5850HS", "AMD Ryzen 7 PRO 5850HX", "AMD Ryzen 7 PRO 5850U", "AMD Ryzen 7 PRO 5875U", "AMD Ryzen 7 PRO 6850H", "AMD Ryzen 7 PRO 6850HS", "AMD Ryzen 7 PRO 6850U", "AMD Ryzen 7 PRO 6860Z", "AMD Ryzen 7 PRO 7730U", "AMD Ryzen 7 PRO 7840U",
   "AMD Ryzen 5 4600GE", "AMD Ryzen 5 4600H", "AMD Ryzen 5 4600HS", "AMD Ryzen 5 4600U",
   "AMD Ryzen 5 5300G", "AMD Ryzen 5 5300GE", "AMD Ryzen 5 5425U", "AMD Ryzen 5 5500U", "AMD Ryzen 5 5560U", "AMD Ryzen 5 5600G", "AMD Ryzen 5 5600GE", "AMD Ryzen 5 5600H", "AMD Ryzen 5 5600HS", "AMD Ryzen 5 5600U", "AMD Ryzen 5 5600X", "AMD Ryzen 5 5625C", "AMD Ryzen 5 5625U",
@@ -5611,14 +6861,14 @@ export const cpu = [
   "AMD Ryzen 5 PRO 5475U", "AMD Ryzen 5 PRO 5650G", "AMD Ryzen 5 PRO 5650GE", "AMD Ryzen 5 PRO 5650HS", "AMD Ryzen 5 PRO 5650HX", "AMD Ryzen 5 PRO 5650U", "AMD Ryzen 5 PRO 5675U", "AMD Ryzen 5 PRO 5750G", "AMD Ryzen 5 PRO 5750GE",
   "AMD Ryzen 5 PRO 6650H", "AMD Ryzen 5 PRO 6650HS", "AMD Ryzen 5 PRO 6650U", "AMD Ryzen 5 PRO 7530U", "AMD Ryzen 5 PRO 7540U", "AMD Ryzen 5 PRO 7640U", "AMD Ryzen 5 PRO 4655G", "AMD Ryzen 5 PRO 4655GE",
   "AMD Athlon Gold 7220C", "AMD Athlon Silver 7120C",
-  "AMD AMD 3015e", "AMD AMD 3020e", "AMD Athlon 3000G", "AMD Athlon 300GE", "AMD Athlon 300U", "AMD Athlon 320GE", "AMD Athlon 7120e", "AMD Athlon 7120U", "AMD Athlon 7220e", "AMD Athlon 7220U", "AMD Athlon Gold 3150C", "AMD Athlon Gold 3150G", "AMD Athlon Gold 3150GE", "AMD Athlon Gold 3150U", "AMD Athlon Silver 3050C", "AMD Athlon Silver 3050e", "AMD Athlon Silver 3050GE", "AMD Athlon Silver 3050U", "AMD Athlon Gold PRO 3125GE", "AMD Athlon Gold PRO 3150G", "AMD Athlon Gold PRO 3150GE", "AMD Athlon Gold PRO 4150GE", "AMD Athlon PRO 300GE", "AMD Athlon PRO 300U", 
-  "AMD Athlon PRO 3045B", "AMD EPYC 7252", "AMD EPYC 7262", "AMD EPYC 7272", "AMD EPYC 7282", "AMD EPYC 7302", "AMD EPYC 7313", "AMD EPYC 7343", "AMD EPYC 7352", "AMD EPYC 7402", "AMD EPYC 7413", "AMD EPYC 7443", "AMD EPYC 7452", "AMD EPYC 7453", "AMD EPYC 7502", "AMD EPYC 7513", "AMD EPYC 7532", "AMD EPYC 7542", "AMD EPYC 7543", "AMD EPYC 7552", "AMD EPYC 7642", "AMD EPYC 7643", "AMD EPYC 7662", "AMD EPYC 7663", "AMD EPYC 7702", "AMD EPYC 7713", "AMD EPYC 7742", "AMD EPYC 7763", "AMD EPYC 7232P", "AMD EPYC 72F3", "AMD EPYC 7302P", "AMD EPYC 7313P", "AMD EPYC 73F3", 
-  "AMD EPYC 7402P", "AMD EPYC 7443P", "AMD EPYC 74F3", "AMD EPYC 7502P", "AMD EPYC 7543P", "AMD EPYC 75F3", "AMD EPYC 7702P", "AMD EPYC 7713P", "AMD EPYC 7F32", "AMD EPYC 7F52", "AMD EPYC 7F72", "AMD EPYC 7H12", "AMD Ryzen R2312", "AMD Ryzen R2314", "AMD Ryzen R2514", "AMD Ryzen R2544", "AMD Ryzen Z1", "AMD Ryzen Z1 Extreme", "AMD Ryzen 3 3100", "AMD Ryzen 3 4100", "AMD Ryzen 3 2300X", "AMD Ryzen 3 3200G", "AMD Ryzen 3 3200GE", "AMD Ryzen 3 3200U", "AMD Ryzen 3 3250C", "AMD Ryzen 3 3250U", "AMD Ryzen 3 3300U", "AMD Ryzen 3 3350U", "AMD Ryzen 3 4300G", "AMD Ryzen 3 4300GE", "AMD Ryzen 3 4300U", "AMD Ryzen 3 5125C", 
-  "AMD Ryzen 3 5300G", "AMD Ryzen 3 5300GE", "AMD Ryzen 3 5300GE", "AMD Ryzen 3 5300U", "AMD Ryzen 3 5400U", "AMD Ryzen 3 5425C", "AMD Ryzen 3 5425U", "AMD Ryzen 3 7320e", "AMD Ryzen 3 7320U", "AMD Ryzen 3 7330U", "AMD Ryzen 3 7335U", "AMD Ryzen 3 7440U", "AMD Ryzen 3 5380U", "AMD Ryzen 3 PRO 3200G", "AMD Ryzen 3 PRO 3200GE", "AMD Ryzen 3 PRO 3300U", "AMD Ryzen 3 PRO 4350G", "AMD Ryzen 3 PRO 4350GE", "AMD Ryzen 3 PRO 4450U", "AMD Ryzen 3 PRO 5350G", "AMD Ryzen 3 PRO 5350GE", "AMD Ryzen 3 PRO 5450U", "AMD Ryzen 3 PRO 5475U", "AMD Ryzen 3 PRO 7330U", "AMD Ryzen 3 PRO 4355G", "AMD Ryzen 3 PRO 4355GE", "AMD Ryzen 5 2600", 
+  "AMD AMD 3015e", "AMD AMD 3020e", "AMD Athlon 3000G", "AMD Athlon 300GE", "AMD Athlon 300U", "AMD Athlon 320GE", "AMD Athlon 7120e", "AMD Athlon 7120U", "AMD Athlon 7220e", "AMD Athlon 7220U", "AMD Athlon Gold 3150C", "AMD Athlon Gold 3150G", "AMD Athlon Gold 3150GE", "AMD Athlon Gold 3150U", "AMD Athlon Silver 3050C", "AMD Athlon Silver 3050e", "AMD Athlon Silver 3050GE", "AMD Athlon Silver 3050U", "AMD Athlon Gold PRO 3125GE", "AMD Athlon Gold PRO 3150G", "AMD Athlon Gold PRO 3150GE", "AMD Athlon Gold PRO 4150GE", "AMD Athlon PRO 300GE", "AMD Athlon PRO 300U",
+  "AMD Athlon PRO 3045B", "AMD EPYC 7252", "AMD EPYC 7262", "AMD EPYC 7272", "AMD EPYC 7282", "AMD EPYC 7302", "AMD EPYC 7313", "AMD EPYC 7343", "AMD EPYC 7352", "AMD EPYC 7402", "AMD EPYC 7413", "AMD EPYC 7443", "AMD EPYC 7452", "AMD EPYC 7453", "AMD EPYC 7502", "AMD EPYC 7513", "AMD EPYC 7532", "AMD EPYC 7542", "AMD EPYC 7543", "AMD EPYC 7552", "AMD EPYC 7642", "AMD EPYC 7643", "AMD EPYC 7662", "AMD EPYC 7663", "AMD EPYC 7702", "AMD EPYC 7713", "AMD EPYC 7742", "AMD EPYC 7763", "AMD EPYC 7232P", "AMD EPYC 72F3", "AMD EPYC 7302P", "AMD EPYC 7313P", "AMD EPYC 73F3",
+  "AMD EPYC 7402P", "AMD EPYC 7443P", "AMD EPYC 74F3", "AMD EPYC 7502P", "AMD EPYC 7543P", "AMD EPYC 75F3", "AMD EPYC 7702P", "AMD EPYC 7713P", "AMD EPYC 7F32", "AMD EPYC 7F52", "AMD EPYC 7F72", "AMD EPYC 7H12", "AMD Ryzen R2312", "AMD Ryzen R2314", "AMD Ryzen R2514", "AMD Ryzen R2544", "AMD Ryzen Z1", "AMD Ryzen Z1 Extreme", "AMD Ryzen 3 3100", "AMD Ryzen 3 4100", "AMD Ryzen 3 2300X", "AMD Ryzen 3 3200G", "AMD Ryzen 3 3200GE", "AMD Ryzen 3 3200U", "AMD Ryzen 3 3250C", "AMD Ryzen 3 3250U", "AMD Ryzen 3 3300U", "AMD Ryzen 3 3350U", "AMD Ryzen 3 4300G", "AMD Ryzen 3 4300GE", "AMD Ryzen 3 4300U", "AMD Ryzen 3 5125C",
+  "AMD Ryzen 3 5300G", "AMD Ryzen 3 5300GE", "AMD Ryzen 3 5300GE", "AMD Ryzen 3 5300U", "AMD Ryzen 3 5400U", "AMD Ryzen 3 5425C", "AMD Ryzen 3 5425U", "AMD Ryzen 3 7320e", "AMD Ryzen 3 7320U", "AMD Ryzen 3 7330U", "AMD Ryzen 3 7335U", "AMD Ryzen 3 7440U", "AMD Ryzen 3 5380U", "AMD Ryzen 3 PRO 3200G", "AMD Ryzen 3 PRO 3200GE", "AMD Ryzen 3 PRO 3300U", "AMD Ryzen 3 PRO 4350G", "AMD Ryzen 3 PRO 4350GE", "AMD Ryzen 3 PRO 4450U", "AMD Ryzen 3 PRO 5350G", "AMD Ryzen 3 PRO 5350GE", "AMD Ryzen 3 PRO 5450U", "AMD Ryzen 3 PRO 5475U", "AMD Ryzen 3 PRO 7330U", "AMD Ryzen 3 PRO 4355G", "AMD Ryzen 3 PRO 4355GE", "AMD Ryzen 5 2600",
   "AMD Ryzen 5 3600", "AMD Ryzen 5 4500", "AMD Ryzen 5 5500", "AMD Ryzen 5 5600", "AMD Ryzen 5 7600", "AMD Ryzen 5 2500X", "AMD Ryzen 5 2600E", "AMD Ryzen 5 2600X", "AMD Ryzen 5 3350G", "AMD Ryzen 5 3350GE", "AMD Ryzen 5 3400G", "AMD Ryzen 5 3400GE", "AMD Ryzen 5 3450U", "AMD Ryzen 5 3500", "AMD Ryzen 5 3500C", "AMD Ryzen 5 3500U", "AMD Ryzen 5 3500X", "AMD Ryzen 5 3550H", "AMD Ryzen 5 3580U", "AMD Ryzen 5 3600X", "AMD Ryzen 5 3600XT", "AMD Ryzen 5 4500U", "AMD Ryzen 5 4600G",
-  "Apple M4", "Apple M3 Ultra", "Apple M3 Max", "Apple M3 Pro", "Apple M3", "Apple M2 Ultra", "Apple M2 Max", "Apple M2 Pro", "Apple M2", "Apple M1 Ultra", "Apple M1 Max", "Apple M1 Pro", "Apple M1", 
-  "Apple A17 Pro", "Apple A16 Bionic", "Apple A15 Bionic", "Apple A14 Bionic", "Apple A13 Bionic", "Apple A12Z Bionic", "Apple A12X Bionic", "Apple A12 Bionic", "Apple A11 Bionic", "Apple A10X Fusion", "Apple A10 Fusion", "Apple A9X", "Apple A9", "Apple A8X", "Apple A7", "Apple A6X", "Apple A6", "Apple A5X", "Apple A5", "Apple A4", 
-  "Qualcomm Snapdragon X Elite X1E-00-1DE", "Qualcomm Snapdragon X Elite X1E-84-100", "Qualcomm Snapdragon X Elite X1E-80-100", "Qualcomm Snapdragon X Elite X1E-78-100", 
+  "Apple M4", "Apple M3 Ultra", "Apple M3 Max", "Apple M3 Pro", "Apple M3", "Apple M2 Ultra", "Apple M2 Max", "Apple M2 Pro", "Apple M2", "Apple M1 Ultra", "Apple M1 Max", "Apple M1 Pro", "Apple M1",
+  "Apple A17 Pro", "Apple A16 Bionic", "Apple A15 Bionic", "Apple A14 Bionic", "Apple A13 Bionic", "Apple A12Z Bionic", "Apple A12X Bionic", "Apple A12 Bionic", "Apple A11 Bionic", "Apple A10X Fusion", "Apple A10 Fusion", "Apple A9X", "Apple A9", "Apple A8X", "Apple A7", "Apple A6X", "Apple A6", "Apple A5X", "Apple A5", "Apple A4",
+  "Qualcomm Snapdragon X Elite X1E-00-1DE", "Qualcomm Snapdragon X Elite X1E-84-100", "Qualcomm Snapdragon X Elite X1E-80-100", "Qualcomm Snapdragon X Elite X1E-78-100",
   "Qualcomm Snapdragon X Plus X1P-66-100", "Qualcomm Snapdragon X Plus X1P-64-100", "Qualcomm Snapdragon X Plus X1P-46-100", "Qualcomm Snapdragon X Plus X1P-42-100",
   "Qualcomm Snapdragon 8 Gen 4", "Qualcomm Snapdragon 8 Gen 3", "Qualcomm Snapdragon 8 Gen 2", "Qualcomm Snapdragon 8 Gen 1", "Qualcomm Snapdragon 888+", "Qualcomm Snapdragon 888", "Qualcomm Snapdragon 870", "Qualcomm Snapdragon 865+", "Qualcomm Snapdragon 865", "Qualcomm Snapdragon 860", "Qualcomm Snapdragon 855+", "Qualcomm Snapdragon 855", "Qualcomm Snapdragon 845", "Qualcomm Snapdragon 835", "Qualcomm Snapdragon 821", "Qualcomm Snapdragon 820", "Qualcomm Snapdragon 7+ Gen 2", "Qualcomm Snapdragon 7 Gen 1", "Qualcomm Snapdragon 6 Gen 1", "Qualcomm Snapdragon 4 Gen 1", "MTK"
 ];

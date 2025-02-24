@@ -3,7 +3,6 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Environment from '$lib/components/Environment.svelte';
 	import Info from '$lib/components/Info.svelte';
-	import Clock from '$lib/components/svg/Clock.svelte';
 	import ArrowOutward from '$lib/components/svg/ArrowOutward.svelte';
 	import { models } from '$lib/config';
 	import { beforeUpdate, onMount, onDestroy } from 'svelte';
@@ -44,6 +43,10 @@
 	$: int4Count = 0;
 	$: fp32Count = 0;
 	$: demoCount = 0;
+	$: hfbenchModelCount = 0;
+	$: hfbenchPipelineCountFp32 = 0;
+	$: hfbenchPipelineCountFp16 = 0;
+	$: hfbenchPipelineCountInt8 = 0;
 	let subModels = models;
 	let selected = 'onnx';
 
@@ -75,6 +78,10 @@
 		fp16Count = 0;
 		fp32Count = 0;
 		demoCount = 0;
+		hfbenchModelCount = 0;
+		hfbenchPipelineCountFp32 = 0;
+		hfbenchPipelineCountFp16 = 0;
+		hfbenchPipelineCountInt8 = 0;
 		uniqueModels.forEach((item) => {
 			if (item.endsWith('_int4')) {
 				int4Count++;
@@ -88,6 +95,18 @@
 
 			if (item.indexOf('_demo') > -1) {
 				demoCount++;
+			}
+
+			if (item.indexOf('_tfbench') > -1 && (item.indexOf('_model') > -1 || item.indexOf('_pipeline') > -1) && item.indexOf('_fp16') === -1 && item.indexOf('_int8') === -1) {
+				hfbenchPipelineCountFp32++;
+			}
+
+			if (item.indexOf('_tfbench') > -1 && (item.indexOf('_model') > -1 || item.indexOf('_pipeline') > -1) && item.indexOf('_fp16') > -1) {
+				hfbenchPipelineCountFp16++;
+			}
+
+			if (item.indexOf('_tfbench') > -1 && (item.indexOf('_model') > -1 || item.indexOf('_pipeline') > -1) && item.indexOf('_int8') > -1) {
+				hfbenchPipelineCountInt8++;
 			}
 		});
 	};
@@ -147,7 +166,16 @@
 			.replace('Demo', '<span class="demo" title="WebNN Developer Preview Demo model">Demo</span>')
 			.replace('GPU', '<span class="gpu">GPU</span>')
 			.replace('MLTensor', '<span class="mltensor">MLTensor</span>')
-			.replace('WIP', '<span class="wip">WIP</span>');
+			.replace('WIP', '<span class="wip">WIP</span>')
+			.replace('TFBench_Model', '<span class="tfbench">Model</span>')
+			.replace('TFBench_Pipeline', '<span class="tfbench_pipeline">Pipeline</span>')
+			.replace('Tiny Random', '<span title="Tiny Random">TR</span>')
+			.replace('Conditional Generation', '<span title="Conditional Generation">CG</span>')
+			.replace('fp32', '<span class="fp32">FP32</span>')
+			.replace('fp16', '<span class="fp32">FP16</span>')
+			.replace('int8', '<span class="int8">INT8</span>')
+			.replace('HF-FDO', '<span class="hf-fdo" title="freeDimensionOverrides in transformers.js_config">HF-FDO</span>')
+			;
 		return name;
 	};
 
@@ -242,6 +270,112 @@
 </div>
 
 <div>
+
+	<div class="title tq tf_benchmark">Transformers.js Benchmarking Pipeline and Model Test Suite · {hfbenchPipelineCountFp32}</div>
+	<div>Reference: <a href="https://github.com/huggingface/transformers.js-benchmarking/tree/main/packages/core/src">Transformers.js Benchmarking</a> // To do <a href="https://github.com/huggingface/transformers.js-benchmarking/blob/main/packages/core/src/pipelines/image-segmentation.js">image-segmentation.js</a></div>
+	<div class="tq benchmark tf_benchmark">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if model.indexOf('_tfbench') > -1 && model.indexOf('tfbench_pipeline') > -1 && model.indexOf('_int8') === -1}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+				{#if model.indexOf('_tfbench') > -1 && model.indexOf('tfbench_model') > -1 && model.indexOf('_int8') === -1 }
+				<div
+					class="q tests {model} tagH"
+					title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+						model
+					)} · {getModelNoteById(model)}"
+				>
+					<div class="status_1 s netron_link">
+						<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+							><ArrowOutward /></a
+						>
+					</div>
+					<a href="{base}/run/{model}" class="titlemark"
+						>{@html getHTMLModelName(model)}
+						{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+					>
+
+					{#if getModelTagById(model) === '2h'}
+						<div class="tag"></div>
+					{/if}
+				</div>
+			{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq tf_benchmark">Transformers.js Benchmarking Pipeline and Model Test Suite · {hfbenchPipelineCountInt8}</div>
+	<div class="tq benchmark tf_benchmark">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if model.indexOf('_tfbench') > -1 && model.indexOf('tfbench_pipeline') > -1 && model.indexOf('_int8') > -1}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+				{#if model.indexOf('_tfbench') > -1 && model.indexOf('tfbench_model') > -1 && model.indexOf('_int8') > -1 }
+				<div
+					class="q tests {model} tagH"
+					title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+						model
+					)} · {getModelNoteById(model)}"
+				>
+					<div class="status_1 s netron_link">
+						<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+							><ArrowOutward /></a
+						>
+					</div>
+					<a href="{base}/run/{model}" class="titlemark"
+						>{@html getHTMLModelName(model)}
+						{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+					>
+
+					{#if getModelTagById(model) === '2h'}
+						<div class="tag"></div>
+					{/if}
+				</div>
+			{/if}
+			{/if}
+		{/each}
+	</div>
+
 	<div class="title tq demo">Developer Preview Models · {demoCount}</div>
 	<div class="tq benchmark demo">
 		{#each uniqueModels as model}
@@ -549,6 +683,10 @@
 
 	.tq.demo .q.tests a:hover {
 		color: var(--demo);
+	}
+
+	.tq.tf_benchmark .q.tests a:hover {
+		color: var(--tfbench);
 	}
 
 	.tq .q:hover {

@@ -221,7 +221,7 @@
 	afterUpdate(() => {
 		if (!auto) {
 			if ($page.url.searchParams.size === 0) {
-				let path = `${location.pathname}/?backend=none&run=100&modeltype=${modelType}&datatype=${dataType}`;
+				let path = `${location.pathname}/?backend=none&run=50&modeltype=${modelType}&datatype=${dataType}`;
 				// goto(path);
 				location.href = location.origin + path;
 			} else {

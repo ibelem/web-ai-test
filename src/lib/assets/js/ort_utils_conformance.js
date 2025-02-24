@@ -190,7 +190,7 @@ const getTensor = (type, data, dims) => {
   } else if (type === 'uint16') {
     typedArray = Uint16Array;
   } else if (type === 'float16') {
-    typedArray = Uint16Array;
+    typedArray = Float16Array;;
   } else if (type === 'float32') {
     typedArray = Float32Array;
   } else if (type === 'int32') {

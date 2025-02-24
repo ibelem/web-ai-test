@@ -140,7 +140,7 @@
 
 	afterUpdate(() => {
 		if ($page.url.searchParams.size === 0) {
-			let path = `${base}/?modeltype=none&datatype=none&backend=none&run=1&model=none`;
+			let path = `${base}/?modeltype=none&datatype=none&backend=none&run=50&model=none`;
 			goto(path);
 		} else {
 			urlToStore($page.url.searchParams, false);

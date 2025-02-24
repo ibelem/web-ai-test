@@ -3,7 +3,7 @@ import { models, uniqueBackends, corsSites } from '../../config';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
-import { modelHosts, ortDists } from '$lib/config.js';
+import { modelHosts } from '$lib/config.js';
 import { UAParser } from 'ua-parser-js';
 import html2canvas from 'html2canvas';
 import to from 'await-to-js';
@@ -385,6 +385,48 @@ export const getHfUrlById = (id) => {
   return null;
 };
 
+export const getHfConfigById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      if (models[i].hf && models[i].hf.model) {
+        const url = `https://huggingface.co/${models[i].hf.model}/resolve/main/config.json`;
+        return url;
+      } else {
+        return modelHosts.hf + 'config.json';
+      }
+    }
+  }
+  return null;
+};
+
+export const getHfmUrlById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      if (models[i].hf && models[i].hf.model) {
+        const url = `https://hf-mirror.com/${models[i].hf.model}/resolve/main/onnx/${models[i].hf.file}`;
+        return url;
+      } else {
+        return modelHosts.hfm + models[i].model;
+      }
+    }
+  }
+  return null;
+};
+
+export const getHfmConfigById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      if (models[i].hf && models[i].hf.model) {
+        const url = `https://hf-mirror.com/${models[i].hf.model}/resolve/main/config.json`;
+        return url;
+      } else {
+        return modelHosts.hfm + 'config.json';
+      }
+    }
+  }
+  return null;
+};
+
 export const getAwsUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
@@ -408,6 +450,20 @@ export const getLocalUrlById = (id) => {
   return null;
 };
 
+export const getLocalConfigById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      if (models[i].hf && models[i].hf.model) {
+        const url = `${location.origin}/${modelHosts.local}${models[i].hf.model}/config.json`;
+        return url;
+      } else {
+        //...
+      }
+    }
+  }
+  return null;
+};
+
 export const getLocalUrlByIdandLocaltion = (id, locationOrigin) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
@@ -419,20 +475,22 @@ export const getLocalUrlByIdandLocaltion = (id, locationOrigin) => {
 
 export const setModelDownloadUrl = async () => {
   let hf = getHfUrlById('model_access_check');
-  let cf = getAwsUrlById('model_access_check');
+  let hfm = getHfmUrlById('model_access_check');
+  // let cf = getAwsUrlById('model_access_check');
   // let local = getLocalUrlById('model_access_check');
 
   let isCors = corsSites.some((site) => location.hostname.toLowerCase().indexOf(site) > -1);
   if (isCors) {
     let [err, response] = await to(fetch(hf));
     if (err) {
-      modelDownloadUrlStore.update(() => 3);
+      modelDownloadUrlStore.update(() => 2);
       updateInfo(`Failed to fetch AI models from huggingface.co`);
-      let [err2, response2] = await to(fetch(cf));
+      updateInfo(`Fetching AI models from ${hfm}`);
+      let [err2, response2] = await to(fetch(hfm));
       if (err2) {
-        updateInfo(`Failed to fetch AI models from Amazon Web Services (AWS)`);
+        updateInfo(`Failed to fetch AI models from hf-mirror.com`);
       } else {
-        updateInfo(`AI models will be fetched from Amazon Web Services (AWS)`);
+        updateInfo(`AI models will be fetched from hf-mirror.com`);
       }
     } else {
       modelDownloadUrlStore.update(() => 1);

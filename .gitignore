@@ -11,6 +11,7 @@ node_modules
 /static/models/**/*.data
 /static/models/**.tflite
 /static/models/**/*.tflite
+/static/ort-debug
 .env
 .env.*
 !.env.example

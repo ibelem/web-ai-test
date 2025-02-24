@@ -905,6 +905,10 @@ header .nav {
   fill: var(--red);
 }
 
+.tq.tf_benchmark .q:hover .status_1 svg path {
+  fill: var(--tfbench);
+}
+
 .tagH {
   overflow:hidden;
   position:relative;
@@ -2096,12 +2100,29 @@ background-color: var(--p-005);
 background-color: var(--int4-005);
 }
 
+.title.tf_benchmark, .title.tq.tf_benchmark button {
+  color: var(--tfbench) !important;
+}
+
+.title.tq.tf_benchmark {
+background-color: var(--tfbench-005);
+}
+
 .title.demo, .title.tq.demo button {
   color: var(--demo) !important;
 }
 
 .title.tq.demo {
 background-color: var(--demo-005);
+}
+
+.title.tf_benchmark, .title.tq.tf_benchmark button {
+  color: var(--tfbench) !important;
+}
+
+.title.tq.tf_benchmark {
+  background-color: var(--tfbench-005);
+  margin-top: 2rem;
 }
 
 .ho {
@@ -2317,6 +2338,11 @@ background-color: var(--demo-005);
 .demo .titlemark span {
   border: 1px solid var(--demo-01);
   background-color: var(--demo-005);
+}
+
+.tf_benchmark .titlemark span {
+  border: 1px solid var(--tfbench-01);
+  background-color: var(--tfbench-005);
 }
 
 .fp32 .titlemark span {
@@ -3259,6 +3285,42 @@ table td.c {
 }
 
 .tq .q:hover .titlemark span.demo {
+  border: 1px solid var(--tfbench);
+  background-color: var(--tfbench);
+  color: var(--white) !important;
+}
+
+.titlemark span.tfbench {
+  border: 1px solid var(--tfbench) !important;
+  background-color: var(--tfbench) !important;
+  color: var(--white);
+}
+
+.titlemark span.int8 {
+  border: 1px solid var(--p) !important;
+  background-color: var(--p) !important;
+  color: var(--white);
+}
+
+.titlemark span.fp16 {
+  border: 1px solid var(--fp16) !important;
+  background-color: var(--fp16) !important;
+  color: var(--white);
+}
+
+.tq .q:hover .titlemark span.tfbench {
+  border: 1px solid rgba(45, 45, 45, 1);
+  background-color: rgba(45, 45, 45, 1);
+  color: var(--white) !important;
+}
+
+.titlemark span.tfbench_pipeline {
+  border: 1px solid var(--tfbench_pipeline) !important;
+  background-color: var(--tfbench_pipeline) !important;
+  color: var(--white);
+}
+
+.tq .q:hover .titlemark span.tfbench_pipeline {
   border: 1px solid rgba(45, 45, 45, 1);
   background-color: rgba(45, 45, 45, 1);
   color: var(--white) !important;
@@ -3301,14 +3363,14 @@ table td.c {
 }
 
 .titlemark span.wip {
-  border: 1px solid var(--yellow) !important;
-  background-color: var(--yellow) !important;
-  color: var(--white);
+  border: 1px solid var(--redalert) !important;
+  background-color: var(--redalert) !important;
+  color: var(--font);
 }
 
 .tq .q:hover .titlemark span.wip {
-  border: 1px solid var(--yellow);
-  background-color: var(--yellow);
+  border: 1px solid var(--redalert);
+  background-color: var(--redalert);
   color: var(--white) !important;
 }
 
