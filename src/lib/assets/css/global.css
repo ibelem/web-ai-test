@@ -2109,7 +2109,8 @@ background-color: var(--demo-005);
 }
 
 .title.tq.tf_benchmark {
-background-color: var(--tfbench-005);
+  background-color: var(--tfbench-005);
+  margin-top: 2rem;
 }
 
 .ho {
@@ -2325,6 +2326,11 @@ background-color: var(--tfbench-005);
 .demo .titlemark span {
   border: 1px solid var(--demo-01);
   background-color: var(--demo-005);
+}
+
+.tf_benchmark .titlemark span {
+  border: 1px solid var(--tfbench-01);
+  background-color: var(--tfbench-005);
 }
 
 .fp32 .titlemark span {
@@ -3276,6 +3282,7 @@ table td.c {
   border: 1px solid var(--tfbench) !important;
   background-color: var(--tfbench) !important;
   color: var(--white);
+  margin-left: 8px;
 }
 
 .tq .q:hover .titlemark span.tfbench {

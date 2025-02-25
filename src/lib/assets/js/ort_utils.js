@@ -415,6 +415,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             } else if (v.includes('encoder')) {
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 1500, 64]);
             }
+          } else if (modelName.indexOf('whisper_tiny_en_decoder_tfbench_model') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 128, 64]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 1500, 64]);
+            }
           }
         }
       }
@@ -424,7 +430,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   }
 
   options.logSeverityLevel = 0;
-  // options.logVerbosityLevel = 0;
+  options.logVerbosityLevel = 0;
   // options.graphOptimizationLevel = 'disabled';
 
   if (_backend === 'wasm_4') {

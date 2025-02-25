@@ -58,6 +58,33 @@
 	 */
 	let filteredModelIds = [];
 
+   /**
+	 * @type {any}
+	 */
+	 let categories = {
+		devpreview: true,
+		tfbench: true,
+		other: true,
+	};
+
+	const toggleCategories = () => {
+    Object.keys(categories).forEach(key => {
+        categories[key] = !categories[key];
+    });
+    
+    filterModelsFromSelectedModelTypeandDataTypes();
+};
+
+	/**
+	 * @param {string} category
+	 */
+	const toggleCategory = (category) => {
+		if (category in categories) {
+				categories[category] = !categories[category];
+		}
+		filterModelsFromSelectedModelTypeandDataTypes();
+	};
+
 	/**
 	 * @type {any}
 	 */
@@ -251,6 +278,34 @@
 
 	// const uniqueModels = getUniqueModels();
 
+	const getFilteredArray = (array, categories) => {
+		if (Object.values(categories).every(value => !value)) {
+			return [];
+		}
+		
+		if (Object.values(categories).every(value => value)) {
+			return array;
+		}
+		
+		return array.filter(item => {
+			const id = item.id;
+			if (categories.devpreview && id.includes("_demo_")) {
+				return true;
+			}
+			if (categories.tfbench && (id.includes("_tfbench_model_") || id.includes("_tfbench_pipeline_"))) {
+				return true;
+			}
+			
+			if (categories.other && 
+					!id.includes("_demo_") && 
+					!id.includes("_tfbench_model_") && 
+					!id.includes("_tfbench_pipeline_")) {
+				return true;
+			}
+			return false;
+		});
+	}
+
 	const filterModelsFromSelectedModelTypeandDataTypes = () => {
 		let filteredModels = sortModelById(models);
 		filteredModels = filteredModels
@@ -263,6 +318,8 @@
 				name: model.name,
 				selected: false
 			}));
+
+		filteredModels = getFilteredArray(filteredModels, categories);
 
 		for (const model of filteredModels) {
 			for (const m of selectedModels) {
@@ -285,6 +342,7 @@
 
 		filteredModelIds = uniqueObjects;
 	};
+
 	for (const model of filteredModelIds) {
 		model['selected'] = false;
 	}
@@ -605,6 +663,28 @@
 		</label>
 	</div>
 </div>
+
+<div class="title">
+	<label class="" title="Toggle model categories">
+		<input type="checkbox" on:change={() => toggleCategories()} />
+		Category
+	</label>
+</div>
+<div class="types">
+	<label class="extra {categories.tfbench.toString()} " title="Transformers.js Benchmark Models">
+		<input type="checkbox" on:change={() => toggleCategory('tfbench')} />
+		Transformers.js Benchmark
+	</label>
+	<label class="extra {categories.devpreview.toString()}" title="WebNN Developer Preview Models">
+		<input type="checkbox" on:change={() => toggleCategory('devpreview')} />
+		WebNN Dev Preview
+	</label>
+	<label class="extra {categories.other.toString()}" title="Other Models">
+		<input type="checkbox" on:change={() => toggleCategory('other')} />
+		Others
+	</label>
+</div>
+
 
 <div class="title">
 	<label class="" title="Toggle models">
