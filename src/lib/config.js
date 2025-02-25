@@ -3233,6 +3233,33 @@ const tinyLlama1_1BChatv1_0Merged_2 = () => {
   }))
 }
 
+const tinyRandomUnispeechHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '238 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Audio Classification',
+    tag: '',
+    id: `tiny_random_unispeech_tfbench_pipeline_${dt}`,
+    name: 'Audio Classification - Tiny Random Unispeech - TFBench_Pipeline',
+    description: 'Audio Classification - Tiny Random Unispeech.',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-unispeech',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-unispeech',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_values': ['float32', 'random', [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+    }],
+    inputstip: '[1, 128]'
+  }))
+}
+
 const metaLlama_3_8bInstructMerged = () => {
   const configs = [
     ['fp16', 'rank_0_Meta-Llama-3-8B-Instruct_decoder_merged_model_fp16.onnx', '1.79 MB', 'rank_0_Meta-Llama-3-8B-Instruct_decoder_merged_model_fp16.onnx.data', '14.9 GB']
@@ -5285,6 +5312,7 @@ export let models = [
   ...tinyLlamaV0DecoderWithPast(),
   ...tinyLlama1_1BChatv1_0Merged(),
   ...tinyLlama1_1BChatv1_0Merged_2(),
+  ...tinyRandomUnispeechHFTFBenchmark(),
   ...metaLlama_3_8bInstructMerged(),
   {
     category: 'Object Detection',

@@ -3291,6 +3291,19 @@ table td.c {
   color: var(--white) !important;
 }
 
+.titlemark span.tfbench_pipeline {
+  border: 1px solid var(--tfbench_pipeline) !important;
+  background-color: var(--tfbench_pipeline) !important;
+  color: var(--white);
+  margin-left: 8px;
+}
+
+.tq .q:hover .titlemark span.tfbench_pipeline {
+  border: 1px solid rgba(45, 45, 45, 1);
+  background-color: rgba(45, 45, 45, 1);
+  color: var(--white) !important;
+}
+
 .titlemark span.gpu {
   border: 1px solid var(--pink) !important;
   background-color: var(--pink) !important;
