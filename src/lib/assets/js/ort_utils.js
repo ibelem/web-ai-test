@@ -1,6 +1,9 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '$lib/config';
-import { updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getModelHFFileById, getModelExternalDataNameById, getHfUrlById, getAwsUrlById, getLocalUrlById, average, minimum } from '../js/utils';
+import {
+  updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getModelHFFileById, getModelExternalDataNameById,
+  getHfUrlById, getAwsUrlById, getLocalUrlById, getHfConfigById, getLocalConfigById, average, minimum
+} from '../js/utils';
 import { ortWebVersionStore, testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { sleep, getQueryValue, getURLParameterValue } from '$lib/assets/js/utils';
 import { getModelOPFS, getModelCache } from '$lib/assets/js/nn_utils'
@@ -108,6 +111,20 @@ const getModelUrl = (_model) => {
   return modelPath;
 }
 
+const getConfigUrl = (_model) => {
+  let configPath = getHfConfigById(_model);
+  if (modelDownloadUrl === 1) {
+    configPath = getHfConfigById(_model);
+  }
+  // else if (modelDownloadUrl === 3) {
+  //   configPath = getAwsUrlById(_model);
+  // } 
+  else if (modelDownloadUrl === 0) {
+    configPath = getLocalConfigById(_model);
+  }
+  return configPath;
+}
+
 const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
 
   let backend = 'wasm';
@@ -208,6 +225,43 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   }
 
   let modelPath = getModelUrl(_model);
+  let configPath = getConfigUrl(_model);
+
+  const fetchConfigJson = async () => {
+    if(configPath) {
+      try {
+        updateInfo(`Config.json - Fetching from ${configPath}`);
+        const response = await fetch(configPath);
+        if (!response.ok) {
+          if (response.status === 404) {
+            updateInfo(`Config.json - HTTP 404 when fetching from ${configPath}, will use local freeDimensionOverrides when needed`);
+            return;
+          }
+        }
+
+        const config = await response.json();
+        if (config.hasOwnProperty('transformers.js_config') &&
+          config['transformers.js_config'].hasOwnProperty('free_dimension_overrides')) {
+          // Get and log the free_dimension_overrides value
+          const overrides = config['transformers.js_config']['free_dimension_overrides'];
+          console.log(overrides);
+          updateInfo(`Config.json - Free dimension overrides value:`);
+          if (overrides) {
+            for (let key in overrides) {
+              updateInfo(`Config.json - ${key}: ${overrides[key]}`);
+            }
+            return overrides;
+          }
+        } else {
+          updateInfo(`No transformers.js_config found in config.json`);
+        }
+      } catch (error) {
+        updateInfo(`Error fetching or processing the config.json ${error}`);
+      }
+    } else {
+      updateInfo(`Config.json - No Config.json can be leveraged`);
+    }
+  }
 
   let options = {
     executionProviders: [
@@ -421,6 +475,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             } else if (v.includes('encoder')) {
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 6, 1500, 64]);
             }
+          } else if (modelName.indexOf('tiny_random_moonshine_for_conditional_generation_decoder_tfbench_pipeline') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 2, 128, 3]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 2, 128, 32]);
+            }
           }
         }
       }
@@ -449,11 +509,19 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   // (backend === 'webnn' || _backend === 'wasm_4') ? ort.env.wasm.proxy = true : ort.env.wasm.proxy = false;
   // (_backend === 'wasm_4') ? ort.env.wasm.proxy = true : ort.env.wasm.proxy = false;
 
-  let freeDimensionOverrides = getFreeDimensionOverridesById(_model);
+  const freeDimensionOverrides = getFreeDimensionOverridesById(_model);
+  const freeDimensionOverridesFromConfigJson = await fetchConfigJson();
 
-  if (freeDimensionOverrides) {
+  if (freeDimensionOverridesFromConfigJson) {
+    options.freeDimensionOverrides = freeDimensionOverridesFromConfigJson;
+  } else if (freeDimensionOverrides) {
     options.freeDimensionOverrides = freeDimensionOverrides;
   }
+
+  console.log('++++');
+  console.log(configPath);
+  console.log(options.freeDimensionOverrides);
+  console.log('++++');
 
   if (_backend === "webgpu" && enableMLTensor === true) {
     options.preferredOutputLocation = "gpu-buffer";
@@ -570,12 +638,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
           promises.push(result[sess.outputNames[j]].getData());
         }
         await Promise.all(promises)
-        .then((results) => {
-          console.log("[Success] readTensor: ", results);
-        })
-        .catch((e) => {
-          console.log("[Error] readTensor: ", e.message);
-        });
+          .then((results) => {
+            console.log("[Success] readTensor: ", results);
+          })
+          .catch((e) => {
+            console.log("[Error] readTensor: ", e.message);
+          });
       }
     }
 

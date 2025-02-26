@@ -3,7 +3,7 @@ import { models, uniqueBackends, corsSites } from '../../config';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
-import { modelHosts, ortDists } from '$lib/config.js';
+import { modelHosts } from '$lib/config.js';
 import { UAParser } from 'ua-parser-js';
 import html2canvas from 'html2canvas';
 import to from 'await-to-js';
@@ -385,6 +385,20 @@ export const getHfUrlById = (id) => {
   return null;
 };
 
+export const getHfConfigById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      if (models[i].hf && models[i].hf.model) {
+        const url = `https://huggingface.co/${models[i].hf.model}/resolve/main/config.json`;
+        return url;
+      } else {
+        return modelHosts.hf + 'config.json';
+      }
+    }
+  }
+  return null;
+};
+
 export const getAwsUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
@@ -402,6 +416,20 @@ export const getLocalUrlById = (id) => {
         return url;
       } else {
         return location.origin + '/' + modelHosts.local + models[i].model;
+      }
+    }
+  }
+  return null;
+};
+
+export const getLocalConfigById = (id) => {
+  for (let i = 0; i < models.length; i++) {
+    if (models[i].id === id) {
+      if (models[i].hf && models[i].hf.model) {
+        const url = `${location.origin}/${modelHosts.local}${models[i].hf.model}/config.json`;
+        return url;
+      } else {
+        //...
       }
     }
   }

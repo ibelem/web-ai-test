@@ -3295,7 +3295,6 @@ table td.c {
   border: 1px solid var(--tfbench_pipeline) !important;
   background-color: var(--tfbench_pipeline) !important;
   color: var(--white);
-  margin-left: 8px;
 }
 
 .tq .q:hover .titlemark span.tfbench_pipeline {

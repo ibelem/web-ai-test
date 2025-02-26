@@ -157,7 +157,12 @@
 			.replace('MLTensor', '<span class="mltensor">MLTensor</span>')
 			.replace('WIP', '<span class="wip">WIP</span>')
 			.replace('TFBench_Model', '<span class="tfbench">Model</span>')
-			.replace('TFBench_Pipeline', '<span class="tfbench_pipeline">Pipeline</span>');
+			.replace('TFBench_Pipeline', '<span class="tfbench_pipeline">Pipeline</span>')
+			.replace('Tiny Random', '<span>Tiny Random</span>')
+			.replace('for Conditional Generation', '<span>for Conditional Generation</span>')
+			.replace('ForConditionalGeneration', '<span>ForConditionalGeneration</span>')
+			.replace('HF-FDO', '<span class="hf-fdo" title="freeDimensionOverrides in transformers.js_config">HF-FDO</span>')
+			;
 		return name;
 	};
 
