@@ -242,7 +242,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
         const config = await response.json();
         if (config.hasOwnProperty('transformers.js_config') &&
           config['transformers.js_config'].hasOwnProperty('free_dimension_overrides')) {
-          // Get and log the free_dimension_overrides value
           const overrides = config['transformers.js_config']['free_dimension_overrides'];
           console.log(overrides);
           updateInfo(`Config.json - Free dimension overrides value:`);
@@ -451,6 +450,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 168, 64]);
           } else if (modelName.indexOf('distil_medium_en_decoder_merged_') > -1) {
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1, 64]);
+          } else if (modelName.indexOf('tiny_random_vision_encoder_decoder_vit_gpt_decoder_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 128, 8]);
           } else if (modelName.indexOf('distil_medium_en_decoder_with_past_') > -1) {
             if (v.includes('decoder')) {
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1, 64]);
@@ -491,6 +492,10 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   options.logSeverityLevel = 0;
   options.logVerbosityLevel = 0;
+
+  ort.env.logLevel = "verbose";
+  ort.env.debug = true;
+
   // options.graphOptimizationLevel = 'disabled';
 
   if (_backend === 'wasm_4') {
@@ -517,11 +522,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   } else if (freeDimensionOverrides) {
     options.freeDimensionOverrides = freeDimensionOverrides;
   }
-
-  console.log('++++');
-  console.log(configPath);
-  console.log(options.freeDimensionOverrides);
-  console.log('++++');
 
   if (_backend === "webgpu" && enableMLTensor === true) {
     options.preferredOutputLocation = "gpu-buffer";
