@@ -234,7 +234,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
         const response = await fetch(configPath);
         if (!response.ok) {
           if (response.status === 404) {
-            updateInfo(`Config.json - HTTP 404 when fetching from ${configPath}, will use local freeDimensionOverrides when needed`);
+            updateInfo(`Config.json - HTTP 404 when fetching from ${configPath}, use local freeDimensionOverrides when needed`);
             return;
           }
         }
@@ -253,13 +253,13 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             return overrides;
           }
         } else {
-          updateInfo(`No transformers.js_config found in config.json`);
+          updateInfo(`Config.json - No transformers.js_config found in config.json, so no freeDimensionOverrides available, use local freeDimensionOverrides when needed`);
         }
       } catch (error) {
-        updateInfo(`Error fetching or processing the config.json ${error}`);
+        updateInfo(`Config.json - Error fetching or processing - ${error}, use local freeDimensionOverrides when needed`);
       }
     } else {
-      updateInfo(`Config.json - No Config.json can be leveraged`);
+      updateInfo(`Config.json - No Config.json can be leveraged, use local freeDimensionOverrides when needed`);
     }
   }
 
