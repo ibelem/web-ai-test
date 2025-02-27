@@ -3332,6 +3332,64 @@ const tinyRandomBertForQuestionAnsweringHFTFBenchmark = () => {
   }))
 }
 
+const tinyRandomBertForSequenceClassificationHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '453 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Classification',
+    tag: '',
+    id: `tiny_random_bert_for_sequence_classification_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Text Classification Tiny Random Bert for Sequence Classification',
+    description: 'Text Classification - Tiny Random Bert for Sequence Classification',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-BertForSequenceClassification',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-BertForSequenceClassification',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 512], { "batch_size": 1, "sequence_length": 512 }],
+      'attention_mask': ['int64', 1n, [1, 512], {}],
+      'token_type_ids': ['int64', 1n, [1, 512], {}],
+    }],
+    inputstip: '[1, 512] [1, 512] [1, 512]'
+  }))
+}
+
+const tinyRandomBertForTokenClassificationHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '448 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Token Classification',
+    tag: '',
+    id: `tiny_random_bert_for_token_classification_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Token Classification Tiny Random Bert',
+    description: 'Token Classification - Tiny Random Bert for Token Classification',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-BertForTokenClassification',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-BertForTokenClassification',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [256, 256], { "batch_size": 256, "sequence_length": 256 }],
+      'attention_mask': ['int64', 1n, [256, 256], {}],
+      'token_type_ids': ['int64', 1n, [256, 256], {}],
+    }],
+    inputstip: '[256, 256] [256, 256] [256, 256]'
+  }))
+}
+
 const tinyRandomBertModelHFTFBenchmark = () => {
   const configs = [
     ['fp32', 'model.onnx', '439 KB'],
@@ -3387,6 +3445,40 @@ const tinyRandomBertForMaskedLMHFTFBenchmark = () => {
       'token_type_ids': ['int64', 1n, [32, 64], {}],
     }],
     inputstip: '[32, 64] [32, 64] [32, 64]'
+  }))
+}
+
+
+const tinyRandomLlamaForCausalLMHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '8.00 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    tag: '',
+    id: `tiny_random_llama_for_causal_lm_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Text Generation Tiny Random Llama for Causal LM',
+    description: 'Text Generation - Tiny Random Llama for Causal LM',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-LlamaForCausalLM',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-LlamaForCausalLM',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 256], { "batch_size": 1, "sequence_length": 256 }],
+      'attention_mask': ['int64', 1n, [1, 256], { "past_sequence_length + 1": 256 }],
+      'position_ids': ['int64', 1n, [1, 256], {}],
+      'past_key_values.0.key': ['float32', 'random', [1, 4, 256, 4], { "past_sequence_length": 256 }],
+      'past_key_values.0.value': ['float32', 'random', [1, 4, 256, 4], {}],
+      'past_key_values.1.key': ['float32', 'random', [1, 4, 256, 4], {}],
+      'past_key_values.1.value': ['float32', 'random', [1, 4, 256, 4], {}],
+    }],
+    inputstip: '[1, 512] [1, 512] [1, 512]'
   }))
 }
 
@@ -3494,10 +3586,10 @@ const tinyRandomT5ForConditionalGenerationEncoderHFTFBenchmark = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'attention_mask': ['int64', 1n, [1, 128], {}],
+      'input_ids': ['int64', 99n, [1, 256], { "batch_size": 1, "encoder_sequence_length": 256 }],
+      'attention_mask': ['int64', 1n, [1, 256], {}],
     }],
-    inputstip: '[1, 128] [1, 128]'
+    inputstip: '[1, 256] [1, 256]'
   }))
 }
 
@@ -3522,12 +3614,70 @@ const tinyRandomT5ForConditionalGenerationDecoderMergedHFTFBenchmark = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "encoder_sequence_length": 128 }],
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 128, 32], {}],
+      'encoder_attention_mask': ['int64', 1n, [1, 256], { "encoder_sequence_length": 256 }],
+      'input_ids': ['int64', 99n, [1, 256], { "batch_size": 1, "decoder_sequence_length": 256 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 256, 32], {}],
       'use_cache_branch': ['bool', 1, [1], {}]
     }],
-    inputstip: '[1, 128] [1, 128] [1, 128, 32] [1]'
+    inputstip: '[1, 256] [1, 256] [1, 256, 32] [1]'
+  }))
+}
+
+const tinyRandomT5ForConditionalGenerationEncoderT2THFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '4.10 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    tag: '',
+    id: `tiny_random_t5_for_conditional_generation_encoder_t2t_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Text to Text Generation Tiny Random T5 Conditional Generation Encoder',
+    description: 'Text to Text Generation - Tiny Random T5 for Conditional Generation Encoder',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 256], { "batch_size": 1, "encoder_sequence_length": 256 }],
+      'attention_mask': ['int64', 1n, [1, 256], {}],
+    }],
+    inputstip: '[1, 256] [1, 256]'
+  }))
+}
+
+const tinyRandomT5ForConditionalGenerationDecoderT2TMergedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '4.39 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    tag: '',
+    id: `tiny_random_t5_for_conditional_generation_decoder_t2t_tfbench_pipeline_merged_${dt}`,
+    name: 'TFBench_Pipeline Text to Text Generation WIP Tiny Random T5 Conditional Generation Decoder KV-Cache',
+    description: 'Text to Text Generation - Tiny Random T5 for Conditional Generation Decoder KV-Cache',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 256], { "encoder_sequence_length": 256 }],
+      'input_ids': ['int64', 99n, [1, 256], { "batch_size": 1, "decoder_sequence_length": 256 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 256, 32], {}],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
+    inputstip: '[1, 256] [1, 256] [1, 256, 32] [1]'
   }))
 }
 
@@ -3721,6 +3871,35 @@ const tinyRandomViTMAEModelHFTFBenchmark = () => {
       'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1, "num_channels": 3, "height": 30, "width": 30 }],
     }],
     inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
+
+const tinyRandomViTsHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '511 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Speech',
+    tag: '',
+    id: `tiny_random_vits_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Text to Audio Tiny Random ViTs',
+    description: 'Text to Audio - Tiny Random ViTs',
+    note: '',
+    source: 'https://huggingface.co/Xenova/tiny-random-vits',
+    hf: {
+      model: 'xenova/tiny-random-vits',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 32], { "text_batch_size": 1, "sequence_length": 32 }],
+      'attention_mask': ['int64', 1n, [1, 32], {}],
+    }],
+    inputstip: '[1, 32] [1, 32]'
   }))
 }
 
@@ -5807,12 +5986,17 @@ export let models = [
   ...tinyLlama1_1BChatv1_0Merged_2(),
   ...tinyRandomBertModelHFTFBenchmark(),
   ...tinyRandomBertForQuestionAnsweringHFTFBenchmark(),
+  ...tinyRandomBertForSequenceClassificationHFTFBenchmark(),
+  ...tinyRandomBertForTokenClassificationHFTFBenchmark(),
   ...tinyRandomBertForMaskedLMHFTFBenchmark(),
+  ...tinyRandomLlamaForCausalLMHFTFBenchmark(),
   ...tinyRandomMoonshineForConditionalGenerationEncoderHFTFBenchmark(),
   ...tinyRandomMoonshineForConditionalGenerationDecoderMergedHFTFBenchmark(),
   ...tinyRandomSwin2SRForImageSuperResolutionHFTFBenchmark(),
   ...tinyRandomT5ForConditionalGenerationEncoderHFTFBenchmark(),
   ...tinyRandomT5ForConditionalGenerationDecoderMergedHFTFBenchmark(),
+  ...tinyRandomT5ForConditionalGenerationEncoderT2THFTFBenchmark(),
+  ...tinyRandomT5ForConditionalGenerationDecoderT2TMergedHFTFBenchmark(),
   ...tinyRandomUnispeechHFTFBenchmark(),
   ...tinyRandomVisionEncoderDecoderModelViTGPTEncoderHFTFBenchmark(),
   ...tinyRandomVisionEncoderDecoderModelViTGPTDecoderMergedHFTFBenchmark(),
@@ -5820,6 +6004,7 @@ export let models = [
   ...tinyRandomVisionEncoderDecoderModelViTGPT2DecoderMergedHFTFBenchmark(),
   ...tinyRandomViTHFTFBenchmark(),
   ...tinyRandomViTMAEModelHFTFBenchmark(),
+  ...tinyRandomViTsHFTFBenchmark(),
   ...tinyRandomYolosForObjectDetectionHFTFBenchmark(),
   ...metaLlama_3_8bInstructMerged(),
   {

@@ -486,9 +486,15 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             }
           } else if (modelName.indexOf('tiny_random_t5_for_conditional_generation_decoder_tfbench_pipeline') > -1) {
             if (v.includes('decoder')) {
-              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 128, 8]);
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 256, 8]);
             } else if (v.includes('encoder')) {
-              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 128, 8]);
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 256, 8]);
+            }
+          } else if (modelName.indexOf('tiny_random_t5_for_conditional_generation_decoder_t2t_tfbench_pipeline') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 256, 8]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 256, 8]);
             }
           }
         }
