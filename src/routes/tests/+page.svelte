@@ -159,8 +159,7 @@
 			.replace('TFBench_Model', '<span class="tfbench">Model</span>')
 			.replace('TFBench_Pipeline', '<span class="tfbench_pipeline">Pipeline</span>')
 			.replace('Tiny Random', '<span>Tiny Random</span>')
-			.replace('for Conditional Generation', '<span>for Conditional Generation</span>')
-			.replace('ForConditionalGeneration', '<span>ForConditionalGeneration</span>')
+			.replace('Conditional Generation', '<span>Conditional Generation</span>')
 			.replace('HF-FDO', '<span class="hf-fdo" title="freeDimensionOverrides in transformers.js_config">HF-FDO</span>')
 			;
 		return name;
@@ -259,11 +258,11 @@
 <div>
 
 	<div class="title tq tf_benchmark">Transformers.js Benchmarking Pipeline and Model Test Suite · {hfbenchPipelineCount}</div>
-	<div>Reference: <a href="https://github.com/huggingface/transformers.js-benchmarking/tree/main/packages/core/src">Transformers.js Benchmarking</a></div>
+	<div>Reference: <a href="https://github.com/huggingface/transformers.js-benchmarking/tree/main/packages/core/src">Transformers.js Benchmarking</a> // To do <a href="https://github.com/huggingface/transformers.js-benchmarking/blob/main/packages/core/src/pipelines/image-segmentation.js">image-segmentation.js</a></div>
 	<div class="tq benchmark tf_benchmark">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if model.indexOf('_tfbench') > -1 && model.indexOf('_pipeline') > -1}
+				{#if model.indexOf('_tfbench') > -1 && model.indexOf('tfbench_pipeline') > -1}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -285,7 +284,7 @@
 						{/if}
 					</div>
 				{/if}
-				{#if model.indexOf('_tfbench') > -1 && model.indexOf('_model') > -1 }
+				{#if model.indexOf('_tfbench') > -1 && model.indexOf('tfbench_model') > -1 }
 				<div
 					class="q tests {model} tagH"
 					title="{model.replaceAll('_', '-')} · {getModelDescriptionById(

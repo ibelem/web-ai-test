@@ -452,6 +452,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1, 64]);
           } else if (modelName.indexOf('tiny_random_vision_encoder_decoder_vit_gpt_decoder_') > -1) {
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 128, 8]);
+          } else if (modelName.indexOf('tiny_random_vision_encoder_decoder_vit_gpt_2_decoder_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 128, 8]);
           } else if (modelName.indexOf('distil_medium_en_decoder_with_past_') > -1) {
             if (v.includes('decoder')) {
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1, 64]);
@@ -481,6 +483,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 2, 128, 3]);
             } else if (v.includes('encoder')) {
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 2, 128, 32]);
+            }
+          } else if (modelName.indexOf('tiny_random_t5_for_conditional_generation_decoder_tfbench_pipeline') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 128, 8]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 128, 8]);
             }
           }
         }

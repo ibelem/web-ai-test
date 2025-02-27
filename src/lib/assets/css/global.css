@@ -3282,7 +3282,6 @@ table td.c {
   border: 1px solid var(--tfbench) !important;
   background-color: var(--tfbench) !important;
   color: var(--white);
-  margin-left: 8px;
 }
 
 .tq .q:hover .titlemark span.tfbench {
@@ -3340,14 +3339,14 @@ table td.c {
 }
 
 .titlemark span.wip {
-  border: 1px solid var(--yellow) !important;
-  background-color: var(--yellow) !important;
+  border: 1px solid var(--redalert) !important;
+  background-color: var(--redalert) !important;
   color: var(--white);
 }
 
 .tq .q:hover .titlemark span.wip {
-  border: 1px solid var(--yellow);
-  background-color: var(--yellow);
+  border: 1px solid var(--redalert);
+  background-color: var(--redalert);
   color: var(--white) !important;
 }
 

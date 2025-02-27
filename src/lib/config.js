@@ -306,7 +306,7 @@ const BGERerankerBase = () => {
   }))
 }
 
-const clipTinyRandom = () => {
+const tinyRandomClipModelHFTFBenchmark = () => {
   const configs = [
     ['fp32', 'model.onnx', '782 KB'],
   ]
@@ -314,7 +314,7 @@ const clipTinyRandom = () => {
     category: 'Zero-Shot Image Classification',
     tag: '',
     id: `tiny_random_clip_tfbench_model_${dt}`,
-    name: 'CLIPModel TFBench_Model 🚧 Tiny Random',
+    name: 'TFBench_Model CLIPModel Tiny Random',
     description: 'Tiny Random Clip model',
     note: '',
     source: 'https://huggingface.co/onnx-internal-testing/tiny-random-CLIPModel-ONNX',
@@ -328,10 +328,10 @@ const clipTinyRandom = () => {
     datatype: `${dt}`,
     inputs: [{
       'input_ids': ['int64', 99n, [2, 4], { "text_batch_size": 2, "sequence_length": 4 }],
-      'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "image_batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "image_batch_size": 1, "num_channels": 3, "height": 30, "width": 30 }],
       'attention_mask': ['int64', 1n, [2, 4], { "text_batch_size": 2, "sequence_length": 4 }],
     }],
-    inputstip: '[2, 4] [1, 3, 224, 224] [2, 4]'
+    inputstip: '[2, 4] [1, 3, 30, 30] [2, 4]'
   }))
 }
 
@@ -919,8 +919,8 @@ const dPTForDepthEstimationHFTFBenchmark = () => {
     category: 'Depth Estimation',
     tag: '',
     id: `tiny_random_dpt_for_depth_estimation_tfbench_pipeline_${dt}`,
-    name: 'Depth Estimation TFBench_Pipeline 🚧 Tiny Random DPTForDepthEstimation',
-    description: 'Depth Estimation - Tiny Random DPTForDepthEstimation',
+    name: 'TFBench_Pipeline Depth Estimation WIP Tiny Random DPT',
+    description: 'Depth Estimation - Tiny Random DPT for Depth Estimation',
     note: '',
     source: 'https://huggingface.co/hf-internal-testing/tiny-random-DPTForDepthEstimation',
     hf: {
@@ -1324,7 +1324,7 @@ const florence2ConditionalDecoder = () => {
     category: 'Image-Text-to-Text',
     tag: '2h',
     id: `florence2_conditional_decoder_${dt}`,
-    name: 'Florence 2 For Conditional Generation Decoder',
+    name: 'Florence 2 Conditional Generation Decoder',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
@@ -1353,7 +1353,7 @@ const florence2ConditionalDecoderMerged = () => {
     category: 'Image-Text-to-Text',
     tag: '2h',
     id: `florence2_conditional_decoder_merged_${dt}`,
-    name: 'Florence 2 For Conditional Generation Decoder KV-Cache',
+    name: 'Florence 2 Conditional Generation Decoder KV-Cache',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
@@ -1383,7 +1383,7 @@ const florence2ConditionalDecoderWithPast = () => {
     category: 'Image-Text-to-Text',
     tag: '2h',
     id: `florence2_conditional_decoder_with_past_${dt}`,
-    name: 'Florence 2 For Conditional Generation Decoder w/i Past',
+    name: 'Florence 2 Conditional Generation Decoder w/i Past',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
@@ -1411,7 +1411,7 @@ const florence2ConditionalEncoder = () => {
     category: 'Image-Text-to-Text',
     tag: '2h',
     id: `florence2_conditional_encoder_${dt}`,
-    name: 'Florence 2 For Conditional Generation Encoder',
+    name: 'Florence 2 Conditional Generation Encoder',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
@@ -1439,7 +1439,7 @@ const florence2ConditionalEmbedTokens = () => {
     category: 'Image-Text-to-Text',
     tag: '2h',
     id: `florence2_conditional_embed_tokens_${dt}`,
-    name: 'Florence 2 For Conditional Generation Embed Tokens',
+    name: 'Florence 2 Conditional Generation Embed Tokens',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
@@ -1466,7 +1466,7 @@ const florence2ConditionalVisionEncoder = () => {
     category: 'Image-Text-to-Text',
     tag: '2h',
     id: `florence2_conditional_vision_encoder_${dt}`,
-    name: 'Florence 2 For Conditional Generation Vision Encoder',
+    name: 'Florence 2 Conditional Generation Vision Encoder',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/Xenova/tiny-random-Florence2ForConditionalGeneration',
@@ -1794,7 +1794,7 @@ const llama2CStories15MHFTFBenchmark = () => {
     category: 'Text Generation',
     tag: '2h',
     id: `llama2_c_stories15m_tfbench_model_${dt}`,
-    name: 'LlamaForCausalLM TFBench_Model 🚧 llama2.c Stories 15M',
+    name: 'TFBench_Model LlamaForCausalLM WIP llama2.c Stories 15M',
     description: 'Llama 2 LLM architecture',
     note: '',
     source: 'https://huggingface.co/Xenova/llama2.c-stories15M',
@@ -1827,7 +1827,7 @@ const llavaDecoder = () => {
     tag: '2h',
     id: `llava_decoder_${dt}`,
     name: 'Llava Decoder',
-    description: 'Tiny Random Llava For Conditional Generation',
+    description: 'Tiny Random Llava for Conditional Generation',
     note: 'https://huggingface.co/docs/transformers/main/en/model_doc/llava',
     source: 'https://huggingface.co/Xenova/tiny-random-LlavaForConditionalGeneration',
     hf: {
@@ -1858,7 +1858,7 @@ const llavaDecoderMerged = () => {
     tag: '2h',
     id: `llava_decoder_merged_${dt}`,
     name: 'Llava Decoder KV-Cache',
-    description: 'Tiny Random Llava For Conditional Generation',
+    description: 'Tiny Random Llava for Conditional Generation',
     note: 'https://huggingface.co/docs/transformers/main/en/model_doc/llava',
     source: 'https://huggingface.co/Xenova/tiny-random-LlavaForConditionalGeneration',
     hf: {
@@ -2611,7 +2611,7 @@ const Qwen2VLForConditionalGenerationEmbedding = () => {
     category: 'Image-Text-to-Text',
     tag: '',
     id: `qwen2_vl_for_conditional_generation_embed_tfbench_model_${dt}`,
-    name: 'Qwen2VLForConditionalGeneration TFBench_Model Embedding',
+    name: 'TFBench_Model Qwen2VL Conditional Generation Embedding',
     description: 'Qwen2 VL for Conditional Generation Embedding',
     note: '',
     source: 'https://huggingface.co/hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
@@ -2638,7 +2638,7 @@ const Qwen2VLForConditionalGenerationTextDecoder = () => {
     category: 'Image-Text-to-Text',
     tag: '',
     id: `qwen2_vl_for_conditional_generation_text_decoder_tfbench_model_merged_${dt}`,
-    name: 'Qwen2VLForConditionalGeneration TFBench_Model 🚧 Text Decoder',
+    name: 'TFBench_Model Qwen2VL Conditional Generation WIP Text Decoder',
     description: 'Qwen2 VL for Conditional Generation Text Decoder',
     note: '',
     source: 'https://huggingface.co/hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
@@ -2667,7 +2667,7 @@ const Qwen2VLForConditionalGenerationVisionEncoder = () => {
     category: 'Image-Text-to-Text',
     tag: '',
     id: `qwen2_vl_for_conditional_generation_vision_encoder_tfbench_model_${dt}`,
-    name: 'Qwen2VLForConditionalGeneration TFBench_Model 🚧 Vision Encoder',
+    name: 'TFBench_Model Qwen2VL Conditional Generation WIP Vision Encoder',
     description: 'Qwen2 VL for Conditional Generation Vision Encoder',
     note: '',
     source: 'https://huggingface.co/hf-internal-testing/tiny-random-Qwen2VLForConditionalGeneration',
@@ -2824,7 +2824,7 @@ const slimSAM77UniformVisionEncoder = () => {
     category: 'Mask Generation',
     tag: '',
     id: `slimsam_77_uniform_vision_encoder_tfbench_model_${dt}`,
-    name: 'SamModel TFBench_Model SlimSAM 77 Uniform Vision Encoder',
+    name: 'TFBench_Model SamModel SlimSAM 77 Uniform Vision Encoder',
     description: 'SamModel SlimSAM 77 Uniform Vision Encoder',
     note: '',
     source: 'https://huggingface.co/Xenova/slimsam-77-uniform',
@@ -2851,7 +2851,7 @@ const slimSAM77UniformPromptEncoderMaskDecoder = () => {
     category: 'Mask Generation',
     tag: '',
     id: `slimsam_77_uniform_prompt_encoder_mask_decoder_tfbench_model_${dt}`,
-    name: 'SamModel TFBench_Model SlimSAM 77 Uniform Prompt Encoder Mask Decoder',
+    name: 'TFBench_Model SamModel SlimSAM 77 Uniform Prompt Encoder Mask Decoder',
     description: 'SlimSAM 77 Uniform Prompt Encoder Mask Decoder',
     note: '',
     source: 'https://huggingface.co/Xenova/slimsam-77-uniform',
@@ -2913,7 +2913,7 @@ const snowflakeArcticEmbedXs = () => {
     category: 'Sentence Similarity',
     tag: '',
     id: `snowflake_arctic_embed_xs_tfbench_model_${dt}`,
-    name: 'BertModel TFBench_Model Arctic Embed XS',
+    name: 'TFBench_Model BertModel Arctic Embed XS',
     description: 'A suite of text embedding models that focuses on creating high-quality retrieval models optimized for performance',
     note: '',
     source: 'https://huggingface.co/Snowflake/snowflake-arctic-embed-xs',
@@ -3098,7 +3098,7 @@ const t5SmallEncoderHFTFBenchmark = () => {
     category: 'Text2Text Generation',
     tag: '',
     id: `t5_small_encoder_tfbench_model_${dt}`,
-    name: 'T5ForConditionalGeneration TFBench_Model T5 Small Encoder',
+    name: 'TFBench_Model T5 Conditional Generation T5 Small Encoder',
     description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
     note: '',
     source: 'https://huggingface.co/Xenova/t5-small',
@@ -3126,7 +3126,7 @@ const t5SmallDecoderMergedHFTFBenchmark = () => {
     category: 'Text2Text Generation',
     tag: '',
     id: `t5_small_decoder_tfbench_model_merged_${dt}`,
-    name: 'T5ForConditionalGeneration TFBench_Model 🚧 T5 Small Decoder KV-Cache',
+    name: 'TFBench_Model T5 Conditional Generation WIP T5 Small Decoder KV-Cache',
     description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
     note: '',
     source: 'https://huggingface.co/Xenova/t5-small',
@@ -3303,6 +3303,93 @@ const tinyLlama1_1BChatv1_0Merged_2 = () => {
   }))
 }
 
+const tinyRandomBertForQuestionAnsweringHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '448 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Question Answering',
+    tag: '',
+    id: `tiny_random_bert_for_question_answering_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Question Answering Tiny Random Bert',
+    description: 'Question Answering - Tiny Random Bert for Question Answering',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-BertForQuestionAnswering',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-BertForQuestionAnswering',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 256], { "batch_size": 1, "sequence_length": 256 }],
+      'attention_mask': ['int64', 1n, [1, 256], {}],
+      'token_type_ids': ['int64', 1n, [1, 256], {}],
+    }],
+    inputstip: '[1, 256] [1, 256] [1, 256]'
+  }))
+}
+
+const tinyRandomBertModelHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '439 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '',
+    id: `tiny_random_bert_model_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Feature Extraction Tiny Random Bert',
+    description: 'Feature Extraction - Tiny Random Bert Model',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-BertModel',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-BertModel',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 64], { "batch_size": 1, "sequence_length": 64 }],
+      'attention_mask': ['int64', 1n, [1, 64], {}],
+      'token_type_ids': ['int64', 1n, [1, 64], {}],
+    }],
+    inputstip: '[1, 64] [1, 64] [1, 64]'
+  }))
+}
+
+const tinyRandomBertForMaskedLMHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '461 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Fill-Mask',
+    tag: '',
+    id: `tiny_random_bert_for_masked_lm_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Fill-Mask Tiny Random Bert for Masked LM',
+    description: 'Fill-Mask - Tiny Random Bert for Masked LM',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-BertForMaskedLM',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-BertForMaskedLM',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [32, 64], { "batch_size": 32, "sequence_length": 64 }],
+      'attention_mask': ['int64', 1n, [32, 64], {}],
+      'token_type_ids': ['int64', 1n, [32, 64], {}],
+    }],
+    inputstip: '[32, 64] [32, 64] [32, 64]'
+  }))
+}
+
 const tinyRandomMoonshineForConditionalGenerationEncoderHFTFBenchmark = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '533 KB'],
@@ -3311,7 +3398,7 @@ const tinyRandomMoonshineForConditionalGenerationEncoderHFTFBenchmark = () => {
     category: 'Automatic Speech Recognition',
     tag: '',
     id: `tiny_random_moonshine_for_conditional_generation_encoder_tfbench_pipeline_${dt}`,
-    name: 'Automatic Speech Recognition TFBench_Pipeline 🚧 Tiny Random Moonshine for Conditional Generation Encoder',
+    name: 'TFBench_Pipeline Automatic Speech Recognition WIP Tiny Random Moonshine Conditional Generation Encoder',
     description: 'Automatic Speech Recognition - Tiny Random Moonshine for Conditional Generation Encoder',
     note: '',
     source: 'https://huggingface.co/hf-internal-testing/tiny-random-MoonshineForConditionalGeneration',
@@ -3338,7 +3425,7 @@ const tinyRandomMoonshineForConditionalGenerationDecoderMergedHFTFBenchmark = ()
     category: 'Automatic Speech Recognition',
     tag: '',
     id: `tiny_random_moonshine_for_conditional_generation_decoder_tfbench_pipeline_merged_${dt}`,
-    name: 'Automatic Speech Recognition TFBench_Pipeline 🚧 Tiny Random Moonshine for Conditional Generation Decoder KV-Cache',
+    name: 'TFBench_Pipeline Automatic Speech Recognition WIP Tiny Random Moonshine Conditional Generation Decoder KV-Cache',
     description: 'Automatic Speech Recognition - Tiny Random Moonshine for Conditional Generation Decoder KV-Cache',
     note: '',
     source: 'https://huggingface.co/hf-internal-testing/tiny-random-MoonshineForConditionalGeneration',
@@ -3359,6 +3446,91 @@ const tinyRandomMoonshineForConditionalGenerationDecoderMergedHFTFBenchmark = ()
   }))
 }
 
+const tinyRandomSwin2SRForImageSuperResolutionHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '1.16 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-to-Image',
+    tag: '',
+    id: `tiny_random_swin_2_sr_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Image-to-Image Tiny Random Swin2 SR for Image Super Resolution',
+    description: 'Image-to-Image - Tiny Random Swin2 SR for Image Super Resolution',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-Swin2SRForImageSuperResolution',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-Swin2SRForImageSuperResolution',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 32, 32], { "batch_size": 1, "num_channels": 3, "height": 32, "width": 32 }],
+    }],
+    inputstip: '[1, 3, 32, 32]'
+  }))
+}
+
+const tinyRandomT5ForConditionalGenerationEncoderHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '4.10 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Summarization',
+    tag: '',
+    id: `tiny_random_t5_for_conditional_generation_encoder_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Summarization Tiny Random T5 Conditional Generation Encoder',
+    description: 'Summarization - Tiny Random T5 for Conditional Generation Encoder',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], {}],
+    }],
+    inputstip: '[1, 128] [1, 128]'
+  }))
+}
+
+const tinyRandomT5ForConditionalGenerationDecoderMergedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '4.39 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Summarization',
+    tag: '',
+    id: `tiny_random_t5_for_conditional_generation_decoder_tfbench_pipeline_merged_${dt}`,
+    name: 'TFBench_Pipeline Summarization WIP Tiny Random T5 Conditional Generation Decoder KV-Cache',
+    description: 'Summarization - Tiny Random T5 for Conditional Generation Decoder KV-Cache',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-T5ForConditionalGeneration',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 32], {}],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 32] [1]'
+  }))
+}
+
 const tinyRandomUnispeechHFTFBenchmark = () => {
   const configs = [
     ['fp32', 'model.onnx', '238 KB'],
@@ -3367,7 +3539,7 @@ const tinyRandomUnispeechHFTFBenchmark = () => {
     category: 'Audio Classification',
     tag: '',
     id: `tiny_random_unispeech_tfbench_pipeline_${dt}`,
-    name: 'Audio Classification TFBench_Pipeline 🚧 Tiny Random Unispeech',
+    name: 'TFBench_Pipeline Audio Classification WIP Tiny Random Unispeech',
     description: 'Audio Classification - Tiny Random Unispeech.',
     note: '',
     source: 'https://huggingface.co/hf-internal-testing/tiny-random-unispeech',
@@ -3394,8 +3566,8 @@ const tinyRandomVisionEncoderDecoderModelViTGPTEncoderHFTFBenchmark = () => {
     category: 'Image-Text-to-Text',
     tag: '',
     id: `tiny_random_vision_encoder_decoder_vit_gpt_encoder_tfbench_pipeline_${dt}`,
-    name: 'Document Question Answering - Tiny Random VisionEncoderDecoderModel-vit-gpt - TFBench_Pipeline',
-    description: 'Document Question Answering - Tiny Random Vision Encoder Decoder Model ViT GPT Encoder',
+    name: 'TFBench_Pipeline Document Question Answering WIP Tiny Random Vision Encoder Decoder Vit GPT2',
+    description: 'Document Question Answering - Tiny Random Vision Encoder Decoder Model ViT GPT2 Encoder',
     note: '',
     source: 'https://huggingface.co/hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
     hf: {
@@ -3421,8 +3593,8 @@ const tinyRandomVisionEncoderDecoderModelViTGPTDecoderMergedHFTFBenchmark = () =
     category: 'Image-Text-to-Text',
     tag: '',
     id: `tiny_random_vision_encoder_decoder_vit_gpt_decoder_tfbench_pipeline_merged_${dt}`,
-    name: 'Document Question Answering - Tiny Random VisionEncoderDecoderModel-vit-gpt KV-Cache - TFBench_Pipeline',
-    description: 'Document Question Answering - Tiny Random Vision Encoder Decoder Model ViT GPT Decoder KV-Cache',
+    name: 'TFBench_Pipeline Document Question Answering WIP Tiny Random Vision Encoder Decoder Vit GPT2 KV-Cache',
+    description: 'Document Question Answering - Tiny Random Vision Encoder Decoder Model ViT GPT2 Decoder KV-Cache',
     note: '',
     source: 'https://huggingface.co/hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
     hf: {
@@ -3439,6 +3611,143 @@ const tinyRandomVisionEncoderDecoderModelViTGPTDecoderMergedHFTFBenchmark = () =
       'use_cache_branch': ['bool', 1, [1], { 'past_sequence_length':128 }]
     }],
     inputstip: '[1, 128] [1, 128, 32] [1]'
+  }))
+}
+
+const tinyRandomVisionEncoderDecoderModelViTGPT2EncoderHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '262 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    id: `tiny_random_vision_encoder_decoder_vit_gpt_2_encoder_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Image to Text WIP Tiny Random Vision Encoder Decoder Vit GPT2',
+    description: 'Image to Text - Tiny Random Vision Encoder Decoder Model ViT GPT2 Encoder',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
+    }],
+    inputstip: '[1, 3, 224, 224]'
+  }))
+}
+
+const tinyRandomVisionEncoderDecoderModelViTGPT2DecoderMergedHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '1.57 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    id: `tiny_random_vision_encoder_decoder_vit_gpt_2_decoder_tfbench_pipeline_merged_${dt}`,
+    name: 'TFBench_Pipeline Image to Text WIP Tiny Random Vision Encoder Decoder Vit GPT2 KV-Cache',
+    description: 'Image to Text - Tiny Random Vision Encoder Decoder Model ViT GPT2 Decoder KV-Cache',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-VisionEncoderDecoderModel-vit-gpt2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 32], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'use_cache_branch': ['bool', 1, [1], { 'past_sequence_length':128 }]
+    }],
+    inputstip: '[1, 128] [1, 128, 32] [1]'
+  }))
+}
+
+const tinyRandomViTHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '270 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Classification',
+    tag: '',
+    id: `tiny_random_vit_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Image Classification Tiny Random ViT',
+    description: 'Image Classification - Tiny Random ViT',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-vit',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-vit',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1, "num_channels": 3, "height": 30, "width": 30 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
+const tinyRandomViTMAEModelHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '254 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Feature Extraction',
+    tag: '',
+    id: `tiny_random_vit_mae_model_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Image Feature Extraction Tiny Random ViT MAE',
+    description: 'Image Feature Extraction - Tiny Random ViT MAE Model',
+    note: '',
+    source: 'https://huggingface.co/hf-internal-testing/tiny-random-ViTMAEModel',
+    hf: {
+      model: 'hf-internal-testing/tiny-random-ViTMAEModel',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1, "num_channels": 3, "height": 30, "width": 30 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
+const tinyRandomYolosForObjectDetectionHFTFBenchmark = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '1.16 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Object Detection',
+    tag: '',
+    id: `tiny_random_yolos_for_object_detection_tfbench_pipeline_${dt}`,
+    name: 'TFBench_Pipeline Object Detection Tiny Random Yolos',
+    description: 'Object Detection - Tiny Random Yolos for Object Detection',
+    note: '',
+    source: 'https://huggingface.co/onnx-internal-testing/tiny-random-YolosForObjectDetection-ONNX',
+    hf: {
+      model: 'onnx-internal-testing/tiny-random-YolosForObjectDetection-ONNX',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1, "num_channels": 3, "height": 30, "width": 30 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
   }))
 }
 
@@ -3817,7 +4126,7 @@ const whisperTinyEnEncoderHFTFBenchmark = () => {
     category: 'Automatic Speech Recognition',
     tag: '',
     id: `whisper_tiny_en_encoder_tfbench_model_${dt}`,
-    name: 'WhisperForConditionalGeneration TFBench_Model Whisper Tiny.en Encoder',
+    name: 'TFBench_Model Whisper Conditional Generation Whisper Tiny.en Encoder',
     description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
     note: '',
     source: 'https://huggingface.co/onnx-community/whisper-tiny.en',
@@ -3844,7 +4153,7 @@ const whisperTinyEnDecoderMergedHFTFBenchmark = () => {
     category: 'Automatic Speech Recognition',
     tag: '',
     id: `whisper_tiny_en_decoder_tfbench_model_merged_${dt}`,
-    name: 'WhisperForConditionalGeneration TFBench_Model 🚧 Whisper Tiny.en Decoder KV-Cache',
+    name: 'TFBench_Model Whisper Conditional Generation WIP Whisper Tiny.en Decoder KV-Cache',
     description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
     note: '',
     source: 'https://huggingface.co/onnx-community/whisper-tiny.en',
@@ -4001,7 +4310,7 @@ export let models = [
   ...bertBaseMultilingualUncasedSentiment(),
   ...BGELargeEnV1_5(),
   ...BGERerankerBase(),
-  ...clipTinyRandom(),
+  ...tinyRandomClipModelHFTFBenchmark(),
   ...clipVitBasePatch16(),
   ...codeGenMono350M(),
   {
@@ -5496,11 +5805,22 @@ export let models = [
   ...tinyLlamaV0DecoderWithPast(),
   ...tinyLlama1_1BChatv1_0Merged(),
   ...tinyLlama1_1BChatv1_0Merged_2(),
+  ...tinyRandomBertModelHFTFBenchmark(),
+  ...tinyRandomBertForQuestionAnsweringHFTFBenchmark(),
+  ...tinyRandomBertForMaskedLMHFTFBenchmark(),
   ...tinyRandomMoonshineForConditionalGenerationEncoderHFTFBenchmark(),
   ...tinyRandomMoonshineForConditionalGenerationDecoderMergedHFTFBenchmark(),
+  ...tinyRandomSwin2SRForImageSuperResolutionHFTFBenchmark(),
+  ...tinyRandomT5ForConditionalGenerationEncoderHFTFBenchmark(),
+  ...tinyRandomT5ForConditionalGenerationDecoderMergedHFTFBenchmark(),
   ...tinyRandomUnispeechHFTFBenchmark(),
   ...tinyRandomVisionEncoderDecoderModelViTGPTEncoderHFTFBenchmark(),
   ...tinyRandomVisionEncoderDecoderModelViTGPTDecoderMergedHFTFBenchmark(),
+  ...tinyRandomVisionEncoderDecoderModelViTGPT2EncoderHFTFBenchmark(),
+  ...tinyRandomVisionEncoderDecoderModelViTGPT2DecoderMergedHFTFBenchmark(),
+  ...tinyRandomViTHFTFBenchmark(),
+  ...tinyRandomViTMAEModelHFTFBenchmark(),
+  ...tinyRandomYolosForObjectDetectionHFTFBenchmark(),
   ...metaLlama_3_8bInstructMerged(),
   {
     category: 'Object Detection',
