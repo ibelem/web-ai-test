@@ -60,7 +60,7 @@ export const getModelOPFS = async (name, url, updateModel) => {
   let fileHandle;
 
   const updateFile = async () => {
-    const response = await fetch(url, { mode: 'cors', credentials: 'include' });
+    const response = await fetch(url, { mode: 'cors' });
     let item = { 'name': name, 'progress': 0 };
     if (!isItemInArray(item, downloadProgress)) {
       downloadProgress.push(item);
