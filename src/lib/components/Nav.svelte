@@ -1,198 +1,269 @@
 <script>
-	import { base } from '$app/paths';
-	// import { page } from '$app/stores';
-	// import { getModelIdfromPath } from '$lib/assets/js/utils';
-	import { onMount } from 'svelte';
-
-	// $: url = base;
-	// $: search = '';
-	// $: fullSearch = search;
-
-	// const homeUrl = () => {
-	// 	search = $page.url.search;
-
-	// 	if ($page.url.pathname.indexOf('/run/') > -1 && search.indexOf('model=') <= -1) {
-	// 		if (search.indexOf('?') > -1) {
-	// 			let id = getModelIdfromPath();
-	// 			fullSearch = search + `&model=${id}`;
-	// 		} else {
-	// 			fullSearch = search;
-	// 		}
-	// 	} else {
-	// 		fullSearch = search;
-	// 	}
-
-	// 	let host = $page.url.protocol + '//' + $page.url.hostname;
-	// 	let port = $page.url.port;
-	// 	if (port) {
-	// 		host = host + ':' + port;
-	// 	}
-	// 	if ($page.url.pathname.indexOf('web-ai-test') > -1) {
-	// 		host = host + '/web-ai-test';
-	// 	}
-
-	// 	if (
-	// 		$page.url.pathname.indexOf('fallback') > -1 ||
-	// 		$page.url.pathname.indexOf('conformance') > -1 ||
-	// 		$page.url.pathname.indexOf('about') > -1
-	// 	) {
-	// 		fullSearch = '';
-	// 	}
-
-	// 	url = `${host}${fullSearch}`;
-	// };
-
-	onMount(() => {});
+  import { onMount } from 'svelte';
+  import { base } from '$app/paths';
+  
+  let isMenuOpen = false;
+  let isDropdownOpen = false;
+  
+  // Toggle mobile menu
+  function toggleMenu() {
+    isMenuOpen = !isMenuOpen;
+    // Close dropdown when menu closes
+    if (!isMenuOpen) {
+      isDropdownOpen = false;
+    }
+  }
+  
+  // Toggle dropdown menu
+  function toggleDropdown(event) {
+    event.stopPropagation();
+    isDropdownOpen = !isDropdownOpen;
+  }
+  
+  // Close mobile menu on window resize (if switched to desktop view)
+  onMount(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768 && isMenuOpen) {
+        isMenuOpen = false;
+      }
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 </script>
 
 <nav>
-	<div id="togg">
-		<input type="checkbox" />
-		<span></span>
-		<span></span>
-		<span></span>
-
-		<ul id="menu">
-			<a href="{base}/"><li>Home</li></a>
-			<a href="{base}/tests"><li>SOTA</li></a>
-			<a href="{base}/custom"><li>Custom</li></a>
-			<a href="{base}/specific"><li>Specific</li></a>
-			<a href="{base}/fallback"><li>Fallback</li></a>
-			<a href="{base}/graph"><li>Graph</li></a>
-			<a href="{base}/conformance"><li>Conformance</li></a>
-			<a href="{base}/limits"><li>Limits</li></a>
-			<a href="{base}/about"><li>About</li></a>
-		</ul>
-	</div>
+  <div class="navbar">
+    <button class="menu-toggle" on:click={toggleMenu} aria-expanded={isMenuOpen} aria-label="Toggle navigation menu">
+      <span class="hamburger"></span>
+    </button>
+    
+    <ul class="menu" class:active={isMenuOpen}>
+      <li><a href="{base}/">Home</a></li>
+      <li><a href="{base}/tests">SOTA</a></li>
+      <li><a href="{base}/custom">Custom</a></li>
+      <li><a href="{base}/specific">Specific</a></li>
+      <li class="dropdown">
+        <button on:click={toggleDropdown} class="dropdown-toggle" aria-expanded={isDropdownOpen}>
+          Other <span class="dropdown-arrow"></span>
+        </button>
+        <ul class="dropdown-menu" class:active={isDropdownOpen}>
+          <li><a href="{base}/fallback">Fallback</a></li>
+          <li><a href="{base}/graph">Graph</a></li>
+          <li><a href="{base}/conformance">Conformance</a></li>
+        </ul>
+      </li>
+      <li><a href="{base}/limits">Limits</a></li>
+      <li><a href="{base}/about">About</a></li>
+    </ul>
+  </div>
 </nav>
 
 <style>
-	#togg input {
-		display: block;
-		width: 33px;
-		height: 33px;
-		position: absolute;
-		top: 10px;
-		right: 20px;
-		cursor: pointer;
-		opacity: 0;
-		z-index: 10;
-		-webkit-touch-callout: none;
-	}
+  .navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .menu {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .menu li {
+    position: relative;
+  }
 
-	ul#menu {
-		margin-top: 10px;
-	}
+	.menu li:hover {
+    background-color: var(--red-005);
+  }
 
-	ul#menu li {
-		list-style: none;
-	}
+	.fp16 .menu li:hover {
+    background-color: var(--fp16-005);
+  }
 
-	@media (max-width: 768px) {
-		nav {
-			position: absolute;
-			top: 0px;
-			right: 0px;
-			z-index: 1;
+	.int8 .menu li:hover {
+    background-color: var(--p-005);
+  }
+  
+  .menu a {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+  }
+  
+  .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    font-size: 13.65px;
+		font-family: 'JetBrains Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .dropdown-arrow {
+    border-top: 4px solid var(--font);
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    margin-left: 5px;
+    transition: transform 0.2s;
+  }
+  
+  .dropdown-toggle[aria-expanded="true"] .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 150px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--grey-02);
+  }
+  
+  .dropdown-menu.active {
+    display: block;
+  }
+  
+  .dropdown-menu a {
+    padding: 0.7rem 1rem;
+  }
+
+  .dropdown-menu a:hover {
+    background-color: var(--red-005);
+  }
+
+	.fp16 .dropdown-menu a:hover {
+    background-color: var(--fp16-005);
+  }
+
+	.int8 .dropdown-menu a:hover {
+    background-color: var(--p-005);
+  }
+  
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+  
+  .hamburger {
+    display: block;
+    position: relative;
+    width: 24px;
+    height: 2px;
+    background-color: var(--font);
+  }
+  
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background-color: var(--font);
+    left: 0;
+    transition: transform 0.2s;
+  }
+  
+  .hamburger::before {
+    top: -6px;
+  }
+  
+  .hamburger::after {
+    bottom: -6px;
+  }
+  
+  /* Hamburger animation when menu is open */
+  .menu-toggle[aria-expanded="true"] .hamburger {
+    background-color: transparent;
+  }
+  
+  .menu-toggle[aria-expanded="true"] .hamburger::before {
+    transform: rotate(45deg);
+    top: 0;
+  }
+  
+  .menu-toggle[aria-expanded="true"] .hamburger::after {
+    transform: rotate(-45deg);
+    bottom: 0;
+  }
+  
+  /* Media query for mobile */
+  @media (max-width: 768px) {
+    .navbar {
+      justify-content: space-between;
+    }
+    
+    .menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+			margin: 0 2px;
+      background-color: var(--red);
+      z-index: 1000;
+      box-shadow: rgba(198, 26, 62, 0.15) 0px 10px 20px -12px,rgba(198, 26, 62, 0.3) 0px 18px 16px -18px;
+      border-bottom: 1px solid var(--grey-02);
+			border-bottom-left-radius: 5px;
+			border-bottom-right-radius: 5px;
+    }
+
+    .menu.active {
+      display: flex;
+    }
+    
+    .menu-toggle {
+      display: block;
+    }
+
+		.menu button, .menu a {
+			color: white;
 		}
 
-		#togg {
-			display: block;
-			z-index: 1;
-			-webkit-user-select: none;
-			user-select: none;
-			padding: 20px 20px 0 0;
+		.dropdown-arrow {
+			border-top: 4px solid white;
+		}
+    
+    .dropdown-menu {
+      position: static;
+      width: 100%;
+      box-shadow: none;
+      border: none;
+      background-color: #f8f9fa;
+    }
+
+		.dropdown-menu {
+			background: transparent;
 		}
 
-		#togg a {
-			text-decoration: none;
-			color: #232323;
-			transition: color 0.3s ease;
+		.dropdown-menu li:hover {
+			background-color: var(--red-01);
 		}
-
-		#togg a:hover {
-			color: tomato;
-		}
-
-		#togg span {
-			display: block;
-			width: 33px;
-			height: 4px;
-			margin-bottom: 5px;
-			position: relative;
-			background: #cdcdcd;
-			border-radius: 3px;
-			z-index: 10;
-			transform-origin: 4px 0px;
-			transition:
-				transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
-				background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
-				opacity 0.55s ease;
-		}
-
-		#togg span:first-child {
-			transform-origin: 0% 0%;
-		}
-
-		#togg span:nth-last-child(2) {
-			transform-origin: 0% 100%;
-		}
-
-		#togg input:checked ~ span {
-			opacity: 1;
-			transform: rotate(45deg) translate(-2px, -1px);
-			background: var(--white);
-		}
-
-		#togg input:checked ~ span:nth-last-child(3) {
-			opacity: 0;
-			transform: rotate(0deg) scale(0.2, 0.2);
-		}
-
-		#togg input:checked ~ span:nth-last-child(2) {
-			transform: rotate(-45deg) translate(0, -1px);
-		}
-
-		#menu {
-			position: absolute;
-			width: 100vw;
-			height: 100vh;
-			top: 0px;
-			padding: 40px 0;
-			right: 0px;
-			margin: 0px;
-			background: var(--red);
-			list-style-type: none;
-			-webkit-font-smoothing: antialiased;
-			transform-origin: 0% 0%;
-			transform: translate(-100%, 0%);
-			transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
-		}
-
-		nav a {
-			text-decoration: none;
-			border-bottom: 0px solid var(--white);
-			color: var(--white);
-		}
-
-		ul#menu {
-			margin-top: 0px;
-		}
-
-		#menu a {
-			display: block;
-			background: var(--red);
-			color: var(--white);
-			padding: 10px 40px 10px 40px;
-		}
-
-		#menu li {
-			font-size: 22px;
-			color: var(--white);
-		}
-
-		#togg input:checked ~ ul {
-			transform: none;
-		}
-	}
+    
+    .dropdown-menu li a {
+      padding-left: 2rem;
+    }
+  }
 </style>

@@ -219,11 +219,14 @@
 
 	@media (max-width: 512px) {
 		.info {
-			width: 98vw;
+			margin: 0;
 		}
 		.g2 {
 			display: block;
 			padding: 0 10px;
+		}
+		.g2 .progressinfo, .g2 .next {
+			justify-self: center;
 		}
 	}
 </style>

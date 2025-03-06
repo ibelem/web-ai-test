@@ -31,15 +31,6 @@ a:hover {
   color: var(--red);
 }
 
-nav a {
-  margin-left: 12px;
-  border-bottom: 1px dashed var(--font);
-}
-
-nav a:hover {
-  border-bottom: 1px solid var(--red);
-}
-
 header {
   display: grid;
   grid-template-columns: 1fr 10fr;
@@ -1909,7 +1900,7 @@ padding: 2px 4px 2px 4px;
 
 @media (max-width: 512px) { 
   #layout {
-    width: 98%;
+    width: auto;
     padding: 0;
   }
 
@@ -2569,7 +2560,44 @@ background-color: var(--demo-005);
   color: var(--p) !important;
 }
 
-.fp16 #logo {
+.fp16 #logo svg circle, .fp16 #logo svg path {
+  stroke: var(--fp16) !important;
+}
+
+.fp16 #logo svg path.text {
+  fill: var(--fp16) !important;
+}
+
+.int8 #logo svg circle, .int8 #logo svg path {
+  stroke: var(--p) !important;
+}
+
+.int8 #logo svg path.text {
+  fill: var(--p) !important;
+}
+
+
+@media (max-width: 768px) {
+  .fp16 .menu {
+    background-color: var(--fp16) !important;
+    box-shadow: rgba(43, 1, 127, 0.15) 0px 10px 20px -12px,rgba(43, 1, 127, 0.3) 0px 18px 16px -18px !important;
+  }
+
+  .int8 .menu {
+    background-color: var(--p) !important;
+    box-shadow: rgba(1, 134, 179, 0.15) 0px 10px 20px -12px,rgba(1, 134, 179, 0.3) 0px 18px 16px -18px !important;
+  }
+
+  .fp16 .dropdown-menu li:hover {
+    background-color: var(--fp16-01);
+  }
+
+  .int8 .dropdown-menu li:hover {
+    background-color: var(--p-01);
+  }
+
+}
+/* .fp16 #logo {
   background-color: var(--fp16) !important;
   box-shadow: rgba(43, 1, 127, 0.15) 0px 10px 20px -12px,
   rgba(43, 1, 127, 0.3) 0px 18px 16px -18px !important;
@@ -2577,8 +2605,8 @@ background-color: var(--demo-005);
 
 .fp16 #logo svg rect {
   fill: var(--fp16);
-}
-
+} */
+/* 
 .int8 #logo {
   background-color: var(--p) !important;
   box-shadow: rgba(1, 134, 179, 0.15) 0px 10px 20px -12px,
@@ -2587,7 +2615,7 @@ background-color: var(--demo-005);
 
 .int8 #logo svg rect {
   fill: var(--p);
-}
+} */
 
 .selector {
   display: inline-block;
