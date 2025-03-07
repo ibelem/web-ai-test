@@ -464,7 +464,7 @@
 	<div class="tq benchmark int8">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'int8'}
+				{#if getModelDataTypeById(model) === 'int8' && (model.indexOf('_tfbench') === -1 && model.indexOf('tfbench_pipeline') === -1)}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -506,7 +506,7 @@
 	<div class="tq benchmark fp16">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'fp16'}
+				{#if getModelDataTypeById(model) === 'fp16' && model.indexOf('_demo') === -1}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -548,7 +548,7 @@
 	<div class="tq benchmark fp32">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'fp32'}
+				{#if getModelDataTypeById(model) === 'fp32' && (model.indexOf('_tfbench') === -1 && model.indexOf('tfbench_pipeline') === -1)}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(

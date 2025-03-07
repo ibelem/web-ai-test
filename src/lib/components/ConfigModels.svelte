@@ -711,13 +711,27 @@
 					{#if id.indexOf('_with_past') > -1}
 						<span class="kvcache">PAST</span>
 					{/if}
-					{name}{:else}{#if id.indexOf('_merged') > -1}
+					{#if id.indexOf('_encoder') > -1}
+						<span class="kvcache">E</span>
+					{/if}
+					{#if id.indexOf('_decoder') > -1}
+						<span class="kvcache">D</span>
+					{/if}
+					{name.replaceAll(' Encoder', '').replaceAll(' Decoder', '').replaceAll('TFBench_Pipeline', 'TF').replaceAll('TFBench_Model', 'TF')}
+					{:else}
+					{#if id.indexOf('_merged') > -1}
 						<span class="kvcache">KV-C</span>
 					{/if}
 					{#if id.indexOf('_with_past') > -1}
 						<span class="kvcache">PAST</span>
 					{/if}
-					{name}{/if}
+					{#if id.indexOf('_encoder') > -1}
+						<span class="kvcache">E</span>
+					{/if}
+					{#if id.indexOf('_decoder') > -1}
+						<span class="kvcache">D</span>
+					{/if}
+					{name.replaceAll(' Encoder', '').replaceAll(' Decoder', '').replaceAll('TFBench_Pipeline', 'TF').replaceAll('TFBench_Model', 'TF')}{/if}
 			</label>
 		{/each}
 	{:else}

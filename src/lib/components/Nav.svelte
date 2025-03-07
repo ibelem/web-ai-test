@@ -68,7 +68,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 1rem;
+    padding: 1rem 10px;
   }
   
   .menu {
@@ -263,7 +263,7 @@
 		}
     
     .dropdown-menu li a {
-      padding-left: 2rem;
+      padding: 0.5rem 2rem 0.5rem 2rem;
     }
   }
 </style>
