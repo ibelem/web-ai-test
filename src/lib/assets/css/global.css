@@ -2113,7 +2113,10 @@ background-color: var(--demo-005);
 
 .title.tq.tf_benchmark {
   background-color: var(--tfbench-005);
-  margin-top: 2rem;
+}
+
+.modelselection {
+  margin-bottom: 2rem;
 }
 
 .ho {
@@ -2364,22 +2367,46 @@ background-color: var(--demo-005);
   color: var(--fp16);
 }
 
+.fp16.tq .q:hover .titlemark span.fp16 {
+  border: 1px solid var(--fp16-09) !important;
+  background-color: var(--fp16-01) !important;
+  color: var(--fp16);
+}
+
+.int8.tq .q:hover .titlemark span.int8 {
+  border: 1px solid var(--p-09) !important;
+  background-color: var(--p-01) !important;
+  color: var(--p);
+}
+
+.int4.tq .q:hover .titlemark span.int4 {
+  border: 1px solid var(--int4-09) !important;
+  background-color: var(--int4-01) !important;
+  color: var(--int4);
+}
+
+.fp32.tq .q:hover .titlemark span.fp32 {
+  border: 1px solid var(--red-09) !important;
+  background-color: var(--red-01) !important;
+  color: var(--red);
+}
+
 .int8.tq .q:hover .titlemark span {
   border: 1px solid var(--p-09);
   background-color: var(--p-01);
-  color: var(--p);
+  color: var(--p-09);
 }
 
 .int4.tq .q:hover .titlemark span {
   border: 1px solid var(--int4-09);
   background-color: var(--int4-01);
-  color: var(--int4);
+  color: var(--int4-09);
 }
 
 .fp32.tq .q:hover .titlemark span {
   border: 1px solid var(--red-09);
   background-color: var(--red-01);
-  color: var(--red);
+  color: var(--red-09);
 }
 
 .tq .q:hover .titlemark span.static {
