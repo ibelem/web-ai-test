@@ -16,6 +16,7 @@
 		getModelCategoryById,
 		getModelInputsById,
 		getModelNoteById,
+		getModelIsvById,
 		goTo,
 		stringToArray,
 		getModelNameById,
@@ -62,6 +63,7 @@
 	 * @type {any}
 	 */
 	 let categories = {
+		top2025: true,
 		devpreview: true,
 		tfbench: true,
 		other: true,
@@ -289,6 +291,10 @@
 		
 		return array.filter(item => {
 			const id = item.id;
+			const isv = getModelIsvById(id);
+			if (categories.top2025 && isv && isv === 'ms') {
+				return true;
+			}
 			if (categories.devpreview && id.includes("_demo_")) {
 				return true;
 			}
@@ -297,7 +303,7 @@
 			}
 			
 			if (categories.other && 
-					!id.includes("_demo_") && 
+					!(categories.top2025 && isv && isv === 'ms') && 
 					!id.includes("_tfbench_model_") && 
 					!id.includes("_tfbench_pipeline_")) {
 				return true;
@@ -671,6 +677,10 @@
 	</label>
 </div>
 <div class="types">
+	<label class="extra {categories.top2025.toString()} " title="Top 2025 Models">
+		<input type="checkbox" on:change={() => toggleCategory('top2025')} />
+		Top 2025
+	</label>
 	<label class="extra {categories.tfbench.toString()} " title="Transformers.js Benchmark Models">
 		<input type="checkbox" on:change={() => toggleCategory('tfbench')} />
 		Transformers.js Benchmark

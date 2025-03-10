@@ -2311,6 +2311,11 @@ background-color: var(--demo-005);
   display: inline-block;
 }
 
+.titlemark span {
+  border: 1px solid var(--grey-04);
+  background-color: var(--grey-02);
+}
+
 .fp16 .titlemark span {
   border: 1px solid var(--fp16-01);
   background-color: var(--fp16-005);
@@ -3324,6 +3329,12 @@ table td.c {
   color: var(--white);
 }
 
+.titlemark span.int4 {
+  border: 1px solid var(--int4) !important;
+  background-color: var(--int4) !important;
+  color: var(--white);
+}
+
 .titlemark span.int8 {
   border: 1px solid var(--p) !important;
   background-color: var(--p) !important;
@@ -3333,6 +3344,12 @@ table td.c {
 .titlemark span.fp16 {
   border: 1px solid var(--fp16) !important;
   background-color: var(--fp16) !important;
+  color: var(--white);
+}
+
+.titlemark span.fp32 {
+  border: 1px solid var(--red) !important;
+  background-color: var(--red) !important;
   color: var(--white);
 }
 

@@ -596,6 +596,11 @@ export const getModelTagById = (id) => {
   return model?.tag;
 }
 
+export const getModelIsvById = (id) => {
+  const model = models.find(item => item.id === id);
+  return model?.isv;
+}
+
 export const getModelCategoryById = (id) => {
   const model = models.find(item => item.id === id);
   return model?.category;

@@ -254,7 +254,7 @@ const BGELargeEnV1_5 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Feature Extraction',
-    tag: '2H',
+    tag: '',
     id: `bge_large_en_v1_5_${dt}`,
     name: 'BAAI General Embedding (BGE) Large EN v1.5',
     description: 'FlagEmbedding focuses on retrieval-augmented LLMs.',
@@ -285,7 +285,7 @@ const BGERerankerBase = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Classification',
-    tag: '2H',
+    tag: '',
     id: `bge_reranker_base_${dt}`,
     name: 'BAAI General Embedding (BGE) Reranker Base',
     description: 'Lightweight reranker model, easy to deploy, with fast inference.',
@@ -492,9 +492,10 @@ const detrResnet50 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `detr_resnet_50_${dt}`,
-    name: 'DETR w/i ResNet-50',
+    name: `DETR w/i ResNet-50 ${dt}`,
     description: 'DEtection TRansformer (DETR) model with ResNet-50 backbone trained end-to-end on COCO 2017 object detection (118k annotated images). The DETR model is an encoder-decoder transformer with a convolutional backbone.',
     note: '',
     source: 'https://huggingface.co/Xenova/detr-resnet-50',
@@ -507,10 +508,10 @@ const detrResnet50 = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
+      'pixel_values': ['float32', 'random', [1, 3, 640, 640], { "batch_size": 1, "num_channels": 3, "height": 640, "width": 640 }],
       'pixel_mask': ['int64', 1n, [1, 64, 64], { "batch_size": 1 }]
     }],
-    inputstip: '[1, 3, 224, 224] [1, 64, 64]'
+    inputstip: '[1, 3, 640, 640] [1, 64, 64]'
   }))
 }
 
@@ -862,7 +863,7 @@ const distiluseBaseMultilingualCasedV2 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
-    tag: '2h',
+    tag: '',
     id: `distiluse_base_multilingual_cased_v2_${dt}`,
     name: 'Distiluse Base Multilingual Cased v2',
     description: 'Maps sentences & paragraphs to a 512 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
@@ -891,7 +892,7 @@ const distilMediumEnDecoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: `distil_medium_en_decoder_${dt}`,
     name: 'Distil-Whisper Decoder',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
@@ -920,7 +921,7 @@ const distilMediumEnDecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: `distil_medium_en_decoder_with_past_${dt}`,
     name: 'Distil-Whisper Decoder w/i Past',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
@@ -948,7 +949,7 @@ const distilMediumEnDecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: `distil_medium_en_decoder_merged_${dt}`,
     name: 'Distil-Whisper Decoder KV-Cache',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
@@ -978,7 +979,7 @@ const distilMediumEnEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: `distil_medium_en_encoder_${dt}`,
     name: 'Distil-Whisper Encoder',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model',
@@ -1226,9 +1227,10 @@ const florence2Decoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `florence2_decoder_${dt}`,
-    name: 'Florence-2 Base Decoder',
+    name: `Florence-2 Base Decoder ${dt}`,
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/onnx-community/Florence-2-base',
@@ -1252,15 +1254,16 @@ const florence2Decoder = () => {
 const florence2DecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '370 MB'],
-    // ['fp16', 'decoder_model_merged_fp16.onnx', '185 MB'],
+    ['fp16', 'decoder_model_merged_fp16.onnx', '185 MB'],
     ['int8', 'decoder_model_merged_quantized.onnx', '93.6 MB'],
     ['int4', 'decoder_model_merged_q4.onnx', '61.4 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `florence2_decoder_merged_${dt}`,
-    name: 'Florence-2 Base Decoder KV-Cache',
+    name: `Florence-2 Base Decoder KV-Cache ${dt}`,
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/onnx-community/Florence-2-base',
@@ -1291,9 +1294,10 @@ const florence2DecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `florence2_decoder_with_past_${dt}`,
-    name: 'Florence-2 Base Decoder w/i Past',
+    name: `Florence-2 Base Decoder w/i Past ${dt}`,
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/onnx-community/Florence-2-base',
@@ -1322,9 +1326,10 @@ const florence2Encoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `florence2_encoder_${dt}`,
-    name: 'Florence-2 Base Encoder',
+    name: `Florence-2 Base Encoder ${dt}`,
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/onnx-community/Florence-2-base',
@@ -1353,9 +1358,10 @@ const florence2EmbedTokens = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `florence2_embed_tokens_${dt}`,
-    name: 'Florence-2 Base Embed Tokens',
+    name: `Florence-2 Base Embed Tokens ${dt}`,
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/onnx-community/Florence-2-base',
@@ -1383,9 +1389,10 @@ const florence2VisionEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `florence2_vision_encoder_${dt}`,
-    name: 'Florence-2 Base Vision Encoder',
+    name: `Florence-2 Base Vision Encoder ${dt}`,
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
     note: '',
     source: 'https://huggingface.co/onnx-community/Florence-2-base',
@@ -1410,7 +1417,7 @@ const florence2ConditionalDecoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
     id: `florence2_conditional_decoder_${dt}`,
     name: 'Florence 2 Conditional Generation Decoder',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
@@ -1439,7 +1446,7 @@ const florence2ConditionalDecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
     id: `florence2_conditional_decoder_merged_${dt}`,
     name: 'Florence 2 Conditional Generation Decoder KV-Cache',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
@@ -1469,7 +1476,7 @@ const florence2ConditionalDecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
     id: `florence2_conditional_decoder_with_past_${dt}`,
     name: 'Florence 2 Conditional Generation Decoder w/i Past',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
@@ -1497,7 +1504,7 @@ const florence2ConditionalEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
     id: `florence2_conditional_encoder_${dt}`,
     name: 'Florence 2 Conditional Generation Encoder',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
@@ -1525,7 +1532,7 @@ const florence2ConditionalEmbedTokens = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
     id: `florence2_conditional_embed_tokens_${dt}`,
     name: 'Florence 2 Conditional Generation Embed Tokens',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
@@ -1552,7 +1559,7 @@ const florence2ConditionalVisionEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
     id: `florence2_conditional_vision_encoder_${dt}`,
     name: 'Florence 2 Conditional Generation Vision Encoder',
     description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
@@ -1579,7 +1586,7 @@ const gemma2bItMerged = () => {
   ]
   return configs.map(([dt, file, size, externalData, edSize]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `gemma_2b_it_merged_${dt}`,
     name: 'Gemma 2B IT KV-Cache',
     description: 'Gemma is a family of lightweight, state-of-the-art open models from Google, text-to-text, decoder-only. ONNX model converted by https://huggingface.co/EmbeddedLLM/gemma-2b-it-onnx',
@@ -1611,7 +1618,7 @@ const gteBaseEnV1_5 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
-    tag: '2h',
+    tag: '',
     id: `gte_base_en_v1_5_${dt}`,
     name: 'General Text Embeddings (GTE) Base EN v1.5',
     description: 'GTE-v1.5 series upgraded gte embeddings that support the context length of up to 8192, while further enhancing model performance. The models are built upon the transformer++ encoder backbone (BERT + RoPE + GLU).',
@@ -1641,7 +1648,7 @@ const gteSmall = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
-    tag: '2h',
+    tag: '',
     id: `gte_small_${dt}`,
     name: 'General Text Embeddings (GTE) Small',
     description: 'To be applied to various downstream tasks of text embeddings, including information retrieval, semantic textual similarity, text reranking, etc.',
@@ -1673,9 +1680,10 @@ const jinaClipV1Text = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Feature Extraction',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `jina_clip_v1_text_${dt}`,
-    name: 'Jina CLIP v1 (Text)',
+    name: `Jina CLIP v1 Text ${dt}`,
     description: 'A state-of-the-art English multimodal (text-image) embedding model.',
     note: 'Large model',
     source: 'https://huggingface.co/jinaai/jina-clip-v1',
@@ -1703,9 +1711,10 @@ const jinaClipV1Vision = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Feature Extraction',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `jina_clip_v1_vision_${dt}`,
-    name: 'Jina CLIP v1 (Vision)',
+    name: `Jina CLIP v1 Vision ${dt}`,
     description: 'A state-of-the-art English multimodal (text-image) embedding model.',
     note: '',
     source: 'https://huggingface.co/jinaai/jina-clip-v1',
@@ -1732,7 +1741,7 @@ const jinaEmbeddingsV2BaseCode = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Feature Extraction',
-    tag: '2h',
+    tag: '',
     id: `jina_embeddings_v2_base_code_${dt}`,
     name: 'Jina Embeddings v2 Base Code',
     description: 'An multilingual embedding model speaks English and 30 widely used programming languages. Same as other jina-embeddings-v2 series, it supports 8192 sequence length.',
@@ -1763,7 +1772,7 @@ const jinaRerankerV1TurboEn = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Classification',
-    tag: '2h',
+    tag: '',
     id: `jina_reranker_v1_turbo_en_${dt}`,
     name: 'Jina Reranker v1 Turbo EN',
     description: 'Leverages the power of our JinaBERT model as its foundation, processing significantly longer sequences of text compared to other reranking models, up to an impressive 8,192 tokens.',
@@ -1793,7 +1802,7 @@ const llama2CStories15MDecoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `llama2_c_stories15m_decoder_${dt}`,
     name: 'llama2.c Stories 15M Decoder',
     description: 'Llama 2 LLM architecture',
@@ -1822,7 +1831,7 @@ const llama2CStories15MDecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `llama2_c_stories15m_decoder_merged_${dt}`,
     name: 'llama2.c Stories 15M Decoder KV-Cache',
     description: 'Llama 2 LLM architecture',
@@ -1852,7 +1861,7 @@ const llama2CStories15MDecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `llama2_c_stories15m_decoder_with_past_${dt}`,
     name: 'llama2.c Stories 15M Decoder w/i Past',
     description: 'Llama 2 LLM architecture',
@@ -1913,7 +1922,7 @@ const llavaDecoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `llava_decoder_${dt}`,
     name: 'Llava Decoder',
     description: 'Tiny Random Llava for Conditional Generation',
@@ -1944,7 +1953,7 @@ const llavaDecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `llava_decoder_merged_${dt}`,
     name: 'Llava Decoder KV-Cache',
     description: 'Tiny Random Llava for Conditional Generation',
@@ -1976,7 +1985,7 @@ const llavaDecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `llava_decoder_with_past_${dt}`,
     name: 'Llava Decoder w/i Past',
     description: 'Tiny Random Llava For Conditional Generation',
@@ -2007,7 +2016,7 @@ const llavaEmbedTokens = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `llava_embed_tokens_${dt}`,
     name: 'Llava Embed Tokens',
     description: 'Tiny Random Llava For Conditional Generation',
@@ -2037,7 +2046,7 @@ const llavaVisionEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `llava_vision_encoder_${dt}`,
     name: 'Llava Vision Encoder',
     description: 'Tiny Random Llava For Conditional Generation',
@@ -2064,7 +2073,7 @@ const llavaPhiDecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `llava_phi_decoder_merged_${dt}`,
     name: '[Undefined] Llava Phi Decoder KV-Cache',
     description: 'Tiny Random Llava For Conditional Generation Phi',
@@ -2093,7 +2102,7 @@ const llavaPhiEmbedTokens = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `llava_phi_embed_tokens_${dt}`,
     name: 'Llava Phi Embed Tokens',
     description: 'Tiny Random Llava For Conditional Generation Phi',
@@ -2120,7 +2129,7 @@ const llavaPhiVisionEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `llava_phi_vision_encoder_${dt}`,
     name: 'Llava Phi Vision Encoder',
     description: 'Tiny Random Llava For Conditional Generation Phi',
@@ -2210,9 +2219,10 @@ const moondream2DecoderMerged = () => {
   ]
   return configs.map(([dt, file, size, externalData, edSize]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `moondream2_decoder_merged_${dt}`,
-    name: '[Undefined] moondream2 Decoder KV-Cache',
+    name: `[Undefined] moondream2 Decoder KV-Cache ${dt}`,
     description: 'A small vision language model designed to run efficiently on edge devices',
     note: 'Large model',
     source: 'https://huggingface.co/Xenova/moondream2',
@@ -2242,9 +2252,10 @@ const moondream2EmbedTokens = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `moondream2_embed_tokens_${dt}`,
-    name: 'moondream2 Embed Tokens',
+    name: `moondream2 Embed Tokens ${dt}`,
     description: 'A small vision language model designed to run efficiently on edge devices',
     note: '',
     source: 'https://huggingface.co/Xenova/moondream2',
@@ -2271,9 +2282,10 @@ const moondream2VisionEncoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Image-Text-to-Text',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `moondream2_vision_encoder_${dt}`,
-    name: 'moondream2 Vision Encoder',
+    name: `moondream2 Vision Encoder ${dt}`,
     description: 'A small vision language model designed to run efficiently on edge devices',
     note: 'Large model',
     source: 'https://huggingface.co/Xenova/moondream2',
@@ -2456,7 +2468,7 @@ const mxbaiEmbedLargeV1 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Feature Extraction',
-    tag: '2h',
+    tag: '',
     id: `mxbai_embed_large_v1_${dt}`,
     name: 'MxbAI Embed Large v1',
     description: 'The crispy sentence embedding family from mixedbread ai, provideing several ways to produce sentence embeddings.',
@@ -2487,7 +2499,7 @@ const mxbaiRerankBaseV1 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Classification',
-    tag: '2h',
+    tag: '',
     id: `mxbai_rerank_base_v1_${dt}`,
     name: 'MxbAI Rerank Base v1',
     description: 'The base model of powerful reranker models from mixedbread ai.',
@@ -2516,7 +2528,7 @@ const nomicEmbedTextV1 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
-    tag: '2h',
+    tag: '',
     id: `nomic_embed_text_v1_${dt}`,
     name: 'Nomic Embed Text v1',
     description: 'A Reproducible Long Context (8192) Text Embedder that surpasses OpenAI text-embedding-ada-002 and text-embedding-3-small performance on short and long context tasks.',
@@ -2546,7 +2558,7 @@ const nomicEmbedTextV1_5 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
-    tag: '2h',
+    tag: '',
     id: `nomic_embed_text_v1_5_${dt}`,
     name: 'Nomic Embed Text v1.5',
     description: 'An improvement upon Nomic Embed that utilizes Matryoshka Representation Learning which gives developers the flexibility to trade off the embedding size for a negligible reduction in performance.',
@@ -2577,7 +2589,7 @@ const paraphraseMultilingualMpnetBaseV2 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
-    tag: '2h',
+    tag: '',
     id: `paraphrase_multilingual_mpnet_base_v2_${dt}`,
     name: 'Paraphrase Multilingual Mpnet Base v2',
     description: 'Maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
@@ -2605,7 +2617,7 @@ const phi3Mini4kInstructMerged = () => {
   ]
   return configs.map(([dt, file, size, externalData, edSize]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `phi_3_mini_4k_instruct_merged_${dt}`,
     name: 'Phi-3 Mini 4k Instruct KV-Cache',
     description: 'Phi-3 Mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-2 - synthetic data and filtered websites - with a focus on very high-quality, reasoning dense data.',
@@ -2635,7 +2647,7 @@ const phi35MiniInstructMerged = () => {
   ]
   return configs.map(([dt, file, size, externalData, edSize]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `phi_3_5_mini_instruct_merged_${dt}`,
     name: 'Phi-3.5-mini Instruct KV-Cache',
     description: 'Phi-3.5-mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-3 - synthetic data and filtered publicly available websites - with a focus on very high-quality, reasoning dense data.',
@@ -2669,7 +2681,7 @@ const Qwen2_0_5bInstructMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `qwen2_0_5b_instruct_merged_${dt}`,
     name: 'Qwen2 0.5b Instruct KV-Cache',
     description: 'Qwen2 is a language model series including decoder language models of different model sizes.',
@@ -2966,7 +2978,7 @@ const SnowflakeArcticEmbedM = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
-    tag: '2h',
+    tag: '',
     id: `snowflake_arctic_embed_m_${dt}`,
     name: 'Snowflake Arctic Embed M',
     description: 'An improvement upon Nomic Embed that utilizes Matryoshka Representation Learning which gives developers the flexibility to trade off the embedding size for a negligible reduction in performance.',
@@ -3256,7 +3268,7 @@ const tinyLlamaV0Decoder = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `tinyllama_v0_decoder_${dt}`,
     name: 'TinyLlama v0 Decoder',
     description: 'https://huggingface.co/Maykeye/TinyLLama-v0 with ONNX weights to be compatible with Transformers.js.',
@@ -3285,7 +3297,7 @@ const tinyLlamaV0DecoderMerged = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `tinyllama_v0_decoder_merged_${dt}`,
     name: 'TinyLlama v0 Decoder KV-Cache',
     description: 'https://huggingface.co/Maykeye/TinyLLama-v0 with ONNX weights to be compatible with Transformers.js.',
@@ -3315,7 +3327,7 @@ const tinyLlamaV0DecoderWithPast = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `tinyllama_v0_decoder_with_past_${dt}`,
     name: 'TinyLlama v0 Decoder w/i Past',
     description: 'https://huggingface.co/Maykeye/TinyLLama-v0 with ONNX weights to be compatible with Transformers.js.',
@@ -3344,7 +3356,7 @@ const tinyLlama1_1BChatv1_0Merged = () => {
   ]
   return configs.map(([dt, file, size, externalData, edSize]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `tinyllama_1_1b_chat_v1_0_merged_${dt}`,
     name: 'TinyLlama 1.1B Chat v1.0 Decoder KV-Cache',
     description: 'This is the chat model finetuned on top of TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T. ',
@@ -3375,7 +3387,7 @@ const tinyLlama1_1BChatv1_0Merged_2 = () => {
   ]
   return configs.map(([dt, file, size, externalData, edSize]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
     id: `tinyllama_1_1b_chat_v1_0_merged_${dt}`,
     name: 'TinyLlama 1.1B Chat v1.0 Decoder KV-Cache',
     description: 'This is the chat model finetuned on top of TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T. https://huggingface.co/schmuell/TinyLlama-1.1B-Chat-v1.0-int4/ https://huggingface.co/schmuell/TinyLlama-1.1B-Chat-v1.0-fp16/',
@@ -4090,9 +4102,10 @@ const metaLlama_3_8bInstructMerged = () => {
   ]
   return configs.map(([dt, file, size, externalData, edSize]) => ({
     category: 'Text Generation',
-    tag: '2h',
+    tag: '',
+    isv: 'ms',
     id: `meta_llama_3_8b_instruct_merged_${dt}`,
-    name: '[DO NOT RUN] Meta Llama 3 8b Instruct KV-Cache',
+    name: `[DO NOT RUN] Meta Llama 3 8b Instruct KV-Cache ${dt}`,
     description: 'Llama 3 is an auto-regressive language model that uses an optimized transformer architecture. The tuned versions use supervised fine-tuning (SFT) and reinforcement learning with human feedback (RLHF).',
     note: 'Unable to run now, 14.9GB. Large model with external data.',
     source: 'https://huggingface.co/webml/Meta-Llama-3-8B-Instruct-onnx-fp16',
@@ -4154,7 +4167,7 @@ const UniVaRLambda1 = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Sentence Similarity',
-    tag: '2h',
+    tag: '',
     id: `univar_lambda_1_${dt}`,
     name: 'UniVaR Lambda 1',
     description: 'https://huggingface.co/CAiRE/UniVaR-lambda-1, the same model with nomic-ai/nomic-embed-text-v1? A Reproducible Long Context (8192) Text Embedder that surpasses OpenAI text-embedding-ada-002 and text-embedding-3-small performance on short and long context tasks.',
@@ -4542,20 +4555,23 @@ const xlmRobertaBase = () => {
   }))
 }
 
-const yoloV8N = () => {
+const yoloV8NPose = () => {
   const configs = [
-    ['fp32', 'yolov8n.onnx', '12.8 MB'],
+    ['fp32', 'model.onnx', '12.8 MB'],
+    ['fp16', 'model_fp16.onnx', '6.47 MB'],
+    ['int8', 'model_quantized.onnx', '3.58 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
     tag: '2h',
-    id: `yolov8n_${dt}`,
-    name: 'YOLO v8n',
+    isv: 'ms',
+    id: `yolov8n_pose_${dt}`,
+    name: `YOLO v8n Pose ${dt}`,
     description: 'Real-Time End-to-End Object Detection',
     note: 'Manually exported to ONNX',
     source: 'https://github.com/ultralytics/ultralytics',
     hf: {
-      model: 'webml/yolov8n',
+      model: 'xenova/yolov8n-pose',
       file: `${file}`,
     },
     model: '',
@@ -4577,9 +4593,10 @@ const yoloV8XPose = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
-    tag: '',
+    tag: '2h',
+    isv: 'ms',
     id: `yolov8x_pose_${dt}`,
-    name: 'YOLO v8x Pose',
+    name: `YOLO v8x Pose ${dt}`,
     description: 'Real-Time End-to-End Object Detection',
     note: '',
     source: 'https://huggingface.co/Xenova/yolov8x-pose',
@@ -4697,7 +4714,7 @@ export let models = [
   ...distiluseBaseMultilingualCasedV2(),
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'efficientnet_lite',
     name: 'EfficientNet Lite 4',
     description: 'A convolutional neural network architecture and scaling method.',
@@ -4712,7 +4729,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'efficientnet_lite_fp16',
     name: 'EfficientNet Lite 4',
     description: 'A convolutional neural network architecture and scaling method.',
@@ -4727,7 +4744,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'efficientnet_lite_demo_fp16',
     name: 'EfficientNet Lite 4 Demo',
     description: 'A convolutional neural network architecture and scaling method.',
@@ -4743,7 +4760,7 @@ export let models = [
   {
     category: 'Image Classification',
     id: 'efficientnet_lite_int8',
-    tag: '2h',
+    tag: '',
     name: 'EfficientNet Lite 4',
     description: 'A convolutional neural network architecture and scaling method.',
     note: '',
@@ -4758,7 +4775,7 @@ export let models = [
   {
     category: 'Image Classification',
     id: 'efficientnet_lite_qdq_int8',
-    tag: '2h',
+    tag: '',
     name: 'EfficientNet Lite 4 QDQ',
     description: 'A convolutional neural network architecture and scaling method.',
     note: '',
@@ -5041,7 +5058,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'mobilenet_v2_10',
     name: 'MobileNet v2_10',
     description: 'A computer vision model designed for training classifiers.',
@@ -5056,7 +5073,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'mobilenet_v2_12',
     name: 'MobileNet v2_12',
     description: 'A computer vision model designed for training classifiers.',
@@ -5071,7 +5088,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'mobilenet_v2_fp16',
     name: 'MobileNet v2',
     description: 'A computer vision model designed for training classifiers.',
@@ -5086,7 +5103,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'mobilenet_v2_demo_fp16',
     name: 'MobileNet v2 Demo',
     description: 'A computer vision model designed for training classifiers.',
@@ -5101,7 +5118,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'mobilenet_v2_12_int8',
     name: 'MobileNet v2_12',
     description: 'A computer vision model designed for training classifiers.',
@@ -5116,7 +5133,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'mobilenet_v2_12_qdq_int8',
     name: 'MobileNet v2_12 QDQ',
     description: 'A computer vision model designed for training classifiers.',
@@ -5170,7 +5187,7 @@ export let models = [
   ...msmarcoDistilbertBaseV4(),
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_powerpoint_combined_floatie_lre_online_fp32',
   //   name: 'Combined Floatie Lre Online MS PowerPoint',
   //   description: 'Microsoft Office 16 AI model',
@@ -5189,7 +5206,7 @@ export let models = [
   // },
   {
     category: 'Microsoft 365',
-    tag: '2h',
+    tag: '',
     id: 'ms_powerpoint_open_lifeguard_desktop_fp32',
     name: 'Open Lifeguard Desktop MS PowerPoint',
     description: 'Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 9]',
@@ -5206,7 +5223,7 @@ export let models = [
   },
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_powerpoint_open_lifeguard_desktop_20210922_fp32',
   //   name: 'Open Lifeguard Desktop 20210922 MS PowerPoint ',
   //   description: 'Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 21]',
@@ -5223,7 +5240,7 @@ export let models = [
   // },
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_powerpoint_combined_floatie_lre_offline_exploration_v3_int8',
   //   name: 'Combined Floatie Lre Offline Exploration V3 MS PowerPoint ',
   //   description: 'Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 20] [?, 20] [?] [?]',
@@ -5243,7 +5260,7 @@ export let models = [
   // },
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_powerpoint_floatie_terminal_v5_int8',
   //   name: 'Floatie Terminal V5 MS PowerPoint ',
   //   description: 'Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 20] [?, 20] [?] [?]',
@@ -5263,7 +5280,7 @@ export let models = [
   // },
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_powerpoint_combined_floatie_lre_online_v3_int8',
   //   name: 'Combined Floatie Lre Online V3 MS PowerPoint',
   //   description: 'Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 20] [?, 20] [?] [?]',
@@ -5283,7 +5300,7 @@ export let models = [
   // },
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_powerpoint_combined_floatie_v4_int8',
   //   name: 'Combined Floatie V4 MS PowerPoint',
   //   description: 'Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 20] [?, 20] [?] [?]',
@@ -5303,7 +5320,7 @@ export let models = [
   // },
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_powerpoint_floatie_all_v5_int8',
   //   name: 'Floatie All V5 MS PowerPoint',
   //   description: 'Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 20] [?, 20] [?] [?]',
@@ -5323,7 +5340,7 @@ export let models = [
   // },
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_word_fluency_v2_int8',
   //   name: 'Fluency v2 MS Word [Failed to run]',
   //   description: '[SentencepieceTokenizer(-1) is not a registered function/op] Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 20] [?, 20] [?] [?]',
@@ -5345,7 +5362,7 @@ export let models = [
   // },
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_word_combined_floatie_lre_online_fp32',
   //   name: 'Combined Floatie Lre Online MS Word',
   //   description: 'Microsoft Office 16 AI model',
@@ -5364,7 +5381,7 @@ export let models = [
   // },
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_word_combined_floatie_lre_offline_exploration_v3_int8',
   //   name: 'Combined Floatie Lre Offline Exploration V3 MS Word',
   //   description: 'Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 20] [?, 20] [?] [?]',
@@ -5384,7 +5401,7 @@ export let models = [
   // },
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_word_combined_floatie_v4_int8',
   //   name: 'Combined Floatie V4 MS Word',
   //   description: 'Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 20] [?, 20] [?] [?]',
@@ -5404,7 +5421,7 @@ export let models = [
   // },
   {
     category: 'Microsoft 365',
-    tag: '2h',
+    tag: '',
     id: 'ms_word_combined_floatie_lre_online_v3_int8',
     name: 'Combined Floatie Lre Online V3 MS Word',
     description: 'Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 20] [?, 20] [?] [?]',
@@ -5424,7 +5441,7 @@ export let models = [
   },
   {
     category: 'Microsoft 365',
-    tag: '2h',
+    tag: '',
     id: 'ms_word_combined_floatie_lre_online_v3_static_int8',
     name: 'Combined Floatie Lre Online V3 Static Shape MS Word',
     description: 'Microsoft Office 16 AI model.',
@@ -5444,7 +5461,7 @@ export let models = [
   },
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_word_floatie_all_v5_int8',
   //   name: 'Floatie All V5 MS Word',
   //   description: 'Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 20] [?, 20] [?] [?]',
@@ -5464,7 +5481,7 @@ export let models = [
   // },
   // {
   //   category: 'Microsoft 365',
-  //   tag: '2h',
+  //   tag: '',
   //   id: 'ms_word_floatie_terminal_v5_int8',
   //   name: 'Floatie Terminal V5 MS Word',
   //   description: 'Microsoft Office 16 AI model. With unnamed dynamic dimensions [?, 20] [?, 20] [?] [?]',
@@ -5499,7 +5516,7 @@ export let models = [
   ...Qwen2VLForConditionalGenerationVisionEncoder(),
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'resnet50_v1',
     name: 'ResNet50 v1',
     description: 'A convolutional neural network that is 50 layers deep.',
@@ -5514,7 +5531,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'resnet50_v1_fp16',
     name: 'ResNet50 v1',
     description: 'A convolutional neural network that is 50 layers deep.',
@@ -5529,7 +5546,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'resnet50_demo_fp16',
     name: 'ResNet50 Demo',
     description: 'A convolutional neural network that is 50 layers deep.',
@@ -5544,7 +5561,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'resnet50_v1_qdq_int8',
     name: 'ResNet50 v1 QDQ',
     description: 'A convolutional neural network that is 50 layers deep.',
@@ -5615,7 +5632,7 @@ export let models = [
   ...samVitBaseVisionEncoder(),
   {
     category: 'Text-to-Image',
-    tag: '2h',
+    tag: '',
     id: 'sd_turbo_text_encoder_fp32',
     name: 'SD-Turbo Text Encoder',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -5632,7 +5649,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
-    tag: '2h',
+    tag: '',
     id: 'sd_turbo_unet_fp32',
     name: 'SD-Turbo UNet',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -5668,7 +5685,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
-    tag: '2h',
+    tag: '',
     id: 'sd_turbo_text_encoder_fp16',
     name: 'SD-Turbo Text Encoder (no_layernorm)',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -5688,7 +5705,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
-    tag: '2h',
+    tag: '',
     id: 'sd_turbo_text_encoder_layernorm_demo_fp16',
     name: 'SD-Turbo Text Encoder (layernorm) Demo',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -5705,7 +5722,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
-    tag: '2h',
+    tag: '',
     id: 'sd_turbo_unet_fp16',
     name: 'SD-Turbo UNet (no_layernorm)',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -5724,7 +5741,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
-    tag: '2h',
+    tag: '',
     id: 'sd_turbo_unet_layernorm_demo_fp16',
     name: 'SD-Turbo UNet (layernorm) Demo',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -5743,7 +5760,7 @@ export let models = [
   },
   {
     category: 'Zero-Shot Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'sd_safety_checker_demo_fp16',
     name: 'SD Safety Checker Demo',
     description: 'Can be used for identifying not safe for work (NSFW) image. Should not be used to intentionally create hostile or alienating environments for people.',
@@ -5761,7 +5778,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
-    tag: '2h',
+    tag: '',
     id: 'sd_1_5_text_encoder_demo_fp16',
     name: 'SD 1.5 text Encoder Demo',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -5778,7 +5795,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
-    tag: '2h',
+    tag: '',
     id: 'sd_1_5_unet_demo_fp16',
     name: 'SD 1.5 UNet (layernorm) Demo',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -5797,7 +5814,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
-    tag: '2h',
+    tag: '',
     id: 'sd_vae_decoder_demo_fp16',
     name: 'SD (1.5 + Turbo) VAE Decoder Demo',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -5858,7 +5875,7 @@ export let models = [
   },
   {
     category: 'Mask Generation',
-    tag: '2h',
+    tag: '',
     id: 'segment_anything_decoder',
     name: 'Segment Anything Decoder',
     description: 'An AI model from Meta AI that can cut out any object in any image.',
@@ -5880,7 +5897,7 @@ export let models = [
   },
   {
     category: 'Mask Generation',
-    tag: '2h',
+    tag: '',
     id: 'segment_anything_decoder_demo_fp16',
     name: 'Segment Anything Decoder Demo',
     description: 'An AI model from Meta AI that can cut out any object in any image.',
@@ -5902,7 +5919,7 @@ export let models = [
   },
   {
     category: 'Mask Generation',
-    tag: '2h',
+    tag: '',
     id: 'segment_anything_encoder_demo_fp16',
     name: 'Segment Anything Encoder Demo',
     description: 'An AI model from Meta AI that can cut out any object in any image.',
@@ -5984,7 +6001,7 @@ export let models = [
   ...squeezebertUncased(),
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'squeezenet',
     name: 'SqueezeNet 1.1',
     description: 'A deep convolutional neural network (CNN) perform image classification.',
@@ -5999,7 +6016,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'squeezenet_fp16',
     name: 'SqueezeNet 1.0',
     description: 'A deep convolutional neural network (CNN) perform image classification.',
@@ -6014,7 +6031,7 @@ export let models = [
   },
   {
     category: 'Image Classification',
-    tag: '2h',
+    tag: '',
     id: 'squeezenet_qdq_int8',
     name: 'SqueezeNet 1.0 QDQ',
     description: 'A deep convolutional neural network (CNN) perform image classification.',
@@ -6117,7 +6134,7 @@ export let models = [
   {
     category: 'Image Classification',
     id: 'swin_small_fp32',
-    tag: '2h',
+    tag: '',
     name: '[dml-ai-hub] Swim Small',
     description: 'https://huggingface.co/microsoft/dml-ai-hub-models/',
     note: '',
@@ -6192,7 +6209,7 @@ export let models = [
   ...vitGpt2ImageCaptioningEncoder(),
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'voiceitt_casr_decoder_epoch_fp32',
     name: 'ISV Voiceitt CASR.JS Decoder Epoch',
     description: 'Voiceitt CASR.JS Library',
@@ -6209,7 +6226,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'voiceitt_casr_encoder_epoch_40_merged_int8',
     name: 'ISV Voiceitt CASR.JS Encoder Epoch 40 KV-Cache',
     description: 'Voiceitt CASR.JS Library',
@@ -6261,7 +6278,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'voiceitt_casr_encoder_epoch_70_merged_int8',
     name: 'ISV Voiceitt CASR.JS Encoder Epoch 70 KV-Cache',
     description: 'Voiceitt CASR.JS Library',
@@ -6395,7 +6412,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'voiceitt_casr_encoder_epoch_70_static_merged_fp32',
     name: 'ISV Voiceitt CASR.JS Encoder Epoch 70 Static Shape KV-Cache',
     description: 'Voiceitt CASR.JS Library',
@@ -6529,7 +6546,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'voiceitt_casr_joiner_epoch_fp32',
     name: 'ISV Voiceitt CASR.JS Joiner Epoch',
     description: 'Voiceitt CASR.JS Library',
@@ -6547,7 +6564,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'voiceitt_casr_tack_fbank_fp32',
     name: 'ISV Voiceitt CASR.JS Library Tack Fbank',
     description: 'Voiceitt CASR.JS Library',
@@ -6564,7 +6581,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'voiceitt_casr_tack_mfcc_fp32',
     name: 'ISV Voiceitt CASR.JS Library Tack MFCC',
     description: 'Voiceitt CASR.JS Library',
@@ -6581,7 +6598,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'voiceitt_casr_vad_fp32',
     name: 'ISV Voiceitt CASR.JS Library VAD',
     description: 'Voiceitt CASR.JS Library',
@@ -6604,7 +6621,7 @@ export let models = [
   ...whisperTinyEnDecoderMergedHFTFBenchmark(),
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'whisper_base_decoder_static_merged',
     name: 'Whisper Base Decoder Static Shape KV-Cache',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -6623,7 +6640,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'whisper_base_decoder_static',
     name: 'Whisper Base Decoder Static Shape Non-KV-Cache',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -6642,7 +6659,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'whisper_base_encoder',
     name: 'Whisper Base Encoder',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -6659,7 +6676,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'whisper_base_decoder_static_gelu_4dmask_demo_merged_fp16',
     name: 'Whisper Base Decoder Static Shape KV-Cache Demo',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation. (LayerNorm, Gelu, 4dmask)',
@@ -6678,7 +6695,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'whisper_base_decoder_static_gelu_4dmask_mltensor_demo_merged_fp16',
     name: 'Whisper Base Decoder Static Shape KV-Cache MLTensor Demo GPU',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation. (LayerNorm, Gelu, 4dmask) https://github.com/microsoft/webnn-developer-preview/pull/67',
@@ -6697,7 +6714,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'whisper_base_decoder_static_gelu_4dmask_demo_fp16',
     name: 'Whisper Base Decoder Static Shape Non-KV-Cache Demo',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation. (LayerNorm, Gelu, 4dmask)',
@@ -6716,7 +6733,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'whisper_base_decoder_static_gelu_4dmask_mltensor_demo_fp16',
     name: 'Whisper Base Decoder Static Shape Non-KV-Cache MLTensor Demo GPU',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation. (LayerNorm, Gelu, 4dmask) https://github.com/microsoft/webnn-developer-preview/pull/67',
@@ -6735,7 +6752,7 @@ export let models = [
   },
   {
     category: 'Automatic Speech Recognition',
-    tag: '2h',
+    tag: '',
     id: 'whisper_base_encoder_gelu_demo_fp16',
     name: 'Whisper Base Encoder Demo',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation. (LayerNorm + Gelu)',
@@ -6786,7 +6803,7 @@ export let models = [
     }],
     inputstip: '[1, 3, 416, 416]'
   },
-  ...yoloV8N(),
+  ...yoloV8NPose(),
   ...yoloV8XPose(),
   ...yoloV10N(),
 ];
