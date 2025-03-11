@@ -2397,7 +2397,7 @@ const movenetMultiposeLightning = () => {
   return configs.map(([dt, file, size]) => ({
     category: 'Keypoint Detection',
     tag: '',
-    isv:'ms',
+    isv: 'ms',
     id: `movenet_multipose_lightning_${dt}`,
     name: `MoveNet Multipose Lightning`,
     description: '',
@@ -2428,7 +2428,7 @@ const movenetSingleposeLightning = () => {
   return configs.map(([dt, file, size]) => ({
     category: 'Keypoint Detection',
     tag: '',
-    isv:'ms',
+    isv: 'ms',
     id: `movenet_singlepose_lightning_${dt}`,
     name: `MoveNet Singlepose Lightning`,
     description: '',
@@ -2459,7 +2459,7 @@ const movenetSingleposeThunder = () => {
   return configs.map(([dt, file, size]) => ({
     category: 'Keypoint Detection',
     tag: '',
-    isv:'ms',
+    isv: 'ms',
     id: `movenet_singlepose_thunder_${dt}`,
     name: `MoveNet Singlepose Thunder`,
     description: '',
@@ -6990,8 +6990,16 @@ export let models = [
 ];
 
 export const cpu = [
-  "Intel Core Ultra 9 285K", "Intel Core Ultra 7 265K", "Intel Core Ultra 7 265KF", "Intel Core Ultra 5 245K", "Intel Core Ultra 5 245KF",
-  "Intel Core Ultra 9 288V", "Intel Core Ultra 7 268V", "Intel Core Ultra 7 266V", "Intel Core Ultra 7 258V", "Intel Core Ultra 7 256V", "Intel Core Ultra 5 238V", "Intel Core Ultra 5 236V", "Intel Core Ultra 5 228V", "Intel Core Ultra 5 226V",
+  "Intel Core Ultra 9 285", "Intel Core Ultra 9 285H", "Intel Core Ultra 9 285HX", "Intel Core Ultra 9 285T", "Intel Core Ultra 9 285K",
+  "Intel Core Ultra 7 275HX",
+  "Intel Core Ultra 7 265", "Intel Core Ultra 7 265F", "Intel Core Ultra 7 265H", "Intel Core Ultra 7 265HX",
+  "Intel Core Ultra 7 265T", "Intel Core Ultra 7 265U", "Intel Core Ultra 7 265K", "Intel Core Ultra 7 265KF",
+  "Intel Core Ultra 5 255H", "Intel Core Ultra 5 255HX", "Intel Core Ultra 5 255U",
+  "Intel Core Ultra 5 245", "Intel Core Ultra 5 245HX", "Intel Core Ultra 5 245T", "Intel Core Ultra 5 245K", "Intel Core Ultra 5 245KF",
+  "Intel Core Ultra 5 235", "Intel Core Ultra 5 235H", "Intel Core Ultra 5 235HX", "Intel Core Ultra 5 235T", "Intel Core Ultra 5 235U",
+  "Intel Core Ultra 5 225", "Intel Core Ultra 5 225F", "Intel Core Ultra 5 225H", "Intel Core Ultra 5 225T", "Intel Core Ultra 5 225U",
+  "Intel Core Ultra 9 288V", "Intel Core Ultra 7 268V", "Intel Core Ultra 7 266V", "Intel Core Ultra 7 258V", "Intel Core Ultra 7 256V",
+  "Intel Core Ultra 5 238V", "Intel Core Ultra 5 236V", "Intel Core Ultra 5 228V", "Intel Core Ultra 5 226V",
   "Intel Core Ultra 7 155H", "Intel Core Ultra 7 155U", "Intel Core Ultra 7 164U", "Intel Core Ultra 7 165H", "Intel Core Ultra 7 165U", "Intel Core Ultra 9 185H",
   "Intel Core Ultra 5 125H", "Intel Core Ultra 5 125U", "Intel Core Ultra 5 134U", "Intel Core Ultra 5 135H", "Intel Core Ultra 5 135U",
   "Intel Core Ultra 7 165UL", "Intel Core Ultra 7 165HL", "Intel Core Ultra 7 155UL", "Intel Core Ultra 7 155HL", "Intel Core Ultra 5 135UL", "Intel Core Ultra 5 135HL", "Intel Core Ultra 5 125UL", "Intel Core Ultra 5 125HL", "Intel Core Ultra 3 105UL",
@@ -7034,6 +7042,7 @@ export const cpu = [
   "Intel Atom x6200FE", "Intel Atom x6211E", "Intel Atom x6212RE", "Intel Atom x6413E", "Intel Atom x6414RE", "Intel Atom x6425E", "Intel Atom x6425RE", "Intel Atom x6427FE", "Intel Celeron 6305", "Intel Celeron 7300", "Intel Celeron 7305", "Intel Celeron 3867U", "Intel Celeron 4205U", "Intel Celeron 4305U", "Intel Celeron 4305UE", "Intel Celeron 5205U", "Intel Celeron 5305U", "Intel Celeron 6305E", "Intel Celeron 6600HE", "Intel Celeron 7305E", "Intel Celeron 7305L", "Intel Celeron G4900", "Intel Celeron G4900T", "Intel Celeron G4920", "Intel Celeron G4930", "Intel Celeron G4930E", "Intel Celeron G4930T", "Intel Celeron G4932E", "Intel Celeron G4950", "Intel Celeron G5900", "Intel Celeron G5900E", "Intel Celeron G5900T", "Intel Celeron G5900TE", "Intel Celeron G5905", "Intel Celeron G5905T", "Intel Celeron G5920", "Intel Celeron G5925", "Intel Celeron G6900", "Intel Celeron G6900E", "Intel Celeron G6900T", "Intel Celeron G6900TE", "Intel Celeron J4005", "Intel Celeron J4025", "Intel Celeron J4105", "Intel Celeron J4115", "Intel Celeron J4125", "Intel Celeron J6412", "Intel Celeron J6413", "Intel Celeron N4000", "Intel Celeron N4020", "Intel Celeron N4100", "Intel Celeron N4120", "Intel Celeron N4500", "Intel Celeron N4505", "Intel Celeron N5100", "Intel Celeron N5105", "Intel Celeron N6210", "Intel Celeron N6211",
   "Intel Core i3-N300", "Intel Core i3-N305",
   "Intel Core m3-8100Y", "Intel Pentium Gold 4417U", "Intel Pentium Gold 4425Y", "Intel Pentium Gold 5405U", "Intel Pentium Gold 6405U", "Intel Pentium Gold 6500Y", "Intel Pentium Gold 6805", "Intel Pentium Gold 7505", "Intel Pentium Gold 8500", "Intel Pentium Gold 8505", "Intel Pentium Gold G5400", "Intel Pentium Gold G5400T", "Intel Pentium Gold G5420", "Intel Pentium Gold G5420T", "Intel Pentium Gold G5500", "Intel Pentium Gold G5500T", "Intel Pentium Gold G5600", "Intel Pentium Gold G5600E", "Intel Pentium Gold G5600T", "Intel Pentium Gold G5620", "Intel Pentium Gold G6400", "Intel Pentium Gold G6400E", "Intel Pentium Gold G6400T", "Intel Pentium Gold G6400TE", "Intel Pentium Gold G6405", "Intel Pentium Gold G6405T", "Intel Pentium Gold G6500", "Intel Pentium Gold G6500T", "Intel Pentium Gold G6505", "Intel Pentium Gold G6505T", "Intel Pentium Gold G6600", "Intel Pentium Gold G6605", "Intel Pentium Gold G7400", "Intel Pentium Gold G7400E", "Intel Pentium Gold G7400T", "Intel Pentium Gold G7400TE", "Intel Pentium J6426", "Intel Pentium N6415", "Intel Pentium Silver J5005", "Intel Pentium Silver J5040", "Intel Pentium Silver N5000", "Intel Pentium Silver N5030", "Intel Pentium Silver N6000", "Intel Pentium Silver N6005", "Intel N100", "Intel N200", "Intel N50", "Intel N95", "Intel N97", "Intel U300", "Intel U300E",
+  "AMD Ryzen 9 9950X3D", "AMD Ryzen 9 9900X3D", "AMD Ryzen 7 9800X3D", 
   "AMD Ryzen 9 9950X", "AMD Ryzen 9 9900X", "AMD Ryzen 7 9700X", "AMD Ryzen 5 9600X",
   "AMD Ryzen 7 8700G", "AMD Ryzen 7 8700F", "AMD Ryzen 5 8600G", "AMD Ryzen 5 8500G", "AMD Ryzen 5 8400F", "AMD Ryzen 3 8300G",
   "AMD Ryzen AI 9 HX 375", "AMD Ryzen AI 9 HX 370", "AMD Ryzen AI 9 365", "AMD Radeon PRO W7900",
