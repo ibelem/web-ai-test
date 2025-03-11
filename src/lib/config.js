@@ -2387,6 +2387,99 @@ const moondream2VisionEncoder = () => {
   }))
 }
 
+const movenetMultiposeLightning = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '18.1 MB'],
+    ['fp16', 'model_fp16.onnx', '9.2 MB'],
+    ['int8', 'model_quantized.onnx', '5.01 MB'],
+    ['int8', 'model_q4.onnx', '18.1 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Keypoint Detection',
+    tag: '',
+    isv:'ms',
+    id: `movenet_multipose_lightning_${dt}`,
+    name: `MoveNet Multipose Lightning ${dt}`,
+    description: '',
+    note: '',
+    source: 'https://huggingface.co/Xenova/MoveNet-multipose-lightning',
+    hf: {
+      model: 'xenova/MoveNet-multipose-lightning',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input': ['float32', 'random', [1, 192, 192, 3], {}]
+    }],
+    inputstip: '[1, 192, 192, 3]'
+  }))
+}
+
+const movenetSingleposeLightning = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '8.97 MB'],
+    ['fp16', 'model_fp16.onnx', '4.56 MB'],
+    ['int8', 'model_quantized.onnx', '2.65 MB'],
+    ['int8', 'model_q4.onnx', '8.97 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Keypoint Detection',
+    tag: '',
+    isv:'ms',
+    id: `movenet_singlepose_lightning_${dt}`,
+    name: `MoveNet Singlepose Lightning ${dt}`,
+    description: '',
+    note: '',
+    source: 'https://huggingface.co/Xenova/MoveNet-singlepose-lightning',
+    hf: {
+      model: 'xenova/MoveNet-singlepose-lightning',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input': ['float32', 'random', [1, 192, 192, 3], {}]
+    }],
+    inputstip: '[1, 192, 192, 3]'
+  }))
+}
+
+const movenetSingleposeThunder = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '23.9 MB'],
+    ['fp16', 'model_fp16.onnx', '12 MB'],
+    ['int8', 'model_quantized.onnx', '6.44 MB'],
+    ['int8', 'model_q4.onnx', '23.9 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Keypoint Detection',
+    tag: '',
+    isv:'ms',
+    id: `movenet_singlepose_thunder_${dt}`,
+    name: `MoveNet Singlepose Thunder ${dt}`,
+    description: '',
+    note: '',
+    source: 'https://huggingface.co/Xenova/MoveNet-singlepose-thunder',
+    hf: {
+      model: 'xenova/MoveNet-singlepose-thunder',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input': ['float32', 'random', [1, 256, 256, 3], {}]
+    }],
+    inputstip: '[1, 256, 256, 3]'
+  }))
+}
+
 const msmarcoDistilbertBaseV4 = () => {
   const configs = [
     ['fp32', 'model.onnx', '253 MB'],
@@ -5269,6 +5362,9 @@ export let models = [
   ...mobileNetV4(),
   ...mobileVitSmall(),
   ...modNet(),
+  ...movenetMultiposeLightning(),
+  ...movenetSingleposeLightning(),
+  ...movenetSingleposeThunder(),
   ...msmarcoDistilbertBaseV4(),
   // {
   //   category: 'Microsoft 365',
