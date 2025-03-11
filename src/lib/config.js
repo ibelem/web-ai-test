@@ -22,7 +22,11 @@ export const corsSites = [
 export const tracking = [
   'tfsm',
   'goog',
-  'ctni'
+  'ctni',
+  'mocq',
+  'advn',
+  'dma',
+  'lpaa'
 ]
 
 export const ortDists = {
@@ -7073,46 +7077,18 @@ export const cpu = [
   "AMD EPYC 7402P", "AMD EPYC 7443P", "AMD EPYC 74F3", "AMD EPYC 7502P", "AMD EPYC 7543P", "AMD EPYC 75F3", "AMD EPYC 7702P", "AMD EPYC 7713P", "AMD EPYC 7F32", "AMD EPYC 7F52", "AMD EPYC 7F72", "AMD EPYC 7H12", "AMD Ryzen R2312", "AMD Ryzen R2314", "AMD Ryzen R2514", "AMD Ryzen R2544", "AMD Ryzen Z1", "AMD Ryzen Z1 Extreme", "AMD Ryzen 3 3100", "AMD Ryzen 3 4100", "AMD Ryzen 3 2300X", "AMD Ryzen 3 3200G", "AMD Ryzen 3 3200GE", "AMD Ryzen 3 3200U", "AMD Ryzen 3 3250C", "AMD Ryzen 3 3250U", "AMD Ryzen 3 3300U", "AMD Ryzen 3 3350U", "AMD Ryzen 3 4300G", "AMD Ryzen 3 4300GE", "AMD Ryzen 3 4300U", "AMD Ryzen 3 5125C",
   "AMD Ryzen 3 5300G", "AMD Ryzen 3 5300GE", "AMD Ryzen 3 5300GE", "AMD Ryzen 3 5300U", "AMD Ryzen 3 5400U", "AMD Ryzen 3 5425C", "AMD Ryzen 3 5425U", "AMD Ryzen 3 7320e", "AMD Ryzen 3 7320U", "AMD Ryzen 3 7330U", "AMD Ryzen 3 7335U", "AMD Ryzen 3 7440U", "AMD Ryzen 3 5380U", "AMD Ryzen 3 PRO 3200G", "AMD Ryzen 3 PRO 3200GE", "AMD Ryzen 3 PRO 3300U", "AMD Ryzen 3 PRO 4350G", "AMD Ryzen 3 PRO 4350GE", "AMD Ryzen 3 PRO 4450U", "AMD Ryzen 3 PRO 5350G", "AMD Ryzen 3 PRO 5350GE", "AMD Ryzen 3 PRO 5450U", "AMD Ryzen 3 PRO 5475U", "AMD Ryzen 3 PRO 7330U", "AMD Ryzen 3 PRO 4355G", "AMD Ryzen 3 PRO 4355GE", "AMD Ryzen 5 2600",
   "AMD Ryzen 5 3600", "AMD Ryzen 5 4500", "AMD Ryzen 5 5500", "AMD Ryzen 5 5600", "AMD Ryzen 5 7600", "AMD Ryzen 5 2500X", "AMD Ryzen 5 2600E", "AMD Ryzen 5 2600X", "AMD Ryzen 5 3350G", "AMD Ryzen 5 3350GE", "AMD Ryzen 5 3400G", "AMD Ryzen 5 3400GE", "AMD Ryzen 5 3450U", "AMD Ryzen 5 3500", "AMD Ryzen 5 3500C", "AMD Ryzen 5 3500U", "AMD Ryzen 5 3500X", "AMD Ryzen 5 3550H", "AMD Ryzen 5 3580U", "AMD Ryzen 5 3600X", "AMD Ryzen 5 3600XT", "AMD Ryzen 5 4500U", "AMD Ryzen 5 4600G",
-  "Apple M4", "Apple M3 Ultra", "Apple M3 Max", "Apple M3 Pro", "Apple M3", "Apple M2 Ultra", "Apple M2 Max", "Apple M2 Pro", "Apple M2", "Apple M1 Ultra", "Apple M1 Max", "Apple M1 Pro", "Apple M1",
-  "Apple A17 Pro", "Apple A16 Bionic", "Apple A15 Bionic", "Apple A14 Bionic", "Apple A13 Bionic", "Apple A12Z Bionic", "Apple A12X Bionic", "Apple A12 Bionic", "Apple A11 Bionic", "Apple A10X Fusion", "Apple A10 Fusion", "Apple A9X", "Apple A9", "Apple A8X", "Apple A7", "Apple A6X", "Apple A6", "Apple A5X", "Apple A5", "Apple A4",
+  "Apple M5", "Apple M4 Max", "Apple M4 Pro", "Apple M4", "Apple M3 Ultra", "Apple M3 Max", "Apple M3 Pro", "Apple M3", "Apple M2 Ultra", "Apple M2 Max", "Apple M2 Pro", "Apple M2", "Apple M1 Ultra", "Apple M1 Max", "Apple M1 Pro", "Apple M1",
+  "Apple A18 Pro", "Apple A18", "Apple A17 Pro", "Apple A16 Bionic", "Apple A15 Bionic", "Apple A14 Bionic", "Apple A13 Bionic", "Apple A12Z Bionic", "Apple A12X Bionic", "Apple A12 Bionic", "Apple A11 Bionic", "Apple A10X Fusion", "Apple A10 Fusion", "Apple A9X", "Apple A9", "Apple A8X", "Apple A7", "Apple A6X", "Apple A6", "Apple A5X", "Apple A5", "Apple A4",
+  "Qualcomm Snapdragon X Elite Gen 2",
   "Qualcomm Snapdragon X Elite X1E-00-1DE", "Qualcomm Snapdragon X Elite X1E-84-100", "Qualcomm Snapdragon X Elite X1E-80-100", "Qualcomm Snapdragon X Elite X1E-78-100",
   "Qualcomm Snapdragon X Plus X1P-66-100", "Qualcomm Snapdragon X Plus X1P-64-100", "Qualcomm Snapdragon X Plus X1P-46-100", "Qualcomm Snapdragon X Plus X1P-42-100",
-  "Qualcomm Snapdragon 8 Gen 4", "Qualcomm Snapdragon 8 Gen 3", "Qualcomm Snapdragon 8 Gen 2", "Qualcomm Snapdragon 8 Gen 1", "Qualcomm Snapdragon 888+", "Qualcomm Snapdragon 888", "Qualcomm Snapdragon 870", "Qualcomm Snapdragon 865+", "Qualcomm Snapdragon 865", "Qualcomm Snapdragon 860", "Qualcomm Snapdragon 855+", "Qualcomm Snapdragon 855", "Qualcomm Snapdragon 845", "Qualcomm Snapdragon 835", "Qualcomm Snapdragon 821", "Qualcomm Snapdragon 820", "Qualcomm Snapdragon 7+ Gen 2", "Qualcomm Snapdragon 7 Gen 1", "Qualcomm Snapdragon 6 Gen 1", "Qualcomm Snapdragon 4 Gen 1", "MTK"
+  "Qualcomm Snapdragon X X1-26-100",
+  "Qualcomm Snapdragon 8 Elite", "Qualcomm Snapdragon 8 Gen 3", "Qualcomm Snapdragon 8 Gen 2", "Qualcomm Snapdragon 8 Gen 1", "Qualcomm Snapdragon 888+", "Qualcomm Snapdragon 888", "Qualcomm Snapdragon 870", "Qualcomm Snapdragon 865+", "Qualcomm Snapdragon 865", "Qualcomm Snapdragon 860", "Qualcomm Snapdragon 855+", "Qualcomm Snapdragon 855", "Qualcomm Snapdragon 845", "Qualcomm Snapdragon 835", "Qualcomm Snapdragon 821", "Qualcomm Snapdragon 820", "Qualcomm Snapdragon 7+ Gen 2", "Qualcomm Snapdragon 7 Gen 1", "Qualcomm Snapdragon 6 Gen 1", "Qualcomm Snapdragon 4 Gen 1",
+  "Samsung Exynos 2400", "Samsung Exynos 2000 series", "Samsung Exynos 1000 series", "Samsung",
+  "MTK Dimensity 9400", "MTK Dimensity 9000 Series", "MTK Dimensity 8000 Series", "MTK Dimensity 7000 Series", "MTK Dimensity 6000 Series", "MTK"
 ];
 
 export const gpu = [
   "Intel Arc A770 (16GB)",
-  "Intel Arc A770 (8GB)",
-  "Intel Arc A770M (16GB)",
-  "Intel Arc A750 (8GB)",
-  "Intel Arc A730M (12GB)",
-  "Intel Arc A570M (8GB)",
-  "Intel Arc A550M (8GB)",
-  "Intel Arc A530M (4/8GB)",
-  "Intel Arc A370M (4GB)",
-  "Intel Arc A350M (4GB)",
-  "Intel Arc A310 (4GB)",
-  "Intel Arc Pro A60(12GB)",
-  "Intel Arc Pro A60M(8GB)",
-  "Intel Arc Pro A50(6GB)",
-  "Intel Arc Pro A40(6GB)",
-  "Intel Arc Pro A30M(4GB)",
-  "Nvidia GeForce RTX 5090",
-  "Nvidia GeForce RTX 5080",
-  "Nvidia GeForce RTX 5070",
-  "Nvidia GeForce RTX 5060",
-  "Nvidia GeForce RTX 4090",
-  "Nvidia GeForce RTX 4080",
-  "Nvidia GeForce RTX 4070 Ti",
-  "Nvidia GeForce RTX 4070",
-  "Nvidia GeForce RTX 4060 Ti",
-  "Nvidia GeForce RTX 4060",
-  "Nvidia GeForce RTX 3090 Ti",
-  "Nvidia GeForce RTX 3090",
-  "Nvidia GeForce RTX 3080 Ti",
-  "Nvidia GeForce RTX 3080",
-  "Nvidia GeForce RTX 3070 Ti",
-  "Nvidia GeForce RTX 3070",
-  "Nvidia GeForce RTX 3060 Ti",
-  "Nvidia GeForce RTX 3060",
-  "Nvidia GeForce RTX 3050"];
+  "Nvidia GeForce RTX 5090"
+];
