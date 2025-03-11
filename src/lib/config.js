@@ -484,6 +484,41 @@ const codeGenMono350M = () => {
   }))
 }
 
+const depthAnythingBase = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '371 MB'],
+    ['fp16', 'model_fp16.onnx', '185 MB'],
+    ['int8', 'model_quantized.onnx', '97.9 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Depth Estimation',
+    tag: '',
+    isv: 'ms',
+    id: `depth_anything_base_${dt}`,
+    name: `Depth Anything Base ${dt}`,
+    description: 'Depth Anything Base',
+    note: '',
+    source: 'https://huggingface.co/Xenova/depth-anything-base-hf',
+    hf: {
+      model: 'xenova/depth-anything-base-hf',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 518, 518], {
+        "batch_size": 1,
+        "num_channels": 3,
+        "height": 518,
+        "width": 518,
+      }]
+    }],
+    inputstip: '[1, 3, 518, 518]'
+  }))
+}
+
 const detrResnet50 = () => {
   const configs = [
     ['fp32', 'model.onnx', '159 MB'],
@@ -1929,7 +1964,7 @@ const llavaDecoder = () => {
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
     tag: '',
-    isv:'ms',
+    isv: 'ms',
     id: `llava_decoder_${dt}`,
     name: `Llava Decoder ${dt}`,
     description: 'Tiny Random Llava for Conditional Generation',
@@ -1961,7 +1996,7 @@ const llavaDecoderMerged = () => {
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
     tag: '',
-    isv:'ms',
+    isv: 'ms',
     id: `llava_decoder_merged_${dt}`,
     name: `Llava WIP Decoder KV-Cache ${dt}`,
     description: 'Tiny Random Llava for Conditional Generation',
@@ -1994,7 +2029,7 @@ const llavaDecoderWithPast = () => {
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
     tag: '',
-    isv:'ms',
+    isv: 'ms',
     id: `llava_decoder_with_past_${dt}`,
     name: `Llava Decoder w/i Past ${dt}`,
     description: 'Tiny Random Llava For Conditional Generation',
@@ -2026,7 +2061,7 @@ const llavaEmbedTokens = () => {
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
     tag: '',
-    isv:'ms',
+    isv: 'ms',
     id: `llava_embed_tokens_${dt}`,
     name: `Llava Embed Tokens ${dt}`,
     description: 'Tiny Random Llava For Conditional Generation',
@@ -2057,7 +2092,7 @@ const llavaVisionEncoder = () => {
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
     tag: '',
-    isv:'ms',
+    isv: 'ms',
     id: `llava_vision_encoder_${dt}`,
     name: `Llava Vision Encoder ${dt}`,
     description: 'Tiny Random Llava For Conditional Generation',
@@ -2085,7 +2120,7 @@ const llavaPhiDecoderMerged = () => {
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
     tag: '',
-    isv:'ms',
+    isv: 'ms',
     id: `llava_phi_decoder_merged_${dt}`,
     name: `Llava Phi WIP Decoder KV-Cache ${dt}`,
     description: 'Tiny Random Llava For Conditional Generation Phi',
@@ -2115,7 +2150,7 @@ const llavaPhiEmbedTokens = () => {
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
     tag: '',
-    isv:'ms',
+    isv: 'ms',
     id: `llava_phi_embed_tokens_${dt}`,
     name: `Llava Phi Embed Tokens ${dt}`,
     description: 'Tiny Random Llava For Conditional Generation Phi',
@@ -2143,7 +2178,7 @@ const llavaPhiVisionEncoder = () => {
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
     tag: '',
-    isv:'ms',
+    isv: 'ms',
     id: `llava_phi_vision_encoder_${dt}`,
     name: `Llava Phi Vision Encoder ${dt}`,
     description: 'Tiny Random Llava For Conditional Generation Phi',
@@ -2221,6 +2256,40 @@ const mobileVitSmall = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 256, 256], { "batch_size": 1, "num_channels": 3, "height": 256, "width": 256 }] }],
+    inputstip: '[1, 3, 256, 256]'
+  }))
+}
+
+const modNet = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '24.6 MB'],
+    ['fp16', 'model_fp16.onnx', '12.3 MB'],
+    ['int8', 'model_quantized.onnx', '6.32 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Segmentation',
+    tag: '',
+    isv: 'ms',
+    id: `mod_net_${dt}`,
+    name: `MODNet ${dt}`,
+    description: 'MODNet: Trimap-Free Portrait Matting in Real Time',
+    note: '',
+    source: 'https://huggingface.co/Xenova/modnet',
+    hf: {
+      model: 'xenova/modnet',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input': ['float32', 'random', [1, 3, 256, 256], {
+        "batch_size": 1,
+        "height": 256,
+        "width": 256,
+      }]
+    }],
     inputstip: '[1, 3, 256, 256]'
   }))
 }
@@ -3131,14 +3200,14 @@ const t5SmallDecoderWithPast = () => {
     datatype: `${dt}`,
     inputs: [{
       'encoder_attention_mask': ['int64', 1n, [1, 9], { "encoder_sequence_length": 9 }],
-      'input_ids': ['int64', 5n, [1, 1], { 
-        "batch_size": 1, 
+      'input_ids': ['int64', 5n, [1, 1], {
+        "batch_size": 1,
         "decoder_sequence_length": 1,
         "past_decoder_sequence_length": 2,
         "encoder_sequence_length_out": 9
-       }],
-       'encoder_hidden_states': ['float32', 'random', [1, 9, 512], {}],
-       'use_cache_branch': ['bool', 1, [1], {}]
+      }],
+      'encoder_hidden_states': ['float32', 'random', [1, 9, 512], {}],
+      'use_cache_branch': ['bool', 1, [1], {}]
     }],
     inputstip: '[1, 9] [1, 1] [1, 9, 512] [1]'
   }))
@@ -3168,7 +3237,7 @@ const t5SmallDecoderMerged = () => {
     inputs: [{
       'encoder_attention_mask': ['int64', 1n, [1, 9], { "encoder_sequence_length": 9 }],
       'input_ids': ['int64', 5n, [1, 1], {
-        "batch_size": 1, 
+        "batch_size": 1,
         "decoder_sequence_length": 1,
         "past_decoder_sequence_length": 2,
         "encoder_sequence_length_out": 9
@@ -3262,7 +3331,7 @@ const t5SmallDecoderMergedHFTFBenchmark = () => {
     inputs: [{
       'encoder_attention_mask': ['int64', 1n, [1, 9], { "encoder_sequence_length": 9 }],
       'input_ids': ['int64', 5n, [1, 1], {
-        "batch_size": 1, 
+        "batch_size": 1,
         "decoder_sequence_length": 1,
         "past_decoder_sequence_length": 2,
         "encoder_sequence_length_out": 9
@@ -3938,7 +4007,7 @@ const tinyRandomVisionEncoderDecoderModelViTGPTDecoderMergedHFTFBenchmark = () =
     inputs: [{
       'input_ids': ['int64', 99n, [1, 41], { "batch_size": 1, "decoder_sequence_length": 41 }],
       'encoder_hidden_states': ['float32', 'random', [1, 226, 32], { "batch_size": 1, "encoder_sequence_length": 226 }],
-      'use_cache_branch': ['bool', 1, [1], { 'past_sequence_length': 0}]
+      'use_cache_branch': ['bool', 1, [1], { 'past_sequence_length': 0 }]
     }],
     inputstip: '[1, 41] [1, 226, 32] [1]'
   }))
@@ -4679,6 +4748,7 @@ export let models = [
   ...tinyRandomClipModelHFTFBenchmark(),
   ...clipVitBasePatch16(),
   ...codeGenMono350M(),
+  ...depthAnythingBase(),
   {
     category: 'Image Segmentation',
     tag: '',
@@ -5198,6 +5268,7 @@ export let models = [
   ...moondream2VisionEncoder(),
   ...mobileNetV4(),
   ...mobileVitSmall(),
+  ...modNet(),
   ...msmarcoDistilbertBaseV4(),
   // {
   //   category: 'Microsoft 365',
