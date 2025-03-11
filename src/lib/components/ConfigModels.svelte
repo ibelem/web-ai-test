@@ -303,7 +303,7 @@
 			}
 			
 			if (categories.other && 
-					!(categories.top2025 && isv && isv === 'ms') && 
+					!(isv && isv === 'ms') && 
 					!id.includes("_tfbench_model_") && 
 					!id.includes("_tfbench_pipeline_")) {
 				return true;
