@@ -16,7 +16,10 @@
 	let numberofNpuOps = 0;
 
 	function generateHTMLTable(limits) {
-		let html = '<table border="1"><tr><th>operation</th><th>item</th>';
+		let html = '<table><thead><tr>';
+
+		// Header cells
+		html += '<th>operation</th><th>item</th>';
 
 		// Get all unique dataTypes
 		const allDataTypes = new Set();
@@ -32,34 +35,43 @@
 		sortedDataTypes.forEach((dt) => {
 			html += `<th>${dt}</th>`;
 		});
-		html += '</tr>';
+
+		// Add rankRange columns
+		html += '<th>rankRange min</th><th>rankRange max</th></tr></thead><tbody>';
 
 		// Add rows
 		for (const [opName, opData] of Object.entries(limits)) {
 			if (typeof opData === 'object' && opData !== null) {
 				for (const [subItemName, subItemData] of Object.entries(opData)) {
 					html += `<tr><td>${opName}</td><td>${subItemName}</td>`;
-						sortedDataTypes.forEach((dt) => {
+
+					// Add data type cells
+					sortedDataTypes.forEach((dt) => {
 						if (
 							(subItemData &&
-							Array.isArray(subItemData.dataTypes) &&
-							subItemData.dataTypes.includes(dt)) || (
-							subItemData &&
-							Array.isArray(subItemData) &&
-							subItemData.includes(dt)
-							)
+								Array.isArray(subItemData.dataTypes) &&
+								subItemData.dataTypes.includes(dt)) ||
+							(subItemData && Array.isArray(subItemData) && subItemData.includes(dt))
 						) {
 							html += '<td>Yes</td>';
 						} else {
 							html += '<td></td>';
 						}
 					});
+
+					// Add rankRange min and max cells
+					if (subItemData && subItemData.rankRange) {
+						html += `<td>${subItemData.rankRange.min}</td><td>${subItemData.rankRange.max}</td>`;
+					} else {
+						html += '<td></td><td></td>';
+					}
+
 					html += '</tr>';
 				}
 			}
 		}
 
-		html += '</table>';
+		html += '</tbody></table>';
 		return html;
 	}
 
@@ -78,8 +90,7 @@
 	let cpu = '';
 
 	onMount(async () => {
-
-		if(!isFirefoxOrSafari()) {
+		if (!isFirefoxOrSafari()) {
 			if (navigator.userAgentData) {
 				os = navigator.userAgentData.platform;
 			}
@@ -186,7 +197,7 @@
 		{/if}
 	</div>
 
-	<div class="g2">
+	<div class="">
 		{#if cpuSupportLimits}
 			<div>
 				<div class="title tq">CPU · {numberofCpuOps}</div>

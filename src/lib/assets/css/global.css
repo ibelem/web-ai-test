@@ -3255,6 +3255,17 @@ table td.c {
   font-size: 0.68rem;
 }
 
+.limits table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--green-01) !important;
+}
+
+.limits table th {
+  border-bottom: 1px solid var(--green) !important;
+}
+
 .limits table th,
 .limits table td {
   padding: 2px 2px;
