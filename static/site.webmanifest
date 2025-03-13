@@ -1,6 +1,6 @@
 {
-  "name": "Web AI Run",
-  "short_name": "web-ai-test",
+  "name": "Web AI Benchmark",
+  "short_name": "web-ai-benchmark",
   "icons": [
     {
       "src": "./android-chrome-192x192.png",

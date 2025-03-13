@@ -87,7 +87,7 @@
 	});
 </script>
 
-{#if (results && results.length > 0 && (results[0].webnn_cpu || results[0].webnn_gpu || results[0].webnn_npu)) || $page.url.pathname.indexOf('conformance') > -1}
+{#if $page.url.pathname.indexOf('conformance') > -1}
 	{#if filteredDataConformance && filteredDataConformance.length > 0}
 		<div id="conformance">
 			<div class="rqtitle">

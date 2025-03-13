@@ -18,7 +18,7 @@
 	</div>
 
 	<div>
-		Web AI Run is a web
+		Web AI Benchmark is a web
 		application for testing the performance of deep learning inference on client side, covering
 		Web Assembly (Wasm), WebGL, WebGPU, WebNN CPU, WebNN GPU and WebNN NPU backends.
 	</div>

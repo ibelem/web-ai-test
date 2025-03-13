@@ -1,4 +1,4 @@
-export const siteTitle = "Web AI Run";
+export const siteTitle = "Web AI Benchmark";
 export const siteDescription = "";
 export const siteURL = "";
 
