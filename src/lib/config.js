@@ -1864,7 +1864,7 @@ const kokoro82MV1 = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 256], { "sequence_length": 256 }],
+      'input_ids': ['int64', 99n, [1, 48], { "sequence_length": 48 }],
       'style': ['float32', 'random', [1, 256], {}],
       'speed': ['float32', 'random', [1], {}],
     }],
