@@ -1839,6 +1839,39 @@ const jinaRerankerV1TurboEn = () => {
   }))
 }
 
+const kokoro82MV1 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '310 MB'],
+    ['fp16', 'model_fp16.onnx', '155 MB'],
+    ['int8', 'model_quantized.onnx', '88 MB'],
+    ['q4', 'model_q4.onnx', '219 MB'],
+    ['q4f16', 'model_q4f16.onnx', '147 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Speech',
+    tag: '',
+    id: `kokoro_82m_v1_${dt}`,
+    name: 'ISV Kokoro 82M v1',
+    description: 'Kokoro is a frontier TTS model for its size of 82 million parameters (text in/audio out).',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX',
+    hf: {
+      model: 'onnx-community/Kokoro-82M-v1.0-ONNX',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 256], { "sequence_length": 256 }],
+      'style': ['float32', 'random', [1, 256], {}],
+      'speed': ['float32', 'random', [1], {}],
+    }],
+    inputstip: '[1, 256] [1, 256] [1]'
+  }))
+}
+
 const llama2CStories15MDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '58.2 MB'],
@@ -5348,6 +5381,7 @@ export let models = [
   ...jinaClipV1Vision(),
   ...jinaEmbeddingsV2BaseCode(),
   ...jinaRerankerV1TurboEn(),
+  ...kokoro82MV1(),
   ...llama2CStories15MDecoder(),
   ...llama2CStories15MDecoderMerged(),
   ...llama2CStories15MDecoderWithPast(),

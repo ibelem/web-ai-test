@@ -104,11 +104,11 @@
 				}
 			}
 
-			if (item.endsWith('_int4')) {
+			if (item.endsWith('_int4') || (item.indexOf('_q4') > -1 && item.indexOf('_q4f16') === -1)) {
 				int4Count++;
 			} else if (item.endsWith('_int8')) {
 				int8Count++;
-			} else if (item.endsWith('_fp16')) {
+			} else if (item.endsWith('_fp16') || item.indexOf('_q4f16') > -1) {
 				fp16Count++;
 			} else {
 				fp32Count++;
@@ -640,7 +640,7 @@
 	<div class="tq benchmark int4">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'int4' && getModelIsvById(model) !== 'ms'}
+				{#if (getModelDataTypeById(model) === 'int4' || (model.indexOf('_q4') > -1 && model.indexOf('_q4f16') === -1)) && getModelIsvById(model) !== 'ms'}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -666,6 +666,7 @@
 
 						<a href="{base}/run/{model}" class="titlemark"
 							>{@html getHTMLModelName(model)}
+							{#if (model.indexOf('_q4') > -1 && model.indexOf('_q4f16') === -1)}<span>q4</span>{/if}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
@@ -724,7 +725,7 @@
 	<div class="tq benchmark fp16">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'fp16' && model.indexOf('_demo') === -1 && getModelIsvById(model) !== 'ms'}
+				{#if (getModelDataTypeById(model) === 'fp16' || model.indexOf('_q4f16') > -1) && model.indexOf('_demo') === -1 && getModelIsvById(model) !== 'ms'}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -750,6 +751,7 @@
 
 						<a href="{base}/run/{model}" class="titlemark"
 							>{@html getHTMLModelName(model)}
+							{#if model.indexOf('_q4f16') > -1}<span>q4f16</span>{/if}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
