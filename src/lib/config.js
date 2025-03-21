@@ -2449,7 +2449,7 @@ const movenetMultiposeLightning = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input': ['float32', 'random', [1, 192, 192, 3], {}]
+      'input': ['int32', 99, [1, 192, 192, 3], { "unk__1502": 192, "unk__1503": 192 }]
     }],
     inputstip: '[1, 192, 192, 3]'
   }))
@@ -2480,7 +2480,7 @@ const movenetSingleposeLightning = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input': ['float32', 'random', [1, 192, 192, 3], {}]
+      'input': ['int32', 99, [1, 192, 192, 3], {}]
     }],
     inputstip: '[1, 192, 192, 3]'
   }))
@@ -2491,7 +2491,7 @@ const movenetSingleposeThunder = () => {
     ['fp32', 'model.onnx', '23.9 MB'],
     ['fp16', 'model_fp16.onnx', '12 MB'],
     ['int8', 'model_quantized.onnx', '6.44 MB'],
-    ['int8', 'model_q4.onnx', '23.9 MB'],
+    ['int4', 'model_q4.onnx', '23.9 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Keypoint Detection',
@@ -2511,7 +2511,7 @@ const movenetSingleposeThunder = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input': ['float32', 'random', [1, 256, 256, 3], {}]
+      'input': ['int32', 99, [1, 256, 256, 3], {}]
     }],
     inputstip: '[1, 256, 256, 3]'
   }))
