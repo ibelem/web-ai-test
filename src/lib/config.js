@@ -4768,6 +4768,62 @@ const xlmRobertaBase = () => {
   }))
 }
 
+const yoloV8M = () => {
+  const configs = [
+    ['fp16', 'model_fp16.onnx', '49.5 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Object Detection',
+    tag: '2h',
+    isv: 'ms',
+    id: `yolov8m_${dt}`,
+    name: `YOLO v8m (medium)`,
+    description: 'Real-Time End-to-End Object Detection',
+    note: '',
+    source: 'https://github.com/ultralytics/ultralytics',
+    hf: {
+      model: 'webnn/yolov8m',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'images': ['float32', 'random', [1, 3, 640, 640], {}],
+    }],
+    inputstip: '[1, 3, 640, 640]'
+  }))
+}
+
+const yoloV8N = () => {
+  const configs = [
+    ['fp16', 'model_fp16.onnx', '49.5 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Object Detection',
+    tag: '2h',
+    isv: 'ms',
+    id: `yolov8n_${dt}`,
+    name: `YOLO v8n (nano)`,
+    description: 'Real-Time End-to-End Object Detection',
+    note: '',
+    source: 'https://github.com/ultralytics/ultralytics',
+    hf: {
+      model: 'webnn/yolov8n',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'images': ['float32', 'random', [1, 3, 640, 640], {}],
+    }],
+    inputstip: '[1, 3, 640, 640]'
+  }))
+}
+
 const yoloV8NPose = () => {
   const configs = [
     ['fp32', 'model.onnx', '12.8 MB'],
@@ -4779,7 +4835,7 @@ const yoloV8NPose = () => {
     tag: '2h',
     isv: 'ms',
     id: `yolov8n_pose_${dt}`,
-    name: `YOLO v8n Pose`,
+    name: `YOLO v8n Pose (nano)`,
     description: 'Real-Time End-to-End Object Detection',
     note: 'Manually exported to ONNX',
     source: 'https://github.com/ultralytics/ultralytics',
@@ -4809,7 +4865,7 @@ const yoloV8XPose = () => {
     tag: '2h',
     isv: 'ms',
     id: `yolov8x_pose_${dt}`,
-    name: `YOLO v8x Pose`,
+    name: `YOLO v8x Pose (extra large)`,
     description: 'Real-Time End-to-End Object Detection',
     note: '',
     source: 'https://huggingface.co/Xenova/yolov8x-pose',
@@ -4838,7 +4894,7 @@ const yoloV10N = () => {
     category: 'Object Detection',
     tag: '',
     id: `yolov10n_${dt}`,
-    name: 'YOLO v10n',
+    name: 'YOLO v10n (nano)',
     description: 'Real-Time End-to-End Object Detection',
     note: '',
     source: 'https://huggingface.co/onnx-community/yolov10n',
@@ -4852,6 +4908,34 @@ const yoloV10N = () => {
     datatype: `${dt}`,
     inputs: [{
       'images': ['float32', 'random', [1, 3, 640, 640], {}],
+    }],
+    inputstip: '[1, 3, 640, 640]'
+  }))
+}
+
+const yolo11N = () => {
+  const configs = [
+    ['fp32', 'yolo11n.onnx', '10.2 MB'],
+    ['fp16', 'yolo11n_fp16.onnx', '5.15 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Object Detection',
+    tag: '',
+    id: `yolo11n_${dt}`,
+    name: `YOLO 11n (nano)`,
+    description: 'Real-Time End-to-End Object Detection',
+    note: '',
+    source: 'https://huggingface.co/webnn/yolo11n',
+    hf: {
+      model: 'webnn/yolo11n',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'images': ['float16', 'random', [1, 3, 640, 640], {}],
     }],
     inputstip: '[1, 3, 640, 640]'
   }))
@@ -6987,44 +7071,12 @@ export let models = [
     inputstip: '[1, 80, 3000]'
   },
   ...xlmRobertaBase(),
-  {
-    category: 'Object Detection',
-    tag: '',
-    id: 'yolo_v3_fp16',
-    name: 'YOLO v3',
-    description: 'YOLOv3 (You Only Look Once, Version 3) is a real-time object detection algorithm that identifies specific objects in videos, live feeds or images',
-    note: '',
-    source: '',
-    model: 'fp16/yolo-v3-opset-12-fp16.onnx',
-    size: '118 MB',
-    format: 'onnx',
-    datatype: 'fp16',
-    inputs: [{
-      'input_1': ['float16', 'random', [1, 3, 416, 416], { "unk__576": 1, "unk__577": 416, "unk__578": 416 }],
-      'image_shape': ['float16', 'random', [1, 2], { "unk__579": 1 }]
-    }],
-    inputstip: '[1, 3, 416, 416]'
-  },
-  {
-    category: 'Object Detection',
-    id: 'yolo_v3_int8',
-    name: 'YOLO v3',
-    description: 'YOLOv3 (You Only Look Once, Version 3) is a real-time object detection algorithm that identifies specific objects in videos, live feeds or images',
-    note: '',
-    source: '',
-    model: 'int8/yolo-v3-opset-12-int8.onnx',
-    size: '60.2 MB',
-    format: 'onnx',
-    datatype: 'int8',
-    inputs: [{
-      'input_1': ['float32', 'random', [1, 3, 416, 416], { "unk__576": 1, "unk__577": 416, "unk__578": 416 }],
-      'image_shape': ['float32', 'random', [1, 2], { "unk__579": 1 }]
-    }],
-    inputstip: '[1, 3, 416, 416]'
-  },
+  ...yoloV8M(),
+  ...yoloV8N(),
   ...yoloV8NPose(),
   ...yoloV8XPose(),
   ...yoloV10N(),
+  ...yolo11N(),
 ];
 
 export const cpu = [
