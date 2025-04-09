@@ -2236,6 +2236,68 @@ const llavaPhiVisionEncoder = () => {
   }))
 }
 
+const mediapipeSelfieSegmentation = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '452 KB'],
+    ['fp16', 'model_fp16.onnx', '246 KB'],
+    ['int8', 'model_quantized.onnx', '219 KB'],
+    ['q4', 'model_q4.onnx', '452 KB'],
+    ['q4f16', 'model_q4f16.onnx', '246 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Segmentation',
+    tag: '',
+    id: `mediapipe_selfie_segmentation_${dt}`,
+    name: 'Mediapipe Selfie Segmentation',
+    description: 'Selfie segmentation',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/mediapipe_selfie_segmentation',
+    hf: {
+      model: 'onnx-community/mediapipe_selfie_segmentation',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      ' pixel_values': ['float32', 'random', [1, 3, 256, 256], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 3, 256, 256]'
+  }))
+}
+
+const mediapipeSelfieSegmentationLandscape = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '452 KB'],
+    ['fp16', 'model_fp16.onnx', '246 KB'],
+    ['int8', 'model_quantized.onnx', '219 KB'],
+    ['q4', 'model_q4.onnx', '452 KB'],
+    ['q4f16', 'model_q4f16.onnx', '246 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Segmentation',
+    tag: '',
+    id: `mediapipe_selfie_segmentation_landscape_${dt}`,
+    name: 'Mediapipe Selfie Segmentation Landscape',
+    description: 'Selfie segmentation Landscape',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/mediapipe_selfie_segmentation_landscape',
+    hf: {
+      model: 'onnx-community/mediapipe_selfie_segmentation_landscape',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      ' pixel_values': ['float32', 'random', [1, 3, 144, 256], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 3, 144, 256]'
+  }))
+}
+
 const mobileNetV4 = () => {
   const configs = [
     ['fp32', 'model.onnx', '14.3 MB'],
@@ -5478,6 +5540,8 @@ export let models = [
   ...llavaPhiDecoderMerged(),
   ...llavaPhiEmbedTokens(),
   ...llavaPhiVisionEncoder(),
+  ...mediapipeSelfieSegmentation(),
+  ...mediapipeSelfieSegmentationLandscape(),
   ...moondream2DecoderMerged(),
   ...moondream2EmbedTokens(),
   ...moondream2VisionEncoder(),
