@@ -2261,7 +2261,7 @@ const mediapipeSelfieSegmentation = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      ' pixel_values': ['float32', 'random', [1, 3, 256, 256], { "batch_size": 1 }],
+      'pixel_values': ['float32', 'random', [1, 3, 256, 256], { "batch_size": 1 }],
     }],
     inputstip: '[1, 3, 256, 256]'
   }))
@@ -2292,7 +2292,7 @@ const mediapipeSelfieSegmentationLandscape = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      ' pixel_values': ['float32', 'random', [1, 3, 144, 256], { "batch_size": 1 }],
+      'pixel_values': ['float32', 'random', [1, 3, 144, 256], { "batch_size": 1 }],
     }],
     inputstip: '[1, 3, 144, 256]'
   }))
