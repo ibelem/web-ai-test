@@ -4979,21 +4979,6 @@ export let models = [
     inputstip: '[1, 513, 513, 3]'
   },
   {
-    category: 'Image Segmentation',
-    tag: '',
-    id: 'deeplab_v3_fp16',
-    name: 'DeepLab v3',
-    description: 'A series of deep learning architectures designed to tackle the problem of semantic segmentation.',
-    note: '',
-    source: 'tflite converted',
-    model: 'fp16/deeplab-mobilenetv2-fp16.onnx',
-    size: '4.08 MB',
-    format: 'onnx',
-    datatype: 'fp16',
-    inputs: [{ 'sub_7': ['float16', 'random', [1, 513, 513, 3], {}] }],
-    inputstip: '[1, 513, 513, 3]'
-  },
-  {
     category: 'Image Classification',
     tag: '',
     id: 'densenet',
@@ -6270,21 +6255,6 @@ export let models = [
   {
     category: 'Image Segmentation',
     tag: '',
-    id: 'selfie_segmentation_general_fp16',
-    name: 'Selfie Segmentation General',
-    description: 'Easily separate the background from users within a scene and focus on what matters.',
-    note: '',
-    source: 'https://github.com/PINTO0309/PINTO_model_zoo/tree/main/109_Selfie_Segmentation',
-    model: 'fp16/selfie-segmentation-general-fp16.onnx',
-    size: '238 KB',
-    format: 'onnx',
-    datatype: 'fp16',
-    inputs: [{ 'input_1:0': ['float16', 'random', [1, 256, 256, 3], {}] }],
-    inputstip: '[1, 256, 256, 3]'
-  },
-  {
-    category: 'Image Segmentation',
-    tag: '',
     id: 'selfie_segmentation_landscape',
     name: 'Selfie Segmentation Landscape',
     description: 'Easily separate the background from users within a scene and focus on what matters.',
@@ -6295,21 +6265,6 @@ export let models = [
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'input_1:0': ['float32', 'random', [1, 144, 256, 3], {}] }],
-    inputstip: '[1, 144, 256, 3]'
-  },
-  {
-    category: 'Image Segmentation',
-    tag: '',
-    id: 'selfie_segmentation_landscape_fp16',
-    name: 'Selfie Segmentation Landscape',
-    description: 'Easily separate the background from users within a scene and focus on what matters.',
-    note: '',
-    source: 'https://storage.googleapis.com/mediapipe-assets/selfie_segmentation.tflite https://github.com/keijiro/SelfieBarracuda',
-    model: 'fp16/selfie-segmentation-landscape-fp16.onnx',
-    size: '236 KB',
-    format: 'onnx',
-    datatype: 'fp16',
-    inputs: [{ 'input_1:0': ['float16', 'random', [1, 144, 256, 3], {}] }],
     inputstip: '[1, 144, 256, 3]'
   },
   {
