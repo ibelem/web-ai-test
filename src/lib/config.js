@@ -2918,7 +2918,7 @@ const phi3Mini4kInstructMerged = () => {
 
 const phi35MiniInstructMerged = () => {
   const configs = [
-    ['int4', 'model_q4f16.onnx', '210 MB', 'model_q4f16.onnx_data', '1.95 GB'],
+    ['q4f16', 'model_q4f16.onnx', '210 MB', 'model_q4f16.onnx_data', '1.95 GB'],
   ]
   return configs.map(([dt, file, size, externalData, edSize]) => ({
     category: 'Text Generation',
@@ -6315,6 +6315,21 @@ export let models = [
     datatype: 'fp32',
     inputs: [{ 'input_1:0': ['float32', 'random', [1, 256, 256, 3], {}] }],
     inputstip: '[1, 256, 256, 3]'
+  },
+  {
+    category: 'Image Segmentation',
+    tag: '',
+    id: 'isv_z_proxy_fp32',
+    name: 'ISV Z Proxy',
+    description: '',
+    note: '',
+    source: '',
+    model: 'isv_z_proxy.onnx',
+    size: '13.3 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+    inputstip: '[1, 3, 224, 224]'
   },
   {
     category: 'Image Segmentation',
