@@ -4997,7 +4997,35 @@ const yolo11N = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'images': ['float16', 'random', [1, 3, 640, 640], {}],
+      'images': [dt == 'fp16' ? 'float16' : 'float32', 'random', [1, 3, 640, 640], {}],
+    }],
+    inputstip: '[1, 3, 640, 640]'
+  }))
+}
+
+const yolo12N = () => {
+  const configs = [
+    ['fp32', 'yolo12n.onnx', '10.1 MB'],
+    ['fp16', 'yolo12n_fp16.onnx', '5.15 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Object Detection',
+    tag: '',
+    id: `yolo12n_${dt}`,
+    name: `YOLO 12n (nano)`,
+    description: 'YOLO12 is a versatile model that supports a wide range of core computer vision tasks',
+    note: '',
+    source: 'https://huggingface.co/webnn/yolo12n',
+    hf: {
+      model: 'webnn/yolo12n',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'images': [dt == 'fp16' ? 'float16' : 'float32', 'random', [1, 3, 640, 640], {}],
     }],
     inputstip: '[1, 3, 640, 640]'
   }))
@@ -7155,6 +7183,7 @@ export let models = [
   ...yoloV8XPose(),
   ...yoloV10N(),
   ...yolo11N(),
+  ...yolo12N(),
 ];
 
 export const cpu = [

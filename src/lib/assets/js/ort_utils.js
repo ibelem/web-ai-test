@@ -553,11 +553,11 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     options.freeDimensionOverrides = freeDimensionOverrides;
   }
 
-  if (_backend === "webgpu" && enableMLTensor === true) {
+  if (_backend === "webgpu" && enableMLTensor) {
     options.preferredOutputLocation = "gpu-buffer";
   }
 
-  if (_backend === "webnn_gpu" && enableMLTensor === true && _model.indexOf('mltensor') > -1) {
+  if (_backend === "webnn_gpu" && enableMLTensor) {
     options.preferredOutputLocation = "ml-tensor";
   }
 
@@ -609,7 +609,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   let compilationTime = performance.now() - compilationStart;
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Compilation Time: ${compilationTime} ms`);
 
-  if (_backend === "webgpu" && enableMLTensor === true) {
+  if (_backend === "webgpu" && enableMLTensor) {
     webgpuDevice = ort.env.webgpu.device;
   }
 
@@ -659,7 +659,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       await webgpuDevice.queue.onSubmittedWorkDone();
     }
 
-    if (_backend === "webnn_gpu" && enableMLTensor === true && _model.indexOf('mltensor') > -1) {
+    if (_backend === "webnn_gpu" && enableMLTensor) {
       if (i === (numOfWarmups + numOfRuns - 1)) {
         // console.log(result);
         // console.log(sess.outputNames);

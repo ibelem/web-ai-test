@@ -483,11 +483,6 @@
 			href="https://github.com/huggingface/transformers.js-benchmarking/tree/main/packages/core/src"
 			>Transformers.js Benchmarking</a
 		>
-		// To do
-		<a
-			href="https://github.com/huggingface/transformers.js-benchmarking/blob/main/packages/core/src/pipelines/image-segmentation.js"
-			>image-segmentation.js</a
-		>
 	</div>
 	<div class="tq benchmark tf_benchmark">
 		{#each uniqueModels as model}
