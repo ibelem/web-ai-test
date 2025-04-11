@@ -3,9 +3,11 @@ node_modules
 /build
 /.svelte-kit
 /package
+/static/models/**.pt
 /static/models/**.onnx
 /static/models/*.onnx_data
 /static/models/*.data
+/static/models/**/*.pt
 /static/models/**/*.onnx
 /static/models/**/*.onnx_data
 /static/models/**/*.data
