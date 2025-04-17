@@ -2298,6 +2298,68 @@ const mediapipeSelfieSegmentationLandscape = () => {
   }))
 }
 
+const mobileClipS0Text = () => {
+  const configs = [
+    ['fp32', 'text_model.onnx', '161 MB'],
+    ['fp16', 'text_model_fp16.onnx', '81 MB'],
+    ['int8', 'text_model_quantized.onnx', '40.8 MB'],
+    ['int4', 'text_model_q4.onnx', '120 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Zero-Shot Image Classification',
+    tag: '',
+    isv: 'ms',
+    id: `mobileclip_s0_text_${dt}`,
+    name: `MobileCLIP s0 Text`,
+    description: 'MobileCLIP: Fast Image-Text Models through Multi-Modal Reinforced Training https://huggingface.co/spaces/webml-community/mobileclip-webnn-gpu',
+    note: '',
+    source: 'https://huggingface.co/Xenova/mobileclip_s0',
+    hf: {
+      model: 'xenova/mobileclip_s0',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 101n, [1, 16], { "batch_size": 1, "sequence_length": 16 }]
+    }],
+    inputstip: '[1, 16]'
+  }))
+}
+
+const mobileClipS0Vision = () => {
+  const configs = [
+    ['fp32', 'vision_model.onnx', '43.4 MB'],
+    ['fp16', 'vision_model_fp16.onnx', '21.8 MB'],
+    ['int8', 'vision_model_quantized.onnx', '11.2 MB'],
+    ['int4', 'vision_model_q4.onnx', '34.9 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Zero-Shot Image Classification',
+    tag: '',
+    isv: 'ms',
+    id: `mobileclip_s0_vision_${dt}`,
+    name: `MobileCLIP s0 Vision`,
+    description: 'MobileCLIP: Fast Image-Text Models through Multi-Modal Reinforced Training https://huggingface.co/spaces/webml-community/mobileclip-webnn-gpu',
+    note: '',
+    source: 'https://huggingface.co/Xenova/mobileclip_s0',
+    hf: {
+      model: 'xenova/mobileclip_s0',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 256, 256], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 3, 256, 256]'
+  }))
+}
+
 const mobileNetV4 = () => {
   const configs = [
     ['fp32', 'model.onnx', '14.3 MB'],
@@ -5570,6 +5632,8 @@ export let models = [
   ...llavaPhiVisionEncoder(),
   ...mediapipeSelfieSegmentation(),
   ...mediapipeSelfieSegmentationLandscape(),
+  ...mobileClipS0Text(),
+  ...mobileClipS0Vision(),
   ...moondream2DecoderMerged(),
   ...moondream2EmbedTokens(),
   ...moondream2VisionEncoder(),
