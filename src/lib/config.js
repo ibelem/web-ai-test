@@ -2323,9 +2323,9 @@ const mobileClipS0Text = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 101n, [1, 1], { "batch_size": 1, "sequence_length": 1 }]
+      'input_ids': ['int64', 101n, [2, 77], { "batch_size": 2, "sequence_length": 77 }]
     }],
-    inputstip: '[1, 1]'
+    inputstip: '[2, 77]'
   }))
 }
 
