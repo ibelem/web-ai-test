@@ -5611,6 +5611,21 @@ export let models = [
     inputs: [{ 'x': ['float32', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
+  {
+    category: 'Object Detection',
+    tag: '',
+    id: 'isv_t_gazenet_fp32',
+    name: 'ISV T gazeNet',
+    description: 'End-to-end eye-movement event detection with deep neural networks',
+    note: '',
+    source: 'ISV T',
+    model: 'gazenet.onnx',
+    size: '7.42 MB',
+    format: 'onnx',
+    datatype: 'fp32',
+    inputs: [{ 'image': ['float32', 'random', [1, 1, 256, 192], {}] }],
+    inputstip: '[[1, 1, 256, 192]'
+  },
   ...gteBaseEnV1_5(),
   ...gteSmall(),
   ...jinaClipV1Text(),
