@@ -5624,7 +5624,7 @@ export let models = [
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{ 'image': ['float32', 'random', [1, 1, 256, 192], {}] }],
-    inputstip: '[[1, 1, 256, 192]'
+    inputstip: '[1, 1, 256, 192]'
   },
   ...gteBaseEnV1_5(),
   ...gteSmall(),
