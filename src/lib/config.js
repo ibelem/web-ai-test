@@ -5585,7 +5585,7 @@ export let models = [
     category: 'Image Classification',
     tag: '',
     id: 'mobilenet_v2_12_qdq_int8',
-    name: 'MobileNet v2_12 QDQ',
+    name: 'MobileNet v2_12 QDQ (with Gather)',
     description: 'A computer vision model designed for training classifiers.',
     note: '',
     source: 'https://github.com/onnx/models/blob/main/validated/vision/classification/mobilenet/',
@@ -5594,6 +5594,21 @@ export let models = [
     format: 'onnx',
     datatype: 'int8',
     inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
+    inputstip: '[1, 3, 224, 224]'
+  },
+  {
+    category: 'Image Classification',
+    tag: '',
+    id: 'mobilenet_v2_12_qdq_no_gather_int8',
+    name: 'MobileNet v2_12 QDQ (w/o Gather)',
+    description: 'A computer vision model designed for training classifiers.',
+    note: '',
+    source: 'https://github.com/onnx/models/blob/main/validated/vision/classification/mobilenet/',
+    model: 'int8/mobilenetv2-12-qdq-static.onnx',
+    size: '3.42 MB',
+    format: 'onnx',
+    datatype: 'int8',
+    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
   {
