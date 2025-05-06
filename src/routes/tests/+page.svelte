@@ -763,7 +763,7 @@
 	<div class="tq benchmark fp32">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'fp32' && model.indexOf('_tfbench') === -1 && model.indexOf('tfbench_pipeline') === -1 && getModelIsvById(model) !== 'ms'}
+				{#if getModelDataTypeById(model) === 'fp32' && model.indexOf('_tfbench') === -1 && model.indexOf('tfbench_pipeline') === -1 && getModelIsvById(model) !== 'ms' && model.indexOf('isv_t_gazenet_fp32') === -1}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
