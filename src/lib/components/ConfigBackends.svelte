@@ -35,6 +35,7 @@
 
 	let backendsFromUrl;
 	let relaxedSimd = null;
+	let isXNNPACKWasm = false;
 
 	const toggleBackends = () => {
 		for (const backend in backends) {
@@ -156,6 +157,11 @@
 	onMount(() => {
 		highlightBackend();
 		relaxedSimd = getURLParameterValue('relaxedsimd')?.toLocaleLowerCase().trim();
+		if(getURLParameterValue('backend')?.trim()) {
+			if(getURLParameterValue('backend')?.trim() === 'xnnpack_cpu') {
+				isXNNPACKWasm = true;
+			}
+		}
 	});
 </script>
 
@@ -165,7 +171,22 @@
 		Backend
 	</label>
 </div>
-<div class="backends">
+<div id="backend_options" class="backends">
+	{#if isXNNPACKWasm}
+	<div
+		class="cpu group {backends.wasm_1 ||
+			backends.wasm_4 ||
+			backends.webnn_cpu}"
+	>
+		<span>CPU</span>
+		<div class="block">
+			<label id="xnnpack_wasm" class={backends.wasm_1.toString()} title="XNNPACK Wasm">
+				<input type="checkbox" checked />
+				XNNPACK Wasm
+			</label>
+		</div>
+	</div>
+	{:else}
 	<div
 		class="cpu group {backends.wasm_1 ||
 			backends.wasm_4 ||
@@ -219,6 +240,7 @@
 			</label>
 		</div>
 	</div>
+	{/if}
 </div>
 
 <style>

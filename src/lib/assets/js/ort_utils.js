@@ -193,28 +193,35 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   let relaxedSimd = null;
   relaxedSimd = getURLParameterValue('relaxedsimd')?.toLocaleLowerCase().trim();
 
-  if (ortWebVersion) {
-    if (relaxedSimd === "1") {
-      l(`Loading ONNX Runtime Web with relaxed SIMD optimization`)
-      await loadScript('wasm', ortDists.wasm_relaxed_simd.url);
-    } else {
-      if (ortWebVersion.selected === 2) {
-        removeTag();
-        await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
-      } else if (ortWebVersion.selected === 1) {
-        await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.all.min.js`);
+  let customORT = null;
+  customORT = getURLParameterValue('ort')?.trim();
+  if(customORT) {
+    removeTag();
+    await loadScript('xnnpack_custom', customORT);
+  } else {
+    if (ortWebVersion) {
+      if (relaxedSimd === "1") {
+        l(`Loading ONNX Runtime Web with relaxed SIMD optimization`)
+        await loadScript('wasm', ortDists.wasm_relaxed_simd.url);
       } else {
-        await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.all.min.js`);
+        if (ortWebVersion.selected === 2) {
+          removeTag();
+          await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
+        } else if (ortWebVersion.selected === 1) {
+          await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.all.min.js`);
+        } else {
+          await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.all.min.js`);
+        }
       }
     }
-  }
-  else {
-    removeTag();
-    if (relaxedSimd === "1") {
-      l(`Loading ONNX Runtime Web with relaxed SIMD optimization`)
-      await loadScript('wasm', ortDists.wasm_relaxed_simd.url);
-    } else {
-      await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
+    else {
+      removeTag();
+      if (relaxedSimd === "1") {
+        l(`Loading ONNX Runtime Web with relaxed SIMD optimization`)
+        await loadScript('wasm', ortDists.wasm_relaxed_simd.url);
+      } else {
+        await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
+      }
     }
   }
 
@@ -253,6 +260,14 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       }
     } else {
       updateInfo(`Config.json - No Config.json can be leveraged, use local freeDimensionOverrides when needed`);
+    }
+  }
+
+  if(getURLParameterValue('backend')?.trim()) {
+    if(getURLParameterValue('backend')?.trim() === 'xnnpack_cpu') {
+      _backend = 'xnnpack_cpu';
+      backend = 'xnnpack';
+      deviceType = 'cpu';
     }
   }
 
@@ -724,18 +739,18 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 }
 
 export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
-  // await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
+  await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
 
   // let modelInfo = JSON.stringify(getModelInfoById(_model), null, '');
   // modelInfo = modelInfo.replaceAll(':', ': ');
   // updateInfo(`Model Info: ${modelInfo}`)
 
-  const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
-  if (err) {
-    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
-    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-    updateInfo(err.message);
-  } else {
-    // use data 
-  }
+  // const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
+  // if (err) {
+  //   addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
+  //   updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+  //   updateInfo(err.message);
+  // } else {
+  //   // use data 
+  // }
 }
