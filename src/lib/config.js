@@ -488,6 +488,36 @@ const codeGenMono350M = () => {
   }))
 }
 
+const deepSeekR1DistillQwen1_5BDemoMerged = () => {
+  const configs = [
+    ['fp16', 'model_fp16.onnx', '275 KB', 'model.onnx.data', '1.27 GB'],
+  ]
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
+    category: 'Text Generation',
+    tag: '',
+    id: `deepseek_r1_distill_qwen_1_5b_demo_merged_${dt}`,
+    name: `DeepSeek R1 Distill Qwen 1.5B Static KV-Cache Demo ${dt}`,
+    description: 'The optimized version of DeepSeek-R1-Distill-Qwen-1.5B to accelerate inference',
+    note: 'Large model with external data',
+    source: 'https://huggingface.co/webnn/DeepSeek-R1-Distill-ONNX',
+    hf: {
+      model: 'webnn/DeepSeek-R1-Distill-ONNX',
+      file: `${file}`,
+      externalData: `${externalData}`
+    },
+    model: '',
+    size: `${size} + ${edSize}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1}],
+      'attention_mask': ['int64', 1n, [1, 512], { "total_sequence_length": 512, "past_sequence_length": 512 }],
+      'position_ids': ['int64', 1n, [1, 1], {}],
+    }],
+    inputstip: '[1, 1] [1, 512] [1, 1]'
+  }))
+}
+
 const depthAnythingBase = () => {
   const configs = [
     ['fp32', 'model.onnx', '371 MB'],
@@ -2172,9 +2202,9 @@ const llavaPhiDecoderMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'position_ids': ['int64', 99n, [1, 576], { "batch_size": 1, "sequence_length": 576, "past_sequence_length": 575 }],
-      'inputs_embeds': ['float32', 'random', [1, 576, 16], { "batch_size": 1, "sequence_length": 576 }],
+      'input_ids': ['int64', 99n, [1, 576, 16], { "batch_size": 1, "sequence_length": 576 }],
       'attention_mask': ['int64', 1n, [1, 576], { "batch_size": 1, "past_sequence_length + 1": 576 }],
+      'position_ids': ['int64', 99n, [1, 576], { "batch_size": 1, "sequence_length": 576, "past_sequence_length": 575 }],
     }],
     inputstip: '[1, 576, 16] [1, 576, 16] [1, 576]'
   }))
@@ -2948,6 +2978,36 @@ const paraphraseMultilingualMpnetBaseV2 = () => {
   }))
 }
 
+const phi3Mini4kInstructDemoMerged = () => {
+  const configs = [
+    ['fp16', 'model_fp16.onnx', '2.01 MB', 'model.onnx.data', '1.98 GB'],
+  ]
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
+    category: 'Text Generation',
+    tag: '',
+    id: `phi_3_mini_4k_instruct_demo_merged_${dt}`,
+    name: `Phi-3 Mini 4k Instruct Static KV-Cache Demo ${dt}`,
+    description: 'Phi-3 Mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-2 - synthetic data and filtered websites - with a focus on very high-quality, reasoning dense data',
+    note: 'Large model with external data',
+    source: 'https://huggingface.co/webnn/Phi-3-mini-4k-instruct-onnx',
+    hf: {
+      model: 'webnn/Phi-3-mini-4k-instruct-onnx',
+      file: `${file}`,
+      externalData: `${externalData}`
+    },
+    model: '',
+    size: `${size} + ${edSize}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'position_ids': ['int64', 1n, [1, 1], {}],
+      'attention_mask': ['int64', 1n, [1, 512], { "total_sequence_length": 512, "past_sequence_length": 512 }],
+    }],
+    inputstip: '[1, 1] [1, 1] [1, 512]'
+  }))
+}
+
 const phi3Mini4kInstructMerged = () => {
   const configs = [
     ['int4', 'model_q4.onnx', '0.98 GB', 'model_q4.onnx_data', '1.54 GB'],
@@ -3006,6 +3066,36 @@ const phi35MiniInstructMerged = () => {
     }],
     inputstip: '[1, 1] [1, 256] [1, 1]'
 
+  }))
+}
+
+const qwen2_0_5bInstructDemoMerged = () => {
+  const configs = [
+    ['fp16', 'model_fp16.onnx', '236 KB', 'model.onnx.data', '528 MB'],
+  ]
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
+    category: 'Text Generation',
+    tag: '',
+    id: `qwen2_0_5b_instruct_demo_merged_${dt}`,
+    name: `Qwen2 0.5B Instruct Static KV-Cache Demo ${dt}`,
+    description: 'Qwen2 is the new series of Qwen large language models',
+    note: 'Large model with external data',
+    source: 'https://huggingface.co/webnn/Qwen2-0.5B-Instruct-onnx',
+    hf: {
+      model: 'webnn/Qwen2-0.5B-Instruct-onnx',
+      file: `${file}`,
+      externalData: `${externalData}`
+    },
+    model: '',
+    size: `${size} + ${edSize}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 512], { "total_sequence_length": 512, "past_sequence_length": 512 }],
+      'position_ids': ['int64', 1n, [1, 1], {}],
+    }],
+    inputstip: '[1, 1] [1, 512] [1, 1]'
   }))
 }
 
@@ -3594,6 +3684,36 @@ const t5SmallDecoderMergedHFTFBenchmark = () => {
       'use_cache_branch': ['bool', 1, [1], {}]
     }],
     inputstip: '[1, 9] [1, 1] [1, 9, 512] [1]'
+  }))
+}
+
+const tinyLlama_1_1B_ChatV1_0DemoMerged = () => {
+  const configs = [
+    ['fp16', 'model_fp16.onnx', '188 KB', 'model.onnx.data', '680 MB'],
+  ]
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
+    category: 'Text Generation',
+    tag: '',
+    id: `tinyllama_1_1b_chat_v1_0_demo_merged_${dt}`,
+    name: `TinyLlama 1.1B Chat v1.0 Static KV-Cache Demo ${dt}`,
+    description: 'A chat model finetuned on top of TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T',
+    note: 'Large model with external data',
+    source: 'https://huggingface.co/webnn/TinyLlama-1.1B-Chat-v1.0-onnx',
+    hf: {
+      model: 'webnn/TinyLlama-1.1B-Chat-v1.0-onnx',
+      file: `${file}`,
+      externalData: `${externalData}`
+    },
+    model: '',
+    size: `${size} + ${edSize}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
+      'attention_mask': ['int64', 1n, [1, 512], { "total_sequence_length": 512, "past_sequence_length": 512 }],
+      'position_ids': ['int64', 1n, [1, 1], {}],
+    }],
+    inputstip: '[1, 1] [1, 512] [1, 1]'
   }))
 }
 
@@ -5114,6 +5234,7 @@ export let models = [
   ...tinyRandomClipModelHFTFBenchmark(),
   ...clipVitBasePatch16(),
   ...codeGenMono350M(),
+  ...deepSeekR1DistillQwen1_5BDemoMerged(),
   ...depthAnythingBase(),
   {
     category: 'Image Segmentation',
@@ -5997,8 +6118,10 @@ export let models = [
   ...nomicEmbedTextV1(),
   ...nomicEmbedTextV1_5(),
   ...paraphraseMultilingualMpnetBaseV2(),
+  ...phi3Mini4kInstructDemoMerged(),
   ...phi35MiniInstructMerged(),
   ...phi3Mini4kInstructMerged(),
+  ...qwen2_0_5bInstructDemoMerged(),
   ...Qwen2_0_5bInstructMerged(),
   ...Qwen2VLForConditionalGenerationEmbedding(),
   ...Qwen2VLForConditionalGenerationTextDecoder(),
@@ -6655,6 +6778,7 @@ export let models = [
   ...t5SmallEncoder(),
   ...t5SmallEncoderHFTFBenchmark(),
   ...t5SmallDecoderMergedHFTFBenchmark(),
+  ...tinyLlama_1_1B_ChatV1_0DemoMerged(),
   ...tinyLlamaV0Decoder(),
   ...tinyLlamaV0DecoderMerged(),
   ...tinyLlamaV0DecoderWithPast(),

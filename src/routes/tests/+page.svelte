@@ -181,6 +181,7 @@
 			?.replace('Encoder', '<span>Encoder</span>')
 			.replace('Decoder', '<span>Decoder</span>')
 			.replace('Non-KV-Cache', '<span>Non-KV-Cache</span>')
+			.replace('Static KV-Cache', '<span class="static">Static-KV-Cache</span>')
 			.replace(' KV-Cache', ' <span>KV-Cache</span>')
 			.replace('w/i Past', '<span>w/i Past</span>')
 			.replace('Static Shape', '<span class="static">Static Shape</span>')

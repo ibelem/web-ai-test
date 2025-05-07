@@ -382,7 +382,15 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       for (var k in inputNames) {
         const v = inputNames[k];
         if (v.startsWith('past_key_values.')) {
-          if (modelName.indexOf('phi_3_mini_4k_instruct_') > -1) {
+          if(modelName.indexOf('deepseek_r1_distill_qwen_1_5b_demo_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float16', 1, [1, 2, 512, 128]);
+          } else if (modelName.indexOf('qwen2_0_5b_instruct_demo_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float16', 1, [1, 2, 512, 64]);
+          } else if (modelName.indexOf('phi_3_mini_4k_instruct_demo_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float16', 1, [1, 32, 512, 96]);
+          } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_demo_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float16', 1, [1, 4, 512, 64]);
+          } else if (modelName.indexOf('phi_3_mini_4k_instruct_') > -1) {
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 32, 255, 96]);
           } else if (modelName.indexOf('t5__small_decoder_tfbench_model') > -1) {
             if (v.includes('decoder')) {
