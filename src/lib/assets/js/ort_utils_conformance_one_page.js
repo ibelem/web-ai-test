@@ -395,13 +395,8 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
 
   if (ortWebVersion) {
     if (ortWebVersion.selected === 2) {
-      if (backend === 'webgpu') {
-        removeTag();
-        await loadScript('webgpu', ortDists.webgpu.url);
-      } else {
-        removeTag();
-        await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
-      }
+      removeTag();
+      await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
     } else if (ortWebVersion.selected === 1) {
       await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.all.min.js`);
     } else {
@@ -409,13 +404,8 @@ const mainConformance = async (_model, _modelType, _dataType, _backend) => {
     }
   }
   else {
-    if (backend === 'webgpu') {
-      removeTag();
-      await loadScript('webgpu', ortDists.webgpu.url);
-    } else {
-      removeTag();
-      await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
-    }
+    removeTag();
+    await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
   }
 
   let modelPath = getModelUrl(_model);

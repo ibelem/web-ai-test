@@ -260,12 +260,12 @@
 						></span
 					>
 				</div>
-				<div class="webgpu">
+				<!-- <div class="webgpu">
 					<span class="title">WebGPU</span>
 					<span class="version">{ortDists.webgpu.version}</span>
-				</div>
+				</div> -->
 				<div class="webnn">
-					<span class="title">WebNN</span>
+					<span class="title">WebGPU · WebNN</span>
 					<span class="version">{ortDists.webnn_webglfix_wasm.version}</span>
 				</div>
 			{:else if ortWebVersion.selected === 1}

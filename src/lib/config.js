@@ -30,17 +30,13 @@ export const tracking = [
 ]
 
 export const ortDists = {
-  webgpu: {
-    version: '2024-11-19',
-    url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.all.min.js'
-  },
   // webnn_webglfix_wasm: {
   //   version: '2024-11-14',
   //   url: '../ort/ort.all.min.js'
   // },
   webnn_webglfix_wasm: {
     version: '2025-02-26',
-    url: '../ort-debug/ort.all.min.js'
+    url: '../ort/ort.all.min.js'
   },
   wasm_relaxed_simd: {
     version: '2025-01-03',
