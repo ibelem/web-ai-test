@@ -5030,7 +5030,7 @@ const yoloV8M = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'images': ['float32', 'random', [1, 3, 640, 640], {}],
+      'pixel_values': ['float32', 'random', [1, 3, 640, 640], {}],
     }],
     inputstip: '[1, 3, 640, 640]'
   }))
@@ -5058,7 +5058,7 @@ const yoloV8N = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'images': ['float32', 'random', [1, 3, 640, 640], {}],
+      'pixel_values': ['float32', 'random', [1, 3, 640, 640], {}],
     }],
     inputstip: '[1, 3, 640, 640]'
   }))
