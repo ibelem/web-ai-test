@@ -197,7 +197,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   customORT = getURLParameterValue('ort')?.trim();
   if(customORT) {
     removeTag();
-    await loadScript('xnnpack_custom', customORT);
+    await loadScript('ort_custom', customORT);
   } else {
     if (ortWebVersion) {
       if (relaxedSimd === "1") {
@@ -229,7 +229,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   let configPath = getConfigUrl(_model);
 
   const fetchConfigJson = async () => {
-    if(configPath) {
+    if (configPath) {
       try {
         updateInfo(`Config.json - Fetching from ${configPath}`);
         const response = await fetch(configPath);
@@ -241,17 +241,34 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
         }
 
         const config = await response.json();
-        if (config.hasOwnProperty('transformers.js_config') &&
-          config['transformers.js_config'].hasOwnProperty('free_dimension_overrides')) {
-          const overrides = config['transformers.js_config']['free_dimension_overrides'];
-          console.log(overrides);
-          updateInfo(`Config.json - Free dimension overrides value:`);
-          if (overrides) {
+        const tjsConfig = config['transformers.js_config'];
+        if (tjsConfig) {
+          // Priority 1: device_config
+          if (tjsConfig.device_config) {
+            // Use the current deviceType string, e.g., "webnn-gpu"
+            const deviceKey = deviceType === 'cpu' ? 'webnn-cpu'
+              : deviceType === 'gpu' ? 'webnn-gpu'
+              : deviceType === 'npu' ? 'webnn-npu'
+              : 'webnn';
+            const deviceOverrides = tjsConfig.device_config[deviceKey]?.free_dimension_overrides;
+            if (deviceOverrides) {
+              updateInfo(`Config.json - device_config free_dimension_overrides for ${deviceKey}:`);
+              for (let key in deviceOverrides) {
+                updateInfo(`Config.json - ${key}: ${deviceOverrides[key]}`);
+              }
+              return deviceOverrides;
+            }
+          }
+          // Priority 2: top-level free_dimension_overrides
+          if (tjsConfig.free_dimension_overrides) {
+            const overrides = tjsConfig.free_dimension_overrides;
+            updateInfo(`Config.json - top-level free_dimension_overrides:`);
             for (let key in overrides) {
               updateInfo(`Config.json - ${key}: ${overrides[key]}`);
             }
             return overrides;
           }
+          updateInfo(`Config.json - No free_dimension_overrides found in config.json, use local freeDimensionOverrides when needed`);
         } else {
           updateInfo(`Config.json - No transformers.js_config found in config.json, so no freeDimensionOverrides available, use local freeDimensionOverrides when needed`);
         }
@@ -260,14 +277,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       }
     } else {
       updateInfo(`Config.json - No Config.json can be leveraged, use local freeDimensionOverrides when needed`);
-    }
-  }
-
-  if(getURLParameterValue('backend')?.trim()) {
-    if(getURLParameterValue('backend')?.trim() === 'xnnpack_cpu') {
-      _backend = 'xnnpack_cpu';
-      backend = 'xnnpack';
-      deviceType = 'cpu';
     }
   }
 

@@ -47,7 +47,6 @@
 	let attempts = writable(3);
 	let isValidated = false;
 	let urlPin = false;
-	let isXNNPACKWasm = false;
 
 	/**
 	 * @type {string[]}
@@ -146,11 +145,6 @@
 	let size = '';
 
 	onMount(() => {
-		if(getURLParameterValue('backend')?.trim()) {
-			if(getURLParameterValue('backend')?.trim() === 'xnnpack_cpu') {
-				isXNNPACKWasm = true;
-			}
-		}
 		id = getModelIdfromPath() || '';
 		modelName = getModelNameById(id) || '';
 		modelType = getModelTypeById(id) || '';
@@ -282,7 +276,7 @@
 		<Conformance />
 		<InferenceLog bind:logShow />
 		<div class="run">
-			{#if (selectedBackends.length > 0 || isXNNPACKWasm)&& !auto}
+			{#if (selectedBackends.length > 0)&& !auto}
 				{#if testQueue.length === 0}
 					<button on:click={runManual}>Run Manual Tests</button>
 				{/if}

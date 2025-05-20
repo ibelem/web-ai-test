@@ -180,7 +180,7 @@ export const addResult = (model, modeltype, datatype, modelsize, backend, status
         const updatedItem = { ...item };
         for (const key in updatedItem) {
           if (key !== "id" && key !== "model" && key !== "modeltype" && key !== "datatype" && key !== "modelsize") {
-            if(status) {
+            if (status) {
               updatedItem[backend].status = status;
             } else {
               updatedItem[backend].status = null;
