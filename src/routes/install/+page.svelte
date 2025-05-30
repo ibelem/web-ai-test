@@ -58,13 +58,6 @@
 				</ol>
 			</li>
 			<li>Launch Edge Canary in Windows Command Line: <code>"%LOCALAPPDATA%\Microsoft\Edge SxS\Application\msedge.exe" --disable_webnn_for_npu=0</code></li>
-			<li>If <code>EdgeOnnxRuntimeDirectML\&lt;version&gt;\DirectML.dll</code> does not exist under <code>%LOCALAPPDATA%\Microsoft\Edge SxS\User Data</code>:
-				<ul>
-					<li>Go to <code>edge://components/</code></li>
-					<li>Click <code>Check for update</code> button of <code>Edge Video Super Resolution</code></li>
-					<li>Repeat step 2</li>
-				</ul>
-			</li>
 		</ol>
 	</div>
 </div>
