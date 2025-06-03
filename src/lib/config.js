@@ -6390,7 +6390,7 @@ export let models = [
     id: 'sd_1_5_text_encoder_demo_fp16',
     name: 'SD 1.5 text Encoder Demo fp16',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
-    note: 'pv',
+    note: '',
     source: 'https://huggingface.co/aluhrs13/stable-diffusion-v1-5-olive-optimized/tree/main/text_encoder',
     model: 'fp16/stable-diffusion-1.5/text-encoder.onnx',
     size: '235 MB',
