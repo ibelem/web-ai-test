@@ -6807,7 +6807,7 @@ export let models = [
   ...tinyRandomViTMAEModelHFTFBenchmark(),
   ...tinyRandomViTsHFTFBenchmark(),
   ...tinyRandomYolosForObjectDetectionHFTFBenchmark(),
-  ...metaLlama_3_8bInstructMerged(),
+  // ...metaLlama_3_8bInstructMerged(),
   {
     category: 'Object Detection',
     tag: '',
