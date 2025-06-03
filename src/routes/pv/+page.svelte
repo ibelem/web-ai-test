@@ -138,7 +138,7 @@
 			.replace('Phi-3.5-mini', '<span class="phi3">Phi-3.5-mini</span>')
 			.replace('Phi-3 Mini', '<span class="phi3">Phi-3 Mini</span>')
 			.replace('ISV', '<span class="isv">ISV</span>')
-			.replace('Demo', '<span class="demo" title="WebNN Developer Preview Demo model">Demo</span>')
+			.replace('Demo', '')
 			.replace('GPU', '<span class="gpu">GPU</span>')
 			.replace('MLTensor', '<span class="mltensor">MLTensor</span>')
 			.replace('WIP', '<span class="wip">WIP</span>');

@@ -506,7 +506,7 @@ const deepSeekR1DistillQwen1_5BDemoMerged = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1}],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
       'attention_mask': ['int64', 1n, [1, 512], { "total_sequence_length": 512, "past_sequence_length": 512 }],
       'position_ids': ['int64', 1n, [1, 1], {}],
     }],
@@ -6368,7 +6368,7 @@ export let models = [
   },
   {
     category: 'Zero-Shot Image Classification',
-    tag: 'pv',
+    tag: '',
     id: 'sd_safety_checker_demo_fp16',
     name: 'SD Safety Checker Demo fp16',
     description: 'Can be used for identifying not safe for work (NSFW) image. Should not be used to intentionally create hostile or alienating environments for people.',
@@ -7390,6 +7390,74 @@ export let models = [
     }],
     inputstip: '[1, 80, 3000]'
   },
+  {
+    category: 'Automatic Speech Recognition',
+    tag: 'pv',
+    id: 'whisper_small_encoder_fp16',
+    name: 'Whisper Small Encoder',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: '',
+    hf: {
+      model: '',
+      file: '',
+    },
+    model: 'fp16/whisper-small/whisper_small_encoder.onnx',
+    size: `168MB`,
+    format: 'onnx',
+    datatype: `fp16`,
+    inputs: [{
+      'input_features': ['float16', 'random', [1, 80, 3000], {}],
+    }],
+    inputstip: '[1, 80, 3000]'
+  },
+  {
+    category: 'Automatic Speech Recognition',
+    tag: 'pv',
+    id: 'whisper_small_decoder_static_fp16',
+    name: 'Whisper Small Decoder Static Shape Non-KV-Cache',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: '',
+    hf: {
+      model: '',
+      file: '',
+    },
+    model: 'fp16/whisper-small/whisper_small_decoder_static_non_kvcache_lm.onnx',
+    size: `292MB`,
+    format: 'onnx',
+    datatype: `fp16`,
+    inputs: [{
+      'input_ids': ['int32', 1, [1, 4], {}],
+      'attention_mask': ['float16', 'random', [1, 4], {}],
+      'encoder_hidden_states': ['float16', 'random', [1, 1500, 768], {}]
+    }],
+    inputstip: '[1, 4] [1, 4] [1, 1500, 768]'
+  }
+  ,
+  {
+    category: 'Automatic Speech Recognition',
+    tag: 'pv',
+    id: 'whisper_small_decoder_static_merged_fp16',
+    name: 'Whisper Small Decoder Static Shape KV-Cache',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: '',
+    hf: {
+      model: '',
+      file: '',
+    },
+    model: 'fp16/whisper-small/whisper_small_decoder_static_kvcache_128_lm.onnx',
+    size: `266MB`,
+    format: 'onnx',
+    datatype: `fp16`,
+    inputs: [{
+      'input_ids': ['int32', 1, [1, 1], {}],
+      'attention_mask': ['float16', 'random', [1, 128], {}],
+      'position_ids': ['int32', 1, [1], {}]
+    }],
+    inputstip: '[1, 1] [1, 128] [1]'
+  },
   ...xlmRobertaBase(),
   ...yoloV8M(),
   ...yoloV8N(),
@@ -7453,7 +7521,7 @@ export const cpu = [
   "Intel Atom x6200FE", "Intel Atom x6211E", "Intel Atom x6212RE", "Intel Atom x6413E", "Intel Atom x6414RE", "Intel Atom x6425E", "Intel Atom x6425RE", "Intel Atom x6427FE", "Intel Celeron 6305", "Intel Celeron 7300", "Intel Celeron 7305", "Intel Celeron 3867U", "Intel Celeron 4205U", "Intel Celeron 4305U", "Intel Celeron 4305UE", "Intel Celeron 5205U", "Intel Celeron 5305U", "Intel Celeron 6305E", "Intel Celeron 6600HE", "Intel Celeron 7305E", "Intel Celeron 7305L", "Intel Celeron G4900", "Intel Celeron G4900T", "Intel Celeron G4920", "Intel Celeron G4930", "Intel Celeron G4930E", "Intel Celeron G4930T", "Intel Celeron G4932E", "Intel Celeron G4950", "Intel Celeron G5900", "Intel Celeron G5900E", "Intel Celeron G5900T", "Intel Celeron G5900TE", "Intel Celeron G5905", "Intel Celeron G5905T", "Intel Celeron G5920", "Intel Celeron G5925", "Intel Celeron G6900", "Intel Celeron G6900E", "Intel Celeron G6900T", "Intel Celeron G6900TE", "Intel Celeron J4005", "Intel Celeron J4025", "Intel Celeron J4105", "Intel Celeron J4115", "Intel Celeron J4125", "Intel Celeron J6412", "Intel Celeron J6413", "Intel Celeron N4000", "Intel Celeron N4020", "Intel Celeron N4100", "Intel Celeron N4120", "Intel Celeron N4500", "Intel Celeron N4505", "Intel Celeron N5100", "Intel Celeron N5105", "Intel Celeron N6210", "Intel Celeron N6211",
   "Intel Core i3-N300", "Intel Core i3-N305",
   "Intel Core m3-8100Y", "Intel Pentium Gold 4417U", "Intel Pentium Gold 4425Y", "Intel Pentium Gold 5405U", "Intel Pentium Gold 6405U", "Intel Pentium Gold 6500Y", "Intel Pentium Gold 6805", "Intel Pentium Gold 7505", "Intel Pentium Gold 8500", "Intel Pentium Gold 8505", "Intel Pentium Gold G5400", "Intel Pentium Gold G5400T", "Intel Pentium Gold G5420", "Intel Pentium Gold G5420T", "Intel Pentium Gold G5500", "Intel Pentium Gold G5500T", "Intel Pentium Gold G5600", "Intel Pentium Gold G5600E", "Intel Pentium Gold G5600T", "Intel Pentium Gold G5620", "Intel Pentium Gold G6400", "Intel Pentium Gold G6400E", "Intel Pentium Gold G6400T", "Intel Pentium Gold G6400TE", "Intel Pentium Gold G6405", "Intel Pentium Gold G6405T", "Intel Pentium Gold G6500", "Intel Pentium Gold G6500T", "Intel Pentium Gold G6505", "Intel Pentium Gold G6505T", "Intel Pentium Gold G6600", "Intel Pentium Gold G6605", "Intel Pentium Gold G7400", "Intel Pentium Gold G7400E", "Intel Pentium Gold G7400T", "Intel Pentium Gold G7400TE", "Intel Pentium J6426", "Intel Pentium N6415", "Intel Pentium Silver J5005", "Intel Pentium Silver J5040", "Intel Pentium Silver N5000", "Intel Pentium Silver N5030", "Intel Pentium Silver N6000", "Intel Pentium Silver N6005", "Intel N100", "Intel N200", "Intel N50", "Intel N95", "Intel N97", "Intel U300", "Intel U300E",
-  "AMD Ryzen 9 9950X3D", "AMD Ryzen 9 9900X3D", "AMD Ryzen 7 9800X3D", 
+  "AMD Ryzen 9 9950X3D", "AMD Ryzen 9 9900X3D", "AMD Ryzen 7 9800X3D",
   "AMD Ryzen 9 9950X", "AMD Ryzen 9 9900X", "AMD Ryzen 7 9700X", "AMD Ryzen 5 9600X",
   "AMD Ryzen 7 8700G", "AMD Ryzen 7 8700F", "AMD Ryzen 5 8600G", "AMD Ryzen 5 8500G", "AMD Ryzen 5 8400F", "AMD Ryzen 3 8300G",
   "AMD Ryzen AI 9 HX 375", "AMD Ryzen AI 9 HX 370", "AMD Ryzen AI 9 365", "AMD Radeon PRO W7900",
