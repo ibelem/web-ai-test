@@ -404,13 +404,13 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             if (v.includes('decoder')) {
               feeds[v] = getFeedInfo(v, 'float16', 1, [1, 12, 4, 64]);
             } else if (v.includes('encoder')) {
-              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 1500, 64]);
+              feeds[v] = getFeedInfo(v, 'float16', 1, [1, 12, 1500, 64]);
             }
           } else if (modelName.indexOf('whisper_small_decoder_static_merged_fp16') > -1) {
             if (v.includes('decoder')) {
               feeds[v] = getFeedInfo(v, 'float16', 1, [1, 12, 127, 64]);
             } else if (v.includes('encoder')) {
-              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 1500, 64]);
+              feeds[v] = getFeedInfo(v, 'float16', 1, [1, 12, 1500, 64]);
             }
           } else if (modelName.indexOf('phi_3_mini_4k_instruct_demo_merged_') > -1) {
             feeds[v] = getFeedInfo(v, 'float16', 1, [1, 32, 512, 96]);
