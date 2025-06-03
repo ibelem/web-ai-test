@@ -2980,7 +2980,7 @@ const phi3Mini4kInstructDemoMerged = () => {
   ]
   return configs.map(([dt, file, size, externalData, edSize]) => ({
     category: 'Text Generation',
-    tag: '',
+    tag: 'pv',
     id: `phi_3_mini_4k_instruct_demo_merged_${dt}`,
     name: `Phi-3 Mini 4k Instruct Static KV-Cache Demo ${dt}`,
     description: 'Phi-3 Mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-2 - synthetic data and filtered websites - with a focus on very high-quality, reasoning dense data',
@@ -6368,7 +6368,7 @@ export let models = [
   },
   {
     category: 'Zero-Shot Image Classification',
-    tag: '',
+    tag: 'pv',
     id: 'sd_safety_checker_demo_fp16',
     name: 'SD Safety Checker Demo fp16',
     description: 'Can be used for identifying not safe for work (NSFW) image. Should not be used to intentionally create hostile or alienating environments for people.',
@@ -6386,11 +6386,11 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
-    tag: '',
+    tag: 'pv',
     id: 'sd_1_5_text_encoder_demo_fp16',
     name: 'SD 1.5 text Encoder Demo fp16',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
-    note: '',
+    note: 'pv',
     source: 'https://huggingface.co/aluhrs13/stable-diffusion-v1-5-olive-optimized/tree/main/text_encoder',
     model: 'fp16/stable-diffusion-1.5/text-encoder.onnx',
     size: '235 MB',
@@ -6403,7 +6403,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
-    tag: '',
+    tag: 'pv',
     id: 'sd_1_5_unet_demo_fp16',
     name: 'SD 1.5 UNet (layernorm) Demo fp16',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -6422,7 +6422,7 @@ export let models = [
   },
   {
     category: 'Text-to-Image',
-    tag: '',
+    tag: 'pv',
     id: 'sd_vae_decoder_demo_fp16',
     name: 'SD (1.5 + Turbo) VAE Decoder Demo fp16',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',

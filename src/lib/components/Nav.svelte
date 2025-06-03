@@ -46,6 +46,7 @@
       <li><a href="{base}/">Home</a></li>
       <li><a href="{base}/tests">SOTA</a></li>
       <li><a href="{base}/custom">Custom</a></li>
+      <li><a href="{base}/pv">PV</a></li>
       <li><a href="{base}/specific">Specific</a></li>
       <li class="dropdown">
         <button on:click={toggleDropdown} class="dropdown-toggle" aria-expanded={isDropdownOpen}>
