@@ -5656,31 +5656,16 @@ export let models = [
   {
     category: 'Image Classification',
     tag: '',
-    id: 'mobilenet_v2_fp16',
-    name: 'MobileNet v2',
-    description: 'A computer vision model designed for training classifiers.',
-    note: '',
-    source: 'https://github.com/onnx/models/tree/main/vision/classification/mobilenet',
-    model: 'fp16/mobilenetv2-fp16.onnx',
-    size: '7.42 MB',
-    format: 'onnx',
-    datatype: 'fp16',
-    inputs: [{ 'input': ['float16', 'random', [1, 3, 224, 224], {}] }],
-    inputstip: '[1, 3, 224, 224]'
-  },
-  {
-    category: 'Image Classification',
-    tag: '',
     id: 'mobilenet_v2_demo_fp16',
     name: 'MobileNet v2 Demo fp16',
     description: 'A computer vision model designed for training classifiers.',
     note: '',
-    source: 'https://huggingface.co/webnn/mobilenet-v2',
+    source: 'https://huggingface.co/onnx-community/mobilenet_v2_1.0_224-ONNX/tree/main',
     model: 'fp16/image-classification/mobilenet-v2_fp16.onnx',
     size: '7.42 MB',
     format: 'onnx',
     datatype: 'fp16',
-    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], {}] }],
+    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
     inputstip: '[1, 3, 224, 224]'
   },
   {
