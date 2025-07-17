@@ -5211,8 +5211,8 @@ const yolo12N = () => {
 
 const onnxOperatorsAdd2Inputs = () => {
   const configs = [
-    ['fp32', 'float32', 'add_two_inputs_fp32.onnx', '1 KB', 'onnx_op_add_2_inputs', 'Add two-input 1x3x224x224', 'ONNX Operator - two-input Add 1x3x224x224 FP32'],
-    ['fp16', 'float16', 'add_two_inputs_fp16.onnx', '1 KB', 'onnx_op_add_2_inputs', 'Add two-input 1x3x224x224', 'ONNX Operator - two-input Add 1x3x224x224 FP16'],
+    ['fp32', 'float32', 'add_two_inputs_fp32.onnx', '1 KB', 'onnx_op_add_2_inputs', 'Add two-input 1x2', 'ONNX Operator - two-input Add 1x2 FP32'],
+    ['fp16', 'float16', 'add_two_inputs_fp16.onnx', '1 KB', 'onnx_op_add_2_inputs', 'Add two-input 1x2', 'ONNX Operator - two-input Add 1x2 FP16'],
   ]
   return configs.map(([dt, dt_full, file, size, id, name, des]) => ({
     category: 'Operators',
@@ -5230,16 +5230,16 @@ const onnxOperatorsAdd2Inputs = () => {
     size: `${size}`,
     format: 'onnx',
     datatype: `${dt}`,
-    inputs: [{ 'input1': [`${dt_full}`, 'random', [1, 3, 224, 224], {}] },
-    { 'input2': [`${dt_full}`, 'random', [1, 3, 224, 224], {}] }],
-    inputstip: `[1,3,224,224] [1,3,224,224]`
+    inputs: [{ 'input1': [`${dt_full}`, 'random', [1, 2], {}] },
+    { 'input2': [`${dt_full}`, 'random', [1, 2], {}] }],
+    inputstip: `[1,2] [1,2]`
   }))
 }
 
 const onnxOperatorsAddConstant = () => {
   const configs = [
-    ['fp32', 'float32', 'add_constant_fp32.onnx', '1 KB', 'onnx_op_add_constant', 'Add constant 1x3x224x224', 'ONNX Operator - Add with custom constant 1x3x224x224 FP32'],
-    ['fp16', 'float16', 'add_constant_fp16.onnx', '1 KB', 'onnx_op_add_constant', 'Add constant 1x3x224x224', 'ONNX Operator - Add with custom constant 1x3x224x224 FP16'],
+    ['fp32', 'float32', 'add_constant_fp32.onnx', '1 KB', 'onnx_op_add_constant', 'Add constant 1x2', 'ONNX Operator - Add with custom constant 1x2 FP32'],
+    ['fp16', 'float16', 'add_constant_fp16.onnx', '1 KB', 'onnx_op_add_constant', 'Add constant 1x2', 'ONNX Operator - Add with custom constant 1x2 FP16'],
   ]
   return configs.map(([dt, dt_full, file, size, id, name, des]) => ({
     category: 'Operators',
@@ -5257,8 +5257,8 @@ const onnxOperatorsAddConstant = () => {
     size: `${size}`,
     format: 'onnx',
     datatype: `${dt}`,
-    inputs: [{ 'input': [`${dt_full}`, 'random', [1, 3, 224, 224], {}] }],
-    inputstip: `[1,3,224,224]`
+    inputs: [{ 'input': [`${dt_full}`, 'random', [1,2], {}] }],
+    inputstip: `[1,2]`
   }))
 }
 
@@ -5392,10 +5392,10 @@ const onnxOperatorsGemm_1_1024 = () => {
   }))
 }
 
-const onnxOperatorsIdentity = () => {
+const onnxOperatorsIdentity_1x1 = () => {
   const configs = [
-    ['fp32', 'float32', 'identity_fp32.onnx', '1 KB', 'onnx_op_identity', 'Identity 1x3x224x224', 'ONNX Operator - Identity 1x3x224x224 FP32'],
-    ['fp16', 'float16', 'identity_fp16.onnx', '1 KB', 'onnx_op_identity', 'Identity 1x3x224x224', 'ONNX Operator - Identity 1x3x224x224 FP16'],
+    ['fp32', 'float32', 'identity_fp32.onnx', '1 KB', 'onnx_op_identity_1x1', 'Identity 1D 1x1', 'ONNX Operator - Identity 1D 1x1 FP32'],
+    ['fp16', 'float16', 'identity_fp16.onnx', '1 KB', 'onnx_op_identity_1x1', 'Identity 1D 1x1', 'ONNX Operator - Identity 1D 1x1 FP16'],
   ]
   return configs.map(([dt, dt_full, file, size, id, name, des]) => ({
     category: 'Operators',
@@ -5413,8 +5413,8 @@ const onnxOperatorsIdentity = () => {
     size: `${size}`,
     format: 'onnx',
     datatype: `${dt}`,
-    inputs: [{ 'input': [`${dt_full}`, 'random', [1, 3, 224, 224], {}] }],
-    inputstip: `[1,3,224,224]`
+    inputs: [{ 'input': [`${dt_full}`, 'random', [1, 1], {}] }],
+    inputstip: `[1,1]`
   }))
 }
 
@@ -6314,7 +6314,7 @@ export let models = [
   ...onnxOperatorsMatMul3D(),
   ...onnxOperatorsGemm_32_512(),
   ...onnxOperatorsGemm_1_1024(),
-  ...onnxOperatorsIdentity(),
+  ...onnxOperatorsIdentity_1x1(),
   ...paraphraseMultilingualMpnetBaseV2(),
   ...phi3Mini4kInstructDemoMerged(),
   ...phi35MiniInstructMerged(),
