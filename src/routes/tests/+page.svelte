@@ -636,7 +636,7 @@
 	<div class="tq benchmark int4">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if (getModelDataTypeById(model) === 'int4' || (model.indexOf('_q4') > -1 && model.indexOf('_q4f16') === -1)) && getModelIsvById(model) !== 'ms'}
+				{#if (getModelDataTypeById(model) === 'int4' || (model.indexOf('_q4') > -1 && model.indexOf('_q4f16') === -1)) && getModelTagById(model) !== 'onnx_operators' && getModelIsvById(model) !== 'ms'}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -679,7 +679,7 @@
 	<div class="tq benchmark int8">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'int8' && model.indexOf('_tfbench') === -1 && model.indexOf('tfbench_pipeline') === -1 && getModelIsvById(model) !== 'ms'}
+				{#if getModelDataTypeById(model) === 'int8' && model.indexOf('_tfbench') === -1 && model.indexOf('tfbench_pipeline') === -1 && getModelTagById(model) !== 'onnx_operators' && getModelIsvById(model) !== 'ms'}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -721,7 +721,7 @@
 	<div class="tq benchmark fp16">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if (getModelDataTypeById(model) === 'fp16' || model.indexOf('_q4f16') > -1) && model.indexOf('_demo') === -1 && getModelIsvById(model) !== 'ms'}
+				{#if (getModelDataTypeById(model) === 'fp16' || model.indexOf('_q4f16') > -1) && getModelTagById(model) !== 'onnx_operators' && model.indexOf('_demo') === -1 && getModelIsvById(model) !== 'ms'}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -764,7 +764,7 @@
 	<div class="tq benchmark fp32">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'fp32' && model.indexOf('_tfbench') === -1 && model.indexOf('tfbench_pipeline') === -1 && getModelIsvById(model) !== 'ms' && model.indexOf('isv_t_gazenet_fp32') === -1}
+				{#if getModelDataTypeById(model) === 'fp32' && model.indexOf('_tfbench') === -1 && model.indexOf('tfbench_pipeline') === -1 && getModelTagById(model) !== 'onnx_operators' && getModelIsvById(model) !== 'ms' && model.indexOf('isv_t_gazenet_fp32') === -1}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -879,6 +879,7 @@
 
 	.tq .q.tests a:hover {
 		color: var(--orange);
+		text-decoration: none;
 	}
 
 	.tq.fp16 .q.tests a:hover {
@@ -905,9 +906,9 @@
 		color: var(--tfbench);
 	}
 
-	.tq .q:hover {
+	/* .tq .q:hover {
 		border-bottom: 0px solid var(--fp16);
-	}
+	} */
 
 	/* .tq.fp16 .q:hover {
 		border-bottom: 1px solid var(--fp16);

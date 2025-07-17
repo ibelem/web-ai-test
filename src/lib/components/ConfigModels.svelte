@@ -20,7 +20,8 @@
 		goTo,
 		stringToArray,
 		getModelNameById,
-		sortModelById
+		sortModelById,
+		getModelTagById
 	} from '$lib/assets/js/utils';
 	import { modelTypesStore, dataTypesStore, modelsStore } from '$lib/store/store';
 	import { onMount, beforeUpdate } from 'svelte';
@@ -66,6 +67,7 @@
 		top2025: true,
 		devpreview: true,
 		tfbench: true,
+		operators: true,
 		other: true,
 	};
 
@@ -292,6 +294,7 @@
 		return array.filter(item => {
 			const id = item.id;
 			const isv = getModelIsvById(id);
+			const tag = getModelTagById(id);
 			if (categories.top2025 && isv && isv === 'ms') {
 				return true;
 			}
@@ -301,9 +304,12 @@
 			if (categories.tfbench && (id.includes("_tfbench_model_") || id.includes("_tfbench_pipeline_"))) {
 				return true;
 			}
-			
+			if (categories.operators && tag && tag === 'onnx_operators') {
+				return true;
+			}
 			if (categories.other && 
 					!(isv && isv === 'ms') && 
+					!(tag && tag !== 'onnx_operators') && 
 					!id.includes("_tfbench_model_") && 
 					!id.includes("_tfbench_pipeline_")) {
 				return true;
@@ -677,6 +683,10 @@
 	</label>
 </div>
 <div class="types">
+	<label class="extra {categories.operators.toString()}" title="Operators">
+		<input type="checkbox" on:change={() => toggleCategory('operators')} />
+		Operators
+	</label>
 	<label class="extra {categories.top2025.toString()} " title="Top 2025 Models">
 		<input type="checkbox" on:change={() => toggleCategory('top2025')} />
 		Top 2025

@@ -5209,6 +5209,215 @@ const yolo12N = () => {
   }))
 }
 
+const onnxOperatorsAdd2Inputs = () => {
+  const configs = [
+    ['fp32', 'float32', 'add_two_inputs_fp32.onnx', '1 KB', 'onnx_op_add_2_inputs', 'Add two-input 1x3x224x224', 'ONNX Operator - two-input Add 1x3x224x224 FP32'],
+    ['fp16', 'float16', 'add_two_inputs_fp16.onnx', '1 KB', 'onnx_op_add_2_inputs', 'Add two-input 1x3x224x224', 'ONNX Operator - two-input Add 1x3x224x224 FP16'],
+  ]
+  return configs.map(([dt, dt_full, file, size, id, name, des]) => ({
+    category: 'Operators',
+    tag: 'onnx_operators',
+    id: `${id}_${dt}`,
+    name: `${name}`,
+    description: `${des}`,
+    note: '',
+    source: '',
+    hf: {
+      model: '',
+      file: ``,
+    },
+    model: `onnx_operators/${dt}/${file}`,
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{ 'input1': [`${dt_full}`, 'random', [1, 3, 224, 224], {}] },
+    { 'input2': [`${dt_full}`, 'random', [1, 3, 224, 224], {}] }],
+    inputstip: `[1,3,224,224] [1,3,224,224]`
+  }))
+}
+
+const onnxOperatorsAddConstant = () => {
+  const configs = [
+    ['fp32', 'float32', 'add_constant_fp32.onnx', '1 KB', 'onnx_op_add_constant', 'Add constant 1x3x224x224', 'ONNX Operator - Add with custom constant 1x3x224x224 FP32'],
+    ['fp16', 'float16', 'add_constant_fp16.onnx', '1 KB', 'onnx_op_add_constant', 'Add constant 1x3x224x224', 'ONNX Operator - Add with custom constant 1x3x224x224 FP16'],
+  ]
+  return configs.map(([dt, dt_full, file, size, id, name, des]) => ({
+    category: 'Operators',
+    tag: 'onnx_operators',
+    id: `${id}_${dt}`,
+    name: `${name}`,
+    description: `${des}`,
+    note: '',
+    source: '',
+    hf: {
+      model: '',
+      file: ``,
+    },
+    model: `onnx_operators/${dt}/${file}`,
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{ 'input': [`${dt_full}`, 'random', [1, 3, 224, 224], {}] }],
+    inputstip: `[1,3,224,224]`
+  }))
+}
+
+const onnxOperatorsConv = () => {
+  const configs = [
+    ['fp32', 'float32', 'conv_fp32.onnx', '3.78 KB'],
+    ['fp16', 'float16', 'conv_fp16.onnx', '2.46 KB'],
+  ]
+  return configs.map(([dt, dt_full, file, size]) => ({
+    category: 'Operators',
+    tag: 'onnx_operators',
+    id: `onnx_op_conv_${dt}`,
+    name: 'Conv',
+    description: `ONNX Operator - Conv ${dt}`,
+    note: '',
+    source: '',
+    hf: {
+      model: '',
+      file: ``,
+    },
+    model: `onnx_operators/${dt}/${file}`,
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{ 'input': [`${dt_full}`, 'random', [1, 3, 224, 224], {}] }],
+    inputstip: `[1,3,224,224]`
+  }))
+}
+
+const onnxOperatorsMatMul2D = () => {
+  const configs = [
+    ['fp32', 'float32', 'matmul_2d_fp32.onnx', '512 KB', 'onnx_op_matmul_2d', 'MatMul 2D', 'ONNX Operator - MatMul 2D FP32'],
+    ['fp16', 'float16', 'matmul_2d_fp16.onnx', '322 KB', 'onnx_op_matmul_2d', 'MatMul 2D', 'ONNX Operator - MatMul 2D FP16'],
+  ]
+  return configs.map(([dt, dt_full, file, size, id, name, des]) => ({
+    category: 'Operators',
+    tag: 'onnx_operators',
+    id: `${id}_${dt}`,
+    name: `${name}`,
+    description: `${des}`,
+    note: '',
+    source: '',
+    hf: {
+      model: '',
+      file: ``,
+    },
+    model: `onnx_operators/${dt}/${file}`,
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{ 'input_a': [`${dt_full}`, 'random', [128, 256], {}] }],
+    inputstip: `[128,256]`
+  }))
+}
+
+const onnxOperatorsMatMul3D = () => {
+  const configs = [
+    ['fp32', 'float32', 'matmul_3d_fp32.onnx', '3.00 MB', 'onnx_op_matmul_3d', 'MatMul 3D', 'ONNX Operator - MatMul 3D FP32'],
+    ['fp16', 'float16', 'matmul_3d_fp16.onnx', '1.89 MB', 'onnx_op_matmul_3d', 'MatMul 3D', 'ONNX Operator - MatMul 3D FP16'],
+  ]
+  return configs.map(([dt, dt_full, file, size, id, name, des]) => ({
+    category: 'Operators',
+    tag: 'onnx_operators',
+    id: `${id}_${dt}`,
+    name: `${name}`,
+    description: `${des}`,
+    note: '',
+    source: '',
+    hf: {
+      model: '',
+      file: ``,
+    },
+    model: `onnx_operators/${dt}/${file}`,
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{ 'input_a': [`${dt_full}`, 'random', [1, 512, 768], {}] }],
+    inputstip: `[1,512,768]`
+  }))
+}
+
+const onnxOperatorsGemm_32_512 = () => {
+  const configs = [
+    ['fp32', 'float32', 'gemm_32x512x128_fp32.onnx', '256 KB', 'onnx_op_gemm_32x512x128', 'Gemm 32x512x128', 'ONNX Operator - Gemm 32x512x128 FP32'],
+    ['fp16', 'float16', 'gemm_32x512x128_fp16.onnx', '161 KB', 'onnx_op_gemm_32x512x128', 'Gemm 32x512x128', 'ONNX Operator - Gemm 32x512x128 FP16'],
+  ]
+  return configs.map(([dt, dt_full, file, size, id, name, des]) => ({
+    category: 'Operators',
+    tag: 'onnx_operators',
+    id: `${id}_${dt}`,
+    name: `${name}`,
+    description: `${des}`,
+    note: '',
+    source: '',
+    hf: {
+      model: '',
+      file: ``,
+    },
+    model: `onnx_operators/${dt}/${file}`,
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{ 'input': [`${dt_full}`, 'random', [32, 512], {}] }],
+    inputstip: `[32, 512]`
+  }))
+}
+
+const onnxOperatorsGemm_1_1024 = () => {
+  const configs = [
+    ['fp32', 'float32', 'gemm_1x1024x512_fp32.onnx', '2.00 MB', 'onnx_op_gemm_1x1024x512', 'Gemm 1x1024x512', 'ONNX Operator - Gemm 1x1024x512 FP32'],
+    ['fp16', 'float16', 'gemm_1x1024x512_fp16.onnx', '1.26MB', 'onnx_op_gemm_1x1024x512', 'Gemm 1x1024x512', 'ONNX Operator - Gemm 1x1024x512 FP16'],
+  ]
+  return configs.map(([dt, dt_full, file, size, id, name, des]) => ({
+    category: 'Operators',
+    tag: 'onnx_operators',
+    id: `${id}_${dt}`,
+    name: `${name}`,
+    description: `${des}`,
+    note: '',
+    source: '',
+    hf: {
+      model: '',
+      file: ``,
+    },
+    model: `onnx_operators/${dt}/${file}`,
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{ 'input': [`${dt_full}`, 'random', [1, 1024], {}] }],
+    inputstip: `[1, 1024]`
+  }))
+}
+
+const onnxOperatorsIdentity = () => {
+  const configs = [
+    ['fp32', 'float32', 'identity_fp32.onnx', '1 KB', 'onnx_op_identity', 'Identity 1x3x224x224', 'ONNX Operator - Identity 1x3x224x224 FP32'],
+    ['fp16', 'float16', 'identity_fp16.onnx', '1 KB', 'onnx_op_identity', 'Identity 1x3x224x224', 'ONNX Operator - Identity 1x3x224x224 FP16'],
+  ]
+  return configs.map(([dt, dt_full, file, size, id, name, des]) => ({
+    category: 'Operators',
+    tag: 'onnx_operators',
+    id: `${id}_${dt}`,
+    name: `${name}`,
+    description: `${des}`,
+    note: '',
+    source: '',
+    hf: {
+      model: '',
+      file: ``,
+    },
+    model: `onnx_operators/${dt}/${file}`,
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{ 'input': [`${dt_full}`, 'random', [1, 3, 224, 224], {}] }],
+    inputstip: `[1,3,224,224]`
+  }))
+}
+
 export let models = [
   {
     category: 'Model Access Check',
@@ -6098,6 +6307,14 @@ export let models = [
   ...mxbaiRerankBaseV1(),
   ...nomicEmbedTextV1(),
   ...nomicEmbedTextV1_5(),
+  ...onnxOperatorsAdd2Inputs(),
+  ...onnxOperatorsAddConstant(),
+  ...onnxOperatorsConv(),
+  ...onnxOperatorsMatMul2D(),
+  ...onnxOperatorsMatMul3D(),
+  ...onnxOperatorsGemm_32_512(),
+  ...onnxOperatorsGemm_1_1024(),
+  ...onnxOperatorsIdentity(),
   ...paraphraseMultilingualMpnetBaseV2(),
   ...phi3Mini4kInstructDemoMerged(),
   ...phi35MiniInstructMerged(),

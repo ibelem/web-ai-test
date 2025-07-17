@@ -44,6 +44,7 @@
     
     <ul class="menu" class:active={isMenuOpen}>
       <li><a href="{base}/">Home</a></li>
+      <li><a href="{base}/operators">Operators</a></li>
       <li><a href="{base}/tests">SOTA</a></li>
       <li><a href="{base}/custom">Custom</a></li>
       <li><a href="{base}/pv">PV</a></li>
