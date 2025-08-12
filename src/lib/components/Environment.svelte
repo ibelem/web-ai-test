@@ -20,18 +20,18 @@
 		cpuInfo = value;
 	});
 
-	let cpState = '';
-	let observer;
+	// let cpState = '';
+	// let observer;
 
-	const getCP = async () => {
-		if ('PressureObserver' in window) {
-			const pressureObserverCallback = (updates) => {
-				cpState = updates[0].state;
-			};
-			observer = new PressureObserver(pressureObserverCallback, { sampleRate: 1 });
-			await observer.observe('cpu');
-		}
-	};
+	// const getCP = async () => {
+	// 	if ('PressureObserver' in window) {
+	// 		const pressureObserverCallback = (updates) => {
+	// 			cpState = updates[0].state;
+	// 		};
+	// 		observer = new PressureObserver(pressureObserverCallback, { sampleRate: 1 });
+	// 		await observer.observe('cpu');
+	// 	}
+	// };
 
 	let connectionType = '';
 	let connectionEffectiveType = '';
@@ -229,7 +229,7 @@
 			}
 		}
 
-		const [err, data] = await to(getCP());
+		// const [err, data] = await to(getCP());
 		const [errNI, dataNI] = await to(getNetworkInfomation());
 
 		checkStorage();
@@ -290,7 +290,7 @@
 		<AutoComplete items={cpu} bind:selectedItem={cpuInfo} onChange={updateCPU} />
 	</Modal>
 
-	{#if cpState}
+	<!-- {#if cpState}
 		<div title="CPU pressure" class={cpState}>
 			<a href="https://www.w3.org/TR/compute-pressure/#pressure-states">
 				{#if cpState === 'nominal'}
@@ -323,7 +323,7 @@
 				CPU Pressure</a
 			>
 		</div>
-	{/if}
+	{/if} -->
 
 	{#if environment.gpu}
 		<div title="GPU: {environment.gpu}">
