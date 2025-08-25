@@ -732,139 +732,151 @@
 				<div id="graph-nodes" class="list netron-analysis">
 					<div class="title"><span>Operations · Count</span></div>
 					<table>
-						<tr>
-							<td>
-								<span id="order-name" class="name count" title="Sort by name">
-									<button on:click={sortNodebyName}>
-										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
-											<path
-												d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"
-											/>
-										</svg>
-									</button>
-								</span>
-							</td>
-							<td>
-								<span id="order-value" class="value count" title="Sort by count">
-									<button on:click={sortNodebyCount}>
-										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
-											<path
-												d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z"
-											/>
-										</svg>
-									</button>
-								</span>
-							</td>
-							<td></td>
-						</tr>
+						<tbody>
+							<tr>
+								<td>
+									<span id="order-name" class="name count" title="Sort by name">
+										<button on:click={sortNodebyName}>
+											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+												<path
+													d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"
+												/>
+											</svg>
+										</button>
+									</span>
+								</td>
+								<td>
+									<span id="order-value" class="value count" title="Sort by count">
+										<button on:click={sortNodebyCount}>
+											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+												<path
+													d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z"
+												/>
+											</svg>
+										</button>
+									</span>
+								</td>
+								<td></td>
+							</tr>
+						</tbody>
 					</table>
 					{#if custom && custom.nodes.length > 0 && nodeCount != 0}
 						<table>
-							{#each custom.nodes as node}
+							<tbody>
+								{#each custom.nodes as node}
+									<tr>
+										<td><span class="name count" title={node.type}>{node.type}</span></td>
+										<td><span class="value count" title={node.count}>x{node.count}</span></td>
+										<td
+											><span
+												class="value count"
+												title="{((node.count * 100) / nodeCount).toFixed(2)}%"
+												>{((node.count * 100) / nodeCount).toFixed(1)}%</span
+											></td
+										>
+									</tr>
+								{/each}
 								<tr>
-									<td><span class="name count" title={node.type}>{node.type}</span></td>
-									<td><span class="value count" title={node.count}>x{node.count}</span></td>
-									<td
-										><span
-											class="value count"
-											title="{((node.count * 100) / nodeCount).toFixed(2)}%"
-											>{((node.count * 100) / nodeCount).toFixed(1)}%</span
-										></td
-									>
+									<td><span class="name count" title="Total"></span></td>
+									<td><span class="value count" title={nodeCount}>{nodeCount}</span></td>
+									<td><span class="value count" title="100.00%">100%</span></td>
 								</tr>
-							{/each}
-							<tr>
-								<td><span class="name count" title="Total"></span></td>
-								<td><span class="value count" title={nodeCount}>{nodeCount}</span></td>
-								<td><span class="value count" title="100.00%">100%</span></td>
-							</tr>
+							</tbody>
 						</table>
 					{/if}
 				</div>
 				<div id="graph-inputs" class="list netron-analysis">
 					<div class="title"><span>Inputs</span></div>
 					<table id="inputButtons">
-						<tr>
-							<td class="r">
-								<span id="order-name-input" class="name count" title="Sort by name">
-									<button on:click={sortInputsbyName}>
-										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
-											<path
-												d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"
-											/>
-										</svg>
-									</button>
-								</span>
-							</td>
-							<td class="c"></td>
-							<td class="e">
-								<span class="name count copy">
-									<button class="copy" on:click={copyPlain} title="Copy Inputs">
-										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
-									</button>
-									<button class="code" on:click={generateInputsCode} title="Generate Inputs code">
-										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
-									</button>
-									<button class="code" on:click={generateFeedsCode} title="Generate Feeds code">
-										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
-									</button>
-								</span>
-							</td>
-						</tr>
+						<tbody>
+							<tr>
+								<td class="r">
+									<span id="order-name-input" class="name count" title="Sort by name">
+										<button on:click={sortInputsbyName}>
+											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+												<path
+													d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"
+												/>
+											</svg>
+										</button>
+									</span>
+								</td>
+								<td class="c"></td>
+								<td class="e">
+									<span class="name count copy">
+										<button class="copy" on:click={copyPlain} title="Copy Inputs">
+											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
+										</button>
+										<button class="code" on:click={generateInputsCode} title="Generate Inputs code">
+											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
+										</button>
+										<button class="code" on:click={generateFeedsCode} title="Generate Feeds code">
+											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
+										</button>
+									</span>
+								</td>
+							</tr>
+						</tbody>
 					</table>
 					{#if custom && custom.inputs.length > 0}
 						<table>
-							{#each custom.inputs as input}
-								<tr>
-									<td><span class="name inputs" title={input.name}>{input.name}</span></td>
-									<td
-										><span class="value datatype" title={input.datatype}>{input.datatype}</span></td
-									>
-									<td
-										><span class="value dim" title="[{input.shapeDimensionsRaw}]"
-											>[{input.shapeDimensions}]</span
-										></td
-									>
-								</tr>
-							{/each}
+							<tbody>
+								{#each custom.inputs as input}
+									<tr>
+										<td><span class="name inputs" title={input.name}>{input.name}</span></td>
+										<td
+											><span class="value datatype" title={input.datatype}>{input.datatype}</span></td
+										>
+										<td
+											><span class="value dim" title="[{input.shapeDimensionsRaw}]"
+												>[{input.shapeDimensions}]</span
+											></td
+										>
+									</tr>
+								{/each}
+							</tbody>
 						</table>
 					{/if}
 				</div>
 				<div id="graph-outputs" class="list netron-analysis">
 					<div class="title"><span>Outputs</span></div>
 					<table id="outputButtons">
-						<tr>
-							<td class="r">
-								<span id="order-name-output" class="name count" title="Sort by name">
-									<button on:click={sortOutputsbyName}>
-										<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
-											<path
-												d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"
-											/>
-										</svg>
-									</button>
-								</span>
-							</td>
-							<td></td>
-							<td></td>
-						</tr>
+						<tbody>
+							<tr>
+								<td class="r">
+									<span id="order-name-output" class="name count" title="Sort by name">
+										<button on:click={sortOutputsbyName}>
+											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+												<path
+													d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"
+												/>
+											</svg>
+										</button>
+									</span>
+								</td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
 					</table>
 					{#if custom && custom.outputs.length > 0}
 						<table>
-							{#each custom.outputs as output}
-								<tr>
-									<td><span class="name outputs" title={output.name}>{output.name}</span></td>
-									<td
-										><span class="value datatype" title={output.datatype}>{output.datatype}</span
-										></td
-									>
-									<td
-										><span class="value dim" title="[{output.shapeDimensionsRaw}]"
-											>[{output.shapeDimensions}]</span
-										></td
-									>
-								</tr>
-							{/each}
+							<tbody>
+								{#each custom.outputs as output}
+									<tr>
+										<td><span class="name outputs" title={output.name}>{output.name}</span></td>
+										<td
+											><span class="value datatype" title={output.datatype}>{output.datatype}</span
+											></td
+										>
+										<td
+											><span class="value dim" title="[{output.shapeDimensionsRaw}]"
+												>[{output.shapeDimensions}]</span
+											></td
+										>
+									</tr>
+								{/each}
+							</tbody>
 						</table>
 					{/if}
 				</div>
@@ -873,18 +885,20 @@
 						<div class="title"><span>Properties</span></div>
 						{#if custom && custom.properties.length > 0}
 							<table>
-								{#each custom.properties as property}
-									<tr>
-										<td
-											><span class="name properties" title={property.name}>{property.name}</span
-											></td
-										>
-										<td
-											><span class="value properties" title={property.value}>{property.value}</span
-											></td
-										>
-									</tr>
-								{/each}
+								<tbody>
+									{#each custom.properties as property}
+										<tr>
+											<td
+												><span class="name properties" title={property.name}>{property.name}</span
+												></td
+											>
+											<td
+												><span class="value properties" title={property.value}>{property.value}</span
+												></td
+											>
+										</tr>
+									{/each}
+								</tbody>
 							</table>
 						{/if}
 					</div>
@@ -892,16 +906,18 @@
 						<div class="title"><span>Metadata</span></div>
 						{#if custom && custom.metadata.length > 0}
 							<table>
-								{#each custom.metadata as metadata}
-									<tr>
-										<td><span class="name metadata" title={metadata.name}>{metadata.name}</span></td
-										>
-										<td
-											><span class="value metadata" title={metadata.value}>{metadata.value}</span
-											></td
-										>
-									</tr>
-								{/each}
+								<tbody>
+									{#each custom.metadata as metadata}
+										<tr>
+											<td><span class="name metadata" title={metadata.name}>{metadata.name}</span></td
+											>
+											<td
+												><span class="value metadata" title={metadata.value}>{metadata.value}</span
+												></td
+											>
+										</tr>
+									{/each}
+								</tbody>
 							</table>
 						{/if}
 					</div>
