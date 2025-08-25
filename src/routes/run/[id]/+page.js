@@ -3,6 +3,8 @@ import { models } from '$lib/config';
 export const prerender = true;
 
 export function entries() {
-    // Return an array of all model IDs you want to prerender
-    return models.map(model => `/run/${model.id}`);
+    // Only include models with a valid id
+    return models
+        .filter(model => model.id && typeof model.id === 'string' && model.id.length > 0)
+        .map(model => `/run/${model.id}`);
 }
