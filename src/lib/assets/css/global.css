@@ -905,35 +905,6 @@ header .nav {
   position:relative;
 }
 
-.tag {
-  position: absolute;
-  right: -19px;
-  font-size: 10px;
-  padding: 15px 10px;
-  transform: translate(0%, 0) rotate(45deg);
-  transform-origin: center;
-}
-
-.fp32 .tag, .fp16 .tag, .int8 .tag, .int4 .tag {
-  background: var(--grey);
-}
-
-.fp32.tq .q:hover .tag {
-  background: var(--red);
-}
-
-.fp16.tq .q:hover .tag {
-  background: var(--fp16);
-}
-
-.int8.tq .q:hover .tag {
-  background: var(--p);
-}
-
-.int4.tq .q:hover .tag {
-  background: var(--int4);
-}
-
 @keyframes blink {
   0% {
     opacity: 1;
