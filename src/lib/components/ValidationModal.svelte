@@ -1,6 +1,6 @@
 <!-- lib/components/ValidationModal.svelte -->
 <script>
-  import { tracking } from '../config.js';
+  import { tracking } from '$lib/config/index.js';
   export let onValidate;
   export let onCancel;
 

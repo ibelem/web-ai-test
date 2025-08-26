@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { ortDists } from '$lib/config.js';
+	import { ortDists } from '$lib/config/index.js';
 	import { ortWebVersionStore } from '$lib/store/store';
 	import {
 		getURLParameterValue

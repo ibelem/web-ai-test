@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { environment, cpu } from '$lib/config.js';
+	import { environment, cpu } from '$lib/config/index.js';
 	import { getGpu, isFirefoxOrSafari } from '$lib/assets/js/utils.js';
 	// @ts-ignore
 	import { UAParser } from 'ua-parser-js';

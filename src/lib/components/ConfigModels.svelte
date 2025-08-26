@@ -1,5 +1,5 @@
 <script>
-	import { models } from '../config';
+	import { models } from '$lib/config/index.js';
 	import { fallback, fallbackEnv } from '../fallback';
 	import {
 		trimComma,

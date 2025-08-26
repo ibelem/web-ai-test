@@ -1,9 +1,9 @@
 import { sleepStore, fallbackLogStore, fallbackStore, fallbackQueueStore, conformanceLogStore, conformanceQueueStore, refererStore, modelDownloadUrlStore, autoStore, conformanceStore, infoStore, ortWebVersionStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
-import { models, uniqueBackends, corsSites } from '../../config';
+import { models, uniqueBackends, corsSites } from '$lib/config/index.js';
 import { runOnnx } from '../js/ort_utils'
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
-import { modelHosts } from '$lib/config.js';
+import { modelHosts } from '$lib/config/index.js';
 import { UAParser } from 'ua-parser-js';
 import html2canvas from 'html2canvas';
 import to from 'await-to-js';

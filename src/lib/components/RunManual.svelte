@@ -1,7 +1,7 @@
 <script>
 	import { onMount, afterUpdate } from 'svelte';
 	import { getGpu, isMobile, getURLParameterValue, isFirefoxOrSafari, isSafari } from '$lib/assets/js/utils.js';
-	import { tracking } from '../config.js';
+	import { tracking } from '$lib/config/index.js';
 	// import TestQueue from './TestQueue.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';

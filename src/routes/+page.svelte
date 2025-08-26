@@ -1,6 +1,6 @@
 <script>
 	import { getGpu, isMobile, getURLParameterValue, isFirefoxOrSafari, isSafari } from '$lib/assets/js/utils.js';
-	import { tracking } from '../lib/config.js';
+	import { tracking } from '$lib/config/index.js';
 	import Environment from '$lib/components/Environment.svelte';
 	import Config from '$lib/components/Config.svelte';
 	import Header from '$lib/components/Header.svelte';

@@ -1,5 +1,5 @@
 <script>
-	import { uniqueBackends } from '../config';
+	import { uniqueBackends } from '$lib/config/index.js';
 	// import { backendsStore } from '$lib/store/store';
 	import {
 		trimComma,

@@ -4,7 +4,7 @@
 	import Environment from '$lib/components/Environment.svelte';
 	import Info from '$lib/components/Info.svelte';
 	import ArrowOutward from '$lib/components/svg/ArrowOutward.svelte';
-	import { models } from '$lib/config';
+	import { models } from '$lib/config/index.js';
 	import { beforeUpdate, onMount, onDestroy } from 'svelte';
 	import OnnxFull from '$lib/components/svg/OnnxFull.svelte';
 	import TfliteFull from '$lib/components/svg/TfliteFull.svelte';
