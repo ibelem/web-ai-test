@@ -21,7 +21,7 @@
         },
         {
           "key": "Permissions-Policy", 
-          "value": "compute-pressure=self"
+          "value": "compute-pressure=(self)"
         }
       ]
     }
