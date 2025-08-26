@@ -277,7 +277,7 @@
 						></span
 					>
 					<span class="version selector">
-						<button on:click={() => (showOrtDevModal = true)}>
+						<button on:click={() => (showOrtDevModal = true)} aria-label="Select dev version">
 							<svg height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
 						</button>
 					</span>
@@ -304,7 +304,7 @@
 					>
 					{/if}
 					<span class="version selector">
-						<button on:click={() => (showOrtStableModal = true)}>
+						<button on:click={() => (showOrtStableModal = true)} aria-label="Select stable version">
 							<svg height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
 						</button>
 					</span>
@@ -373,14 +373,12 @@
 	}
 
 	.ort .wasm,
-	.ort .webgpu,
 	.ort .webnn {
 		display: inline-block;
 		margin: 0px;
 	}
 
 	.ort .wasm span,
-	.ort .webgpu span,
 	.ort .webnn span {
 		display: inline-block;
 		padding: 0px 10px 0px 10px;
@@ -389,12 +387,6 @@
 	.ort .wasm .title {
 		border: 1px solid var(--b1);
 		background-color: var(--b1);
-		color: #fff;
-	}
-
-	.ort .webgpu .title {
-		border: 1px solid var(--p2);
-		background-color: var(--p2);
 		color: #fff;
 	}
 
@@ -410,12 +402,6 @@
 		background-color: transparent;
 	}
 
-	.ort .webgpu .version {
-		margin-left: -8px;
-		border: 1px solid var(--p2);
-		background-color: transparent;
-	}
-
 	.ort .webnn .version {
 		margin-left: -8px;
 		border: 1px solid var(--purple);
@@ -426,11 +412,6 @@
 	.ort .wasm .version:hover a {
 		color: var(--white);
 		background-color: var(--b1);
-	}
-
-	.ort .webgpu .version:hover {
-		color: var(--white);
-		background-color: var(--p2);
 	}
 
 	.ort .webnn .version:hover {

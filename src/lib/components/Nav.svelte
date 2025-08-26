@@ -87,14 +87,6 @@
 	.menu li:hover {
     background-color: var(--red-005);
   }
-
-	.fp16 .menu li:hover {
-    background-color: var(--fp16-005);
-  }
-
-	.int8 .menu li:hover {
-    background-color: var(--p-005);
-  }
   
   .menu a {
     display: block;
@@ -150,14 +142,6 @@
 
   .dropdown-menu a:hover {
     background-color: var(--red-005);
-  }
-
-	.fp16 .dropdown-menu a:hover {
-    background-color: var(--fp16-005);
-  }
-
-	.int8 .dropdown-menu a:hover {
-    background-color: var(--p-005);
   }
   
   .menu-toggle {

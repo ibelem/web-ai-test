@@ -437,11 +437,6 @@
 		color: var(--white);
 	}
 
-	.result .q.title:hover .err {
-		background-color: var(--white-09);
-		color: var(--green);
-	}
-
 	.result .q .err {
 		background-color: var(--red-005);
 		margin-top: 0px;

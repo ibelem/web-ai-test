@@ -45,17 +45,4 @@
 		background-color: var(--red);
 		color: var(--white);
 	}
-
-	code {
-		margin: 1px auto;
-		background-color: var(--green-01);
-		display: inline-block;
-		padding: 0px 6px;
-		border-radius: 3px;
-	}
-
-	code:hover {
-		background-color: var(--green);
-		color: var(--white);
-	}
 </style>

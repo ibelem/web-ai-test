@@ -568,10 +568,6 @@
 		width: 100%;
 	}
 
-	.true.g2 .rawconsole .inferlog {
-		height: 60vh;
-	}
-
 	@media (max-width: 512px) {
 		.f button {
 			width: 46.6vw;

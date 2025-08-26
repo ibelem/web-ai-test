@@ -18,6 +18,10 @@
         {
           "key": "Access-Control-Allow-Origin",
           "value": "*"
+        },
+        {
+          "key": "Permissions-Policy", 
+          "value": "compute-pressure=self"
         }
       ]
     }

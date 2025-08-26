@@ -20,18 +20,23 @@
 		cpuInfo = value;
 	});
 
-	// let cpState = '';
-	// let observer;
+	let cpState = '';
+	let observer;
 
-	// const getCP = async () => {
-	// 	if ('PressureObserver' in window) {
-	// 		const pressureObserverCallback = (updates) => {
-	// 			cpState = updates[0].state;
-	// 		};
-	// 		observer = new PressureObserver(pressureObserverCallback, { sampleRate: 1 });
-	// 		await observer.observe('cpu');
-	// 	}
-	// };
+	const getCP = async () => {
+		if ('PressureObserver' in window) {
+			try {
+				const pressureObserverCallback = (updates) => {
+					cpState = updates[0].state;
+				};
+				observer = new PressureObserver(pressureObserverCallback, { sampleRate: 1 });
+				await observer.observe('cpu');
+			} catch (error) {
+				console.warn('Compute Pressure API not available: ', error.message);
+				// Silently handle the error - no CPU pressure monitoring
+			}
+		}
+	};
 
 	let connectionType = '';
 	let connectionEffectiveType = '';
@@ -229,7 +234,7 @@
 			}
 		}
 
-		// const [err, data] = await to(getCP());
+		const [err, data] = await to(getCP());
 		const [errNI, dataNI] = await to(getNetworkInfomation());
 
 		checkStorage();
@@ -290,7 +295,7 @@
 		<AutoComplete items={cpu} bind:selectedItem={cpuInfo} onChange={updateCPU} />
 	</Modal>
 
-	<!-- {#if cpState}
+	{#if cpState}
 		<div title="CPU pressure" class={cpState}>
 			<a href="https://www.w3.org/TR/compute-pressure/#pressure-states">
 				{#if cpState === 'nominal'}
@@ -323,7 +328,7 @@
 				CPU Pressure</a
 			>
 		</div>
-	{/if} -->
+	{/if}
 
 	{#if environment.gpu}
 		<div title="GPU: {environment.gpu}">
@@ -408,7 +413,7 @@
 					/></svg
 				>{/if}
 			{#if connectionType?.toLowerCase().indexOf('wimax') > -1}
-				<svg viewBox="0 -960 960 960"
+				<svg viewBox="http://www.w3.org/2000/svg"
 					><path
 						d="M480-120q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM254-346l-84-86q59-59 138.5-93.5T480-560q92 0 171.5 35T790-430l-84 84q-44-44-102-69t-124-25q-66 0-124 25t-102 69ZM84-516 0-600q92-94 215-147t265-53q142 0 265 53t215 147l-84 84q-77-77-178.5-120.5T480-680q-116 0-217.5 43.5T84-516Z"
 					/></svg
@@ -425,25 +430,25 @@
 					height="24"
 					viewBox="0 -960 960 960"
 					><path
-						d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Zm120 480h320v-80H400v-80h200v-80H400v-80h240v-80H320v400Z"
+						d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0 0v-560 560Zm120 480h320v-80H400v-80h200v-80H400v-80h240v-80H320v400Z"
 					/></svg
 				>{/if}
 			{#if connectionEffectiveType.toLowerCase().indexOf('3g') > -1}
-				<svg viewBox="0 -960 960 960"
+				<svg viewBox="http://www.w3.org/2000/svg"
 					><path
 						d="M120-120q-33 0-56.5-23.5T40-200v-560q0-33 23.5-56.5T120-840h720q33 0 56.5 23.5T920-760v560q0 33-23.5 56.5T840-120H120Zm0-80h720v-560H120v560Zm0 0v-560 560Zm640-320H640v80h40v80H560v-240h200q0-33-23.5-56.5T680-680H560q-33 0-56.5 23.5T480-600v240q0 33 23.5 56.5T560-280h120q33 0 56.5-23.5T760-360v-160ZM200-280h160q33 0 56.5-23.5T440-360v-60q0-25-17.5-42.5T380-480q25 0 42.5-17.5T440-540v-60q0-33-23.5-56.5T360-680H200v80h160v80H200v80h160v80H200v80Z"
 					/></svg
 				>{/if}
 			{#if connectionEffectiveType.toLowerCase().indexOf('4g') > -1}
-				<svg viewBox="0 -960 960 960"
+				<svg viewBox="http://www.w3.org/2000/svg"
 					><path
 						d="M120-120q-33 0-56.5-23.5T40-200v-560q0-33 23.5-56.5T120-840h720q33 0 56.5 23.5T920-760v560q0 33-23.5 56.5T840-120H120Zm0-80h720v-560H120v560Zm0 0v-560 560Zm680-320H660v80h60v80H600v-240h200q0-33-23.5-56.5T720-680H600q-33 0-56.5 23.5T520-600v240q0 33 23.5 56.5T600-280h120q33 0 56.5-23.5T800-360v-160ZM320-280h80v-120h80v-80h-80v-200h-80v200h-80v-200h-80v280h160v120Z"
 					/></svg
 				>{/if}
 			{#if connectionEffectiveType.toLowerCase().indexOf('5g') > -1}
-				<svg viewBox="0 -960 960 960"
+				<svg viewBox="http://www.w3.org/2000/svg"
 					><path
-						d="M120-120q-33 0-56.5-23.5T40-200v-560q0-33 23.5-56.5T120-840h720q33 0 56.5 23.5T920-760v560q0 33-23.5 56.5T840-120H120Zm0-80h720v-560H120v560Zm0 0v-560 560Zm640-320H640v80h40v80H560v-240h200q0-33-23.5-56.5T680-680H560q-33 0-56.5 23.5T480-600v240q0 33 23.5 56.5T560-280h120q33 0 56.5-23.5T760-360v-160ZM200-280h160q33 0 56.5-23.5T440-360v-80q0-33-23.5-56.5T360-520h-80v-80h160v-80H200v240h160v80H200v80Z"
+						d="M120-120q-33 0-56.5-23.5T40-200v-560q0-33 23.5-56.5T120-840h720q33 0 56.5 23.5T920-760v560q0 33-23.5 56.5T840-120H120Zm0-80h720v-560H120v560Zm0 0v-560 560Zm640-320H640v80h40v80H560v-240h200q0-33-23.5-56.5T680-680H560q-33 0-56.5 23.5T480-600v240q0 33 23.5 56.5T560-280h120q33 0 56.5-23.5T760-360v-160ZM200-280h160q33 0 56.5-23.5T440-360v-80q0-33-23.5-56.5T360-520h-80v-80h160v-80H200v240h160v80H200v80h160v80H200v80Z"
 					/></svg
 				>{/if}
 		</div>
