@@ -1,6 +1,6 @@
 // import adapter from '@sveltejs/adapter-static';
 import adapter from '@sveltejs/adapter-vercel';
-import { sveltePreprocess } from 'svelte-preprocess';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 const dev = process.argv.includes('dev');
 
@@ -8,7 +8,7 @@ const dev = process.argv.includes('dev');
 const config = {
     // Consult https://kit.svelte.dev/docs/integrations#preprocessors
     // for more information about preprocessors
-    preprocess: sveltePreprocess(),
+    preprocess: vitePreprocess(),
     kit: {
         // adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
         // If your environment is not supported or you settled on a specific environment, switch out the adapter.

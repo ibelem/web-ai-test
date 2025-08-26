@@ -726,40 +726,6 @@
 		color: var(--b1);
 	}
 
-	.serious,
-	.critical {
-		padding: 6px 8px;
-		border-radius: 0px;
-		position: absolute;
-		top: 0px;
-		left: 50%;
-		transform: translateX(-50%);
-		z-index: 1;
-		box-shadow:
-			rgba(198, 26, 62, 0.05) 0px 10px 20px -12px,
-			rgba(198, 26, 62, 0.1) 0px 18px 16px -18px;
-	}
-
-	.serious a,
-	.critical a {
-		color: white !important;
-	}
-
-	.serious svg path,
-	.critical svg path {
-		fill: white !important;
-	}
-
-	.serious {
-		color: white !important;
-		background-color: var(--orange);
-	}
-
-	.critical {
-		color: white !important;
-		background-color: var(--red);
-	}
-
 	.environment div {
 		display: inline-block;
 		margin: 0 6px;
