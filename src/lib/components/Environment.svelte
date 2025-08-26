@@ -32,8 +32,11 @@
 				observer = new PressureObserver(pressureObserverCallback, { sampleRate: 1 });
 				await observer.observe('cpu');
 			} catch (error) {
-				console.warn('Compute Pressure API not available: ', error.message);
-				// Silently handle the error - no CPU pressure monitoring
+				if (error.name === 'NotAllowedError' || error.name === 'SecurityError') {
+					console.debug('Compute Pressure API not permitted or available');
+				} else {
+					console.warn('Compute Pressure API error:', error.message);
+				}
 			}
 		}
 	};
