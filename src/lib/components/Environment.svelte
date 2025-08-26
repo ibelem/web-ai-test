@@ -20,26 +20,26 @@
 		cpuInfo = value;
 	});
 
-	let cpState = '';
-	let observer;
+	// let cpState = '';
+	// let observer;
 
-	const getCP = async () => {
-		if ('PressureObserver' in window) {
-			try {
-				const pressureObserverCallback = (updates) => {
-					cpState = updates[0].state;
-				};
-				observer = new PressureObserver(pressureObserverCallback, { sampleRate: 1 });
-				await observer.observe('cpu');
-			} catch (error) {
-				if (error.name === 'NotAllowedError' || error.name === 'SecurityError') {
-					console.debug('Compute Pressure API not permitted or available');
-				} else {
-					console.warn('Compute Pressure API error:', error.message);
-				}
-			}
-		}
-	};
+	// const getCP = async () => {
+	// 	if ('PressureObserver' in window) {
+	// 		try {
+	// 			const pressureObserverCallback = (updates) => {
+	// 				cpState = updates[0].state;
+	// 			};
+	// 			observer = new PressureObserver(pressureObserverCallback, { sampleRate: 1 });
+	// 			await observer.observe('cpu');
+	// 		} catch (error) {
+	// 			if (error.name === 'NotAllowedError' || error.name === 'SecurityError') {
+	// 				console.debug('Compute Pressure API not permitted or available');
+	// 			} else {
+	// 				console.warn('Compute Pressure API error:', error.message);
+	// 			}
+	// 		}
+	// 	}
+	// };
 
 	let connectionType = '';
 	let connectionEffectiveType = '';
@@ -237,7 +237,7 @@
 			}
 		}
 
-		const [err, data] = await to(getCP());
+		// const [err, data] = await to(getCP());
 		const [errNI, dataNI] = await to(getNetworkInfomation());
 
 		checkStorage();
@@ -298,7 +298,7 @@
 		<AutoComplete items={cpu} bind:selectedItem={cpuInfo} onChange={updateCPU} />
 	</Modal>
 
-	{#if cpState}
+	<!-- {#if cpState}
 		<div title="CPU pressure" class={cpState}>
 			<a href="https://www.w3.org/TR/compute-pressure/#pressure-states">
 				{#if cpState === 'nominal'}
@@ -331,7 +331,7 @@
 				CPU Pressure</a
 			>
 		</div>
-	{/if}
+	{/if} -->
 
 	{#if environment.gpu}
 		<div title="GPU: {environment.gpu}">
