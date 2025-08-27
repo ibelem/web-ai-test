@@ -676,35 +676,36 @@
 	</div>
 </div>
 
-<div class="title">
-	<label class="" title="Toggle model categories">
-		<input type="checkbox" on:change={() => toggleCategories()} />
-		Category
-	</label>
-</div>
-<div class="types">
-	<label class="extra {categories.operators.toString()}" title="Operators">
-		<input type="checkbox" on:change={() => toggleCategory('operators')} />
-		Operators
-	</label>
-	<label class="extra {categories.top2025.toString()} " title="Top 2025 Models">
-		<input type="checkbox" on:change={() => toggleCategory('top2025')} />
-		Top 2025
-	</label>
-	<label class="extra {categories.tfbench.toString()} " title="Transformers.js Benchmark Models">
-		<input type="checkbox" on:change={() => toggleCategory('tfbench')} />
-		Transformers.js Benchmark
-	</label>
-	<label class="extra {categories.devpreview.toString()}" title="WebNN Developer Preview Models">
-		<input type="checkbox" on:change={() => toggleCategory('devpreview')} />
-		WebNN Dev Preview
-	</label>
-	<label class="extra {categories.other.toString()}" title="Other Models">
-		<input type="checkbox" on:change={() => toggleCategory('other')} />
-		Others
-	</label>
-</div>
-
+<!--
+	<div class="title">
+		<label class="" title="Toggle model categories">
+			<input type="checkbox" on:change={() => toggleCategories()} />
+			Category
+		</label>
+	</div>
+	<div class="types">
+		<label class="extra {categories.operators.toString()}" title="Operators">
+			<input type="checkbox" on:change={() => toggleCategory('operators')} />
+			Operators
+		</label>
+		<label class="extra {categories.top2025.toString()} " title="Top 2025 Models">
+			<input type="checkbox" on:change={() => toggleCategory('top2025')} />
+			Top 2025
+		</label>
+		<label class="extra {categories.tfbench.toString()} " title="Transformers.js Benchmark Models">
+			<input type="checkbox" on:change={() => toggleCategory('tfbench')} />
+			Transformers.js Benchmark
+		</label>
+		<label class="extra {categories.devpreview.toString()}" title="WebNN Developer Preview Models">
+			<input type="checkbox" on:change={() => toggleCategory('devpreview')} />
+			WebNN Dev Preview
+		</label>
+		<label class="extra {categories.other.toString()}" title="Other Models">
+			<input type="checkbox" on:change={() => toggleCategory('other')} />
+			Others
+		</label>
+	</div>
+-->
 
 <div class="title">
 	<label class="" title="Toggle models">

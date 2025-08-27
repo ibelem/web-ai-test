@@ -7,7 +7,8 @@
 	import to from 'await-to-js';
 	import Modal from './Modal.svelte';
 	import AutoComplete from 'simple-svelte-autocomplete';
-	import OrtDetect from './OrtDetect.svelte';
+	import ONNXRuntimeWebDetect from './ONNXRuntimeWebDetect.svelte';
+	import LiteRtjsDetect from './LiteRtJsDetect.svelte';
 	import { cpuStore } from '$lib/store/store';
 
 	let showModal = false;
@@ -254,7 +255,8 @@
 	});
 </script>
 
-<OrtDetect />
+<LiteRtjsDetect />
+<ONNXRuntimeWebDetect />
 
 <div class="environment">
 	<div title="CPU model">

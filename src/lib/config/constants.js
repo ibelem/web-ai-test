@@ -43,6 +43,11 @@ export const MODEL_HOSTS = {
   local: 'models/'
 };
 
+export const MODEL_FORMATS = {
+  ONNX: 'onnx',
+  TFLITE: 'tflite'
+};
+
 export const UNIQUE_BACKENDS = [
   'wasm_1',
   'wasm_4', 

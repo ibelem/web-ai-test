@@ -1,6 +1,7 @@
 import { sleepStore, fallbackLogStore, fallbackStore, fallbackQueueStore, conformanceLogStore, conformanceQueueStore, refererStore, modelDownloadUrlStore, autoStore, conformanceStore, infoStore, ortWebVersionStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
 import { models, uniqueBackends, corsSites } from '$lib/config/index.js';
-import { runOnnx } from '../js/ort_utils'
+import { runOnnx } from '../js/ort_utils';
+import { runTflite } from '../js/litert_utils'
 import { goto } from '$app/navigation';
 import { base } from '$app/paths';
 import { modelHosts } from '$lib/config/index.js';
@@ -168,7 +169,7 @@ export const compareObjects = async (obj1, obj2, tolerance) => {
   return true;
 }
 
-export const addResult = (model, modeltype, datatype, modelsize, backend, status, compilation, warmup, timetofirstinference, inference, inferencemedian, inferencethroughput, inferenceninety, inferenceaverage, inferencebest, err) => {
+export const addResult = (model, modeltype, datatype, modelsize, backend, status, loadcompilation, compilation, warmup, timetofirstinference, inference, inferencemedian, inferencethroughput, inferenceninety, inferenceaverage, inferencebest, err) => {
   resultsStore.update(items => {
     return items.map(item => {
       if (
@@ -185,6 +186,8 @@ export const addResult = (model, modeltype, datatype, modelsize, backend, status
             } else {
               updatedItem[backend].status = null;
             }
+            
+            updatedItem[backend].loadcompilation = loadcompilation;
             updatedItem[backend].compilation = compilation;
             updatedItem[backend].warmup = warmup;
             updatedItem[backend].timetofirstinference = timetofirstinference;
@@ -915,6 +918,7 @@ export const run = async () => {
       r[prop] = {
         status: 1,
         inference: [],
+        loadcompilation: null,
         compilation: null,
         warmup: null,
         timetofirstinference: null,
@@ -930,6 +934,8 @@ export const run = async () => {
 
     if (t0.modeltype === 'onnx') {
       await runOnnx(t0.id, t0.model, t0.modeltype, t0.datatype, getModelSizeById(t0.model), t0.backend);
+    } else if (t0.modeltype === 'tflite') {
+      await runTflite(t0.id, t0.model, t0.modeltype, t0.datatype, getModelSizeById(t0.model), t0.backend);
     }
 
     filterTestQueue(t0.id);
@@ -1090,6 +1096,9 @@ export const loadScript = async (id, url) => {
     if (url.startsWith('http')) {
       script.crossOrigin = 'anonymous';
     }
+    // if(url.indexOf('litertjs') > -1) {
+    //   script.setAttribute('type', 'module');
+    // }
     document.body.append(script);
   })
 }

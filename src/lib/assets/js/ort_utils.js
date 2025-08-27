@@ -603,15 +603,18 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   l(options)
 
   updateTestQueueStatus(_id, 2);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, null, [], null, null, null, null, null);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, null, [], null, null, null, null, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, null, null, [], null, null, null, null, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, null, null, [], null, null, null, null, null);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}/${_modelSize}) with ${_backend} backend`);
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Fetching model from ${modelPath}`);
 
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
+  let loadTime = null;
   let modelBuffer = null;
+
+  const loadStart = performance.now();
   if (!isSafari) {
     modelBuffer = await getModelOPFS(_model, modelPath, false);
     if (modelBuffer.byteLength < 1024) {
@@ -623,6 +626,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       modelBuffer = await getModelCache(_model, modelPath, true);
     }
   }
+  loadTime = performance.now() - loadStart;
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Creating onnx runtime web inference session`);
 
@@ -640,7 +644,9 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     getFeedsInfo(sess, _model);
   }
 
+  
   let compilationTime = performance.now() - compilationStart;
+  const loadAndCompilationTime = loadTime + compilationTime;
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Compilation Time: ${compilationTime} ms`);
 
   if (_backend === "webgpu" && enableMLTensor) {
@@ -752,7 +758,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (${numOfRuns} runs/iterations in total): ${totalInferenceTimes} ms`);
   await sleep(100);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Throughput (${numOfRuns} runs/iterations): ${inferenceTimesThroughput}`);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, timeToFirstInference, inferenceTimes, inferenceTimesMedian, inferenceTimesThroughput, inferenceTimesNinety, inferenceTimesAverage, inferenceTimesBest, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, loadAndCompilationTime, compilationTime, firstInferenceTime, timeToFirstInference, inferenceTimes, inferenceTimesMedian, inferenceTimesThroughput, inferenceTimesNinety, inferenceTimesAverage, inferenceTimesBest, null);
 
   await sess.release();
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
@@ -760,18 +766,18 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 }
 
 export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
-  // await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
+  await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
 
   // let modelInfo = JSON.stringify(getModelInfoById(_model), null, '');
   // modelInfo = modelInfo.replaceAll(':', ': ');
   // updateInfo(`Model Info: ${modelInfo}`)
 
-  const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
-  if (err) {
-    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
-    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-    updateInfo(err.message);
-  } else {
-    // use data 
-  }
+  // const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
+  // if (err) {
+  //   addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
+  //   updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+  //   updateInfo(err.message);
+  // } else {
+  //   // use data 
+  // }
 }

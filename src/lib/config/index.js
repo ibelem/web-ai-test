@@ -15,8 +15,15 @@ export {
 // Hardware
 export { cpu, gpu, environment } from './hardware.js';
 
-// Models
-export { allModels } from './models.js';
+// Models - import from separate files
+import { onnxModels } from './model_onnx.js';
+import { tfliteModels } from './model_tflite.js';
+
+// Combine all models
+export const allModels = [
+  ...onnxModels,
+  ...tfliteModels
+];
 
 import { 
   CORS_SITES,
@@ -26,8 +33,6 @@ import {
   UNIQUE_BACKENDS
 } from './constants.js';
 
-import { allModels } from './models.js';
-
 // Legacy exports for backward compatibility (using the same names as original config.js)
 export const corsSites = CORS_SITES;
 export const modelHosts = MODEL_HOSTS;
@@ -35,3 +40,6 @@ export const tracking = TRACKING;
 export const ortDists = ORT_DISTS;
 export const uniqueBackends = UNIQUE_BACKENDS;
 export const models = allModels;
+
+// Export individual model arrays for filtering
+export { onnxModels, tfliteModels };

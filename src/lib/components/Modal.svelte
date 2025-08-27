@@ -2,24 +2,25 @@
 	export let showModal = false; // boolean
 	export let showOrtDevModal = false;
 	export let showOrtStableModal = false;
+	export let showLiteRtDevModal = false;
 
 	let dialog; // HTMLDialogElement
 
-	$: if (dialog && (showModal || showOrtDevModal || showOrtStableModal)) dialog.showModal();
+	$: if (dialog && (showModal || showOrtDevModal || showOrtStableModal || showLiteRtDevModal)) dialog.showModal();
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
 <dialog
 	bind:this={dialog}
-	on:close={() => { showModal = false; showOrtDevModal = false; showOrtStableModal = false; }}
-	on:click|self={() => dialog.close()}
+	onclose={() => { showModal = false; showOrtDevModal = false; showOrtStableModal = false; showLiteRtDevModal = false; }}
+	onclick={() => dialog.close()}
 >
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div on:click|stopPropagation>
+	<div onclick={(event) => event.stopPropagation()}>
 		<slot name="header" />
 		<slot />
 		<div class="update">
-			<button on:click={() => dialog.close()}>Close</button>
+			<button onclick={() => dialog.close()}>Close</button>
 		</div>
 	</div>
 </dialog>

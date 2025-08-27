@@ -258,10 +258,15 @@
 		});
 	};
 
+	const fmt2 = (v) => (typeof v === 'number' && isFinite(v) ? v.toFixed(2) : (v ?? '').toString());
+	const str = (v) => (v ?? '').toString();
+	const joinArr = (v) => (Array.isArray(v) ? v.join(', ') : str(v));
+
 	/**
 	 * @type {any}
 	 */
 	let resultOptions = {
+		loadcompilation: false,
 		compilation: false,
 		first: false,
 		tofirst: false,
@@ -275,6 +280,7 @@
 	const toggleIndex = (/** @type {string} */ id) => {
 		resultOptions[id] = !resultOptions[id];
 		if (
+			resultOptions.loadcompilation === false &&
 			resultOptions.compilation === false &&
 			resultOptions.first === false &&
 			resultOptions.tofirst === false &&
@@ -306,6 +312,13 @@
 			<div class="title rq mt">Performance (ms)</div>
 		</div>
 		<div class="figure">
+			<span
+				class="compilation {resultOptions.loadcompilation}"
+				role="button"
+				tabindex="0"
+				on:keydown={() => {}}
+				on:click={() => toggleIndex('loadcompilation')}>LoadAndCompile</span
+			>
 			<span
 				class="compilation {resultOptions.compilation}"
 				role="button"
@@ -545,7 +558,7 @@
 						{#if key.wasm_1.status === 3}
 							<div
 								class="status_{key.wasm_1.status} s backend"
-								title="Compilation Time: {key.wasm_1.compilation.toString()} ms; First Inference Time: {key.wasm_1.warmup.toString()} ms; Time to First Inference: {key.wasm_1.timetofirstinference.toString()} ms; Inference Time (Median): {key
+								title="Compilation Time: {str(key.wasm_1.compilation)} ms; First Inference Time: {key.wasm_1.warmup.toString()} ms; Time to First Inference: {key.wasm_1.timetofirstinference.toString()} ms; Inference Time (Median): {key
 									.wasm_1.inferencemedian} ms; 90th Percentile Inference: {key.wasm_1
 									.inferenceninety} ms; Inference Time (Average): {key.wasm_1
 									.inferenceaverage} ms; Inference Time (Best): {key.wasm_1
@@ -560,7 +573,7 @@
 									on:keydown={() => {}}
 									on:click={() =>
 										copyRawInference(
-											`Compilation Time: ${key.wasm_1.compilation.toString()} ms; First Inference Time: ${key.wasm_1.warmup.toString()} ms; Time to First Inference: ${key.wasm_1.timetofirstinference.toString()} ms; Inference Time (Median): ${
+											`Compilation Time: ${str(key.wasm_1.compilation)} ms; First Inference Time: ${key.wasm_1.warmup.toString()} ms; Time to First Inference: ${key.wasm_1.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.wasm_1.inferencemedian
 											} ms; 90th Percentile Inference: ${
 												key.wasm_1.inferenceninety
@@ -574,7 +587,7 @@
 										)}
 								>
 									{#if resultOptions.compilation}<span class="compilation"
-											>{key.wasm_1.compilation.toFixed(2)}</span
+											>{fmt2(key.wasm_1.compilation)}</span
 										>{/if}
 									{#if resultOptions.first}<span class="first">{key.wasm_1.warmup}</span>{/if}
 									{#if resultOptions.tofirst}<span class="tofirst"
@@ -616,7 +629,7 @@
 						{#if key.wasm_4.status === 3}
 							<div
 								class="status_{key.wasm_4.status} s backend"
-								title="Compilation Time: {key.wasm_4.compilation.toString()} ms; First Inference Time: {key.wasm_4.warmup.toString()} ms; Time to First Inference: {key.wasm_4.timetofirstinference.toString()} ms; Inference Time (Median): {key
+								title="Compilation Time: {str(key.wasm_1.compilation)} ms; First Inference Time: {key.wasm_4.warmup.toString()} ms; Time to First Inference: {key.wasm_4.timetofirstinference.toString()} ms; Inference Time (Median): {key
 									.wasm_4.inferencemedian} ms; 90th Percentile Inference: {key.wasm_4
 									.inferenceninety} ms; Inference Time (Average): {key.wasm_4
 									.inferenceaverage} ms; Inference Time (Best): {key.wasm_4
@@ -631,7 +644,7 @@
 									on:keydown={() => {}}
 									on:click={() =>
 										copyRawInference(
-											`Compilation Time: ${key.wasm_4.compilation.toString()} ms; First Inference Time: ${key.wasm_4.warmup.toString()} ms; Time to First Inference: ${key.wasm_4.timetofirstinference.toString()} ms; Inference Time (Median): ${
+											`Compilation Time: ${str(key.wasm_4.compilation)} ms; First Inference Time: ${key.wasm_4.warmup.toString()} ms; Time to First Inference: ${key.wasm_4.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.wasm_4.inferencemedian
 											} ms; 90th Percentile Inference: ${
 												key.wasm_4.inferenceninety
@@ -645,7 +658,7 @@
 										)}
 								>
 									{#if resultOptions.compilation}<span class="compilation"
-											>{key.wasm_4.compilation.toFixed(2)}</span
+											>{fmt2(key.wasm_4.compilation)}</span
 										>{/if}
 									{#if resultOptions.first}<span class="first">{key.wasm_4.warmup}</span>{/if}
 									{#if resultOptions.tofirst}<span class="tofirst"
@@ -687,7 +700,7 @@
 						{#if key.webnn_cpu.status === 3}
 							<div
 								class="status_{key.webnn_cpu.status} s backend"
-								title="Compilation Time: {key.webnn_cpu.compilation.toString()} ms; First Inference Time: {key.webnn_cpu.warmup.toString()} ms; Time to First Inference: {key.webnn_cpu.timetofirstinference.toString()} ms; Inference Time (Median): {key
+								title="Compilation Time: {str(key.webnn_cpu.compilation)} ms; First Inference Time: {key.webnn_cpu.warmup.toString()} ms; Time to First Inference: {key.webnn_cpu.timetofirstinference.toString()} ms; Inference Time (Median): {key
 									.webnn_cpu.inferencemedian} ms; 90th Percentile Inference: {key.webnn_cpu
 									.inferenceninety} ms; Inference Time (Average): {key.webnn_cpu
 									.inferenceaverage} ms; Inference Time (Best): {key.webnn_cpu
@@ -702,7 +715,7 @@
 									on:keydown={() => {}}
 									on:click={() =>
 										copyRawInference(
-											`Compilation Time: ${key.webnn_cpu.compilation.toString()} ms; First Inference Time: ${key.webnn_cpu.warmup.toString()} ms; Time to First Inference: ${key.webnn_cpu.timetofirstinference.toString()} ms; Inference Time (Median): ${
+											`Compilation Time: ${str(key.webnn_cpu.compilation)} ms; First Inference Time: ${key.webnn_cpu.warmup.toString()} ms; Time to First Inference: ${key.webnn_cpu.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.webnn_cpu.inferencemedian
 											} ms; 90th Percentile Inference: ${
 												key.webnn_cpu.inferenceninety
@@ -716,7 +729,7 @@
 										)}
 								>
 									{#if resultOptions.compilation}<span class="compilation"
-											>{key.webnn_cpu.compilation.toFixed(2)}</span
+											>{fmt2(key.webnn_cpu.compilation)}</span
 										>{/if}
 									{#if resultOptions.first}<span class="first">{key.webnn_cpu.warmup}</span>{/if}
 									{#if resultOptions.tofirst}<span class="tofirst"
@@ -761,7 +774,7 @@
 						{#if key.webgl.status === 3}
 							<div
 								class="status_{key.webgl.status} s backend"
-								title="Compilation Time: {key.webgl.compilation.toString()} ms; First Inference Time: {key.webgl.warmup.toString()} ms; Time to First Inference: {key.webgl.timetofirstinference.toString()} ms; Inference Time (Median): {key
+								title="Compilation Time: {str(key.webgl.compilation)} ms; First Inference Time: {key.webgl.warmup.toString()} ms; Time to First Inference: {key.webgl.timetofirstinference.toString()} ms; Inference Time (Median): {key
 									.webgl.inferencemedian} ms; 90th Percentile Inference: {key.webgl
 									.inferenceninety} ms; Inference Time (Average): {key.webgl
 									.inferenceaverage} ms; Inference Time (Best): {key.webgl
@@ -776,7 +789,7 @@
 									on:keydown={() => {}}
 									on:click={() =>
 										copyRawInference(
-											`Compilation Time: ${key.webgl.compilation.toString()} ms; First Inference Time: ${key.webgl.warmup.toString()} ms; Time to First Inference: ${key.webgl.timetofirstinference.toString()} ms; Inference Time (Median): ${
+											`Compilation Time: ${str(key.webgl.compilation)} ms; First Inference Time: ${key.webgl.warmup.toString()} ms; Time to First Inference: ${key.webgl.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.webgl.inferencemedian
 											} ms; 90th Percentile Inference: ${
 												key.webgl.inferenceninety
@@ -790,7 +803,7 @@
 										)}
 								>
 									{#if resultOptions.compilation}<span class="compilation"
-											>{key.webgl.compilation.toFixed(2)}</span
+											>{fmt2(key.webgl.compilation)}</span
 										>{/if}
 									{#if resultOptions.first}<span class="first">{key.webgl.warmup}</span>{/if}
 									{#if resultOptions.tofirst}<span class="tofirst"
@@ -832,7 +845,7 @@
 						{#if key.webgpu.status === 3}
 							<div
 								class="status_{key.webgpu.status} s backend"
-								title="Compilation Time: {key.webgpu.compilation.toString()} ms; First Inference Time: {key.webgpu.warmup.toString()} ms; Time to First Inference: {key.webgpu.timetofirstinference.toString()} ms; Inference Time (Median): {key
+								title="Compilation Time: {str(key.webgpu.compilation)} ms; First Inference Time: {key.webgpu.warmup.toString()} ms; Time to First Inference: {key.webgpu.timetofirstinference.toString()} ms; Inference Time (Median): {key
 									.webgpu.inferencemedian} ms; 90th Percentile Inference: {key.webgpu
 									.inferenceninety} ms; Inference Time (Average): {key.webgpu
 									.inferenceaverage} ms; Inference Time (Best): {key.webgpu
@@ -847,7 +860,7 @@
 									on:keydown={() => {}}
 									on:click={() =>
 										copyRawInference(
-											`Compilation Time: ${key.webgpu.compilation.toString()} ms; First Inference Time: ${key.webgpu.warmup.toString()} ms; Time to First Inference: ${key.webgpu.timetofirstinference.toString()} ms; Inference Time (Median): ${
+											`Compilation Time: ${str(key.webgpu.compilation)} ms; First Inference Time: ${key.webgpu.warmup.toString()} ms; Time to First Inference: ${key.webgpu.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.webgpu.inferencemedian
 											} ms; 90th Percentile Inference: ${
 												key.webgpu.inferenceninety
@@ -861,7 +874,7 @@
 										)}
 								>
 									{#if resultOptions.compilation}<span class="compilation"
-											>{key.webgpu.compilation.toFixed(2)}</span
+											>{fmt2(key.webgpu.compilation)}</span
 										>{/if}
 									{#if resultOptions.first}<span class="first">{key.webgpu.warmup}</span>{/if}
 									{#if resultOptions.tofirst}<span class="tofirst"
@@ -903,7 +916,7 @@
 						{#if key.webnn_gpu.status === 3}
 							<div
 								class="status_{key.webnn_gpu.status} s backend"
-								title="Compilation Time: {key.webnn_gpu.compilation.toString()} ms; First Inference Time: {key.webnn_gpu.warmup.toString()} ms; Time to First Inference: {key.webnn_gpu.timetofirstinference.toString()} ms; Inference Time (Median): {key
+								title="Compilation Time: {str(key.webnn_gpu.compilation)} ms; First Inference Time: {key.webnn_gpu.warmup.toString()} ms; Time to First Inference: {key.webnn_gpu.timetofirstinference.toString()} ms; Inference Time (Median): {key
 									.webnn_gpu.inferencemedian} ms; 90th Percentile Inference: {key.webnn_gpu
 									.inferenceninety} ms; Inference Time (Average): {key.webnn_gpu
 									.inferenceaverage} ms; Inference Time (Best): {key.webnn_gpu
@@ -918,7 +931,7 @@
 									on:keydown={() => {}}
 									on:click={() =>
 										copyRawInference(
-											`Compilation Time: ${key.webnn_gpu.compilation.toString()} ms; First Inference Time: ${key.webnn_gpu.warmup.toString()} ms; Time to First Inference: ${key.webnn_gpu.timetofirstinference.toString()} ms; Inference Time (Median): ${
+											`Compilation Time: ${str(key.webnn_gpu.compilation)} ms; First Inference Time: ${key.webnn_gpu.warmup.toString()} ms; Time to First Inference: ${key.webnn_gpu.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.webnn_gpu.inferencemedian
 											} ms; 90th Percentile Inference: ${
 												key.webnn_gpu.inferenceninety
@@ -932,7 +945,7 @@
 										)}
 								>
 									{#if resultOptions.compilation}<span class="compilation"
-											>{key.webnn_gpu.compilation.toFixed(2)}</span
+											>{fmt2(key.webnn_gpu.compilation)}</span
 										>{/if}
 									{#if resultOptions.first}<span class="first">{key.webnn_gpu.warmup}</span>{/if}
 									{#if resultOptions.tofirst}<span class="tofirst"
@@ -977,7 +990,7 @@
 						{#if key.webnn_npu.status === 3}
 							<div
 								class="status_{key.webnn_npu.status} s backend"
-								title="Compilation Time: {key.webnn_npu.compilation.toString()} ms; First Inference Time: {key.webnn_npu.warmup.toString()} ms; Time to First Inference: {key.webnn_npu.timetofirstinference.toString()} ms; Inference Time (Median): {key
+								title="Compilation Time: {str(key.webnn_npu.compilation)} ms; First Inference Time: {key.webnn_npu.warmup.toString()} ms; Time to First Inference: {key.webnn_npu.timetofirstinference.toString()} ms; Inference Time (Median): {key
 									.webnn_npu.inferencemedian} ms; 90th Percentile Inference: {key.webnn_npu
 									.inferenceninety} ms; Inference Time (Average): {key.webnn_npu
 									.inferenceaverage} ms; Inference Time (Best): {key.webnn_npu
@@ -992,7 +1005,7 @@
 									on:keydown={() => {}}
 									on:click={() =>
 										copyRawInference(
-											`Compilation Time: ${key.webnn_npu.compilation.toString()} ms; First Inference Time: ${key.webnn_npu.warmup.toString()} ms; Time to First Inference: ${key.webnn_npu.timetofirstinference.toString()} ms; Inference Time (Median): ${
+											`Compilation Time: ${str(key.webnn_npu.compilation)} ms; First Inference Time: ${key.webnn_npu.warmup.toString()} ms; Time to First Inference: ${key.webnn_npu.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.webnn_npu.inferencemedian
 											} ms; 90th Percentile Inference: ${
 												key.webnn_npu.inferenceninety
@@ -1006,7 +1019,7 @@
 										)}
 								>
 									{#if resultOptions.compilation}<span class="compilation"
-											>{key.webnn_npu.compilation.toFixed(2)}</span
+											>{fmt2(key.webnn_npu.compilation)}</span
 										>{/if}
 									{#if resultOptions.first}<span class="first">{key.webnn_npu.warmup}</span>{/if}
 									{#if resultOptions.tofirst}<span class="tofirst"
