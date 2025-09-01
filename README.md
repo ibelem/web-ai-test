@@ -2,4 +2,4 @@
 
 ## License
 
-AGPL
+TBD
