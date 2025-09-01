@@ -7,9 +7,6 @@
 	import { models } from '$lib/config/index.js';
 	import { beforeUpdate, onMount, onDestroy } from 'svelte';
 	import OnnxFull from '$lib/components/svg/OnnxFull.svelte';
-	import TfliteFull from '$lib/components/svg/TfliteFull.svelte';
-	import Onnx from '$lib/components/svg/Onnx.svelte';
-	import Tflite from '$lib/components/svg/Tflite.svelte';
 	import { base } from '$app/paths';
 	import { autoStore, customStore } from '$lib/store/store';
 	import {
@@ -163,18 +160,6 @@
 		updateModelCountofType();
 	};
 
-	const typeChange = (/** @type {{ currentTarget: { value: string; }; }} */ event) => {
-		selected = event.currentTarget.value;
-		console.log(selected);
-		subModels = models.filter((item) => item.format === selected);
-		console.log(subModels);
-		subModels = sortModelById(subModels);
-		console.log(subModels);
-		uniqueModels = [...new Set(subModels.map((model) => model.id))];
-		console.log(uniqueModels);
-		uniqueModels = uniqueModels;
-	};
-
 	const getHTMLModelName = (/** @type {string} */ model) => {
 		let name = getModelNameById(model);
 		name = name
@@ -251,7 +236,7 @@
 <Header />
 
 <div class="tqtitle">
-	<div class="title tq">Performance Tests · {uniqueModels.length}</div>
+	<div class="title tq"><OnnxFull /> Performance Tests · {uniqueModels.length}</div>
 	<div class="title">INT8 and INT4 models are not ready for testing</div>
 </div>
 <div class="search">
@@ -283,31 +268,7 @@
 	</div>
 </div>
 
-<div class="modelselection">
-	<div class="tabs">
-		<input
-			type="radio"
-			on:change={typeChange}
-			checked={selected === 'onnx'}
-			id="r-onnx"
-			value="onnx"
-			name="tabs"
-		/>
-		<label class="tab" for="r-onnx"><OnnxFull /></label>
-		<input
-			type="radio"
-			on:change={typeChange}
-			checked={selected === 'tflite'}
-			id="r-tflite"
-			value="tflite"
-			name="tabs"
-		/>
-		<label class="tab" for="r-tflite"><TfliteFull /></label>
-		<span class="glider"></span>
-	</div>
-</div>
-
-<div>
+<div class="test-list">
 	<div class="title tq fp16">2025 Top Models · FP16 · {top2025CountFP16}</div>
 	<div class="tq benchmark fp16">
 		{#each uniqueModels as model}
@@ -662,7 +623,7 @@
 
 						<a href="{base}/run/{model}" class="titlemark"
 							>{@html getHTMLModelName(model)}
-							{#if (model.indexOf('_q4') > -1 && model.indexOf('_q4f16') === -1)}<span>q4</span>{/if}
+							{#if model.indexOf('_q4') > -1 && model.indexOf('_q4f16') === -1}<span>q4</span>{/if}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
@@ -932,76 +893,6 @@
 		justify-content: center;
 	}
 
-	.tabs {
-		display: flex;
-		background-color: #fff;
-		box-shadow:
-			0 0 1px 0 rgba(var(--red), 0.15),
-			0 6px 12px 0 rgba(var(--red), 0.15);
-		padding: 6px 20px;
-		border-radius: 99px;
-		margin: 10px auto 0 auto;
-		text-align: center;
-	}
-
-	input[type='radio'] {
-		display: none;
-	}
-
-	.tab {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 6px 20px;
-		font-weight: 500;
-		border-radius: 99px;
-		cursor: pointer;
-		transition: color 0.15s ease-in;
-	}
-
-	input[type='radio'] {
-		&:checked {
-			& + label {
-				color: var(--red);
-			}
-		}
-	}
-
-	input[id='r-onnx'] {
-		&:checked {
-			& ~ .glider {
-				transform: translateX(0);
-			}
-		}
-	}
-
-	input[id='r-tflite'] {
-		&:checked {
-			& ~ .glider {
-				transform: translateX(100%);
-			}
-		}
-	}
-	/* 
-	input[id='radio-3'] {
-		&:checked {
-			& ~ .glider {
-				transform: translateX(200%);
-			}
-		}
-	} */
-
-	.glider {
-		position: absolute;
-		display: flex;
-		height: 30px;
-		width: 140px;
-		background-color: var(--red-005);
-		z-index: 1;
-		border-radius: 99px;
-		transition: 0.25s ease-out;
-	}
-
 	.benchmark {
 		margin: 0.5rem 0 2rem 0;
 	}
@@ -1038,12 +929,6 @@
 		background-color: var(--white);
 		color: var(--red);
 		border: 1px solid var(--red);
-	}
-
-	@media (max-width: 700px) {
-		.tabs {
-			transform: scale(0.6);
-		}
 	}
 
 	@media (max-width: 512px) {

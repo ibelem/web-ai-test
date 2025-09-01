@@ -93,7 +93,9 @@ header .nav {
   margin-right: 8px;
 }
 
-.config .backends, .config .models, .config .numofruns {
+.config .backends,
+.config .models,
+.config .numofruns {
   justify-self: flex-start;
 }
 
@@ -101,8 +103,9 @@ header .nav {
   min-width: 76px;
 }
 
-.config .title label, .config .numofruns label {
-  border: 0px; 
+.config .title label,
+.config .numofruns label {
+  border: 0px;
 }
 
 .group .block label {
@@ -113,8 +116,9 @@ header .nav {
   margin-left: 0;
 }
 
-.config label.true, .group .block label.true {
-  background-image: linear-gradient(to right, var(--red-09) 0%,  var(--red) 100%);
+.config label.true,
+.group .block label.true {
+  background-image: linear-gradient(to right, var(--red-09) 0%, var(--red) 100%);
   color: var(--white);
   border: 1px solid transparent;
 }
@@ -150,7 +154,7 @@ header .nav {
   fill: var(--onnx);
 }
 
-.config .types label.onnx:hover  {
+.config .types label.onnx:hover {
   background-image: none;
   background-color: var(--onnx-005);
   color: var(--onnx);
@@ -163,7 +167,7 @@ header .nav {
 
 .config label.true.onnx {
   background-color: var(--onnx);
-  background-image: linear-gradient(to right, var(--onnx-09) 0%,  var(--onnx) 100%);
+  background-image: linear-gradient(to right, var(--onnx-09) 0%, var(--onnx) 100%);
 }
 
 .types label.onnx.true.extra:hover svg .logo_onnx_1 {
@@ -181,7 +185,7 @@ header .nav {
   fill: var(--litert);
 }
 
-.config .types label.tflite:hover  {
+.config .types label.tflite:hover {
   background-image: none;
   background-color: var(--litert-005);
   color: var(--litert);
@@ -194,11 +198,12 @@ header .nav {
 
 .config label.true.tflite {
   background-color: var(--litert-005);
-  background-image: linear-gradient(to right, var(--litert-02) 0%,  var(--litert-005) 100%);
+  background-image: linear-gradient(to right, var(--litert-02) 0%, var(--litert-005) 100%);
   border: 1px solid var(--litert);
 }
 
-.types label.tflite.true.extra:hover svg .logo_tflite, .types label.tflite:hover svg#logo_tflite path {
+.types label.tflite.true.extra:hover svg .logo_tflite,
+.types label.tflite:hover svg#logo_tflite path {
   fill: var(--litert) !important;
 }
 
@@ -213,7 +218,7 @@ header .nav {
   fill: var(--npy);
 }
 
-.config .types label.npy:hover  {
+.config .types label.npy:hover {
   background-image: none;
   background-color: var(--npy-005);
   color: var(--npy);
@@ -226,14 +231,16 @@ header .nav {
 
 .config label.true.npy {
   background-color: var(--npy);
-  background-image: linear-gradient(to right, var(--npy-09) 0%,  var(--npy) 100%);
+  background-image: linear-gradient(to right, var(--npy-09) 0%, var(--npy) 100%);
 }
 
-.types label.npy.true.extra:hover svg .logo_npy, .types label.npy:hover svg#logo_npy path {
+.types label.npy.true.extra:hover svg .logo_npy,
+.types label.npy:hover svg#logo_npy path {
   fill: var(--npy) !important;
 }
 
-.types label.true:hover svg#logo_npy .npy-1, .types label.false:hover svg#logo_npy .npy-1 {
+.types label.true:hover svg#logo_npy .npy-1,
+.types label.false:hover svg#logo_npy .npy-1 {
   fill: var(--npy-2) !important;
 }
 
@@ -248,7 +255,7 @@ header .nav {
   fill: var(--pt);
 }
 
-.config .types label.pt:hover  {
+.config .types label.pt:hover {
   background-image: none;
   background-color: var(--pt-005);
   color: var(--pt);
@@ -261,10 +268,11 @@ header .nav {
 
 .config label.true.pt {
   background-color: var(--pt);
-  background-image: linear-gradient(to right, var(--pt-09) 0%,  var(--pt) 100%);
+  background-image: linear-gradient(to right, var(--pt-09) 0%, var(--pt) 100%);
 }
 
-.types label.pt.true.extra:hover svg .logo_pt, .types label.pt:hover svg#logo_pt path {
+.types label.pt.true.extra:hover svg .logo_pt,
+.types label.pt:hover svg#logo_pt path {
   fill: var(--pt) !important;
 }
 
@@ -297,7 +305,8 @@ header .nav {
   padding: 0px 6px 0px 6px;
 }
 
-.config label.false.extra, .config label.undefined.extra {
+.config label.false.extra,
+.config label.undefined.extra {
   border: 1px solid var(--grey-02);
   padding: 0px 6px 0px 6px;
 }
@@ -307,7 +316,8 @@ header .nav {
   margin: 0 -6px -2px 0;
 }
 
-.config .models label.false.extra svg path, .config .models label.undefined.extra path {
+.config .models label.false.extra svg path,
+.config .models label.undefined.extra path {
   fill: var(--grey-08);
 }
 
@@ -325,12 +335,16 @@ header .nav {
   justify-content: center;
   align-content: center;
 }
+
 .config .title:hover {
   background-color: var(--red-005);
   color: var(--red);
 }
 
-.config .backends label:hover, .config .types label:hover, .config .types label:hover, .config .models label:hover {
+.config .backends label:hover,
+.config .types label:hover,
+.config .types label:hover,
+.config .models label:hover {
   background-image: none;
   background-color: var(--red-005);
   color: var(--red);
@@ -357,7 +371,9 @@ header .nav {
   border: 0px solid var(--red);
 }
 
-.group.cpu:hover span, .group.gpu:hover span, .group.npu:hover span {
+.group.cpu:hover span,
+.group.gpu:hover span,
+.group.npu:hover span {
   border-width: 0px;
 }
 
@@ -407,11 +423,16 @@ header .nav {
   display: none;
 }
 
-.group, .types {
+.group,
+.types {
   display: inline-block;
 }
 
-.types svg#logo_onnx, .types #logo_tflite, .types svg#logo_tflite, .types svg#logo_npy, .types svg#logo_pt {
+.types svg#logo_onnx,
+.types #logo_tflite,
+.types svg#logo_tflite,
+.types svg#logo_npy,
+.types svg#logo_pt {
   display: inline-block;
   height: 14px;
 }
@@ -424,17 +445,33 @@ header .nav {
   margin: 14px 0;
 }
 
-.tqtitle, .rqtitle {
+.tqtitle,
+.rqtitle {
   text-align: center;
 }
 
 .tqtitle {
   margin: 10px 0;
+  margin-top: 20px;
 }
 
- .tqtitle {
-  margin-top: 20px;
- }
+.test-list {
+  margin-top: 2rem;
+}
+
+.tqtitle .title.tq svg {
+  height: 20px;
+  min-width: 80px;
+  margin-top: -5px !important;
+  display: flex;
+}
+
+.tqtitle .title.tq {
+  display: inline-flex;
+  justify-items: center;
+  align-items: center;
+  column-gap: 10px;
+}
 
 .title.tq {
   display: inline-block;
@@ -463,7 +500,8 @@ header .nav {
   text-transform: uppercase;
 }
 
-.wasm_1 span, .wasm_4 span {
+.wasm_1 span,
+.wasm_4 span {
   background-color: var(--b1-01);
 }
 
@@ -490,7 +528,7 @@ header .nav {
 .result .backend.cpu {
   padding: 2px 0px 0px 0px;
   background-color: var(--b1-005);
-  margin-left:1px;
+  margin-left: 1px;
 }
 
 .result .backend.cpu:hover {
@@ -511,24 +549,25 @@ header .nav {
 .result .backend.gpu {
   padding: 2px 0px 0px 1px;
   background-color: var(--p2-005);
-  margin-left:1px;
+  margin-left: 1px;
 }
 
 .result .backend.npu {
   padding: 2px 0px 0px 1px;
   background-color: var(--purple-005);
-  margin-left:1px;
+  margin-left: 1px;
 }
 
 .tq {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows:auto;
+  grid-template-rows: auto;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
 }
 
-.tq svg, .result svg {
+.tq svg,
+.result svg {
   display: inline-block;
 }
 
@@ -536,7 +575,8 @@ header .nav {
   display: grid;
 }
 
-.result .q .data span, .figure span {
+.result .q .data span,
+.figure span {
   display: inline-block;
   padding: 0 10px;
 }
@@ -551,41 +591,61 @@ header .nav {
   padding: 1px 10px;
 }
 
-.result .q .data .compilation, .figure .compilation {
+.result .q .data .compilation,
+.figure .loadcompilation {
+  background-color: var(--googlegreen-01);
+}
+
+.result .q .data .compilation,
+.figure .compilation {
   background-color: var(--comp-01);
 }
 
-.result .q .data .first, .figure .first {
+.result .q .data .first,
+.figure .first {
   background-color: var(--first-01);
 }
 
-.result .q .data .tofirst, .figure .tofirst {
+.result .q .data .tofirst,
+.figure .tofirst {
   background-color: var(--tofirst-01);
 }
 
-.result .q .data .average, .figure .average {
+.result .q .data .average,
+.figure .average {
   background-color: var(--avg-01);
 }
 
-.result .q .data .median, .figure .median {
+.result .q .data .median,
+.figure .median {
   background-color: var(--med-01);
 }
 
-.result .q .data .throughput, .figure .throughput {
+.result .q .data .throughput,
+.figure .throughput {
   background-color: var(--throughput-01);
 }
 
-.result .q .data .ninety, .figure .ninety {
+.result .q .data .ninety,
+.figure .ninety {
   background-color: var(--ninety-01);
 }
 
-.result .q .data .best, .figure .best {
+.result .q .data .best,
+.figure .best {
   background-color: var(--best-01);
 }
 
-.result .q .data span:hover,  .figure span:hover {
+.result .q .data span:hover,
+.figure span:hover {
   color: var(--white);
   cursor: pointer;
+}
+
+.figure .loadcompilation:hover {
+  border: 1px solid var(--googlegreen);
+  padding: 0px 10px;
+  color: var(--googlegreen);
 }
 
 .figure .compilation:hover {
@@ -623,7 +683,7 @@ header .nav {
   padding: 0px 10px;
   color: var(--avg);
 }
- 
+
 .figure .median:hover {
   border: 1px solid var(--med);
   padding: 0px 10px;
@@ -636,165 +696,179 @@ header .nav {
   color: var(--best);
 }
 
-	.figure.options span:hover {
-		cursor: pointer;
-	}
+.figure.options span:hover {
+  cursor: pointer;
+}
 
-	.figure.options .cpu {
-		background-color: var(--b1-005);
-	}
+.figure.options .cpu {
+  background-color: var(--b1-005);
+}
 
-	.figure.options .cpu:hover,
-	.figure.options .cpu.true:hover {
-		border: 1px solid var(--b1);
-		background-color: var(--b1-005);
-		padding: 0px 10px;
-		color: var(--b1);
-	}
+.figure.options .cpu:hover,
+.figure.options .cpu.true:hover {
+  border: 1px solid var(--b1);
+  background-color: var(--b1-005);
+  padding: 0px 10px;
+  color: var(--b1);
+}
 
-	.figure.options .cpu.true {
-		color: var(--white);
-		background-color: var(--b1);
-	}
+.figure.options .cpu.true {
+  color: var(--white);
+  background-color: var(--b1);
+}
 
-	.figure.options .gpu {
-		background-color: var(--p2-005);
-	}
+.figure.options .gpu {
+  background-color: var(--p2-005);
+}
 
-	.figure.options .gpu:hover,
-	.figure.options .gpu.true:hover {
-		border: 1px solid var(--p2);
-		background-color: var(--p2-005);
-		padding: 0px 10px;
-		color: var(--p2);
-	}
+.figure.options .gpu:hover,
+.figure.options .gpu.true:hover {
+  border: 1px solid var(--p2);
+  background-color: var(--p2-005);
+  padding: 0px 10px;
+  color: var(--p2);
+}
 
-	.figure.options .gpu.true {
-		color: var(--white);
-		background-color: var(--p2);
-	}
+.figure.options .gpu.true {
+  color: var(--white);
+  background-color: var(--p2);
+}
 
-	.figure.options .npu {
-		background-color: var(--purple-005);
-	}
+.figure.options .npu {
+  background-color: var(--purple-005);
+}
 
-	.figure.options .npu:hover,
-	.figure.options .npu.true:hover {
-		background-color: var(--purple-005);
-		border: 1px solid var(--purple);
-		padding: 0px 10px;
-		color: var(--purple);
-	}
+.figure.options .npu:hover,
+.figure.options .npu.true:hover {
+  background-color: var(--purple-005);
+  border: 1px solid var(--purple);
+  padding: 0px 10px;
+  color: var(--purple);
+}
 
-	.figure.options .npu.true {
-		color: var(--white);
-		background-color: var(--purple);
-	}
+.figure.options .npu.true {
+  color: var(--white);
+  background-color: var(--purple);
+}
 
-	.figure.options .fp32 {
-		background-color: var(--red-005);
-	}
+.figure.options .fp32 {
+  background-color: var(--red-005);
+}
 
-	.figure.options .fp32:hover,
-	.figure.options .fp32.true:hover {
-		border: 1px solid var(--red);
-		background-color: var(--red-005);
-		padding: 0px 10px;
-		color: var(--red);
-	}
+.figure.options .fp32:hover,
+.figure.options .fp32.true:hover {
+  border: 1px solid var(--red);
+  background-color: var(--red-005);
+  padding: 0px 10px;
+  color: var(--red);
+}
 
-	.figure.options .fp32.true {
-		color: var(--white);
-		background-color: var(--red);
-	}
+.figure.options .fp32.true {
+  color: var(--white);
+  background-color: var(--red);
+}
 
-	.figure.options .fp16 {
-		background-color: var(--fp16-005);
-	}
+.figure.options .fp16 {
+  background-color: var(--fp16-005);
+}
 
-	.figure.options .fp16:hover,
-	.figure.options .fp16.true:hover {
-		border: 1px solid var(--fp16);
-		background-color: var(--fp16-005);
-		padding: 0px 10px;
-		color: var(--fp16);
-	}
+.figure.options .fp16:hover,
+.figure.options .fp16.true:hover {
+  border: 1px solid var(--fp16);
+  background-color: var(--fp16-005);
+  padding: 0px 10px;
+  color: var(--fp16);
+}
 
-	.figure.options .fp16.true {
-		color: var(--white);
-		background-color: var(--fp16);
-	}
+.figure.options .fp16.true {
+  color: var(--white);
+  background-color: var(--fp16);
+}
 
-	.figure.options .int8 {
-		background-color: var(--p-005);
-	}
+.figure.options .int8 {
+  background-color: var(--p-005);
+}
 
-	.figure.options .int8:hover,
-	.figure.options .int8.true:hover {
-		background-color: var(--p-005);
-		border: 1px solid var(--p);
-		padding: 0px 10px;
-		color: var(--p);
-	}
+.figure.options .int8:hover,
+.figure.options .int8.true:hover {
+  background-color: var(--p-005);
+  border: 1px solid var(--p);
+  padding: 0px 10px;
+  color: var(--p);
+}
 
-	.figure.options .int8.true {
-		color: var(--white);
-		background-color: var(--p);
-	}
+.figure.options .int8.true {
+  color: var(--white);
+  background-color: var(--p);
+}
 
-  .figure.options .int4 {
-		background-color: var(--int4-005);
-	}
+.figure.options .int4 {
+  background-color: var(--int4-005);
+}
 
-	.figure.options .int4:hover,
-	.figure.options .int4.true:hover {
-		background-color: var(--int4-005);
-		border: 1px solid var(--int4);
-		padding: 0px 10px;
-		color: var(--int4);
-	}
+.figure.options .int4:hover,
+.figure.options .int4.true:hover {
+  background-color: var(--int4-005);
+  border: 1px solid var(--int4);
+  padding: 0px 10px;
+  color: var(--int4);
+}
 
-	.figure.options .int4.true {
-		color: var(--white);
-		background-color: var(--int4);
-	}
+.figure.options .int4.true {
+  color: var(--white);
+  background-color: var(--int4);
+}
 
-.result .q .data .compilation:hover, .figure .compilation.true {
+.result .q .data .loadcompilation:hover,
+.figure .loadcompilation.true {
+  background-color: var(--googlegreen);
+  color: var(--white);
+}
+
+.result .q .data .compilation:hover,
+.figure .compilation.true {
   background-color: var(--comp);
   color: var(--white);
 }
 
-.result .q .data .first:hover, .figure .first.true {
+.result .q .data .first:hover,
+.figure .first.true {
   background-color: var(--first);
   color: var(--white);
 }
 
-.result .q .data .tofirst:hover, .figure .tofirst.true {
+.result .q .data .tofirst:hover,
+.figure .tofirst.true {
   background-color: var(--tofirst);
   color: var(--white);
 }
 
-.result .q .data .throughput:hover, .figure .throughput.true {
+.result .q .data .throughput:hover,
+.figure .throughput.true {
   background-color: var(--throughput);
   color: var(--white);
 }
 
-.result .q .data .ninety:hover, .figure .ninety.true {
+.result .q .data .ninety:hover,
+.figure .ninety.true {
   background-color: var(--ninety);
   color: var(--white);
 }
 
-.result .q .data .average:hover, .figure .average.true {
+.result .q .data .average:hover,
+.figure .average.true {
   background-color: var(--avg);
   color: var(--white);
 }
 
-.result .q .data .median:hover, .figure .median.true {
+.result .q .data .median:hover,
+.figure .median.true {
   background-color: var(--med);
   color: var(--white);
 }
 
-.result .q .data .best:hover, .figure .best.true {
+.result .q .data .best:hover,
+.figure .best.true {
   background-color: var(--best);
   color: var(--white);
 }
@@ -807,7 +881,7 @@ header .nav {
   margin-bottom: -4px;
 }
 
-.result .q .ms svg { 
+.result .q .ms svg {
   margin-bottom: -4px;
   animation: blink 1s steps(1, end) infinite;
 }
@@ -816,7 +890,10 @@ header .nav {
   margin-left: -6px;
 }
 
-.tq .s svg path, .result .s svg path, .result .q svg, .copy svg path {
+.tq .s svg path,
+.result .s svg path,
+.result .q svg,
+.copy svg path {
   fill: var(--grey);
 }
 
@@ -831,7 +908,7 @@ header .nav {
   align-items: center;
   border: 1px solid var(--grey-02);
   border-top: 0px solid transparent;
-  padding:3px 6px 2px 6px;
+  padding: 3px 6px 2px 6px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
@@ -859,12 +936,13 @@ header .nav {
   overflow: auto !important;
 }
 
-@keyframes spin { 
-  from { 
-    transform: rotate(0deg); 
-  } 
-  to { 
-    transform: rotate(360deg); 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -876,7 +954,8 @@ header .nav {
   cursor: pointer;
 }
 
-.result .q:hover .status_1 svg path, .tq .q:hover .status_1 svg path {
+.result .q:hover .status_1 svg path,
+.tq .q:hover .status_1 svg path {
   fill: var(--orange);
 }
 
@@ -901,17 +980,19 @@ header .nav {
 }
 
 .tagH {
-  overflow:hidden;
-  position:relative;
+  overflow: hidden;
+  position: relative;
 }
 
 @keyframes blink {
   0% {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -925,7 +1006,8 @@ header .nav {
   fill: var(--orange) !important;
 }
 
-.result .q .m svg:hover path, .result .q .status_3 svg:hover path {
+.result .q .m svg:hover path,
+.result .q .status_3 svg:hover path {
   fill: var(--green) !important;
 }
 
@@ -948,11 +1030,17 @@ header .nav {
   margin-bottom: 10px;
 }
 
-.tq .onnx svg, .tq .tflite svg, .tq .npy svg, .tq .pt svg {
+.tq .onnx svg,
+.tq .tflite svg,
+.tq .npy svg,
+.tq .pt svg {
   width: 16px;
 }
 
-.result .onnx svg, .result .tflite svg, .result .npy svg, .result .pt svg {
+.result .onnx svg,
+.result .tflite svg,
+.result .npy svg,
+.result .pt svg {
   width: 16px;
   margin-bottom: -2px;
 }
@@ -1000,25 +1088,32 @@ header .nav {
   border: 1px solid var(--grey-02);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows:auto;
+  grid-template-rows: auto;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   justify-items: center;
 }
 
-.tq .q:hover, .result .q:hover {
+.tq .q:hover,
+.result .q:hover {
   background-color: var(--green-002);
   border-bottom: 1px solid var(--green);
 }
 
-.tq .s, .tq .m, .tq .dt, .tq .bk, .result .m, .result .dt, .result .bk {
-padding: 2px 4px 2px 4px;
+.tq .s,
+.tq .m,
+.tq .dt,
+.tq .bk,
+.result .m,
+.result .dt,
+.result .bk {
+  padding: 2px 4px 2px 4px;
 }
 
 .result .s {
   padding: 0px 0px 0px 1px;
 }
- 
+
 .tq .mt {
   padding: 2px 2px 2px 2px;
   width: 18px;
@@ -1074,17 +1169,20 @@ padding: 2px 4px 2px 4px;
   fill: var(--red) !important;
 }
 
-.types .true svg#logo_pt path, .types .true svg#logo_pt g {
+.types .true svg#logo_pt path,
+.types .true svg#logo_pt g {
   fill: white !important;
 }
 
-.types label:hover svg#logo_pt path, .types .true svg#logo_pt g {
+.types label:hover svg#logo_pt path,
+.types .true svg#logo_pt g {
   fill: var(--red) !important;
 }
 
 .npy-1 {
   fill: rgb(77, 171, 207);
 }
+
 .npy-2 {
   fill: rgb(77, 119, 207);
 }
@@ -1109,11 +1207,13 @@ padding: 2px 4px 2px 4px;
   display: inline-block;
 }
 
-.types .true svg#logo_npy .npy-1, .types .true svg#logo_npy .npy-2 {
+.types .true svg#logo_npy .npy-1,
+.types .true svg#logo_npy .npy-2 {
   fill: white !important;
 }
 
-.types label:hover svg#logo_npy .npy-1, .types label:hover svg#logo_npy .npy-2 {
+.types label:hover svg#logo_npy .npy-1,
+.types label:hover svg#logo_npy .npy-2 {
   fill: var(--red) !important;
 }
 
@@ -1128,8 +1228,7 @@ padding: 2px 4px 2px 4px;
   fill: var(--white);
 }
 
-.types label:hover svg .logo_onnx_1
- {
+.types label:hover svg .logo_onnx_1 {
   fill: var(--red);
 }
 
@@ -1151,6 +1250,7 @@ padding: 2px 4px 2px 4px;
 .run {
   text-align: center;
 }
+
 .run button {
   padding: 4px 26px;
   background-color: var(--red);
@@ -1176,9 +1276,12 @@ padding: 2px 4px 2px 4px;
   box-shadow: var(--p) 0px 6px 12px -8px, var(--p) 0px 12px 10px -12px !important;
 }
 
-.run button:hover, .run button.log:hover,
-.fp16 .run button:hover, .fp16 .run button.log:hover,
-.int8 .run button:hover, .int8 .run button.log:hover {
+.run button:hover,
+.run button.log:hover,
+.fp16 .run button:hover,
+.fp16 .run button.log:hover,
+.int8 .run button:hover,
+.int8 .run button.log:hover {
   color: white;
   background-color: var(--green) !important;
   border: 1px solid var(--green) !important;
@@ -1219,7 +1322,7 @@ padding: 2px 4px 2px 4px;
 .result .q {
   border-bottom: 1px solid var(--grey-02);
   display: grid;
-  grid-template-rows:auto;
+  grid-template-rows: auto;
   grid-column-gap: 0px;
   grid-row-gap: 10px;
   justify-items: center;
@@ -1232,7 +1335,9 @@ padding: 2px 4px 2px 4px;
   align-items: stretch;
 }
 
-.tq .s svg, .result .s svg, .copy svg {
+.tq .s svg,
+.result .s svg,
+.copy svg {
   height: 16px;
   padding-top: 2px;
 }
@@ -1293,83 +1398,71 @@ padding: 2px 4px 2px 4px;
   fill: var(--white);
 }
 
-.config label.false.extra.int64:hover
-{  
+.config label.false.extra.int64:hover {
   border: 1px solid var(--blue) !important;
   color: var(--blue);
   background-color: var(--blue-01);
 }
 
-.config label.extra.int64:hover svg path
-{  
+.config label.extra.int64:hover svg path {
   fill: var(--blue) !important;
 }
 
-.config label.true.extra.int64:hover
-{  
+.config label.true.extra.int64:hover {
   border: 1px solid var(--blue) !important;
   color: var(--blue);
   background-image: none !important;
   background-color: var(--blue-01);
 }
 
-.config label.false.extra.fp16:hover
-{  
+.config label.false.extra.fp16:hover {
   border: 1px solid var(--fp16) !important;
   color: var(--fp16);
   background-color: var(--fp16-01);
 }
 
-.config label.true.extra.fp16:hover
-{  
+.config label.true.extra.fp16:hover {
   border: 1px solid var(--fp16) !important;
   color: var(--fp16);
   background-image: none !important;
   background-color: var(--fp16-01);
 }
 
-.config label.extra.fp16:hover svg path
-{  
+.config label.extra.fp16:hover svg path {
   fill: var(--fp16) !important;
 }
 
-.config label.false.extra.int8:hover
-{  
+.config label.false.extra.int8:hover {
   border: 1px solid var(--p) !important;
   color: var(--p);
   background-color: var(--p-01);
 }
 
-.config label.true.extra.int8:hover
-{  
+.config label.true.extra.int8:hover {
   border: 1px solid var(--p) !important;
   color: var(--p);
   background-image: none !important;
   background-color: var(--p-01);
 }
 
-.config label.extra.int8:hover svg path
-{  
+.config label.extra.int8:hover svg path {
   fill: var(--p) !important;
 }
 
-.config label.false.extra.int4:hover
-{  
+.config label.false.extra.int4:hover {
   border: 1px solid var(--int4) !important;
   color: var(--int4);
   background-color: var(--int4-01);
 }
 
-.config label.true.extra.int4:hover
-{  
+.config label.true.extra.int4:hover {
   border: 1px solid var(--int4) !important;
   color: var(--int4);
   background-image: none !important;
   background-color: var(--int4-01);
 }
 
-.config label.extra.int4:hover svg path
-{  
+.config label.extra.int4:hover svg path {
   fill: var(--int4) !important;
 }
 
@@ -1386,7 +1479,7 @@ padding: 2px 4px 2px 4px;
 }
 
 .config label.true.extra.int64 {
-  background-image: linear-gradient(to right, var(--blue-09) 0%,  var(--blue) 100%) !important;
+  background-image: linear-gradient(to right, var(--blue-09) 0%, var(--blue) 100%) !important;
 }
 
 .models label.false.extra.fp16:hover {
@@ -1402,7 +1495,7 @@ padding: 2px 4px 2px 4px;
 }
 
 .config label.true.extra.fp16 {
-  background-image: linear-gradient(to right, var(--fp16-09) 0%,  var(--fp16) 100%) !important;
+  background-image: linear-gradient(to right, var(--fp16-09) 0%, var(--fp16) 100%) !important;
 }
 
 .models label.false.extra.int8:hover {
@@ -1418,7 +1511,7 @@ padding: 2px 4px 2px 4px;
 }
 
 .config label.true.extra.int8 {
-  background-image: linear-gradient(to right, var(--p-09) 0%,  var(--p) 100%) !important;
+  background-image: linear-gradient(to right, var(--p-09) 0%, var(--p) 100%) !important;
 }
 
 .models label.false.extra.int4:hover {
@@ -1434,11 +1527,11 @@ padding: 2px 4px 2px 4px;
 }
 
 .config label.true.extra.int4 {
-  background-image: linear-gradient(to right, var(--int4-09) 0%,  var(--int4) 100%) !important;
+  background-image: linear-gradient(to right, var(--int4-09) 0%, var(--int4) 100%) !important;
 }
 
 #modeldesc {
-  background-color: rgba(32, 50, 68, 1.0); 
+  background-color: rgba(32, 50, 68, 1.0);
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -1448,19 +1541,19 @@ padding: 2px 4px 2px 4px;
 }
 
 #modeldesc:hover span {
-  border:1px solid var(--red);
+  border: 1px solid var(--red);
 }
 
 #modeldesc.fp16:hover span.modeldes {
-  border:1px solid var(--fp16);
+  border: 1px solid var(--fp16);
 }
 
 #modeldesc.int8:hover span.modeldes {
-  border:1px solid var(--p);
+  border: 1px solid var(--p);
 }
 
 #modeldesc.int4:hover span.modeldes {
-  border:1px solid var(--int4);
+  border: 1px solid var(--int4);
 }
 
 #modeldesc.reverse {
@@ -1484,7 +1577,10 @@ padding: 2px 4px 2px 4px;
 #modeldesc .note {
   text-align: left;
 }
-#netron-graph:hover, #map:hover, #webnn-inputs-overrides:hover {
+
+#netron-graph:hover,
+#map:hover,
+#webnn-inputs-overrides:hover {
   border: 1px solid var(--grey-04);
   border-top: 0px;
 }
@@ -1542,7 +1638,8 @@ padding: 2px 4px 2px 4px;
   background-color: var(--p-005);
 }
 
-#modeldesc.reverse .note, #modeldesc.reverse .modeldes {
+#modeldesc.reverse .note,
+#modeldesc.reverse .modeldes {
   border-radius: 0px;
 }
 
@@ -1557,19 +1654,21 @@ padding: 2px 4px 2px 4px;
 }
 
 .result .btn svg {
-  margin-bottom: -4px; 
-  animation: none !important; 
+  margin-bottom: -4px;
+  animation: none !important;
 }
 
 .result .btn svg path {
   fill: var(--grey);
-}  
+}
 
 .result .btn svg:hover path {
   fill: var(--green);
 }
 
-.result .backend.cpu:hover path, .result .backend.gpu:hover path, .result .backend.npu:hover path {
+.result .backend.cpu:hover path,
+.result .backend.gpu:hover path,
+.result .backend.npu:hover path {
   fill: var(--white);
 }
 
@@ -1739,11 +1838,12 @@ padding: 2px 4px 2px 4px;
   max-height: calc(5 * (1rem + 10px) + 15px) !important;
 }
 
-.autocomplete-list, .autocomplete-list-item {
+.autocomplete-list,
+.autocomplete-list-item {
   text-align: left !important;
 }
 
-@media (max-width: 1024px) { 
+@media (max-width: 1024px) {
   .tq {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1752,14 +1852,15 @@ padding: 2px 4px 2px 4px;
     width: 90%;
   }
 
-  .status_3 button, .status_3 button svg {
+  .status_3 button,
+  .status_3 button svg {
     display: none;
   }
 }
 
-@media (max-width: 900px) { 
+@media (max-width: 900px) {
 
-   .config .backends {
+  .config .backends {
     display: flex;
     flex-direction: column;
     gap: 0px;
@@ -1781,7 +1882,8 @@ padding: 2px 4px 2px 4px;
     align-items: center;
   }
 
-  #webnn_gpu, #webnn_npu {
+  #webnn_gpu,
+  #webnn_npu {
     margin-top: 4px;
   }
 
@@ -1790,9 +1892,9 @@ padding: 2px 4px 2px 4px;
   }
 }
 
-@media (max-width: 800px) { 
+@media (max-width: 800px) {
 
-   .config .backends {
+  .config .backends {
     display: flex;
     flex-direction: column;
     gap: 0px;
@@ -1817,7 +1919,8 @@ padding: 2px 4px 2px 4px;
     width: 54px;
   }
 
-  .group, .config label.extra {
+  .group,
+  .config label.extra {
     margin-bottom: 4px;
   }
 
@@ -1854,7 +1957,7 @@ padding: 2px 4px 2px 4px;
   }
 }
 
-@media (max-width: 718px) { 
+@media (max-width: 718px) {
   .figure span {
     margin-bottom: 6px;
   }
@@ -1869,7 +1972,7 @@ padding: 2px 4px 2px 4px;
   }
 }
 
-@media (max-width: 512px) { 
+@media (max-width: 512px) {
   #layout {
     width: auto;
     padding: 0;
@@ -1878,14 +1981,15 @@ padding: 2px 4px 2px 4px;
   .hide {
     display: none;
   }
-  
+
   .tq {
     grid-template-columns: repeat(1, 1fr);
   }
+
   .group label {
     margin-left: 0px;
   }
-  
+
   .config .backends {
     display: flex;
     flex-direction: column;
@@ -1920,7 +2024,8 @@ padding: 2px 4px 2px 4px;
     max-width: 70px;
   }
 
-  .config .title label,  .config .title span {
+  .config .title label,
+  .config .title span {
     min-width: 68px;
   }
 
@@ -1952,7 +2057,8 @@ padding: 2px 4px 2px 4px;
     margin: 0px -4px 0px 0px;
   }
 
-  .status_3 button, .status_3 button svg {
+  .status_3 button,
+  .status_3 button svg {
     display: none;
   }
 
@@ -1999,7 +2105,7 @@ padding: 2px 4px 2px 4px;
 }
 
 
-#image-container > img {
+#image-container>img {
   width: 100%;
 }
 
@@ -2038,47 +2144,53 @@ padding: 2px 4px 2px 4px;
   margin-left: 10px !important;
 }
 
-.title.fp16, .title.tq.fp16 button {
+.title.fp16,
+.title.tq.fp16 button {
   color: var(--fp16) !important;
 }
 
 .title.tq.fp16 {
-background-color: var(--fp16-005);
+  background-color: var(--fp16-005);
 }
 
-.title.int8, .title.tq.int8 button {
+.title.int8,
+.title.tq.int8 button {
   color: var(--p) !important;
 }
 
 .title.tq.int8 {
-background-color: var(--p-005);
+  background-color: var(--p-005);
 }
 
-.title.int4, .title.tq.int4 button {
+.title.int4,
+.title.tq.int4 button {
   color: var(--int4) !important;
 }
 
 .title.tq.int4 {
-background-color: var(--int4-005);
+  background-color: var(--int4-005);
 }
 
-.title.tf_benchmark, .title.tq.tf_benchmark button {
+.title.tf_benchmark,
+.title.tq.tf_benchmark button {
   color: var(--tfbench) !important;
 }
 
 .title.tq.tf_benchmark {
-background-color: var(--tfbench-005);
+  background-color: var(--tfbench-005);
 }
 
-.title.demo, .title.tq.demo button {
+.title.demo,
+.title.tq.demo button {
   color: var(--demo) !important;
 }
 
 .title.tq.demo {
-background-color: var(--demo-005);
+  background-color: var(--demo-005);
 }
 
-.title.tf_benchmark, .title.tq.tf_benchmark button {
+.title.tf_benchmark,
+.title.tq.tf_benchmark button {
   color: var(--tfbench) !important;
 }
 
@@ -2208,7 +2320,8 @@ background-color: var(--demo-005);
   width: 28px;
 }
 
-.jsonfile svg path, .modelfile svg path {
+.jsonfile svg path,
+.modelfile svg path {
   fill: var(--font);
 }
 
@@ -2230,12 +2343,14 @@ background-color: var(--demo-005);
   align-items: center;
 }
 
-.jsonfile span:hover, .modelfile label:hover {
+.jsonfile span:hover,
+.modelfile label:hover {
   color: var(--red);
   cursor: pointer;
 }
 
-.jsonfile span:hover svg path, .modelfile span:hover svg path {
+.jsonfile span:hover svg path,
+.modelfile span:hover svg path {
   fill: var(--red);
 }
 
@@ -2251,7 +2366,7 @@ background-color: var(--demo-005);
   color: var(--p);
 }
 
-.int8  .modelfile span:hover svg path {
+.int8 .modelfile span:hover svg path {
   fill: var(--p);
 }
 
@@ -2492,11 +2607,16 @@ background-color: var(--demo-005);
   padding: 10px;
 }
 
-#graph-nodes, #graph-inputs, #graph-outputs {
+#graph-nodes,
+#graph-inputs,
+#graph-outputs {
   border-right: 1px solid var(--grey-02);
 }
 
-#netron-graph.none, #map.none, #override.none, #webnn-inputs-overrides.none {
+#netron-graph.none,
+#map.none,
+#override.none,
+#webnn-inputs-overrides.none {
   display: none;
 }
 
@@ -2558,12 +2678,13 @@ background-color: var(--demo-005);
 .fp16 .tqtitle .title {
   color: var(--fp16) !important;
 }
-  
+
 .int8 .tqtitle .title {
   color: var(--p) !important;
 }
 
-.fp16 #logo svg circle, .fp16 #logo svg path {
+.fp16 #logo svg circle,
+.fp16 #logo svg path {
   stroke: var(--fp16) !important;
 }
 
@@ -2571,7 +2692,8 @@ background-color: var(--demo-005);
   fill: var(--fp16) !important;
 }
 
-.int8 #logo svg circle, .int8 #logo svg path {
+.int8 #logo svg circle,
+.int8 #logo svg path {
   stroke: var(--p) !important;
 }
 
@@ -2583,12 +2705,12 @@ background-color: var(--demo-005);
 @media (max-width: 768px) {
   .fp16 .menu {
     background-color: var(--fp16) !important;
-    box-shadow: rgba(43, 1, 127, 0.15) 0px 10px 20px -12px,rgba(43, 1, 127, 0.3) 0px 18px 16px -18px !important;
+    box-shadow: rgba(43, 1, 127, 0.15) 0px 10px 20px -12px, rgba(43, 1, 127, 0.3) 0px 18px 16px -18px !important;
   }
 
   .int8 .menu {
     background-color: var(--p) !important;
-    box-shadow: rgba(1, 134, 179, 0.15) 0px 10px 20px -12px,rgba(1, 134, 179, 0.3) 0px 18px 16px -18px !important;
+    box-shadow: rgba(1, 134, 179, 0.15) 0px 10px 20px -12px, rgba(1, 134, 179, 0.3) 0px 18px 16px -18px !important;
   }
 
   .fp16 .dropdown-menu li:hover {
@@ -2600,6 +2722,7 @@ background-color: var(--demo-005);
   }
 
 }
+
 /* .fp16 #logo {
   background-color: var(--fp16) !important;
   box-shadow: rgba(43, 1, 127, 0.15) 0px 10px 20px -12px,
@@ -2629,7 +2752,8 @@ background-color: var(--demo-005);
   height: 17px;
 }
 
-.selector:hover, .selector:hover button {
+.selector:hover,
+.selector:hover button {
   cursor: pointer;
 }
 
@@ -2678,7 +2802,8 @@ background-color: var(--demo-005);
   color: var(--fp16) !important;
 }
 
-.fp16 .badge .status.true:hover, .fp16 .badge .status.true:hover a {
+.fp16 .badge .status.true:hover,
+.fp16 .badge .status.true:hover a {
   background-color: var(--fp16) !important;
   color: #fff !important;
 }
@@ -2701,7 +2826,8 @@ background-color: var(--demo-005);
   color: var(--p) !important;
 }
 
-.int8 .badge .status.true:hover, .int8 .badge .status.true:hover a {
+.int8 .badge .status.true:hover,
+.int8 .badge .status.true:hover a {
   background-color: var(--p) !important;
   color: #fff !important;
 }
@@ -2747,8 +2873,8 @@ background-color: var(--demo-005);
   grid-column-gap: 8px;
 }
 
-#netron-graph .list#graph-nodes div, 
-#netron-graph .list#graph-inputs div, 
+#netron-graph .list#graph-nodes div,
+#netron-graph .list#graph-inputs div,
 #netron-graph .list#graph-outputs div {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -2756,7 +2882,7 @@ background-color: var(--demo-005);
   grid-column-gap: 4px;
 }
 
-#netron-graph .list div.title, 
+#netron-graph .list div.title,
 #netron-graph .list#graph-nodes div.title,
 #netron-graph .list#graph-inputs div.title,
 #netron-graph .list#graph-outputs div.title {
@@ -2862,17 +2988,17 @@ background-color: var(--demo-005);
 #graph-outputs span button svg {
   width: 12px;
   height: 12px;
-} 
+}
 
 #graph-nodes span button svg path,
 #graph-inputs span button svg path,
 #graph-outputs span button svg path {
   fill: var(--grey-08);
-} 
+}
 
 #graph-nodes span:hover button,
 #graph-inputs span:hover button,
-#graph-outputs span:hover button  {
+#graph-outputs span:hover button {
   cursor: pointer;
 }
 
@@ -2880,7 +3006,7 @@ background-color: var(--demo-005);
 #graph-inputs span:hover button svg path,
 #graph-outputs span:hover button svg path {
   fill: var(--red);
-} 
+}
 
 .fp16 #graph-nodes span:hover button svg path,
 .fp16 #graph-inputs span:hover button svg path,
@@ -2922,7 +3048,8 @@ background-color: var(--demo-005);
   width: 132px;
 }
 
-#graph-inputs #order-name-input, #graph-inputs span.copy,
+#graph-inputs #order-name-input,
+#graph-inputs span.copy,
 #graph-inputs #order-name-output {
   height: 12px;
 }
@@ -2948,7 +3075,8 @@ table td.c {
   align-content: center;
 }
 
-#inputButtons, #outputButtons {
+#inputButtons,
+#outputButtons {
   margin-bottom: -2px;
 }
 
@@ -2956,17 +3084,14 @@ table td.c {
   margin-top: -2px;
 }
 
-#graph-inputs .code, #graph-inputs .copy {
+#graph-inputs .code,
+#graph-inputs .copy {
   display: inline-block;
 }
 
-#graph-inputs span.value.dim {
- 
-}
+#graph-inputs span.value.dim {}
 
-#graph-outputs span.value.dim {
- 
-}
+#graph-outputs span.value.dim {}
 
 #graph-properties span.name.properties,
 #graph-meta span.name.metadata {
@@ -2985,7 +3110,9 @@ table td.c {
   margin-left: -10px;
 }
 
-#map, #override, #webnn-inputs-overrides {
+#map,
+#override,
+#webnn-inputs-overrides {
   padding: 10px;
   align-items: center;
   border: 1px solid var(--grey-02);
@@ -3002,7 +3129,8 @@ table td.c {
   padding-bottom: 6px;
 }
 
-#map table th, #map table td {
+#map table th,
+#map table td {
   text-align: center;
 }
 
@@ -3010,7 +3138,8 @@ table td.c {
   background-color: var(--grey-005);
 }
 
-#map table tr:hover td, #netron-graph span:hover, 
+#map table tr:hover td,
+#netron-graph span:hover,
 #graph-nodes span#order-name:hover,
 #graph-nodes span#order-value:hover,
 #graph-inputs span#order-name:hover,
@@ -3020,7 +3149,8 @@ table td.c {
   background-color: var(--red-005);
 }
 
-.fp16 #map table tr:hover td, .fp16 #netron-graph span:hover, 
+.fp16 #map table tr:hover td,
+.fp16 #netron-graph span:hover,
 .fp16 #graph-nodes span#order-name:hover,
 .fp16 #graph-nodes span#order-value:hover,
 .fp16 #graph-inputs span#order-name:hover,
@@ -3030,7 +3160,8 @@ table td.c {
   background-color: var(--fp16-005);
 }
 
-.int8 #map table tr:hover td, .int8 #netron-graph span:hover, 
+.int8 #map table tr:hover td,
+.int8 #netron-graph span:hover,
 .int8 #graph-nodes span#order-name:hover,
 .int8 #graph-nodes span#order-value:hover,
 .int8 #graph-inputs span#order-name:hover,
@@ -3125,7 +3256,7 @@ table td.c {
 }
 
 #webnn-inputs-overrides input {
-	border: 1px solid var(--red-01);
+  border: 1px solid var(--red-01);
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 0;
@@ -3142,28 +3273,49 @@ table td.c {
 }
 
 #override-settings div:hover input {
-	border: 1px solid var(--red);
+  border: 1px solid var(--red);
 }
 
 .fp16 #override-settings div:hover input {
-	border: 1px solid var(--fp16);
+  border: 1px solid var(--fp16);
 }
 
 .int8 #override-settings div:hover input {
-	border: 1px solid var(--p);
+  border: 1px solid var(--p);
 }
 
-#webnn-inputs-overrides input:focus, #webnn-inputs-overrides input:active {
+#webnn-inputs-overrides input:focus,
+#webnn-inputs-overrides input:active {
   outline: none;
 }
 
-#onnx_custom path.st0_onnx {fill: #333;}
-#onnx_custom path.st1_onnx {fill:#DEDEDD;}
-#onnx_custom path.st2_onnx {fill: #b2b2b2;}
-#onnx_custom path.st3_onnx {fill:#D1D1D1;}
-#onnx_custom path.st4_onnx {fill:#F2F2F2;}
-#onnx_custom path.st5_onnx {fill:#D8D8D7;}
-#onnx_custom path.st6_onnx {fill:#FFFFFF;}
+#onnx_custom path.st0_onnx {
+  fill: #333;
+}
+
+#onnx_custom path.st1_onnx {
+  fill: #DEDEDD;
+}
+
+#onnx_custom path.st2_onnx {
+  fill: #b2b2b2;
+}
+
+#onnx_custom path.st3_onnx {
+  fill: #D1D1D1;
+}
+
+#onnx_custom path.st4_onnx {
+  fill: #F2F2F2;
+}
+
+#onnx_custom path.st5_onnx {
+  fill: #D8D8D7;
+}
+
+#onnx_custom path.st6_onnx {
+  fill: #FFFFFF;
+}
 
 .modelfile span:hover #onnx_custom path.st0_onnx {
   fill: var(--red);
@@ -3297,14 +3449,14 @@ table td.c {
 .titlemark span.phi3 {
   border: 1px solid #FEDB37;
   background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 4%, #FDB931 10%, #9f7928 30%, transparent 80%),
-  radial-gradient(ellipse farthest-corner at left top, #FCF6BA 2%, #FFFFAC 6%, #D1B464 50.5%, #5d4a1f 100%);
+    radial-gradient(ellipse farthest-corner at left top, #FCF6BA 2%, #FFFFAC 6%, #D1B464 50.5%, #5d4a1f 100%);
   color: #FFFFAC;
 }
 
 .tq .q:hover .titlemark span.phi3 {
   border: 1px solid #9f7928;
   background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
-  radial-gradient(ellipse farthest-corner at left top,  #FBF5B7 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+    radial-gradient(ellipse farthest-corner at left top, #FBF5B7 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
   color: var(--white);
 }
 
@@ -3439,11 +3591,13 @@ table td.c {
   height: 16px !important;
 }
 
-.relaxedsimd_0, .relaxedsimd_1 {
+.relaxedsimd_0,
+.relaxedsimd_1 {
   display: none !important;
 }
 
 @media (max-width: 1120px) {
+
   .ort .wasm,
   .ort .webgpu,
   .ort .webnn {

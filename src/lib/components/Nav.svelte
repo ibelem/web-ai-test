@@ -44,8 +44,8 @@
     
     <ul class="menu" class:active={isMenuOpen}>
       <li><a href="{base}/">Home</a></li>
-      <li><a href="{base}/operators">Operators</a></li>
-      <li><a href="{base}/tests">SOTA</a></li>
+      <li><a href="{base}/tests">SOTA · ONNX</a></li>
+      <li><a href="{base}/tflite">SOTA · TFLite</a></li>
       <li><a href="{base}/custom">Custom</a></li>
       <li><a href="{base}/pv">PV</a></li>
       <li><a href="{base}/specific">Specific</a></li>
@@ -57,6 +57,7 @@
           <li><a href="{base}/fallback">Fallback</a></li>
           <li><a href="{base}/graph">Graph</a></li>
           <li><a href="{base}/conformance">Conformance</a></li>
+          <li><a href="{base}/operators">Operators</a></li>
         </ul>
       </li>
       <li><a href="{base}/limits">Limits</a></li>

@@ -234,26 +234,20 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   if (liteRtJsVersion) {
     removeTag();
-    // if (liteRtJsVersion.selected === 1) {
-    //   await loadScript('default', `https://cdn.jsdelivr.net/npm/@litertjs/core@${liteRtJsVersion.dev}/dist/index.min.js`);
-    // }
   }
 
-  // Initialize LiteRT WASM (guarded and idempotent)
+  // Initialize LiteRT.js's Wasm files (guarded and idempotent)
   try {
     if (typeof window !== 'undefined' && !window.__litertLoaded__) {
       const { loadLiteRt } = await import('@litertjs/core');
-      // Use the same path as +page.svelte to avoid mismatches
       const wasmRoot = '/litertjs/0.1.0/core/wasm';
-      updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Initializing LiteRT.js WASM runtime`);
+      updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Initializing LiteRT.js's Wasm files`);
       await loadLiteRt(wasmRoot);
       window.__litertLoaded__ = true;
     }
   } catch (e) {
-    // If already loaded or any benign condition, continue; otherwise rethrow
     console.warn('LiteRT WASM load warning:', e?.message || e);
   }
-
 
   let modelPath = getModelUrl(_model);
   let accelerator = 'webgpu';
@@ -274,7 +268,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   const compilationStart = performance.now();
   const model = await loadAndCompile(modelPath, { accelerator });
-  let compilationTime = '';
   let loadAndCompilationTime = performance.now() - compilationStart;
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Load and Compilation Time: ${loadAndCompilationTime} ms`);
 
@@ -329,8 +322,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
     if (cpuResults.length > 0) {
       try {
-        console.log('Result shape:', cpuResults[0].shape);
-        console.log('Result data (first 10):', cpuResults[0].toTypedArray().slice(0, 10));
+        console.log('Result data:', cpuResults[0]);
       } catch { }
     }
 
@@ -376,7 +368,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (${numOfRuns} runs/iterations in total): ${totalInferenceTimes} ms`);
   await sleep(100);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Throughput (${numOfRuns} runs/iterations): ${inferenceTimesThroughput}`);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, loadAndCompilationTime, compilationTime, firstInferenceTime, timeToFirstInference, inferenceTimes, inferenceTimesMedian, inferenceTimesThroughput, inferenceTimesNinety, inferenceTimesAverage, inferenceTimesBest, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, loadAndCompilationTime, null, firstInferenceTime, timeToFirstInference, inferenceTimes, inferenceTimesMedian, inferenceTimesThroughput, inferenceTimesNinety, inferenceTimesAverage, inferenceTimesBest, null);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
   await sleep(500);
 }
