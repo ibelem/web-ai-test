@@ -1,12 +1,11 @@
 // import * as ort from 'onnxruntime-web';
 import { models } from '$lib/config';
 import {
-  updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getModelHFFileById, getModelExternalDataNameById,
-  getHfUrlById, getHfmUrlById, getAwsUrlById, getLocalUrlById, getHfConfigById, getHfmConfigById, getLocalConfigById, average, minimum
+  updateTestQueueStatus, addResult, updateInfo, median, removeElement,
+  average, minimum, getInputsById
 } from '../js/utils';
-import { liteRtJsVersionStore, testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
-import { sleep } from '$lib/assets/js/utils';
-import { getModelOPFS, getModelCache } from '$lib/assets/js/nn_utils'
+import { liteRtJsVersionStore, testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore } from '../../store/store';
+import { sleep, getModelUrl } from '$lib/assets/js/utils';
 import to from 'await-to-js';
 import percentile from 'percentile';
 import { loadAndCompile, Tensor } from '@litertjs/core';
@@ -27,15 +26,6 @@ export let numOfRuns;
 
 numberOfRunsStore.subscribe((value) => {
   numOfRuns = value;
-});
-
-/**
- * @type {number}
- */
-export let modelDownloadUrl;
-
-modelDownloadUrlStore.subscribe((value) => {
-  modelDownloadUrl = value;
 });
 
 /**
@@ -63,33 +53,6 @@ resultsStore.subscribe((value) => {
   results = value;
 });
 
-const getInputsById = (id) => {
-  for (const model of models) {
-    if (model.id === id) {
-      return model.inputs;
-    }
-  }
-  return null;
-}
-
-const l = (i) => {
-  console.log(i);
-}
-
-const getModelUrl = (_model) => {
-  let modelPath = getHfUrlById(_model);
-  if (modelDownloadUrl === 1) {
-    modelPath = getHfUrlById(_model);
-  } else if (modelDownloadUrl === 2) {
-    modelPath = getHfmUrlById(_model);
-  } else if (modelDownloadUrl === 3) {
-    modelPath = getAwsUrlById(_model);
-  } else if (modelDownloadUrl === 0) {
-    modelPath = getLocalUrlById(_model);
-  }
-  return modelPath;
-}
-
 /**
  * Generate input data based on data type and fill specification
  * @param {string} dataType - The data type ('float32', 'float16', 'int32', 'int64', 'bool', etc.)
@@ -98,87 +61,184 @@ const getModelUrl = (_model) => {
  * @returns {TypedArray} The generated input data
  */
 const generateInputData = (dataType, fillType, totalSize) => {
+  const size = Math.max(1, Math.floor(totalSize) || 1);
   let inputData;
 
-  switch (dataType) {
+  // Helper function to convert value to boolean (0 or 1)
+  const toBool = (val) => {
+    if (typeof val === 'string') {
+      const lower = val.toLowerCase().trim();
+      return (lower === 'true' || lower === '1' || lower === 'yes') ? 1 : 0;
+    }
+    return val ? 1 : 0;
+  };
+
+  // Helper function to safely parse numbers
+  const safeParseFloat = (val) => {
+    const parsed = parseFloat(val);
+    return isFinite(parsed) ? parsed : 0;
+  };
+
+  const safeParseInt = (val) => {
+    const parsed = parseInt(val);
+    return isFinite(parsed) ? parsed : 0;
+  };
+
+  switch (dataType?.toLowerCase()) {
     case 'float32':
-      inputData = new Float32Array(totalSize);
+    case 'fp32':
+    case 'f32':
+      inputData = new Float32Array(size);
       if (fillType === 'random') {
-        for (let j = 0; j < totalSize; j++) {
+        for (let j = 0; j < size; j++) {
           inputData[j] = Math.random();
         }
       } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < totalSize; j++) {
-          inputData[j] = fillType[j % fillType.length];
+        for (let j = 0; j < size; j++) {
+          inputData[j] = safeParseFloat(fillType[j % fillType.length]);
         }
       } else {
-        inputData.fill(parseFloat(fillType) || 0);
+        inputData.fill(safeParseFloat(fillType));
       }
       break;
 
     case 'float16':
+    case 'fp16':
+    case 'f16':
       // LiteRT.js handles float16 as float32 internally
-      inputData = new Float32Array(totalSize);
+      inputData = new Float32Array(size);
       if (fillType === 'random') {
-        for (let j = 0; j < totalSize; j++) {
+        for (let j = 0; j < size; j++) {
           inputData[j] = Math.random();
         }
       } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < totalSize; j++) {
-          inputData[j] = fillType[j % fillType.length];
+        for (let j = 0; j < size; j++) {
+          inputData[j] = safeParseFloat(fillType[j % fillType.length]);
         }
       } else {
-        inputData.fill(parseFloat(fillType) || 0);
+        inputData.fill(safeParseFloat(fillType));
+      }
+      break;
+
+    case 'int8':
+      inputData = new Int8Array(size);
+      if (fillType === 'random') {
+        for (let j = 0; j < size; j++) {
+          inputData[j] = Math.floor(Math.random() * 256) - 128; // -128 to 127
+        }
+      } else if (Array.isArray(fillType)) {
+        for (let j = 0; j < size; j++) {
+          inputData[j] = Math.max(-128, Math.min(127, safeParseInt(fillType[j % fillType.length])));
+        }
+      } else {
+        inputData.fill(Math.max(-128, Math.min(127, safeParseInt(fillType))));
+      }
+      break;
+
+    case 'uint8':
+      inputData = new Uint8Array(size);
+      if (fillType === 'random') {
+        for (let j = 0; j < size; j++) {
+          inputData[j] = Math.floor(Math.random() * 256);
+        }
+      } else if (Array.isArray(fillType)) {
+        for (let j = 0; j < size; j++) {
+          inputData[j] = Math.max(0, Math.min(255, safeParseInt(fillType[j % fillType.length])));
+        }
+      } else {
+        inputData.fill(Math.max(0, Math.min(255, safeParseInt(fillType))));
+      }
+      break;
+
+    case 'int16':
+      inputData = new Int16Array(size);
+      if (fillType === 'random') {
+        for (let j = 0; j < size; j++) {
+          inputData[j] = Math.floor(Math.random() * 65536) - 32768; // -32768 to 32767
+        }
+      } else if (Array.isArray(fillType)) {
+        for (let j = 0; j < size; j++) {
+          inputData[j] = Math.max(-32768, Math.min(32767, safeParseInt(fillType[j % fillType.length])));
+        }
+      } else {
+        inputData.fill(Math.max(-32768, Math.min(32767, safeParseInt(fillType))));
+      }
+      break;
+
+    case 'uint16':
+      inputData = new Uint16Array(size);
+      if (fillType === 'random') {
+        for (let j = 0; j < size; j++) {
+          inputData[j] = Math.floor(Math.random() * 65536);
+        }
+      } else if (Array.isArray(fillType)) {
+        for (let j = 0; j < size; j++) {
+          inputData[j] = Math.max(0, Math.min(65535, safeParseInt(fillType[j % fillType.length])));
+        }
+      } else {
+        inputData.fill(Math.max(0, Math.min(65535, safeParseInt(fillType))));
       }
       break;
 
     case 'int32':
     case 'int64':
-      inputData = new Int32Array(totalSize);
+      inputData = new Int32Array(size);
       if (fillType === 'random') {
-        for (let j = 0; j < totalSize; j++) {
-          inputData[j] = Math.floor(Math.random() * 255);
+        for (let j = 0; j < size; j++) {
+          inputData[j] = Math.floor(Math.random() * 256); // 0 to 255 for compatibility
         }
       } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < totalSize; j++) {
-          inputData[j] = fillType[j % fillType.length];
+        for (let j = 0; j < size; j++) {
+          inputData[j] = safeParseInt(fillType[j % fillType.length]);
         }
       } else {
-        inputData.fill(parseInt(fillType) || 0);
+        inputData.fill(safeParseInt(fillType));
+      }
+      break;
+
+    case 'uint32':
+      inputData = new Uint32Array(size);
+      if (fillType === 'random') {
+        for (let j = 0; j < size; j++) {
+          inputData[j] = Math.floor(Math.random() * 256);
+        }
+      } else if (Array.isArray(fillType)) {
+        for (let j = 0; j < size; j++) {
+          inputData[j] = Math.max(0, safeParseInt(fillType[j % fillType.length]));
+        }
+      } else {
+        inputData.fill(Math.max(0, safeParseInt(fillType)));
       }
       break;
 
     case 'bool':
-      inputData = new Int32Array(totalSize); // LiteRT.js uses Int32 for bool
+    case 'boolean':
+      // Use Uint8Array for boolean values (0 or 1)
+      inputData = new Uint8Array(size);
       if (fillType === 'random') {
-        for (let j = 0; j < totalSize; j++) {
+        for (let j = 0; j < size; j++) {
           inputData[j] = Math.random() > 0.5 ? 1 : 0;
         }
-      } else {
-        inputData.fill(fillType ? 1 : 0);
-      }
-      break;
-
-    case 'uint8':
-      inputData = new Uint8Array(totalSize);
-      if (fillType === 'random') {
-        for (let j = 0; j < totalSize; j++) {
-          inputData[j] = Math.floor(Math.random() * 256);
-        }
       } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < totalSize; j++) {
-          inputData[j] = fillType[j % fillType.length];
+        for (let j = 0; j < size; j++) {
+          inputData[j] = toBool(fillType[j % fillType.length]);
         }
       } else {
-        inputData.fill(parseInt(fillType) || 0);
+        inputData.fill(toBool(fillType));
       }
       break;
 
     default:
       // Default to float32
       console.warn(`Unknown data type: ${dataType}, defaulting to float32`);
-      inputData = new Float32Array(totalSize);
-      inputData.fill(0);
+      inputData = new Float32Array(size);
+      if (fillType === 'random') {
+        for (let j = 0; j < size; j++) {
+          inputData[j] = Math.random();
+        }
+      } else {
+        inputData.fill(0);
+      }
       break;
   }
 
@@ -275,9 +335,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   let firstInferenceTime = 0, warmupTimes = [], inferenceTimes = [], timeToFirstInference = null, inferenceTimesAverage = null, inferenceTimesMedian = null, inferenceTimesThroughput = null, inferenceTimesNinety = null, inferenceTimesBest = null;
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inferencing, please wait... `);
-
-  // Replace the inference loop section in your litert_utils.js with this corrected version:
-
+  
   let throughputStart = performance.now();
   for (let i = 0; i < numOfWarmups + numOfRuns; i++) {
     const { inputTensors } = createInputTensors(_model);
@@ -291,22 +349,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
         gpuTensors.push(gpuTensor);
         processedInputs.push(gpuTensor);
       }
-      // Important: do NOT delete inputTensors here or at cleanup in webgpu path;
-      // follow LiteRT sample to only delete the GPU tensors we created.
     } else {
       processedInputs = inputTensors;
     }
 
     let start = performance.now();
     const results = model.run(...processedInputs);
-    let inferenceTime = performance.now() - start;
-
-    if (i === 0) {
-      firstInferenceTime = parseFloat(inferenceTime).toFixed(2);
-      timeToFirstInference = (parseFloat(loadAndCompilationTime) + parseFloat(firstInferenceTime)).toFixed(2);
-    }
-
-    (i < numOfWarmups) ? warmupTimes.push(inferenceTime) : inferenceTimes.push(inferenceTime);
 
     // Collect results on CPU for inspection
     let cpuResults = [];
@@ -319,6 +367,15 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     } else {
       cpuResults = results;
     }
+
+    let inferenceTime = performance.now() - start;
+
+    if (i === 0) {
+      firstInferenceTime = parseFloat(inferenceTime).toFixed(2);
+      timeToFirstInference = (parseFloat(loadAndCompilationTime) + parseFloat(firstInferenceTime)).toFixed(2);
+    }
+
+    (i < numOfWarmups) ? warmupTimes.push(inferenceTime) : inferenceTimes.push(inferenceTime);
 
     if (cpuResults.length > 0) {
       try {

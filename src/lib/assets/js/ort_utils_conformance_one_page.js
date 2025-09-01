@@ -2,7 +2,7 @@
 import { models, ortDists } from '$lib/config';
 import { compareObjects, maxDiff, addConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getModelHFFileById, getModelExternalDataNameById,  } from './utils';
 import { ortWebVersionStore, sleepStore, modelDownloadUrlStore, conformanceStore } from '../../store/store';
-import { getGpu, getModelHFUrlById, getModelCategoryById, getModelDescriptionById, getModelInputsRawById, getModelNameById, getModelSizeById } from '$lib/assets/js/utils';
+import { getGpu, getModelHFUrlById, getModelCategoryById, getModelDescriptionById, getModelInputsRawById, getModelNameById, getModelSizeById, getModelUrl, getInputsById } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
 import { dataTypeToArrayConstructor, uint16ArrayToFloat32Array, isDict, bigInt64ArrayToFloat32Array, bigInt64ArrayToString } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
@@ -44,15 +44,6 @@ sleepStore.subscribe((value) => {
 
 export const updateSleep = (value) => {
   sleepStore.update(() => value);
-}
-
-const getInputsById = (id) => {
-  for (const model of models) {
-    if (model.id === id) {
-      return model.inputs;
-    }
-  }
-  return null;
 }
 
 const getFeeds = (session, modelName) => {
@@ -250,18 +241,6 @@ const getFreeDimensionOverridesById = (id) => {
     }
   }
   return null;
-}
-
-const getModelUrl = (_model) => {
-  let modelPath = getHfUrlById(_model);
-  if (modelDownloadUrl === 1) {
-    modelPath = getHfUrlById(_model);
-  } else if (modelDownloadUrl === 3) {
-    modelPath = getAwsUrlById(_model);
-  } else if (modelDownloadUrl === 0) {
-    modelPath = getLocalUrlById(_model);
-  }
-  return modelPath;
 }
 
 let res = {

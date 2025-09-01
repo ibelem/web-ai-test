@@ -2,7 +2,7 @@
 import { models, ortDists } from '$lib/config';
 import {
   updateTestQueueStatus, addResult, updateInfo, median, loadScript, removeElement, getModelHFFileById, getModelExternalDataNameById,
-  getHfUrlById, getHfmUrlById, getAwsUrlById, getLocalUrlById, getHfConfigById, getHfmConfigById, getLocalConfigById, average, minimum
+  getHfUrlById, getHfmUrlById, getAwsUrlById, getLocalUrlById, getHfConfigById, getHfmConfigById, getLocalConfigById, average, minimum, getInputsById
 } from '../js/utils';
 import { ortWebVersionStore, testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
 import { sleep, getQueryValue, getURLParameterValue } from '$lib/assets/js/utils';
@@ -62,15 +62,6 @@ export let results;
 resultsStore.subscribe((value) => {
   results = value;
 });
-
-const getInputsById = (id) => {
-  for (const model of models) {
-    if (model.id === id) {
-      return model.inputs;
-    }
-  }
-  return null;
-}
 
 const l = (i) => {
   console.log(i);

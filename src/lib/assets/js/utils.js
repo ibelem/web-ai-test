@@ -63,6 +63,15 @@ export const clearConformanceLog = () => {
 }
 
 /**
+ * @type {number}
+ */
+export let modelDownloadUrl;
+
+modelDownloadUrlStore.subscribe((value) => {
+  modelDownloadUrl = value;
+});
+
+/**
  * @type {string[]}
  */
 export let fallback;
@@ -562,6 +571,15 @@ export const sortModelById = (models) => {
     return 0;
   });
   return models;
+}
+
+export const getInputsById = (id) => {
+  for (const model of models) {
+    if (model.id === id) {
+      return model.inputs;
+    }
+  }
+  return null;
 }
 
 export const getModelInputsRawById = (id) => {
@@ -1170,4 +1188,18 @@ export const isSafari = () => {
   const isSafariBrowser = vendor.includes('apple') && userAgent.includes('safari') && !userAgent.includes('chrome');
 
   return isSafariBrowser;
+}
+
+export const getModelUrl = (_model) => {
+  let modelPath = getHfUrlById(_model);
+  if (modelDownloadUrl === 1) {
+    modelPath = getHfUrlById(_model);
+  } else if (modelDownloadUrl === 2) {
+    modelPath = getHfmUrlById(_model);
+  } else if (modelDownloadUrl === 3) {
+    modelPath = getAwsUrlById(_model);
+  } else if (modelDownloadUrl === 0) {
+    modelPath = getLocalUrlById(_model);
+  }
+  return modelPath;
 }

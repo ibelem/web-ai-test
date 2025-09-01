@@ -357,45 +357,9 @@
 		color: var(--fp16);
 	}
 
-	.tq.int8 .q.tests a:hover {
-		color: var(--p);
-	}
-
-	.tq.int4 .q.tests a:hover {
-		color: var(--int4);
-	}
-
 	.tq.fp32 .q.tests a:hover {
 		color: var(--red);
 	}
-
-	.tq.demo .q.tests a:hover {
-		color: var(--demo);
-	}
-
-	.tq.tf_benchmark .q.tests a:hover {
-		color: var(--tfbench);
-	}
-
-	/* .tq .q:hover {
-		border-bottom: 0px solid var(--fp16);
-	} */
-
-	/* .tq.fp16 .q:hover {
-		border-bottom: 1px solid var(--fp16);
-	}
-
-	.tq.int8 .q:hover {
-		border-bottom: 1px solid var(--p);
-	}
-
-	.tq.int4 .q:hover {
-		border-bottom: 1px solid var(--int4);
-	}
-
-	.tq.fp32 .q:hover {
-		border-bottom: 1px solid var(--red);
-	} */
 
 	.modelselection {
 		display: flex;

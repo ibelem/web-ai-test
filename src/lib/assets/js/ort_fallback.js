@@ -2,7 +2,7 @@
 import { models, ortDists } from '$lib/config';
 import { updateTestQueueStatus, addResult, updateInfo, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getModelHFFileById, getModelExternalDataNameById } from '../js/utils';
 import { ortWebVersionStore, fallbackQueueStore, testQueueStore, testQueueLengthStore, resultsStore, numberOfRunsStore, modelDownloadUrlStore } from '../../store/store';
-import { sleep, updateFallbackLog, addFallback } from '$lib/assets/js/utils';
+import { sleep, updateFallbackLog, addFallback, getModelUrl } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
 import { dataTypeToArrayConstructor } from '$lib/assets/js/data_type';
 import to from 'await-to-js';
@@ -137,18 +137,6 @@ const getFreeDimensionOverridesById = (id) => {
     }
   }
   return null;
-}
-
-const getModelUrl = (_model) => {
-  let modelPath = getHfUrlById(_model);
-  if (modelDownloadUrl === 1) {
-    modelPath = getHfUrlById(_model);
-  } else if (modelDownloadUrl === 3) {
-    modelPath = getAwsUrlById(_model);
-  } else if (modelDownloadUrl === 0) {
-    modelPath = getLocalUrlById(_model);
-  }
-  return modelPath;
 }
 
 const inputType = {
