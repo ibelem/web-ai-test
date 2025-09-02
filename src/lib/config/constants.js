@@ -23,6 +23,7 @@ export const MODEL_CATEGORIES = {
   TEXT_TO_SPEECH: 'Text-to-Speech',
   TRANSLATION: 'Translation',
   AUDIO_CLASSIFICATION: 'Audio Classification',
+  VIDEO_CLASSIFICATION: 'Video Classification',
   OPERATORS: 'Operators',
   MICROSOFT_365: 'Microsoft 365'
 };

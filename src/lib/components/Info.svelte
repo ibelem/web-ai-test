@@ -6,9 +6,15 @@
 		testQueueStore,
 		testQueueLengthStore
 	} from '$lib/store/store';
-	import { getModelIdfromPath, getModelNameById, getModelExternalDataNameById } from '$lib/assets/js/utils';
+	import {
+		getModelIdfromPath,
+		getModelNameById,
+		getModelExternalDataNameById
+	} from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import LiteRtBlue from './svg/LiteRTBlue.svelte';
+	import OnnxCustom from './svg/OnnxCustom.svelte';
 
 	/**
 	 * @type {number}
@@ -75,6 +81,8 @@
 		}
 	};
 
+	$: isTflite = $page.url.pathname.includes('tflite');
+
 	/**
 	 * @type {string}
 	 */
@@ -87,6 +95,16 @@
 </script>
 
 {#if testQueue.length > 0 && $page.url.pathname.length > 1}
+	{#if isTflite}
+		<div class="mlframework litertblue">
+			<LiteRtBlue />
+		</div>
+	{:else}
+		<div class="mlframework onnx">
+			<OnnxCustom />
+		</div>
+	{/if}
+
 	<div class="info">
 		<div class="title tq {testQueue[0].datatype} testing">
 			{testQueue[0].model}
@@ -111,7 +129,8 @@
 			</div>
 			{#if getModelExternalDataNameById(id)}
 				<div class="infodetails {testQueue[0].datatype}">
-					External data {getModelExternalDataNameById(id)} need to be downloaded, please expect longer time.
+					External data {getModelExternalDataNameById(id)} need to be downloaded, please expect longer
+					time.
 				</div>
 			{/if}
 		{/if}
@@ -199,6 +218,25 @@
 		justify-self: left;
 	}
 
+	.mlframework {
+		position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+		width: 120px;
+		padding: 10px 20px;
+		display: inline-block;
+		text-align: center;
+	}
+
+	.litertblue {
+		background-color: #000D59; 
+	}
+
+	.onnx {
+		background-color: #fafafa; 
+	}
+
 	@media (max-width: 1024px) {
 		.info {
 			width: 66vw;
@@ -225,7 +263,8 @@
 			display: block;
 			padding: 0 10px;
 		}
-		.g2 .progressinfo, .g2 .next {
+		.g2 .progressinfo,
+		.g2 .next {
 			justify-self: center;
 		}
 	}

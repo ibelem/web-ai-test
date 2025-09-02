@@ -268,4 +268,12 @@
     .version.selector button svg {
         fill: var(--googlegreen);
     }
+
+    @media (max-width: 932px) {
+        .litert {
+           display: flex;
+           flex-direction: column;
+           row-gap: 5px;
+        }
+	}
 </style>

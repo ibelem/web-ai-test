@@ -6,9 +6,7 @@
 	import ArrowOutward from '$lib/components/svg/ArrowOutward.svelte';
 	import { models } from '$lib/config/index.js';
 	import { beforeUpdate, onMount, onDestroy } from 'svelte';
-	import OnnxFull from '$lib/components/svg/OnnxFull.svelte';
-	import TfliteFull from '$lib/components/svg/TfliteFull.svelte';
-	import Tflite from '$lib/components/svg/Tflite.svelte';
+	import LiteRT from '$lib/components/svg/LiteRT.svelte';
 	import { base } from '$app/paths';
 	import { autoStore, customStore } from '$lib/store/store';
 	import {
@@ -167,7 +165,7 @@
 <Header />
 
 <div class="tqtitle">
-	<div class="title tq"><TfliteFull /> Performance Tests · {uniqueModels.length}</div>
+	<div class="title tq"><LiteRT /> Performance Tests · {uniqueModels.length}</div>
 </div>
 <div class="search">
 	<input
@@ -272,6 +270,49 @@
 			{/if}
 		{/each}
 	</div>
+
+	<div class="title tq int8">INT8 · {int8Count}</div>
+	<div class="tq benchmark int8">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if getModelDataTypeById(model) === 'int8' && model.indexOf('_tfbench') === -1 && model.indexOf('tfbench_pipeline') === -1 && getModelTagById(model) !== 'onnx_operators' && getModelIsvById(model) !== 'ms'}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+						<!-- {#if getModelTypeById(model) === 'onnx'}
+							<div class="onnx">
+								<Onnx />
+							</div>
+						{/if}
+
+						{#if getModelTypeById(model) === 'tflite'}
+							<div class="tflite">
+								<Tflite />
+							</div>
+						{/if} -->
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
 </div>
 
 <Environment />
