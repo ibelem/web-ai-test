@@ -121,7 +121,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     }
 
     let start = performance.now();
-    const results = model.run(...processedInputs);
+    const results = model.run(processedInputs);
 
     // Collect results on CPU for inspection
     let cpuResults = [];

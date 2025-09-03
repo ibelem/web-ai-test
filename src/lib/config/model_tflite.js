@@ -5,7 +5,7 @@ const albertTFLite = () => {
     category: MODEL_CATEGORIES.FILL_MASK,
     tag: '',
     id: 'albert_tflite_fp32',
-    name: 'ALBERT WIP',
+    name: 'ALBERT',
     description: 'ALBERT: A Lite BERT for Self-supervised Learning of Language Representations',
     note: '',
     source: 'https://www.kaggle.com/models/tensorflow/albert/tfLite',
