@@ -107,7 +107,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   let throughputStart = performance.now();
   for (let i = 0; i < numOfWarmups + numOfRuns; i++) {
     const { inputTensors } = createInputTensors(_model);
-
     const gpuTensors = [];
     let processedInputs = [];
 

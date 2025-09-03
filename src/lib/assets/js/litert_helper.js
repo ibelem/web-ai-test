@@ -10,8 +10,8 @@ import { getInputsById } from './utils';
  */
 export const generateInputData = (dataType, fillType, totalSize) => {
   const size = Math.max(1, Math.floor(totalSize) || 1);
-  let inputData;
-
+  const type = String(dataType || '').toLowerCase();
+  
   // Helper function to convert value to boolean (0 or 1)
   const toBool = (val) => {
     if (typeof val === 'string') {
@@ -21,172 +21,113 @@ export const generateInputData = (dataType, fillType, totalSize) => {
     return val ? 1 : 0;
   };
 
-  // Helper function to safely parse numbers
-  const safeParseFloat = (val) => {
-    const parsed = parseFloat(val);
-    return isFinite(parsed) ? parsed : 0;
-  };
-
-  const safeParseInt = (val) => {
-    const parsed = parseInt(val);
-    return isFinite(parsed) ? parsed : 0;
-  };
-
-  switch (dataType?.toLowerCase()) {
-    case 'float32':
-    case 'fp32':
-    case 'f32':
-      inputData = new Float32Array(size);
-      if (fillType === 'random') {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.random();
-        }
-      } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = safeParseFloat(fillType[j % fillType.length]);
-        }
-      } else {
-        inputData.fill(safeParseFloat(fillType));
-      }
-      break;
-
-    case 'float16':
-    case 'fp16':
-    case 'f16':
-      inputData = new Float16Array(size);
-      if (fillType === 'random') {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.random();
-        }
-      } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = safeParseFloat(fillType[j % fillType.length]);
-        }
-      } else {
-        inputData.fill(safeParseFloat(fillType));
-      }
-      break;
-
-    case 'int8':
-      inputData = new Int8Array(size);
-      if (fillType === 'random') {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.floor(Math.random() * 256) - 128; // -128 to 127
-        }
-      } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.max(-128, Math.min(127, safeParseInt(fillType[j % fillType.length])));
-        }
-      } else {
-        inputData.fill(Math.max(-128, Math.min(127, safeParseInt(fillType))));
-      }
-      break;
-
-    case 'uint8':
-      inputData = new Uint8Array(size);
-      if (fillType === 'random') {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.floor(Math.random() * 256);
-        }
-      } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.max(0, Math.min(255, safeParseInt(fillType[j % fillType.length])));
-        }
-      } else {
-        inputData.fill(Math.max(0, Math.min(255, safeParseInt(fillType))));
-      }
-      break;
-
-    case 'int16':
-      inputData = new Int16Array(size);
-      if (fillType === 'random') {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.floor(Math.random() * 65536) - 32768; // -32768 to 32767
-        }
-      } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.max(-32768, Math.min(32767, safeParseInt(fillType[j % fillType.length])));
-        }
-      } else {
-        inputData.fill(Math.max(-32768, Math.min(32767, safeParseInt(fillType))));
-      }
-      break;
-
-    case 'uint16':
-      inputData = new Uint16Array(size);
-      if (fillType === 'random') {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.floor(Math.random() * 65536);
-        }
-      } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.max(0, Math.min(65535, safeParseInt(fillType[j % fillType.length])));
-        }
-      } else {
-        inputData.fill(Math.max(0, Math.min(65535, safeParseInt(fillType))));
-      }
-      break;
-
-    case 'int32':
-    case 'int64':
-      inputData = new Int32Array(size);
-      if (fillType === 'random') {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.floor(Math.random() * 256); // 0 to 255 for compatibility
-        }
-      } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = safeParseInt(fillType[j % fillType.length]);
-        }
-      } else {
-        inputData.fill(safeParseInt(fillType));
-      }
-      break;
-
-    case 'uint32':
-      inputData = new Uint32Array(size);
-      if (fillType === 'random') {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.floor(Math.random() * 256);
-        }
-      } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.max(0, safeParseInt(fillType[j % fillType.length]));
-        }
-      } else {
-        inputData.fill(Math.max(0, safeParseInt(fillType)));
-      }
-      break;
-
+  // Determine TypedArray constructor based on data type
+  let TypedArrayConstructor;
+  
+  switch (type) {
     case 'bool':
     case 'boolean':
-      // Use Uint8Array for boolean values (0 or 1)
-      inputData = new Uint8Array(size);
-      if (fillType === 'random') {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.random() > 0.5 ? 1 : 0;
-        }
-      } else if (Array.isArray(fillType)) {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = toBool(fillType[j % fillType.length]);
-        }
-      } else {
-        inputData.fill(toBool(fillType));
-      }
+      TypedArrayConstructor = Uint8Array;
       break;
-
+    case 'int4':
+    case 'int8':
+      TypedArrayConstructor = Int8Array;
+      break;
+    case 'uint8':
+      TypedArrayConstructor = Uint8Array;
+      break;
+    case 'int16':
+      TypedArrayConstructor = Int16Array;
+      break;
+    case 'uint16':
+      TypedArrayConstructor = Uint16Array;
+      break;
+    case 'float16':
+    case 'fp16':
+      TypedArrayConstructor = Float16Array;
+      break;
+    case 'float32':
+    case 'fp32':
+      TypedArrayConstructor = Float32Array;
+      break;
+    case 'int32':
+      TypedArrayConstructor = Int32Array;
+      break;
+    case 'uint32':
+      TypedArrayConstructor = Uint32Array;
+      break;
+    case 'int64':
+      TypedArrayConstructor = BigInt64Array;
+      break;
+    case 'float64':
+      TypedArrayConstructor = Float64Array;
+      break;
     default:
-      // Default to float32
       console.warn(`Unknown data type: ${dataType}, defaulting to float32`);
-      inputData = new Float32Array(size);
-      if (fillType === 'random') {
-        for (let j = 0; j < size; j++) {
-          inputData[j] = Math.random();
-        }
-      } else {
-        inputData.fill(0);
-      }
+      TypedArrayConstructor = Float32Array;
       break;
+  }
+
+  let inputData;
+
+  // Handle different fill types
+  if (Array.isArray(fillType)) {
+    // Create from array data
+    if (type === 'bool' || type === 'boolean') {
+      inputData = TypedArrayConstructor.from({ length: size }, (_, i) => 
+        toBool(fillType[i % fillType.length])
+      );
+    } else {
+      inputData = TypedArrayConstructor.from({ length: size }, (_, i) => 
+        fillType[i % fillType.length]
+      );
+    }
+  } else if (fillType === 'random') {
+    // Generate random data
+    if (type === 'bool' || type === 'boolean') {
+      inputData = TypedArrayConstructor.from({ length: size }, () => 
+        Math.random() > 0.5 ? 1 : 0
+      );
+    } else if (type === 'int8') {
+      inputData = TypedArrayConstructor.from({ length: size }, () => 
+        Math.floor(Math.random() * 256) - 128  // -128 to 127
+      );
+    } else if (type === 'uint8') {
+      inputData = TypedArrayConstructor.from({ length: size }, () => 
+        Math.floor(Math.random() * 256)  // 0 to 255
+      );
+    } else if (type === 'int16') {
+      inputData = TypedArrayConstructor.from({ length: size }, () => 
+        Math.floor(Math.random() * 65536) - 32768  // -32768 to 32767
+      );
+    } else if (type === 'uint16') {
+      inputData = TypedArrayConstructor.from({ length: size }, () => 
+        Math.floor(Math.random() * 65536)  // 0 to 65535
+      );
+    } else if (type === 'int32' || type === 'int64') {
+      inputData = TypedArrayConstructor.from({ length: size }, () => 
+        Math.floor(Math.random() * 256)  // 0 to 255 for compatibility
+      );
+    } else if (type === 'uint32') {
+      inputData = TypedArrayConstructor.from({ length: size }, () => 
+        Math.floor(Math.random() * 256)  // 0 to 255 for compatibility
+      );
+    } else {
+      // float types
+      inputData = TypedArrayConstructor.from({ length: size }, () => Math.random());
+    }
+  } else if (fillType === 'ramp') {
+    // Generate ramp data (0, 1, 2, 3, ...)
+    inputData = TypedArrayConstructor.from({ length: size }, (_, i) => i);
+  } else {
+    // Fill with constant value
+    if (type === 'bool' || type === 'boolean') {
+      const boolValue = toBool(fillType);
+      inputData = TypedArrayConstructor.from({ length: size }, () => boolValue);
+    } else {
+      const numValue = Number(fillType) || 0;
+      inputData = TypedArrayConstructor.from({ length: size }, () => numValue);
+    }
   }
 
   return inputData;
@@ -203,21 +144,22 @@ export const createInputTensors = (modelId) => {
   let inputNames = [];
 
   if (modelInputs && modelInputs.length > 0) {
-    const inputSpec = modelInputs[0]; // Get the first input specification object
+    // Process each input specification in the array
+    for (const inputSpec of modelInputs) {
+      // Each inputSpec is an object like { 'input_ids': ['int32', 1, [1, 384], {}] }
+      for (const [inputName, [dataType, fillType, shape, metadata]] of Object.entries(inputSpec)) {
+        const totalSize = shape.reduce((acc, dim) => acc * dim, 1);
 
-    // Handle multiple inputs in the specification
-    for (const [inputName, [dataType, fillType, shape, metadata]] of Object.entries(inputSpec)) {
-      const totalSize = shape.reduce((acc, dim) => acc * dim, 1);
+        // Generate input data using the external function
+        const inputData = generateInputData(dataType, fillType, totalSize);
 
-      // Generate input data using the external function
-      const inputData = generateInputData(dataType, fillType, totalSize);
+        // Create a fresh tensor for each input
+        const tensor = new Tensor(inputData, shape);
+        inputTensors.push(tensor);
+        inputNames.push(inputName);
 
-      // Create a fresh tensor for each input
-      const tensor = new Tensor(inputData, shape);
-      inputTensors.push(tensor);
-      inputNames.push(inputName);
-
-      console.log(`Created input "${inputName}": ${dataType} ${JSON.stringify(shape)}`);
+        console.log(`Created input "${inputName}": ${dataType} ${JSON.stringify(shape)}, size: ${totalSize}`);
+      }
     }
   } else {
     // Fallback: create default input tensor if no model inputs found
@@ -228,5 +170,6 @@ export const createInputTensors = (modelId) => {
     inputNames.push('input');
   }
 
+  console.log(`Created ${inputTensors.length} input tensors for model ${modelId}:`, inputNames);
   return { inputTensors, inputNames };
 };
