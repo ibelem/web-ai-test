@@ -11,7 +11,7 @@
 	import InferenceLog from '$lib/components/InferenceLog.svelte';
 	import Results from '$lib/components/Results.svelte';
 	import Environment from './Environment.svelte';
-	import Info from './Info.svelte';
+	// import Info from './Info.svelte';
 	import OnnxCustom from '$lib/components/svg/OnnxCustom.svelte';
 	import {
 		auto,
@@ -74,7 +74,7 @@
 	 * @type {object{}}
 	 */
 	let custom;
-	$: customStore.subscribe((value) => {
+	customStore.subscribe((value) => {
 		custom = value;
 	});
 
@@ -199,6 +199,7 @@
 				r[prop] = {
 					status: 1,
 					inference: [],
+					loadcompilation: null,
 					compilation: null,
 					warmup: null,
 					timetofirstinference: null,
@@ -328,7 +329,7 @@
 		});
 	}
 
-	$: getDataType = () => {
+	const getDataType = () => {
 		// Check if any input has datatype of float16
 		const hasFloat16Input = custom.inputs.some((input) => input.datatype === 'float16');
 
@@ -618,7 +619,7 @@
 	}
 
 	let checkRun = false;
-	$: initRun = () => {
+	const initRun = () => {
 		if (selectedBackends.length > 0 && !auto) {
 			if (custom && buffer) {
 				const overrides = custom.overrides;
@@ -678,9 +679,9 @@
 </script>
 
 {#if testQueue}
-	{#if testQueue.length != 0}
-		<Info />
-	{:else}
+	<!-- {#if testQueue.length != 0} -->
+		<!-- <Info /> -->
+	<!-- {:else} -->
 		<Header />
 		<div class="tqtitle">
 			<div class="title tq s">
@@ -970,7 +971,7 @@
 		</div>
 		<Environment />
 		<Footer />
-	{/if}
+	<!-- {/if} -->
 {/if}
 
 <!-- <TestQueue /> -->

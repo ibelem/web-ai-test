@@ -290,8 +290,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _m
   l(options)
 
   updateTestQueueStatus(_id, 2);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, null, [], null, null, null, null, null);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, null, [], null, null, null, null, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 1, null, null, null, null, [], null, null, null, null, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 2, null, null, null, null, [], null, null, null, null, null);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Testing ${_model} (${_modelType}/${_dataType}/${_modelSize}) with ${_backend} backend`);
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Downloading model from ${modelPath}`);
@@ -366,7 +366,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _m
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (${numOfRuns} times): [${inferenceTimes}] ms`);
   await sleep(100);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Throughput (${numOfRuns} times): ${inferenceTimesThroughput}`);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, timeToFirstInference, inferenceTimes, inferenceTimesMedian, inferenceTimesThroughput, inferenceTimesNinety, inferenceTimesAverage, inferenceTimesBest, null);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, null, compilationTime, firstInferenceTime, timeToFirstInference, inferenceTimes, inferenceTimesMedian, inferenceTimesThroughput, inferenceTimesNinety, inferenceTimesAverage, inferenceTimesBest, null);
 
   await sess.release();
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);
@@ -377,7 +377,7 @@ export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _b
   // await main(_id, _model, _modelType, _dataType, _modelSize, _backend, _modelBuffer, _custom);
   const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend, _modelBuffer, _custom));
   if (err) {
-    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
+    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, null, [], null, null, null, null, err.message);
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
     updateInfo(err.message);
   } else {
