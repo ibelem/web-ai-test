@@ -199,6 +199,6 @@ export const tfliteModels = [
   // ...mobileBertQatTFLite(),
   ...mobileNetV2TFLite(),
   ...mobileNetV3SmallTFLite(),
-  ...moViNetTFLite(),
+  // ...moViNetTFLite(),
   // Add more TFLite models here
 ];
