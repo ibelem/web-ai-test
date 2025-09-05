@@ -184,7 +184,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
         try {
           if (t && t?.delete) t.delete();
         } catch (ex) {
-          console.error('Error deleting inputTensor:', ex);
+          console.warn('Error deleting inputTensor:', ex);
         }
       });
     }
