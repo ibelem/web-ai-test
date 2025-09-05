@@ -208,7 +208,7 @@
 				});
 			}
 
-			if(isSafari() ) {
+			if(isSafari()) {
 				ia = false;
 			}
 		}

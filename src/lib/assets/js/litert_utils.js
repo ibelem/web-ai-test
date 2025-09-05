@@ -104,9 +104,28 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inferencing, please wait... `);
 
+  // Create base tensors only for WASM backend (since it reuses them)
+  // For WebGPU, we'll create fresh tensors each iteration anyway
+  let baseTensors = null;
+  if (_backend !== 'webgpu') {
+    const { inputTensors } = createInputTensors(model);
+    baseTensors = inputTensors;
+    console.log(`Base tensors created: ${baseTensors?.length} tensors`);
+  }
+
   let throughputStart = performance.now();
   for (let i = 0; i < numOfWarmups + numOfRuns; i++) {
-    const { inputTensors } = createInputTensors(_model);
+    // Always create fresh tensors for each iteration
+    let inputTensors;
+    if (_backend === 'webgpu') {
+      // Create fresh tensors each iteration for WebGPU
+      const { inputTensors: freshTensors } = createInputTensors(model);
+      inputTensors = freshTensors;
+    } else {
+      // For WASM, reuse the baseTensors (created once above)
+      inputTensors = baseTensors;
+    }
+
     const gpuTensors = [];
     let processedInputs = [];
 
@@ -120,14 +139,17 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
       processedInputs = inputTensors;
     }
 
+    console.log(`About to call model.run() with ${processedInputs?.length} tensors`);
     let start = performance.now();
+
+    // Based on the source code of `compiled_model.ts`, the `run` method
+    // for the primary signature expects a single argument: an array of Tensors.
     const results = model.run(processedInputs);
 
     // Collect results on CPU for inspection
     let cpuResults = [];
     if (_backend === 'webgpu') {
       for (const result of results) {
-        // Move to 'cpu' per LiteRT example, avoid deleting the GPU result explicitly here
         const cpuResult = await result.moveTo('wasm');
         cpuResults.push(cpuResult);
       }
@@ -151,17 +173,40 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     }
 
     // Cleanup
-    // - Delete CPU results we created
+    // 1. Delete CPU results we created
     cpuResults.forEach(r => { if (r?.delete) r.delete(); });
 
     if (_backend === 'webgpu') {
-      // - Delete only the GPU input tensors we created
+      // 2. Delete GPU tensors we created
       gpuTensors.forEach(t => { if (t?.delete) t.delete(); });
-      // - Do not delete inputTensors here to avoid double-free (moveTo may share native handles)
-    } else {
-      // - CPU path: delete input tensors after use
-      inputTensors.forEach(t => { if (t?.delete) t.delete(); });
+      // 3. Delete the fresh CPU input tensors we created this iteration
+      inputTensors.forEach(t => {
+        try {
+          if (t && t?.delete) t.delete();
+        } catch (ex) {
+          console.error('Error deleting inputTensor:', ex);
+        }
+      });
     }
+    // Note: For WASM path, we reuse baseTensors, so don't delete them in the loop
+  }
+
+  // Final cleanup: delete base tensors only if they exist (WASM case)
+  if (baseTensors) {
+    baseTensors.forEach(t => {
+      try {
+        if (t && t?.delete) t.delete();
+      } catch (ex) {
+        console.error('Error deleting baseTensor:', ex);
+      }
+    }
+    );
+  }
+
+  // Explicitly delete the compiled model to prevent state leakage to the next run.
+  if (model?.delete) {
+    model.delete();
+    console.log(`Model for ${_model} with ${_backend} backend explicitly deleted.`);
   }
 
   inferenceTimesThroughput = parseFloat(1000.00 / ((performance.now() - throughputStart) / (numOfWarmups + numOfRuns))).toFixed(2) + ' FPS';

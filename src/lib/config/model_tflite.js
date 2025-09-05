@@ -17,36 +17,30 @@ const albertTFLite = () => {
     size: '42.7 MB',
     format: 'tflite',
     datatype: 'fp32',
-    inputs: [
-      { 'input_ids': ['int32', 1, [1, 384], {}] },
-      { 'input_mask': ['int32', 1, [1, 384], {}] },
-      { 'segment_ids': ['int32', 1, [1, 384], {}] },
-    ],
-    inputstip: '[1,384] [1,384] [1,384]'
+    inputstip: 'Get inputs from compiled model dynamically',
   }];
 };
 
-// const efficientdetLite4DetectionTFLite = () => {
-//   return [{
-//     category: MODEL_CATEGORIES.OBJECT_DETECTION,
-//     tag: '',
-//     id: 'efficientdet_lite4_detection_tflite_fp32',
-//     name: 'Efficientdet Lite4 Detection',
-//     description: 'EfficientDet object detection model (SSD with EfficientNet-b0 + BiFPN feature extractor, shared box predictor and focal loss), trained on COCO 2017 dataset.',
-//     note: '',
-//     source: 'https://www.kaggle.com/models/tensorflow/efficientdet/tfLite/lite4-detection-default',
-//     hf: {
-//       model: '',
-//       file: ''
-//     },
-//     model: 'tflite/fp32/efficientdet_lite4_detection_default_v2.tflite',
-//     size: '19.8 MB',
-//     format: 'tflite',
-//     datatype: 'int8',
-//     inputs: [{ 'input': ['uint8', 'random', [1,640,640,3], {}] }],
-//     inputstip: '[1,640,640,3]'
-//   }];
-// };
+const efficientdetLite4DetectionTFLite = () => {
+  return [{
+    category: MODEL_CATEGORIES.OBJECT_DETECTION,
+    tag: '',
+    id: 'efficientdet_lite4_detection_tflite_fp32',
+    name: 'Efficientdet Lite4 Detection',
+    description: 'EfficientDet object detection model (SSD with EfficientNet-b0 + BiFPN feature extractor, shared box predictor and focal loss), trained on COCO 2017 dataset.',
+    note: '',
+    source: 'https://www.kaggle.com/models/tensorflow/efficientdet/tfLite/lite4-detection-default',
+    hf: {
+      model: '',
+      file: ''
+    },
+    model: 'tflite/int8/efficientdet_lite4_detection_default_v2.tflite',
+    size: '19.8 MB',
+    format: 'tflite',
+    datatype: 'int8',
+    inputstip: 'Get inputs from compiled model dynamically'
+  }];
+};
 
 const efficientNetLite4V2TFLite = () => {
   return [{
@@ -65,8 +59,7 @@ const efficientNetLite4V2TFLite = () => {
     size: '49.4 MB',
     format: 'tflite',
     datatype: 'fp32',
-    inputs: [{ 'images': ['float32', 'random', [1, 300, 300, 3], {}] }],
-    inputstip: '[1,300,300,3]'
+    inputstip: 'Get inputs from compiled model dynamically'
   }];
 };
 
@@ -87,8 +80,7 @@ const efficientViTL2SegTFLite = () => {
     size: '196 MB',
     format: 'tflite',
     datatype: 'fp32',
-    inputs: [{ 'x.1': ['float32', 'random', [1, 512, 512, 3], {}] }],
-    inputstip: '[1, 512, 512, 3]'
+    inputstip: 'Get inputs from compiled model dynamically'
   }];
 };
 
@@ -109,8 +101,7 @@ const ESRGANTFLite = () => {
     size: '4.76 MB',
     format: 'tflite',
     datatype: 'fp32',
-    inputs: [{ 'input_0': ['float32', 'random', [1, 50, 50, 3], {}] }],
-    inputstip: '[1,50,50,3]'
+    inputstip: 'Get inputs from compiled model dynamically'
   }];
 };
 
@@ -131,13 +122,7 @@ const mobileBertQatTFLite = () => {
     size: '33.8 MB',
     format: 'tflite',
     datatype: 'int8',
-    inputs: [
-	{ 'inputs': ['int32', 1, [1,384], {}] },
-        { 'inputs_1': ['int32', 1, [1,384], {}] },
-	{ 'inputs_2': ['int32', 1, [1,384], {}] },
-
-],
-    inputstip: '[1,384] [1,384] [1,384]'
+    inputstip: 'Get inputs from compiled model dynamically'
   }];
 };
 
@@ -158,8 +143,7 @@ const mobileNetV2TFLite = () => {
     size: '13.3 MB',
     format: 'tflite',
     datatype: 'fp32',
-    inputs: [{ 'args_0': ['float32', 'random', [1, 3, 224, 224], {}] }],
-    inputstip: '[1, 3, 224, 224]'
+    inputstip: 'Get inputs from compiled model dynamically'
   }];
 };
 
@@ -180,8 +164,7 @@ const mobileNetV3SmallTFLite = () => {
     size: '9.73 MB',
     format: 'tflite',
     datatype: 'fp32',
-    inputs: [{ 'serving_default_inputs:0': ['float32', 'random', [1, 224, 224, 3], {}] }],
-    inputstip: '[-1,224,224,3]'
+    inputstip: 'Get inputs from compiled model dynamically'
   }];
 };
 
@@ -202,69 +185,7 @@ const moViNetTFLite = () => {
     size: '7.62 MB',
     format: 'tflite',
     datatype: 'fp16',
-    inputs: [
-      { 'serving_default_image:0': ['float32', 'random', [1, 1, 172, 172, 3], {}] },
-      { 'serving_default_state_block0_layer0_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 24], {}] },
-      { 'serving_default_state_block0_layer0_pool_frame_count:0': ['int32', 1, [1], {}] },
-      { 'serving_default_state_block1_layer0_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 80], {}] },
-      { 'serving_default_state_block1_layer0_pool_frame_count:0': ['int32', 1, [1], {}] },
-      { 'serving_default_state_block1_layer0_stream_buffer:0': ['float32', 'random', [1, 2, 22, 22, 80], {}] },
-
-      { 'serving_default_state_block1_layer1_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 80], {}] },
-      { 'serving_default_state_block1_layer1_pool_frame_count:0': ['int32', 1, [1], {}] },
-      { 'serving_default_state_block1_layer1_stream_buffer:0': ['float32', 'random', [1, 2, 22, 22, 80], {}] },
-
-      { 'serving_default_state_block1_layer2_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 80], {}] },
-      { 'serving_default_state_block1_layer2_pool_frame_count:0': ['int32', 1, [1], {}] },
-      { 'serving_default_state_block1_layer2_stream_buffer:0': ['float32', 'random', [1, 2, 22, 22, 80], {}] },
-
-      { 'serving_default_state_block2_layer0_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 184], {}] },
-      { 'serving_default_state_block2_layer0_pool_frame_count:0': ['int32', 1, [1], {}] },
-      { 'serving_default_state_block2_layer0_stream_buffer:0': ['float32', 'random', [1, 4, 11, 11, 184], {}] },
-
-      { 'serving_default_state_block2_layer1_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 112], {}] },
-      { 'serving_default_state_block2_layer1_pool_frame_count:0': ['int32', 1, [1], {}] },
-      { 'serving_default_state_block2_layer1_stream_buffer:0': ['float32', 'random', [1, 2, 11, 11, 112], {}] },
-
-      { 'serving_default_state_block2_layer2_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 184], {}] },
-      { 'serving_default_state_block2_layer2_pool_frame_count:0': ['int32', 1, [1], {}] },
-      { 'serving_default_state_block2_layer2_stream_buffer:0': ['float32', 'random', [1, 2, 11, 11, 184], {}] },
-
-      { 'serving_default_state_block3_layer0_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 184], {}] },
-      { 'serving_default_state_block3_layer0_pool_frame_count:0': ['int32', 1, [1], {}] },
-      { 'serving_default_state_block3_layer0_stream_buffer:0': ['float32', 'random', [1, 4, 11, 11, 184], {}] },
-
-      { 'serving_default_state_block3_layer1_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 184], {}] },
-      { 'serving_default_state_block3_layer1_pool_frame_count:0': ['int32', 1, [1], {}] },
-      { 'serving_default_state_block3_layer1_stream_buffer:0': ['float32', 'random', [1, 2, 11, 11, 184], {}] },
-
-      { 'serving_default_state_block3_layer2_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 184], {}] },
-      { 'serving_default_state_block3_layer2_pool_frame_count:0': ['int32', 1, [1], {}] },
-      { 'serving_default_state_block3_layer2_stream_buffer:0': ['float32', 'random', [1, 2, 11, 11, 184], {}] },
-
-      { 'serving_default_state_block3_layer3_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 184], {}] },
-      { 'serving_default_state_block3_layer3_pool_frame_count:0': ['int32', 1, [1], {}] },
-      { 'serving_default_state_block3_layer3_stream_buffer:0': ['float32', 'random', [1, 2, 11, 11, 184], {}] },
-
-      { 'serving_default_state_block4_layer0_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 384], {}] },
-      { 'serving_default_state_block4_layer0_pool_frame_count:0': ['int32', 1, [1], {}] },
-      { 'serving_default_state_block4_layer0_stream_buffer:0': ['float32', 'random', [1, 4, 6, 6, 384], {}] },
-
-      { 'serving_default_state_block4_layer1_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 280], {}] },
-      { 'serving_default_state_block4_layer1_pool_frame_count:0': ['int32', 1, [1], {}] },
-
-      { 'serving_default_state_block4_layer2_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 280], {}] },
-      { 'serving_default_state_block4_layer2_pool_frame_count:0': ['int32', 1, [1], {}] },
-
-
-      { 'serving_default_state_block4_layer3_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 344], {}] },
-      { 'serving_default_state_block4_layer3_pool_frame_count:0': ['int32', 1, [1], {}] },
-
-
-      { 'serving_default_state_head_pool_buffer:0': ['float32', 'random', [1, 1, 1, 1, 480], {}] },
-      { 'serving_default_state_head_pool_frame_count:0': ['int32', 1, [1], {}] },
-    ],
-    inputstip: '[1,1,172,172,3] [...]...[...]'
+    inputstip: 'Get inputs from compiled model dynamically'
   }];
 };
 
@@ -278,6 +199,6 @@ export const tfliteModels = [
   // ...mobileBertQatTFLite(),
   ...mobileNetV2TFLite(),
   ...mobileNetV3SmallTFLite(),
-  // ...moViNetTFLite(),
+  ...moViNetTFLite(),
   // Add more TFLite models here
 ];
