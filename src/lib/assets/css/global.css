@@ -312,11 +312,11 @@ header .nav {
 }
 
 .config .models label.extra svg {
-  height: 14px;
-  margin: 0 -6px -2px 0;
+  height: 13px;
+  margin: 0 -3px -2px 0;
 }
 
-.config .models label.false.extra svg path,
+/* .config .models label.false.extra svg path, */
 .config .models label.undefined.extra path {
   fill: var(--grey-08);
 }
@@ -1402,10 +1402,6 @@ header .nav {
   border: 1px solid var(--red) !important;
 }
 
-.config label.extra.fp32:hover svg path {
-  fill: var(--red) !important;
-}
-
 .config label.true.extra svg path {
   fill: var(--white);
 }
@@ -1414,10 +1410,6 @@ header .nav {
   border: 1px solid var(--blue) !important;
   color: var(--blue);
   background-color: var(--blue-01);
-}
-
-.config label.extra.int64:hover svg path {
-  fill: var(--blue) !important;
 }
 
 .config label.true.extra.int64:hover {
@@ -1440,10 +1432,6 @@ header .nav {
   background-color: var(--fp16-01);
 }
 
-.config label.extra.fp16:hover svg path {
-  fill: var(--fp16) !important;
-}
-
 .config label.false.extra.int8:hover {
   border: 1px solid var(--p) !important;
   color: var(--p);
@@ -1457,10 +1445,6 @@ header .nav {
   background-color: var(--p-01);
 }
 
-.config label.extra.int8:hover svg path {
-  fill: var(--p) !important;
-}
-
 .config label.false.extra.int4:hover {
   border: 1px solid var(--int4) !important;
   color: var(--int4);
@@ -1472,10 +1456,6 @@ header .nav {
   color: var(--int4);
   background-image: none !important;
   background-color: var(--int4-01);
-}
-
-.config label.extra.int4:hover svg path {
-  fill: var(--int4) !important;
 }
 
 .models label.false.extra.int64:hover {

@@ -1,6 +1,6 @@
 <script>
 	import { models } from '$lib/config/index.js';
-	import { fallback, fallbackEnv } from '../fallback';
+	// import { fallback, fallbackEnv } from '../fallback';
 	import {
 		trimComma,
 		removeStringFromArray,
@@ -25,7 +25,9 @@
 	} from '$lib/assets/js/utils';
 	import { modelTypesStore, dataTypesStore, modelsStore } from '$lib/store/store';
 	import { onMount, beforeUpdate } from 'svelte';
-	import Info from './svg/Info.svelte';
+	import LiteRtLite from './svg/LiteRTLite.svelte';
+	import Onnx from './svg/Onnx.svelte';
+	// import Info from './svg/Info.svelte';
 	// import Fail from './svg/Fail.svelte';
 	// import Clock from './svg/Clock.svelte';
 	// import MoreTime from './svg/MoreTime.svelte';
@@ -724,8 +726,15 @@
 			>
 				<input type="checkbox" on:change={() => toggleModel(id)} />
 
+				<span class="model_type">
+					{#if getModelTypeById(id) === 'onnx'}
+						<Onnx />
+					{:else if getModelTypeById(id) === 'tflite'}
+						<LiteRtLite />
+					{/if}
+				</span>
+
 				{#if getModelNoteById(id)}
-					<Info />
 					{#if id.indexOf('_merged') > -1}
 						<span class="kvcache">KV-C</span>
 					{/if}
@@ -738,7 +747,7 @@
 					{#if id.indexOf('_decoder') > -1}
 						<span class="kvcache">D</span>
 					{/if}
-					{name.replaceAll(' Encoder', '').replaceAll(' Decoder', '').replaceAll('TFBench_Pipeline', 'TF').replaceAll('TFBench_Model', 'TF')}
+					{name.replaceAll(' Encoder', '').replaceAll(' Decoder', '').replaceAll('TFBench_Pipeline', '').replaceAll('TFBench_Model', '')}
 					{:else}
 					{#if id.indexOf('_merged') > -1}
 						<span class="kvcache">KV-C</span>
@@ -752,7 +761,7 @@
 					{#if id.indexOf('_decoder') > -1}
 						<span class="kvcache">D</span>
 					{/if}
-					{name.replaceAll(' Encoder', '').replaceAll(' Decoder', '').replaceAll('TFBench_Pipeline', 'TF').replaceAll('TFBench_Model', 'TF')}{/if}
+					{name.replaceAll(' Encoder', '').replaceAll(' Decoder', '').replaceAll('TFBench_Pipeline', '').replaceAll('TFBench_Model', '')}{/if}
 			</label>
 		{/each}
 	{:else}
