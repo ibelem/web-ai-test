@@ -1,5 +1,11 @@
 <script>
-	import { getGpu, isMobile, getURLParameterValue, isFirefoxOrSafari, isSafari } from '$lib/assets/js/utils.js';
+	import {
+		getGpu,
+		isMobile,
+		getURLParameterValue,
+		isFirefoxOrSafari,
+		isSafari
+	} from '$lib/assets/js/utils.js';
 	import { tracking } from '$lib/config/index.js';
 	import Environment from '$lib/components/Environment.svelte';
 	import Config from '$lib/components/Config.svelte';
@@ -26,7 +32,8 @@
 		dataTypesStore,
 		modelsStore,
 		modelDownloadProgressStore,
-		refererStore
+		refererStore,
+		pinStore
 	} from '$lib/store/store';
 	import {
 		resetResult,
@@ -42,6 +49,14 @@
 	let attempts = writable(3);
 	let isValidated = false;
 	let urlPin = false;
+
+	/**
+	 * @type {string}
+	 */
+	export let storedPin;
+	pinStore.subscribe((value) => {
+		storedPin = value;
+	});
 
 	/**
 	 * @type {number}
@@ -105,10 +120,16 @@
 		showModal = true;
 	};
 
-	const handleValidation = async () => {
+	const handleValidation = async (validatedPin) => {
 		isValidated = true;
 		showModal = false;
 		console.log('Access granted');
+
+		// Store the validated pin in localStorage
+		if (validatedPin) {
+			pinStore.update(() => validatedPin);
+		}
+
 		await proceed();
 	};
 
@@ -156,9 +177,18 @@
 		);
 
 		urlPin = getURLParameterValue('pin')?.toLocaleLowerCase().trim();
-		const reversedTracking = tracking.map(item => item.split('').reverse().join(''));
-		if (!reversedTracking.includes(urlPin)) {
-			if(!isFirefoxOrSafari()) {
+		const reversedTracking = tracking.map((item) => item.split('').reverse().join(''));
+
+		// Check if pin is already stored in localStorage or URL pin is valid
+		if (storedPin && reversedTracking.includes(storedPin)) {
+			ia = true; // User has valid stored pin
+		} else if (urlPin && reversedTracking.includes(urlPin)) {
+			// Valid pin from URL - store it in localStorage
+			pinStore.update(() => urlPin);
+			ia = true;
+		} else {
+			// No valid pin - proceed with hardware checks
+			if (!isFirefoxOrSafari()) {
 				navigator.userAgentData.getHighEntropyValues(['architecture']).then((ua) => {
 					if (ua.architecture === 'arm' && !isMobile()) {
 						const vendors = ['apple', 'qualcomm', 'adreno'];
@@ -170,7 +200,7 @@
 				});
 			}
 
-			if(isSafari()) {
+			if (isSafari()) {
 				ia = false;
 			}
 		}

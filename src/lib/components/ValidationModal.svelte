@@ -10,7 +10,7 @@
   function handleSubmit() {
     const reversedTracking = tracking.map(item => item.split('').reverse().join(''));
     if (reversedTracking.includes(ia)) {
-      onValidate();
+      onValidate(ia);
     } else {
       errorMessage = 'Incorrect PIN code, try again.';
     }
