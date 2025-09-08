@@ -201,7 +201,7 @@
 	<div class="tq benchmark fp32">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'fp32' && model.indexOf('_tfbench') === -1 && model.indexOf('tfbench_pipeline') === -1 && getModelTagById(model) !== 'onnx_operators' && getModelIsvById(model) !== 'ms' && model.indexOf('isv_t_gazenet_fp32') === -1}
+				{#if getModelDataTypeById(model) === 'fp32'}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -232,7 +232,7 @@
 	<div class="tq benchmark fp16">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if (getModelDataTypeById(model) === 'fp16' || model.indexOf('_q4f16') > -1) && getModelTagById(model) !== 'onnx_operators' && model.indexOf('_demo') === -1 && getModelIsvById(model) !== 'ms'}
+				{#if (getModelDataTypeById(model) === 'fp16' || model.indexOf('_q4f16') > -1) }
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -275,7 +275,7 @@
 	<div class="tq benchmark int8">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'int8' && model.indexOf('_tfbench') === -1 && model.indexOf('tfbench_pipeline') === -1 && getModelTagById(model) !== 'onnx_operators' && getModelIsvById(model) !== 'ms'}
+				{#if getModelDataTypeById(model) === 'int8'}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(

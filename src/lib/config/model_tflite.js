@@ -21,6 +21,27 @@ const albertTFLite = () => {
   }];
 };
 
+const deepLabV3TFLite = () => {
+  return [{
+    category: MODEL_CATEGORIES.IMAGE_SEGMENTATION,
+    tag: '',
+    id: 'deeplab_v3_tflite_fp32',
+    name: 'DeepLab v3',
+    description: 'DeepLab is a state-of-art deep learning model for semantic image segmentation',
+    note: '',
+    source: 'https://www.kaggle.com/models/tensorflow/deeplabv3/tfLite/default',
+    hf: {
+      model: '',
+      file: ''
+    },
+    model: 'tflite/fp32/deeplab_v3.tflite',
+    size: '2.65 MB',
+    format: 'tflite',
+    datatype: 'fp32',
+    inputstip: 'Get inputs from compiled model dynamically'
+  }];
+};
+
 const efficientdetLite4DetectionTFLite = () => {
   return [{
     category: MODEL_CATEGORIES.OBJECT_DETECTION,
@@ -99,6 +120,48 @@ const ESRGANTFLite = () => {
     },
     model: 'tflite/fp32/esrgan-v1.tflite',
     size: '4.76 MB',
+    format: 'tflite',
+    datatype: 'fp32',
+    inputstip: 'Get inputs from compiled model dynamically'
+  }];
+};
+
+const inceptionV4TFLite = () => {
+  return [{
+    category: MODEL_CATEGORIES.IMAGE_CLASSIFICATION,
+    tag: '',
+    id: 'inception_v4_tflite_fp32',
+    name: 'Inception v4',
+    description: 'Inception v4 is a neural network architecture for image classification',
+    note: '',
+    source: 'https://www.kaggle.com/models/tensorflow/inception/tfLite/v4',
+    hf: {
+      model: '',
+      file: ''
+    },
+    model: 'tflite/fp32/inception_v4.tflite',
+    size: '162 MB',
+    format: 'tflite',
+    datatype: 'fp32',
+    inputstip: 'Get inputs from compiled model dynamically'
+  }];
+};
+
+const mobileBertTFLite = () => {
+  return [{
+    category: MODEL_CATEGORIES.FILL_MASK,
+    tag: '',
+    id: 'mobilebert_tflite_fp32',
+    name: 'MobileBert',
+    description: 'MobileBert trained on Squad 1.1 in fp32.',
+    note: '',
+    source: 'https://www.kaggle.com/models/iree/mobilebert/tfLite/fp32',
+    hf: {
+      model: '',
+      file: ''
+    },
+    model: 'tflite/fp32/mobilebert.tflite',
+    size: '94.2 MB',
     format: 'tflite',
     datatype: 'fp32',
     inputstip: 'Get inputs from compiled model dynamically'
@@ -189,16 +252,107 @@ const moViNetTFLite = () => {
   }];
 };
 
+const resNetV2TFLite = () => {
+  return [{
+    category: MODEL_CATEGORIES.IMAGE_CLASSIFICATION,
+    tag: '',
+    id: 'resnet_v2_tflite_fp32',
+    name: 'ResNet v2',
+    description: 'ResNet v2 is a family of network architectures for image classification with a variable number of layers.',
+    note: '',
+    source: 'https://www.kaggle.com/models/tensorflow/resnet-v2',
+    hf: {
+      model: '',
+      file: ''
+    },
+    model: 'tflite/fp32/resnet_v2_101.tflite',
+    size: '170 MB',
+    format: 'tflite',
+    datatype: 'fp32',
+    inputstip: 'Get inputs from compiled model dynamically'
+  }];
+};
+
+const squeezeNetTFLite = () => {
+  return [{
+    category: MODEL_CATEGORIES.IMAGE_CLASSIFICATION,
+    tag: '',
+    id: 'squeezenet_tflite_fp32',
+    name: 'SqueezeNet',
+    description: 'SqueezeNet is a neural network architecture for image classification',
+    note: '',
+    source: 'https://www.kaggle.com/models/tensorflow/squeezenet',
+    hf: {
+      model: '',
+      file: ''
+    },
+    model: 'tflite/fp32/squeezenet.tflite',
+    size: '4.77 MB',
+    format: 'tflite',
+    datatype: 'fp32',
+    inputstip: 'Get inputs from compiled model dynamically'
+  }];
+};
+
+const ssdMobilenetV2TFLite = () => {
+  return [{
+    category: MODEL_CATEGORIES.OBJECT_DETECTION,
+    tag: '',
+    id: 'ssd_mobilenet_v2_tflite_fp32',
+    name: 'SSD MobileNet v2',
+    description: 'Mobilenet V2 with SSDLite head trained on COCO 2017, in fp32.',
+    note: '',
+    source: 'https://www.kaggle.com/models/iree/ssd-mobilenet-v2',
+    hf: {
+      model: '',
+      file: ''
+    },
+    model: 'tflite/fp32/ssd_mobilenet_v2_100.tflite',
+    size: '17.1 MB',
+    format: 'tflite',
+    datatype: 'fp32',
+    inputstip: 'Get inputs from compiled model dynamically'
+  }];
+};
+
+const yoloV5TFLite = () => {
+  return [{
+    category: MODEL_CATEGORIES.OBJECT_DETECTION,
+    tag: '',
+    id: 'yolo_v5_tflite_fp32',
+    name: 'YOLO v5',
+    description: 'YOLOv5 (https://docs.ultralytics.com/) is a family of object detection architectures and models pretrained on the COCO dataset',
+    note: '',
+    source: 'https://www.kaggle.com/models/kaggle/yolo-v5',
+    hf: {
+      model: '',
+      file: ''
+    },
+    model: 'tflite/fp32/yolo_v5_v1.tflite',
+    size: '7.25 MB',
+    format: 'tflite',
+    datatype: 'fp32',
+    inputstip: 'Get inputs from compiled model dynamically'
+  }];
+};
+
 // Export TFLite models
 export const tfliteModels = [
   ...albertTFLite(),
+  ...deepLabV3TFLite(),
   // ...efficientdetLite4DetectionTFLite(),
   ...efficientNetLite4V2TFLite(),
   ...efficientViTL2SegTFLite(),
   ...ESRGANTFLite(),
+  ...inceptionV4TFLite(),
+  ...mobileBertTFLite(),
   // ...mobileBertQatTFLite(),
   ...mobileNetV2TFLite(),
   ...mobileNetV3SmallTFLite(),
   // ...moViNetTFLite(),
+  ...resNetV2TFLite(),
+  ...squeezeNetTFLite(),
+  ...ssdMobilenetV2TFLite(),
+  ...yoloV5TFLite()
   // Add more TFLite models here
 ];
