@@ -147,6 +147,27 @@ const inceptionV4TFLite = () => {
   }];
 };
 
+const mediaPipeSelfieSegmentationTFLite = () => {
+  return [{
+    category: MODEL_CATEGORIES.IMAGE_SEGMENTATION,
+    tag: '',
+    id: 'mediapipe_selfie_segmentation_tflite_fp32',
+    name: 'MediaPipe Selfie Segmentation 256x256',
+    description: 'MediaPipe-Selfie-Segmentation: Optimized for Mobile Deployment. Segments the person from background in a selfie image and realtime background segmentation in video conferencing',
+    note: '',
+    source: 'https://huggingface.co/qualcomm/MediaPipe-Selfie-Segmentation/tree/main',
+    hf: {
+      model: '',
+      file: ''
+    },
+    model: 'tflite/fp32/MediaPipe-Selfie-Segmentation.tflite',
+    size: '447 KB',
+    format: 'tflite',
+    datatype: 'fp32',
+    inputstip: 'Get inputs from compiled model dynamically'
+  }];
+};
+
 const mobileBertTFLite = () => {
   return [{
     category: MODEL_CATEGORIES.FILL_MASK,
@@ -345,6 +366,7 @@ export const tfliteModels = [
   ...efficientViTL2SegTFLite(),
   ...ESRGANTFLite(),
   ...inceptionV4TFLite(),
+  ...mediaPipeSelfieSegmentationTFLite(),
   ...mobileBertTFLite(),
   // ...mobileBertQatTFLite(),
   ...mobileNetV2TFLite(),
