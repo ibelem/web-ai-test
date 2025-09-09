@@ -185,7 +185,7 @@
 <Header />
 
 <div class="tqtitle">
-	<div class="title tq">Specific Tests</div>
+	<div class="title tq">Relaxed Simd Optimization Tests · 3</div>
 </div>
 
 <div>

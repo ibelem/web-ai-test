@@ -3,21 +3,37 @@
   import { base } from '$app/paths';
   
   let isMenuOpen = false;
-  let isDropdownOpen = false;
+  let isSpecificDropdownOpen = false;
+  let isOtherDropdownOpen = false;
   
   // Toggle mobile menu
   function toggleMenu() {
     isMenuOpen = !isMenuOpen;
-    // Close dropdown when menu closes
+    // Close dropdowns when menu closes
     if (!isMenuOpen) {
-      isDropdownOpen = false;
+      isSpecificDropdownOpen = false;
+      isOtherDropdownOpen = false;
     }
   }
   
-  // Toggle dropdown menu
-  function toggleDropdown(event) {
+  // Toggle specific dropdown menu
+  function toggleSpecificDropdown(event) {
     event.stopPropagation();
-    isDropdownOpen = !isDropdownOpen;
+    isSpecificDropdownOpen = !isSpecificDropdownOpen;
+    // Close other dropdown when this one opens
+    if (isSpecificDropdownOpen) {
+      isOtherDropdownOpen = false;
+    }
+  }
+  
+  // Toggle other dropdown menu
+  function toggleOtherDropdown(event) {
+    event.stopPropagation();
+    isOtherDropdownOpen = !isOtherDropdownOpen;
+    // Close specific dropdown when this one opens
+    if (isOtherDropdownOpen) {
+      isSpecificDropdownOpen = false;
+    }
   }
   
   // Close mobile menu on window resize (if switched to desktop view)
@@ -38,7 +54,7 @@
 
 <nav>
   <div class="navbar">
-    <button class="menu-toggle" on:click={toggleMenu} aria-expanded={isMenuOpen} aria-label="Toggle navigation menu">
+    <button class="menu-toggle" onclick={toggleMenu} aria-expanded={isMenuOpen} aria-label="Toggle navigation menu">
       <span class="hamburger"></span>
     </button>
     
@@ -47,13 +63,20 @@
       <li><a href="{base}/tests">SOTA · ONNX</a></li>
       <li><a href="{base}/tflite">SOTA · TFLite</a></li>
       <li><a href="{base}/custom">Custom</a></li>
-      <li><a href="{base}/pv">PV</a></li>
-      <li><a href="{base}/specific">Specific</a></li>
       <li class="dropdown">
-        <button on:click={toggleDropdown} class="dropdown-toggle" aria-expanded={isDropdownOpen}>
+        <button onclick={toggleSpecificDropdown} class="dropdown-toggle" aria-expanded={isSpecificDropdownOpen}>
+          Specific <span class="dropdown-arrow"></span>
+        </button>
+        <ul class="dropdown-menu" class:active={isSpecificDropdownOpen}>
+          <li><a href="{base}/pv">PV</a></li>
+          <li><a href="{base}/relaxedsimd">Relaxed SIMD</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <button onclick={toggleOtherDropdown} class="dropdown-toggle" aria-expanded={isOtherDropdownOpen}>
           Other <span class="dropdown-arrow"></span>
         </button>
-        <ul class="dropdown-menu" class:active={isDropdownOpen}>
+        <ul class="dropdown-menu" class:active={isOtherDropdownOpen}>
           <li><a href="{base}/fallback">Fallback</a></li>
           <li><a href="{base}/graph">Graph</a></li>
           <li><a href="{base}/conformance">Conformance</a></li>
