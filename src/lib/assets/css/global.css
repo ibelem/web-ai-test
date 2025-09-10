@@ -47,6 +47,24 @@ header .nav {
   justify-items: right;
 }
 
+.navbar .menu svg {
+  width: 15px;
+  height: 15px;
+  margin-right: 2px;
+}
+
+.navbar .menu .litert svg:first-child {
+  margin-bottom: 1px;
+  margin-right: 0px;
+}
+
+.navbar .menu .onnx svg {
+  width: 13px;
+  height: 13px;
+  margin-right: 4px;
+  margin-bottom: 2px;
+}
+
 .environment {
   margin: 0px auto;
   padding: 10px;
@@ -2312,8 +2330,7 @@ header .nav {
   width: 28px;
 }
 
-.jsonfile svg path,
-.modelfile svg path {
+.jsonfile svg path {
   fill: var(--font);
 }
 
@@ -2695,6 +2712,9 @@ header .nav {
 
 
 @media (max-width: 768px) {
+  .modelfile {
+    margin: 10px;
+  }
   .fp16 .menu {
     background-color: var(--fp16) !important;
     box-shadow: rgba(43, 1, 127, 0.15) 0px 10px 20px -12px, rgba(43, 1, 127, 0.3) 0px 18px 16px -18px !important;

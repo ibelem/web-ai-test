@@ -1,10 +1,15 @@
 <script>
   import { onMount } from 'svelte';
   import { base } from '$app/paths';
-  
+  import ONNXLogo from './svg/Onnx.svelte';
+  import TFLiteLogo from './svg/Tflite.svelte';
+  import LiteRTLogo from './svg/LiteRTLite.svelte';
+
   let isMenuOpen = false;
   let isSpecificDropdownOpen = false;
   let isOtherDropdownOpen = false;
+  let isONNXDropdownOpen = false;
+  let isLiteRTDropdownOpen = false;
   
   // Toggle mobile menu
   function toggleMenu() {
@@ -13,6 +18,8 @@
     if (!isMenuOpen) {
       isSpecificDropdownOpen = false;
       isOtherDropdownOpen = false;
+      isONNXDropdownOpen = false;
+      isLiteRTDropdownOpen = false;
     }
   }
   
@@ -23,6 +30,8 @@
     // Close other dropdown when this one opens
     if (isSpecificDropdownOpen) {
       isOtherDropdownOpen = false;
+      isONNXDropdownOpen = false;
+      isLiteRTDropdownOpen = false;
     }
   }
   
@@ -33,9 +42,35 @@
     // Close specific dropdown when this one opens
     if (isOtherDropdownOpen) {
       isSpecificDropdownOpen = false;
+      isONNXDropdownOpen = false;
+      isLiteRTDropdownOpen = false;
     }
   }
-  
+
+  // Toggle ONNX dropdown menu
+  function toggleONNXDropdown(event) {
+    event.stopPropagation();
+    isONNXDropdownOpen = !isONNXDropdownOpen;
+    // Close other dropdowns when this one opens
+    if (isONNXDropdownOpen) {
+      isSpecificDropdownOpen = false;
+      isOtherDropdownOpen = false;
+      isLiteRTDropdownOpen = false;
+    }
+  }
+
+  // Toggle LiteRT dropdown menu
+  function toggleLiteRTDropdown(event) {
+    event.stopPropagation();
+    isLiteRTDropdownOpen = !isLiteRTDropdownOpen;
+    // Close other dropdowns when this one opens
+    if (isLiteRTDropdownOpen) {
+      isSpecificDropdownOpen = false;
+      isOtherDropdownOpen = false;
+      isONNXDropdownOpen = false;
+    }
+  }
+
   // Close mobile menu on window resize (if switched to desktop view)
   onMount(() => {
     const handleResize = () => {
@@ -60,9 +95,24 @@
     
     <ul class="menu" class:active={isMenuOpen}>
       <li><a href="{base}/">Home</a></li>
-      <li><a href="{base}/tests">SOTA · ONNX</a></li>
-      <li><a href="{base}/tflite">SOTA · TFLite</a></li>
-      <li><a href="{base}/custom">Custom</a></li>
+      <li class="dropdown">
+        <button onclick={toggleONNXDropdown} class="dropdown-toggle onnx" aria-expanded={isONNXDropdownOpen}>
+          <ONNXLogo /> ONNX <span class="dropdown-arrow"></span>
+        </button>
+        <ul class="dropdown-menu" class:active={isONNXDropdownOpen}>
+          <li><a href="{base}/tests">SOTA</a></li>
+          <li><a href="{base}/custom">Custom</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <button onclick={toggleLiteRTDropdown} class="dropdown-toggle litert" aria-expanded={isLiteRTDropdownOpen}>
+          <TFLiteLogo /> <LiteRTLogo /> LiteRT <span class="dropdown-arrow"></span>
+        </button>
+        <ul class="dropdown-menu" class:active={isLiteRTDropdownOpen}>
+          <li><a href="{base}/litert">SOTA</a></li>
+          <li><a href="{base}/custom_litert">Custom</a></li>
+        </ul>
+      </li>
       <li class="dropdown">
         <button onclick={toggleSpecificDropdown} class="dropdown-toggle" aria-expanded={isSpecificDropdownOpen}>
           Specific <span class="dropdown-arrow"></span>
@@ -81,9 +131,9 @@
           <li><a href="{base}/graph">Graph</a></li>
           <li><a href="{base}/conformance">Conformance</a></li>
           <li><a href="{base}/operators">Operators</a></li>
+          <li><a href="{base}/limits">Limits</a></li>
         </ul>
       </li>
-      <li><a href="{base}/limits">Limits</a></li>
       <li><a href="{base}/about">About</a></li>
     </ul>
   </div>

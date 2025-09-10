@@ -50,7 +50,12 @@ export const generateInputData = (dtype, shape, fillSpec = 'random') => {
   return { data, finalDtype };
 };
 
-const getOrderedInputDescriptors = (model) => {
+export const getInputDataTypes = (model) => {
+  const inputDescriptors = getOrderedInputDescriptors(model);
+  return inputDescriptors.map(desc => desc.dtype);
+}
+
+export const getOrderedInputDescriptors = (model) => {
   let details = [];
   if (model?.primarySignature?.getInputDetails) {
     details = model.primarySignature.getInputDetails();
@@ -62,6 +67,38 @@ const getOrderedInputDescriptors = (model) => {
   }
 
   console.log('DEBUG: Raw model input details:', JSON.stringify(details, null, 2));
+
+  return details.map((d, idx) => {
+    const name = d.name;
+    const dtype = d.dtype ?? d.type;
+    const shape = Array.from(d.shape || []);
+
+    console.log(`Processing input ${idx}: name="${name}", dtype="${dtype}", shape=[${shape}]`);
+
+    if (!Array.isArray(shape) || shape.length === 0 || shape.some(dim => typeof dim !== 'number' || dim <= 0)) {
+      console.error(`Invalid shape for input "${name}": ${JSON.stringify(shape)}`);
+      return null;
+    }
+    if (dtype === undefined || dtype === null) {
+      console.error(`Missing dtype for input "${name}"`);
+      return null;
+    }
+    return { name, dtype, shape };
+  }).filter(Boolean);
+};
+
+export const getOrderedOutputDescriptors = (model) => {
+  let details = [];
+  if (model?.primarySignature?.getOutputDetails) {
+    details = model.primarySignature.getOutputDetails();
+  } else if (model?.getOutputDetails) {
+    details = model.getOutputDetails();
+  } else {
+    console.error('No signature output details available on model.');
+    return [];
+  }
+
+  console.log('DEBUG: Raw model output details:', JSON.stringify(details, null, 2));
 
   return details.map((d, idx) => {
     const name = d.name;

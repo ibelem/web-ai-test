@@ -11,7 +11,7 @@
 	import InferenceLog from '$lib/components/InferenceLog.svelte';
 	import Results from '$lib/components/Results.svelte';
 	import Environment from './Environment.svelte';
-	// import Info from './Info.svelte';
+	import Info from './Info.svelte';
 	import OnnxCustom from '$lib/components/svg/OnnxCustom.svelte';
 	import {
 		auto,
@@ -286,7 +286,6 @@
 	};
 
 	let bh, v;
-	let openFile;
 	let buffer = null;
 
 	const handleFileInput = async (e) => {
@@ -679,9 +678,9 @@
 </script>
 
 {#if testQueue}
-	<!-- {#if testQueue.length != 0} -->
-		<!-- <Info /> -->
-	<!-- {:else} -->
+	{#if testQueue.length != 0}
+		<Info />
+	{:else}
 		<Header />
 		<div class="tqtitle">
 			<div class="title tq s">
@@ -701,10 +700,9 @@
 					<label>
 						<input
 							id="open-file-dialog"
-							bind:value={openFile}
 							type="file"
-							accept=".onnx,.tflite"
-							on:change={handleFileInput}
+							accept=".onnx"
+							onchange={handleFileInput}
 							hidden
 						/>
 						<span><OnnxCustom />Upload ONNX Model</span>
@@ -716,7 +714,7 @@
 			<div id="status_collapse" bind:this={statusCollapse} class="show">
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<!-- svelte-ignore a11y-no-static-element-interactions -->
-				<div on:click={toggle} title="WebNN Implementation Status in Chromium for this model">
+				<div onclick={toggle} title="WebNN Implementation Status in Chromium for this model">
 					<svg id="up" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"
 						><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" /></svg
 					>
@@ -737,7 +735,7 @@
 							<tr>
 								<td>
 									<span id="order-name" class="name count" title="Sort by name">
-										<button on:click={sortNodebyName} aria-label="Sort nodes by name">
+										<button onclick={sortNodebyName} aria-label="Sort nodes by name">
 											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
 												<path d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"/>
 											</svg>
@@ -746,7 +744,7 @@
 								</td>
 								<td>
 									<span id="order-value" class="value count" title="Sort by count">
-										<button on:click={sortNodebyCount} aria-label="Sort nodes by count">
+										<button onclick={sortNodebyCount} aria-label="Sort nodes by count">
 											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
 												<path d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z"/>
 											</svg>
@@ -789,7 +787,7 @@
 							<tr>
 								<td class="r">
 									<span id="order-name-input" class="name count" title="Sort by name">
-										<button on:click={sortInputsbyName} aria-label="Sort inputs by name">
+										<button onclick={sortInputsbyName} aria-label="Sort inputs by name">
 											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
 												<path d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"/>
 											</svg>
@@ -799,13 +797,13 @@
 								<td class="c"></td>
 								<td class="e">
 									<span class="name count copy">
-										<button class="copy" on:click={copyPlain} title="Copy Inputs" aria-label="Copy inputs to clipboard">
+										<button class="copy" onclick={copyPlain} title="Copy Inputs" aria-label="Copy inputs to clipboard">
 											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
 										</button>
-										<button class="code" on:click={generateInputsCode} title="Generate Inputs code" aria-label="Generate inputs code">
+										<button class="code" onclick={generateInputsCode} title="Generate Inputs code" aria-label="Generate inputs code">
 											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
 										</button>
-										<button class="code" on:click={generateFeedsCode} title="Generate Feeds code" aria-label="Generate feeds code">
+										<button class="code" onclick={generateFeedsCode} title="Generate Feeds code" aria-label="Generate feeds code">
 											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
 										</button>
 									</span>
@@ -840,7 +838,7 @@
 							<tr>
 								<td class="r">
 									<span id="order-name-output" class="name count" title="Sort by name">
-										<button on:click={sortOutputsbyName} aria-label="Sort outputs by name">
+										<button onclick={sortOutputsbyName} aria-label="Sort outputs by name">
 											<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
 												<path d="m80-280 150-400h86l150 400h-82l-34-96H196l-32 96H80Zm140-164h104l-48-150h-6l-50 150Zm328 164v-76l202-252H556v-72h282v76L638-352h202v72H548ZM360-760l120-120 120 120H360ZM480-80 360-200h240L480-80Z"/>
 											</svg>
@@ -939,7 +937,7 @@
 								class="overridevalue"
 								type="text"
 								bind:value={override.value}
-								on:input={() => updateOverride(override)}
+								oninput={() => updateOverride(override)}
 							/>
 						</div>
 					{/each}
@@ -958,12 +956,12 @@
 		<InferenceLog bind:logShow />
 		<div class="run">
 			{#if checkRun}
-				<button on:click={run}>Run</button>
+				<button onclick={run}>Run</button>
 			{/if}
 			{#if !logShow}
 				<button
 					class="log"
-					on:click={() => {
+					onclick={() => {
 						logShow = true;
 					}}>Show Logs</button
 				>
@@ -971,7 +969,7 @@
 		</div>
 		<Environment />
 		<Footer />
-	<!-- {/if} -->
+	{/if}
 {/if}
 
 <!-- <TestQueue /> -->

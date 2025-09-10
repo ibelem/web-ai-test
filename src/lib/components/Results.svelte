@@ -22,7 +22,7 @@
 	import Queue from './svg/Queue.svelte';
 	import Testing from './svg/Testing.svelte';
 	import Onnx from './svg/Onnx.svelte';
-	import Tflite from './svg/Tflite.svelte';
+	import LiteRTLite from './svg/LiteRTLite.svelte';
 	import Npy from './svg/Npy.svelte';
 	import Pt from './svg/Pt.svelte';
 	import Screenshot from './svg/Screenshot.svelte';
@@ -528,7 +528,7 @@
 
 					{#if key.modeltype === 'tflite'}
 						<div class={key.modeltype}>
-							<Tflite />
+							<LiteRTLite />
 						</div>
 					{/if}
 
