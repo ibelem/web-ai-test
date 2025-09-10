@@ -81,7 +81,7 @@
 		}
 	};
 
-	$: isTflite = $page.url.pathname.includes('tflite');
+	$: isLiteRT = $page.url.pathname.includes('litert');
 
 	/**
 	 * @type {string}
@@ -95,7 +95,7 @@
 </script>
 
 {#if testQueue.length > 0 && $page.url.pathname.length > 1}
-	{#if isTflite}
+	{#if isLiteRT}
 		<div class="mlframework litertblue">
 			<LiteRtBlue />
 		</div>
