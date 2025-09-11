@@ -6,7 +6,6 @@
   import LiteRTLogo from './svg/LiteRTLite.svelte';
 
   let isMenuOpen = false;
-  let isSpecificDropdownOpen = false;
   let isOtherDropdownOpen = false;
   let isONNXDropdownOpen = false;
   let isLiteRTDropdownOpen = false;
@@ -16,19 +15,6 @@
     isMenuOpen = !isMenuOpen;
     // Close dropdowns when menu closes
     if (!isMenuOpen) {
-      isSpecificDropdownOpen = false;
-      isOtherDropdownOpen = false;
-      isONNXDropdownOpen = false;
-      isLiteRTDropdownOpen = false;
-    }
-  }
-  
-  // Toggle specific dropdown menu
-  function toggleSpecificDropdown(event) {
-    event.stopPropagation();
-    isSpecificDropdownOpen = !isSpecificDropdownOpen;
-    // Close other dropdown when this one opens
-    if (isSpecificDropdownOpen) {
       isOtherDropdownOpen = false;
       isONNXDropdownOpen = false;
       isLiteRTDropdownOpen = false;
@@ -41,7 +27,6 @@
     isOtherDropdownOpen = !isOtherDropdownOpen;
     // Close specific dropdown when this one opens
     if (isOtherDropdownOpen) {
-      isSpecificDropdownOpen = false;
       isONNXDropdownOpen = false;
       isLiteRTDropdownOpen = false;
     }
@@ -53,7 +38,6 @@
     isONNXDropdownOpen = !isONNXDropdownOpen;
     // Close other dropdowns when this one opens
     if (isONNXDropdownOpen) {
-      isSpecificDropdownOpen = false;
       isOtherDropdownOpen = false;
       isLiteRTDropdownOpen = false;
     }
@@ -65,7 +49,6 @@
     isLiteRTDropdownOpen = !isLiteRTDropdownOpen;
     // Close other dropdowns when this one opens
     if (isLiteRTDropdownOpen) {
-      isSpecificDropdownOpen = false;
       isOtherDropdownOpen = false;
       isONNXDropdownOpen = false;
     }
@@ -102,6 +85,9 @@
         <ul class="dropdown-menu" class:active={isONNXDropdownOpen}>
           <li><a href="{base}/tests">SOTA</a></li>
           <li><a href="{base}/custom">Custom</a></li>
+          <li><a href="{base}/operators">Operators</a></li>
+          <li><a href="{base}/pv">PV</a></li>
+          <li><a href="{base}/relaxedsimd">Relaxed SIMD</a></li>
         </ul>
       </li>
       <li class="dropdown">
@@ -114,15 +100,6 @@
         </ul>
       </li>
       <li class="dropdown">
-        <button onclick={toggleSpecificDropdown} class="dropdown-toggle" aria-expanded={isSpecificDropdownOpen}>
-          Specific <span class="dropdown-arrow"></span>
-        </button>
-        <ul class="dropdown-menu" class:active={isSpecificDropdownOpen}>
-          <li><a href="{base}/pv">PV</a></li>
-          <li><a href="{base}/relaxedsimd">Relaxed SIMD</a></li>
-        </ul>
-      </li>
-      <li class="dropdown">
         <button onclick={toggleOtherDropdown} class="dropdown-toggle" aria-expanded={isOtherDropdownOpen}>
           Other <span class="dropdown-arrow"></span>
         </button>
@@ -130,7 +107,6 @@
           <li><a href="{base}/fallback">Fallback</a></li>
           <li><a href="{base}/graph">Graph</a></li>
           <li><a href="{base}/conformance">Conformance</a></li>
-          <li><a href="{base}/operators">Operators</a></li>
           <li><a href="{base}/limits">Limits</a></li>
         </ul>
       </li>

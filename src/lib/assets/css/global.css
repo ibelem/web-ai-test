@@ -3622,3 +3622,11 @@ table td.c {
     margin-top: 6px;
   }
 }
+
+.flow-container {
+  height: 36vh;
+}
+
+.svelte-flow__attribution a {
+  color: var(--font-002) !important;
+}

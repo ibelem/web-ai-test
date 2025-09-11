@@ -485,6 +485,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 168, 64]);
           } else if (modelName.indexOf('distil_medium_en_decoder_merged_') > -1) {
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1, 64]);
+          } else if (modelName.indexOf('distil_large_v3_decoder_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 20, 1, 64]);
           } else if (modelName.indexOf('tiny_random_vision_encoder_decoder_vit_gpt_decoder_tfbench') > -1) {
             feeds[v] = getFeedInfo(v, 'float32', 1, [1, 4, 0, 8]);
           } else if (modelName.indexOf('tiny_random_vision_encoder_decoder_vit_gpt_2_decoder_') > -1) {
@@ -494,6 +496,12 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1, 64]);
             } else if (v.includes('encoder')) {
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 16, 1500, 64]);
+            }
+          } else if (modelName.indexOf('distil_large_v3_decoder_with_past_') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 20, 1, 64]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 20, 1500, 64]);
             }
           } else if (modelName.indexOf('whisper_base_decoder_static_') > -1) {
             if (v.includes('decoder')) {

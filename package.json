@@ -37,5 +37,9 @@
     "ua-parser-js": "^2.0.4",
     "vite": "^7.1.2"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@dagrejs/dagre": "^1.1.5",
+    "@xyflow/svelte": "^1.2.4"
+  }
 }

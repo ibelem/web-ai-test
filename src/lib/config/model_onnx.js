@@ -1,3 +1,33 @@
+const adamCoddViTBaseNSFWDetector = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '328 MB'],
+    ['fp16', 'model_fp16.onnx', '164 MB'],
+    ['q4f16', 'model_fp16.onnx', '47.9 MB'],
+    ['int8', 'model_quantized.onnx', '84.4 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Classification',
+    tag: '',
+    id: `adamcodd_vit_base_nsfw_detector_${dt}`,
+    name: 'AdamCodd ViT base NSFW Detector',
+    description: 'ViT model specifically to detect NSFW/SFW images for stable diffusion usage',
+    note: '',
+    source: 'https://huggingface.co/AdamCodd/vit-base-nsfw-detector/',
+    hf: {
+      model: 'AdamCodd/vit-base-nsfw-detector',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+       'pixel_values': ['float32', 'random', [1, 3, 384, 384], { "batch_size": 1, "num_channels":3, "height": 384, "width": 384 }],
+    }],
+    inputstip: '[1, 3, 384, 384]'
+  }))
+}
+
 const albertBaseV2 = () => {
   const configs = [
     ['fp32', 'model.onnx', '43.1 MB'],
@@ -26,6 +56,37 @@ const albertBaseV2 = () => {
       'token_type_ids': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
     }],
     inputstip: '[1, 128] [1, 128] [1, 128]'
+  }))
+}
+
+
+const briaAiRmbg2 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '976 MB'],
+    ['fp16', 'model_fp16.onnx', '489 MB'],
+    ['q4f16', 'model_fp16.onnx', '222 MB'],
+    ['int8', 'model_quantized.onnx', '349 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Segmentation',
+    tag: '',
+    id: `bria_ai_rmbg_2_${dt}`,
+    name: 'BRIA AI RMBG 2.0',
+    description: 'BRIA Background Removal v2.0. RMBG v2.0 is new state-of-the-art background removal model significantly improves RMBG v1.4.',
+    note: '',
+    source: 'https://huggingface.co/briaai/RMBG-2.0/',
+    hf: {
+      model: '',
+      file: ``,
+    },
+    model: `briaai/RMBG-2.0/onnx/${file}`,
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+       'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "height": 1024, "width": 1024 }],
+    }],
+    inputstip: '[1, 3, 1024, 1024]'
   }))
 }
 
@@ -887,6 +948,122 @@ const distiluseBaseMultilingualCasedV2 = () => {
   }))
 }
 
+const distilLargeV3Decoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '455 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '115 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    tag: '',
+    id: `distil_large_v3_decoder_${dt}`,
+    name: 'Distil-Whisper Distil Large v3 Decoder',
+    description: 'The model is faster than previous Distil-Whisper models: 6.3x faster than large-v3, and 1.1x faster than distil-large-v2.',
+    note: '',
+    source: 'https://huggingface.co/distil-whisper/distil-large-v3',
+    hf: {
+      model: 'distil-whisper/distil-large-v3',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1, "past_decoder_sequence_length": 1, "encoder_sequence_length_out": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 1280], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
+    }],
+    inputstip: '[1, 1] [1, 1500, 1280]'
+  }))
+}
+
+const distilLargeV3DecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '430 MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '109 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    tag: '',
+    id: `distil_large_v3_decoder_with_past_${dt}`,
+    name: 'Distil-Whisper Distil Large v3 Decoder w/i Past',
+    description: 'The model is faster than previous Distil-Whisper models: 6.3x faster than large-v3, and 1.1x faster than distil-large-v2.',
+    note: '',
+    source: 'https://huggingface.co/distil-whisper/distil-large-v3',
+    hf: {
+      model: 'distil-whisper/distil-large-v3',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "past_decoder_sequence_length": 1, "encoder_sequence_length_out": 1500 }],
+    }],
+    inputstip: '[1, 1]'
+  }))
+}
+
+const distilLargeV3DecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '455 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '115 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    tag: '',
+    id: `distil_large_v3_decoder_merged_${dt}`,
+    name: 'Distil-Whisper Distil Large v3 Decoder KV-Cache',
+    description: 'The model is faster than previous Distil-Whisper models: 6.3x faster than large-v3, and 1.1x faster than distil-large-v2.',
+    note: '',
+    source: 'https://huggingface.co/distil-whisper/distil-large-v3',
+    hf: {
+      model: 'distil-whisper/distil-large-v3',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1, "past_decoder_sequence_length": 1, "encoder_sequence_length_out": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 1280], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
+    inputstip: '[1, 1] [1, 1500, 1280] [1]'
+  }))
+}
+
+const distilLargeV3Encoder = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '646 KB', 'encoder_model.onnx_data', '2.37 GB'],
+    ['int8', 'encoder_model_quantized.onnx', '615 MB', 'N/A', 'N/A'],
+  ]
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
+    category: 'Automatic Speech Recognition',
+    tag: '',
+    id: `distil_large_v3_encoder_${dt}`,
+    name: 'Distil-Whisper Distil Large v3 Encoder',
+    description: 'The model is faster than previous Distil-Whisper models: 6.3x faster than large-v3, and 1.1x faster than distil-large-v2.',
+    note: 'Large model',
+    source: 'https://huggingface.co/distil-whisper/distil-large-v3',
+    hf: {
+      model: 'distil-whisper/distil-large-v3',
+      file: `${file}`,
+      externalData: `${externalData}`
+    },
+    model: '',
+    size: `${size} + ${edSize}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }],
+    }],
+    inputstip: '[1, 80, 3000]'
+  }))
+}
+
 const distilMediumEnDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '332 MB'],
@@ -896,7 +1073,7 @@ const distilMediumEnDecoder = () => {
     category: 'Automatic Speech Recognition',
     tag: '',
     id: `distil_medium_en_decoder_${dt}`,
-    name: 'Distil-Whisper Decoder',
+    name: 'Distil-Whisper Distil Medium En Decoder',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
     note: '',
     source: 'https://huggingface.co/distil-whisper/distil-medium.en',
@@ -925,7 +1102,7 @@ const distilMediumEnDecoderWithPast = () => {
     category: 'Automatic Speech Recognition',
     tag: '',
     id: `distil_medium_en_decoder_with_past_${dt}`,
-    name: 'Distil-Whisper Decoder w/i Past',
+    name: 'Distil-Whisper Distil Medium En Decoder w/i Past',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
     note: '',
     source: 'https://huggingface.co/distil-whisper/distil-medium.en',
@@ -953,7 +1130,7 @@ const distilMediumEnDecoderMerged = () => {
     category: 'Automatic Speech Recognition',
     tag: '',
     id: `distil_medium_en_decoder_merged_${dt}`,
-    name: 'Distil-Whisper Decoder KV-Cache',
+    name: 'Distil-Whisper Distil Medium En Decoder KV-Cache',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
     note: '',
     source: 'https://huggingface.co/distil-whisper/distil-medium.en',
@@ -983,7 +1160,7 @@ const distilMediumEnEncoder = () => {
     category: 'Automatic Speech Recognition',
     tag: '',
     id: `distil_medium_en_encoder_${dt}`,
-    name: 'Distil-Whisper Encoder',
+    name: 'Distil-Whisper Distil Medium En Encoder',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model',
     note: 'Large model',
     source: 'https://huggingface.co/distil-whisper/distil-medium.en',
@@ -2196,6 +2373,68 @@ const llavaPhiVisionEncoder = () => {
       'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1 }],
     }],
     inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
+const marqoFashionSigLIPText = () => {
+  const configs = [
+    ['fp32', 'text_model.onnx', '420 MB'],
+    ['fp16', 'text_model_fp16.onnx', '210 MB'],
+    ['int8', 'text_model_quantized.onnx', '105 MB'],
+    ['q4f16', 'text_model_q4f16.onnx', '103 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Zero-Shot Image Classification',
+    tag: '',
+    isv: '',
+    id: `marqo_fashion_sig_lip_text_${dt}`,
+    name: `Marqo-FashionSigLIP Text`,
+    description: 'Marqo-FashionSigLIP is a multimodal embedding model that provides up to 57% improvement in MRR and recall over fashion clip.',
+    note: '',
+    source: 'https://huggingface.co/Marqo/marqo-fashionSigLIP',
+    hf: {
+      model: 'Marqo/marqo-fashionSigLIP',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [2, 16], { "batch_size": 2, "sequence_length": 16 }]
+    }],
+    inputstip: '[2, 16]'
+  }))
+}
+
+const marqoFashionSigLIPVision = () => {
+  const configs = [
+    ['fp32', 'vision_model.onnx', '354 MB'],
+    ['fp16', 'vision_model_fp16.onnx', '177 MB'],
+    ['int8', 'vision_model_quantized.onnx', '89.6 MB'],
+    ['q4f16', 'vision_model_q4f16.onnx', '51.1 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Zero-Shot Image Classification',
+    tag: '',
+    isv: '',
+    id: `marqo_fashion_sig_lip_vision_${dt}`,
+    name: `Marqo FashionSigLIP Vision`,
+    description: 'Marqo-FashionSigLIP is a multimodal embedding model that provides up to 57% improvement in MRR and recall over fashion clip.',
+    note: '',
+    source: 'https://huggingface.co/Marqo/marqo-fashionSigLIP',
+    hf: {
+      model: 'Marqo/marqo-fashionSigLIP',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 3, 224, 224]'
   }))
 }
 
@@ -5365,7 +5604,9 @@ export const onnxModels = [
     source: '',
     model: '01.onnx'
   },
+  ...adamCoddViTBaseNSFWDetector(),
   ...albertBaseV2(),
+  ...briaAiRmbg2(),
   ...bartLargeCnn(),
   ...bertBaseCased(),
   ...bertBaseUncased(),
@@ -5420,6 +5661,10 @@ export const onnxModels = [
   ...distilgpt2Decoder(),
   ...distilgpt2DecoderWithPast(),
   ...distilgpt2DecoderMerged(),
+  ...distilLargeV3Decoder(),
+  ...distilLargeV3DecoderWithPast(),
+  ...distilLargeV3DecoderMerged(),
+  ...distilLargeV3Encoder(),
   ...distilMediumEnDecoder(),
   ...distilMediumEnDecoderWithPast(),
   ...distilMediumEnDecoderMerged(),
@@ -5908,6 +6153,8 @@ export const onnxModels = [
   ...llavaPhiDecoderMerged(),
   ...llavaPhiEmbedTokens(),
   ...llavaPhiVisionEncoder(),
+  ...marqoFashionSigLIPText(),
+  ...marqoFashionSigLIPVision(),
   ...mediapipeSelfieSegmentation(),
   ...mediapipeSelfieSegmentationLandscape(),
   ...mobileClipS0Text(),
