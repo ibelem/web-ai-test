@@ -1038,7 +1038,7 @@ const distilLargeV3DecoderMerged = () => {
 const distilLargeV3Encoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '646 KB', 'encoder_model.onnx_data', '2.37 GB'],
-    ['int8', 'encoder_model_quantized.onnx', '615 MB', 'N/A', 'N/A'],
+    ['int8', 'encoder_model_quantized.onnx', '615 MB', '', ''],
   ]
   return configs.map(([dt, file, size, externalData, edSize]) => ({
     category: 'Automatic Speech Recognition',
@@ -1058,9 +1058,9 @@ const distilLargeV3Encoder = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }],
+      'input_features': ['float32', 'random', [1, 128, 3000], { "batch_size": 1, "feature_size": 128, "encoder_sequence_length": 3000 }],
     }],
-    inputstip: '[1, 80, 3000]'
+    inputstip: '[1, 128, 3000]'
   }))
 }
 
@@ -2401,9 +2401,9 @@ const marqoFashionSigLIPText = () => {
     format: 'onnx',
     datatype: `${dt}`,
     inputs: [{
-      'input_ids': ['int64', 99n, [2, 16], { "batch_size": 2, "sequence_length": 16 }]
+      'input_ids': ['int64', 99n, [1, 64], { "batch_size": 1, "sequence_length": 64 }]
     }],
-    inputstip: '[2, 16]'
+    inputstip: '[1, 64]'
   }))
 }
 
