@@ -275,8 +275,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     executionProviders: [
       {
         name: backend,
-        deviceType: deviceType,
-        preferredLayout: 'NHWC'
+        deviceType: deviceType
       },
     ],
     //executionProviders: [{name: "webnn", deviceType: 'gpu', powerPreference: 'high-performance' }],
@@ -557,7 +556,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   options.logVerbosityLevel = 0;
 
   ort.env.logLevel = "verbose";
-  ort.env.debug = true;
+  ort.env.debug = false;
 
   // options.graphOptimizationLevel = 'disabled';
 
