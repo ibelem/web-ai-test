@@ -1991,7 +1991,7 @@ const kokoro82MV1 = () => {
     category: 'Text-to-Speech',
     tag: '',
     id: `kokoro_82m_v1_${dt}`,
-    name: 'ISV Kokoro 82M v1',
+    name: 'Kokoro 82M v1',
     description: 'Kokoro is a frontier TTS model for its size of 82 million parameters (text in/audio out).',
     note: '',
     source: 'https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX',

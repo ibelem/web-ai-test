@@ -199,9 +199,9 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
           removeTag();
           await loadScript('webnn', ortDists.webnn_webglfix_wasm.url);
         } else if (ortWebVersion.selected === 1) {
-          await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.all.min.js`);
+          await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.dev}/dist/ort.webgpu.min.js`);
         } else {
-          await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.all.min.js`);
+          await loadScript('default', `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion.stable}/dist/ort.webgpu.min.js`);
         }
       }
     }
@@ -765,18 +765,18 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 }
 
 export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
-  await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
+  // await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
 
-  // let modelInfo = JSON.stringify(getModelInfoById(_model), null, '');
-  // modelInfo = modelInfo.replaceAll(':', ': ');
-  // updateInfo(`Model Info: ${modelInfo}`)
+  let modelInfo = JSON.stringify(getModelInfoById(_model), null, '');
+  modelInfo = modelInfo.replaceAll(':', ': ');
+  updateInfo(`Model Info: ${modelInfo}`)
 
-  // const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
-  // if (err) {
-  //   addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
-  //   updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
-  //   updateInfo(err.message);
-  // } else {
-  //   // use data 
-  // }
+  const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
+  if (err) {
+    addResult(_model, _modelType, _dataType, _modelSize, _backend, 4, null, null, null, [], null, null, null, null, err.message);
+    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Error: ${_model} (${_modelType}/${_dataType}) with ${_backend} backend`);
+    updateInfo(err.message);
+  } else {
+    // use data 
+  }
 }

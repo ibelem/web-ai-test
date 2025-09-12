@@ -79,7 +79,7 @@ export const TRACKING = [
 export const ORT_DISTS = {
   webnn_webglfix_wasm: {
     version: '2025-9-12',
-    url: '../ort/ort.all.min.js'
+    url: '../ort/ort.webgpu.min.js'
   },
   wasm_relaxed_simd: {
     version: '2025-01-03', 
