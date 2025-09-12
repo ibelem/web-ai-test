@@ -767,9 +767,9 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 export const runOnnx = async (_id, _model, _modelType, _dataType, _modelSize, _backend) => {
   // await main(_id, _model, _modelType, _dataType, _modelSize, _backend);
 
-  let modelInfo = JSON.stringify(getModelInfoById(_model), null, '');
-  modelInfo = modelInfo.replaceAll(':', ': ');
-  updateInfo(`Model Info: ${modelInfo}`)
+  // let modelInfo = JSON.stringify(getModelInfoById(_model), null, '');
+  // modelInfo = modelInfo.replaceAll(':', ': ');
+  // updateInfo(`Model Info: ${modelInfo}`)
 
   const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
   if (err) {
