@@ -9,12 +9,15 @@
 	import {
 		getModelIdfromPath,
 		getModelNameById,
-		getModelExternalDataNameById
+		getModelExternalDataNameById,
+		resetStore
 	} from '$lib/assets/js/utils';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import LiteRtBlue from './svg/LiteRTBlue.svelte';
 	import OnnxCustom from './svg/OnnxCustom.svelte';
+	import Clear from './svg/Clear.svelte';
+	import Rerun from './svg/Rerun.svelte';
 
 	/**
 	 * @type {number}
@@ -89,6 +92,11 @@
 
 	let id = '';
 
+	const reRun = () => {
+		resetStore();
+		window.location.reload();
+	};
+
 	onMount(() => {
 		id = getModelIdfromPath() || '';
 	});
@@ -148,6 +156,12 @@
 		</div>
 		<div style="background-color:var(--green); width: {percentageTestQueue}%;" class="bar"></div>
 	</div>
+	<div class="re-run">
+		<div>
+			<button class="" onclick={reRun}><Clear /> <Rerun /> Re-run {testQueue[0].model}</button>
+			Clicking this button will clear the entire test queue and test results
+		</div>
+	</div>
 {/if}
 
 <style>
@@ -161,6 +175,57 @@
 		text-align: center;
 		width: 50vw;
 		border: 1px solid var(--grey-02);
+	}
+
+	.re-run {
+		position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    color: var(--font);
+    text-align: center;
+		padding: 10px 0;
+		margin: 0 auto;
+		display: block;
+		width: 100%;
+	}
+
+	.re-run div {
+		display: grid;
+		grid-template-columns: 1fr;
+		justify-items: center;
+		color: var(--font-01);
+	}
+
+	.re-run:hover div {
+		display: grid;
+		grid-template-columns: 1fr;
+		justify-items: center;
+		color: var(--font);
+	}
+
+	.re-run button {
+		background-color: transparent;
+		color: var(--font-01);
+		border: 1px solid var(--font-01);
+		padding: 6px 20px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-items: center;
+		margin-bottom: 6px;
+		border-radius: 3px;
+		text-transform: uppercase;
+	}
+
+	.re-run:hover div button {
+		color: var(--font);
+		border: 1px solid var(--font);
+	}
+
+	.re-run div button:hover {
+		color: var(--googlegreen);
+		border: 1px solid var(--googlegreen);
 	}
 
 	.testing {

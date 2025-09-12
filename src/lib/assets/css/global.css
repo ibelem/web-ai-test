@@ -3623,6 +3623,24 @@ table td.c {
   }
 }
 
+.re-run svg {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.re-run svg path {
+  fill: var(--font-01);
+}
+
+.re-run:hover svg path {
+  fill: var(--font);
+}
+
+.re-run button:hover svg path {
+  fill: var(--googlegreen);
+}
+
 .flow-container {
   height: 36vh;
 }
@@ -3630,3 +3648,4 @@ table td.c {
 .svelte-flow__attribution a {
   color: var(--font-002) !important;
 }
+

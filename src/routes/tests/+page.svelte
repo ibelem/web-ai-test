@@ -237,7 +237,6 @@
 
 <div class="tqtitle">
 	<div class="title tq"><OnnxFull /> Performance Tests · {uniqueModels.length}</div>
-	<div class="title">INT8 and INT4 models are not ready for testing</div>
 </div>
 <div class="search">
 	<input
