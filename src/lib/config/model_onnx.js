@@ -6017,21 +6017,6 @@ export const onnxModels = [
   {
     category: 'Image Classification',
     tag: '',
-    id: 'mobilenet_v2_10',
-    name: 'MobileNet v2_10',
-    description: 'A computer vision model designed for training classifiers.',
-    note: '',
-    source: 'https://github.com/onnx/models/raw/main/vision/classification/mobilenet/model/mobilenetv2-10.onnx',
-    model: 'mobilenetv2-10.onnx',
-    size: '13.32 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }] }],
-    inputstip: '[1, 3, 224, 224]'
-  },
-  {
-    category: 'Image Classification',
-    tag: '',
     id: 'mobilenet_v2_12',
     name: 'MobileNet v2_12',
     description: 'A computer vision model designed for training classifiers.',
