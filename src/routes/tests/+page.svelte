@@ -181,7 +181,7 @@
 			)
 			.replace('Gemma', '<span class="phi3">Gemma</span>')
 			.replace('Phi-3.5-mini', '<span class="phi3">Phi-3.5-mini</span>')
-			.replace('Phi-3 Mini', '<span class="phi3">Phi-3 Mini</span>')
+			.replace('Phi-4 Mini', '<span class="phi3">Phi-4 Mini</span>')
 			.replace('ISV', '<span class="isv">ISV</span>')
 			.replace('Demo', '<span class="demo" title="WebNN Developer Preview Demo model">Demo</span>')
 			.replace('GPU', '<span class="gpu">GPU</span>')
@@ -436,6 +436,48 @@
 		{/each}
 	</div>
 
+		<div class="title tq demo">Developer Preview Models · {demoCount}</div>
+	<div class="tq benchmark demo">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if model.indexOf('_demo') > -1}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+						<!-- {#if getModelTypeById(model) === 'onnx'}
+							<div class="onnx">
+								<Onnx />
+							</div>
+						{/if}
+
+						{#if getModelTypeById(model) === 'tflite'}
+							<div class="tflite">
+								<Tflite />
+							</div>
+						{/if} -->
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
 	<div class="title tq tf_benchmark">
 		Transformers.js Benchmarking Pipeline and Model Test Suite · {hfbenchPipelineCountFp32}
 	</div>
@@ -536,48 +578,6 @@
 								><ArrowOutward /></a
 							>
 						</div>
-						<a href="{base}/run/{model}" class="titlemark"
-							>{@html getHTMLModelName(model)}
-							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
-						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
-					</div>
-				{/if}
-			{/if}
-		{/each}
-	</div>
-
-	<div class="title tq demo">Developer Preview Models · {demoCount}</div>
-	<div class="tq benchmark demo">
-		{#each uniqueModels as model}
-			{#if model !== 'model_access_check'}
-				{#if model.indexOf('_demo') > -1}
-					<div
-						class="q tests {model} tagH"
-						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
-							model
-						)} · {getModelNoteById(model)}"
-					>
-						<div class="status_1 s netron_link">
-							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
-								><ArrowOutward /></a
-							>
-						</div>
-						<!-- {#if getModelTypeById(model) === 'onnx'}
-							<div class="onnx">
-								<Onnx />
-							</div>
-						{/if}
-
-						{#if getModelTypeById(model) === 'tflite'}
-							<div class="tflite">
-								<Tflite />
-							</div>
-						{/if} -->
-
 						<a href="{base}/run/{model}" class="titlemark"
 							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a

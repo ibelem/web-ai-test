@@ -3150,66 +3150,6 @@ const paraphraseMultilingualMpnetBaseV2 = () => {
   }))
 }
 
-const phi3Mini4kInstructDemoMerged = () => {
-  const configs = [
-    ['fp16', 'model_fp16.onnx', '2.01 MB', 'model.onnx.data', '1.98 GB'],
-  ]
-  return configs.map(([dt, file, size, externalData, edSize]) => ({
-    category: 'Text Generation',
-    tag: 'pv',
-    id: `phi_3_mini_4k_instruct_demo_merged_${dt}`,
-    name: `Phi-3 Mini 4k Instruct Static KV-Cache Demo ${dt}`,
-    description: 'Phi-3 Mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-2 - synthetic data and filtered websites - with a focus on very high-quality, reasoning dense data',
-    note: 'Large model with external data',
-    source: 'https://huggingface.co/webnn/Phi-3-mini-4k-instruct-onnx',
-    hf: {
-      model: 'webnn/Phi-3-mini-4k-instruct-onnx',
-      file: `${file}`,
-      externalData: `${externalData}`
-    },
-    model: '',
-    size: `${size} + ${edSize}`,
-    format: 'onnx',
-    datatype: `${dt}`,
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
-      'position_ids': ['int64', 1n, [1, 1], {}],
-      'attention_mask': ['int64', 1n, [1, 512], { "total_sequence_length": 512, "past_sequence_length": 512 }],
-    }],
-    inputstip: '[1, 1] [1, 1] [1, 512]'
-  }))
-}
-
-const phi3Mini4kInstructMerged = () => {
-  const configs = [
-    ['int4', 'model_q4.onnx', '0.98 GB', 'model_q4.onnx_data', '1.54 GB'],
-  ]
-  return configs.map(([dt, file, size, externalData, edSize]) => ({
-    category: 'Text Generation',
-    tag: '',
-    id: `phi_3_mini_4k_instruct_merged_${dt}`,
-    name: 'Phi-3 Mini 4k Instruct KV-Cache',
-    description: 'Phi-3 Mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-2 - synthetic data and filtered websites - with a focus on very high-quality, reasoning dense data.',
-    note: 'Large model with external data.',
-    source: 'https://huggingface.co/Xenova/Phi-3-mini-4k-instruct',
-    hf: {
-      model: 'xenova/phi-3-mini-4k-instruct',
-      file: `${file}`,
-      externalData: `${externalData}`
-    },
-    model: '',
-    size: `${size} + ${edSize}`,
-    format: 'onnx',
-    datatype: `${dt}`,
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "sequence_length": 1, "past_sequence_length": 255 }],
-      'attention_mask': ['int64', 1n, [1, 256], { "batch_size": 1, "total_sequence_length": 256 }],
-      'position_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "sequence_length": 1 }],
-    }],
-    inputstip: '[1, 1] [1, 256] [1, 1]'
-  }))
-}
-
 const phi35MiniInstructMerged = () => {
   const configs = [
     ['q4f16', 'model_q4f16.onnx', '210 MB', 'model_q4f16.onnx_data', '1.95 GB'],
@@ -3238,6 +3178,36 @@ const phi35MiniInstructMerged = () => {
     }],
     inputstip: '[1, 1] [1, 256] [1, 1]'
 
+  }))
+}
+
+const phi4MiniInstructDemoMerged = () => {
+  const configs = [
+    ['fp16', 'model.onnx', '576 MB', 'model.onnx.data', '1.79 GB'],
+  ]
+  return configs.map(([dt, file, size, externalData, edSize]) => ({
+    category: 'Text Generation',
+    tag: 'pv',
+    id: `phi_4_mini-instruct-onnx-webnn_demo_merged_${dt}`,
+    name: `Phi-4 Mini Instruct Static KV-Cache Demo ${dt}`,
+    description: 'Phi-3 Mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-2 - synthetic data and filtered websites - with a focus on very high-quality, reasoning dense data',
+    note: 'Large model with external data',
+    source: 'https://huggingface.co/webnn/Phi-4-mini-instruct-onnx-webnn',
+    hf: {
+      model: 'webnn/Phi-4-mini-instruct-onnx-webnn',
+      file: `${file}`,
+      externalData: `${externalData}`
+    },
+    model: '',
+    size: `${size} + ${edSize}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 512], { "batch_size": 1, "sequence_length": 512 }],
+      'attention_mask': ['int64', 1n, [1, 512], { "total_sequence_length": 512, "past_sequence_length": 512 }],
+      'position_ids': ['int64', 1n, [1, 512], {}],
+    }],
+    inputstip: '[1, 512] [1, 512] [1, 512]'
   }))
 }
 
@@ -6485,9 +6455,8 @@ export const onnxModels = [
   ...onnxOperatorsGemm_1_1024(),
   ...onnxOperatorsIdentity_1x1(),
   ...paraphraseMultilingualMpnetBaseV2(),
-  ...phi3Mini4kInstructDemoMerged(),
   ...phi35MiniInstructMerged(),
-  ...phi3Mini4kInstructMerged(),
+  ...phi4MiniInstructDemoMerged(),
   ...qwen2_0_5bInstructDemoMerged(),
   ...Qwen2_0_5bInstructMerged(),
   ...Qwen2VLForConditionalGenerationEmbedding(),

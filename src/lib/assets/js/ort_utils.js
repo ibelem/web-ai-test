@@ -402,12 +402,10 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             } else if (v.includes('encoder')) {
               feeds[v] = getFeedInfo(v, 'float16', 1, [1, 12, 1500, 64]);
             }
-          } else if (modelName.indexOf('phi_3_mini_4k_instruct_demo_merged_') > -1) {
-            feeds[v] = getFeedInfo(v, 'float16', 1, [1, 32, 512, 96]);
+          } else if (modelName.indexOf('phi_4_mini-instruct-onnx-webnn_demo_merged_') > -1) {
+            feeds[v] = getFeedInfo(v, 'float16', 1, [1, 8, 512, 128]);
           } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_demo_merged_') > -1) {
             feeds[v] = getFeedInfo(v, 'float16', 1, [1, 4, 512, 64]);
-          } else if (modelName.indexOf('phi_3_mini_4k_instruct_') > -1) {
-            feeds[v] = getFeedInfo(v, 'float32', 1, [1, 32, 255, 96]);
           } else if (modelName.indexOf('t5__small_decoder_tfbench_model') > -1) {
             if (v.includes('decoder')) {
               feeds[v] = getFeedInfo(v, 'float32', 1, [1, 8, 2, 64]);
