@@ -3190,7 +3190,7 @@ const phi4MiniInstructDemoMerged = () => {
     tag: 'pv',
     id: `phi_4_mini-instruct-onnx-webnn_demo_merged_${dt}`,
     name: `Phi-4 Mini Instruct Static KV-Cache Demo ${dt}`,
-    description: 'Phi-3 Mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-2 - synthetic data and filtered websites - with a focus on very high-quality, reasoning dense data',
+    description: 'Phi-4-mini-instruct is a lightweight open model built upon synthetic data and filtered publicly available websites - with a focus on high-quality, reasoning dense data.',
     note: 'Large model with external data',
     source: 'https://huggingface.co/webnn/Phi-4-mini-instruct-onnx-webnn',
     hf: {
