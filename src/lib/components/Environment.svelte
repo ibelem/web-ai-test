@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { environment, cpu } from '$lib/config/index.js';
-	import { getGpu, isFirefoxOrSafari } from '$lib/assets/js/utils.js';
+	import { getGpu, isFirefoxOrSafari, resetStore } from '$lib/assets/js/utils.js';
 	// @ts-ignore
 	import { UAParser } from 'ua-parser-js';
 	import to from 'await-to-js';
@@ -10,7 +10,7 @@
 	import ONNXRuntimeWebDetect from './ONNXRuntimeWebDetect.svelte';
 	import LiteRtjsDetect from './LiteRtJsDetect.svelte';
 	import { cpuStore } from '$lib/store/store';
-
+	import Clear from './svg/Clear.svelte';
 	let showModal = false;
 
 	/**
@@ -170,6 +170,10 @@
 		environment.cpu = cpuInfo;
 	};
 
+	const clear = () => {
+		resetStore();
+	};
+
 	onMount(async () => {
 		let parser = UAParser(navigator.userAgent);
 		if (cpuInfo) {
@@ -270,7 +274,7 @@
 		>
 		<button
 			class="updateCPULink"
-			on:click={() => (showModal = true)}
+			onclick={() => (showModal = true)}
 			title="Clink this link to update CPU model"
 		>
 			{#if environment.cpu}
@@ -659,6 +663,8 @@
 			{/if}
 		</div>
 	{/if}
+
+	<button class="clear-local-storage" onclick={clear} title="Clear local storage"><Clear /></button>
 </div>
 
 <style>

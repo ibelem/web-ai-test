@@ -84,7 +84,7 @@
 		}
 	};
 
-	$: isLiteRT = $page.url.pathname.includes('litert');
+	$: isLiteRT = $page.url.pathname.includes('tflite');
 
 	/**
 	 * @type {string}

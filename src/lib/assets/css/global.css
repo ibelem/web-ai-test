@@ -3641,6 +3641,28 @@ table td.c {
   fill: var(--googlegreen);
 }
 
+.clear-local-storage {
+  display: inline-block;
+  margin: 0 6px 0 0;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+}
+
+.clear-local-storage svg {
+  width: 15px;
+  height: 15px;
+}
+
+.clear-local-storage svg path {
+  fill: var(--font-01);
+}
+
+.clear-local-storage:hover svg path {
+  fill: var(--red);
+  cursor: pointer;
+}
+
 .flow-container {
   height: 36vh;
 }

@@ -68,7 +68,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _b
   try {
     if (typeof window !== 'undefined' && !window.__litertLoaded__) {
       const { loadLiteRt } = await import('@litertjs/core');
-      const wasmRoot = '/litertjs/0.1.0/core/wasm';
+      const wasmRoot = '/litertjs/0.1.1/core/wasm';
       updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Initializing LiteRT.js's Wasm files`);
       await loadLiteRt(wasmRoot);
       window.__litertLoaded__ = true;

@@ -16,7 +16,7 @@ const DTypeInfo = {
   'bfloat16': { name: 'BFLOAT16', ctor: Float32Array }
 };
 
-// Based on constants.ts of litert.js core 0.1.0, only these are currently supported
+// Based on constants.ts of litert.js core 0.1.1, only these are currently supported
 const SUPPORTED_DTYPES = new Set(['float32', 'int32']);
 
 export const generateInputData = (dtype, shape, fillSpec = 'random') => {
