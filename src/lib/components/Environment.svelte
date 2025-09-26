@@ -172,6 +172,7 @@
 
 	const clear = () => {
 		resetStore();
+		window.location.reload();
 	};
 
 	onMount(async () => {

@@ -1,4 +1,4 @@
-import { sleepStore, fallbackLogStore, fallbackStore, fallbackQueueStore, conformanceLogStore, conformanceQueueStore, refererStore, modelDownloadUrlStore, autoStore, conformanceStore, infoStore, ortWebVersionStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore } from '../../store/store'
+import { sleepStore, fallbackLogStore, fallbackStore, fallbackQueueStore, conformanceLogStore, conformanceQueueStore, refererStore, modelDownloadUrlStore, autoStore, conformanceStore, infoStore, ortWebVersionStore, numberOfRunsStore, backendsStore, dataTypesStore, modelTypesStore, modelsStore, testQueueStore, testQueueLengthStore, resultsStore, modelDownloadProgressStore, liteRtJsVersionStore } from '../../store/store'
 import { models, uniqueBackends, corsSites } from '$lib/config/index.js';
 import { runOnnx } from '../js/ort_utils';
 import { runTflite } from '../js/litert_utils'
@@ -241,6 +241,8 @@ export const resetStore = () => {
   resultsStore.update(() => []);
   infoStore.update(() => []);
   modelDownloadProgressStore.update(() => []);
+  ortWebVersionStore.update(() => []);
+  liteRtJsVersionStore.update(() => []);
 }
 
 /**

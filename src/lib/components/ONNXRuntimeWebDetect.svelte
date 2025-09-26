@@ -109,7 +109,11 @@
 			selected = 0
 		} else {
 			if (ortWebVersion) {
-				selected = ortWebVersion.selected;
+				if (ortWebVersion.selected) {
+					selected = ortWebVersion.selected;
+				} else {
+					selected = 1;
+				}
 				ortDev = ortWebVersion.dev;
 				ortStable = ortWebVersion.stable;
 			}
