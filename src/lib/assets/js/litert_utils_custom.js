@@ -90,7 +90,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _b
   let accelerator = 'webgpu';
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Initialize LiteRT.js's Wasm files for ${_backend} backend`);
 
-  if (_backend === 'wasm_1') {
+  if (_backend.index('wasm') >-1) {
     accelerator = 'wasm';
   }
 
