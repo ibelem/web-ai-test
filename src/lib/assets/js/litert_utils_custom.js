@@ -75,11 +75,11 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _b
           await loadLiteRt(wasmRoot, {threads: true});
           updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] [Multithreaded Wasm] LiteRt loaded with threads`);
         } catch (e) {
-          await loadLiteRt(wasmRoot);
+          await loadLiteRt(wasmRoot, {threads: false});
           updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] [Multithreaded Wasm] Failed to load LiteRt with threads`);
         }
       } else {
-        await loadLiteRt(wasmRoot);
+        await loadLiteRt(wasmRoot, {threads: false});
       }
       window.__litertLoaded__ = true;
     }
