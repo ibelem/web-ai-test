@@ -68,9 +68,19 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _b
   try {
     if (typeof window !== 'undefined' && !window.__litertLoaded__) {
       const { loadLiteRt } = await import('@litertjs/core');
-      const wasmRoot = '/litertjs/0.1.1/core/wasm';
+      const wasmRoot = '/litertjs/0.2.1/core/wasm';
       updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Initializing LiteRT.js's Wasm files`);
-      await loadLiteRt(wasmRoot);
+      if (_backend === 'wasm_4') {
+        try {
+          await loadLiteRt(wasmRoot, {threads: true});
+          updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] [Multithreaded Wasm] LiteRt loaded with threads`);
+        } catch (e) {
+          await loadLiteRt(wasmRoot);
+          updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] [Multithreaded Wasm] Failed to load LiteRt with threads`);
+        }
+      } else {
+        await loadLiteRt(wasmRoot);
+      }
       window.__litertLoaded__ = true;
     }
   } catch (e) {
@@ -285,7 +295,7 @@ export const runTflite = async (_id, _model, _modelType, _dataType, _modelSize, 
   // modelInfo = modelInfo.replaceAll(':', ': ');
   // updateInfo(`Model Info: ${modelInfo}`)
 
-  if (_backend === 'wasm_4' || _backend === 'webgl') {
+  if (_backend === 'webgl') {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Skip: No ${_backend} accelerator for LiteRT.js`);
   } else if (_backend === 'webnn_cpu' || _backend === 'webnn_gpu' || _backend === 'webnn_npu') {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Skip: The ${_backend} accelerator support for LiteRT.js is WIP`);
