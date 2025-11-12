@@ -608,7 +608,8 @@ const dinoVitb16 = () => {
 const distilbartCnn66Decoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '585 MB'],
-    // // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
+    ['fp16', 'decoder_model_fp16.onnx', '292 MB'],
+    ['q4f16', 'decoder_model_q4f16.onnx', '154 MB'],
     ['int8', 'decoder_model_quantized.onnx', '147 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
@@ -639,7 +640,8 @@ const distilbartCnn66Decoder = () => {
 const distilbartCnn66DecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '537 MB'],
-    // // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
+    ['fp16', 'decoder_with_past_model_fp16.onnx', '268 MB'],
+    ['q4f16', 'decoder_with_past_model_q4f16.onnx', '147 MB'],
     ['int8', 'decoder_with_past_model_quantized.onnx', '135 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
@@ -674,6 +676,7 @@ const distilbartCnn66DecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '585 MB'],
     ['fp16', 'decoder_model_merged_fp16.onnx', '293 MB'],
+    ['q4f16', 'decoder_model_merged_q4f16.onnx', '155 MB'],
     ['int8', 'decoder_model_merged_quantized.onnx', '193 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
@@ -709,6 +712,7 @@ const distilbartCnn66Encoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '488 MB'],
     ['fp16', 'encoder_model_fp16.onnx', '244 MB'],
+    ['q4f16', 'encoder_model_q4f16.onnx', '140 MB'],
     ['int8', 'encoder_model_quantized.onnx', '122.85 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
