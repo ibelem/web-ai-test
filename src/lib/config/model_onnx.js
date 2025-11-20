@@ -515,7 +515,6 @@ const deepSeekR1DistillQwen1_5BDemoMerged = () => {
 const depthAnythingBase = () => {
   const configs = [
     ['fp32', 'model.onnx', '371 MB'],
-    ['fp16', 'model_fp16.onnx', '185 MB'],
     ['int8', 'model_quantized.onnx', '97.9 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
@@ -529,6 +528,39 @@ const depthAnythingBase = () => {
     source: 'https://huggingface.co/Xenova/depth-anything-base-hf',
     hf: {
       model: 'xenova/depth-anything-base-hf',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 518, 518], {
+        "batch_size": 1,
+        "num_channels": 3,
+        "height": 518,
+        "width": 518,
+      }]
+    }],
+    inputstip: '[1, 3, 518, 518]'
+  }))
+}
+
+const depthAnythingBaseWebNN = () => {
+  const configs = [
+    ['fp16', 'model_fp16.onnx', '185 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Depth Estimation',
+    tag: '',
+    isv: 'ms',
+    id: `depth_anything_base_${dt}`,
+    name: `Depth Anything Base`,
+    description: 'Depth Anything Base',
+    note: '',
+    source: 'https://huggingface.co/Xenova/depth-anything-base-hf',
+    hf: {
+      model: 'webnn/depth-anything-base-hf',
       file: `${file}`,
     },
     model: '',
@@ -1566,7 +1598,6 @@ const florence2EmbedTokens = () => {
 const florence2VisionEncoder = () => {
   const configs = [
     ['fp32', 'vision_encoder.onnx', '349 MB'],
-    ['fp16', 'vision_encoder_fp16.onnx', '175 MB'],
     ['int8', 'vision_encoder_quantized.onnx', '77.5 MB'],
     ['int4', 'vision_encoder_q4.onnx', '89.4 MB'],
   ]
@@ -1576,11 +1607,40 @@ const florence2VisionEncoder = () => {
     isv: 'ms',
     id: `florence2_vision_encoder_${dt}`,
     name: `Florence-2 Base Vision Encoder`,
-    description: 'An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
-    note: '',
+    description: 'Changed data type of Pow Y = 0.5 to float32 from float16. An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: 'Changed data type of Pow Y = 0.5 to float32 from float16.',
     source: 'https://huggingface.co/onnx-community/Florence-2-base',
     hf: {
       model: 'onnx-community/florence-2-base',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 30, 30], { "batch_size": 1, "height": 30, "width": 30 }],
+    }],
+    inputstip: '[1, 3, 30, 30]'
+  }))
+}
+
+const florence2VisionEncoderWebNN = () => {
+  const configs = [
+    ['fp16', 'vision_encoder_fp16.onnx', '175 MB'],
+    ['q4f16', 'vision_encoder_q4f16.onnx', '59.5 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-Text-to-Text',
+    tag: '',
+    isv: 'ms',
+    id: `florence2_vision_encoder_${dt}`,
+    name: `Florence-2 Base Vision Encoder`,
+    description: 'Changed data type of Pow Y = 0.5 to float32 from float16. An advanced vision foundation model that uses a prompt-based approach to handle a wide range of vision and vision-language tasks',
+    note: 'Changed data type of Pow Y = 0.5 to float32 from float16.',
+    source: 'https://huggingface.co/onnx-community/Florence-2-base',
+    hf: {
+      model: 'webnn/florence-2-base',
       file: `${file}`,
     },
     model: '',
@@ -5593,6 +5653,7 @@ export const onnxModels = [
   ...codeGenMono350M(),
   ...deepSeekR1DistillQwen1_5BDemoMerged(),
   ...depthAnythingBase(),
+  ...depthAnythingBaseWebNN(),
   {
     category: 'Image Segmentation',
     tag: '',
@@ -5818,6 +5879,7 @@ export const onnxModels = [
   ...florence2Encoder(),
   ...florence2EmbedTokens(),
   ...florence2VisionEncoder(),
+  ...florence2VisionEncoderWebNN(),
   ...florence2ConditionalDecoder(),
   ...florence2ConditionalDecoderMerged(),
   ...florence2ConditionalDecoderWithPast(),
