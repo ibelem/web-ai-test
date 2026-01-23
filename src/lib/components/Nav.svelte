@@ -107,7 +107,7 @@
           <li><a href="{base}/fallback">Fallback</a></li>
           <li><a href="{base}/graph">Graph</a></li>
           <li><a href="{base}/conformance">Conformance</a></li>
-          <li><a href="{base}/limits">Limits</a></li>
+          <li><a href="https://webnnreport.org">Limits</a></li>
         </ul>
       </li>
       <li><a href="{base}/about">About</a></li>

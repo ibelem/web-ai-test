@@ -3383,69 +3383,6 @@ table td.c {
   fill: var(--p-005);
 }
 
-.limits table {
-  border-collapse: collapse;
-  border-spacing: 0px;
-  width: 100%;
-  font-size: 0.68rem;
-}
-
-.limits table thead {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background-color: var(--green-01) !important;
-}
-
-.limits table th {
-  border-bottom: 1px solid var(--green) !important;
-}
-
-.limits table th,
-.limits table td {
-  padding: 2px 2px;
-  text-align: center;
-  border: 1px solid var(--grey-02);
-  color: var(--font);
-}
-
-.limits table th {
-  font-weight: 400;
-  border: 1px solid transparent;
-  border-bottom: 1px solid var(--green);
-  background-color: var(--green-002);
-}
-
-.limits table tr:hover th,
-.limits table tr:hover td {
-  border-bottom: 1px solid var(--green);
-  background-color: var(--green-002);
-}
-
-.limits table tr th:hover,
-.limits table tr td:hover {
-  background-color: var(--green-01);
-}
-
-.limits .os {
-  margin: 0px auto;
-  text-align: center;
-}
-
-.limits .os svg {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  margin-bottom: -2px;
-}
-
-.limits .g2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-  column-gap: 10px;
-}
-
 .titlemark span.powerpoint {
   border: 1px solid rgba(198, 66, 31, 1);
   background-color: rgba(198, 66, 31, 1);

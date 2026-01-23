@@ -12,7 +12,7 @@
 	</div>
 
 	<div>
-		<a href="https://webmachinelearning.github.io/webnn-intro/">Web Neural Network API (WebNN)</a> is
+		<a href="https://webnn.io/">Web Neural Network API (WebNN)</a> is
 		a new web standard that enables web applications and frameworks to accelerate deep neural networks
 		using on-device hardware such as GPUs, CPUs, or purpose-built AI accelerators.
 	</div>
