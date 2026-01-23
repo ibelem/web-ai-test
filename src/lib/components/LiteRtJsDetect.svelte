@@ -142,12 +142,12 @@
                         {liteRtJsVersion.dev}
                     </a>
                 </span>
-                <span class="version selector">
-                    <!-- onclick={() => (showLiteRtDevModal = true)} -->
+                <!-- <span class="version selector">
+                    onclick={() => (showLiteRtDevModal = true)}
                     <button aria-label="Select LiteRT.js version">
                         <svg height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
                     </button>
-                </span>
+                </span> -->
             </div>
         {/if}
     </div>

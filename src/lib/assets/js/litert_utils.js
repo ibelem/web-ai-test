@@ -154,7 +154,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
     // Based on the source code of `compiled_model.ts`, the `run` method
     // for the primary signature expects a single argument: an array of Tensors.
-    const results = model.run(processedInputs);
+    const results = await model.run(processedInputs);
 
     // Collect results on CPU for inspection
     let cpuResults = [];
@@ -164,7 +164,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
         cpuResults.push(cpuResult);
       }
     } else {
-      cpuResults = results;
+      cpuResults = Array.isArray(results) ? results : [results];
     }
 
     let inferenceTime = performance.now() - start;
