@@ -239,19 +239,27 @@
 				ia = false;
 			} else if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
 			// Check architecture for Chromium-based browsers
-				navigator.userAgentData.getHighEntropyValues(['architecture']).then((ua) => {
-					if (ua.architecture === 'arm') {
-						// ARM architecture requires PIN
+			// Set to false by default until we confirm it's allowed
+			ia = false;
+			navigator.userAgentData.getHighEntropyValues(['architecture']).then((ua) => {
+				if (ua.architecture === 'arm') {
+					// ARM architecture requires PIN
+					ia = false;
+				} else if (ua.architecture === 'x86') {
+					// x86: check GPU
+					const gpu = getGpu().toLowerCase();
+					if (gpu.includes('intel')) {
+						// Intel graphics - allow without PIN
+						ia = true;
+					} else {
+						// Non-Intel graphics require PIN
 						ia = false;
-					} else if (ua.architecture === 'x86') {
-						// x86: only Intel graphics don't need PIN
-						const gpu = getGpu().toLowerCase();
-						if (!gpu.includes('intel')) {
-							// Non-Intel graphics require PIN
-							ia = false;
-						}
 					}
-				});
+				} else {
+					// Unknown architecture - allow (defensive)
+					ia = true;
+				}
+			});
 			} else {
 				// Browser doesn't support userAgentData - require PIN
 				ia = false;
