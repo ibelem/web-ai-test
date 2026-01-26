@@ -44,7 +44,7 @@
 	} from '$lib/assets/js/utils';
 
 	let logShow = true;
-	let ia = true;
+	let ia = false;
 	let showModal = false;
 	let attempts = writable(3);
 	let isValidated = false;
