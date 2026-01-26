@@ -1,6 +1,7 @@
 <!-- lib/components/ValidationModal.svelte -->
 <script>
   import { tracking } from '$lib/config/index.js';
+  import { hashPin } from '$lib/assets/js/pin_hash.js';
   export let onValidate;
   export let onCancel;
 
@@ -8,8 +9,8 @@
   let errorMessage = '';
 
   function handleSubmit() {
-    const reversedTracking = tracking.map(item => item.split('').reverse().join(''));
-    if (reversedTracking.includes(ia)) {
+    const hashedInput = hashPin(ia);
+    if (tracking.includes(hashedInput)) {
       onValidate(ia);
     } else {
       errorMessage = 'Incorrect PIN code, try again.';
@@ -28,6 +29,11 @@
     {#if errorMessage}
       <p class="error">{errorMessage}</p>
     {/if}
+    <div class="contact-info">
+      Get PIN from: 
+      <!-- Email obfuscated to prevent scraping -->
+      <span>belem&#46;zhang&#64;intel&#46;com</span>
+    </div>
     <div class="actions">
       <button on:click={handleSubmit}>Submit</button>
       <button on:click={onCancel}>Cancel</button>
@@ -53,6 +59,7 @@
     background: white;
     padding: 2rem;
     border-radius: 0.5rem;
+    margin: 1rem;
     width: 300px;
     text-align: center;
   }
@@ -60,6 +67,17 @@
   .error {
     color: var(--red);
     margin: 0;
+  }
+
+  .contact-info {
+    font-size: 0.9rem;
+    color: var(--b1);
+    margin: 0.5rem 0;
+  }
+
+  .contact-info span {
+    color: var(--b1);
+    user-select: all;
   }
 
   input {

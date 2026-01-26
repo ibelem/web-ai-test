@@ -67,13 +67,22 @@ export const CORS_SITES = [
 ];
 
 export const TRACKING = [
-  'tfsm',
-  'goog',
-  'ctni', 
-  'mocq',
-  'advn',
-  'dma',
-  'lpaa'
+  'leusfc',
+  'oionwq',
+  'les73r',
+  '9dafg3',
+  '8lbx5e',
+  '9da09e',
+  '9da0b2',
+  '9da55f',
+  'ha8all',
+  '7mzis9',
+  '1rxyb2',
+  'fzchqb',
+  '229o0',
+  '20qit',
+  '22m0',
+  '1sbjf'
 ];
 
 export const ORT_DISTS = {

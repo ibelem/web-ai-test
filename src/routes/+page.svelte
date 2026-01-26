@@ -1,12 +1,9 @@
 <script>
 	import {
-		getGpu,
-		isMobile,
 		getURLParameterValue,
-		isFirefoxOrSafari,
-		isSafari
 	} from '$lib/assets/js/utils.js';
 	import { tracking } from '$lib/config/index.js';
+	import { hashPin } from '$lib/assets/js/pin_hash.js';
 	import Environment from '$lib/components/Environment.svelte';
 	import Config from '$lib/components/Config.svelte';
 	import Header from '$lib/components/Header.svelte';
@@ -15,8 +12,6 @@
 	import Info from '$lib/components/Info.svelte';
 	import InferenceLog from '$lib/components/InferenceLog.svelte';
 	// import Conformance from '$lib/components/Conformance.svelte';
-	import { SvelteFlowProvider } from '@xyflow/svelte';
-  import Flow from '$lib/components/Flow.svelte';
 	import { afterUpdate, onDestroy, onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
@@ -179,32 +174,21 @@
 		);
 
 		urlPin = getURLParameterValue('pin')?.toLocaleLowerCase().trim();
-		const reversedTracking = tracking.map((item) => item.split('').reverse().join(''));
-
+		
 		// Check if pin is already stored in localStorage or URL pin is valid
-		if (storedPin && reversedTracking.includes(storedPin)) {
+		// Pins are validated by hashing the input and comparing to pre-hashed values
+		const storedPinHash = storedPin ? hashPin(storedPin) : null;
+		const urlPinHash = urlPin ? hashPin(urlPin) : null;
+		
+		if (storedPinHash && tracking.includes(storedPinHash)) {
 			ia = true; // User has valid stored pin
-		} else if (urlPin && reversedTracking.includes(urlPin)) {
-			// Valid pin from URL - store it in localStorage
+		} else if (urlPinHash && tracking.includes(urlPinHash)) {
+			// Valid pin from URL - store it in localStorage (store the original, not the hash)
 			pinStore.update(() => urlPin);
 			ia = true;
 		} else {
-			// No valid pin - proceed with hardware checks
-			if (!isFirefoxOrSafari()) {
-				navigator.userAgentData.getHighEntropyValues(['architecture']).then((ua) => {
-					if (ua.architecture === 'arm' && !isMobile()) {
-						const vendors = ['apple', 'qualcomm', 'adreno'];
-						const hasVendor = vendors.some((vendor) => getGpu().toLowerCase().includes(vendor));
-						if (hasVendor) {
-							ia = false;
-						}
-					}
-				});
-			}
-
-			if (isSafari()) {
-				ia = false;
-			}
+			// No valid pin - require PIN for all tests
+			ia = false;
 		}
 	});
 
