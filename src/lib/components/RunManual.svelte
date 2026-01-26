@@ -237,8 +237,8 @@
 			} else if (isFirefoxOrSafari()) {
 				// Firefox browser requires PIN
 				ia = false;
-			} else if (navigator.userAgentData) {
-				// Check architecture for Chromium-based browsers
+			} else if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+			// Check architecture for Chromium-based browsers
 				navigator.userAgentData.getHighEntropyValues(['architecture']).then((ua) => {
 					if (ua.architecture === 'arm') {
 						// ARM architecture requires PIN
@@ -252,6 +252,9 @@
 						}
 					}
 				});
+			} else {
+				// Browser doesn't support userAgentData - require PIN
+				ia = false;
 			}
 		}
 
