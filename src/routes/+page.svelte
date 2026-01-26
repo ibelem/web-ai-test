@@ -1,6 +1,9 @@
 <script>
 	import {
 		getURLParameterValue,
+		getGpu,
+		isFirefoxOrSafari,
+		isSafari
 	} from '$lib/assets/js/utils.js';
 	import { tracking } from '$lib/config/index.js';
 	import { hashPin } from '$lib/assets/js/pin_hash.js';
@@ -187,8 +190,32 @@
 			pinStore.update(() => urlPin);
 			ia = true;
 		} else {
-			// No valid pin - require PIN for all tests
-			ia = false;
+			// No valid pin - check device limitations
+			// Require PIN for: Safari, Firefox, ARM architecture, and non-Intel graphics on x86
+			
+			if (isSafari()) {
+				// Safari browser requires PIN
+				ia = false;
+			} else if (isFirefoxOrSafari()) {
+				// Firefox browser requires PIN
+				ia = false;
+			} else if (navigator.userAgentData) {
+				// Check architecture for Chromium-based browsers
+				navigator.userAgentData.getHighEntropyValues(['architecture']).then((ua) => {
+					if (ua.architecture === 'arm') {
+						// ARM architecture (non-mobile) requires PIN
+						ia = false;
+					} else if (ua.architecture === 'x86') {
+						// x86: only Intel graphics don't need PIN
+						const gpu = getGpu().toLowerCase();
+						console.log('Detected GPU:', gpu);
+						if (!gpu.includes('intel')) {
+							// Non-Intel graphics require PIN
+							ia = false;
+						}
+					}
+				});
+			}
 		}
 	});
 

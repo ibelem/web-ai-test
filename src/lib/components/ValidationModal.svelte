@@ -32,7 +32,7 @@
     <div class="contact-info">
       Get PIN from: 
       <!-- Email obfuscated to prevent scraping -->
-      <span>belem&#46;zhang&#64;intel&#46;com</span>
+      <span>belem&#64;163&#46;com</span>
     </div>
     <div class="actions">
       <button on:click={handleSubmit}>Submit</button>

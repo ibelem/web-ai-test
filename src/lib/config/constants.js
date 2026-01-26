@@ -67,6 +67,7 @@ export const CORS_SITES = [
 ];
 
 export const TRACKING = [
+  '201dg',
   'leusfc',
   'oionwq',
   'les73r',
@@ -78,11 +79,7 @@ export const TRACKING = [
   'ha8all',
   '7mzis9',
   '1rxyb2',
-  'fzchqb',
-  '229o0',
-  '20qit',
-  '22m0',
-  '1sbjf'
+  'fzchqb'
 ];
 
 export const ORT_DISTS = {
