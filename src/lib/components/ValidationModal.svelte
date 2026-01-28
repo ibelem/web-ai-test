@@ -1,6 +1,7 @@
 <!-- lib/components/ValidationModal.svelte -->
 <script>
   import { tracking } from '$lib/config/index.js';
+import { getContactEmail } from '$lib/assets/js/utils.js';
   import { hashPin } from '$lib/assets/js/pin_hash.js';
   export let onValidate;
   export let onCancel;
@@ -30,9 +31,9 @@
       <p class="error">{errorMessage}</p>
     {/if}
     <div class="contact-info">
-      Get PIN from: 
+      Get PIN from 
       <!-- Email obfuscated to prevent scraping -->
-      <span>belem&#64;163&#46;com</span>
+      <span>{getContactEmail()}</span>
     </div>
     <div class="actions">
       <button on:click={handleSubmit}>Submit</button>

@@ -10,6 +10,26 @@ import html2canvas from 'html2canvas';
 import to from 'await-to-js';
 import { cpuStore } from '$lib/store/store';
 
+
+/**
+ * Returns the appropriate contact email based on the current hostname
+ * Email addresses are obfuscated to prevent scraping and source code exposure
+ * @returns {string} Email address
+ */
+export const getContactEmail = () => {
+  const hostname = location.hostname.toLowerCase();
+  const publicHosts = ['vercel.app', 'webai.run', 'github.io'];
+  
+  const publicEmail = String.fromCharCode(98,101,108,101,109,64,49,54,51,46,99,111,109);
+  const internalEmail = String.fromCharCode(98,101,108,101,109,46,122,104,97,110,103,64,105,110,116,101,108,46,99,111,109);
+  
+  if (publicHosts.some(host => hostname.includes(host))) {
+    return publicEmail;
+  }
+  
+  return internalEmail;
+};
+
 /**
  * @type {string[]}
  */
