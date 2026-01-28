@@ -84,6 +84,7 @@
         </button>
         <ul class="dropdown-menu" class:active={isONNXDropdownOpen}>
           <li><a href="{base}/tests">SOTA</a></li>
+          <li><a href="{base}/about">LLMs / SLMs</a></li>
           <li><a href="{base}/custom">Custom</a></li>
           <li><a href="{base}/operators">Operators</a></li>
           <li><a href="{base}/pv">PV</a></li>

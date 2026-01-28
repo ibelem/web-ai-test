@@ -268,6 +268,50 @@
 </div>
 
 <div class="test-list">
+	
+	<div class="title tq demo">Developer Preview Models · {demoCount}</div>
+	<div class="tq benchmark demo">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if model.indexOf('_demo') > -1}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+						<!-- {#if getModelTypeById(model) === 'onnx'}
+							<div class="onnx">
+								<Onnx />
+							</div>
+						{/if}
+
+						{#if getModelTypeById(model) === 'tflite'}
+							<div class="tflite">
+								<Tflite />
+							</div>
+						{/if} -->
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if model.indexOf('_q4f16') > -1}<span class="fp16">Q4F16</span>{/if}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
 	<div class="title tq fp16">2025 Top Models · FP16 · {top2025CountFP16}</div>
 	<div class="tq benchmark fp16">
 		{#each uniqueModels as model}
@@ -399,48 +443,6 @@
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
 				{#if getModelIsvById(model) === 'ms' && !(model.indexOf('_fp16') > -1 || model.indexOf('_int8') > -1 || model.indexOf('_int4') > -1)}
-					<div
-						class="q tests {model} tagH"
-						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
-							model
-						)} · {getModelNoteById(model)}"
-					>
-						<div class="status_1 s netron_link">
-							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
-								><ArrowOutward /></a
-							>
-						</div>
-						<!-- {#if getModelTypeById(model) === 'onnx'}
-							<div class="onnx">
-								<Onnx />
-							</div>
-						{/if}
-
-						{#if getModelTypeById(model) === 'tflite'}
-							<div class="tflite">
-								<Tflite />
-							</div>
-						{/if} -->
-
-						<a href="{base}/run/{model}" class="titlemark"
-							>{@html getHTMLModelName(model)}
-							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
-						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
-					</div>
-				{/if}
-			{/if}
-		{/each}
-	</div>
-
-		<div class="title tq demo">Developer Preview Models · {demoCount}</div>
-	<div class="tq benchmark demo">
-		{#each uniqueModels as model}
-			{#if model !== 'model_access_check'}
-				{#if model.indexOf('_demo') > -1}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -707,7 +709,7 @@
 
 						<a href="{base}/run/{model}" class="titlemark"
 							>{@html getHTMLModelName(model)}
-							{#if model.indexOf('_q4f16') > -1}<span>q4f16</span>{/if}
+							{#if model.indexOf('_q4f16') > -1}<span>Q4F16</span>{/if}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 

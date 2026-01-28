@@ -3543,6 +3543,118 @@ const samVitBaseVisionEncoder = () => {
   }))
 }
 
+const sdxlTurboTextEncoder = () => {
+  const configs = [
+    ['q4f16', 'text_encoder_model_q4f16.onnx', '118 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Image',
+    tag: '',
+    id: `sdxl_turbo_text_encoder_demo_${dt}`,
+    name: 'SDXL-Turbo Text Encoder',
+    description: 'A fast generative text-to-image model that can synthesize photorealistic images from a text prompt in a single network evaluation.',
+    note: '',
+    source: 'https://huggingface.co/stabilityai/sdxl-turbo',
+    hf: {
+      model: 'webnn/sdxl-turbo',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int32', 1, [4, 77], { "batch_size": 4, "sequence_length": 77 }]
+    }],
+    inputstip: '[4, 77]'
+  }))
+}
+
+const sdxlTurboTextEncoder2 = () => {
+  const configs = [
+    ['q4f16', 'text_encoder_2_model_q4f16.onnx', '461 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Image',
+    tag: '',
+    id: `sdxl_turbo_text_encoder_2_demo_${dt}`,
+    name: 'SDXL-Turbo Text Encoder 2',
+    description: 'A fast generative text-to-image model that can synthesize photorealistic images from a text prompt in a single network evaluation.',
+    note: '',
+    source: 'https://huggingface.co/stabilityai/sdxl-turbo',
+    hf: {
+      model: 'webnn/sdxl-turbo',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [4, 77], { "batch_size": 4, "sequence_length": 77 }]
+    }],
+    inputstip: '[4, 77]'
+  }))
+}
+
+const sdxlTurboUNet = () => {
+  const configs = [
+    ['q4f16', 'unet_model_q4f16.onnx', '1.83 GB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Image',
+    tag: '',
+    id: `sdxl_turbo_unet_demo_${dt}`,
+    name: 'SDXL-Turbo UNet',
+    description: 'A fast generative text-to-image model that can synthesize photorealistic images from a text prompt in a single network evaluation.',
+    note: 'Large model',
+    source: 'https://huggingface.co/stabilityai/sdxl-turbo',
+    hf: {
+      model: 'webnn/sdxl-turbo',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'sample': ['float16', 'random', [4, 4, 64, 64], { "unet_sample_batch": 1, "unet_sample_channels": 4, "unet_sample_height": 64, "unet_sample_width": 64, "unet_time_batch": 1, "unet_hidden_batch": 1, "unet_hidden_sequence": 77, "unet_text_embeds_batch": 1, "unet_text_embeds_size": 1280, "unet_time_ids_batch": 1, "unet_time_ids_size": 6 }],
+      'timestep': ['float16', 'random', [1], {}],
+      'encoder_hidden_states': ['float16', 'random', [4, 77, 2048], {}],
+      'text_embeds': ['float16', 'random', [4, 1280], {}],
+      'time_ids': ['float16', 'random', [4, 6], {}]
+    }],
+    inputstip: '[4, 4, 64, 64] [1] [4, 77, 2048] [4, 1280] [4, 6]'
+  }))
+}
+
+const sdxlTurboVAEDecoder = () => {
+  const configs = [
+    ['q4f16', 'vae_decoder_model_q4f16.onnx', '93 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Image',
+    tag: '',
+    id: `sdxl_turbo_vae_decoder_demo_${dt}`,
+    name: 'SDXL-Turbo VAE Decoder',
+    description: 'A fast generative text-to-image model that can synthesize photorealistic images from a text prompt in a single network evaluation.',
+    note: '',
+    source: 'https://huggingface.co/stabilityai/sdxl-turbo',
+    hf: {
+      model: 'webnn/sdxl-turbo',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'latent_sample': ['float16', 'random', [4, 4, 64, 64], { "batch_size": 4, "num_channels_latent": 4, "height_latent": 64, "width_latent": 64 }]
+    }],
+    inputstip: '[4, 4, 64, 64]'
+  }))
+}
+
 const slimSAM77UniformVisionEncoder = () => {
   const configs = [
     ['fp32', 'vision_encoder.onnx', '22.1 MB'],
@@ -6772,6 +6884,10 @@ export const onnxModels = [
     }],
     inputstip: '[1, 4, 64, 64] [1] [1, 77, 1024]'
   },
+  ...sdxlTurboTextEncoder(),
+  ...sdxlTurboTextEncoder2(),
+  ...sdxlTurboUNet(),
+  ...sdxlTurboVAEDecoder(),
   {
     category: 'Zero-Shot Image Classification',
     tag: '',

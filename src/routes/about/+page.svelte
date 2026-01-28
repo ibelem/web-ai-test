@@ -39,13 +39,14 @@
 		<div>
 			<p>For language models, the following test indicators are not currently supported:</p>
 			<ul>
-				<li>❌ Time to First Token (TTFS / Prefill)</li>
+				<li>❌ Time to First Token (TTFT / Prefill)</li>
 				<li>❌ Time Per Output Token (TPOT)</li>
 				<li>❌ Decode Time</li>
 				<li>❌ Tokens Per Second (TPS)</li>
 				<li>❌ End-to-End Time</li>
 				<li>❌ E2E Tokens Per Second</li>
 			</ul>
+			<p>Visit <a id="playground" href="https://chat.webai-playground.dev/">Text Generation Playground</a> to test end-to-end Time to First Token (TTFT) and Tokens Per Second (TPS) data.</p>
 		</div>
 	</div>
 	<div>
@@ -120,6 +121,13 @@
 
 	a:hover {
 		text-decoration: underline;
+	}
+
+	#playground {
+		color: #fff;
+		background-color: var(--red);
+		padding: 0px 8px;
+		transform: skew(-15deg);
 	}
 
 	@media (max-width: 768px) {
