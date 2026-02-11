@@ -8,7 +8,6 @@ export {
   MODEL_HOSTS,
   UNIQUE_BACKENDS,
   CORS_SITES,
-  TRACKING,
   ORT_DISTS
 } from './constants.js';
 
@@ -28,7 +27,6 @@ export const allModels = [
 import { 
   CORS_SITES,
   MODEL_HOSTS,
-  TRACKING,
   ORT_DISTS,
   UNIQUE_BACKENDS
 } from './constants.js';
@@ -36,7 +34,6 @@ import {
 // Legacy exports for backward compatibility (using the same names as original config.js)
 export const corsSites = CORS_SITES;
 export const modelHosts = MODEL_HOSTS;
-export const tracking = TRACKING;
 export const ortDists = ORT_DISTS;
 export const uniqueBackends = UNIQUE_BACKENDS;
 export const models = allModels;

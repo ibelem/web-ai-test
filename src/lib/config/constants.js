@@ -66,23 +66,6 @@ export const CORS_SITES = [
   'webai.run'
 ];
 
-export const TRACKING = [
-  '201dg',
-  'leusfc',
-  'oionwq',
-  'les73r',
-  '9dafg3',
-  '6ba55q',
-  '8lbx5e',
-  '9da09e',
-  '9da0b2',
-  '9da55f',
-  'ha8all',
-  '7mzis9',
-  '1rxyb2',
-  'fzchqb'
-];
-
 export const ORT_DISTS = {
   webnn_webglfix_wasm: {
     version: '2025-9-12',

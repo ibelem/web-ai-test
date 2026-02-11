@@ -1,13 +1,6 @@
 <script>
 	import { onMount, afterUpdate } from 'svelte';
-	import {
-		getURLParameterValue,
-		getGpu,
-		isFirefoxOrSafari,
-		isSafari
-	} from '$lib/assets/js/utils.js';
-	import { tracking } from '$lib/config/index.js';
-	import { hashPin } from '$lib/assets/js/pin_hash.js';
+
 	// import TestQueue from './TestQueue.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
@@ -18,8 +11,7 @@
 	import Results from '$lib/components/Results.svelte';
 	import Environment from './Environment.svelte';
 	import Info from './Info.svelte';
-	import ValidationModal from '$lib/components/ValidationModal.svelte';
-	import { writable } from 'svelte/store';
+
 	import {
 		auto,
 		run,
@@ -42,26 +34,12 @@
 		autoStore,
 		testQueueStore,
 		backendsStore,
-		modelDownloadProgressStore,
-		pinStore
+		modelDownloadProgressStore
 	} from '$lib/store/store';
 	import { page } from '$app/stores';
 	import Fallback from './Fallback.svelte';
 
 	let logShow = true;
-	let ia = false;
-	let showModal = false;
-	let attempts = writable(3);
-	let isValidated = false;
-	let urlPin = false;
-
-	/**
-	 * @type {string}
-	 */
-	export let storedPin;
-	pinStore.subscribe((value) => {
-		storedPin = value;
-	});
 
 	/**
 	 * @type {string[]}
@@ -79,29 +57,6 @@
 		testQueue = value;
 	});
 
-	const openValidationModal = () => {
-		showModal = true;
-	};
-
-	const handleValidation = async (validatedPin) => {
-		isValidated = true;
-		showModal = false;
-		console.log('Access granted');
-
-		// Store the validated pin in localStorage
-		if (validatedPin) {
-			pinStore.update(() => validatedPin);
-		}
-
-		await proceed();
-	};
-
-	const handleCancel = () => {
-		showModal = false;
-		console.log('Access denied');
-		attempts.set(3);
-	};
-
 	const proceed = async () => {
 		autoStore.update(() => false);
 		modelDownloadProgressStore.update(() => []);
@@ -113,11 +68,7 @@
 	};
 
 	const runManual = async () => {
-		if (ia) {
-			await proceed();
-		} else {
-			openValidationModal();
-		}
+		await proceed();
 	};
 
 	/**
@@ -214,39 +165,6 @@
 		// 	});
 		// }
 
-		// PIN validation bypassed for open testing
-		ia = true;
-		if (false) {
-			// Valid pin from URL - store it in localStorage (store the original, not the hash)
-			pinStore.update(() => urlPin);
-			ia = true;
-		} else {
-			// No valid pin - check device limitations
-			// Require PIN for: Safari, Firefox, ARM architecture, and non-Intel graphics on x86
-			
-			if (isSafari()) {
-				// Safari browser requires PIN
-				ia = false;
-			} else if (isFirefoxOrSafari()) {
-				// Firefox browser requires PIN
-				ia = false;
-			} else if (navigator.userAgentData) {
-				// For Chromium-based browsers: only Intel GPU doesn't require PIN
-				// Set to false by default, only allow for Intel GPU
-				const gpu = getGpu().toLowerCase();
-				if (gpu.includes('intel')) {
-					// Intel graphics - allow without PIN
-					ia = true;
-				} else {
-					// All other GPUs require PIN (including ARM, AMD, NVIDIA, etc.)
-					ia = false;
-				}
-			} else {
-				// Browser doesn't support userAgentData - require PIN
-				ia = false;
-			}
-		}
-
 		if (testQueue.length > 0 && auto) {
 			run();
 		}
@@ -264,10 +182,6 @@
 		}
 	});
 </script>
-
-{#if showModal}
-	<ValidationModal onValidate={handleValidation} onCancel={handleCancel} />
-{/if}
 
 {#if testQueue}
 	{#if testQueue.length != 0}

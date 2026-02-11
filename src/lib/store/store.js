@@ -24,4 +24,3 @@ export const sleepStore = persisted('sleepStore', false);
 export const ortWebVersionStore = persisted('ortWebVersionStore', { selected: 1, dev: '', stable: '' });
 export const liteRtJsVersionStore = persisted('liteRtJsVersion', { selected: 1, stable: "", dev: "2.0.0" });
 export const customStore = persisted('customStore', { id: '', filename: '', size: '', time: '', node_attributes_value_fp16: false, properties: [], metadata: [], nodes: [], inputs: [], outputs: [], overrides: []});
-export const pinStore = persisted('pinStore', '');
