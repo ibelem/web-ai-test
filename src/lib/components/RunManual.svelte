@@ -214,16 +214,9 @@
 		// 	});
 		// }
 
-		urlPin = getURLParameterValue('pin')?.toLocaleLowerCase().trim();
-		
-		// Check if pin is already stored in localStorage or URL pin is valid
-		// Pins are validated by hashing the input and comparing to pre-hashed values
-		const storedPinHash = storedPin ? hashPin(storedPin) : null;
-		const urlPinHash = urlPin ? hashPin(urlPin) : null;
-		
-		if (storedPinHash && tracking.includes(storedPinHash)) {
-			ia = true; // User has valid stored pin
-		} else if (urlPinHash && tracking.includes(urlPinHash)) {
+		// PIN validation bypassed for open testing
+		ia = true;
+		if (false) {
 			// Valid pin from URL - store it in localStorage (store the original, not the hash)
 			pinStore.update(() => urlPin);
 			ia = true;
