@@ -73,7 +73,11 @@
 			</div>
 		{:else}
 			<p class="pin-desc">
-				A <strong>{gpuVendor.toUpperCase()}</strong> GPU is detected. Non-Intel devices require a pin code to run tests.
+				{#if gpuVendor === 'unknown'}
+					A non-Intel GPU is detected. Non-Intel devices require a pin code to run tests.
+				{:else}
+					A <strong>{gpuVendor.toUpperCase()}</strong> GPU is detected. Non-Intel devices require a pin code to run tests.
+				{/if}
 			</p>
 			<div class="pin-notes">
 				<p><strong>Notes:</strong></p>
