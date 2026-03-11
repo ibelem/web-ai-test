@@ -402,7 +402,25 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
             } else if (v.includes('encoder')) {
               feeds[v] = getFeedInfo(v, 'float16', 1, [1, 12, 1500, 64]);
             }
-          } else if (modelName.indexOf('phi_4_mini-instruct-onnx-webnn_demo_merged_') > -1) {
+          } 
+          
+          else if (modelName.indexOf('whisper_small_decoder_merged_') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 128, 64]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 1500, 64]);
+            }
+          } 
+
+          else if (modelName.indexOf('whisper_small_decoder_with_past_') > -1) {
+            if (v.includes('decoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 128, 64]);
+            } else if (v.includes('encoder')) {
+              feeds[v] = getFeedInfo(v, 'float32', 1, [1, 12, 1500, 64]);
+            }
+          } 
+
+          else if (modelName.indexOf('phi_4_mini-instruct-onnx-webnn_demo_merged_') > -1) {
             feeds[v] = getFeedInfo(v, 'float16', 1, [1, 8, 512, 128]);
           } else if (modelName.indexOf('tinyllama_1_1b_chat_v1_0_demo_merged_') > -1) {
             feeds[v] = getFeedInfo(v, 'float16', 1, [1, 4, 512, 64]);

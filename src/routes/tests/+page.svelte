@@ -425,37 +425,6 @@
 		{/each}
 	</div>
 
-	<div class="title tq int4">INT4 · {int4Count}</div>
-	<div class="tq benchmark int4">
-		{#each uniqueModels as model}
-			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'int4' && model.indexOf('_q4') === -1 && model.indexOf('_bnb4') === -1 && getModelTagById(model) !== 'onnx_operators'}
-					<div
-						class="q tests {model} tagH"
-						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
-							model
-						)} · {getModelNoteById(model)}"
-					>
-						<div class="status_1 s netron_link">
-							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
-								><ArrowOutward /></a
-							>
-						</div>
-
-						<a href="{base}/run/{model}" class="titlemark"
-							>{@html getHTMLModelName(model)}
-							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
-						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
-					</div>
-				{/if}
-			{/if}
-		{/each}
-	</div>
-
 	<div class="title tq bnb4">BNB4 · {bnb4Count}</div>
 	<div class="tq benchmark bnb4">
 		{#each uniqueModels as model}
@@ -492,6 +461,68 @@
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
 				{#if model.indexOf('_q4') > -1 && model.indexOf('_q4f16') === -1 && getModelTagById(model) !== 'onnx_operators'}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq int4">INT4 · {int4Count}</div>
+	<div class="tq benchmark int4">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if getModelDataTypeById(model) === 'int4' && model.indexOf('_q4') === -1 && model.indexOf('_bnb4') === -1 && getModelTagById(model) !== 'onnx_operators'}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq uint8">UINT8 · {uint8Count}</div>
+	<div class="tq benchmark uint8">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if model.indexOf('_uint8') > -1 && getModelTagById(model) !== 'onnx_operators'}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -560,37 +591,6 @@
 		{/each}
 	</div>
 
-	<div class="title tq fp16">FLOAT16 · {fp16Count}</div>
-	<div class="tq benchmark fp16">
-		{#each uniqueModels as model}
-			{#if model !== 'model_access_check'}
-				{#if getModelDataTypeById(model) === 'fp16' && model.indexOf('_q4f16') === -1 && getModelTagById(model) !== 'onnx_operators' && model.indexOf('_demo') === -1}
-					<div
-						class="q tests {model} tagH"
-						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
-							model
-						)} · {getModelNoteById(model)}"
-					>
-						<div class="status_1 s netron_link">
-							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
-								><ArrowOutward /></a
-							>
-						</div>
-
-						<a href="{base}/run/{model}" class="titlemark"
-							>{@html getHTMLModelName(model)}
-							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
-						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
-					</div>
-				{/if}
-			{/if}
-		{/each}
-	</div>
-
 	<div class="title tq q4f16">Q4F16 · {q4f16Count}</div>
 	<div class="tq benchmark q4f16">
 		{#each uniqueModels as model}
@@ -622,11 +622,11 @@
 		{/each}
 	</div>
 
-	<div class="title tq uint8">UINT8 · {uint8Count}</div>
-	<div class="tq benchmark uint8">
+	<div class="title tq fp16">FLOAT16 · {fp16Count}</div>
+	<div class="tq benchmark fp16">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if model.indexOf('_uint8') > -1 && getModelTagById(model) !== 'onnx_operators'}
+				{#if getModelDataTypeById(model) === 'fp16' && model.indexOf('_q4f16') === -1 && getModelTagById(model) !== 'onnx_operators' && model.indexOf('_demo') === -1}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(

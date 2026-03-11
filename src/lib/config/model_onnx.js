@@ -28,6 +28,33 @@ const adamCoddViTBaseNSFWDetector = () => {
   }))
 }
 
+const adamCoddViTBaseNSFWDetectorComputeBenchmark = () => {
+  const configs = [
+    ['q4', 'model_quantized.onnx', '55.2 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Classification',
+    tag: '',
+    id: `adamcodd_vit_base_nsfw_detector_${dt}`,
+    name: 'AdamCodd ViT base NSFW Detector compute-benchmark',
+    description: 'ViT model specifically to detect NSFW/SFW images for stable diffusion usage',
+    note: '',
+    source: 'https://huggingface.co/AdamCodd/vit-base-nsfw-detector/',
+    hf: {
+      model: 'AdamCodd/vit-base-nsfw-detector',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+       'pixel_values': ['float32', 'random', [1, 3, 384, 384], { "batch_size": 1, "num_channels":3, "height": 384, "width": 384 }],
+    }],
+    inputstip: '[1, 3, 384, 384]'
+  }))
+}
+
 const albertBaseV2 = () => {
   const configs = [
     ['fp32', 'model.onnx', '43.1 MB'],
@@ -1859,9 +1886,36 @@ const gemma2bItMerged = () => {
   }))
 }
 
-const gteBaseEnV1_5 = () => {
+const gteBaseEnV1_5ComputeBenchmark = () => {
   const configs = [
     ['fp32', 'model.onnx', '530 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Similarity',
+    tag: '',
+    id: `gte_base_en_v1_5_${dt}`,
+    name: 'General Text Embeddings (GTE) Base EN v1.5 compute-benchmark',
+    description: 'GTE-v1.5 series upgraded gte embeddings that support the context length of up to 8192, while further enhancing model performance. The models are built upon the transformer++ encoder backbone (BERT + RoPE + GLU).',
+    note: 'Large model',
+    source: 'https://huggingface.co/Alibaba-NLP/gte-base-en-v1.5',
+    hf: {
+      model: 'alibaba-nlp/gte-base-en-v1.5',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }]
+    }],
+    inputstip: '[1, 16] [1, 16] [1, 16]'
+  }))
+}
+
+const gteBaseEnV1_5 = () => {
+  const configs = [
     ['fp16', 'model_fp16.onnx', '265 MB'],
     ['int8', 'model_quantized.onnx', '139 MB'],
   ]
@@ -2043,9 +2097,37 @@ const jinaRerankerV1TurboEn = () => {
   }))
 }
 
-const kokoro82MV1 = () => {
+const kokoro82MV1ComputeBenchmark = () => {
   const configs = [
     ['fp32', 'model.onnx', '310 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Speech',
+    tag: '',
+    id: `kokoro_82m_v1_${dt}`,
+    name: 'Kokoro 82M v1 compute-benchmark',
+    description: 'Kokoro is a frontier TTS model for its size of 82 million parameters (text in/audio out).',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX',
+    hf: {
+      model: 'onnx-community/Kokoro-82M-v1.0-ONNX',
+      file: `${file}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 48], { "sequence_length": 48 }],
+      'style': ['float32', 'random', [1, 256], {}],
+      'speed': ['float32', 'random', [1], {}],
+    }],
+    inputstip: '[1, 256] [1, 256] [1]'
+  }))
+}
+
+const kokoro82MV1 = () => {
+  const configs = [
     ['fp16', 'model_fp16.onnx', '155 MB'],
     ['int8', 'model_quantized.onnx', '88 MB'],
     ['q4', 'model_q4.onnx', '219 MB'],
@@ -2055,7 +2137,7 @@ const kokoro82MV1 = () => {
     category: 'Text-to-Speech',
     tag: '',
     id: `kokoro_82m_v1_${dt}`,
-    name: 'Kokoro 82M v1 compute-benchmark',
+    name: 'Kokoro 82M v1',
     description: 'Kokoro is a frontier TTS model for its size of 82 million parameters (text in/audio out).',
     note: '',
     source: 'https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX',
@@ -2445,7 +2527,34 @@ const marqoFashionSigLIPText = () => {
     ['fp32', 'text_model.onnx', '420 MB'],
     ['fp16', 'text_model_fp16.onnx', '210 MB'],
     ['int8', 'text_model_quantized.onnx', '105 MB'],
-    ['q4f16', 'text_model_q4f16.onnx', '103 MB'],
+    ['q4f16', 'text_model_q4f16.onnx', '103 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Zero-Shot Image Classification',
+    tag: '',
+    isv: '',
+    id: `marqo_fashion_sig_lip_text_${dt}`,
+    name: `Marqo-FashionSigLIP Text`,
+    description: 'Marqo-FashionSigLIP is a multimodal embedding model that provides up to 57% improvement in MRR and recall over fashion clip.',
+    note: '',
+    source: 'https://huggingface.co/Marqo/marqo-fashionSigLIP',
+    hf: {
+      model: 'Marqo/marqo-fashionSigLIP',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 64], { "batch_size": 1, "sequence_length": 64 }]
+    }],
+    inputstip: '[1, 64]'
+  }))
+}
+
+const marqoFashionSigLIPTextComputeBenchmark = () => {
+  const configs = [
     ['bnb4', 'text_model_bnb4.onnx', '165 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
@@ -2477,7 +2586,34 @@ const marqoFashionSigLIPVision = () => {
     ['fp32', 'vision_model.onnx', '354 MB'],
     ['fp16', 'vision_model_fp16.onnx', '177 MB'],
     ['int8', 'vision_model_quantized.onnx', '89.6 MB'],
-    ['q4f16', 'vision_model_q4f16.onnx', '51.1 MB'],
+    ['q4f16', 'vision_model_q4f16.onnx', '51.1 MB']
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Zero-Shot Image Classification',
+    tag: '',
+    isv: '',
+    id: `marqo_fashion_sig_lip_vision_${dt}`,
+    name: `Marqo FashionSigLIP Vision`,
+    description: 'Marqo-FashionSigLIP is a multimodal embedding model that provides up to 57% improvement in MRR and recall over fashion clip.',
+    note: '',
+    source: 'https://huggingface.co/Marqo/marqo-fashionSigLIP',
+    hf: {
+      model: 'Marqo/marqo-fashionSigLIP',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 3, 224, 224]'
+  }))
+}
+
+const marqoFashionSigLIPVisionComputeBenchmark = () => {
+  const configs = [
     ['bnb4', 'vision_model_bnb4.onnx', '52.8 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
@@ -2701,6 +2837,38 @@ const modNet = () => {
     isv: 'ms',
     id: `mod_net_${dt}`,
     name: `MODNet`,
+    description: 'MODNet: Trimap-Free Portrait Matting in Real Time',
+    note: '',
+    source: 'https://huggingface.co/Xenova/modnet',
+    hf: {
+      model: 'xenova/modnet',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input': ['float32', 'random', [1, 3, 256, 256], {
+        "batch_size": 1,
+        "height": 256,
+        "width": 256,
+      }]
+    }],
+    inputstip: '[1, 3, 256, 256]'
+  }))
+}
+
+const modNetComputeBenchmark = () => {
+  const configs = [
+    ['uint8', 'model_uint8.onnx', '6.31 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Segmentation',
+    tag: '',
+    isv: 'ms',
+    id: `mod_net_${dt}`,
+    name: `MODNet compute-benchmark`,
     description: 'MODNet: Trimap-Free Portrait Matting in Real Time',
     note: '',
     source: 'https://huggingface.co/Xenova/modnet',
@@ -3065,10 +3233,38 @@ const mt5SmallEncoder = () => {
     inputstip: '[1, 128] [1, 128]'
   }))
 }
-const mxbaiEmbedLargeV1 = () => {
+
+const mxbaiEmbedLargeV1ComputeBenchmark = () => {
   const configs = [
     ['fp32', 'model.onnx', '1.24 GB'],
-    ['fp16', 'model_fp16.onnx', '637 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '',
+    id: `mxbai_embed_large_v1_${dt}`,
+    name: 'MxbAI Embed Large v1 compute-benchmark',
+    description: 'The crispy sentence embedding family from mixedbread ai, provideing several ways to produce sentence embeddings.',
+    note: 'Large model',
+    source: 'https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1',
+    hf: {
+      model: 'mixedbread-ai/mxbai-embed-large-v1',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 101n, [5, 18], { "batch_size": 5, "sequence_length": 18 }],
+      'attention_mask': ['int64', 1n, [5, 18], { "batch_size": 5, "sequence_length": 18 }],
+      'token_type_ids': ['int64', 0n, [5, 18], { "batch_size": 5, "sequence_length": 18 }],
+    }],
+    inputstip: '[5, 18] [5, 18] [5, 18]'
+  }))
+}
+
+const mxbaiEmbedLargeV1 = () => {
+  const configs = [
     ['int8', 'model_quantized.onnx', '321 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
@@ -4904,11 +5100,40 @@ const metaLlama_3_8bInstructMerged = () => {
   }))
 }
 
+const uaeLargeV1ComputeBenchmark = () => {
+  const configs = [
+    ['q4', 'model_q4.onnx', '303 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    tag: '',
+    id: `uae_large_v1_${dt}`,
+    name: 'Universal AnglE Embedding (UAE) Large v1 compute-benchmark',
+    description: 'Generate high-quality text embeddings.',
+    note: '',
+    source: 'https://huggingface.co/WhereIsAI/UAE-Large-V1',
+    hf: {
+      model: 'Xenova/uae-large-v1',
+      file: `${file}`,
+    },
+    model: 'Large model',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'token_type_ids': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128]'
+  }))
+}
+
 const uaeLargeV1 = () => {
   const configs = [
     ['fp32', 'model.onnx', '1.24 GB'],
     ['fp16', 'model_fp16.onnx', '637 MB'],
-    ['int8', 'model_quantized.onnx', '321 MB'],
+    ['int8', 'model_int8.onnx', '321 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Feature Extraction',
@@ -4919,7 +5144,7 @@ const uaeLargeV1 = () => {
     note: '',
     source: 'https://huggingface.co/WhereIsAI/UAE-Large-V1',
     hf: {
-      model: 'whereisai/uae-large-v1',
+      model: 'Xenova/uae-large-v1',
       file: `${file}`,
     },
     model: 'Large model',
@@ -5742,6 +5967,120 @@ const onnxOperatorsIdentity_1x1 = () => {
   }))
 }
 
+const whisperSmallEncoderComputeBenchmark = () => {
+  const configs = [
+    ['q4', 'encoder_model_q4.onnx', '63.0 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    tag: '',
+    id: `whisper_small_encoder_${dt}`,
+    name: `Whisper Small Encoder compute-benchmark`,
+    description: 'Whisper is a pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'https://huggingface.co/openai/whisper-small',
+    hf: {
+      model: 'Xenova/whisper-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }]
+    }],
+    inputstip: '[1, 80, 3000]'
+  }))
+}
+
+const whisperSmallDecoderComputeBenchmark = () => {
+  const configs = [
+    ['q4', 'decoder_model_q4.onnx', '221.0 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    tag: '',
+    id: `whisper_small_decoder_${dt}`,
+    name: `Whisper Small Decoder Non-KV-Cache compute-benchmark`,
+    description: 'Whisper is a pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'https://huggingface.co/openai/whisper-small',
+    hf: {
+      model: 'Xenova/whisper-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 4], { "batch_size": 1, "decoder_sequence_length": 4 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 768], { "encoder_sequence_length / 2": 1500 }]
+    }],
+    inputstip: '[1, 4] [1, 1500, 768]'
+  }))
+}
+
+const whisperSmallDecoderMergedComputeBenchmark = () => {
+  const configs = [
+    ['q4', 'decoder_model_merged_q4.onnx', '222.0 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    tag: '',
+    id: `whisper_small_decoder_merged_${dt}`,
+    name: `Whisper Small Decoder KV-Cache compute-benchmark`,
+    description: 'Whisper is a pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'https://huggingface.co/openai/whisper-small',
+    hf: {
+      model: 'Xenova/whisper-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 4], { "batch_size": 1, "decoder_sequence_length": 4 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 768], { "encoder_sequence_length / 2": 1500 }],
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_decoder_sequence_length": 128,
+        "encoder_sequence_length_out": 1500
+      }]
+    }],
+    inputstip: '[1, 4] [1, 1500, 768]'
+  }))
+}
+
+const whisperSmallDecoderWithPastComputeBenchmark = () => {
+  const configs = [
+    ['q4', 'decoder_with_past_model_q4.onnx', '213.0 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    tag: '',
+    id: `whisper_small_decoder_with_past_${dt}`,
+    name: `Whisper Small Decoder w/i Past compute-benchmark`,
+    description: 'Whisper is a pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'https://huggingface.co/openai/whisper-small',
+    hf: {
+      model: 'Xenova/whisper-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "past_decoder_sequence_length": 128, "encoder_sequence_length_out": 1500 }]
+    }],
+    inputstip: '[1, 1]'
+  }))
+}
+
 export const onnxModels = [
   {
     category: 'Model Access Check',
@@ -5753,6 +6092,7 @@ export const onnxModels = [
     model: '01.onnx'
   },
   ...adamCoddViTBaseNSFWDetector(),
+  ...adamCoddViTBaseNSFWDetectorComputeBenchmark(),
   ...albertBaseV2(),
   ...briaAiRmbg2(),
   ...bartLargeCnn(),
@@ -6270,12 +6610,14 @@ export const onnxModels = [
   //   inputstip: '[1, 1, 256, 192]'
   // },
   ...gteBaseEnV1_5(),
+  ...gteBaseEnV1_5ComputeBenchmark(),
   ...gteSmall(),
   ...jinaClipV1Text(),
   ...jinaClipV1Vision(),
   ...jinaEmbeddingsV2BaseCode(),
   ...jinaRerankerV1TurboEn(),
   ...kokoro82MV1(),
+  ...kokoro82MV1ComputeBenchmark(),
   ...llama2CStories15MDecoder(),
   ...llama2CStories15MDecoderMerged(),
   ...llama2CStories15MDecoderWithPast(),
@@ -6289,7 +6631,9 @@ export const onnxModels = [
   ...llavaPhiEmbedTokens(),
   ...llavaPhiVisionEncoder(),
   ...marqoFashionSigLIPText(),
+  ...marqoFashionSigLIPTextComputeBenchmark(),
   ...marqoFashionSigLIPVision(),
+  ...marqoFashionSigLIPVisionComputeBenchmark(),
   ...mediapipeSelfieSegmentation(),
   ...mediapipeSelfieSegmentationLandscape(),
   ...mobileClipS0Text(),
@@ -6300,6 +6644,7 @@ export const onnxModels = [
   ...mobileNetV4(),
   ...mobileVitSmall(),
   ...modNet(),
+  ...modNetComputeBenchmark(),
   ...movenetMultiposeLightning(),
   ...movenetSingleposeLightning(),
   ...movenetSingleposeThunder(),
@@ -6623,6 +6968,7 @@ export const onnxModels = [
   ...mt5SmallDecoderMerged(),
   ...mt5SmallEncoder(),
   ...mxbaiEmbedLargeV1(),
+  ...mxbaiEmbedLargeV1ComputeBenchmark(),
   ...mxbaiRerankBaseV1(),
   ...nomicEmbedTextV1(),
   ...nomicEmbedTextV1_5(),
@@ -7348,6 +7694,7 @@ export const onnxModels = [
     inputstip: '[1, 3, 416, 416]'
   },
   ...uaeLargeV1(),
+  ...uaeLargeV1ComputeBenchmark(),
   ...UniVaRLambda1(),
   ...vitBasePatch16224(),
   ...vitGpt2ImageCaptioningDecoder(),
@@ -7917,8 +8264,8 @@ export const onnxModels = [
   {
     category: 'Automatic Speech Recognition',
     tag: 'pv',
-    id: 'whisper_small_encoder_fp16',
-    name: 'Whisper Small Encoder',
+    id: 'whisper_small_encoder_static_fp16',
+    name: 'Whisper Small Encoder Static Shape',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
     note: '',
     source: '',
@@ -7990,4 +8337,8 @@ export const onnxModels = [
   ...yoloV10N(),
   ...yolo11N(),
   ...yolo12N(),
+  ...whisperSmallDecoderComputeBenchmark(),
+  ...whisperSmallDecoderMergedComputeBenchmark(),
+  ...whisperSmallDecoderWithPastComputeBenchmark(),
+  ...whisperSmallEncoderComputeBenchmark()
 ];
