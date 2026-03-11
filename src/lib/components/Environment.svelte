@@ -299,12 +299,12 @@
 			<h2 class="updatecpu">Your CPU Model</h2>
 		{/snippet}
 
+		<AutoComplete items={cpu} bind:selectedItem={cpuInfo} onChange={updateCPU} />
+
 		<div class="info">
 			This website does not collect any test equipment information or user data. It is intended
 			solely for your local use.
 		</div>
-
-		<AutoComplete items={cpu} bind:selectedItem={cpuInfo} onChange={updateCPU} />
 	</Modal>
 
 	<!-- {#if cpState}

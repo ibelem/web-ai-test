@@ -4,7 +4,11 @@
 	let dialog; // HTMLDialogElement
 
 	$effect(() => {
-		if (dialog && (showModal || showOrtDevModal || showOrtStableModal || showLiteRtDevModal)) dialog.showModal();
+		if (dialog && (showModal || showOrtDevModal || showOrtStableModal || showLiteRtDevModal)) {
+			dialog.showModal();
+		} else if (dialog && dialog.open) {
+			dialog.close();
+		}
 	});
 </script>
 
@@ -26,8 +30,8 @@
 
 <style>
 	dialog {
-		width: 320px;
-		height: 360px;
+		max-width: 340px;
+		overflow-y: hidden;
 		border-radius: 0.2em;
 		border: none;
 		padding: 0;
@@ -36,11 +40,11 @@
 		background: rgba(0, 0, 0, 0.3);
 	}
 	dialog > div {
-		padding: 1em;
+		padding: 2em 2em;
 		display: block;
 	}
 	.update {
-		margin: 20px auto;
+		margin: 20px auto 10px auto;
 		text-align: center;
 		display: block;
 	}

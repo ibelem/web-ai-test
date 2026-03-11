@@ -61,7 +61,9 @@
 
 <Modal bind:showModal={showPinModal}>
 	{#snippet header()}
-		<h2 class="pin-title">Verification Required</h2>
+		<div class="pin-title">
+			<h2>Verification</h2>
+		</div>
 	{/snippet}
 
 	<div class="pin-content">
@@ -73,10 +75,9 @@
 			</div>
 		{:else}
 			<p class="pin-desc">
-				PIN code required:
+				PIN code required
 			</p>
 			<div class="pin-notes">
-				<p><strong>Notes:</strong></p>
 				<ul>
 					<li>@google.com or @microsoft.com users: type your username only</li>
 					<li>Or ask Belem for general access code</li>
@@ -112,12 +113,6 @@
 		line-height: 1.5;
 	}
 
-	:global(.pin-title) {
-		font-size: 16px;
-		margin: 0 0 8px 0;
-		color: #333;
-	}
-
 	.pin-desc {
 		margin: 0 0 8px 0;
 	}
@@ -143,17 +138,6 @@
 		margin-bottom: 2px;
 	}
 
-	.pin-notes code {
-		background: #e0e0e0;
-		padding: 1px 4px;
-		border-radius: 2px;
-		font-size: 11px;
-	}
-
-	.pin-notes em {
-		color: #1565c0;
-	}
-
 	.pin-input-group {
 		display: flex;
 		gap: 8px;
@@ -164,7 +148,6 @@
 		flex: 1;
 		padding: 6px 10px;
 		border: 1px solid #ccc;
-		border-radius: 4px;
 		font-size: 14px;
 		outline: none;
 	}
@@ -178,7 +161,6 @@
 		background-color: var(--b1, #1976d2);
 		border: 1px solid var(--b1, #1976d2);
 		color: white;
-		border-radius: 4px;
 		cursor: pointer;
 		font-size: 13px;
 		white-space: nowrap;
@@ -208,5 +190,19 @@
 	.pin-locked p {
 		margin: 8px 0;
 		color: #555;
+	}
+
+	.pin-title {
+		display: flex;
+		justify-content: center;
+	}
+
+	h2 {
+		color: var(--b1);
+		background-color: var(--b1-005);
+		font-size: 1.2em;
+		padding: 6px 20px;
+		border-radius: 9999px;
+		text-transform: uppercase;
 	}
 </style>
