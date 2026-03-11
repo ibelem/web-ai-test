@@ -17,7 +17,6 @@
 		getModelNoteById,
 		getModelTypeById,
 		getModelTagById,
-		getModelIsvById,
 		sortModelById,
 		getModelSizeById,
 		getModelHFUrlById
@@ -71,18 +70,6 @@
 		fp16Count = 0;
 		fp32Count = 0;
 		uniqueModels.forEach((item) => {
-			if (getModelIsvById(item) === 'ms') {
-				if (item.endsWith('_fp16')) {
-					top2025CountFP16++;
-				} else if (item.endsWith('_int8')) {
-					top2025CountINT8++;
-				} else if (item.endsWith('_int4')) {
-					top2025CountINT4++;
-				} else {
-					top2025CountFP32++;
-				}
-			}
-
 			if (item.endsWith('_int4') || (item.indexOf('_q4') > -1 && item.indexOf('_q4f16') === -1)) {
 				int4Count++;
 			} else if (item.endsWith('_int8')) {
