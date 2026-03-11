@@ -27,9 +27,12 @@
 	let dataTypes = $state({
 		fp32: { selected: false, show: false },
 		fp16: { selected: false, show: false },
+		q4f16: { selected: false, show: false },
 		int8: { selected: false, show: false },
-		int4: { selected: false, show: false }
-		// int64: { selected: false, show: false }
+		uint8: { selected: false, show: false },
+		int4: { selected: false, show: false },
+		bnb4: { selected: false, show: false },
+		q4: { selected: false, show: false }
 	});
 
 	/**
@@ -113,8 +116,7 @@
 		dataTypesFromUrl = trimComma(dataTypesFromUrl);
 
 		if (dataTypesFromUrl === 'all') {
-			dataTypesFromUrl = ['fp32', 'fp16', 'int8', 'int4'];
-			// dataTypesFromUrl = ['fp32', 'fp16', 'int8', 'int64'];
+			dataTypesFromUrl = ['fp32', 'fp16', 'q4f16', 'int8', 'uint8', 'int4', 'bnb4', 'q4'];
 		} else {
 			dataTypesFromUrl = stringToArray(dataTypesFromUrl);
 		}
@@ -168,16 +170,40 @@
 				FP16
 			</label>
 		{/if}
+		{#if dataTypes.q4f16.show}
+			<label class="extra {dataTypes.q4f16.selected} q4f16" title="Q4F16">
+				<input type="checkbox" onchange={() => toggleDataType('q4f16')} />
+				Q4F16
+			</label>
+		{/if}
 		{#if dataTypes.int8.show}
 			<label class="extra {dataTypes.int8.selected} int8" title="INT8">
 				<input type="checkbox" onchange={() => toggleDataType('int8')} />
 				INT8
 			</label>
 		{/if}
+		{#if dataTypes.uint8.show}
+			<label class="extra {dataTypes.uint8.selected} uint8" title="UINT8">
+				<input type="checkbox" onchange={() => toggleDataType('uint8')} />
+				UINT8
+			</label>
+		{/if}
 		{#if dataTypes.int4.show}
-			<label class="extra {dataTypes.int4.selected} int8" title="INT4">
+			<label class="extra {dataTypes.int4.selected} int4" title="INT4">
 				<input type="checkbox" onchange={() => toggleDataType('int4')} />
 				INT4
+			</label>
+		{/if}
+		{#if dataTypes.bnb4.show}
+			<label class="extra {dataTypes.bnb4.selected} bnb4" title="BNB4">
+				<input type="checkbox" onchange={() => toggleDataType('bnb4')} />
+				BNB4
+			</label>
+		{/if}
+		{#if dataTypes.q4.show}
+			<label class="extra {dataTypes.q4.selected} q4" title="Q4">
+				<input type="checkbox" onchange={() => toggleDataType('q4')} />
+				Q4
 			</label>
 		{/if}
 	</div>

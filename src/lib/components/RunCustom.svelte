@@ -312,14 +312,19 @@
 		// Check if any input has datatype of float16
 		const hasFloat16Input = custom.inputs.some((input) => input.datatype === 'float16');
 
-		// List of quantized operation types
+		// Check if any input has datatype of uint8
+		const hasUint8Input = custom.inputs.some((input) => input.datatype === 'uint8');
+
+		// List of 4-bit quantized operation types
+		const int4Ops = ['MatMulNBits'];
+
+		// List of quantized operation types (int8)
 		const quantizedOps = [
 			'QuantizeLinear',
 			'DequantizeLinear',
 			'DynamicQuantizeLinear',
 			'MatMulInteger',
 			'ConvInteger',
-			'MatMulNBits',
 			'QLinearAdd',
 			'QLinearConv',
 			'QLinearMatMul',
@@ -327,15 +332,21 @@
 			'QlinearGlobalAveragePool'
 		];
 
-		// Check if any node type is in the quantizedOps list
+		// Check if any node type is in the respective ops lists
+		const hasInt4Op = custom.nodes.some((node) => int4Ops.includes(node.type));
 		const hasQuantizedOp = custom.nodes.some((node) => quantizedOps.includes(node.type));
 
-		if (hasFloat16Input || custom.node_attributes_value_fp16) {
+		if (hasFloat16Input && hasInt4Op) {
+			dataType = 'q4f16';
+		} else if (hasFloat16Input || custom.node_attributes_value_fp16) {
 			dataType = 'fp16';
+		} else if (hasInt4Op) {
+			dataType = 'int4';
+		} else if (hasUint8Input) {
+			dataType = 'uint8';
 		} else if (hasQuantizedOp) {
 			dataType = 'int8';
 		} else {
-			// If neither condition is met, return fp32
 			dataType = 'fp32';
 		}
 		document.body.setAttribute('class', dataType);

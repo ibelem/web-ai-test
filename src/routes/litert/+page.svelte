@@ -39,6 +39,10 @@
 	let int8Count = $state(0);
 	let int4Count = $state(0);
 	let fp32Count = $state(0);
+	let q4f16Count = $state(0);
+	let uint8Count = $state(0);
+	let bnb4Count = $state(0);
+	let q4Count = $state(0);
 	let subModels = models;
 	let selected = 'tflite';
 
@@ -69,12 +73,24 @@
 		int8Count = 0;
 		fp16Count = 0;
 		fp32Count = 0;
+		q4f16Count = 0;
+		uint8Count = 0;
+		bnb4Count = 0;
+		q4Count = 0;
 		uniqueModels.forEach((item) => {
-			if (item.endsWith('_int4') || (item.indexOf('_q4') > -1 && item.indexOf('_q4f16') === -1)) {
+			if (item.indexOf('_bnb4') > -1) {
+				bnb4Count++;
+			} else if (item.indexOf('_q4f16') > -1) {
+				q4f16Count++;
+			} else if (item.indexOf('_q4') > -1) {
+				q4Count++;
+			} else if (item.endsWith('_int4')) {
 				int4Count++;
+			} else if (item.indexOf('_uint8') > -1) {
+				uint8Count++;
 			} else if (item.endsWith('_int8')) {
 				int8Count++;
-			} else if (item.endsWith('_fp16') || item.indexOf('_q4f16') > -1) {
+			} else if (item.endsWith('_fp16')) {
 				fp16Count++;
 			} else {
 				fp32Count++;
@@ -220,7 +236,7 @@
 	<div class="tq benchmark fp16">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if (getModelDataTypeById(model) === 'fp16' || model.indexOf('_q4f16') > -1) }
+				{#if getModelDataTypeById(model) === 'fp16' && model.indexOf('_q4f16') === -1}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -232,21 +248,40 @@
 								><ArrowOutward /></a
 							>
 						</div>
-						<!-- {#if getModelTypeById(model) === 'onnx'}
-							<div class="onnx">
-								<Onnx />
-							</div>
-						{/if}
-
-						{#if getModelTypeById(model) === 'tflite'}
-							<div class="tflite">
-								<Tflite />
-							</div>
-						{/if} -->
 
 						<a href="{base}/run/{model}" class="titlemark"
 							>{@html getHTMLModelName(model)}
-							{#if model.indexOf('_q4f16') > -1}<span>q4f16</span>{/if}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq q4f16">Q4F16 · {q4f16Count}</div>
+	<div class="tq benchmark q4f16">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if model.indexOf('_q4f16') > -1}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
@@ -275,17 +310,130 @@
 								><ArrowOutward /></a
 							>
 						</div>
-						<!-- {#if getModelTypeById(model) === 'onnx'}
-							<div class="onnx">
-								<Onnx />
-							</div>
-						{/if}
 
-						{#if getModelTypeById(model) === 'tflite'}
-							<div class="tflite">
-								<Tflite />
-							</div>
-						{/if} -->
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq uint8">UINT8 · {uint8Count}</div>
+	<div class="tq benchmark uint8">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if model.indexOf('_uint8') > -1}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq int4">INT4 · {int4Count}</div>
+	<div class="tq benchmark int4">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if getModelDataTypeById(model) === 'int4' && model.indexOf('_q4') === -1 && model.indexOf('_bnb4') === -1}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq bnb4">BNB4 · {bnb4Count}</div>
+	<div class="tq benchmark bnb4">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if model.indexOf('_bnb4') > -1}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+
+						{#if getModelTagById(model) === '2h'}
+							<div class="tag"></div>
+						{/if}
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
+	<div class="title tq q4">Q4 · {q4Count}</div>
+	<div class="tq benchmark q4">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if model.indexOf('_q4') > -1 && model.indexOf('_q4f16') === -1}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
 
 						<a href="{base}/run/{model}" class="titlemark"
 							>{@html getHTMLModelName(model)}
@@ -384,6 +532,30 @@
 
 	.tq.fp16 .q.tests a:hover {
 		color: var(--fp16);
+	}
+
+	.tq.q4f16 .q.tests a:hover {
+		color: var(--q4f16);
+	}
+
+	.tq.int8 .q.tests a:hover {
+		color: var(--p);
+	}
+
+	.tq.uint8 .q.tests a:hover {
+		color: var(--uint8);
+	}
+
+	.tq.int4 .q.tests a:hover {
+		color: var(--int4);
+	}
+
+	.tq.bnb4 .q.tests a:hover {
+		color: var(--bnb4);
+	}
+
+	.tq.q4 .q.tests a:hover {
+		color: var(--q4);
 	}
 
 	.tq.fp32 .q.tests a:hover {

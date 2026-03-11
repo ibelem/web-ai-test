@@ -96,9 +96,12 @@
 	let dataTypes = $state({
 		fp32: false,
 		fp16: false,
+		q4f16: false,
 		int8: false,
-		int4: false
-		// int64: false
+		uint8: false,
+		int4: false,
+		bnb4: false,
+		q4: false
 	});
 
 	const uniqueDataTypes = getUniqueDataTypes();
@@ -170,7 +173,7 @@
 				}
 			} else if (urlDataTypes === 'all') {
 				// let removedDataTypes = removeStringFromArray(['fp32', 'fp16', 'int8', 'int64'], datatype);
-				let removedDataTypes = removeStringFromArray(['fp32', 'fp16', 'int8', 'int4'], datatype);
+				let removedDataTypes = removeStringFromArray(['fp32', 'fp16', 'q4f16', 'int8', 'uint8', 'int4', 'bnb4', 'q4'], datatype);
 				urlDataTypes = arrayToStringWithComma(removedDataTypes);
 			}
 		}
@@ -431,8 +434,7 @@
 		dataTypesFromUrl = trimComma(dataTypesFromUrl);
 
 		if (dataTypesFromUrl === 'all') {
-			dataTypesFromUrl = ['fp32', 'fp16', 'int8', 'int4'];
-			// dataTypesFromUrl = ['fp32', 'fp16', 'int8', 'int64'];
+			dataTypesFromUrl = ['fp32', 'fp16', 'q4f16', 'int8', 'uint8', 'int4', 'bnb4', 'q4'];
 		} else {
 			dataTypesFromUrl = stringToArray(dataTypesFromUrl);
 		}
@@ -543,21 +545,33 @@
 		<input type="checkbox" onchange={() => toggleDataType('fp32')} />
 		FP32
 	</label>
-	<!-- <label class="extra {dataTypes.int64.toString()} int64" title="INT64">
-		<input type="checkbox" onchange={() => toggleDataType('int64')} />
-		INT64
-	</label> -->
 	<label class="extra {dataTypes.fp16.toString()} fp16" title="FP16">
 		<input type="checkbox" onchange={() => toggleDataType('fp16')} />
 		FP16
+	</label>
+	<label class="extra {dataTypes.q4f16.toString()} q4f16" title="Q4F16">
+		<input type="checkbox" onchange={() => toggleDataType('q4f16')} />
+		Q4F16
 	</label>
 	<label class="extra {dataTypes.int8.toString()} int8" title="INT8">
 		<input type="checkbox" onchange={() => toggleDataType('int8')} />
 		INT8
 	</label>
+	<label class="extra {dataTypes.uint8.toString()} uint8" title="UINT8">
+		<input type="checkbox" onchange={() => toggleDataType('uint8')} />
+		UINT8
+	</label>
 	<label class="extra {dataTypes.int4.toString()} int4" title="INT4">
 		<input type="checkbox" onchange={() => toggleDataType('int4')} />
 		INT4
+	</label>
+	<label class="extra {dataTypes.bnb4.toString()} bnb4" title="BNB4">
+		<input type="checkbox" onchange={() => toggleDataType('bnb4')} />
+		BNB4
+	</label>
+	<label class="extra {dataTypes.q4.toString()} q4" title="Q4">
+		<input type="checkbox" onchange={() => toggleDataType('q4')} />
+		Q4
 	</label>
 </div>
 

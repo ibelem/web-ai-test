@@ -849,6 +849,74 @@ header .nav {
   background-color: var(--int4);
 }
 
+.figure.options .q4f16 {
+  background-color: var(--q4f16-005);
+}
+
+.figure.options .q4f16:hover,
+.figure.options .q4f16.true:hover {
+  background-color: var(--q4f16-005);
+  border: 1px solid var(--q4f16);
+  padding: 0px 10px;
+  color: var(--q4f16);
+}
+
+.figure.options .q4f16.true {
+  color: var(--white);
+  background-color: var(--q4f16);
+}
+
+.figure.options .uint8 {
+  background-color: var(--uint8-005);
+}
+
+.figure.options .uint8:hover,
+.figure.options .uint8.true:hover {
+  background-color: var(--uint8-005);
+  border: 1px solid var(--uint8);
+  padding: 0px 10px;
+  color: var(--uint8);
+}
+
+.figure.options .uint8.true {
+  color: var(--white);
+  background-color: var(--uint8);
+}
+
+.figure.options .bnb4 {
+  background-color: var(--bnb4-005);
+}
+
+.figure.options .bnb4:hover,
+.figure.options .bnb4.true:hover {
+  background-color: var(--bnb4-005);
+  border: 1px solid var(--bnb4);
+  padding: 0px 10px;
+  color: var(--bnb4);
+}
+
+.figure.options .bnb4.true {
+  color: var(--white);
+  background-color: var(--bnb4);
+}
+
+.figure.options .q4 {
+  background-color: var(--q4-005);
+}
+
+.figure.options .q4:hover,
+.figure.options .q4.true:hover {
+  background-color: var(--q4-005);
+  border: 1px solid var(--q4);
+  padding: 0px 10px;
+  color: var(--q4);
+}
+
+.figure.options .q4.true {
+  color: var(--white);
+  background-color: var(--q4);
+}
+
 .result .q .data .loadcompilation:hover,
 .figure .loadcompilation.true {
   background-color: var(--googlegreen);
@@ -999,6 +1067,22 @@ header .nav {
 
 .tq.int4 .q:hover .status_1 svg path {
   fill: var(--int4);
+}
+
+.tq.q4f16 .q:hover .status_1 svg path {
+  fill: var(--q4f16);
+}
+
+.tq.uint8 .q:hover .status_1 svg path {
+  fill: var(--uint8);
+}
+
+.tq.bnb4 .q:hover .status_1 svg path {
+  fill: var(--bnb4);
+}
+
+.tq.q4 .q:hover .status_1 svg path {
+  fill: var(--q4);
 }
 
 .tq.fp32 .q:hover .status_1 svg path {
@@ -1536,8 +1620,124 @@ header .nav {
   background-color: var(--int4-01);
 }
 
+.models label.false.extra.q4f16:hover {
+  border: 1px solid var(--q4f16) !important;
+  color: var(--q4f16);
+  background-color: var(--q4f16-01);
+}
+
+.models label.true.extra.q4f16:hover {
+  color: var(--q4f16);
+  background-image: none !important;
+  background-color: var(--q4f16-01);
+}
+
+.models label.false.extra.uint8:hover {
+  border: 1px solid var(--uint8) !important;
+  color: var(--uint8);
+  background-color: var(--uint8-01);
+}
+
+.models label.true.extra.uint8:hover {
+  color: var(--uint8);
+  background-image: none !important;
+  background-color: var(--uint8-01);
+}
+
+.models label.false.extra.bnb4:hover {
+  border: 1px solid var(--bnb4) !important;
+  color: var(--bnb4);
+  background-color: var(--bnb4-01);
+}
+
+.models label.true.extra.bnb4:hover {
+  color: var(--bnb4);
+  background-image: none !important;
+  background-color: var(--bnb4-01);
+}
+
+.models label.false.extra.q4:hover {
+  border: 1px solid var(--q4) !important;
+  color: var(--q4);
+  background-color: var(--q4-01);
+}
+
+.models label.true.extra.q4:hover {
+  color: var(--q4);
+  background-image: none !important;
+  background-color: var(--q4-01);
+}
+
 .config label.true.extra.int4 {
   background-image: linear-gradient(to right, var(--int4-09) 0%, var(--int4) 100%) !important;
+}
+
+.config label.false.extra.q4f16:hover {
+  border: 1px solid var(--q4f16) !important;
+  color: var(--q4f16);
+  background-color: var(--q4f16-01);
+}
+
+.config label.true.extra.q4f16:hover {
+  border: 1px solid var(--q4f16) !important;
+  color: var(--q4f16);
+  background-image: none !important;
+  background-color: var(--q4f16-01);
+}
+
+.config label.true.extra.q4f16 {
+  background-image: linear-gradient(to right, var(--q4f16-09) 0%, var(--q4f16) 100%) !important;
+}
+
+.config label.false.extra.uint8:hover {
+  border: 1px solid var(--uint8) !important;
+  color: var(--uint8);
+  background-color: var(--uint8-01);
+}
+
+.config label.true.extra.uint8:hover {
+  border: 1px solid var(--uint8) !important;
+  color: var(--uint8);
+  background-image: none !important;
+  background-color: var(--uint8-01);
+}
+
+.config label.true.extra.uint8 {
+  background-image: linear-gradient(to right, var(--uint8-09) 0%, var(--uint8) 100%) !important;
+}
+
+.config label.false.extra.bnb4:hover {
+  border: 1px solid var(--bnb4) !important;
+  color: var(--bnb4);
+  background-color: var(--bnb4-01);
+}
+
+.config label.true.extra.bnb4:hover {
+  border: 1px solid var(--bnb4) !important;
+  color: var(--bnb4);
+  background-image: none !important;
+  background-color: var(--bnb4-01);
+}
+
+.config label.true.extra.bnb4 {
+  background-image: linear-gradient(to right, var(--bnb4-09) 0%, var(--bnb4) 100%) !important;
+}
+
+.config label.false.extra.q4:hover {
+  border: 1px solid var(--q4) !important;
+  color: var(--q4);
+  background-color: var(--q4-01);
+}
+
+.config label.true.extra.q4:hover {
+  border: 1px solid var(--q4) !important;
+  color: var(--q4);
+  background-image: none !important;
+  background-color: var(--q4-01);
+}
+
+.config label.true.extra.q4 {
+  background-image: linear-gradient(to right, var(--q4-09) 0%, var(--q4) 100%) !important;
 }
 
 #modeldesc {
