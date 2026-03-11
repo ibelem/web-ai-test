@@ -3409,6 +3409,11 @@ table td.c {
   color: var(--white);
 }
 
+.titlemark span.static a.compute-benchmark {
+  color: white;
+  margin-left: 0px !important;
+}
+
 .titlemark span.isv {
   border: 1px solid rgba(108, 59, 170, 1);
   background-color: rgba(108, 59, 170, 1);

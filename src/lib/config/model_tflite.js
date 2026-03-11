@@ -183,9 +183,35 @@ const inceptionV4TFLite = () => {
   }));
 };
 
+const mediaPipeHandDetectionHandLandmarkDetectorTFLite = () => {
+  const configs = [
+    ['fp32', 'MediaPipe-Hand-Detection_HandLandmarkDetector_float.tflite', '7.69MB'],
+    // ['fp16', 'MediaPipe-Hand-Detection_HandLandmarkDetector_fp16.tflite', '224 KB'],
+    // ['int8', 'MediaPipe-Hand-Detection_HandLandmarkDetector_int8.tflite', '112 KB'],
+  ];
+  return configs.map(([dt, file, size]) => ({
+    category: MODEL_CATEGORIES.OBJECT_DETECTION,
+    tag: '',
+    id: `mediapipe_hand_detection_hand_landmark_detector_tflite_${dt}`,
+    name: 'MediaPipe Hand Detection Hand Landmark Detector compute-benchmark',
+    description: '',
+    note: '',
+    source: 'https://huggingface.co/qualcomm/MediaPipe-Hand-Detection/tree/main',
+    hf: {
+      model: 'webnn/MediaPipe-Hand-Detection',
+      file: `${file}`
+    },
+    model: ``,
+    size: size,
+    format: 'tflite',
+    datatype: dt,
+    inputstip: 'Get inputs from compiled model dynamically'
+  }));
+};
+
 const mediaPipeSelfieSegmentationTFLite = () => {
   const configs = [
-    ['fp32', 'MediaPipe-Selfie-Segmentation.tflite', '447 KB'],
+    ['fp32', 'MediaPipe-Selfie-Segmentation_float.tflite', '447 KB'],
     // ['fp16', 'MediaPipe-Selfie-Segmentation_fp16.tflite', '224 KB'],
     // ['int8', 'MediaPipe-Selfie-Segmentation_int8.tflite', '112 KB'],
   ];
@@ -193,15 +219,15 @@ const mediaPipeSelfieSegmentationTFLite = () => {
     category: MODEL_CATEGORIES.IMAGE_SEGMENTATION,
     tag: '',
     id: `mediapipe_selfie_segmentation_tflite_${dt}`,
-    name: 'MediaPipe Selfie Segmentation 256x256',
+    name: 'MediaPipe Selfie Segmentation 256x256 compute-benchmark',
     description: 'MediaPipe-Selfie-Segmentation: Optimized for Mobile Deployment. Segments the person from background in a selfie image and realtime background segmentation in video conferencing',
     note: '',
     source: 'https://huggingface.co/qualcomm/MediaPipe-Selfie-Segmentation/tree/main',
     hf: {
-      model: '',
-      file: ''
+      model: 'webnn/MediaPipe-Selfie-Segmentation',
+      file: `${file}`
     },
-    model: `tflite/${dt}/${file}`,
+    model: ``,
     size: size,
     format: 'tflite',
     datatype: dt,
@@ -289,23 +315,23 @@ const mobileNetV2TFLite = () => {
 
 const mobileNetV3SmallTFLite = () => {
   const configs = [
-    ['fp32', 'mobilenet_v3_small_100_224_v1.tflite', '9.73 MB'],
-    // ['fp16', 'mobilenet_v3_small_100_224_v1_fp16.tflite', '4.87 MB'],
-    // ['int8', 'mobilenet_v3_small_100_224_v1_int8.tflite', '2.44 MB'],
+    ['fp32', 'MobileNet-v3-Small_float.tflite', '9.71 MB'],
+    // ['fp16', 'MobileNet-v3-Small_fp16.tflite', '4.87 MB'],
+    // ['int8', 'MobileNet-v3-Small_int8.tflite', '2.44 MB'],
   ];
   return configs.map(([dt, file, size]) => ({
     category: MODEL_CATEGORIES.IMAGE_CLASSIFICATION,
     tag: '',
-    id: `mobilenet_v3_small_100_224_tflite_${dt}`,
-    name: 'MobileNet v3',
+    id: `mobilenet_v3_small_tflite_${dt}`,
+    name: 'MobileNet v3 Small compute-benchmark',
     description: 'Imagenet (ILSVRC-2012-CLS) classification with MobileNet V3 large (depth multiplier 0.75).',
     note: '',
-    source: 'https://www.kaggle.com/models/google/mobilenet-v3/tfLite/small-100-224-classification',
+    source: 'https://github.com/GoogleChrome/webai-compute-benchmark/blob/main/resources/litert-js/src/download-models.mjs',
     hf: {
-      model: '',
-      file: ''
+      model: 'webnn/MobileNet-v3-Small',
+      file: `${file}`
     },
-    model: `tflite/${dt}/${file}`,
+    model: ``,
     size: size,
     format: 'tflite',
     datatype: dt,
@@ -452,6 +478,7 @@ export const tfliteModels = [
   ...efficientViTL2SegTFLite(),
   ...ESRGANTFLite(),
   ...inceptionV4TFLite(),
+  ...mediaPipeHandDetectionHandLandmarkDetectorTFLite(),
   ...mediaPipeSelfieSegmentationTFLite(),
   ...mobileBertTFLite(),
   // ...mobileBertQatTFLite(),

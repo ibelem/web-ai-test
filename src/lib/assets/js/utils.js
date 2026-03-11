@@ -394,7 +394,8 @@ export const getHfUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
       if (models[i].hf && models[i].hf.model) {
-        const url = `https://huggingface.co/${models[i].hf.model}/resolve/main/onnx/${models[i].hf.file}`;
+        const subfolder = models[i].hf.file.includes('tflite') ? 'tflite' : 'onnx';
+        const url = `https://huggingface.co/${models[i].hf.model}/resolve/main/${subfolder}/${models[i].hf.file}`;
         return url;
       } else {
         return modelHosts.hf + models[i].model;
@@ -422,7 +423,8 @@ export const getHfmUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
       if (models[i].hf && models[i].hf.model) {
-        const url = `https://hf-mirror.com/${models[i].hf.model}/resolve/main/onnx/${models[i].hf.file}`;
+        const subfolder = models[i].hf.file.includes('tflite') ? 'tflite' : 'onnx';
+        const url = `https://hf-mirror.com/${models[i].hf.model}/resolve/main/${subfolder}/${models[i].hf.file}`;
         return url;
       } else {
         return modelHosts.hfm + models[i].model;
@@ -459,7 +461,8 @@ export const getLocalUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
       if (models[i].hf && models[i].hf.model) {
-        const url = `${location.origin}/${modelHosts.local}${models[i].hf.model}/onnx/${models[i].hf.file}`;
+        const subfolder = models[i].hf.file.includes('tflite') ? 'tflite' : 'onnx';
+        const url = `${location.origin}/${modelHosts.local}${models[i].hf.model}/${subfolder}/${models[i].hf.file}`;
         return url;
       } else {
         return location.origin + '/' + modelHosts.local + models[i].model;
@@ -665,7 +668,8 @@ export const getModelInputsById = (id) => {
 export const getModelHFUrlById = (id) => {
   const model = models.find(item => item.id === id);
   if (model?.hf && model?.hf.model && model?.hf.file) {
-    return `https://huggingface.co/${model.hf.model}/resolve/main/onnx/${model.hf.file}`;
+    const subfolder = model.hf.file.includes('tflite') ? 'tflite' : 'onnx';
+    return `https://huggingface.co/${model.hf.model}/resolve/main/${subfolder}/${model.hf.file}`;
   } else {
     return modelHosts.hf + model?.model;
   }

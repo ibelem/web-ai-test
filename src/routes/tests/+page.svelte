@@ -144,6 +144,7 @@
 		name = name
 			?.replace('Encoder', '<span>Encoder</span>')
 			.replace('Decoder', '<span>Decoder</span>')
+			.replace('compute-benchmark', '<span class="phi3">Web AI Compute Benchmark</span>')
 			.replace('Non-KV-Cache', '<span>Non KV-Cache</span>')
 			.replace('KV-Cache', '<span>KV-Cache</span>')
 			.replace('w/i Past', '<span>w/i Past</span>')
