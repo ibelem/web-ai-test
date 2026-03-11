@@ -115,7 +115,7 @@
 	const getHTMLModelName = (/** @type {string} */ model) => {
 		let name = getModelNameById(model);
 		name = name?.replace('WIP', '<span class="wip">WIP</span>')
-		.replace('compute-benchmark', '<span class="static">Web AI Compute Benchmark</span>');
+		.replace('compute-benchmark', '<span class="computebenchmark">Web AI Compute Benchmark</span>');
 		return name;
 	};
 

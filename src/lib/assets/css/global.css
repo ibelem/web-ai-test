@@ -3409,11 +3409,6 @@ table td.c {
   color: var(--white);
 }
 
-.titlemark span.static a.compute-benchmark {
-  color: white;
-  margin-left: 0px !important;
-}
-
 .titlemark span.isv {
   border: 1px solid rgba(108, 59, 170, 1);
   background-color: rgba(108, 59, 170, 1);
@@ -3423,6 +3418,18 @@ table td.c {
 .tq .q:hover .titlemark span.isv {
   border: 1px solid #2f0a61;
   background-color: #2f0a61;
+  color: var(--white) !important;
+}
+
+.titlemark span.computebenchmark {
+  border: 1px solid rgba(39, 41, 50, 1);
+  background-color: rgba(39, 41, 50, 1);
+  color: var(--white);
+}
+
+.tq .q:hover .titlemark span.computebenchmark {
+  border: 1px solid rgba(39, 41, 50, 1);
+  background-color: rgba(39, 41, 50, 1);
   color: var(--white) !important;
 }
 

@@ -80,7 +80,7 @@
 		hfbenchPipelineCountFp16 = 0;
 		hfbenchPipelineCountInt8 = 0;
 		uniqueModels.forEach((item) => {
-			if (item.endsWith('_int4') || (item.indexOf('_q4') > -1 && item.indexOf('_q4f16') === -1)) {
+			if (item.endsWith('_int4') || (item.indexOf('_q4') > -1 && item.indexOf('_q4f16') === -1) || item.indexOf('_bnb4') > -1) {
 				int4Count++;
 			} else if (item.endsWith('_int8')) {
 				int8Count++;
@@ -144,7 +144,7 @@
 		name = name
 			?.replace('Encoder', '<span>Encoder</span>')
 			.replace('Decoder', '<span>Decoder</span>')
-			.replace('compute-benchmark', '<span class="phi3">Web AI Compute Benchmark</span>')
+			.replace('compute-benchmark', '<span class="computebenchmark">Web AI Compute Benchmark</span>')
 			.replace('Non-KV-Cache', '<span>Non KV-Cache</span>')
 			.replace('KV-Cache', '<span>KV-Cache</span>')
 			.replace('w/i Past', '<span>w/i Past</span>')
@@ -409,7 +409,7 @@
 	<div class="tq benchmark int4">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if (getModelDataTypeById(model) === 'int4' || (model.indexOf('_q4') > -1 && model.indexOf('_q4f16') === -1)) && getModelTagById(model) !== 'onnx_operators'}
+				{#if (getModelDataTypeById(model) === 'int4' || (model.indexOf('_q4') > -1 && model.indexOf('_q4f16') === -1) || model.indexOf('_bnb4') > -1) && getModelTagById(model) !== 'onnx_operators'}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -436,6 +436,7 @@
 						<a href="{base}/run/{model}" class="titlemark"
 							>{@html getHTMLModelName(model)}
 							{#if model.indexOf('_q4') > -1 && model.indexOf('_q4f16') === -1}<span>q4</span>{/if}
+							{#if model.indexOf('_bnb4') > -1}<span>bnb4</span>{/if}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
