@@ -37,8 +37,11 @@
 		testQueueLengthStore
 	} from '$lib/store/store';
 	import { page } from '$app/state';
+	import PinModal from './PinModal.svelte';
+	import { canRunTests } from '$lib/assets/js/pin_verify.js';
 
 	let logShow = $state(true);
+	let showPinModal = $state(false);
 
 	let selectedBackends = $state([]);
 	const unsubBackends = backendsStore.subscribe((value) => {
@@ -225,12 +228,21 @@
 		}
 	};
 
-	const run = async () => {
+	const runWithoutVerification = async () => {
 		autoStore.update(() => false);
 		updateTestQueue();
 		resetResult();
 		resetInfo();
 		runCustom();
+	};
+
+	const run = async () => {
+		const result = await canRunTests(page.url.searchParams);
+		if (result.allowed) {
+			runWithoutVerification();
+		} else {
+			showPinModal = true;
+		}
 	};
 
 	let statusCollapse = $state();
@@ -963,6 +975,7 @@
 {/if}
 
 <!-- <TestQueue /> -->
+<PinModal bind:showPinModal onVerified={runWithoutVerification} />
 
 <style>
 	.title {
