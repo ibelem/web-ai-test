@@ -73,19 +73,13 @@
 			</div>
 		{:else}
 			<p class="pin-desc">
-				{#if gpuVendor === 'unknown'}
-					A non-Intel GPU is detected. Non-Intel devices require a pin code to run tests.
-				{:else}
-					A <strong>{gpuVendor.toUpperCase()}</strong> GPU is detected. Non-Intel devices require a pin code to run tests.
-				{/if}
+				PIN code required:
 			</p>
 			<div class="pin-notes">
 				<p><strong>Notes:</strong></p>
 				<ul>
-					<li>@google.com users: type your username only</li>
-					<li>@microsoft.com users: type your username only</li>
-					<li>Or use a general access code</li>
-					<li>You can also add <code>?pin=yourcode</code> to the URL</li>
+					<li>@google.com or @microsoft.com users: type your username only</li>
+					<li>Or ask Belem for general access code</li>
 				</ul>
 			</div>
 			<div class="pin-input-group">
