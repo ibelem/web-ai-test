@@ -1,5 +1,5 @@
 <script>
-	let { showModal = false, showOrtDevModal = false, showOrtStableModal = false, showLiteRtDevModal = false, header, children } = $props();
+	let { showModal = $bindable(false), showOrtDevModal = $bindable(false), showOrtStableModal = $bindable(false), showLiteRtDevModal = $bindable(false), header, children } = $props();
 
 	let dialog; // HTMLDialogElement
 
