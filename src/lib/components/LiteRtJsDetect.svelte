@@ -244,33 +244,6 @@
         background-color: var(--googlegreen);
     }
 
-    .version.selector {
-        padding: 0;
-        border: 1px solid var(--googlegreen);
-    }
-
-    .version.selector button {
-        background: transparent;
-        border: none;
-        padding: 8px 4px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .version.selector:hover {
-        background-color: var(--googlegreen);
-    }
-
-    .version.selector:hover button svg {
-        fill: var(--white);
-    }
-
-    .version.selector button svg {
-        fill: var(--googlegreen);
-    }
-
     @media (max-width: 932px) {
         .litert {
            display: flex;

@@ -33,7 +33,7 @@
 	/**
 	 * @type {string | any[]}
 	 */
-	let sortedModels = [];
+	let sortedModels = $state([]);
 
 	/**
 	 * @type {string[]}
@@ -54,7 +54,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	let conformanceLog;
+	let conformanceLog = $state();
 	conformanceLogStore.subscribe((value) => {
 		conformanceLog = value;
 	});
@@ -64,11 +64,11 @@
 	/**
 	 * @type {string}
 	 */
-	let id;
+	let id = $state();
 	/**
 	 * @type {string}
 	 */
-	let backend;
+	let backend = $state();
 
 	const run = async () => {
 		let params = page.url.searchParams.get('q');
@@ -87,9 +87,9 @@
 		}
 	};
 
-	let logShow = true;
-	let jsonLogShow = true;
-	let consoleSize = false;
+	let logShow = $state(true);
+	let jsonLogShow = $state(true);
+	let consoleSize = $state(false);
 	let rawConsole = $state('');
 
 	const copyJsonInfo = async () => {
@@ -119,21 +119,21 @@
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element;
+	let element = $state();
 
 	$effect(() => { if (element) { scrollToBottom(element); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element2;
+	let element2 = $state();
 
 	$effect(() => { if (element2) { scrollToBottom(element2); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element3;
+	let element3 = $state();
 
 	$effect(() => { if (element3) { scrollToBottom(element3); } })
 

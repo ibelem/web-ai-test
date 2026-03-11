@@ -44,7 +44,7 @@
 	/**
 	 * @type {string | any[]}
 	 */
-	let sortedModels = [];
+	let sortedModels = $state([]);
 
 	/**
 	 * @type {string[]}
@@ -57,7 +57,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	let conformanceQueue;
+	let conformanceQueue = $state();
 	conformanceQueueStore.subscribe((value) => {
 		conformanceQueue = value;
 	});
@@ -65,7 +65,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	let conformanceLog;
+	let conformanceLog = $state();
 	conformanceLogStore.subscribe((value) => {
 		conformanceLog = value;
 	});
@@ -163,9 +163,9 @@
 		await run();
 	}
 
-	let logShow = true;
-	let jsonLogShow = true;
-	let consoleSize = false;
+	let logShow = $state(true);
+	let jsonLogShow = $state(true);
+	let consoleSize = $state(false);
 	let wasmResultR = $state('');
 	let webglResultR = $state('');
 	let webgpuResultR = $state('');
@@ -230,42 +230,42 @@
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element;
+	let element = $state();
 
 	$effect(() => { if (element) { scrollToBottom(element); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element2;
+	let element2 = $state();
 
 	$effect(() => { if (element2) { scrollToBottom(element2); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element3;
+	let element3 = $state();
 
 	$effect(() => { if (element3) { scrollToBottom(element3); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element4;
+	let element4 = $state();
 
 	$effect(() => { if (element4) { scrollToBottom(element4); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element5;
+	let element5 = $state();
 
 	$effect(() => { if (element5) { scrollToBottom(element5); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element6;
+	let element6 = $state();
 
 	$effect(() => { if (element6) { scrollToBottom(element6); } })
 

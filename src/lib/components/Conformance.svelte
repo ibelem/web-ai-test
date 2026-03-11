@@ -26,7 +26,7 @@
 
 	let filteredConformance = conformance;
 	filteredConformance = sortModelById(filteredConformance);
-	let filteredDataConformance = filteredConformance;
+	let filteredDataConformance = $state(filteredConformance);
 
 	/**
 	 * @type {any}
@@ -36,7 +36,7 @@
 		fp16: true,
 		int8: true,
 		int4: true
-	};
+	});
 
 	const filter = () => {
 		filteredDataConformance = filteredConformance.filter((item) => {

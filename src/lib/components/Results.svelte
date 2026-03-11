@@ -76,17 +76,17 @@
 		return p ? p.current : 0;
 	};
 
-	let sortId,
-		sortDataType,
-		sortModelType,
-		sortModelSize,
-		sortWasm1,
-		sortWasm4,
-		sortWebnnCpu1,
-		sortWebnnCpu4,
-		sortWebGl,
-		sortWebGpu,
-		sortWebnnGpu,
+	let sortId = $state(true),
+		sortDataType = $state(true),
+		sortModelType = $state(true),
+		sortModelSize = $state(true),
+		sortWasm1 = $state(true),
+		sortWasm4 = $state(true),
+		sortWebnnCpu1 = $state(true),
+		sortWebnnCpu4 = $state(true),
+		sortWebGl = $state(true),
+		sortWebGpu = $state(true),
+		sortWebnnGpu = $state(true),
 		sortWebnnNpu = $state(true);
 
 	const sortResult = (/** @type {string} */ value) => {
@@ -222,7 +222,7 @@
 		throughput: false,
 		ninety: false,
 		best: false
-	};
+	});
 
 	const toggleIndex = (/** @type {string} */ id) => {
 		resultOptions[id] = !resultOptions[id];

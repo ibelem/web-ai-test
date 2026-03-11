@@ -36,7 +36,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	let selectedModelTypes;
+	let selectedModelTypes = $state([]);
 	modelTypesStore.subscribe((value) => {
 		selectedModelTypes = value;
 	});
@@ -44,7 +44,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	let selectedDataTypes;
+	let selectedDataTypes = $state([]);
 	dataTypesStore.subscribe((value) => {
 		selectedDataTypes = value;
 	});
@@ -52,7 +52,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	let selectedModels;
+	let selectedModels = $state([]);
 	modelsStore.subscribe((value) => {
 		selectedModels = value;
 	});
@@ -60,17 +60,17 @@
 	/**
 	 * @type {any[]}
 	 */
-	let filteredModelIds = [];
+	let filteredModelIds = $state([]);
 
    /**
 	 * @type {any}
 	 */
-	 let categories = {
+	 let categories = $state({
 		devpreview: true,
 		tfbench: true,
 		operators: true,
 		other: true,
-	};
+	});
 
 	const toggleCategories = () => {
     Object.keys(categories).forEach(key => {
@@ -93,13 +93,13 @@
 	/**
 	 * @type {any}
 	 */
-	let dataTypes = {
+	let dataTypes = $state({
 		fp32: false,
 		fp16: false,
 		int8: false,
 		int4: false
 		// int64: false
-	};
+	});
 
 	const uniqueDataTypes = getUniqueDataTypes();
 
@@ -189,12 +189,12 @@
 	/**
 	 * @type {any}
 	 */
-	let modelTypes = {
+	let modelTypes = $state({
 		onnx: false,
 		tflite: false,
 		npy: false,
 		pt: false
-	};
+	});
 
 	const uniqueModelTypes = getUniqueModelTypes();
 
@@ -353,9 +353,6 @@
 		filteredModelIds = uniqueObjects;
 	};
 
-	for (const model of filteredModelIds) {
-		model['selected'] = false;
-	}
 	const toggleModels = () => {
 		filteredModelIds = filteredModelIds.map((item) => ({
 			...item,
@@ -486,16 +483,16 @@
 		}
 	};
 
-	let show = false;
-	let mDataType = '',
-		mCategory = '',
-		mId = '',
-		mName = '',
-		mModelType = '',
-		mInputs = '',
-		mSize = '',
-		mDesc = '',
-		mNote = '';
+	let show = $state(false);
+	let mDataType = $state(''),
+		mCategory = $state(''),
+		mId = $state(''),
+		mName = $state(''),
+		mModelType = $state(''),
+		mInputs = $state(''),
+		mSize = $state(''),
+		mDesc = $state(''),
+		mNote = $state('');
 	// let fallbackId = [];
 
 	const hideModelInfo = () => {

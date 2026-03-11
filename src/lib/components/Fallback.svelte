@@ -29,7 +29,7 @@
 	let filteredFallback = fallback;
 	filteredFallback = sortModelById(filteredFallback);
 	let filteredBackendFallback = filteredFallback;
-	let filteredBackendDataFallback = filteredBackendFallback;
+	let filteredBackendDataFallback = $state(filteredBackendFallback);
 
 	/**
 	 * @type {any}
@@ -38,7 +38,7 @@
 		cpu: true,
 		gpu: true,
 		npu: false
-	};
+	});
 
 	/**
 	 * @type {any}
@@ -48,7 +48,7 @@
 		fp16: true,
 		int8: true,
 		int4: true
-	};
+	});
 
 	const filter = () => {
 		filteredBackendFallback = filteredFallback.filter((item) => fallbackOptions[item.backend]);

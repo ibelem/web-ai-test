@@ -27,7 +27,7 @@
 	/**
 	 * @type {string | any[]}
 	 */
-	let sortedModels = [];
+	let sortedModels = $state([]);
 
 	/**
 	 * @type {string[]}
@@ -48,7 +48,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	let fallbackLog;
+	let fallbackLog = $state();
 	fallbackLogStore.subscribe((value) => {
 		fallbackLog = value;
 	});
@@ -59,11 +59,11 @@
 	/**
 	 * @type {string}
 	 */
-	let id;
+	let id = $state();
 	/**
 	 * @type {string}
 	 */
-	let backend;
+	let backend = $state();
 
 	const run = async () => {
 		rawConsole = '';
@@ -81,9 +81,9 @@
 		}
 	};
 
-	let logShow = true;
-	let jsonLogShow = true;
-	let consoleSize = false;
+	let logShow = $state(true);
+	let jsonLogShow = $state(true);
+	let consoleSize = $state(false);
 
 	const copyJsonInfo = async () => {
 		let log = JSON.stringify(fallback);
@@ -113,21 +113,21 @@
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element;
+	let element = $state();
 
 	$effect(() => { if (element) { scrollToBottom(element); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element2;
+	let element2 = $state();
 
 	$effect(() => { if (element2) { scrollToBottom(element2); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element3;
+	let element3 = $state();
 
 	$effect(() => { if (element3) { scrollToBottom(element3); } })
 

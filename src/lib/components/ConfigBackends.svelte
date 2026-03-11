@@ -23,7 +23,7 @@
 	/**
 	 * @type {any}
 	 */
-	const backends = {
+	const backends = $state({
 		wasm_1: false,
 		wasm_4: false,
 		webgl: false,
@@ -31,7 +31,7 @@
 		webnn_cpu: false,
 		webnn_gpu: false,
 		webnn_npu: false
-	};
+	});
 
 	let backendsFromUrl;
 	let relaxedSimd = null;

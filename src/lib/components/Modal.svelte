@@ -8,13 +8,13 @@
 	});
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
+<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_noninteractive_element_interactions -->
 <dialog
 	bind:this={dialog}
 	onclose={() => { showModal = false; showOrtDevModal = false; showOrtStableModal = false; showLiteRtDevModal = false; }}
 	onclick={() => dialog.close()}
 >
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div onclick={(event) => event.stopPropagation()}>
 		{@render header?.()}
 		{@render children?.()}

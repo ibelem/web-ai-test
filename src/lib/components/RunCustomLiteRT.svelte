@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy, onMount, untrack } from 'svelte';
 	import { customStore } from '$lib/store/store';
 	// import TestQueue from './TestQueue.svelte';
 	import Header from '$lib/components/Header.svelte';
@@ -308,17 +308,24 @@
 	});
 
 	$effect(() => {
-		if (!auto) {
-			if (page.url.searchParams.size === 0) {
-				let path = `${location.pathname}/?backend=webgpu&run=1&modeltype=tflite`;
-				location.href = location.origin + path;
-			} else {
-				initRun();
-				if (id) {
-					urlToStore(page.url.searchParams, id, dataType);
+		// Only track URL params and id to avoid infinite loops
+		const params = page.url.searchParams;
+		const paramsSize = params.size;
+		const currentId = id;
+
+		untrack(() => {
+			if (!auto) {
+				if (paramsSize === 0) {
+					let path = `${location.pathname}/?backend=webgpu&run=1&modeltype=tflite`;
+					location.href = location.origin + path;
+				} else {
+					initRun();
+					if (currentId) {
+						urlToStore(params, currentId, dataType);
+					}
 				}
 			}
-		}
+		});
 	});
 
 	$effect(() => {

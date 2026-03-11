@@ -7,7 +7,7 @@
 	let progress = $state('');
 	let url = $state(base);
 	let search = $state('');
-	let fullSearch = $state(search);
+	let fullSearch = $state('');
 
 	const homeUrl = () => {
 		search = page.url.search;

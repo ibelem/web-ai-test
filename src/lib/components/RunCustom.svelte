@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy, onMount, untrack } from 'svelte';
 	import { customStore } from '$lib/store/store';
 	// import TestQueue from './TestQueue.svelte';
 	import Header from '$lib/components/Header.svelte';
@@ -233,8 +233,8 @@
 		runCustom();
 	};
 
-	let statusCollapse;
-	let map;
+	let statusCollapse = $state();
+	let map = $state();
 	const toggle = () => {
 		if (statusCollapse.classList.contains('show')) {
 			statusCollapse.removeAttribute('class');
@@ -290,7 +290,6 @@
 				custominit.time = getDateTimeCustom();
 				customStore.update(() => custominit);
 				await v.start();
-				getTotalNodeCount();
 				getDataType();
 				initRun();
 			} catch (error) {
@@ -299,13 +298,15 @@
 		}
 	};
 
-	if (custom && custom.overrides) {
-		custom.overrides.forEach((override) => {
-			if (override.value === null) {
-				override.value = 0;
-			}
-		});
-	}
+	// React to custom data changes (e.g., after ONNX model parsing completes)
+	$effect(() => {
+		if (custom?.nodes?.length > 0) {
+			untrack(() => {
+				getDataType();
+				initRun();
+			});
+		}
+	});
 
 	const getDataType = () => {
 		// Check if any input has datatype of float16
@@ -468,13 +469,11 @@
 		updateInputValue();
 	};
 
-	let nodeCount = 0;
-	const getTotalNodeCount = () => {
-		if (custom && custom.nodes.length > 0) {
-			nodeCount = custom.nodes.reduce((acc, item) => acc + item.count, 0);
-		} else {
-		}
-	};
+	let nodeCount = $derived(
+		custom?.nodes?.length > 0
+			? custom.nodes.reduce((acc, item) => acc + item.count, 0)
+			: 0
+	);
 
 	let ascending = true;
 	const sortNodebyName = () => {
@@ -596,30 +595,27 @@
 		await navigator.clipboard.writeText(code);
 	}
 
-	let checkRun = $state(false);
-	const initRun = () => {
-		if (selectedBackends.length > 0 && !auto) {
-			if (custom && buffer) {
-				const overrides = custom.overrides;
-				if (overrides) {
-					if (overrides.length === 0) {
-						checkRun = true;
-					} else {
-						let r = overrides.every(
-							(override) => Number.isInteger(override.value) && override.value !== null
-						);
-						console.log(r);
-						checkRun = r;
-					}
+	let checkRun = $derived.by(() => {
+		if (selectedBackends.length > 0 && !auto && custom && buffer) {
+			const overrides = custom.overrides;
+			if (overrides) {
+				if (overrides.length === 0) {
+					return true;
 				}
+				return overrides.every(
+					(override) => Number.isInteger(override.value) && override.value !== null
+				);
 			}
 		}
-	};
+		return false;
+	});
 
+	const initRun = () => {
+		// checkRun is now $derived, this is kept for compatibility
+	};
 
 	onMount(async () => {
 		resetStore();
-		getTotalNodeCount();
 		getDataType();
 		initRun();
 		if (testQueue.length > 0 && auto) {
@@ -638,19 +634,25 @@
 	});
 
 	$effect(() => {
-		if (!auto) {
-			if (page.url.searchParams.size === 0) {
-				let path = `${location.pathname}/?backend=webnn_gpu&run=1&modeltype=onnx`;
-				location.href = location.origin + path;
-			} else {
-				getTotalNodeCount();
-				getDataType();
-				initRun();
-				if (id) {
-					urlToStore(page.url.searchParams, id, dataType);
+		// Only track URL params and id to avoid infinite loops
+		const params = page.url.searchParams;
+		const paramsSize = params.size;
+		const currentId = id;
+
+		untrack(() => {
+			if (!auto) {
+				if (paramsSize === 0) {
+					let path = `${location.pathname}/?backend=webnn_gpu&run=1&modeltype=onnx`;
+					location.href = location.origin + path;
+				} else {
+					getDataType();
+					initRun();
+					if (currentId) {
+						urlToStore(params, currentId, dataType);
+					}
 				}
 			}
-		}
+		});
 	});
 </script>
 
@@ -689,8 +691,8 @@
 		{/if}
 		<div id="map" class="none">
 			<div id="status_collapse" bind:this={statusCollapse} class="show">
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<!-- svelte-ignore a11y-no-static-element-interactions -->
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div onclick={toggle} title="WebNN Implementation Status in Chromium for this model">
 					<svg id="up" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"
 						><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" /></svg

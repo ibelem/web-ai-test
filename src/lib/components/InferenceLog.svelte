@@ -21,7 +21,7 @@
 	/**
 	 * @type {HTMLDivElement}
 	 */
-	let element;
+	let element = $state();
 
 	const scrollToBottom = async (/** @type {HTMLDivElement} */ node) => {
 		node?.scroll({ top: node.scrollHeight, behavior: 'smooth' });

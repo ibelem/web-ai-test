@@ -30,11 +30,11 @@
 	/**
 	 * @type {string[]}
 	 */
-	let conformanceString;
+	let conformanceString = $state();
 	/**
 	 * @type {string | any[]}
 	 */
-	let filteredDataConformance;
+	let filteredDataConformance = $state();
 
 	const scrollToBottom = (/** @type {HTMLDivElement} */ node) => {
 		node?.scroll({ top: node.scrollHeight, behavior: 'smooth' });
@@ -44,7 +44,7 @@
 	 * @type {any}
 	 */
 	let y;
-	let y_pin = false;
+	let y_pin = $state(false);
 
 	$effect(() => {
 		y > 1024 ? (y_pin = true) : (y_pin = false);

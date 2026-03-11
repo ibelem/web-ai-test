@@ -32,12 +32,12 @@
 		setModelDownloadUrl
 	} from '$lib/assets/js/utils';
 
-	let logShow = true;
+	let logShow = $state(true);
 
 	/**
 	 * @type {number}
 	 */
-	let numOfRuns;
+	let numOfRuns = $state(0);
 
 	numberOfRunsStore.subscribe((value) => {
 		numOfRuns = value;
@@ -46,7 +46,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	let selectedBackends;
+	let selectedBackends = $state([]);
 	backendsStore.subscribe((value) => {
 		selectedBackends = value;
 	});
@@ -54,7 +54,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	let selectedModelTypes;
+	let selectedModelTypes = $state([]);
 	modelTypesStore.subscribe((value) => {
 		selectedModelTypes = value;
 	});
@@ -62,7 +62,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	let selectedDataTypes;
+	let selectedDataTypes = $state([]);
 	dataTypesStore.subscribe((value) => {
 		selectedDataTypes = value;
 	});
@@ -70,7 +70,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	let selectedModels;
+	let selectedModels = $state([]);
 	modelsStore.subscribe((value) => {
 		selectedModels = value;
 	});
@@ -78,7 +78,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	let testQueue;
+	let testQueue = $state([]);
 	testQueueStore.subscribe((value) => {
 		testQueue = value;
 	});
@@ -86,7 +86,7 @@
 	/**
 	 * @type {number}
 	 */
-	let testQueueLength;
+	let testQueueLength = $state(0);
 
 	testQueueLengthStore.subscribe((value) => {
 		testQueueLength = value;
@@ -108,12 +108,15 @@
 		await proceed();
 	};
 
+	let ready = $state(false);
+
 	$effect(() => {
 		if (page.url.searchParams.size === 0) {
 			let path = `${base}/?modeltype=none&datatype=none&backend=none&run=50&model=none`;
-			goto(path);
+			goto(path, { replaceState: true });
 		} else {
 			urlToStore(page.url.searchParams, false);
+			ready = true;
 		}
 
 		refererStore.update(() => page.url.href);
@@ -130,6 +133,7 @@
 </script>
 
 <Header />
+{#if ready}
 <div>
 	<Config />
 	<Results />
@@ -138,7 +142,7 @@
 	<!-- <TestQueue /> -->
 	<div class="run">
 		{#if selectedModels.length > 0 && selectedBackends.length > 0}
-			<button on:click={run}>Run Tests</button>
+			<button onclick={run}>Run Tests</button>
 		{:else}
 			<!-- <div class="flow-container">
 				<SvelteFlowProvider>
@@ -149,7 +153,7 @@
 		{#if !logShow}
 			<button
 				class="log"
-				on:click={() => {
+				onclick={() => {
 					logShow = true;
 				}}>Show Logs</button
 			>
@@ -158,6 +162,7 @@
 	<Environment />
 	<Info />
 </div>
+{/if}
 <Footer />
 
 <style>
