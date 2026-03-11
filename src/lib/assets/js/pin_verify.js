@@ -1,9 +1,9 @@
 /**
  * Pin verification module for non-Intel device access control.
- * 
+ *
  * Intel devices can run tests freely.
  * AMD, Qualcomm, Nvidia, and Apple devices require a valid pin code.
- * Pin codes are hashed with SHA-256 for secure comparison.
+ * Pin codes are verified using salted SHA-256 hashes.
  * Verified pins are stored in localStorage to persist across sessions.
  * Failed attempts are tracked with a 24-hour lockout after 3 failures.
  */
@@ -13,48 +13,45 @@ const STORAGE_KEY_ATTEMPTS = 'pin_failed_attempts';
 const STORAGE_KEY_LOCKOUT = 'pin_lockout_until';
 const MAX_ATTEMPTS = 3;
 const LOCKOUT_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
+const PIN_SALT = 'webaitest2024pin';
 
 /**
- * Pre-computed SHA-256 hashes of valid pin codes.
- * Hashes are computed from lowercase trimmed pin strings.
- * Plain-text pins are not stored in source code for security.
+ * Salted SHA-256 hashes of valid pin codes (sorted, no grouping info).
  */
 const VALID_PIN_HASHES = [
-  // @google.com users (can type just their username)
-  'e00a055c4059bedbd90a569489e7ef918587a5aa9ddc6a02a29c6ea7b8b0592d',
-  '177cfec495f0570a2495498b3558f38868b0e85d8b30d5ce94f6abbbd33ddc31',
-  '7362f7558bb7ca0113aa2f9b86aa7cd7ee97219d5c2cd2dc0049cd805eedf995',
-  '0bb0881fb00ba75762704a9e8efd2f73db1b86f700b7a87fb19650f5281c5f6f',
-  'd7cccb7dccbd880c8ab2131270ee50f35796cbd35bdc235fd62004865a8d824f',
-  '5ca42a49b774e02f646ba019079627ef6cc95ab272d8b8f973b7d83931aaa88b',
-  'af97205a69ef4e3efbaaccd955410e0663692e103e5f7eaa6e351cebf749910a',
-  'b3887531aa198b792cad63b8170b545f53797bbd378330d0383340cfae4ffdae',
-  '118ed1ca981aca0531154b7418c26f000ba603bb40be7367b3a267d8a57350d7',
-  'afb178cc088578a6a97012281e660d1963d72265799aa55bc1d5e51497ffde67',
-  'b2c49dbcd6566dd2c0bb9e4c077cd6b20de9476c44104cd356d3d5dd214255eb',
-  'c0306305ae8a282e3b2fb259c5a50b09c5980024feefbf7ac525e14226f9469d',
-  '4f36ea7ea6cd3c1f1c4566e0a49c7238d2bc4f5fc107b862cc556e34854f2cbc',
-  'd0ddc6c5d3f7a67b0898388d8103dc64c5ae5312453d986479b7affd206326df',
-  // @microsoft.com users (can type just their username)
-  'db1d015c047f81daed53417b903841709e273055df7946399ed9495c0b807496',
-  'f98f905a04a2faf3421441772d35e64b4acd173f1153e79b0ca287b3285fca8c',
-  'e6667b4db36e597ef5d9cecd8152f36253cb12da31b9cdef7595417019973704',
-  'f30db47329c88a0f080612f289145b9d279cd64fba83bb66917e3539464b746b',
-  'ef38b8ccd3cbec7ef248a7229bb37662430e797e41c963fcb94c30c02f30243e',
-  // General access codes
-  '1620adaf024008e4a67b4815078a9be085d6a835e0141d3f0842c4ac9b92a586',
-  'ae2cec177c8f22c91793025bcb5e7d624a9ac68e5a00654e804b17d56e1ffb24',
-  '91af9dd71441bbb875b83de7ecf139bd58b954ec8ec617541c9613620916e194',
-  '30ceaac7e1faba7a9973eb5bdfe36175320d2598342bfa6b33405d96b285587e'
+  '1f971e499b62a627bd4179e70aa4b73bdcd17b9bb0622585784c7b375cd9862e',
+  '2d2804889c3a4903ce73ac995c7cae49fe5907962c34f9950c6f1fb65746bd8b',
+  '332d0c69f1500829e41279632bd96a5bc5404424e0ee21f2355f7d2e9e374547',
+  '4064ccfbd02cf13dc3d1dc46aa42e1776c0aedf0d58f12503259227f90ea293c',
+  '45f0262bbc69b46db4a59a5d0803749c395c89abefb3a2e27ed601dbc73d4e2b',
+  '471e7a6acbe7ccadb4efb39115e151923eb58f2f6270ca895c205141e2d43974',
+  '48d9e7faeb4c7e9f6e0d218eb41f93a2a0782ededa26e10cbcb9812fcc8848b2',
+  '5a1acab54859e045ebf3db2c45701fd0e384225919daee58924215caf2cb9848',
+  '5eef37eb0479a22f2f057453ae17c2f64f6675f239e943885569d1c9cb43406f',
+  '742974ff03018f5be2feedecaa55de3837f0dbfb822e1abdc832454abcef2875',
+  '777919488578b56c54dfe807e56fcaeafff4c05e19f2e59635f4ff61ef56faf6',
+  '7db06c0d68a4cd546c6e2674dd7b8468f172153bb90d16d46407615b91111d5d',
+  '88d59e19943b1c4a4670c03662ae5074ab237252dc9da8c20239a1ae3d19ce47',
+  '8b3759d46bbc79968b05b595c8a5e18dc5fc3e9bbb3c00873dbd68ecf7d903bc',
+  '9a887a50b1bc15d3d497d93dfb6c51f4340f82d76555ad4b6892b36333e07f3d',
+  'a49b960068867746c688c7769caa9708c89b959f1159b75fa3a4d98ee30cd825',
+  'aaf0c34f14f9fc89aeba5d557d8fd9e5d183ef622502544368323fe56ad3306b',
+  'b9144255e9d15c52af0a75d58e8d693c4e9598aaaaf8c63a2468e2845b1bf61f',
+  'bf73d85a42863c592ae7b2e7bdc7f5818f203b3eac8cdbe2e00efb4fc785a9a8',
+  'da9830ae1d6ff96198653404e7264ea6f38d329a96926a9f652f379d6ec35472',
+  'dc532073c112ec9a0327bc9dc19739475864febfee78c613f6dcfa19c5dfb389',
+  'e0542471b74cbda343d3e9641edab4d161dccf349f57d1a1021ac3e1fff64fe2',
+  'f87881536d0b53073025731efc517cafa320f5e58b1407bc4941ebd8bce88a88'
 ];
 
 /**
- * Compute SHA-256 hash of a string.
+ * Compute salted SHA-256 hash of a pin code.
  * @param {string} message
  * @returns {Promise<string>} hex-encoded hash
  */
 async function sha256(message) {
-  const msgBuffer = new TextEncoder().encode(message);
+  const salted = PIN_SALT + message;
+  const msgBuffer = new TextEncoder().encode(salted);
   const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
