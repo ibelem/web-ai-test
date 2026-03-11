@@ -38,8 +38,11 @@
 	} from '$lib/store/store';
 	import { page } from '$app/state';
 	import Fallback from './Fallback.svelte';
+	import PinModal from './PinModal.svelte';
+	import { canRunTests } from '$lib/assets/js/pin_verify.js';
 
 	let logShow = $state(true);
+	let showPinModal = $state(false);
 
 	let selectedBackends = $state([]);
 	const unsubBackends = backendsStore.subscribe((value) => {
@@ -67,7 +70,12 @@
 	};
 
 	const runManual = async () => {
-		await proceed();
+		const result = await canRunTests(page.url.searchParams);
+		if (result.allowed) {
+			await proceed();
+		} else {
+			showPinModal = true;
+		}
 	};
 
 	/**
@@ -242,6 +250,7 @@
 {/if}
 
 <!-- <TestQueue /> -->
+<PinModal bind:showPinModal onVerified={proceed} />
 
 <style>
 	.title {

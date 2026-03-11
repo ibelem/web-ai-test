@@ -31,8 +31,11 @@
 		updateTestQueue,
 		setModelDownloadUrl
 	} from '$lib/assets/js/utils';
+	import { canRunTests } from '$lib/assets/js/pin_verify.js';
+	import PinModal from '$lib/components/PinModal.svelte';
 
 	let logShow = $state(true);
+	let showPinModal = $state(false);
 
 	/**
 	 * @type {number}
@@ -105,7 +108,12 @@
 	};
 
 	const run = async () => {
-		await proceed();
+		const result = await canRunTests(page.url.searchParams);
+		if (result.allowed) {
+			await proceed();
+		} else {
+			showPinModal = true;
+		}
 	};
 
 	let ready = $state(false);
@@ -164,6 +172,7 @@
 </div>
 {/if}
 <Footer />
+<PinModal bind:showPinModal onVerified={proceed} />
 
 <style>
 </style>
