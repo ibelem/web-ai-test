@@ -1,5 +1,5 @@
 <script>
-	import { onMount, afterUpdate } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	// import TestQueue from './TestQueue.svelte';
 	import Header from '$lib/components/Header.svelte';
@@ -36,25 +36,24 @@
 		backendsStore,
 		modelDownloadProgressStore
 	} from '$lib/store/store';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import Fallback from './Fallback.svelte';
 
-	let logShow = true;
+	let logShow = $state(true);
 
-	/**
-	 * @type {string[]}
-	 */
-	let selectedBackends;
-	backendsStore.subscribe((value) => {
+	let selectedBackends = $state([]);
+	const unsubBackends = backendsStore.subscribe((value) => {
 		selectedBackends = value;
 	});
 
-	/**
-	 * @type {string[]}
-	 */
-	let testQueue;
-	testQueueStore.subscribe((value) => {
+	let testQueue = $state([]);
+	const unsubTestQueue = testQueueStore.subscribe((value) => {
 		testQueue = value;
+	});
+
+	onDestroy(() => {
+		unsubBackends();
+		unsubTestQueue();
 	});
 
 	const proceed = async () => {
@@ -75,46 +74,46 @@
 	 * @type {string}
 	 */
 
-	let id = '';
+	let id = $state('');
 	/**
 	 * @type {string}
 	 */
-	let modelName = '';
+	let modelName = $state('');
 
 	/**
 	 * @type {string }
 	 */
-	let modelType = '';
+	let modelType = $state('');
 
 	/**
 	 * @type {string}
 	 */
-	let dataType = '';
+	let dataType = $state('');
 
 	/**
 	 * @type {string}
 	 */
-	let category = '';
+	let category = $state('');
 
 	/**
 	 * @type {string}
 	 */
-	let description = '';
+	let description = $state('');
 
 	/**
 	 * @type {string}
 	 */
-	let note = '';
+	let note = $state('');
 
 	/**
 	 * @type {string}
 	 */
-	let inputs = '';
+	let inputs = $state('');
 
 	/**
 	 * @type {string}
 	 */
-	let size = '';
+	let size = $state('');
 
 	onMount(() => {
 		id = getModelIdfromPath() || '';
@@ -170,14 +169,13 @@
 		}
 	});
 
-	afterUpdate(() => {
+	$effect(() => {
 		if (!auto) {
-			if ($page.url.searchParams.size === 0) {
+			if (page.url.searchParams.size === 0) {
 				let path = `${location.pathname}/?backend=none&run=50&modeltype=${modelType}&datatype=${dataType}`;
-				// goto(path);
 				location.href = location.origin + path;
 			} else {
-				urlToStore($page.url.searchParams, getModelIdfromPath());
+				urlToStore(page.url.searchParams, getModelIdfromPath());
 			}
 		}
 	});
@@ -226,13 +224,13 @@
 		<div class="run">
 			{#if selectedBackends.length > 0 && !auto}
 				{#if testQueue.length === 0}
-					<button on:click={runManual}>Run Manual Tests</button>
+					<button onclick={runManual}>Run Manual Tests</button>
 				{/if}
 			{/if}
 			{#if !logShow}
 				<button
 					class="log"
-					on:click={() => {
+					onclick={() => {
 						logShow = true;
 					}}>Show Logs</button
 				>

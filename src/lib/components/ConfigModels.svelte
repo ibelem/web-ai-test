@@ -24,7 +24,7 @@
 		getModelTagById
 	} from '$lib/assets/js/utils';
 	import { modelTypesStore, dataTypesStore, modelsStore } from '$lib/store/store';
-	import { onMount, beforeUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 	import LiteRtLite from './svg/LiteRTLite.svelte';
 	import Onnx from './svg/Onnx.svelte';
 	// import Info from './svg/Info.svelte';
@@ -36,7 +36,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	export let selectedModelTypes;
+	let selectedModelTypes;
 	modelTypesStore.subscribe((value) => {
 		selectedModelTypes = value;
 	});
@@ -44,7 +44,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	export let selectedDataTypes;
+	let selectedDataTypes;
 	dataTypesStore.subscribe((value) => {
 		selectedDataTypes = value;
 	});
@@ -422,7 +422,7 @@
 		goTo('model', urlModels);
 	};
 
-	beforeUpdate(() => {
+	$effect.pre(() => {
 		filterModelsFromSelectedModelTypeandDataTypes();
 	});
 
@@ -537,43 +537,43 @@
 
 <div class="title">
 	<label class="" title="Toggle operand data types">
-		<input type="checkbox" on:change={() => toggleDataTypes()} />
+		<input type="checkbox" onchange={() => toggleDataTypes()} />
 		Data Type
 	</label>
 </div>
 <div class="types">
 	<label class="extra {dataTypes.fp32.toString()} fp32" title="FP32">
-		<input type="checkbox" on:change={() => toggleDataType('fp32')} />
+		<input type="checkbox" onchange={() => toggleDataType('fp32')} />
 		FP32
 	</label>
 	<!-- <label class="extra {dataTypes.int64.toString()} int64" title="INT64">
-		<input type="checkbox" on:change={() => toggleDataType('int64')} />
+		<input type="checkbox" onchange={() => toggleDataType('int64')} />
 		INT64
 	</label> -->
 	<label class="extra {dataTypes.fp16.toString()} fp16" title="FP16">
-		<input type="checkbox" on:change={() => toggleDataType('fp16')} />
+		<input type="checkbox" onchange={() => toggleDataType('fp16')} />
 		FP16
 	</label>
 	<label class="extra {dataTypes.int8.toString()} int8" title="INT8">
-		<input type="checkbox" on:change={() => toggleDataType('int8')} />
+		<input type="checkbox" onchange={() => toggleDataType('int8')} />
 		INT8
 	</label>
 	<label class="extra {dataTypes.int4.toString()} int4" title="INT4">
-		<input type="checkbox" on:change={() => toggleDataType('int4')} />
+		<input type="checkbox" onchange={() => toggleDataType('int4')} />
 		INT4
 	</label>
 </div>
 
 <div class="title">
 	<label class="" title="Toggle model types">
-		<input type="checkbox" on:change={() => toggleModelTypes()} />
+		<input type="checkbox" onchange={() => toggleModelTypes()} />
 		Model Type
 	</label>
 </div>
 <div class="types">
 	<div>
 		<label class="onnx extra {modelTypes.onnx.toString()}" title="ONNX">
-			<input type="checkbox" on:change={() => toggleModelType('onnx')} />
+			<input type="checkbox" onchange={() => toggleModelType('onnx')} />
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 44" id="logo_onnx"
 				><g transform="matrix(1.7 0 0 1.7 -44 -42)"
 					><path
@@ -615,11 +615,11 @@
 			>
 		</label>
 		<label class="tflite extra {modelTypes.tflite.toString()}" title="LiteRT">
-			<input type="checkbox" on:change={() => toggleModelType('tflite')} />
+			<input type="checkbox" onchange={() => toggleModelType('tflite')} />
 			<img src="../img/litert.png" alt="LiteRT" id="logo_tflite" />
 		</label>
 		<label class="npy extra {modelTypes.npy.toString()}" title="NumPy">
-			<input type="checkbox" on:change={() => toggleModelType('npy')} />
+			<input type="checkbox" onchange={() => toggleModelType('npy')} />
 
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 450" id="logo_npy"
 				><g id="Layer_1" data-name="Layer 1"
@@ -656,7 +656,7 @@
 			<span>NumPy</span>
 		</label>
 		<label class="pt extra {modelTypes.pt.toString()}" title="pt">
-			<input type="checkbox" on:change={() => toggleModelType('pt')} />
+			<input type="checkbox" onchange={() => toggleModelType('pt')} />
 
 			<svg xmlns="http://www.w3.org/2000/svg" id="logo_pt"
 				><g transform="matrix(0.45 0 0 0.45 -8 0)" fill="#ee4c2c"
@@ -677,25 +677,25 @@
 <!--
 	<div class="title">
 		<label class="" title="Toggle model categories">
-			<input type="checkbox" on:change={() => toggleCategories()} />
+			<input type="checkbox" onchange={() => toggleCategories()} />
 			Category
 		</label>
 	</div>
 	<div class="types">
 		<label class="extra {categories.operators.toString()}" title="Operators">
-			<input type="checkbox" on:change={() => toggleCategory('operators')} />
+			<input type="checkbox" onchange={() => toggleCategory('operators')} />
 			Operators
 		</label>
 		<label class="extra {categories.tfbench.toString()} " title="Transformers.js Benchmark Models">
-			<input type="checkbox" on:change={() => toggleCategory('tfbench')} />
+			<input type="checkbox" onchange={() => toggleCategory('tfbench')} />
 			Transformers.js Benchmark
 		</label>
 		<label class="extra {categories.devpreview.toString()}" title="WebNN Developer Preview Models">
-			<input type="checkbox" on:change={() => toggleCategory('devpreview')} />
+			<input type="checkbox" onchange={() => toggleCategory('devpreview')} />
 			WebNN Dev Preview
 		</label>
 		<label class="extra {categories.other.toString()}" title="Other Models">
-			<input type="checkbox" on:change={() => toggleCategory('other')} />
+			<input type="checkbox" onchange={() => toggleCategory('other')} />
 			Others
 		</label>
 	</div>
@@ -703,20 +703,20 @@
 
 <div class="title">
 	<label class="" title="Toggle models">
-		<input type="checkbox" on:change={() => toggleModels()} />
+		<input type="checkbox" onchange={() => toggleModels()} />
 		Model
 	</label>
 </div>
-<div class="models" role="button" tabindex="0" id="models" on:mouseleave={() => hideModelInfo()}>
+<div class="models" role="button" tabindex="0" id="models" onmouseleave={() => hideModelInfo()}>
 	{#if filteredModelIds.length > 0}
 		{#each filteredModelIds as { id, name, selected }, i}
 			<label
 				class="extra {id} {selected} {getModelDataTypeById(id)}"
 				title="{id.replaceAll('_', '-')} · {name}"
-				on:focus={() => {}}
-				on:mouseover={() => showModelInfo(id)}
+				onfocus={() => {}}
+				onmouseover={() => showModelInfo(id)}
 			>
-				<input type="checkbox" on:change={() => toggleModel(id)} />
+				<input type="checkbox" onchange={() => toggleModel(id)} />
 
 				<span class="model_type">
 					{#if getModelTypeById(id) === 'onnx'}

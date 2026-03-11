@@ -9,7 +9,7 @@
 		getModelIdfromPath
 	} from '$lib/assets/js/utils';
 	// import { modelTypesStore } from '$lib/store/store';
-	import { beforeUpdate, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	let modelTypesFromUrl;
 
@@ -24,17 +24,17 @@
 	/**
 	 * @type {any}
 	 */
-	let modelTypes = {
+	let modelTypes = $state({
 		onnx: { selected: false, show: false },
 		tflite: { selected: false, show: false },
 		npy: { selected: false, show: false },
 		pt: { selected: false, show: false }
-	};
+	});
 
 	/**
 	 * @type {any[]}
 	 */
-	let uniqueModelTypes = [];
+	let uniqueModelTypes = $state([]);
 	const toggleModelTypes = () => {
 		for (const modeltype in modelTypes) {
 			if (modelTypes.hasOwnProperty(modeltype)) {
@@ -97,7 +97,7 @@
 		goTo('modeltype', urlModelTypes);
 	};
 
-	beforeUpdate(() => {
+	$effect.pre(() => {
 		uniqueModelTypes = getUniqueModelTypesByModelId(getModelIdfromPath());
 		for (let modelType of uniqueModelTypes) {
 			if (modelTypes[modelType]) {
@@ -136,7 +136,7 @@
 
 <div class="title">
 	<label class="" title="Toggle model types">
-		<input type="checkbox" on:change={() => toggleModelTypes()} />
+		<input type="checkbox" onchange={() => toggleModelTypes()} />
 		Model Type
 	</label>
 </div>
@@ -144,7 +144,7 @@
 	<div>
 		{#if modelTypes.onnx.show}
 			<label class="onnx extra {modelTypes.onnx.selected}" title="ONNX">
-				<input type="checkbox" on:change={() => toggleModelType('onnx')} />
+				<input type="checkbox" onchange={() => toggleModelType('onnx')} />
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 44" id="logo_onnx"
 					><g transform="matrix(1.7 0 0 1.7 -44 -42)"
 						><path
@@ -188,13 +188,13 @@
 		{/if}
 		{#if modelTypes.tflite.show}
 			<label class="tflite extra {modelTypes.tflite.selected}" title="LiteRT">
-				<input type="checkbox" on:change={() => toggleModelType('tflite')} />
+				<input type="checkbox" onchange={() => toggleModelType('tflite')} />
 				<img src="../img/litert.png" alt="LiteRT" id="logo_tflite" />
 			</label>
 		{/if}
 		{#if modelTypes.npy.show}
 			<label class="npy extra {modelTypes.npy.selected}" title="NumPy">
-				<input type="checkbox" on:change={() => toggleModelType('npy')} />
+				<input type="checkbox" onchange={() => toggleModelType('npy')} />
 
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 450" id="logo_npy"
 					><g id="Layer_1" data-name="Layer 1"
@@ -233,7 +233,7 @@
 		{/if}
 		{#if modelTypes.pt.show}
 			<label class="pt extra {modelTypes.pt.selected}" title="pt">
-				<input type="checkbox" on:change={() => toggleModelType('pt')} />
+				<input type="checkbox" onchange={() => toggleModelType('pt')} />
 
 				<svg xmlns="http://www.w3.org/2000/svg" id="logo_pt"
 					><g transform="matrix(0.45 0 0 0.45 -8 0)" fill="#ee4c2c"

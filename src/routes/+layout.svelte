@@ -1,7 +1,8 @@
 <script>
 	import '$lib/assets/css/global.css';
+	let { children } = $props();
 </script>
 
 <div id="layout">
-	<slot />
+	{@render children()}
 </div>

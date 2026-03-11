@@ -5,7 +5,7 @@
 	import { models } from '$lib/config';
 	import Log from '$lib/components/svg/Log.svelte';
 	import LogToggle from '$lib/components/svg/LogToggle.svelte';
-	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 	import Enlarge from '$lib/components/svg/Enlarge.svelte';
 	import FitScreen from '$lib/components/svg/FitScreen.svelte';
 	import {
@@ -21,9 +21,7 @@
 	 */
 	let element;
 
-	$: if (element) {
-		scrollToBottom(element);
-	}
+	$effect(() => { if (element) { scrollToBottom(element); } })
 
 	/**
 	 * @type {any[]}
@@ -48,7 +46,7 @@
 	let y;
 	let y_pin = false;
 
-	afterUpdate(() => {
+	$effect(() => {
 		y > 1024 ? (y_pin = true) : (y_pin = false);
 	});
 
@@ -103,11 +101,11 @@
 		filteredDataConformance = conformance;
 	};
 
-	beforeUpdate(() => {
+	$effect.pre(() => {
 		resetStore();
 	});
 
-	afterUpdate(() => {});
+	
 
 	onMount(async () => {});
 </script>
@@ -124,29 +122,29 @@
 				class="fp32 {conformanceDataTypeOptions.fp32}"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleDataIndex('fp32')}>FP32</span
+				onkeydown={() => {}}
+				onclick={() => toggleDataIndex('fp32')}>FP32</span
 			>
 			<span
 				class="fp16 {conformanceDataTypeOptions.fp16}"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleDataIndex('fp16')}>FP16</span
+				onkeydown={() => {}}
+				onclick={() => toggleDataIndex('fp16')}>FP16</span
 			>
 			<span
 				class="int8 {conformanceDataTypeOptions.int8}"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleDataIndex('int8')}>INT8</span
+				onkeydown={() => {}}
+				onclick={() => toggleDataIndex('int8')}>INT8</span
 			>
 			<span
 				class="int4 {conformanceDataTypeOptions.int4}"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleDataIndex('int4')}>INT4</span
+				onkeydown={() => {}}
+				onclick={() => toggleDataIndex('int4')}>INT4</span
 			>
 		</div>
 		<div class="result">
@@ -416,7 +414,7 @@
 </div>
 
 <div class="run">
-	<button on:click={() => loadConformance()}>Load Conformance JSON File</button>
+	<button onclick={() => loadConformance()}>Load Conformance JSON File</button>
 </div>
 
 <Footer />

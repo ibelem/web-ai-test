@@ -7,7 +7,7 @@
 	import LogToggle from '$lib/components/svg/LogToggle.svelte';
 	import Enlarge from '$lib/components/svg/Enlarge.svelte';
 	import FitScreen from '$lib/components/svg/FitScreen.svelte';
-	import { onMount, beforeUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 	import {
 		getModelDataTypeById,
 		getModelDescriptionById,
@@ -27,7 +27,7 @@
 	import { fallbackLogStore, fallbackStore, fallbackQueueStore, autoStore } from '$lib/store/store';
 	import Fallback from '$lib/components/Fallback.svelte';
 
-	$: rawConsole = 'Raw console log for WebNN EP developers';
+	let rawConsole = $state('Raw console log for WebNN EP developers');
 
 	/**
 	 * @type {string[]}
@@ -53,7 +53,7 @@
 		fallbackLog = value;
 	});
 
-	$: fallbackString = JSON.stringify(fallback);
+	let fallbackString = $state(JSON.stringify(fallback));
 
 	/**
 	 * @type {string | any[]}
@@ -217,33 +217,27 @@
 	 */
 	let element;
 
-	$: if (element) {
-		scrollToBottom(element);
-	}
+	$effect(() => { if (element) { scrollToBottom(element); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element2;
 
-	$: if (element2) {
-		scrollToBottom(element2);
-	}
+	$effect(() => { if (element2) { scrollToBottom(element2); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element3;
 
-	$: if (element3) {
-		scrollToBottom(element3);
-	}
+	$effect(() => { if (element3) { scrollToBottom(element3); } })
 
 	const scrollToBottom = (/** @type {HTMLDivElement} */ node) => {
 		node?.scroll({ top: node.scrollHeight, behavior: 'smooth' });
 	};
 
-	beforeUpdate(() => {
+	$effect.pre(() => {
 		resetStore();
 		autoStore.update(() => false);
 		if (fallback) scrollToBottom(element);
@@ -276,20 +270,20 @@
 		{/if}
 		<div class="q copy">
 			<div>
-				<button title="Switch the element size" on:click={() => toggleConsole()}>
+				<button title="Switch the element size" onclick={() => toggleConsole()}>
 					{#if consoleSize}
 						<Enlarge />
 					{:else}
 						<FitScreen />
 					{/if}
 				</button>
-				<button title="Copy raw console logs" on:click={() => copyRawConsole()}>
+				<button title="Copy raw console logs" onclick={() => copyRawConsole()}>
 					<Log />
 				</button>
 
 				<button
 					title="Hide logs"
-					on:click={() => {
+					onclick={() => {
 						jsonLogShow = !jsonLogShow;
 					}}
 				>
@@ -307,13 +301,13 @@
 		{/if}
 		<div class="q copy">
 			<div>
-				<button title="Copy full test logs" on:click={() => copyJsonInfo()}>
+				<button title="Copy full test logs" onclick={() => copyJsonInfo()}>
 					<Log />
 				</button>
 
 				<button
 					title="Hide logs"
-					on:click={() => {
+					onclick={() => {
 						jsonLogShow = !jsonLogShow;
 					}}
 				>
@@ -351,13 +345,13 @@
 		{/if}
 		<div class="q copy">
 			<div>
-				<button title="Copy full test logs" on:click={() => copyLogInfo()}>
+				<button title="Copy full test logs" onclick={() => copyLogInfo()}>
 					<Log />
 				</button>
 
 				<button
 					title="Hide logs"
-					on:click={() => {
+					onclick={() => {
 						logShow = !logShow;
 					}}
 				>
@@ -370,7 +364,7 @@
 
 {#if sortedModels && sortedModels.length > 0}
 	<div class="title tq fp16">
-		<button on:click={() => setFallbackQueue('fp16')}>Float16</button>
+		<button onclick={() => setFallbackQueue('fp16')}>Float16</button>
 	</div>
 	<div class="ho fp16">
 		{#each sortedModels as m}
@@ -382,14 +376,14 @@
 							m.id
 						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 					>
-						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
+						<button onclick={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
 			{/if}
 		{/each}
 	</div>
 
-	<div class="title tq int8"><button on:click={() => setFallbackQueue('int8')}>Int8</button></div>
+	<div class="title tq int8"><button onclick={() => setFallbackQueue('int8')}>Int8</button></div>
 	<div class="ho int8">
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
@@ -400,14 +394,14 @@
 							m.id
 						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 					>
-						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
+						<button onclick={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
 			{/if}
 		{/each}
 	</div>
 
-	<div class="title tq int4"><button on:click={() => setFallbackQueue('int4')}>Int4</button></div>
+	<div class="title tq int4"><button onclick={() => setFallbackQueue('int4')}>Int4</button></div>
 	<div class="ho int4">
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
@@ -418,14 +412,14 @@
 							m.id
 						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 					>
-						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
+						<button onclick={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
 			{/if}
 		{/each}
 	</div>
 
-	<div class="title tq"><button on:click={() => setFallbackQueue('fp32')}>Float32</button></div>
+	<div class="title tq"><button onclick={() => setFallbackQueue('fp32')}>Float32</button></div>
 	<div class="ho">
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
@@ -436,7 +430,7 @@
 							m.id
 						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 					>
-						<button on:click={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
+						<button onclick={() => setFallbackQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
 			{/if}
@@ -447,8 +441,8 @@
 <Fallback />
 
 <div class="run" title="It will take quite a long time...">
-	<button on:click={() => setFallbackQueue('all')}>Check WebNN Fallback for All Models</button>
-	<button class="log" on:click={() => resetFallbackQueue()}>Cancel</button>
+	<button onclick={() => setFallbackQueue('all')}>Check WebNN Fallback for All Models</button>
+	<button class="log" onclick={() => resetFallbackQueue()}>Cancel</button>
 </div>
 
 <Environment />

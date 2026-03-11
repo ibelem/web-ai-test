@@ -5,7 +5,7 @@
 	import Info from '$lib/components/Info.svelte';
 	import ArrowOutward from '$lib/components/svg/ArrowOutward.svelte';
 	import { models } from '$lib/config';
-	import { beforeUpdate, onMount, onDestroy } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
 	import { autoStore, customStore } from '$lib/store/store';
 	import {
@@ -23,20 +23,20 @@
 	/**
 	 * @type {string[]}
 	 */
-	$: uniqueModels = [];
+	let uniqueModels = $state([]);
 	/**
 	 * @type {string[]}
 	 */
-	$: orginalUniqueModels = [];
+	let orginalUniqueModels = $state([]);
 	/**
 	 * @type {any[]}
 	 */
-	$: categories = [];
-	$: search = '';
-	$: onnxOperatorsCountFP16 = 0;
-	$: onnxOperatorsCountINT8 = 0;
-	$: onnxOperatorsCountINT4 = 0;
-	$: onnxOperatorsCountFP32 = 0;
+	let categories = $state([]);
+	let search = $state('');
+	let onnxOperatorsCountFP16 = $state(0);
+	let onnxOperatorsCountINT8 = $state(0);
+	let onnxOperatorsCountINT4 = $state(0);
+	let onnxOperatorsCountFP32 = $state(0);
 	let subModels = models;
 
 	const getUniqueCategories = (/** @type {any[]} */ array) => {
@@ -106,7 +106,7 @@
 		return name;
 	};
 
-	beforeUpdate(() => {});
+	
 
 	onMount(() => {
 		resetStore();

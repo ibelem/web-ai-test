@@ -5,7 +5,7 @@
 	import Info from '$lib/components/Info.svelte';
 	import ArrowOutward from '$lib/components/svg/ArrowOutward.svelte';
 	import { models } from '$lib/config/index.js';
-	import { beforeUpdate, onMount, onDestroy } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import OnnxFull from '$lib/components/svg/OnnxFull.svelte';
 	import { base } from '$app/paths';
 	import { autoStore, customStore } from '$lib/store/store';
@@ -25,25 +25,25 @@
 	/**
 	 * @type {string[]}
 	 */
-	$: uniqueModels = [];
+	let uniqueModels = $state([]);
 	/**
 	 * @type {string[]}
 	 */
-	$: orginalUniqueModels = [];
+	let orginalUniqueModels = $state([]);
 	/**
 	 * @type {any[]}
 	 */
-	$: categories = [];
-	$: search = '';
-	$: fp16Count = 0;
-	$: int8Count = 0;
-	$: int4Count = 0;
-	$: fp32Count = 0;
-	$: demoCount = 0;
-	$: hfbenchModelCount = 0;
-	$: hfbenchPipelineCountFp32 = 0;
-	$: hfbenchPipelineCountFp16 = 0;
-	$: hfbenchPipelineCountInt8 = 0;
+	let categories = $state([]);
+	let search = $state('');
+	let fp16Count = $state(0);
+	let int8Count = $state(0);
+	let int4Count = $state(0);
+	let fp32Count = $state(0);
+	let demoCount = $state(0);
+	let hfbenchModelCount = $state(0);
+	let hfbenchPipelineCountFp32 = $state(0);
+	let hfbenchPipelineCountFp16 = $state(0);
+	let hfbenchPipelineCountInt8 = $state(0);
 	let subModels = models;
 	let selected = 'onnx';
 
@@ -181,7 +181,7 @@
 		return name;
 	};
 
-	beforeUpdate(() => {});
+	
 
 	onMount(() => {
 		resetStore();
@@ -221,16 +221,16 @@
 	<input
 		id="search"
 		type="text"
-		on:input={searchUniqueModels}
-		on:change={searchUniqueModels}
+		oninput={searchUniqueModels}
+		onchange={searchUniqueModels}
 		bind:value={search}
 		placeholder="Search models"
 	/>
 	<div id="category">
 		{#each categories as tag}
-			<button class="category" on:click={filterCategory(tag)}>{tag}</button>
+			<button class="category" onclick={filterCategory(tag)}>{tag}</button>
 		{/each}
-		<button class="category" on:click={filterCategory}>
+		<button class="category" onclick={filterCategory}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				height="24px"

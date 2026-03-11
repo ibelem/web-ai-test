@@ -5,7 +5,7 @@
 	/**
 	 * @type {string[]}
 	 */
-	export let testQueue;
+	let testQueue;
 	testQueueStore.subscribe((value) => {
 		testQueue = value;
 	});

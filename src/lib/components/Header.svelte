@@ -1,47 +1,17 @@
 <script>
 	import Nav from './Nav.svelte';
 	import { base } from '$app/paths';
-	import { page } from '$app/stores';
-	import { onMount, beforeUpdate } from 'svelte';
+	import { page } from '$app/state';
 	import { getModelIdfromPath } from '$lib/assets/js/utils';
-	// import { testQueueStore, testQueueLengthStore } from '$lib/store/store';
 
-	// /**
-	//  * @type {string[]}
-	//  */
-	// export let testQueue;
-	// testQueueStore.subscribe((value) => {
-	// 	testQueue = value;
-	// });
-
-	// /**
-	//  * @type {number}
-	//  */
-	// export let testQueueLength;
-
-	// testQueueLengthStore.subscribe((value) => {
-	// 	testQueueLength = value;
-	// });
-
-	// $: percentageTestQueue = (
-	// 	((testQueueLength - testQueue.length) * 100) /
-	// 	(testQueueLength * 1.0)
-	// ).toFixed(2);
-
-	// $: percentageTestQueueInt = (
-	// 	((testQueueLength - testQueue.length) * 100) /
-	// 	(testQueueLength * 1.0)
-	// ).toFixed(0);
-
-	$: progress = '';
-
-	$: url = base;
-	$: search = '';
-	$: fullSearch = search;
+	let progress = $state('');
+	let url = $state(base);
+	let search = $state('');
+	let fullSearch = $state(search);
 
 	const homeUrl = () => {
-		search = $page.url.search;
-		if ($page.url.pathname.indexOf('/run/') > -1 && search.indexOf('model=') <= -1) {
+		search = page.url.search;
+		if (page.url.pathname.indexOf('/run/') > -1 && search.indexOf('model=') <= -1) {
 			if (search.indexOf('?') > -1) {
 				fullSearch = search + '&model=' + getModelIdfromPath();
 			} else {
@@ -50,31 +20,21 @@
 		} else {
 			fullSearch = search;
 		}
-		let host = $page.url.protocol + '//' + $page.url.hostname;
-		let port = $page.url.port;
+		let host = page.url.protocol + '//' + page.url.hostname;
+		let port = page.url.port;
 		if (port) {
 			host = host + ':' + port;
 		}
-		if ($page.url.pathname.indexOf('web-ai-run') > -1) {
+		if (page.url.pathname.indexOf('web-ai-run') > -1) {
 			host = host + '/web-ai-run';
 		}
 		url = `${host}${fullSearch}`;
 	};
-
-	beforeUpdate(() => {
-		// if (0 < parseInt(percentageTestQueueInt) && parseInt(percentageTestQueueInt) < 100) {
-		// 	progress = 'ing';
-		// } else {
-		// 	progress = '';
-		// }
-	});
-
-	onMount(() => {});
 </script>
 
 <header>
 	<div id="logo" class={progress}>
-		<a href={url} on:click={homeUrl}>
+		<a href={url} onclick={homeUrl}>
 			<svg width="642" height="160" viewBox="0 0 642 160" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M15 80L33 59" stroke="#C61A3E" stroke-width="6" stroke-linecap="round"/>
 					<path d="M63 73L44 58" stroke="#C61A3E" stroke-width="6" stroke-linecap="round"/>

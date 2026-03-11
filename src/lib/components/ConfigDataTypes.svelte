@@ -9,7 +9,7 @@
 		getModelIdfromPath
 	} from '$lib/assets/js/utils';
 	// import { dataTypesStore } from '$lib/store/store';
-	import { beforeUpdate, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	// /**
 	//  * @type {string[]}
@@ -24,18 +24,18 @@
 	/**
 	 * @type {any}
 	 */
-	let dataTypes = {
+	let dataTypes = $state({
 		fp32: { selected: false, show: false },
 		fp16: { selected: false, show: false },
 		int8: { selected: false, show: false },
 		int4: { selected: false, show: false }
 		// int64: { selected: false, show: false }
-	};
+	});
 
 	/**
 	 * @type {any[]}
 	 */
-	let uniqueDataTypes = [];
+	let uniqueDataTypes = $state([]);
 	const toggleDataTypes = () => {
 		for (const datatype in dataTypes) {
 			if (dataTypes.hasOwnProperty(datatype)) {
@@ -97,7 +97,7 @@
 		goTo('datatype', urlDataTypes);
 	};
 
-	beforeUpdate(() => {
+	$effect.pre(() => {
 		uniqueDataTypes = getUniqueDataTypesByModelId(getModelIdfromPath());
 		for (let dataType of uniqueDataTypes) {
 			if (dataTypes[dataType]) {
@@ -138,45 +138,45 @@
 {#if dataTypes}
 	<div class="title">
 		<label class="" title="Toggle operand types">
-			<input type="checkbox" on:change={() => toggleDataTypes()} />
+			<input type="checkbox" onchange={() => toggleDataTypes()} />
 			Data Type
 		</label>
 	</div>
 	<div class="types">
 		<!-- {#each Object.keys(dataTypes) as dt}
 			<label class="extra {dataTypes[dt]}" title={dt.toUpperCase()}>
-				<input type="checkbox" on:change={() => toggleDataType(dt)} />
+				<input type="checkbox" onchange={() => toggleDataType(dt)} />
 				{dt.toUpperCase()}
 			</label>
 		{/each} -->
 
 		{#if dataTypes.fp32.show}
 			<label class="extra {dataTypes.fp32.selected} fp32" title="FP32">
-				<input type="checkbox" on:change={() => toggleDataType('fp32')} />
+				<input type="checkbox" onchange={() => toggleDataType('fp32')} />
 				FP32
 			</label>
 		{/if}
 		<!-- {#if dataTypes.int64.show}
 			<label class="extra {dataTypes.int64.selected} int64" title="INT64">
-				<input type="checkbox" on:change={() => toggleDataType('int64')} />
+				<input type="checkbox" onchange={() => toggleDataType('int64')} />
 				INT64
 			</label>
 		{/if} -->
 		{#if dataTypes.fp16.show}
 			<label class="extra {dataTypes.fp16.selected} fp16" title="FP16">
-				<input type="checkbox" on:change={() => toggleDataType('fp16')} />
+				<input type="checkbox" onchange={() => toggleDataType('fp16')} />
 				FP16
 			</label>
 		{/if}
 		{#if dataTypes.int8.show}
 			<label class="extra {dataTypes.int8.selected} int8" title="INT8">
-				<input type="checkbox" on:change={() => toggleDataType('int8')} />
+				<input type="checkbox" onchange={() => toggleDataType('int8')} />
 				INT8
 			</label>
 		{/if}
 		{#if dataTypes.int4.show}
 			<label class="extra {dataTypes.int4.selected} int8" title="INT4">
-				<input type="checkbox" on:change={() => toggleDataType('int4')} />
+				<input type="checkbox" onchange={() => toggleDataType('int4')} />
 				INT4
 			</label>
 		{/if}

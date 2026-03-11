@@ -24,7 +24,7 @@
 	/**
 	 * @type {{ selected?: any; stable?: any; dev?: any; }}
 	 */
-	export let ortWebVersion;
+	let ortWebVersion;
 
 	ortWebVersionStore.subscribe((value) => {
 		ortWebVersion = value;
@@ -125,7 +125,9 @@
 
 <div class="environment framework">
 	<Modal bind:showOrtDevModal>
-		<h2 slot="header" class="updatecpu">ONNX Runtime Web</h2>	
+		{#snippet header()}
+			<h2 class="updatecpu">ONNX Runtime Web</h2>
+		{/snippet}	
 		<div class="info">
 			Select the Dev version of ONNX Runtime Web to be tested.
 		</div>
@@ -133,7 +135,9 @@
 	</Modal>
 
 	<Modal bind:showOrtStableModal>
-		<h2 slot="header" class="updatecpu">ONNX Runtime Web</h2>	
+		{#snippet header()}
+			<h2 class="updatecpu">ONNX Runtime Web</h2>
+		{/snippet}	
 		<div class="info">
 			Select the Stable version of ONNX Runtime Web to be tested.
 		</div>
@@ -188,7 +192,7 @@
 					<label class="stable true" title="Select ORT Web test versions">
 						<input
 							checked={selected === 0}
-							on:change={onChange}
+							onchange={onChange}
 							type="radio"
 							name="amount"
 							value="0"
@@ -199,7 +203,7 @@
 					<label class="stable" title="Select ORT Web test versions">
 						<input
 							checked={selected === 0}
-							on:change={onChange}
+							onchange={onChange}
 							type="radio"
 							name="amount"
 							value="0"
@@ -211,7 +215,7 @@
 					<label class="dev true" title="Select ORT Web test versions">
 						<input
 							checked={selected === 1}
-							on:change={onChange}
+							onchange={onChange}
 							type="radio"
 							name="amount"
 							value="1"
@@ -222,7 +226,7 @@
 					<label class="dev" title="Select ORT Web test versions">
 						<input
 							checked={selected === 1}
-							on:change={onChange}
+							onchange={onChange}
 							type="radio"
 							name="amount"
 							value="1"
@@ -234,7 +238,7 @@
 					<label class="internal true" title="Select ORT Web test versions">
 						<input
 							checked={selected === 2}
-							on:change={onChange}
+							onchange={onChange}
 							type="radio"
 							name="amount"
 							value="2"
@@ -245,7 +249,7 @@
 					<label class="internal" title="Select ORT Web test versions">
 						<input
 							checked={selected === 2}
-							on:change={onChange}
+							onchange={onChange}
 							type="radio"
 							name="amount"
 							value="2"
@@ -281,7 +285,7 @@
 						></span
 					>
 					<span class="version selector">
-						<button on:click={() => (showOrtDevModal = true)} aria-label="Select dev version">
+						<button onclick={() => (showOrtDevModal = true)} aria-label="Select dev version">
 							<svg height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
 						</button>
 					</span>
@@ -308,7 +312,7 @@
 					>
 					{/if}
 					<span class="version selector">
-						<button on:click={() => (showOrtStableModal = true)} aria-label="Select stable version">
+						<button onclick={() => (showOrtStableModal = true)} aria-label="Select stable version">
 							<svg height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
 						</button>
 					</span>

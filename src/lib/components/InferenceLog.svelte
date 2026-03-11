@@ -1,44 +1,45 @@
 <script>
 	import { infoStore } from '$lib/store/store';
 	import { copyInfo } from '$lib/assets/js/utils';
-	import { beforeUpdate } from 'svelte';
 	import Log from './svg/Log.svelte';
 	import LogToggle from './svg/LogToggle.svelte';
 	import { testQueueStore } from '$lib/store/store';
+	import { onDestroy } from 'svelte';
 
-	/**
-	 * @type {string[]}
-	 */
-	export let testQueue;
-	testQueueStore.subscribe((value) => {
+	let testQueue = $state([]);
+	const unsubTestQueue = testQueueStore.subscribe((value) => {
 		testQueue = value;
 	});
 
-	/**
-	 * @type {string[]}
-	 */
-	export let info;
-	infoStore.subscribe((value) => {
+	let info = $state([]);
+	const unsubInfo = infoStore.subscribe((value) => {
 		info = value;
 	});
 
-	export let logShow = true;
+	let logShow = $state(true);
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element;
 
-	$: if (info && element) {
-		scrollToBottom(element);
-	}
-
 	const scrollToBottom = async (/** @type {HTMLDivElement} */ node) => {
 		node?.scroll({ top: node.scrollHeight, behavior: 'smooth' });
 	};
 
-	beforeUpdate(() => {
+	$effect.pre(() => {
 		if (info) scrollToBottom(element);
+	});
+
+	$effect(() => {
+		if (info && element) {
+			scrollToBottom(element);
+		}
+	});
+
+	onDestroy(() => {
+		unsubTestQueue();
+		unsubInfo();
 	});
 </script>
 
@@ -52,13 +53,13 @@
 		{#if testQueue.length === 0}
 			<div class="q copy">
 				<div>
-					<button title="Copy full test logs" on:click={() => copyInfo()}>
+					<button title="Copy full test logs" onclick={() => copyInfo()}>
 						<Log />
 					</button>
 
 					<button
 						title="Hide logs"
-						on:click={() => {
+						onclick={() => {
 							logShow = false;
 						}}
 					>

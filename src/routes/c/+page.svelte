@@ -7,8 +7,8 @@
 	import FitScreen from '$lib/components/svg/FitScreen.svelte';
 	import Log from '$lib/components/svg/Log.svelte';
 	import LogToggle from '$lib/components/svg/LogToggle.svelte';
-	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
-	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import { page } from '$app/state';
 	import {
 		getModelDataTypeById,
 		getModelNameById,
@@ -59,7 +59,7 @@
 		conformanceLog = value;
 	});
 
-	$: conformanceString = JSON.stringify(conformance);
+	let conformanceString = $state(JSON.stringify(conformance));
 
 	/**
 	 * @type {string}
@@ -71,7 +71,7 @@
 	let backend;
 
 	const run = async () => {
-		let params = $page.url.searchParams.get('q');
+		let params = page.url.searchParams.get('q');
 
 		if (params) {
 			id = params.split('__')[0];
@@ -90,7 +90,7 @@
 	let logShow = true;
 	let jsonLogShow = true;
 	let consoleSize = false;
-	$: rawConsole = '';
+	let rawConsole = $state('');
 
 	const copyJsonInfo = async () => {
 		let log = JSON.stringify(conformance).toString();
@@ -121,33 +121,27 @@
 	 */
 	let element;
 
-	$: if (element) {
-		scrollToBottom(element);
-	}
+	$effect(() => { if (element) { scrollToBottom(element); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element2;
 
-	$: if (element2) {
-		scrollToBottom(element2);
-	}
+	$effect(() => { if (element2) { scrollToBottom(element2); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element3;
 
-	$: if (element3) {
-		scrollToBottom(element3);
-	}
+	$effect(() => { if (element3) { scrollToBottom(element3); } })
 
 	const scrollToBottom = (/** @type {HTMLDivElement} */ node) => {
 		node?.scroll({ top: node.scrollHeight, behavior: 'smooth' });
 	};
 
-	beforeUpdate(() => {
+	$effect.pre(() => {
 		resetStore();
 		autoStore.update(() => false);
 		if (conformance) scrollToBottom(element);
@@ -160,7 +154,7 @@
 		location.href = location.origin + `/c?q=${path}`;
 	};
 
-	afterUpdate(() => {});
+	
 
 	onMount(async () => {
 		sortedModels = sortModelById(models);
@@ -193,20 +187,20 @@
 		{/if}
 		<div class="q copy">
 			<div>
-				<button title="Switch the element size" on:click={() => toggleConsole()}>
+				<button title="Switch the element size" onclick={() => toggleConsole()}>
 					{#if consoleSize}
 						<Enlarge />
 					{:else}
 						<FitScreen />
 					{/if}
 				</button>
-				<button title="Copy raw inference result" on:click={() => copyRawConsole()}>
+				<button title="Copy raw inference result" onclick={() => copyRawConsole()}>
 					<Log />
 				</button>
 
 				<button
 					title="Hide logs"
-					on:click={() => {
+					onclick={() => {
 						jsonLogShow = !jsonLogShow;
 					}}
 				>
@@ -224,13 +218,13 @@
 		{/if}
 		<div class="q copy">
 			<div>
-				<button title="Copy full test logs" on:click={() => copyJsonInfo()}>
+				<button title="Copy full test logs" onclick={() => copyJsonInfo()}>
 					<Log />
 				</button>
 
 				<button
 					title="Hide logs"
-					on:click={() => {
+					onclick={() => {
 						jsonLogShow = !jsonLogShow;
 					}}
 				>
@@ -252,13 +246,13 @@
 		{/if}
 		<div class="q copy">
 			<div>
-				<button title="Copy full test logs" on:click={() => copyLogInfo()}>
+				<button title="Copy full test logs" onclick={() => copyLogInfo()}>
 					<Log />
 				</button>
 
 				<button
 					title="Hide logs"
-					on:click={() => {
+					onclick={() => {
 						logShow = !logShow;
 					}}
 				>
@@ -285,14 +279,14 @@
 						{getModelNameById(m.id)}
 					</div>
 					<div class="i">
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_1')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu')}
+						<a class="fb2 cpu" href="#top" onclick={() => nav(m.id + '__wasm_1')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" onclick={() => nav(m.id + '__webnn_cpu')}
 							>WebNN CPU
 						</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
-						<a class="fb2 npu" href="#top" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
+						<a class="fb2 gpu" href="#top" onclick={() => nav(m.id + '__webgl')}>WebGL</a>
+						<a class="fb2 gpu" href="#top" onclick={() => nav(m.id + '__webgpu')}>WebGPU</a>
+						<a class="fb2 gpu" href="#top" onclick={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
+						<a class="fb2 npu" href="#top" onclick={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
 					</div>
 				</div>
 			{/if}
@@ -315,14 +309,14 @@
 						{getModelNameById(m.id)}
 					</div>
 					<div class="i">
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_1')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu')}
+						<a class="fb2 cpu" href="#top" onclick={() => nav(m.id + '__wasm_1')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" onclick={() => nav(m.id + '__webnn_cpu')}
 							>WebNN CPU
 						</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
-						<a class="fb2 npu" href="#top" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
+						<a class="fb2 gpu" href="#top" onclick={() => nav(m.id + '__webgl')}>WebGL</a>
+						<a class="fb2 gpu" href="#top" onclick={() => nav(m.id + '__webgpu')}>WebGPU</a>
+						<a class="fb2 gpu" href="#top" onclick={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
+						<a class="fb2 npu" href="#top" onclick={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
 					</div>
 				</div>
 			{/if}
@@ -345,14 +339,14 @@
 						{getModelNameById(m.id)}
 					</div>
 					<div class="i">
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_1')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu')}
+						<a class="fb2 cpu" href="#top" onclick={() => nav(m.id + '__wasm_1')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" onclick={() => nav(m.id + '__webnn_cpu')}
 							>WebNN CPU
 						</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
-						<a class="fb2 npu" href="#top" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
+						<a class="fb2 gpu" href="#top" onclick={() => nav(m.id + '__webgl')}>WebGL</a>
+						<a class="fb2 gpu" href="#top" onclick={() => nav(m.id + '__webgpu')}>WebGPU</a>
+						<a class="fb2 gpu" href="#top" onclick={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
+						<a class="fb2 npu" href="#top" onclick={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
 					</div>
 				</div>
 			{/if}
@@ -376,14 +370,14 @@
 						{getModelNameById(m.id)}
 					</div>
 					<div class="i">
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__wasm_1')}>Wasm</a>
-						<a class="fb2 cpu" href="#top" on:click={() => nav(m.id + '__webnn_cpu')}
+						<a class="fb2 cpu" href="#top" onclick={() => nav(m.id + '__wasm_1')}>Wasm</a>
+						<a class="fb2 cpu" href="#top" onclick={() => nav(m.id + '__webnn_cpu')}
 							>WebNN CPU
 						</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgl')}>WebGL</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webgpu')}>WebGPU</a>
-						<a class="fb2 gpu" href="#top" on:click={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
-						<a class="fb2 npu" href="#top" on:click={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
+						<a class="fb2 gpu" href="#top" onclick={() => nav(m.id + '__webgl')}>WebGL</a>
+						<a class="fb2 gpu" href="#top" onclick={() => nav(m.id + '__webgpu')}>WebGPU</a>
+						<a class="fb2 gpu" href="#top" onclick={() => nav(m.id + '__webnn_gpu')}>WebNN GPU</a>
+						<a class="fb2 npu" href="#top" onclick={() => nav(m.id + '__webnn_npu')}>WebNN NPU</a>
 					</div>
 				</div>
 			{/if}

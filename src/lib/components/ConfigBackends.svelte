@@ -161,7 +161,7 @@
 
 <div class="title">
 	<label class="" title="Toggle backends">
-		<input type="checkbox" on:change={() => toggleBackends()} />
+		<input type="checkbox" onchange={() => toggleBackends()} />
 		Backend
 	</label>
 </div>
@@ -174,11 +174,11 @@
 		<span>CPU</span>
 		<div class="block">
 			<label id="wasm_1" class={backends.wasm_1.toString()} title="WebAssembly SIMD with 1 thread">
-				<input type="checkbox" on:change={() => toggleBackend('wasm_1')} />
+				<input type="checkbox" onchange={() => toggleBackend('wasm_1')} />
 				Wasm
 			</label>
 			<label id="wasm_4" class="{backends.wasm_4.toString()} relaxedsimd_{relaxedSimd}" title="WebAssembly SIMD with 4 threads">
-				<input type="checkbox" on:change={() => toggleBackend('wasm_4')} />
+				<input type="checkbox" onchange={() => toggleBackend('wasm_4')} />
 				Wasm 4
 			</label>
 			<label
@@ -186,7 +186,7 @@
 				class="{backends.webnn_cpu.toString()} relaxedsimd_{relaxedSimd}"
 				title="WebNN CPU"
 			>
-				<input type="checkbox" on:change={() => toggleBackend('webnn_cpu')} />
+				<input type="checkbox" onchange={() => toggleBackend('webnn_cpu')} />
 				WebNN
 			</label>
 		</div>
@@ -196,15 +196,15 @@
 		<span>GPU</span>
 		<div class="block">
 			<label class={backends.webgl.toString()} title="WebGL">
-				<input type="checkbox" on:change={() => toggleBackend('webgl')} />
+				<input type="checkbox" onchange={() => toggleBackend('webgl')} />
 				WebGL
 			</label>
 			<label class={backends.webgpu.toString()} title="WebGPU">
-				<input type="checkbox" on:change={() => toggleBackend('webgpu')} />
+				<input type="checkbox" onchange={() => toggleBackend('webgpu')} />
 				WebGPU
 			</label>
 			<label id="webnn_gpu" class={backends.webnn_gpu.toString()} title="WebNN GPU">
-				<input type="checkbox" on:change={() => toggleBackend('webnn_gpu')} />
+				<input type="checkbox" onchange={() => toggleBackend('webnn_gpu')} />
 				WebNN
 			</label>
 		</div>
@@ -214,7 +214,7 @@
 		<span>NPU</span>
 		<div class="block">
 			<label id="webnn_npu" class={backends.webnn_npu.toString()} title="WebNN NPU">
-				<input type="checkbox" on:change={() => toggleBackend('webnn_npu')} />
+				<input type="checkbox" onchange={() => toggleBackend('webnn_npu')} />
 				WebNN
 			</label>
 		</div>

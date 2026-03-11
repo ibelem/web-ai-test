@@ -1,12 +1,11 @@
 <script>
-	export let showModal = false; // boolean
-	export let showOrtDevModal = false;
-	export let showOrtStableModal = false;
-	export let showLiteRtDevModal = false;
+	let { showModal = false, showOrtDevModal = false, showOrtStableModal = false, showLiteRtDevModal = false, header, children } = $props();
 
 	let dialog; // HTMLDialogElement
 
-	$: if (dialog && (showModal || showOrtDevModal || showOrtStableModal || showLiteRtDevModal)) dialog.showModal();
+	$effect(() => {
+		if (dialog && (showModal || showOrtDevModal || showOrtStableModal || showLiteRtDevModal)) dialog.showModal();
+	});
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
@@ -17,8 +16,8 @@
 >
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div onclick={(event) => event.stopPropagation()}>
-		<slot name="header" />
-		<slot />
+		{@render header?.()}
+		{@render children?.()}
 		<div class="update">
 			<button onclick={() => dialog.close()}>Close</button>
 		</div>

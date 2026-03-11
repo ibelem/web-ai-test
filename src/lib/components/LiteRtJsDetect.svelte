@@ -16,7 +16,7 @@
     /**
      * @type {{ selected?: any; stable?: any; dev?: any; }}
      */
-    export let liteRtJsVersion;
+    let liteRtJsVersion;
 
     liteRtJsVersionStore.subscribe((value) => {
         liteRtJsVersion = value;
@@ -97,7 +97,9 @@
 
 <div class="environment framework">
     <Modal bind:showLiteRtDevModal>
-        <h2 slot="header" class="updatecpu">LiteRT.js</h2>	
+        {#snippet header()}
+            <h2 class="updatecpu">LiteRT.js</h2>
+        {/snippet}	
         <div class="info">
             Select the version of LiteRT.js to be tested.
         </div>
@@ -114,7 +116,7 @@
                     <label class="dev true" title="Select LiteRT.js dev version">
                         <input
                             checked={selected === 1}
-                            on:change={onChange}
+                            onchange={onChange}
                             type="radio"
                             name="litert_version"
                             value="1"
@@ -125,7 +127,7 @@
                     <label class="stable" title="Select LiteRT.js stable version">
                         <input
                             checked={selected === 0}
-                            on:change={onChange}
+                            onchange={onChange}
                             type="radio"
                             name="litert_version"
                             value="0"

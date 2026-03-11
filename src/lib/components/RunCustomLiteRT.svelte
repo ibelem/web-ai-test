@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	import { onMount, afterUpdate, beforeUpdate } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { customStore } from '$lib/store/store';
 	// import TestQueue from './TestQueue.svelte';
 	import Header from '$lib/components/Header.svelte';
@@ -34,49 +34,37 @@
 		modelDownloadProgressStore,
 		testQueueLengthStore
 	} from '$lib/store/store';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
-	let logShow = true;
+	let logShow = $state(true);
 
-	/**
-	 * @type {string[]}
-	 */
-	let selectedBackends;
-	backendsStore.subscribe((value) => {
+	let selectedBackends = $state([]);
+	const unsubBackends = backendsStore.subscribe((value) => {
 		selectedBackends = value;
 	});
 
-	$: testQueue = $testQueueStore; 
-	/**
-	 * @type {string[]}
-	 */
-	let testQueue;
-	testQueueStore.subscribe((value) => {
+	let testQueue = $state([]);
+	const unsubTestQueue = testQueueStore.subscribe((value) => {
 		testQueue = value;
 	});
 
-	$: testQueueLength = $testQueueLengthStore; 
-
-	/**
-	 * @type {number}
-	 */
-	export let testQueueLength;
-
-	testQueueLengthStore.subscribe((value) => {
+	let testQueueLength = $state(0);
+	const unsubTestQueueLength = testQueueLengthStore.subscribe((value) => {
 		testQueueLength = value;
 	});
 
-	/**
-	 * @type {string}
-	 */
-	let dataType = 'fp32';
+	let dataType = $state('fp32');
 
-	/**
-	 * @type {object{}}
-	 */
-	let custom;
-	customStore.subscribe((value) => {
+	let custom = $state(null);
+	const unsubCustom = customStore.subscribe((value) => {
 		custom = value;
+	});
+
+	onDestroy(() => {
+		unsubBackends();
+		unsubTestQueue();
+		unsubTestQueueLength();
+		unsubCustom();
 	});
 
 	let custominit = {
@@ -234,28 +222,16 @@
 		runCustom();
 	};
 
-	/**
-	 * @type {string}
-	 */
-	$: id = '';
+	let id = $state('');
 
-	/**
-	 * @type {string}
-	 */
-	$: fileName = '';
+	let fileName = $state('');
 
-	/**
-	 * @type {string}
-	 */
-	$: size = '';
+	let size = $state('');
 
-	/**
-	 * @type {string}
-	 */
-	$: time = '';
+	let time = $state('');
 
-	$: loaded = false;
-	$: checkRun = false; // Add this line
+	let loaded = $state(false);
+	let checkRun = $state(false);
 
 	const readFileAsArrayBuffer = (/** @type {Blob} */ file) => {
 		return new Promise((resolve, reject) => {
@@ -316,7 +292,6 @@
 		}
 	};
 
-	beforeUpdate(() => {});
 
 	onMount(async () => {
 		resetStore();
@@ -332,27 +307,25 @@
 		}
 	});
 
-	afterUpdate(() => {
+	$effect(() => {
 		if (!auto) {
-			if ($page.url.searchParams.size === 0) {
+			if (page.url.searchParams.size === 0) {
 				let path = `${location.pathname}/?backend=webgpu&run=1&modeltype=tflite`;
-				// goto(path);
 				location.href = location.origin + path;
 			} else {
 				initRun();
 				if (id) {
-					urlToStore($page.url.searchParams, id, dataType);
+					urlToStore(page.url.searchParams, id, dataType);
 				}
 			}
 		}
 	});
 
-	// Add this reactive statement to monitor changes
-	$: {
+	$effect(() => {
 		if (selectedBackends && buffer && loaded) {
 			initRun();
 		}
-	}
+	});
 </script>
 
 {#if testQueue}

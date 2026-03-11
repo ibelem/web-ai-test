@@ -3,17 +3,19 @@
 	import ConfigBackends from './ConfigBackends.svelte';
 	import ConfigModels from './ConfigModels.svelte';
 	import ConfigNumOfRuns from './ConfigNumOfRuns.svelte';
-	let showConfig = true;
+	import { onDestroy } from 'svelte';
+
+	let showConfig = $state(true);
 	const toggleConfig = () => {
 		showConfig = !showConfig;
 	};
-	/**
-	 * @type {string[]}
-	 */
-	export let testQueue;
-	testQueueStore.subscribe((value) => {
+
+	let testQueue = $state([]);
+	const unsubTestQueue = testQueueStore.subscribe((value) => {
 		testQueue = value;
 	});
+
+	onDestroy(unsubTestQueue);
 </script>
 
 <div class={showConfig.toString()}>
@@ -24,7 +26,7 @@
 	</div>
 	{#if testQueue.length !== 0}
 		<div class="toggleconfig">
-			<button title="Hide/Show test options" on:click={() => toggleConfig()}>
+			<button title="Hide/Show test options" onclick={() => toggleConfig()}>
 				{#if showConfig}
 					<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"
 						><path

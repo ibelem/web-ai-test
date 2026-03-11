@@ -9,24 +9,20 @@
 		sortModelById
 	} from '$lib/assets/js/utils';
 	import ArrowOutward from './svg/ArrowOutward.svelte';
-	import { afterUpdate, onMount } from 'svelte';
-	import { page } from '$app/stores';
+	import { onDestroy, onMount } from 'svelte';
+	import { page } from '$app/state';
 
-	/**
-	 * @type {string[]}
-	 */
-	let results;
-	resultsStore.subscribe((value) => {
+	let results = $state([]);
+	const unsubResults = resultsStore.subscribe((value) => {
 		results = value;
 	});
 
-	/**
-	 * @type {any}
-	 */
-	let y;
-	let y_pin = false;
+	onDestroy(unsubResults);
 
-	afterUpdate(() => {
+	let y = $state(0);
+	let y_pin = $state(false);
+
+	$effect(() => {
 		y > 1024 ? (y_pin = true) : (y_pin = false);
 	});
 
@@ -38,7 +34,7 @@
 	/**
 	 * @type {any}
 	 */
-	let fallbackOptions = {
+	let fallbackOptions = $state({
 		cpu: true,
 		gpu: true,
 		npu: false
@@ -47,7 +43,7 @@
 	/**
 	 * @type {any}
 	 */
-	let fallbackDataTypeOptions = {
+	let fallbackDataTypeOptions = $state({
 		fp32: true,
 		fp16: true,
 		int8: true,
@@ -114,7 +110,7 @@
 	});
 </script>
 
-{#if (results && results.length > 0 && (results[0].webnn_cpu || results[0].webnn_gpu || results[0].webnn_npu)) || $page.url.pathname.indexOf('fallback') > -1}
+{#if (results && results.length > 0 && (results[0].webnn_cpu || results[0].webnn_gpu || results[0].webnn_npu)) || page.url.pathname.indexOf('fallback') > -1}
 	{#if filteredBackendDataFallback && filteredBackendDataFallback.length > 0}
 		<div id="fallback">
 			<div class="rqtitle">
@@ -125,50 +121,50 @@
 					class="cpu {fallbackOptions.cpu}"
 					role="button"
 					tabindex="0"
-					on:keydown={() => {}}
-					on:click={() => toggleIndex('cpu')}>WebNN CPU</span
+					onkeydown={() => {}}
+					onclick={() => toggleIndex('cpu')}>WebNN CPU</span
 				>
 				<span
 					class="gpu {fallbackOptions.gpu}"
 					role="button"
 					tabindex="0"
-					on:keydown={() => {}}
-					on:click={() => toggleIndex('gpu')}>WebNN GPU</span
+					onkeydown={() => {}}
+					onclick={() => toggleIndex('gpu')}>WebNN GPU</span
 				>
 				<span
 					class="npu {fallbackOptions.npu}"
 					role="button"
 					tabindex="0"
-					on:keydown={() => {}}
-					on:click={() => toggleIndex('npu')}>WebNN NPU</span
+					onkeydown={() => {}}
+					onclick={() => toggleIndex('npu')}>WebNN NPU</span
 				>
 				<span
 					class="fp32 {fallbackDataTypeOptions.fp32}"
 					role="button"
 					tabindex="0"
-					on:keydown={() => {}}
-					on:click={() => toggleDataIndex('fp32')}>FP32</span
+					onkeydown={() => {}}
+					onclick={() => toggleDataIndex('fp32')}>FP32</span
 				>
 				<span
 					class="fp16 {fallbackDataTypeOptions.fp16}"
 					role="button"
 					tabindex="0"
-					on:keydown={() => {}}
-					on:click={() => toggleDataIndex('fp16')}>FP16</span
+					onkeydown={() => {}}
+					onclick={() => toggleDataIndex('fp16')}>FP16</span
 				>
 				<span
 					class="int8 {fallbackDataTypeOptions.int8}"
 					role="button"
 					tabindex="0"
-					on:keydown={() => {}}
-					on:click={() => toggleDataIndex('int8')}>INT8</span
+					onkeydown={() => {}}
+					onclick={() => toggleDataIndex('int8')}>INT8</span
 				>
 				<span
 					class="int4 {fallbackDataTypeOptions.int4}"
 					role="button"
 					tabindex="0"
-					on:keydown={() => {}}
-					on:click={() => toggleDataIndex('int4')}>INT4</span
+					onkeydown={() => {}}
+					onclick={() => toggleDataIndex('int4')}>INT4</span
 				>
 			</div>
 			<div class="result">

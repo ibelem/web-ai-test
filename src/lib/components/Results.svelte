@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import {
 		testQueueStore,
 		testQueueLengthStore,
@@ -29,120 +29,67 @@
 	import SortAscending from './svg/SortAscending.svelte';
 	import SortDescending from './svg/SortDescending.svelte';
 
-	/**
-	 * @type {string[]}
-	 */
-	let selectedBackends;
-	backendsStore.subscribe((value) => {
+	let selectedBackends = $state([]);
+	const unsubBackends = backendsStore.subscribe((value) => {
 		selectedBackends = value;
 	});
 
-	/**
-	 * @type {string[]}
-	 */
-	let results;
-	resultsStore.subscribe((value) => {
+	let results = $state([]);
+	const unsubResults = resultsStore.subscribe((value) => {
 		results = value;
 	});
 
-	/**
-	 * @type {string[]}
-	 */
-	let testQueue;
-	testQueueStore.subscribe((value) => {
+	let testQueue = $state([]);
+	const unsubTestQueue = testQueueStore.subscribe((value) => {
 		testQueue = value;
 	});
 
-	/**
-	 * @type {number}
-	 */
-	let testQueueLength;
-
-	testQueueLengthStore.subscribe((value) => {
+	let testQueueLength = $state(0);
+	const unsubTestQueueLength = testQueueLengthStore.subscribe((value) => {
 		testQueueLength = value;
 	});
 
-	/**
-	 * @type {string[]}
-	 */
-	let progress;
-	modelDownloadProgressStore.subscribe((value) => {
+	let progress = $state([]);
+	const unsubProgress = modelDownloadProgressStore.subscribe((value) => {
 		progress = value;
 	});
 
-	$: percentageTestQueue = (
-		((testQueueLength - testQueue.length) * 100) /
-		(testQueueLength * 1.0)
-	).toFixed(2);
+	onDestroy(() => {
+		unsubBackends();
+		unsubResults();
+		unsubTestQueue();
+		unsubTestQueueLength();
+		unsubProgress();
+	});
 
-	$: getProgress = (model) => {
+	let percentageTestQueue = $derived(
+		((testQueueLength - testQueue.length) * 100 / (testQueueLength * 1.0)).toFixed(2)
+	);
+
+	const getProgress = (model) => {
 		let p = progress.find((item) => item.name === model);
-		if (p) {
-			return p.progress;
-		} else {
-			return 0;
-		}
+		return p ? p.progress : 0;
 	};
 
-	$: getLoaded = (model) => {
+	const getLoaded = (model) => {
 		let p = progress.find((item) => item.name === model);
-		if (p) {
-			return p.current;
-		} else {
-			return 0;
-		}
+		return p ? p.current : 0;
 	};
 
-	/**
-	 * @type {boolean}
-	 */
 	let sortId,
-		/**
-		 * @type {boolean}
-		 */
 		sortDataType,
-		/**
-		 * @type {boolean}
-		 */
 		sortModelType,
-		/**
-		 * @type {boolean}
-		 */
 		sortModelSize,
-		/**
-		 * @type {boolean}
-		 */
 		sortWasm1,
-		/**
-		 * @type {boolean}
-		 */
 		sortWasm4,
-		/**
-		 * @type {boolean}
-		 */
 		sortWebnnCpu1,
-		/**
-		 * @type {boolean}
-		 */
 		sortWebnnCpu4,
-		/**
-		 * @type {boolean}
-		 */
 		sortWebGl,
-		/**
-		 * @type {boolean}
-		 */
 		sortWebGpu,
-		/**
-		 * @type {boolean}
-		 */
 		sortWebnnGpu,
-		/**
-		 * @type {boolean}
-		 */
-		sortWebnnNpu = true;
+		sortWebnnNpu = $state(true);
 
-	$: sortResult = (/** @type {string} */ value) => {
+	const sortResult = (/** @type {string} */ value) => {
 		if (value === 'id') {
 			sortId = !sortId;
 		} else if (value === 'datatype') {
@@ -265,7 +212,7 @@
 	/**
 	 * @type {any}
 	 */
-	let resultOptions = {
+	let resultOptions = $state({
 		loadcompilation: false,
 		compilation: false,
 		first: false,
@@ -294,8 +241,8 @@
 		}
 	};
 
-	let notCustom = true;
-	$: checkCustomPage = () => {
+	let notCustom = $state(true);
+	const checkCustomPage = () => {
 		(location.pathname.toLowerCase().indexOf('custom') >-1) ? notCustom = false : notCustom = true;
 	};
 
@@ -316,100 +263,100 @@
 				class="loadcompilation {resultOptions.loadcompilation}"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleIndex('loadcompilation')}>LoadAndCompile</span
+				onkeydown={() => {}}
+				onclick={() => toggleIndex('loadcompilation')}>LoadAndCompile</span
 			>
 			<span
 				class="compilation {resultOptions.compilation}"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleIndex('compilation')}>Compilation</span
+				onkeydown={() => {}}
+				onclick={() => toggleIndex('compilation')}>Compilation</span
 			>
 			<span
 				class="first {resultOptions.first}"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleIndex('first')}>First Inference</span
+				onkeydown={() => {}}
+				onclick={() => toggleIndex('first')}>First Inference</span
 			>
 			<span
 				title="Compile time + 1st inference time"
 				class="tofirst {resultOptions.tofirst}"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleIndex('tofirst')}>Time to First Inference</span
+				onkeydown={() => {}}
+				onclick={() => toggleIndex('tofirst')}>Time to First Inference</span
 			>
 			<span
 				class="average {resultOptions.average}"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleIndex('average')}>Average Inference</span
+				onkeydown={() => {}}
+				onclick={() => toggleIndex('average')}>Average Inference</span
 			>
 			<span
 				class="median {resultOptions.median}"
 				title="50th Percentile"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleIndex('median')}>Median Inference</span
+				onkeydown={() => {}}
+				onclick={() => toggleIndex('median')}>Median Inference</span
 			>
 			<span
 				class="ninety {resultOptions.ninety}"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleIndex('ninety')}>90th Percentile Inference</span
+				onkeydown={() => {}}
+				onclick={() => toggleIndex('ninety')}>90th Percentile Inference</span
 			>
 			<span
 				class="best {resultOptions.best}"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleIndex('best')}>Best Inference</span
+				onkeydown={() => {}}
+				onclick={() => toggleIndex('best')}>Best Inference</span
 			>
 			<span
 				class="throughput {resultOptions.throughput}"
 				role="button"
 				tabindex="0"
-				on:keydown={() => {}}
-				on:click={() => toggleIndex('throughput')}>Throughput</span
+				onkeydown={() => {}}
+				onclick={() => toggleIndex('throughput')}>Throughput</span
 			>
 		</div>
 		<div class="result">
 			<div class="q title _{selectedBackends.length}">
 				<div class="m" title="Model Name">
-					Model <button on:click={sortResult('id')} class="btn"
+					Model <button onclick={sortResult('id')} class="btn"
 						>{#if !sortId}<SortAscending />{:else}<SortDescending />{/if}</button
 					>
 				</div>
 				<div class="ms" title="Model Size">
-					Size <button on:click={sortResult('modelsize')} class="btn"
+					Size <button onclick={sortResult('modelsize')} class="btn"
 						>{#if !sortModelSize}<SortAscending />{:else}<SortDescending />{/if}</button
 					>
 				</div>
 				<div class="mt" title="Model Type">
-					Type <button on:click={sortResult('modeltype')} class="btn"
+					Type <button onclick={sortResult('modeltype')} class="btn"
 						>{#if !sortModelType}<SortAscending />{:else}<SortDescending />{/if}</button
 					>
 				</div>
 				<div class="dt" title="Operand Data Type">
-					Data <button on:click={sortResult('datatype')} class="btn"
+					Data <button onclick={sortResult('datatype')} class="btn"
 						>{#if !sortDataType}<SortAscending />{:else}<SortDescending />{/if}</button
 					>
 				</div>
 				{#if results[0].wasm_1 && results[0].wasm_1.status !== 0}<div class="backend cpu">
 						<span title="WebAssembly SIMD with 1 Thread on CPU"
-							>Wasm 1T <button on:click={sortResult('wasm_1')} class="btn"
+							>Wasm 1T <button onclick={sortResult('wasm_1')} class="btn"
 								>{#if !sortWasm1}<SortAscending />{:else}<SortDescending />{/if}</button
 							></span
 						>
 					</div>{/if}
 				{#if results[0].wasm_4 && results[0].wasm_4.status !== 0}<div class="backend cpu">
 						<span title="WebAssembly SIMD with 4 Threads on CPU"
-							>Wasm 4T <button on:click={sortResult('wasm_4')} class="btn"
+							>Wasm 4T <button onclick={sortResult('wasm_4')} class="btn"
 								>{#if !sortWasm4}<SortAscending />{:else}<SortDescending />{/if}</button
 							></span
 						>
@@ -417,7 +364,7 @@
 				{#if results[0].webnn_cpu && results[0].webnn_cpu.status !== 0}<div class="backend cpu">
 						<span title="WebNN CPU on CPU"
 							><span class="hide">Web</span>NN CPU
-							<button on:click={sortResult('webnn_cpu')} class="btn"
+							<button onclick={sortResult('webnn_cpu')} class="btn"
 								>{#if !sortWebnnCpu1}<SortAscending />{:else}<SortDescending />{/if}</button
 							></span
 						>
@@ -425,14 +372,14 @@
 
 				{#if results[0].webgl && results[0].webgl.status !== 0}<div class="backend gpu">
 						<span title="WebGL on GPU"
-							>WebGL <button on:click={sortResult('webgl')} class="btn"
+							>WebGL <button onclick={sortResult('webgl')} class="btn"
 								>{#if !sortWebGl}<SortAscending />{:else}<SortDescending />{/if}</button
 							></span
 						>
 					</div>{/if}
 				{#if results[0].webgpu && results[0].webgpu.status !== 0}<div class="backend gpu">
 						<span title="WebGPU on GPU"
-							>WebGPU <button on:click={sortResult('webgpu')} class="btn"
+							>WebGPU <button onclick={sortResult('webgpu')} class="btn"
 								>{#if !sortWebGpu}<SortAscending />{:else}<SortDescending />{/if}</button
 							></span
 						>
@@ -440,7 +387,7 @@
 				{#if results[0].webnn_gpu && results[0].webnn_gpu.status !== 0}<div class="backend gpu">
 						<span title="WebNN GPU on GPU"
 							><span class="hide">Web</span>NN GPU
-							<button on:click={sortResult('webnn_gpu')} class="btn"
+							<button onclick={sortResult('webnn_gpu')} class="btn"
 								>{#if !sortWebnnGpu}<SortAscending />{:else}<SortDescending />{/if}</button
 							></span
 						>
@@ -448,7 +395,7 @@
 				{#if results[0].webnn_npu && results[0].webnn_npu.status !== 0}<div class="backend npu">
 						<span title="WebNN NPU on NPU"
 							><span class="hide">Web</span>NN NPU
-							<button on:click={sortResult('webnn_npu')} class="btn"
+							<button onclick={sortResult('webnn_npu')} class="btn"
 								>{#if !sortWebnnNpu}<SortAscending />{:else}<SortDescending />{/if}</button
 							></span
 						>
@@ -570,8 +517,8 @@
 									class="data"
 									role="button"
 									tabindex="0"
-									on:keydown={() => {}}
-									on:click={() =>
+									onkeydown={() => {}}
+									onclick={() =>
 										copyRawInference(
 											`LoadAndCompile Time: ${str(key.wasm_1.loadcompilation)} ms; Compilation Time: ${str(key.wasm_1.compilation)} ms; First Inference Time: ${key.wasm_1.warmup.toString()} ms; Time to First Inference: ${key.wasm_1.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.wasm_1.inferencemedian
@@ -644,8 +591,8 @@
 									class="data"
 									role="button"
 									tabindex="0"
-									on:keydown={() => {}}
-									on:click={() =>
+									onkeydown={() => {}}
+									onclick={() =>
 										copyRawInference(
 											`LoadAndCompile Time: ${str(key.wasm_4.loadcompilation)} ms; Compilation Time: ${str(key.wasm_4.compilation)} ms; First Inference Time: ${key.wasm_4.warmup.toString()} ms; Time to First Inference: ${key.wasm_4.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.wasm_4.inferencemedian
@@ -718,8 +665,8 @@
 									class="data"
 									role="button"
 									tabindex="0"
-									on:keydown={() => {}}
-									on:click={() =>
+									onkeydown={() => {}}
+									onclick={() =>
 										copyRawInference(
 											`LoadAndCompile Time: ${str(key.webnn_cpu.loadcompilation)} ms; Compilation Time: ${str(key.webnn_cpu.compilation)} ms; First Inference Time: ${key.webnn_cpu.warmup.toString()} ms; Time to First Inference: ${key.webnn_cpu.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.webnn_cpu.inferencemedian
@@ -795,8 +742,8 @@
 									class="data"
 									role="button"
 									tabindex="0"
-									on:keydown={() => {}}
-									on:click={() =>
+									onkeydown={() => {}}
+									onclick={() =>
 										copyRawInference(
 											`LoadAndCompile Time: ${str(key.webgl.loadcompilation)} ms; Compilation Time: ${str(key.webgl.compilation)} ms; First Inference Time: ${key.webgl.warmup.toString()} ms; Time to First Inference: ${key.webgl.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.webgl.inferencemedian
@@ -869,8 +816,8 @@
 									class="data"
 									role="button"
 									tabindex="0"
-									on:keydown={() => {}}
-									on:click={() =>
+									onkeydown={() => {}}
+									onclick={() =>
 										copyRawInference(
 											`LoadAndCompile Time: ${str(key.webgpu.loadcompilation)} ms; Compilation Time: ${str(key.webgpu.compilation)} ms; First Inference Time: ${key.webgpu.warmup.toString()} ms; Time to First Inference: ${key.webgpu.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.webgpu.inferencemedian
@@ -943,8 +890,8 @@
 									class="data"
 									role="button"
 									tabindex="0"
-									on:keydown={() => {}}
-									on:click={() =>
+									onkeydown={() => {}}
+									onclick={() =>
 										copyRawInference(
 											`LoadAndCompile Time: ${str(key.webnn_gpu.loadcompilation)} ms; Compilation Time: ${str(key.webnn_gpu.compilation)} ms; First Inference Time: ${key.webnn_gpu.warmup.toString()} ms; Time to First Inference: ${key.webnn_gpu.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.webnn_gpu.inferencemedian
@@ -1020,8 +967,8 @@
 									class="data"
 									role="button"
 									tabindex="0"
-									on:keydown={() => {}}
-									on:click={() =>
+									onkeydown={() => {}}
+									onclick={() =>
 										copyRawInference(
 											`LoadAndCompile Time: ${str(key.webnn_npu.loadcompilation)} ms; Compilation Time: ${str(key.webnn_npu.compilation)} ms; First Inference Time: ${key.webnn_npu.warmup.toString()} ms; Time to First Inference: ${key.webnn_npu.timetofirstinference.toString()} ms; Inference Time (Median): ${
 												key.webnn_npu.inferencemedian
@@ -1078,10 +1025,10 @@
 					{percentageTestQueue}%</span
 				>
 				{#if testQueue.length === 0}
-					<button title="Download screenshot of test results" on:click={() => downloadScreenshot()}>
+					<button title="Download screenshot of test results" onclick={() => downloadScreenshot()}>
 						<Screenshot />
 					</button>
-					<button title="Copy full test results" on:click={() => copyResults()}>
+					<button title="Copy full test results" onclick={() => copyResults()}>
 						<FileCopy />
 					</button>
 				{/if}

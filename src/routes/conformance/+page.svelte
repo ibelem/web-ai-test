@@ -5,7 +5,7 @@
 	import { models } from '$lib/config';
 	import Log from '$lib/components/svg/Log.svelte';
 	import LogToggle from '$lib/components/svg/LogToggle.svelte';
-	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 	import Enlarge from '$lib/components/svg/Enlarge.svelte';
 	import FitScreen from '$lib/components/svg/FitScreen.svelte';
 	import {
@@ -73,7 +73,7 @@
 	/**
 	 * @type {boolean}
 	 */
-	export let sleeping;
+	let sleeping;
 	sleepStore.subscribe((value) => {
 		sleeping = value;
 	});
@@ -83,7 +83,7 @@
 	 */
 	let localSleep;
 
-	$: conformanceString = JSON.stringify(conformance);
+	let conformanceString = $state(JSON.stringify(conformance));
 
 	const toggleSleep = () => {
 		updateSleep(localSleep);
@@ -166,12 +166,12 @@
 	let logShow = true;
 	let jsonLogShow = true;
 	let consoleSize = false;
-	$: wasmResultR = '';
-	$: webglResultR = '';
-	$: webgpuResultR = '';
-	$: webnncpu4ResultR = '';
-	$: webnngpuResultR = '';
-	$: webnnnpuResultR = '';
+	let wasmResultR = $state('');
+	let webglResultR = $state('');
+	let webgpuResultR = $state('');
+	let webnncpu4ResultR = $state('');
+	let webnngpuResultR = $state('');
+	let webnnnpuResultR = $state('');
 
 	const copyJsonInfo = async () => {
 		let log = JSON.stringify(conformance).toString();
@@ -232,78 +232,62 @@
 	 */
 	let element;
 
-	$: if (element) {
-		scrollToBottom(element);
-	}
+	$effect(() => { if (element) { scrollToBottom(element); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element2;
 
-	$: if (element2) {
-		scrollToBottom(element2);
-	}
+	$effect(() => { if (element2) { scrollToBottom(element2); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element3;
 
-	$: if (element3) {
-		scrollToBottom(element3);
-	}
+	$effect(() => { if (element3) { scrollToBottom(element3); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element4;
 
-	$: if (element4) {
-		scrollToBottom(element4);
-	}
+	$effect(() => { if (element4) { scrollToBottom(element4); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element5;
 
-	$: if (element5) {
-		scrollToBottom(element5);
-	}
+	$effect(() => { if (element5) { scrollToBottom(element5); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element6;
 
-	$: if (element6) {
-		scrollToBottom(element6);
-	}
+	$effect(() => { if (element6) { scrollToBottom(element6); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element7;
 
-	$: if (element7) {
-		scrollToBottom(element7);
-	}
+	$effect(() => { if (element7) { scrollToBottom(element7); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element8;
 
-	$: if (element8) {
-		scrollToBottom(element8);
-	}
+	$effect(() => { if (element8) { scrollToBottom(element8); } })
 
 	const scrollToBottom = (/** @type {HTMLDivElement} */ node) => {
 		node?.scroll({ top: node.scrollHeight, behavior: 'smooth' });
 	};
 
-	beforeUpdate(() => {
+	$effect.pre(() => {
 		resetStore();
 		autoStore.update(() => false);
 		if (conformance) scrollToBottom(element);
@@ -316,7 +300,7 @@
 		if (webnnnpuResultR) scrollToBottom(element8);
 	});
 
-	afterUpdate(() => {});
+	
 
 	onMount(async () => {
 		sortedModels = sortModelById(models);
@@ -341,7 +325,7 @@
 
 <!-- <div>
 	<label>
-		<input type="checkbox" bind:checked={localSleep} on:change={toggleSleep} />
+		<input type="checkbox" bind:checked={localSleep} onchange={toggleSleep} />
 		Sleep 10s to get raw inference results from Console of Developer Tool during the testing
 	</label>
 </div> -->
@@ -356,13 +340,13 @@
 			{/if}
 			<div class="q copy">
 				<div>
-					<button title="Copy full test logs" on:click={() => copyJsonInfo()}>
+					<button title="Copy full test logs" onclick={() => copyJsonInfo()}>
 						<Log />
 					</button>
 
 					<button
 						title="Hide logs"
-						on:click={() => {
+						onclick={() => {
 							jsonLogShow = !jsonLogShow;
 						}}
 					>
@@ -396,13 +380,13 @@
 			{/if}
 			<div class="q copy">
 				<div>
-					<button title="Copy full test logs" on:click={() => copyLogInfo()}>
+					<button title="Copy full test logs" onclick={() => copyLogInfo()}>
 						<Log />
 					</button>
 
 					<button
 						title="Hide logs"
-						on:click={() => {
+						onclick={() => {
 							logShow = !logShow;
 						}}
 					>
@@ -425,20 +409,20 @@
 			<div class="q copy">
 				<div>
 					<div class="noborder wasm">Inference result <span>Wasm</span></div>
-					<button title="Switch the element size" on:click={() => toggleConsole()}>
+					<button title="Switch the element size" onclick={() => toggleConsole()}>
 						{#if consoleSize}
 							<Enlarge />
 						{:else}
 							<FitScreen />
 						{/if}
 					</button>
-					<button title="Copy raw inference result" on:click={() => copyWasmResult()}>
+					<button title="Copy raw inference result" onclick={() => copyWasmResult()}>
 						<Log />
 					</button>
 
 					<button
 						title="Hide logs"
-						on:click={() => {
+						onclick={() => {
 							jsonLogShow = !jsonLogShow;
 						}}
 					>
@@ -461,20 +445,20 @@
 					<div class="noborder webgl">
 						Inference result <span>WebGL</span>
 					</div>
-					<button title="Switch the element size" on:click={() => toggleConsole()}>
+					<button title="Switch the element size" onclick={() => toggleConsole()}>
 						{#if consoleSize}
 							<Enlarge />
 						{:else}
 							<FitScreen />
 						{/if}
 					</button>
-					<button title="Copy raw inference result" on:click={() => copyWebglResult()}>
+					<button title="Copy raw inference result" onclick={() => copyWebglResult()}>
 						<Log />
 					</button>
 
 					<button
 						title="Hide logs"
-						on:click={() => {
+						onclick={() => {
 							jsonLogShow = !jsonLogShow;
 						}}
 					>
@@ -497,20 +481,20 @@
 					<div class="noborder webgpu">
 						Inference result <span>WebGPU</span>
 					</div>
-					<button title="Switch the element size" on:click={() => toggleConsole()}>
+					<button title="Switch the element size" onclick={() => toggleConsole()}>
 						{#if consoleSize}
 							<Enlarge />
 						{:else}
 							<FitScreen />
 						{/if}
 					</button>
-					<button title="Copy raw inference result" on:click={() => copyWebgpuResult()}>
+					<button title="Copy raw inference result" onclick={() => copyWebgpuResult()}>
 						<Log />
 					</button>
 
 					<button
 						title="Hide logs"
-						on:click={() => {
+						onclick={() => {
 							jsonLogShow = !jsonLogShow;
 						}}
 					>
@@ -533,20 +517,20 @@
 					<div class="noborder webnn_cpu">
 						Inference result <span>WebNN CPU</span>
 					</div>
-					<button title="Switch the element size" on:click={() => toggleConsole()}>
+					<button title="Switch the element size" onclick={() => toggleConsole()}>
 						{#if consoleSize}
 							<Enlarge />
 						{:else}
 							<FitScreen />
 						{/if}
 					</button>
-					<button title="Copy raw inference result" on:click={() => copyWebnncpu4Result()}>
+					<button title="Copy raw inference result" onclick={() => copyWebnncpu4Result()}>
 						<Log />
 					</button>
 
 					<button
 						title="Hide logs"
-						on:click={() => {
+						onclick={() => {
 							jsonLogShow = !jsonLogShow;
 						}}
 					>
@@ -569,20 +553,20 @@
 					<div class="noborder webnn_gpu">
 						Inference result <span>WebNN GPU</span>
 					</div>
-					<button title="Switch the element size" on:click={() => toggleConsole()}>
+					<button title="Switch the element size" onclick={() => toggleConsole()}>
 						{#if consoleSize}
 							<Enlarge />
 						{:else}
 							<FitScreen />
 						{/if}
 					</button>
-					<button title="Copy raw inference result" on:click={() => copyWebnngpuResult()}>
+					<button title="Copy raw inference result" onclick={() => copyWebnngpuResult()}>
 						<Log />
 					</button>
 
 					<button
 						title="Hide logs"
-						on:click={() => {
+						onclick={() => {
 							jsonLogShow = !jsonLogShow;
 						}}
 					>
@@ -605,20 +589,20 @@
 					<div class="noborder webnn_npu">
 						Inference result <span>WebNN NPU</span>
 					</div>
-					<button title="Switch the element size" on:click={() => toggleConsole()}>
+					<button title="Switch the element size" onclick={() => toggleConsole()}>
 						{#if consoleSize}
 							<Enlarge />
 						{:else}
 							<FitScreen />
 						{/if}
 					</button>
-					<button title="Copy raw inference result" on:click={() => copyWebnnnpuResult()}>
+					<button title="Copy raw inference result" onclick={() => copyWebnnnpuResult()}>
 						<Log />
 					</button>
 
 					<button
 						title="Hide logs"
-						on:click={() => {
+						onclick={() => {
 							jsonLogShow = !jsonLogShow;
 						}}
 					>
@@ -632,7 +616,7 @@
 
 {#if sortedModels && sortedModels.length > 0}
 	<div class="title tq fp16">
-		<button on:click={() => setConformanceQueue('fp16')}>Float16</button>
+		<button onclick={() => setConformanceQueue('fp16')}>Float16</button>
 	</div>
 	<div class="ho fp16">
 		{#each sortedModels as m}
@@ -644,7 +628,7 @@
 							m.id
 						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 					>
-						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
+						<button onclick={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
 			{/if}
@@ -652,7 +636,7 @@
 	</div>
 
 	<div class="title tq int8">
-		<button on:click={() => setConformanceQueue('int8')}>Int8</button>
+		<button onclick={() => setConformanceQueue('int8')}>Int8</button>
 	</div>
 	<div class="ho int8">
 		{#each sortedModels as m}
@@ -664,7 +648,7 @@
 							m.id
 						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 					>
-						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
+						<button onclick={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
 			{/if}
@@ -672,7 +656,7 @@
 	</div>
 
 	<div class="title tq int4">
-		<button on:click={() => setConformanceQueue('int4')}>INT4</button>
+		<button onclick={() => setConformanceQueue('int4')}>INT4</button>
 	</div>
 	<div class="ho int4">
 		{#each sortedModels as m}
@@ -684,14 +668,14 @@
 							m.id
 						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 					>
-						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
+						<button onclick={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
 			{/if}
 		{/each}
 	</div>
 
-	<div class="title tq"><button on:click={() => setConformanceQueue('fp32')}>Float32</button></div>
+	<div class="title tq"><button onclick={() => setConformanceQueue('fp32')}>Float32</button></div>
 	<div class="ho">
 		{#each sortedModels as m}
 			{#if m.id !== 'model_access_check'}
@@ -702,7 +686,7 @@
 							m.id
 						)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 					>
-						<button on:click={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
+						<button onclick={() => setConformanceQueue(m.id)}>{getModelNameById(m.id)}</button>
 					</span>
 				{/if}
 			{/if}
@@ -713,8 +697,8 @@
 <Conformance />
 
 <div class="run" title="It will take quite a long time...">
-	<button on:click={() => setConformanceQueue('all')}>Test Conformance for All Models</button>
-	<button class="log" on:click={() => clearConformanceQueue()}>Cancel</button>
+	<button onclick={() => setConformanceQueue('all')}>Test Conformance for All Models</button>
+	<button class="log" onclick={() => clearConformanceQueue()}>Cancel</button>
 </div>
 
 <Environment />

@@ -3,16 +3,16 @@
 	import { getHfUrlById, getLocalUrlByIdandLocaltion } from '$lib/assets/js/utils';
 	import { pipeline, env } from '@xenova/transformers';
 	import Upload from '$lib/components/svg/Upload.svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 
 	const getModelUrl = (/** @type {string} */ id) => {
 		let modelPath = '';
-		if ($page.origin?.toLowerCase().indexOf('webai.run') > -1) {
+		if (page.origin?.toLowerCase().indexOf('webai.run') > -1) {
 			modelPath = getHfUrlById(id);
 		} else {
-			modelPath = getLocalUrlByIdandLocaltion(id, $page.origin);
+			modelPath = getLocalUrlByIdandLocaltion(id, page.origin);
 		}
 		return modelPath;
 	};

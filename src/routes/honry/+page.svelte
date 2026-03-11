@@ -7,9 +7,9 @@
 	import LogToggle from '$lib/components/svg/LogToggle.svelte';
 	import Enlarge from '$lib/components/svg/Enlarge.svelte';
 	import FitScreen from '$lib/components/svg/FitScreen.svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { runOnnx, getRawConsole } from '$lib/assets/js/ort_fallback';
-	import { onMount, beforeUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 	import {
 		getModelDataTypeById,
 		getModelNameById,
@@ -53,8 +53,8 @@
 		fallbackLog = value;
 	});
 
-	$: fallbackString = JSON.stringify(fallback);
-	$: rawConsole = '';
+	let fallbackString = $state(JSON.stringify(fallback));
+	let rawConsole = $state('');
 
 	/**
 	 * @type {string}
@@ -68,7 +68,7 @@
 	const run = async () => {
 		rawConsole = '';
 
-		let params = $page.url.searchParams.get('q');
+		let params = page.url.searchParams.get('q');
 		// const worker = new Worker(ortDists.webnn_webglfix_wasm.workerjs);
 
 		if (params) {
@@ -115,33 +115,27 @@
 	 */
 	let element;
 
-	$: if (element) {
-		scrollToBottom(element);
-	}
+	$effect(() => { if (element) { scrollToBottom(element); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element2;
 
-	$: if (element2) {
-		scrollToBottom(element2);
-	}
+	$effect(() => { if (element2) { scrollToBottom(element2); } })
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let element3;
 
-	$: if (element3) {
-		scrollToBottom(element3);
-	}
+	$effect(() => { if (element3) { scrollToBottom(element3); } })
 
 	const scrollToBottom = (/** @type {HTMLDivElement} */ node) => {
 		node?.scroll({ top: node.scrollHeight, behavior: 'smooth' });
 	};
 
-	beforeUpdate(() => {
+	$effect.pre(() => {
 		resetStore();
 		autoStore.update(() => false);
 		if (fallback) scrollToBottom(element);
@@ -186,20 +180,20 @@
 		{/if}
 		<div class="q copy">
 			<div>
-				<button title="Switch the element size" on:click={() => toggleConsole()}>
+				<button title="Switch the element size" onclick={() => toggleConsole()}>
 					{#if consoleSize}
 						<Enlarge />
 					{:else}
 						<FitScreen />
 					{/if}
 				</button>
-				<button title="Copy raw console logs" on:click={() => copyRawConsole()}>
+				<button title="Copy raw console logs" onclick={() => copyRawConsole()}>
 					<Log />
 				</button>
 
 				<button
 					title="Hide logs"
-					on:click={() => {
+					onclick={() => {
 						jsonLogShow = !jsonLogShow;
 					}}
 				>
@@ -217,13 +211,13 @@
 		{/if}
 		<div class="q copy">
 			<div>
-				<button title="Copy full test logs" on:click={() => copyJsonInfo()}>
+				<button title="Copy full test logs" onclick={() => copyJsonInfo()}>
 					<Log />
 				</button>
 
 				<button
 					title="Hide logs"
-					on:click={() => {
+					onclick={() => {
 						jsonLogShow = !jsonLogShow;
 					}}
 				>
@@ -245,13 +239,13 @@
 		{/if}
 		<div class="q copy">
 			<div>
-				<button title="Copy full test logs" on:click={() => copyLogInfo()}>
+				<button title="Copy full test logs" onclick={() => copyLogInfo()}>
 					<Log />
 				</button>
 
 				<button
 					title="Hide logs"
-					on:click={() => {
+					onclick={() => {
 						logShow = !logShow;
 					}}
 				>
@@ -275,8 +269,8 @@
 							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 							>{getModelNameById(m.id)}</span
 						>
-						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
-						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>
+						<a class="cpu" href="#top" onclick={() => nav(m.id + '__cpu')}>CPU</a>
+						<a class="gpu" href="#top" onclick={() => nav(m.id + '__gpu')}>GPU</a>
 					</div>
 				{/if}
 			{/if}
@@ -295,8 +289,8 @@
 							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 							>{getModelNameById(m.id)}</span
 						>
-						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
-						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>
+						<a class="cpu" href="#top" onclick={() => nav(m.id + '__cpu')}>CPU</a>
+						<a class="gpu" href="#top" onclick={() => nav(m.id + '__gpu')}>GPU</a>
 					</div>
 				{/if}
 			{/if}
@@ -315,8 +309,8 @@
 							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 							>{getModelNameById(m.id)}</span
 						>
-						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
-						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>
+						<a class="cpu" href="#top" onclick={() => nav(m.id + '__cpu')}>CPU</a>
+						<a class="gpu" href="#top" onclick={() => nav(m.id + '__gpu')}>GPU</a>
 					</div>
 				{/if}
 			{/if}
@@ -335,8 +329,8 @@
 							)} · {getModelDescriptionById(m.id)} · {getModelNoteById(m.id)}"
 							>{getModelNameById(m.id)}</span
 						>
-						<a class="cpu" href="#top" on:click={() => nav(m.id + '__cpu')}>CPU</a>
-						<a class="gpu" href="#top" on:click={() => nav(m.id + '__gpu')}>GPU</a>
+						<a class="cpu" href="#top" onclick={() => nav(m.id + '__cpu')}>CPU</a>
+						<a class="gpu" href="#top" onclick={() => nav(m.id + '__gpu')}>GPU</a>
 					</div>
 				{/if}
 			{/if}

@@ -275,7 +275,7 @@
 					<button
 						id="btnfull"
 						title="Enter fullscreen"
-						on:click={() => {
+						onclick={() => {
 							full = true;
 							onToggle();
 						}}
@@ -292,7 +292,7 @@
 			<div class="tags">
 				{#each UniqueNodes as node}
 					<button
-						on:click={() => {
+						onclick={() => {
 							search = node;
 							findNode({ key: 'Enter' });
 						}}
@@ -307,7 +307,7 @@
 			id="search"
 			bind:value={search}
 			placeholder="Search nodes or edges"
-			on:keydown={findNode}
+			onkeydown={findNode}
 		/>
 		<div id="message">{msg}</div>
 	</div>
@@ -323,11 +323,11 @@
 
 	<div class="jsonfile">
 		<label>
-			<input type="file" accept=".json" on:change={handleFileInput} hidden />
+			<input type="file" accept=".json" onchange={handleFileInput} hidden />
 			<span><Upload />Select .json file</span>
 		</label>
 		<label>
-			<input type="button" on:click={handleResNet50} hidden />
+			<input type="button" onclick={handleResNet50} hidden />
 			<span>Try ResNet50v1</span>
 		</label>
 	</div>

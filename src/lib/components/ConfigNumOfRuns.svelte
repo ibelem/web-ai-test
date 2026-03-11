@@ -1,26 +1,24 @@
 <script>
 	import { goTo } from '$lib/assets/js/utils';
 	import { numberOfRunsStore, autoStore } from '$lib/store/store';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
-	/**
-	 * @type {boolean}
-	 */
-	export let auto;
-	autoStore.subscribe((value) => {
+	let auto = $state(false);
+	const unsubAuto = autoStore.subscribe((value) => {
 		auto = value;
 	});
 
-	/**
-	 * @type {number}
-	 */
-	let numOfRuns;
-
-	numberOfRunsStore.subscribe((value) => {
+	let numOfRuns = $state(1);
+	const unsubNumOfRuns = numberOfRunsStore.subscribe((value) => {
 		numOfRuns = value;
 	});
 
-	let max = 200;
+	onDestroy(() => {
+		unsubAuto();
+		unsubNumOfRuns();
+	});
+
+	let max = $state(200);
 
 	const setNumberOfRuns = () => {
 		if (numOfRuns > max) {
@@ -55,8 +53,8 @@
 </div>
 <div class="numofruns">
 	<label>
-		<input type="number" bind:value={numOfRuns} min="1" {max} on:change={setNumberOfRuns} />
-		<input type="range" bind:value={numOfRuns} min="1" {max} on:change={setNumberOfRuns} />
+		<input type="number" bind:value={numOfRuns} min="1" {max} onchange={setNumberOfRuns} />
+		<input type="range" bind:value={numOfRuns} min="1" {max} onchange={setNumberOfRuns} />
 	</label>
 </div>
 
