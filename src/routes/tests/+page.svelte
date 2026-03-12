@@ -43,11 +43,9 @@
 	let uint8Count = $state(0);
 	let bnb4Count = $state(0);
 	let q4Count = $state(0);
+	let computeBenchmarkCount = $state(0);
 	let demoCount = $state(0);
-	let hfbenchModelCount = $state(0);
-	let hfbenchPipelineCountFp32 = $state(0);
-	let hfbenchPipelineCountFp16 = $state(0);
-	let hfbenchPipelineCountInt8 = $state(0);
+	let hfbenchCount = $state(0);
 	let subModels = models;
 	let selected = 'onnx';
 
@@ -82,11 +80,9 @@
 		uint8Count = 0;
 		bnb4Count = 0;
 		q4Count = 0;
+		computeBenchmarkCount = 0;
 		demoCount = 0;
-		hfbenchModelCount = 0;
-		hfbenchPipelineCountFp32 = 0;
-		hfbenchPipelineCountFp16 = 0;
-		hfbenchPipelineCountInt8 = 0;
+		hfbenchCount = 0;
 		uniqueModels.forEach((item) => {
 			if (item.indexOf('_bnb4') > -1) {
 				bnb4Count++;
@@ -110,29 +106,15 @@
 				demoCount++;
 			}
 
-			if (
-				item.indexOf('_tfbench') > -1 &&
-				(item.indexOf('_model') > -1 || item.indexOf('_pipeline') > -1) &&
-				item.indexOf('_fp16') === -1 &&
-				item.indexOf('_int8') === -1
-			) {
-				hfbenchPipelineCountFp32++;
+			if (getModelNameById(item)?.toLowerCase().includes('compute-benchmark')) {
+				computeBenchmarkCount++;
 			}
 
 			if (
 				item.indexOf('_tfbench') > -1 &&
-				(item.indexOf('_model') > -1 || item.indexOf('_pipeline') > -1) &&
-				item.indexOf('_fp16') > -1
+				(item.indexOf('_model') > -1 || item.indexOf('_pipeline') > -1)
 			) {
-				hfbenchPipelineCountFp16++;
-			}
-
-			if (
-				item.indexOf('_tfbench') > -1 &&
-				(item.indexOf('_model') > -1 || item.indexOf('_pipeline') > -1) &&
-				item.indexOf('_int8') > -1
-			) {
-				hfbenchPipelineCountInt8++;
+				hfbenchCount++;
 			}
 		});
 	};
@@ -160,7 +142,7 @@
 		name = name
 			?.replace('Encoder', '<span>Encoder</span>')
 			.replace('Decoder', '<span>Decoder</span>')
-			.replace('compute-benchmark', '<span class="computebenchmark">Web AI Compute Benchmark</span>')
+			.replace('compute-benchmark', '<span class="computebenchmark">Compute Benchmark</span>')
 			.replace('Non-KV-Cache', '<span>Non KV-Cache</span>')
 			.replace('KV-Cache', '<span>KV-Cache</span>')
 			.replace('w/i Past', '<span>w/i Past</span>')
@@ -188,7 +170,7 @@
 			.replace('Conditional Generation', '<span title="Conditional Generation">CG</span>')
 			.replace('fp32', '<span class="fp32">FP32</span>')
 			.replace('fp16', '<span class="fp16">FP16</span>')
-			.replace('q4f16', '<span class="fp16">Q4F16</span>')
+			.replace('q4f16', '<span class="q4f16">Q4F16</span>')
 			.replace('int8', '<span class="int8">INT8</span>')
 			.replace('uint8', '<span class="uint8">UINT8</span>')
 			.replace('bnb4', '<span class="bnb4">BNB4</span>')
@@ -265,6 +247,40 @@
 
 <div class="test-list">
 	
+	<div class="title tq computebenchmark">Web AI Compute Benchmark · {computeBenchmarkCount}</div>
+	<div>
+		Reference: <a
+			href="https://github.com/GoogleChrome/webai-compute-benchmark"
+			>Web AI Compute Benchmark</a
+		>
+	</div>
+	<div class="tq benchmark computebenchmark">
+		{#each uniqueModels as model}
+			{#if model !== 'model_access_check'}
+				{#if getModelNameById(model)?.toLowerCase().includes('compute-benchmark')}
+					<div
+						class="q tests {model} tagH"
+						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
+							model
+						)} · {getModelNoteById(model)}"
+					>
+						<div class="status_1 s netron_link">
+							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
+								><ArrowOutward /></a
+							>
+						</div>
+
+						<a href="{base}/run/{model}" class="titlemark"
+							>{@html getHTMLModelName(model)}
+							{#if getModelDataTypeById(model)}<span class="{getModelDataTypeById(model)}">{getModelDataTypeById(model)?.toUpperCase()}</span>{/if}
+							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
+						>
+					</div>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+
 	<div class="title tq demo">Developer Preview Models · {demoCount}</div>
 	<div class="tq benchmark demo">
 		{#each uniqueModels as model}
@@ -297,10 +313,6 @@
 							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
 					</div>
 				{/if}
 			{/if}
@@ -328,10 +340,6 @@
 							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
 					</div>
 				{/if}
 			{/if}
@@ -359,10 +367,6 @@
 							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
 					</div>
 				{/if}
 			{/if}
@@ -390,10 +394,6 @@
 							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
 					</div>
 				{/if}
 			{/if}
@@ -421,10 +421,6 @@
 							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
 					</div>
 				{/if}
 			{/if}
@@ -464,9 +460,6 @@
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
 
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
 					</div>
 				{/if}
 			{/if}
@@ -494,10 +487,6 @@
 							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
 					</div>
 				{/if}
 			{/if}
@@ -525,10 +514,6 @@
 							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
 					</div>
 				{/if}
 			{/if}
@@ -567,18 +552,14 @@
 							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
 					</div>
 				{/if}
 			{/if}
 		{/each}
 	</div>
 
-		<div class="title tq tf_benchmark">
-		Transformers.js Benchmarking Pipeline and Model Test Suite · {hfbenchPipelineCountFp32}
+	<div class="title tq tf_benchmark">
+		Transformers.js Benchmarking Pipeline and Model Test Suite · {hfbenchCount}
 	</div>
 	<div>
 		Reference: <a
@@ -589,7 +570,7 @@
 	<div class="tq benchmark tf_benchmark">
 		{#each uniqueModels as model}
 			{#if model !== 'model_access_check'}
-				{#if model.indexOf('_tfbench') > -1 && model.indexOf('tfbench_pipeline') > -1 && model.indexOf('_int8') === -1}
+				{#if model.indexOf('_tfbench') > -1 && (model.indexOf('tfbench_pipeline') > -1 || model.indexOf('tfbench_model') > -1)}
 					<div
 						class="q tests {model} tagH"
 						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
@@ -605,86 +586,6 @@
 							>{@html getHTMLModelName(model)}
 							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
 						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
-					</div>
-				{/if}
-				{#if model.indexOf('_tfbench') > -1 && model.indexOf('tfbench_model') > -1 && model.indexOf('_int8') === -1}
-					<div
-						class="q tests {model} tagH"
-						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
-							model
-						)} · {getModelNoteById(model)}"
-					>
-						<div class="status_1 s netron_link">
-							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
-								><ArrowOutward /></a
-							>
-						</div>
-						<a href="{base}/run/{model}" class="titlemark"
-							>{@html getHTMLModelName(model)}
-							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
-						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
-					</div>
-				{/if}
-			{/if}
-		{/each}
-	</div>
-
-	<div class="title tq tf_benchmark">
-		Transformers.js Benchmarking Pipeline and Model Test Suite · {hfbenchPipelineCountInt8}
-	</div>
-	<div class="tq benchmark tf_benchmark">
-		{#each uniqueModels as model}
-			{#if model !== 'model_access_check'}
-				{#if model.indexOf('_tfbench') > -1 && model.indexOf('tfbench_pipeline') > -1 && model.indexOf('_int8') > -1}
-					<div
-						class="q tests {model} tagH"
-						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
-							model
-						)} · {getModelNoteById(model)}"
-					>
-						<div class="status_1 s netron_link">
-							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
-								><ArrowOutward /></a
-							>
-						</div>
-						<a href="{base}/run/{model}" class="titlemark"
-							>{@html getHTMLModelName(model)}
-							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
-						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
-					</div>
-				{/if}
-				{#if model.indexOf('_tfbench') > -1 && model.indexOf('tfbench_model') > -1 && model.indexOf('_int8') > -1}
-					<div
-						class="q tests {model} tagH"
-						title="{model.replaceAll('_', '-')} · {getModelDescriptionById(
-							model
-						)} · {getModelNoteById(model)}"
-					>
-						<div class="status_1 s netron_link">
-							<a href="https://ibelem.github.io/netron/?url={getModelHFUrlById(model)}"
-								><ArrowOutward /></a
-							>
-						</div>
-						<a href="{base}/run/{model}" class="titlemark"
-							>{@html getHTMLModelName(model)}
-							{#if getModelSizeById(model)}<span>{getModelSizeById(model)}</span>{/if}</a
-						>
-
-						{#if getModelTagById(model) === '2h'}
-							<div class="tag"></div>
-						{/if}
 					</div>
 				{/if}
 			{/if}

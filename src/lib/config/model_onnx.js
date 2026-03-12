@@ -5563,7 +5563,7 @@ const yoloV8M = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
-    tag: '2h',
+    tag: '',
     isv: 'ms',
     id: `yolov8m_${dt}`,
     name: `YOLO v8m (medium)`,
@@ -5591,7 +5591,7 @@ const yoloV8N = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
-    tag: '2h',
+    tag: '',
     isv: 'ms',
     id: `yolov8n_${dt}`,
     name: `YOLO v8n (nano)`,
@@ -5621,7 +5621,7 @@ const yoloV8NPose = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
-    tag: '2h',
+    tag: '',
     isv: 'ms',
     id: `yolov8n_pose_${dt}`,
     name: `YOLO v8n Pose (nano)`,
@@ -5651,7 +5651,7 @@ const yoloV8XPose = () => {
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Object Detection',
-    tag: '2h',
+    tag: '',
     isv: 'ms',
     id: `yolov8x_pose_${dt}`,
     name: `YOLO v8x Pose (extra large)`,

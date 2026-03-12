@@ -2381,6 +2381,42 @@ header .nav {
   background-color: var(--int4-005);
 }
 
+.title.q4f16,
+.title.tq.q4f16 button {
+  color: var(--q4f16) !important;
+}
+
+.title.tq.q4f16 {
+  background-color: var(--q4f16-005);
+}
+
+.title.uint8,
+.title.tq.uint8 button {
+  color: var(--uint8) !important;
+}
+
+.title.tq.uint8 {
+  background-color: var(--uint8-005);
+}
+
+.title.bnb4,
+.title.tq.bnb4 button {
+  color: var(--bnb4) !important;
+}
+
+.title.tq.bnb4 {
+  background-color: var(--bnb4-005);
+}
+
+.title.q4,
+.title.tq.q4 button {
+  color: var(--q4) !important;
+}
+
+.title.tq.q4 {
+  background-color: var(--q4-005);
+}
+
 .title.tf_benchmark,
 .title.tq.tf_benchmark button {
   color: var(--tfbench) !important;
@@ -2686,6 +2722,30 @@ header .nav {
   color: var(--red);
 }
 
+.q4f16.tq .q:hover .titlemark span.q4f16 {
+  border: 1px solid var(--q4f16-09) !important;
+  background-color: var(--q4f16-01) !important;
+  color: var(--q4f16);
+}
+
+.uint8.tq .q:hover .titlemark span.uint8 {
+  border: 1px solid var(--uint8-09) !important;
+  background-color: var(--uint8-01) !important;
+  color: var(--uint8);
+}
+
+.bnb4.tq .q:hover .titlemark span.bnb4 {
+  border: 1px solid var(--bnb4-09) !important;
+  background-color: var(--bnb4-01) !important;
+  color: var(--bnb4);
+}
+
+.q4.tq .q:hover .titlemark span.q4 {
+  border: 1px solid var(--q4-09) !important;
+  background-color: var(--q4-01) !important;
+  color: var(--q4);
+}
+
 .int8.tq .q:hover .titlemark span {
   border: 1px solid var(--p-09);
   background-color: var(--p-01);
@@ -2702,6 +2762,30 @@ header .nav {
   border: 1px solid var(--red-09);
   background-color: var(--red-01);
   color: var(--red-09);
+}
+
+.q4f16.tq .q:hover .titlemark span {
+  border: 1px solid var(--q4f16-09);
+  background-color: var(--q4f16-01);
+  color: var(--q4f16-09);
+}
+
+.uint8.tq .q:hover .titlemark span {
+  border: 1px solid var(--uint8-09);
+  background-color: var(--uint8-01);
+  color: var(--uint8-09);
+}
+
+.bnb4.tq .q:hover .titlemark span {
+  border: 1px solid var(--bnb4-09);
+  background-color: var(--bnb4-01);
+  color: var(--bnb4-09);
+}
+
+.q4.tq .q:hover .titlemark span {
+  border: 1px solid var(--q4-09);
+  background-color: var(--q4-01);
+  color: var(--q4-09);
 }
 
 .tq .q:hover .titlemark span.static {
@@ -3672,6 +3756,31 @@ table td.c {
 .titlemark span.fp32 {
   border: 1px solid var(--red) !important;
   background-color: var(--red) !important;
+  color: var(--white);
+}
+
+
+.titlemark span.q4f16 {
+  border: 1px solid var(--q4f16);
+  background-color: var(--q4f16);
+  color: var(--white);
+}
+
+.titlemark span.uint8 {
+  border: 1px solid var(--uint8);
+  background-color: var(--uint8);
+  color: var(--white);
+}
+
+.titlemark span.bnb4 {
+  border: 1px solid var(--bnb4);
+  background-color: var(--bnb4);
+  color: var(--white);
+}
+
+.titlemark span.q4 {
+  border: 1px solid var(--q4);
+  background-color: var(--q4);
   color: var(--white);
 }
 
