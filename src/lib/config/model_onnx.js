@@ -3853,6 +3853,202 @@ const sdxlTurboVAEDecoder = () => {
   }))
 }
 
+const zImageTurboTextEncoder = () => {
+  const configs = [
+    ['q4f16', 'text_encoder_model_q4f16.onnx', '658 MB', 'text_encoder_model_q4f16.onnx_data', '1.42 GB'],
+  ]
+  return configs.map(([dt, file, size, externalData]) => ({
+    category: 'Text-to-Image',
+    tag: '',
+    id: `z_image_turbo_text_encoder_demo_${dt}`,
+    name: `Z-Image Turbo Text Encoder Demo ${dt}`,
+    description: 'Z-Image Turbo is a high-quality text-to-image generation model based on a flow matching framework.',
+    note: 'Large model with external data',
+    source: 'https://huggingface.co/webnn/Z-Image-Turbo',
+    hf: {
+      model: 'webnn/Z-Image-Turbo',
+      file: `onnx/${file}`,
+      externalData: `onnx/${externalData}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 113], { "batch_size": 1, "sequence_length": 113, "total_sequence_length": 113 }],
+      'attention_mask': ['int64', 1n, [1, 113], { "batch_size": 1, "sequence_length": 113, "total_sequence_length": 113 }]
+    }],
+    inputstip: '[1, 113] [1, 113]'
+  }))
+}
+
+const zImageTurboTransformer = () => {
+  const configs = [
+    ['q4f16', 'transformer_model_q4f16.onnx', '1.56 GB', 'transformer_model_q4f16.onnx_data', '1.88 GB'],
+  ]
+  return configs.map(([dt, file, size, externalData]) => ({
+    category: 'Text-to-Image',
+    tag: '',
+    id: `z_image_turbo_transformer_demo_${dt}`,
+    name: `Z-Image Turbo Transformer Demo ${dt}`,
+    description: 'Z-Image Turbo is a high-quality text-to-image generation model based on a flow matching framework.',
+    note: 'Large model with external data',
+    source: 'https://huggingface.co/webnn/Z-Image-Turbo',
+    hf: {
+      model: 'webnn/Z-Image-Turbo',
+      file: `onnx/${file}`,
+      externalData: `onnx/${externalData}`
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'hidden_states': ['float32', 'random', [1, 16, 1, 64, 64], { "batch_size": 1, "num_frames": 1, "height": 64, "width": 64, "seq_len": 113 }],
+      'timestep': ['float32', 'random', [1], {}],
+      'encoder_hidden_states': ['float32', 'random', [1, 113, 2560], {}]
+    }],
+    inputstip: '[1, 16, 1, 64, 64] [1] [1, 113, 2560]'
+  }))
+}
+
+const zImageTurboSchedulerStep = () => {
+  const configs = [
+    ['fp16', 'scheduler_step_model_f16.onnx', '4 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Image',
+    tag: '',
+    id: `z_image_turbo_scheduler_step_demo_${dt}`,
+    name: `Z-Image Turbo Scheduler Step Demo ${dt}`,
+    description: 'Z-Image Turbo is a high-quality text-to-image generation model based on a flow matching framework.',
+    note: '',
+    source: 'https://huggingface.co/webnn/Z-Image-Turbo',
+    hf: {
+      model: 'webnn/Z-Image-Turbo',
+      file: `onnx/${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'noise_pred': ['float32', 'random', [16, 1, 64, 64], { "batch": 1, "height": 64, "width": 64 }],
+      'latents': ['float32', 'random', [1, 16, 1, 64, 64], {}],
+      'step_info': ['float32', 'random', [2], {}]
+    }],
+    inputstip: '[16, 1, 64, 64] [1, 16, 1, 64, 64] [2]'
+  }))
+}
+
+const zImageTurboVAEPreProcess = () => {
+  const configs = [
+    ['fp16', 'vae_pre_process_model_f16.onnx', '1 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Image',
+    tag: '',
+    id: `z_image_turbo_vae_pre_process_demo_${dt}`,
+    name: `Z-Image Turbo VAE Pre Process Demo ${dt}`,
+    description: 'Z-Image Turbo is a high-quality text-to-image generation model based on a flow matching framework.',
+    note: '',
+    source: 'https://huggingface.co/webnn/Z-Image-Turbo',
+    hf: {
+      model: 'webnn/Z-Image-Turbo',
+      file: `onnx/${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'latents': ['float32', 'random', [1, 16, 1, 64, 64], { "batch": 1, "height": 64, "width": 64 }]
+    }],
+    inputstip: '[1, 16, 1, 64, 64]'
+  }))
+}
+
+const zImageTurboVAEDecoder = () => {
+  const configs = [
+    ['fp16', 'vae_decoder_model_f16.onnx', '94.6 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Image',
+    tag: '',
+    id: `z_image_turbo_vae_decoder_demo_${dt}`,
+    name: `Z-Image Turbo VAE Decoder Demo ${dt}`,
+    description: 'Z-Image Turbo is a high-quality text-to-image generation model based on a flow matching framework.',
+    note: '',
+    source: 'https://huggingface.co/webnn/Z-Image-Turbo',
+    hf: {
+      model: 'webnn/Z-Image-Turbo',
+      file: `onnx/${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'latent_sample': ['float32', 'random', [1, 16, 64, 64], { "batch_size": 1, "latent_height": 64, "latent_width": 64 }]
+    }],
+    inputstip: '[1, 16, 64, 64]'
+  }))
+}
+
+const zImageTurboSCPrep = () => {
+  const configs = [
+    ['fp16', 'sc_prep_model_f16.onnx', '1 KB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Image',
+    tag: '',
+    id: `z_image_turbo_sc_prep_demo_${dt}`,
+    name: `Z-Image Turbo Safety Checker Pre-processing Demo ${dt}`,
+    description: 'Z-Image Turbo is a high-quality text-to-image generation model based on a flow matching framework.',
+    note: '',
+    source: 'https://huggingface.co/webnn/Z-Image-Turbo',
+    hf: {
+      model: 'webnn/Z-Image-Turbo',
+      file: `onnx/${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'sample': ['float32', 'random', [1, 3, 512, 512], { "batch": 1, "channels": 3, "height": 512, "width": 512 }]
+    }],
+    inputstip: '[1, 3, 512, 512]'
+  }))
+}
+
+const zImageTurboSafetyChecker = () => {
+  const configs = [
+    ['fp16', 'safety_checker_model_f16.onnx', '580 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-to-Image',
+    tag: '',
+    id: `z_image_turbo_safety_checker_demo_${dt}`,
+    name: `Z-Image Turbo Safety Checker Demo ${dt}`,
+    description: 'Z-Image Turbo is a high-quality text-to-image generation model based on a flow matching framework.',
+    note: 'Large model',
+    source: 'https://huggingface.co/webnn/Z-Image-Turbo',
+    hf: {
+      model: 'webnn/Z-Image-Turbo',
+      file: `onnx/${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'clip_input': ['float32', 'random', [1, 3, 224, 224], { "batch": 1, "channels": 3, "height": 224, "width": 224 }]
+    }],
+    inputstip: '[1, 3, 224, 224]'
+  }))
+}
+
 const slimSAM77UniformVisionEncoder = () => {
   const configs = [
     ['fp32', 'vision_encoder.onnx', '22.1 MB'],
@@ -7236,6 +7432,13 @@ export const onnxModels = [
   ...sdxlTurboTextEncoder2(),
   ...sdxlTurboUNet(),
   ...sdxlTurboVAEDecoder(),
+  ...zImageTurboTextEncoder(),
+  ...zImageTurboTransformer(),
+  ...zImageTurboSchedulerStep(),
+  ...zImageTurboVAEPreProcess(),
+  ...zImageTurboVAEDecoder(),
+  ...zImageTurboSCPrep(),
+  ...zImageTurboSafetyChecker(),
   {
     category: 'Zero-Shot Image Classification',
     tag: '',
