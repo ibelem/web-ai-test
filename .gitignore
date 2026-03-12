@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /build
+/reference_code/*
 /.svelte-kit
 /package
 /static/models/**.pt
