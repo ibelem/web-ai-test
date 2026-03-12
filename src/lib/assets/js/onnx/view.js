@@ -714,7 +714,7 @@ view.View = class {
                         let spec = '';
                         let alias = '';
                         let tflite = '❌';
-                        let dml = '❌';
+                        let windowsml = '❌';
                         let coreml = '❌';
                         webnnops.map((v) => {
                             if (v.spec.toLowerCase() === o) {
@@ -725,10 +725,10 @@ view.View = class {
                                 } else if (v.tflite === 3) {
                                     tflite = '🚀 WIP';
                                 }
-                                if (v.dml === 4) {
-                                    dml = `✔️ ${v.dml_chromium_version_added}`;
-                                } else if (v.dml === 3) {
-                                    dml = '🚀 WIP';
+                                if (v.windowsml === 4) {
+                                    windowsml = `✔️ ${v.windowsml_chromium_version_added}`;
+                                } else if (v.windowsml === 3) {
+                                    windowsml = '🚀 WIP';
                                 }
                                 if (v.coreml === 4) {
                                     coreml = `✔️ ${v.coreml_chromium_version_added}`;
@@ -745,10 +745,10 @@ view.View = class {
                                         } else if (v.tflite === 3) {
                                             tflite = '🚀 WIP';
                                         }
-                                        if (v.dml === 4) {
-                                            dml = `✔️ ${v.dml_chromium_version_added}`;
-                                        } else if (v.dml === 3) {
-                                            dml = '🚀 WIP';
+                                        if (v.windowsml === 4) {
+                                            windowsml = `✔️ ${v.windowsml_chromium_version_added}`;
+                                        } else if (v.windowsml === 3) {
+                                            windowsml = '🚀 WIP';
                                         }
                                         if (v.coreml === 4) {
                                             coreml = `✔️ ${v.coreml_chromium_version_added}`;
@@ -760,7 +760,7 @@ view.View = class {
                             }
                         });
             
-                        tr = `<tr><td>${index}</td><td>${i}</td><td>${spec}</td><td>${tflite}</td><td>${dml}</td><td>${coreml}</td><td class="alias">${alias}</td></tr>`;
+                        tr = `<tr><td>${index}</td><td>${i}</td><td>${spec}</td><td>${tflite}</td><td>${windowsml}</td><td>${coreml}</td><td class="alias">${alias}</td></tr>`;
                         trs += tr;
                         index += 1;
                     }
@@ -773,7 +773,7 @@ view.View = class {
                                 <th><span>Model Operations</span></th>
                                 <th><span>WebNN Spec</span></th>
                                 <th><span>Lite RT</span></th>
-                                <th><span>DirectML</span></th>
+                                <th><span>Windows ML / OpenVINO EP</span></th>
                                 <th><span>Core ML</span></th>
                                 <th><span>Alias</span></th>
                             </tr>
@@ -791,7 +791,7 @@ view.View = class {
 						</li>
 						<li>
 							The optimized graph is then passed to the WebNN Execution Provider (EP) for
-							delegation, with any unsupported operations falling back to the Wasm CPU EP.
+							delegation, with any unsupported operations falling back to the default EPs (Google Chrome uses LiteRT + ML Drift, while Microsoft Edge uses ORT + WebGPU EP).
 						</li>
 					</ol>
 				</div>

@@ -10,8 +10,8 @@ export const _getWebnnOps = async () => {
             "alias": [],
             "tflite": 0,
             "tflite_chromium_version_added": '',
-            "dml": 0,
-            "dml_chromium_version_added": '',
+            "windowsml": 0,
+            "windowsml_chromium_version_added": '',
             "coreml": 0,
             "coreml_chromium_version_added": ""
         };
@@ -24,7 +24,7 @@ export const _getWebnnOps = async () => {
             if (o) alias.push(o);
         }
         item.tflite_chromium_version_added = s.tflite_chromium_version_added;
-        for (let o of s.dml_op) {
+        for (let o of s.windowsml_op) {
             if (typeof (o) === 'object') {
                 o = o[0];
             }
@@ -33,7 +33,7 @@ export const _getWebnnOps = async () => {
                 .trim();
             if (o) alias.push(o);
         }
-        item.dml_chromium_version_added = s.dml_chromium_version_added;
+        item.windowsml_chromium_version_added = s.windowsml_chromium_version_added;
 
         for (const o of s.coreml_op) {
             if (o) alias.push(o);
@@ -57,10 +57,10 @@ export const _getWebnnOps = async () => {
         } else if (s.tflite_progress === 3) {
             item.tflite = 3;
         }
-        if (s.dml_progress === 4) {
-            item.dml = 4;
-        } else if (s.dml_progress === 3) {
-            item.dml = 3;
+        if (s.windowsml_progress === 4) {
+            item.windowsml = 4;
+        } else if (s.windowsml_progress === 3) {
+            item.windowsml = 3;
         }
         if (s.coreml_progress === 4) {
             item.coreml = 4;
