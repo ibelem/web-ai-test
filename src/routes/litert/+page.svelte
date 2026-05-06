@@ -159,7 +159,7 @@
 		uniqueModels = [...new Set(uniqueModels.map((model) => model.id))];
 		uniqueModels = uniqueModels;
 		orginalUniqueModels = uniqueModels;
-		categories = getUniqueCategories(models);
+		categories = getUniqueCategories(subModels);
 		updateModelCountofType();
 	});
 
@@ -182,9 +182,9 @@
 	/>
 	<div id="category">
 		{#each categories as tag}
-			<button class="category" onclick={filterCategory(tag)}>{tag}</button>
+			<button class="category" onclick={() => filterCategory(tag)}>{tag}</button>
 		{/each}
-		<button class="category" onclick={filterCategory}>
+		<button class="category" onclick={() => filterCategory()}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				height="24px"

@@ -6,7 +6,7 @@ import { liteRtJsVersionStore, testQueueStore, testQueueLengthStore, resultsStor
 import { sleep, getModelUrl } from '$lib/assets/js/utils';
 import to from 'await-to-js';
 import percentile from 'percentile';
-import { loadAndCompile, Tensor } from '@litertjs/core';
+import { loadAndCompile, Tensor, unloadLiteRt } from '@litertjs/core';
 import { createInputTensors } from './litert_helper';
 
 /**
@@ -65,23 +65,45 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   }
 
   // Initialize LiteRT.js's Wasm files (guarded and idempotent)
+  const isWebNN = _backend.startsWith('webnn');
+  const needsJspi = isWebNN;
+  const needsThreads = _backend === 'wasm_4';
+  const requiredMode = needsJspi ? 'jspi' : (needsThreads ? 'threaded' : 'standard');
+
   try {
-    if (typeof window !== 'undefined' && !window.__litertLoaded__) {
+    if (typeof window !== 'undefined') {
       const { loadLiteRt } = await import('@litertjs/core');
-      const wasmRoot = '/litertjs/2.0.0/core/wasm';
-      updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Initializing LiteRT.js's Wasm files`);
-      if (_backend === 'wasm_4') {
+      const wasmRoot = '/litertjs/2.5.0/core/wasm';
+
+      // If already loaded with a different mode, unload first
+      if (window.__litertLoaded__ && window.__litertMode__ !== requiredMode) {
         try {
-          await loadLiteRt(wasmRoot, {threads: true});
-          updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] [Multithreaded Wasm] LiteRt loaded with threads`);
+          unloadLiteRt();
         } catch (e) {
-          await loadLiteRt(wasmRoot, {threads: false});
-          updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] [Multithreaded Wasm] Failed to load LiteRt with threads`);
+          console.warn('LiteRT unload warning:', e?.message || e);
         }
-      } else {
-        await loadLiteRt(wasmRoot, {threads: false});
+        window.__litertLoaded__ = false;
       }
-      window.__litertLoaded__ = true;
+
+      if (!window.__litertLoaded__) {
+        updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Initializing LiteRT.js's Wasm files`);
+        if (needsJspi) {
+          await loadLiteRt(wasmRoot, {jspi: true});
+          updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] [JSPI] LiteRt loaded with JSPI for WebNN`);
+        } else if (needsThreads) {
+          try {
+            await loadLiteRt(wasmRoot, {threads: true});
+            updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] [Multithreaded Wasm] LiteRt loaded with threads`);
+          } catch (e) {
+            await loadLiteRt(wasmRoot, {threads: false});
+            updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] [Multithreaded Wasm] Failed to load LiteRt with threads`);
+          }
+        } else {
+          await loadLiteRt(wasmRoot, {threads: false});
+        }
+        window.__litertLoaded__ = true;
+        window.__litertMode__ = requiredMode;
+      }
     }
   } catch (e) {
     console.warn('LiteRT WASM load warning:', e?.message || e);
@@ -89,10 +111,20 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   let modelPath = getModelUrl(_model);
   let accelerator = 'webgpu';
+  let webNNOptions = {};
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Initialize LiteRT.js's Wasm files for ${_backend} backend`);
 
-  if (_backend.indexOf('wasm') >-1) {
+  if (_backend.indexOf('wasm') > -1) {
     accelerator = 'wasm';
+  } else if (_backend.startsWith('webnn')) {
+    accelerator = 'webnn';
+    if (_backend === 'webnn_cpu') {
+      webNNOptions = { devicePreference: 'cpu' };
+    } else if (_backend === 'webnn_gpu') {
+      webNNOptions = { devicePreference: 'gpu' };
+    } else if (_backend === 'webnn_npu') {
+      webNNOptions = { devicePreference: 'npu' };
+    }
   }
 
   updateTestQueueStatus(_id, 2);
@@ -105,7 +137,11 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Compiling model, please wait...`);
 
   const compilationStart = performance.now();
-  const model = await loadAndCompile(modelPath, { accelerator });
+  const compileOpts = { accelerator };
+  if (accelerator === 'webnn') {
+    compileOpts.webNNOptions = webNNOptions;
+  }
+  const model = await loadAndCompile(modelPath, compileOpts);
   let loadAndCompilationTime = performance.now() - compilationStart;
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Load and Compilation Time: ${loadAndCompilationTime} ms`);
 
@@ -114,10 +150,11 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inferencing, please wait... `);
 
-  // Create base tensors only for WASM backend (since it reuses them)
+  // Create base tensors only for WASM/WebNN backend (since it reuses them)
   // For WebGPU, we'll create fresh tensors each iteration anyway
+  const isWebGPU = _backend === 'webgpu';
   let baseTensors = null;
-  if (_backend !== 'webgpu') {
+  if (!isWebGPU) {
     const { inputTensors } = createInputTensors(model);
     baseTensors = inputTensors;
     console.log(`Base tensors created: ${baseTensors?.length} tensors`);
@@ -127,19 +164,19 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   for (let i = 0; i < numOfWarmups + numOfRuns; i++) {
     // Always create fresh tensors for each iteration
     let inputTensors;
-    if (_backend === 'webgpu') {
+    if (isWebGPU) {
       // Create fresh tensors each iteration for WebGPU
       const { inputTensors: freshTensors } = createInputTensors(model);
       inputTensors = freshTensors;
     } else {
-      // For WASM, reuse the baseTensors (created once above)
+      // For WASM/WebNN, reuse the baseTensors (created once above)
       inputTensors = baseTensors;
     }
 
     const gpuTensors = [];
     let processedInputs = [];
 
-    if (_backend === 'webgpu') {
+    if (isWebGPU) {
       for (const tensor of inputTensors) {
         const gpuTensor = await tensor.moveTo('webgpu');
         gpuTensors.push(gpuTensor);
@@ -158,7 +195,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
     // Collect results on CPU for inspection
     let cpuResults = [];
-    if (_backend === 'webgpu') {
+    if (isWebGPU) {
       for (const result of results) {
         const cpuResult = await result.moveTo('wasm');
         cpuResults.push(cpuResult);
@@ -186,7 +223,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     // 1. Delete CPU results we created
     cpuResults.forEach(r => { if (r?.delete) r.delete(); });
 
-    if (_backend === 'webgpu') {
+    if (isWebGPU) {
       // 2. Delete GPU tensors we created
       gpuTensors.forEach(t => { if (t?.delete) t.delete(); });
       // 3. Delete the fresh CPU input tensors we created this iteration
@@ -198,7 +235,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
         }
       });
     }
-    // Note: For WASM path, we reuse baseTensors, so don't delete them in the loop
+    // Note: For WASM/WebNN path, we reuse baseTensors, so don't delete them in the loop
   }
 
   // Final cleanup: delete base tensors only if they exist (WASM case)
@@ -261,8 +298,6 @@ export const runTflite = async (_id, _model, _modelType, _dataType, _modelSize, 
 
   if (_backend === 'webgl') {
     updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Skip: No ${_backend} accelerator for LiteRT.js`);
-  } else if (_backend === 'webnn_cpu' || _backend === 'webnn_gpu' || _backend === 'webnn_npu') {
-    updateInfo(`${testQueueLength - testQueue.length}/${testQueueLength} Skip: The ${_backend} accelerator support for LiteRT.js is WIP`);
   } else {
     const [err, data] = await to(main(_id, _model, _modelType, _dataType, _modelSize, _backend));
     if (err) {

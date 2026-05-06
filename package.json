@@ -12,7 +12,7 @@
     "format": "prettier --plugin-search-dir . --write ."
   },
   "devDependencies": {
-    "@litertjs/core": "^2.0.0",
+    "@litertjs/core": "^2.5.0",
     "@sveltejs/adapter-vercel": "^6.3.3",
     "@sveltejs/kit": "^2.53.4",
     "@sveltejs/vite-plugin-svelte": "^6.2.4",

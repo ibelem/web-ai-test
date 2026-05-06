@@ -138,12 +138,18 @@
             </div>
 
             <div class="tflite">
-                <span class="title">Wasm · WebGPU</span>
+                <span class="title">Wasm · WebGPU · WebNN</span>
                 <span class="version">
                     <a href="https://www.npmjs.com/package/@litertjs/core/v/{liteRtJsVersion.dev}">
                         {liteRtJsVersion.dev}
                     </a>
                 </span>
+                <div class="webnn-flags">
+                    <span class="flags-info"
+                        >
+                        <code>#enable-experimental-webassembly-features (JSPI Required)</code></span
+                    >
+                </div>
                 <!-- <span class="version selector">
                     onclick={() => (showLiteRtDevModal = true)}
                     <button aria-label="Select LiteRT.js version">
@@ -251,4 +257,20 @@
            row-gap: 5px;
         }
 	}
+
+    .webnn-flags {
+        display: inline-flex;
+        margin: 0;
+        font-size: inherit;
+    }
+
+    .webnn-flags .flags-info code {
+        border: 1px solid var(--googlegreen);
+        background-color: transparent;
+        padding: 0 10px;
+        display: inline-flex;
+        align-items: center;
+        column-gap: 4px;
+    }
+
 </style>
