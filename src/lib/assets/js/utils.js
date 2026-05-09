@@ -394,8 +394,9 @@ export const getHfUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
       if (models[i].hf && models[i].hf.model) {
-        const subfolder = models[i].hf.file.includes('tflite') ? 'tflite' : 'onnx';
-        const url = `https://huggingface.co/${models[i].hf.model}/resolve/main/${subfolder}/${models[i].hf.file}`;
+        const subfolder = models[i].hf.subfolder !== undefined ? models[i].hf.subfolder : (models[i].hf.file.includes('tflite') ? 'tflite' : 'onnx');
+        const subfolderPath = subfolder ? `${subfolder}/` : '';
+        const url = `https://huggingface.co/${models[i].hf.model}/resolve/main/${subfolderPath}${models[i].hf.file}`;
         return url;
       } else {
         return modelHosts.hf + models[i].model;
@@ -423,8 +424,9 @@ export const getHfmUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
       if (models[i].hf && models[i].hf.model) {
-        const subfolder = models[i].hf.file.includes('tflite') ? 'tflite' : 'onnx';
-        const url = `https://hf-mirror.com/${models[i].hf.model}/resolve/main/${subfolder}/${models[i].hf.file}`;
+        const subfolder = models[i].hf.subfolder !== undefined ? models[i].hf.subfolder : (models[i].hf.file.includes('tflite') ? 'tflite' : 'onnx');
+        const subfolderPath = subfolder ? `${subfolder}/` : '';
+        const url = `https://hf-mirror.com/${models[i].hf.model}/resolve/main/${subfolderPath}${models[i].hf.file}`;
         return url;
       } else {
         return modelHosts.hfm + models[i].model;
@@ -461,8 +463,9 @@ export const getLocalUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
       if (models[i].hf && models[i].hf.model) {
-        const subfolder = models[i].hf.file.includes('tflite') ? 'tflite' : 'onnx';
-        const url = `${location.origin}/${modelHosts.local}${models[i].hf.model}/${subfolder}/${models[i].hf.file}`;
+        const subfolder = models[i].hf.subfolder !== undefined ? models[i].hf.subfolder : (models[i].hf.file.includes('tflite') ? 'tflite' : 'onnx');
+        const subfolderPath = subfolder ? `${subfolder}/` : '';
+        const url = `${location.origin}/${modelHosts.local}${models[i].hf.model}/${subfolderPath}${models[i].hf.file}`;
         return url;
       } else {
         return location.origin + '/' + modelHosts.local + models[i].model;

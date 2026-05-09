@@ -485,7 +485,8 @@ const alexNetTFLite = () => {
     source: 'https://huggingface.co/litert-community/alexnet',
     hf: {
       model: 'litert-community/alexnet',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -509,7 +510,8 @@ const beitBasePatch16_224TFLite = () => {
     source: 'https://huggingface.co/litert-community/beit_base_patch16_224',
     hf: {
       model: 'litert-community/beit_base_patch16_224',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -533,7 +535,8 @@ const caformerS18TFLite = () => {
     source: 'https://huggingface.co/litert-community/caformer_s18',
     hf: {
       model: 'litert-community/caformer_s18',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -557,7 +560,8 @@ const caitXxs24_224TFLite = () => {
     source: 'https://huggingface.co/litert-community/cait_xxs24_224',
     hf: {
       model: 'litert-community/cait_xxs24_224',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -581,7 +585,8 @@ const coatLiteTinyTFLite = () => {
     source: 'https://huggingface.co/litert-community/coat_lite_tiny',
     hf: {
       model: 'litert-community/coat_lite_tiny',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -605,7 +610,8 @@ const convnextBaseTFLite = () => {
     source: 'https://huggingface.co/litert-community/convnext_base',
     hf: {
       model: 'litert-community/convnext_base',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -629,7 +635,8 @@ const convnextLargeTFLite = () => {
     source: 'https://huggingface.co/litert-community/convnext_large',
     hf: {
       model: 'litert-community/convnext_large',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -653,7 +660,8 @@ const convnextSmallTFLite = () => {
     source: 'https://huggingface.co/litert-community/convnext_small',
     hf: {
       model: 'litert-community/convnext_small',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -677,7 +685,8 @@ const convnextTinyTFLite = () => {
     source: 'https://huggingface.co/litert-community/convnext_tiny',
     hf: {
       model: 'litert-community/convnext_tiny',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -701,7 +710,8 @@ const deit3SmallPatch16_224TFLite = () => {
     source: 'https://huggingface.co/litert-community/deit3_small_patch16_224',
     hf: {
       model: 'litert-community/deit3_small_patch16_224',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -725,7 +735,8 @@ const deitTinyPatch16_224TFLite = () => {
     source: 'https://huggingface.co/litert-community/deit_tiny_patch16_224',
     hf: {
       model: 'litert-community/deit_tiny_patch16_224',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -749,7 +760,8 @@ const densenet121TFLite = () => {
     source: 'https://huggingface.co/litert-community/densenet121',
     hf: {
       model: 'litert-community/densenet121',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -773,7 +785,8 @@ const efficientnetB0LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/efficientnet_b0',
     hf: {
       model: 'litert-community/efficientnet_b0',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -797,7 +810,8 @@ const efficientnetB1LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/efficientnet_b1',
     hf: {
       model: 'litert-community/efficientnet_b1',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -821,7 +835,8 @@ const efficientnetB2LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/efficientnet_b2',
     hf: {
       model: 'litert-community/efficientnet_b2',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -845,7 +860,8 @@ const efficientnetB3LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/efficientnet_b3',
     hf: {
       model: 'litert-community/efficientnet_b3',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -869,7 +885,8 @@ const efficientnetB4LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/efficientnet_b4',
     hf: {
       model: 'litert-community/efficientnet_b4',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -893,7 +910,8 @@ const efficientnetB5LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/efficientnet_b5',
     hf: {
       model: 'litert-community/efficientnet_b5',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -917,7 +935,8 @@ const efficientnetB6LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/efficientnet_b6',
     hf: {
       model: 'litert-community/efficientnet_b6',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -941,7 +960,8 @@ const efficientnetB7LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/efficientnet_b7',
     hf: {
       model: 'litert-community/efficientnet_b7',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -965,7 +985,8 @@ const efficientnetV2LTFLite = () => {
     source: 'https://huggingface.co/litert-community/efficientnet_v2_l',
     hf: {
       model: 'litert-community/efficientnet_v2_l',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -989,7 +1010,8 @@ const efficientnetV2MTFLite = () => {
     source: 'https://huggingface.co/litert-community/efficientnet_v2_m',
     hf: {
       model: 'litert-community/efficientnet_v2_m',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1013,7 +1035,8 @@ const efficientnetV2STFLite = () => {
     source: 'https://huggingface.co/litert-community/efficientnet_v2_s',
     hf: {
       model: 'litert-community/efficientnet_v2_s',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1037,7 +1060,8 @@ const googleNetTFLite = () => {
     source: 'https://huggingface.co/litert-community/googlenet',
     hf: {
       model: 'litert-community/googlenet',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1061,7 +1085,8 @@ const inceptionV3LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/inception_v3',
     hf: {
       model: 'litert-community/inception_v3',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1085,7 +1110,8 @@ const mnasnet1_0TFLite = () => {
     source: 'https://huggingface.co/litert-community/mnasnet1_0',
     hf: {
       model: 'litert-community/mnasnet1_0',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1109,7 +1135,8 @@ const mobileNetV2LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/MobileNet-v2',
     hf: {
       model: 'litert-community/MobileNet-v2',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1133,7 +1160,8 @@ const mobileNetV3LargeLiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/MobileNet-v3-large',
     hf: {
       model: 'litert-community/MobileNet-v3-large',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1157,7 +1185,8 @@ const mobileNetV3SmallLiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/MobileNet-v3-small',
     hf: {
       model: 'litert-community/MobileNet-v3-small',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1181,7 +1210,8 @@ const mobileViTV2_100TFLite = () => {
     source: 'https://huggingface.co/litert-community/mobilevitv2_100',
     hf: {
       model: 'litert-community/mobilevitv2_100',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1205,7 +1235,8 @@ const pvtV2B0TFLite = () => {
     source: 'https://huggingface.co/litert-community/pvt_v2_b0',
     hf: {
       model: 'litert-community/pvt_v2_b0',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1229,7 +1260,8 @@ const pvtV2B1TFLite = () => {
     source: 'https://huggingface.co/litert-community/pvt_v2_b1',
     hf: {
       model: 'litert-community/pvt_v2_b1',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1253,7 +1285,8 @@ const regnetY400MFTFLite = () => {
     source: 'https://huggingface.co/litert-community/regnet_y_400mf',
     hf: {
       model: 'litert-community/regnet_y_400mf',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1277,7 +1310,8 @@ const resnet18TFLite = () => {
     source: 'https://huggingface.co/litert-community/resnet18',
     hf: {
       model: 'litert-community/resnet18',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1301,7 +1335,8 @@ const resnet34TFLite = () => {
     source: 'https://huggingface.co/litert-community/resnet34',
     hf: {
       model: 'litert-community/resnet34',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1325,7 +1360,8 @@ const resnet50LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/resnet50',
     hf: {
       model: 'litert-community/resnet50',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1349,7 +1385,8 @@ const resnet101TFLite = () => {
     source: 'https://huggingface.co/litert-community/resnet101',
     hf: {
       model: 'litert-community/resnet101',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1373,7 +1410,8 @@ const resnet152TFLite = () => {
     source: 'https://huggingface.co/litert-community/resnet152',
     hf: {
       model: 'litert-community/resnet152',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1397,7 +1435,8 @@ const resnext50_32x4dTFLite = () => {
     source: 'https://huggingface.co/litert-community/resnext50_32x4d',
     hf: {
       model: 'litert-community/resnext50_32x4d',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1421,7 +1460,8 @@ const shufflenetV2X0_5TFLite = () => {
     source: 'https://huggingface.co/litert-community/shufflenet_v2_x0_5',
     hf: {
       model: 'litert-community/shufflenet_v2_x0_5',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1445,7 +1485,8 @@ const shufflenetV2X1_0TFLite = () => {
     source: 'https://huggingface.co/litert-community/shufflenet_v2_x1_0',
     hf: {
       model: 'litert-community/shufflenet_v2_x1_0',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1469,7 +1510,8 @@ const shufflenetV2X1_5TFLite = () => {
     source: 'https://huggingface.co/litert-community/shufflenet_v2_x1_5',
     hf: {
       model: 'litert-community/shufflenet_v2_x1_5',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1493,7 +1535,8 @@ const shufflenetV2X2_0TFLite = () => {
     source: 'https://huggingface.co/litert-community/shufflenet_v2_x2_0',
     hf: {
       model: 'litert-community/shufflenet_v2_x2_0',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1517,7 +1560,8 @@ const squeezenet1_0LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/squeezenet1_0',
     hf: {
       model: 'litert-community/squeezenet1_0',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1541,7 +1585,8 @@ const squeezenet1_1LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/squeezenet1_1',
     hf: {
       model: 'litert-community/squeezenet1_1',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1565,7 +1610,8 @@ const swinTinyPatch4Window7_224TFLite = () => {
     source: 'https://huggingface.co/litert-community/swin_tiny_patch4_window7_224',
     hf: {
       model: 'litert-community/swin_tiny_patch4_window7_224',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1589,7 +1635,8 @@ const swinV2TinyWindow8_256TFLite = () => {
     source: 'https://huggingface.co/litert-community/swinv2_tiny_window8_256',
     hf: {
       model: 'litert-community/swinv2_tiny_window8_256',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1613,7 +1660,8 @@ const vgg11TFLite = () => {
     source: 'https://huggingface.co/litert-community/vgg11',
     hf: {
       model: 'litert-community/vgg11',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1637,7 +1685,8 @@ const vgg11BnTFLite = () => {
     source: 'https://huggingface.co/litert-community/vgg11_bn',
     hf: {
       model: 'litert-community/vgg11_bn',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1661,7 +1710,8 @@ const vgg13TFLite = () => {
     source: 'https://huggingface.co/litert-community/vgg13',
     hf: {
       model: 'litert-community/vgg13',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1685,7 +1735,8 @@ const vgg13BnTFLite = () => {
     source: 'https://huggingface.co/litert-community/vgg13_bn',
     hf: {
       model: 'litert-community/vgg13_bn',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1709,7 +1760,8 @@ const vgg16LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/vgg16',
     hf: {
       model: 'litert-community/vgg16',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1733,7 +1785,8 @@ const vgg16BnTFLite = () => {
     source: 'https://huggingface.co/litert-community/vgg16_bn',
     hf: {
       model: 'litert-community/vgg16_bn',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1757,7 +1810,8 @@ const vgg19LiteRTTFLite = () => {
     source: 'https://huggingface.co/litert-community/vgg19',
     hf: {
       model: 'litert-community/vgg19',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1781,7 +1835,8 @@ const vgg19BnTFLite = () => {
     source: 'https://huggingface.co/litert-community/vgg19_bn',
     hf: {
       model: 'litert-community/vgg19_bn',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1805,7 +1860,8 @@ const visformerSmallTFLite = () => {
     source: 'https://huggingface.co/litert-community/visformer_small',
     hf: {
       model: 'litert-community/visformer_small',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1829,7 +1885,8 @@ const vitBasePatch16_224TFLite = () => {
     source: 'https://huggingface.co/litert-community/vit_base_patch16_224',
     hf: {
       model: 'litert-community/vit_base_patch16_224',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1853,7 +1910,8 @@ const vitSmallPatch16_224TFLite = () => {
     source: 'https://huggingface.co/litert-community/vit_small_patch16_224',
     hf: {
       model: 'litert-community/vit_small_patch16_224',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1877,7 +1935,8 @@ const vitTinyPatch16_224TFLite = () => {
     source: 'https://huggingface.co/litert-community/vit_tiny_patch16_224',
     hf: {
       model: 'litert-community/vit_tiny_patch16_224',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1901,7 +1960,8 @@ const wideResnet50_2TFLite = () => {
     source: 'https://huggingface.co/litert-community/wide_resnet50_2',
     hf: {
       model: 'litert-community/wide_resnet50_2',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
@@ -1925,7 +1985,8 @@ const xcitTiny24P8_224TFLite = () => {
     source: 'https://huggingface.co/litert-community/xcit_tiny_24_p8_224',
     hf: {
       model: 'litert-community/xcit_tiny_24_p8_224',
-      file: `${file}`
+      file: `${file}`,
+      subfolder: ''
     },
     model: ``,
     size: size,
