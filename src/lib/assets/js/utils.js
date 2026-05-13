@@ -1038,7 +1038,7 @@ export const copyResults = async () => {
       md += `| ${name} | ${r.modelsize ?? '-'} | ${r.modeltype ?? '-'} | ${r.datatype ?? '-'} |`;
       for (const b of allBackends) {
         const val = r[b]?.[key];
-        md += ` ${val !== null && val !== undefined ? val : '-'} |`;
+        md += ` ${val !== null && val !== undefined ? (typeof val === 'number' && isFinite(val) ? val.toFixed(2) : val) : '-'} |`;
       }
       md += '\n';
     }
@@ -1056,7 +1056,7 @@ export const copyResults = async () => {
       md += `| ${label} |`;
       for (const b of backends) {
         const val = r[b]?.[key];
-        md += ` ${val !== null && val !== undefined ? val : '-'} |`;
+        md += ` ${val !== null && val !== undefined ? (typeof val === 'number' && isFinite(val) ? val.toFixed(2) : val) : '-'} |`;
       }
       md += '\n';
     }
@@ -1071,7 +1071,7 @@ export const copyResults = async () => {
         delete r[key].status;
       }
     }
-    json = JSON.stringify(r) + '\r\n\r\n' + json;
+    json = JSON.stringify(r, (k, v) => typeof v === 'number' && isFinite(v) ? parseFloat(v.toFixed(2)) : v) + '\r\n\r\n' + json;
   }
   const output = getEnvironment() + md + '---\r\n\r\n' + json;
   await navigator.clipboard.writeText(output);
