@@ -1010,6 +1010,38 @@ export const copyRawInference = async (value) => {
 }
 
 export const copyResults = async () => {
+  const fixedKeys = ['id', 'model', 'modeltype', 'datatype', 'modelsize'];
+  const metrics = [
+    ['Load/Compilation (ms)', 'loadcompilation'],
+    ['Compilation (ms)', 'compilation'],
+    ['Warmup (ms)', 'warmup'],
+    ['Time to First Inference (ms)', 'timetofirstinference'],
+    ['Inference Best (ms)', 'inferencebest'],
+    ['Inference Median (ms)', 'inferencemedian'],
+    ['Inference Average (ms)', 'inferenceaverage'],
+    ['Inference 90th % (ms)', 'inferenceninety'],
+    ['Throughput (fps)', 'inferencethroughput'],
+    ['Error', 'error'],
+  ];
+
+  // Generate markdown tables before any mutations
+  let md = '';
+  for (let r of results) {
+    const backends = Object.keys(r).filter(k => !fixedKeys.includes(k));
+    md += `### ${r.model} (${r.modeltype}, ${r.datatype})\n\n`;
+    md += `| Metric |${backends.map(b => ` ${b} |`).join('')}\n`;
+    md += `|--------|${backends.map(() => '--------|').join('')}\n`;
+    for (const [label, key] of metrics) {
+      md += `| ${label} |`;
+      for (const b of backends) {
+        const val = r[b]?.[key];
+        md += ` ${val !== null && val !== undefined ? val : '-'} |`;
+      }
+      md += '\n';
+    }
+    md += '\n';
+  }
+
   let json = '';
   for (let r of results) {
     delete r.id;
@@ -1020,8 +1052,8 @@ export const copyResults = async () => {
     }
     json = JSON.stringify(r) + '\r\n\r\n' + json;
   }
-  json = getEnvironment() + json;
-  await navigator.clipboard.writeText(json);
+  const output = getEnvironment() + md + '---\r\n\r\n' + json;
+  await navigator.clipboard.writeText(output);
   updateInfo(`Full test data copied`);
 }
 
