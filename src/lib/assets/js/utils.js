@@ -1012,21 +1012,42 @@ export const copyRawInference = async (value) => {
 export const copyResults = async () => {
   const fixedKeys = ['id', 'model', 'modeltype', 'datatype', 'modelsize'];
   const metrics = [
-    ['Load/Compilation (ms)', 'loadcompilation'],
+    ['Load & Compile (ms)', 'loadcompilation'],
     ['Compilation (ms)', 'compilation'],
     ['Warmup (ms)', 'warmup'],
     ['Time to First Inference (ms)', 'timetofirstinference'],
     ['Inference Best (ms)', 'inferencebest'],
     ['Inference Median (ms)', 'inferencemedian'],
     ['Inference Average (ms)', 'inferenceaverage'],
-    ['Inference 90th % (ms)', 'inferenceninety'],
+    ['Inference 90th Percentile (ms)', 'inferenceninety'],
     ['Throughput (fps)', 'inferencethroughput'],
     ['Error', 'error'],
   ];
 
-  // Generate markdown tables before any mutations
+  // Collect all unique backends across all results (preserving insertion order)
+  const allBackends = [...new Set(results.flatMap(r => Object.keys(r).filter(k => !fixedKeys.includes(k))))];
+
+  // Section 1: one table per metric — rows = models, columns = backends
   let md = '';
-  for (let r of results) {
+  for (const [label, key] of metrics) {
+    md += `### ${label}\n\n`;
+    md += `| Model | Size | Type | Data |${allBackends.map(b => ` ${b} |`).join('')}\n`;
+    md += `|-------|------|------|------|${allBackends.map(() => '--------|').join('')}\n`;
+    for (const r of results) {
+      const name = getModelNameById(r.model) || r.model;
+      md += `| ${name} | ${r.modelsize ?? '-'} | ${r.modeltype ?? '-'} | ${r.datatype ?? '-'} |`;
+      for (const b of allBackends) {
+        const val = r[b]?.[key];
+        md += ` ${val !== null && val !== undefined ? val : '-'} |`;
+      }
+      md += '\n';
+    }
+    md += '\n';
+  }
+
+  // Section 2: one table per model — rows = metrics, columns = backends
+  md += '---\n\n';
+  for (const r of results) {
     const backends = Object.keys(r).filter(k => !fixedKeys.includes(k));
     md += `### ${r.model} (${r.modeltype}, ${r.datatype})\n\n`;
     md += `| Metric |${backends.map(b => ` ${b} |`).join('')}\n`;
