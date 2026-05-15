@@ -66,7 +66,10 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _b
 
   // Initialize LiteRT.js's Wasm files (guarded and idempotent)
   const isWebNN = _backend.startsWith('webnn');
-  const needsJspi = isWebNN;
+  const isWebGPU = _backend === 'webgpu';
+  // WebGPU also requires JSPI: Asyncify.handleAsync() is only available in
+  // litert_wasm_jspi_internal.js and is needed for GPU→CPU buffer reads.
+  const needsJspi = isWebNN || isWebGPU;
   const needsThreads = _backend === 'wasm_4';
   const requiredMode = needsJspi ? 'jspi' : (needsThreads ? 'threaded' : 'standard');
 
