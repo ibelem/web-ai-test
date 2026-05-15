@@ -191,7 +191,6 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend, _b
 
   // Create base tensors only for WASM/WebNN backend (since it reuses them)
   // For WebGPU, we'll create fresh tensors each iteration anyway
-  const isWebGPU = _backend === 'webgpu';
   let baseTensors = null;
   if (!isWebGPU) {
     const { inputTensors } = createInputTensors(model);
