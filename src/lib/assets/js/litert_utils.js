@@ -73,7 +73,7 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   try {
     if (typeof window !== 'undefined') {
       const { loadLiteRt } = await import('@litertjs/core');
-      const wasmRoot = '/litertjs/2.5.0/core/wasm';
+      const wasmRoot = '/litertjs/2.5.1/core/wasm';
 
       // If already loaded with a different mode, unload first
       if (window.__litertLoaded__ && window.__litertMode__ !== requiredMode) {
